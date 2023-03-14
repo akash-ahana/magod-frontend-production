@@ -5,6 +5,7 @@ import { useGlobalContext } from '../../../../../Context/Context';
 
 export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata}) {
   const{schedulelistdata,getSchedulistdata}=useGlobalContext();
+  console.log(rowselect);
 
   useEffect(() => {
     getSchedulistdata();
