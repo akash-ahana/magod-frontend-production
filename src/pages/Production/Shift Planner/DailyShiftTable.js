@@ -5,44 +5,24 @@ import axios from "axios";
 import DailyOperator from './DailyOperator';
 import SingleDayShiftEditor from './SingleDayShiftEditor';
 
-function DailyShiftTable(props) {
+function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable
+,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData}) {
 
-    console.log('DATA FROM Daily Shift Table' , props.data)
-    const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
-    const rowSelectFunForDailyShiftTable=(item,index)=>{
-        let list={...props.data,index:index}
-        // console.log("ScheduleNo",item.ScheduleNo)    
-        //setScheduleid(item.OrdSchNo);
-        setRowselectDailyShiftTable(item);
-    }
-
-    useMemo(()=>{
-      rowSelectFunForDailyShiftTable({...props.data
-      [0],index:0})
-  },[props.data[0]])
-     
+    console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
+    
     console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
 
-    const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-    const getMachineOperatorTableData = () => {
-
-        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => {console.log('Api response is ' , response)
-        if(response.data === '') {
-            console.log('response data is null')
-        } else {
-            setMachineOperatorTableData(response.data)
-        }
-      
-    })
     
-       }
 
        useEffect(() => {
-        getMachineOperatorTableData()
-       },[rowselectDailyShiftTable])
+        getMachineOperatorTableData();
+       },[rowselectDailyShiftTable]) 
 
       
-
+       useMemo(()=>{
+        rowSelectFunForDailyShiftTable({...SingleDayShiftPlan4thTable
+        [0],index:0})
+      },[SingleDayShiftPlan4thTable[0]])
 
     return (
         
@@ -64,11 +44,11 @@ function DailyShiftTable(props) {
            <th>Shift Instructions</th>
          </tr>
        </thead>
-       {props.data.map((rank, i, row) => {
+       {SingleDayShiftPlan4thTable.map((rank, i, row) => {
     return(
         <>
          <tbody className='tablebody'>
-              <tr onClick={()=>rowSelectFunForDailyShiftTable(rank,i)}  >
+              <tr onClick={()=>rowSelectFunForDailyShiftTable(rank,i)}  className={i===rowselectDailyShiftTable?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
                  <td>{rank.Shift}</td>
                  <td>{rank.Shift_Ic}</td>
@@ -84,7 +64,8 @@ function DailyShiftTable(props) {
 })}
        </Table>
        </div>
-       <MachineOperatorTable data={machineOperatorTableData} selectData={rowselectDailyShiftTable}/>
+       <MachineOperatorTable data={machineOperatorTableData}
+        selectData={rowselectDailyShiftTable}/>
 
        </div>
             
