@@ -51,26 +51,33 @@ function SingleDayShiftEditor(props) {
       })
       }
     return (
-        <div style={{textAlign:"center",backgroundColor:"lightblue",marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
+        <div style={{backgroundColor:"lightblue",marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
+          <div style={{color:'red',marginLeft:"5px"}}>
+         <b>Shift Date:   {props.data.ShiftDate}</b>
+          </div>
 
-           Shift Date is :  {props.data.ShiftDate}
-           <br></br>
-           Shift is : {props.data.Shift}
+           <div style={{color:'red',marginLeft:"5px"}}>
+          <b>Shift :  {props.data.Shift}</b>
+           </div>
 
-            <div className="col-md-5"style={{textAlign:"center",marginLeft:"60px"}}>
-                <label className="form-label">Shift InCharge</label>
+            <div className="col-md-11"style={{display:"flex"}}>
+                <div style={{marginLeft:"5px"}}>
+                <label className="form-label">ShiftIncharge</label>
+                </div>
+                <div style={{marginLeft:"10px",marginRight:"-8px",marginTop:"8px"}}>
                 <select className="ip-select" onChange={handleShiftIncharge} value={selectedShiftIncharge}>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
                         <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
                     ))}
                 </select>
+                </div>
             </div>
-            <br></br>
-            <div>
-                From Time {props.data.FromTime}
+           
+            <div style={{marginLeft:"5px",marginTop:"8px",display:"flex"}}>
+                <div>From Time</div> <div style={{marginLeft:"5px",textAlign:'center',fontSize:"13px",backgroundColor:"white",width:"125px"}}>{props.data.FromTime}</div>                  
             </div>
-            <div>
-                To Time {props.data.ToTime}
+            <div style={{marginLeft:"5px",display:"flex",marginTop:"4px"}}>
+              <div>To Time</div>  <div style={{marginLeft:"23px",textAlign:'center',fontSize:"13px",backgroundColor:"white",width:"125px"}}>{props.data.ToTime}</div> 
             </div>
           <div style={{textAlign:"center"}}>
             <div>
