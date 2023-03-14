@@ -5,21 +5,18 @@ import axios from "axios";
 import DailyOperator from './DailyOperator';
 import SingleDayShiftEditor from './SingleDayShiftEditor';
 
-function DailyShiftTable(props) {
+function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable,rowselectDailyShiftTable}) {
 
-    console.log('DATA FROM Daily Shift Table' , props.data)
-    const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
-    const rowSelectFunForDailyShiftTable=(item,index)=>{
-        let list={...props.data,index:index}
-        // console.log("ScheduleNo",item.ScheduleNo)    
-        //setScheduleid(item.OrdSchNo);
-        setRowselectDailyShiftTable(item);
-    }
+    console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
+    // const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
+    // const rowSelectFunForDailyShiftTable=(item,index)=>{
+    //     let list={...SingleDayShiftPlan4thTable,index:index}
+    //     // console.log("ScheduleNo",item.ScheduleNo)    
+    //     //setScheduleid(item.OrdSchNo);
+    //     setRowselectDailyShiftTable(item);
+    // }
 
-    useMemo(()=>{
-      rowSelectFunForDailyShiftTable({...props.data
-      [0],index:0})
-  },[props.data[0]])
+   
      
     console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
 
@@ -41,8 +38,12 @@ function DailyShiftTable(props) {
         getMachineOperatorTableData()
        },[rowselectDailyShiftTable])
 
-      
-
+     
+ //DAILYSHIFT DEFAULT SELECT ROW
+ useMemo(()=>{
+  rowSelectFunForDailyShiftTable({...SingleDayShiftPlan4thTable
+  [0],index:0})
+},[SingleDayShiftPlan4thTable[0]])
 
     return (
         
@@ -64,7 +65,7 @@ function DailyShiftTable(props) {
            <th>Shift Instructions</th>
          </tr>
        </thead>
-       {props.data.map((rank, i, row) => {
+       {SingleDayShiftPlan4thTable.map((rank, i, row) => {
     return(
         <>
          <tbody className='tablebody'>

@@ -75,38 +75,46 @@ function DailyOperator(props) {
 
     return (
 
-        <div style={{textAlign:"center",backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px"}}>
-            <div>
-                {props.data.Shift} Shift
+        <div style={{backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px",height:"220px"}}>
+            <div style={{color:'red',marginLeft:"5px"}}>
+              <b>  {props.data.Shift} Shift</b>
             </div>
-            <div className="col-md-5" style={{textAlign:"center",marginLeft:"60px"}}> 
+            <div className="col-md-11"style={{display:"flex"}}> 
+                 <div style={{marginLeft:"5px"}}>
                  <label className="form-label">Machine</label>
+                 </div>
+                 <div style={{marginLeft:"33px",marginTop:"6px"}}>
                  <select className="ip-select" onChange={handleMachineChange}>
                  {dataMachineList.map((dataMachineList) => (
                     <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
                    ))}
                     
                  </select>
+                 </div>
               </div>
 
-              <div className="col-md-5" style={{textAlign:"center",marginLeft:"60px"}}>
-                 <label className="form-label">Operator</label>
-                 <select className="ip-select" onChange={handleOperatorList}>
+              <div className="col-md-11" style={{display:"flex"}}>
+                <div style={{marginLeft:"5px"}} >
+                <label className="form-label">Operator</label>
+                </div>
+                <div style={{marginLeft:"30px",marginTop:"6px"}}>
+                <select className="ip-select" onChange={handleOperatorList}>
                  {dataOperatorList.map((dataOperatorList)=>(
                   <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
                   ))}
                  </select>
+                </div>
               </div>
 
               <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "150px",fontSize:"14px"}} onClick = {createDailyOperatorList}>
+               style={{ width: "150px",fontSize:"14px",marginLeft:"30px"}} onClick = {createDailyOperatorList}>
                Add Operator for Day
             </button>
 
 
             {/* //need    \state from daily Shift Table and machine operator table      */}
             <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "160px",fontSize:"14px",marginBottom:"10px"}} onClick = {onDeleteOperatorForDay}>
+               style={{ width: "160px",fontSize:"14px",marginBottom:"10px",marginLeft:"27px"}} onClick = {onDeleteOperatorForDay}>
                Delete Operator For Day
             </button>
 

@@ -13,7 +13,7 @@ function SecondTable(props) {
 
      console.log('secondTableShiftState in second TABLE 1' , props.week)
     return (
-        <div style={{width:"430px",height:"670px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
+        <div style={{width:"430px",height:"610px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
         <div>
 
 
