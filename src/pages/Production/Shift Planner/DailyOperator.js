@@ -38,7 +38,7 @@ function DailyOperator(props) {
       console.log('Selected Machine after setting in the daily set ' , selectedMachine)
       console.log('Selected Operator after Setting',selectedOperator);
       console.log('PROPS FROM Daily Week operator box is ', props.data)
-      console.log('PROPS FROM Daily Week operator box is Machine Operator DATA', props.selectMachineOperatorData)
+      console.log('MAIN PROPS', props.selectMachineOperatorData)
 
       useEffect(() => {
         getMachineListData(); 

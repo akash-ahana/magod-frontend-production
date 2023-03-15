@@ -34,7 +34,7 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
     <div>
          <Modal show={openweekshift} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Magod Production Manager </Modal.Title>
+          <Modal.Title>Create Weekshift </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>Do you wish to add {selectedShiftIncharge} for {selectedShift} shift for &nbsp;

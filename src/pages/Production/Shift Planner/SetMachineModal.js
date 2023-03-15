@@ -29,7 +29,7 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
     <div>
          <Modal show={opensetmachine} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Magod Production Manager </Modal.Title>
+          <Modal.Title>Set Machine </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>Are you sure want add {selectedOperator} to {selectedMachine}

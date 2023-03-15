@@ -1,15 +1,15 @@
 import React , {useState, useEffect,useMemo} from 'react';
 import Table from "react-bootstrap/Table";
-  import MachineOperatorTable from './MachineOperatorTable';
+import MachineOperatorTable from './MachineOperatorTable';
 import axios from "axios";
 import DailyOperator from './DailyOperator';
 import SingleDayShiftEditor from './SingleDayShiftEditor';
 
 function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable
-,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData}) {
+,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData,
+setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable}) {
 
-    console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
-    
+    // console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
     console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
 
     
@@ -23,6 +23,27 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
         rowSelectFunForDailyShiftTable({...SingleDayShiftPlan4thTable
         [0],index:0})
       },[SingleDayShiftPlan4thTable[0]])
+
+      const [shiftinstruction,setShiftinstruction]=useState('')     
+       const onChangeInput = (e, Shift_instruction) => {
+        const { name, value } = e.target
+        setShiftinstruction(value);
+        console.log('value', value)
+      
+        // const editData =rowselectDailyShiftTable.map((item) =>
+        //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
+        // )
+        // setRowselectDailyShiftTable(editData);
+      }
+
+      const updateShiftinstruction=()=>{
+        axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftInstructions',
+         {...rowselectDailyShiftTable,
+          shiftInstruction:shiftinstruction})
+        .then((response) => { console.log(response)
+          // setWeekState1('')  
+      })
+      }
 
     return (
         
@@ -42,6 +63,7 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
            <th >From</th>
            <th >To Time</th>
            <th>Shift Instructions</th>
+           <th>Submit </th>
          </tr>
        </thead>
        {SingleDayShiftPlan4thTable.map((rank, i, row) => {
@@ -54,7 +76,17 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
                  <td>{rank.Shift_Ic}</td>
                  <td>{rank.FromTime}</td>
                  <td>{rank.ToTime}</td>
-                 <td>{rank.Shift_instruction}</td>
+                 <td>
+                 <input className='table-cell-editor '
+                   name="cleared"
+                   defaultValue={rank.Shift_instruction}
+                   onChange={(e)=>onChangeInput(e,rank.Shift_instruction)}
+                   placeholder="Type Cleared"
+                  />
+                 </td>
+                 <td><button className="button-style group-button" style={{width:"100px"}}
+                 onClick={()=>updateShiftinstruction()}
+                 >Submit</button></td>
              </tr>
            </tbody>
           
@@ -67,9 +99,7 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
        <MachineOperatorTable data={machineOperatorTableData}
         selectData={rowselectDailyShiftTable}/>
 
-       </div>
-            
-            
+       </div>   
         </div>
     );
 }

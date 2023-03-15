@@ -8,6 +8,7 @@ import axios from "axios";
  import DailyShiftTable from './DailyShiftTable';
 import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
+import DeleteshiftModal from './DeleteshiftModal';
 // import MachineOperatorTable from './MachineOperatorTable';
 
 function NewCalender(props) {
@@ -411,6 +412,19 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
     
        }
 
+//Delete Weekshift
+       const[opendeleteshift,setOpendeleteshift]=useState('');
+       const openDeleteshiftmodal=()=>{
+        setOpendeleteshift(true);
+       }
+       const onClickDeleteWeekShift = () => {
+         console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
+          axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', { selectedShift: selectedShift, selectedWeek: selectedWeek })
+          .then((response) => { console.log(response)
+            getSecondTableData(); 
+            // setWeekState1('')  
+        }) }
+
     return (
         <>
         <div style={{marginTop:"-35px"}}>
@@ -499,6 +513,13 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
       </div>
     </div>
     
+  </div>
+  <div style={{marginLeft:"610px"}}>
+     <button className="button-style mt-2 group-button mt-4"
+      style={{ width: "150px" }} 
+      // onClick={onClickDeleteWeekShift}
+      onClick={openDeleteshiftmodal}
+      >Delete Week Shift</button>
   </div>
   </div>
   <hr  style={{
@@ -657,10 +678,12 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
             </div> 
 
             <DailyShiftTable SingleDayShiftPlan4thTable={SingleDayShiftPlan4thTable}
+            setSingleDayShiftPlan4thTable={setSingleDayShiftPlan4thTable}
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
             rowselectDailyShiftTable={rowselectDailyShiftTable}
             getMachineOperatorTableData={getMachineOperatorTableData}
-            machineOperatorTableData={machineOperatorTableData}/>
+            machineOperatorTableData={machineOperatorTableData}
+            setRowselectDailyShiftTable={setRowselectDailyShiftTable}/>
 
             </div>
 
@@ -686,6 +709,15 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               setWeekState1={setWeekState1}
               getSecondTableData={getSecondTableData}
               getMachineOperatorTableData={getMachineOperatorTableData}/>
+
+              <DeleteshiftModal
+              opendeleteshift={opendeleteshift}
+              setOpendeleteshift={setOpendeleteshift}
+              onClickDeleteWeekShift={onClickDeleteWeekShift}
+              selectedShiftIncharge={selectedShiftIncharge}
+              selectedShift={selectedShift}
+              selectedWeek={selectedWeek}
+              />
 
         </>
         
