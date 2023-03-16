@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, useMemo} from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import ReactCalendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
@@ -15,15 +15,15 @@ import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
 function NewCalender(props) {
 
   //Header Component
-  const [dataShiftTypes, setDataShiftTypes] = useState([]); 
+  const [dataShiftTypes, setDataShiftTypes] = useState([]);
   const [selectedShift, setSelectedShift] = useState('');
- 
-  const[dataShiftIncharge,setDataShiftIncharge]=useState([]);
-  const[selectedShiftIncharge,setSelectedShiftIncharge]=useState([]);
-  const [selectedMachine , setSelectedMachine] = useState('');
-  const [ dataMachineList, setGetShiftTypesData] = useState([]);
-  const[dataOperatorList, setDataOperatorList] = useState([]);
-  const[selectedOperator, setSelectedOperator] = useState('');
+
+  const [dataShiftIncharge, setDataShiftIncharge] = useState([]);
+  const [selectedShiftIncharge, setSelectedShiftIncharge] = useState([]);
+  const [selectedMachine, setSelectedMachine] = useState('');
+  const [dataMachineList, setGetShiftTypesData] = useState([]);
+  const [dataOperatorList, setDataOperatorList] = useState([]);
+  const [selectedOperator, setSelectedOperator] = useState('');
 
   const getShiftTypesData = async () => {
     const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/typesOfShifts`);
@@ -37,14 +37,14 @@ function NewCalender(props) {
     setGetShiftTypesData(data);
   };
 
-  const getOperatorListData=async()=>{
+  const getOperatorListData = async () => {
     const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/getMachineOperators`);
     //console.log('Operator List',data);
     setDataOperatorList(data);
-     
+
   }
 
-  const getShiftInchargeData=async()=>{
+  const getShiftInchargeData = async () => {
     const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
     //console.log('Shift In Charge',data);
     setDataShiftIncharge(data);
@@ -53,61 +53,61 @@ function NewCalender(props) {
 
 
 
-  const handleShiftTypeChange = (e) =>  {
+  const handleShiftTypeChange = (e) => {
     //console.log("Shift Selected!!");
     //selectedShift = e.target.value;
     setSelectedShift(e.target.value);
   };
 
-  
-   
-  const handleShiftIncharge=(e)=>{
+
+
+  const handleShiftIncharge = (e) => {
     //console.log("Shift in charge selected");
     setSelectedShiftIncharge(e.target.value);
   }
 
-  const handleMachineChange = (e) =>  {
+  const handleMachineChange = (e) => {
     //console.log("MachineSelected!!");
     //selectedShift = e.target.value;
     setSelectedMachine(e.target.value);
   };
-  
-  const handleOperatorList=(e)=>{
+
+  const handleOperatorList = (e) => {
     //console.log("Operator List Selected");
     setSelectedOperator(e.target.value);
 
   }
 
-  console.log('Selected Shift after setting ' , selectedShift)
-  console.log('Selected Machine after setting ' , selectedMachine)
-  console.log('Selected Operator after Setting',selectedOperator);
-  console.log('Selected Shift In Charge',selectedShiftIncharge)
-  
+  console.log('Selected Shift after setting ', selectedShift)
+  console.log('Selected Machine after setting ', selectedMachine)
+  console.log('Selected Operator after Setting', selectedOperator);
+  console.log('Selected Shift In Charge', selectedShiftIncharge)
+
 
   useEffect(() => {
     getShiftTypesData();
     getMachineListData();
     getShiftInchargeData();
     getOperatorListData();
-    
+
   }, []);
 
 
 
-    //Calender Component
-    const [date, setDate] = useState(new Date());
-    const [selectedWeek , setSelectedWeek] = useState([''])
-    const [checkedState, setCheckedState] = useState(
-      new Array(7).fill(false)
-    );
-    const [isChecked, setIsChecked] = useState(false);
-    const [isChecked2, setIsChecked2] = useState(false);
-    const [isChecked3, setIsChecked3] = useState(false);
-    const [isChecked4, setIsChecked4] = useState(false);
-    const [isChecked5, setIsChecked5] = useState(false);
-    const [isChecked6, setIsChecked6] = useState(false);
-    const [isChecked7, setIsChecked7] = useState(true);
-    
+  //Calender Component
+  const [date, setDate] = useState(new Date());
+  const [selectedWeek, setSelectedWeek] = useState([''])
+  const [checkedState, setCheckedState] = useState(
+    new Array(7).fill(false)
+  );
+  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked2, setIsChecked2] = useState(false);
+  const [isChecked3, setIsChecked3] = useState(false);
+  const [isChecked4, setIsChecked4] = useState(false);
+  const [isChecked5, setIsChecked5] = useState(false);
+  const [isChecked6, setIsChecked6] = useState(false);
+  const [isChecked7, setIsChecked7] = useState(true);
+
 
   const handleOnChangeCheckBox1 = () => {
     setIsChecked(!isChecked);
@@ -139,10 +139,10 @@ function NewCalender(props) {
     const [weekState1, setWeekState1] = useState([])
    // const [secondTableShiftState, setSecondTableShiftState] = useState([])
 
-    // useEffect(() => {
-    //   const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', weekState).then((response) => {console.log(response)
-    //   setSecondTableShiftState(response.data)})
-    // },[weekState])
+  // useEffect(() => {
+  //   const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', weekState).then((response) => {console.log(response)
+  //   setSecondTableShiftState(response.data)})
+  // },[weekState])
 
   
     
@@ -162,18 +162,18 @@ function NewCalender(props) {
       setOpenweekshift(true);
     }
 
-    //WeekTable Component
-    const  createWeeklyShiftPlan = async (data) => {
+  //WeekTable Component
+  const createWeeklyShiftPlan = async (data) => {
 
-      setWeekState([{checkboxValue : 0 , isChecked : checkbox1.current.checked, ShiftDate : selectedWeek[0], Shift : selectedShift, Shift_Ic : selectedShiftIncharge}, 
-        {checkboxValue : 1 , isChecked : checkbox2.current.checked, ShiftDate : selectedWeek[1], Shift : selectedShift, Shift_Ic : selectedShiftIncharge} , 
-        {checkboxValue : 2 , isChecked : checkbox3.current.checked, ShiftDate : selectedWeek[2], Shift : selectedShift, Shift_Ic : selectedShiftIncharge} , 
-        {checkboxValue : 3 , isChecked : checkbox4.current.checked, ShiftDate : selectedWeek[3], Shift : selectedShift, Shift_Ic : selectedShiftIncharge} , 
-        {checkboxValue : 4 , isChecked : checkbox5.current.checked, ShiftDate : selectedWeek[4], Shift : selectedShift, Shift_Ic : selectedShiftIncharge} , 
-        {checkboxValue : 5 , isChecked : checkbox6.current.checked, ShiftDate : selectedWeek[5], Shift : selectedShift, Shift_Ic : selectedShiftIncharge}, 
-        {checkboxValue : 6 , isChecked : checkbox7.current.checked, ShiftDate : selectedWeek[6], Shift : selectedShift, Shift_Ic : selectedShiftIncharge}])
-      
-         console.log('Create Weekly SHIFT plan is Clicked')
+    setWeekState([{ checkboxValue: 0, isChecked: checkbox1.current.checked, ShiftDate: selectedWeek[0], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
+    { checkboxValue: 1, isChecked: checkbox2.current.checked, ShiftDate: selectedWeek[1], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
+    { checkboxValue: 2, isChecked: checkbox3.current.checked, ShiftDate: selectedWeek[2], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
+    { checkboxValue: 3, isChecked: checkbox4.current.checked, ShiftDate: selectedWeek[3], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
+    { checkboxValue: 4, isChecked: checkbox5.current.checked, ShiftDate: selectedWeek[4], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
+    { checkboxValue: 5, isChecked: checkbox6.current.checked, ShiftDate: selectedWeek[5], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
+    { checkboxValue: 6, isChecked: checkbox7.current.checked, ShiftDate: selectedWeek[6], Shift: selectedShift, Shift_Ic: selectedShiftIncharge }])
+
+    console.log('Create Weekly SHIFT plan is Clicked')
 
          const NewWeekState  = [...weekState]
 
@@ -184,128 +184,128 @@ function NewCalender(props) {
      }
 
 
-    //Calender Component Function
-    const selectWeek = (e) => {
-     // console.log('ONChange in Calender')
-      setDate(e)  
-      createWeek(e)
-    }
+  //Calender Component Function
+  const selectWeek = (e) => {
+    // console.log('ONChange in Calender')
+    setDate(e)
+    createWeek(e)
+  }
 
-    const dateFormatter = (inputDate) => {
-      let intermediateDate = moment(inputDate).format()
-      const onlyDate = intermediateDate.split("T");
-      let dateSplit = onlyDate[0].split("-");
-      let year = dateSplit[0];
-      let month = dateSplit[1];
-      let day = dateSplit[2];
-      let finalDay = day+"/"+month+"/"+year
-     // console.log('FINAL DAY IS ' , finalDay)
-      
-      return finalDay
-    }
+  const dateFormatter = (inputDate) => {
+    let intermediateDate = moment(inputDate).format()
+    const onlyDate = intermediateDate.split("T");
+    let dateSplit = onlyDate[0].split("-");
+    let year = dateSplit[0];
+    let month = dateSplit[1];
+    let day = dateSplit[2];
+    let finalDay = day + "/" + month + "/" + year
+    // console.log('FINAL DAY IS ' , finalDay)
 
-    const createWeek = (cuurentDate) => {
-      //console.log('Create Week Array ')
-      let weekArray = [];
-      if(cuurentDate.toString().includes("Mon")) {
-       for(let i =0; i<7 ; i++) { 
+    return finalDay
+  }
+
+  const createWeek = (cuurentDate) => {
+    //console.log('Create Week Array ')
+    let weekArray = [];
+    if (cuurentDate.toString().includes("Mon")) {
+      for (let i = 0; i < 7; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
         weekArray.push(newDate)
-       }
-      
-       setSelectedWeek(weekArray)
-      } else if(cuurentDate.toString().includes("Tue")) {
+      }
 
-        for(let i =1; i>0 ; i--) { 
-          var datenew = new Date(cuurentDate);
-          datenew.setDate(datenew.getDate() - i);
-          let newDate = dateFormatter(datenew)
-          weekArray.push(newDate)
-         }
+      setSelectedWeek(weekArray)
+    } else if (cuurentDate.toString().includes("Tue")) {
 
-       for(let i =0; i<6 ; i++) { 
+      for (let i = 1; i > 0; i--) {
+        var datenew = new Date(cuurentDate);
+        datenew.setDate(datenew.getDate() - i);
+        let newDate = dateFormatter(datenew)
+        weekArray.push(newDate)
+      }
+
+      for (let i = 0; i < 6; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
         weekArray.push(newDate)
-       }
-       setSelectedWeek(weekArray)
-      } else if(cuurentDate.toString().includes("Wed")) {
+      }
+      setSelectedWeek(weekArray)
+    } else if (cuurentDate.toString().includes("Wed")) {
 
-        for(let i =2; i>0 ; i--) { 
-          var datenew = new Date(cuurentDate);
-          datenew.setDate(datenew.getDate() - i);
-          let newDate = dateFormatter(datenew)
-          weekArray.push(newDate)
-         }
+      for (let i = 2; i > 0; i--) {
+        var datenew = new Date(cuurentDate);
+        datenew.setDate(datenew.getDate() - i);
+        let newDate = dateFormatter(datenew)
+        weekArray.push(newDate)
+      }
 
-       for(let i =0; i<5 ; i++) { 
+      for (let i = 0; i < 5; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
         weekArray.push(newDate)
-       }
-       setSelectedWeek(weekArray)
-      } else if(cuurentDate.toString().includes("Thu")) {
+      }
+      setSelectedWeek(weekArray)
+    } else if (cuurentDate.toString().includes("Thu")) {
 
-        for(let i =3; i>0 ; i--) { 
-          var datenew = new Date(cuurentDate);
-          datenew.setDate(datenew.getDate() - i);
-          let newDate = dateFormatter(datenew)
-          weekArray.push(newDate)
-         }
+      for (let i = 3; i > 0; i--) {
+        var datenew = new Date(cuurentDate);
+        datenew.setDate(datenew.getDate() - i);
+        let newDate = dateFormatter(datenew)
+        weekArray.push(newDate)
+      }
 
-       for(let i =0; i<4 ; i++) { 
+      for (let i = 0; i < 4; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
         weekArray.push(newDate)
-       }
-       setSelectedWeek(weekArray)
-      } else if(cuurentDate.toString().includes("Fri")) {
+      }
+      setSelectedWeek(weekArray)
+    } else if (cuurentDate.toString().includes("Fri")) {
 
-        for(let i =4; i>0 ; i--) { 
-          var datenew = new Date(cuurentDate);
-          datenew.setDate(datenew.getDate() - i);
-          let newDate = dateFormatter(datenew)
-          weekArray.push(newDate)
-         }
+      for (let i = 4; i > 0; i--) {
+        var datenew = new Date(cuurentDate);
+        datenew.setDate(datenew.getDate() - i);
+        let newDate = dateFormatter(datenew)
+        weekArray.push(newDate)
+      }
 
-       for(let i =0; i<3 ; i++) { 
+      for (let i = 0; i < 3; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
         weekArray.push(newDate)
-       }
-       setSelectedWeek(weekArray)
-      } else if(cuurentDate.toString().includes("Sat")) {
+      }
+      setSelectedWeek(weekArray)
+    } else if (cuurentDate.toString().includes("Sat")) {
 
-        for(let i =5; i>0 ; i--) { 
-          var datenew = new Date(cuurentDate);
-          datenew.setDate(datenew.getDate() - i);
-          let newDate = dateFormatter(datenew)
-          weekArray.push(newDate)
-         }
+      for (let i = 5; i > 0; i--) {
+        var datenew = new Date(cuurentDate);
+        datenew.setDate(datenew.getDate() - i);
+        let newDate = dateFormatter(datenew)
+        weekArray.push(newDate)
+      }
 
-       for(let i =0; i<2 ; i++) { 
+      for (let i = 0; i < 2; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
         weekArray.push(newDate)
-       }
-       setSelectedWeek(weekArray)
-      } else if(cuurentDate.toString().includes("Sun")) {
+      }
+      setSelectedWeek(weekArray)
+    } else if (cuurentDate.toString().includes("Sun")) {
 
-        for(let i =6; i>0 ; i--) { 
-          var datenew = new Date(cuurentDate);
-          datenew.setDate(datenew.getDate() - i);
-          let newDate = dateFormatter(datenew)
-          weekArray.push(newDate)
-         }
+      for (let i = 6; i > 0; i--) {
+        var datenew = new Date(cuurentDate);
+        datenew.setDate(datenew.getDate() - i);
+        let newDate = dateFormatter(datenew)
+        weekArray.push(newDate)
+      }
 
-       for(let i =0; i<1 ; i++) { 
+      for (let i = 0; i < 1; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
         let newDate = dateFormatter(datenew)
@@ -321,65 +321,66 @@ function NewCalender(props) {
     setRowselect(list);
   }
 
-  useMemo(()=>{
-    setRowselect(selectedWeek[0])}
-     ,[selectedWeek[0]]) 
+  useMemo(() => {
+    setRowselect(selectedWeek[0])
+  }
+    , [selectedWeek[0]])
 
-  console.log('THE SELECTED DAY FORTHE PAGE IS ' , rowselect)
-    // console.log("ScheduleNo",item.ScheduleNo)      setScheduleid(item.OrdSchNo);      setRowselect(list);    }
+  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect)
+  // console.log("ScheduleNo",item.ScheduleNo)      setScheduleid(item.OrdSchNo);      setRowselect(list);    }
 
   //console.log('Selected Week is ' , selectedWeek)
-   console.log('week State is  is is ' , weekState)
+  console.log('week State is  is is ', weekState)
 
-   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
-   const getSingleDayShiftPlan4thTable = () => {
+  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
+  const getSingleDayShiftPlan4thTable = () => {
 
     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
         console.log('response data is null')
-    } else {
-      setSingleDayShiftPlan4thTable(response.data)
-    }
-  
-})
-      
-   }
-   useEffect(() => {
+      } else {
+        setSingleDayShiftPlan4thTable(response.data)
+      }
+
+    })
+
+  }
+  useEffect(() => {
     getSingleDayShiftPlan4thTable()
-   },[rowselect])
+  }, [rowselect])
 
-   const [secondTableShiftState, setSecondTableShiftState] = useState([])
+  const [secondTableShiftState, setSecondTableShiftState] = useState([])
 
 
-   const getSecondTableData = () => {
+  const getSecondTableData = () => {
 
-    const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', selectedWeek).then((response) => {console.log('Api response is ' , response)
-    if(response.data === '') {
+    const res = axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', selectedWeek).then((response) => {
+      console.log('Api response is ', response)
+      if (response.data === '') {
         console.log('response data is null')
-    } else {
+      } else {
         setSecondTableShiftState(response.data)
-    }
-  
-})
+      }
 
-   }
-   console.log('Second Table Sift State in New Calender component' , secondTableShiftState)
-   useEffect(() => {
+    })
+  }
+  console.log('Second Table Sift State in New Calender component', secondTableShiftState)
+  useEffect(() => {
     getSecondTableData()
-   },[selectedWeek])
+  }, [selectedWeek])
 
   
 
-   const onSetMachineOperators = () => {
-    console.log('Set Machine Operators Clicked', 'Operator Clicked is ' , selectedOperator , ' Selected MACHINE IS ' , selectedMachine , 'Selected Shift is ' , selectedShift , 'Selected Shift Incharge is ' , selectedShiftIncharge , 'Week Selected is ' , weekState)
-    setWeekState1([{checkboxValue : 0 , isChecked : checkbox1.current.checked, ShiftDate : selectedWeek[0], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator}, 
-      {checkboxValue : 1 , isChecked : checkbox2.current.checked, ShiftDate : selectedWeek[1], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator} , 
-      {checkboxValue : 2 , isChecked : checkbox3.current.checked, ShiftDate : selectedWeek[2], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator} , 
-      {checkboxValue : 3 , isChecked : checkbox4.current.checked, ShiftDate : selectedWeek[3], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator} , 
-      {checkboxValue : 4 , isChecked : checkbox5.current.checked, ShiftDate : selectedWeek[4], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator} , 
-      {checkboxValue : 5 , isChecked : checkbox6.current.checked, ShiftDate : selectedWeek[5], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator}, 
-      {checkboxValue : 6 , isChecked : checkbox7.current.checked, ShiftDate : selectedWeek[6], Shift : selectedShift, Shift_Ic : selectedShiftIncharge, Machine : selectedMachine , Operator : selectedOperator}])
+  const onSetMachineOperators = () => {
+    console.log('Set Machine Operators Clicked', 'Operator Clicked is ', selectedOperator, ' Selected MACHINE IS ', selectedMachine, 'Selected Shift is ', selectedShift, 'Selected Shift Incharge is ', selectedShiftIncharge, 'Week Selected is ', weekState)
+    setWeekState1([{ checkboxValue: 0, isChecked: checkbox1.current.checked, ShiftDate: selectedWeek[0], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
+    { checkboxValue: 1, isChecked: checkbox2.current.checked, ShiftDate: selectedWeek[1], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
+    { checkboxValue: 2, isChecked: checkbox3.current.checked, ShiftDate: selectedWeek[2], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
+    { checkboxValue: 3, isChecked: checkbox4.current.checked, ShiftDate: selectedWeek[3], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
+    { checkboxValue: 4, isChecked: checkbox5.current.checked, ShiftDate: selectedWeek[4], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
+    { checkboxValue: 5, isChecked: checkbox6.current.checked, ShiftDate: selectedWeek[5], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
+    { checkboxValue: 6, isChecked: checkbox7.current.checked, ShiftDate: selectedWeek[6], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator }])
 
    }
 
@@ -443,42 +444,42 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
             setOpendeleteoperator(true);
           }
 
-    return (
-        <>
-        <div style={{marginTop:"-35px"}}>
-  <div className='row'>
-       <div className='col-md-4 col-sm-12 mt-4'>
-         <div>
-           <h4 className="form-title">Production Department: Shift Editor</h4>
-         </div>
-       </div>
+  return (
+    <>
+      <div style={{ marginTop: "-35px" }}>
+        <div className='row'>
+          <div className='col-md-4 col-sm-12 mt-4'>
+            <div>
+              <h4 className="form-title">Production Department: Shift Editor</h4>
+            </div>
+          </div>
 
-    <div className="col-md-8 col-sm-12">
-        <div className="ip-box form-bg mt-3 ">
-          <div className='row'>
-               <div className="col-md-3">
-                 <label className="form-label">Shift</label>
-                 <select className="ip-select"  onChange={handleShiftTypeChange}>
-                   {dataShiftTypes.map((dataShiftTypes) => (
-                    <option value={dataShiftTypes}>{dataShiftTypes}</option>
-                   ))}
-                 </select>
-              </div>
+          <div className="col-md-8 col-sm-12">
+            <div className="ip-box form-bg mt-3 ">
+              <div className='row'>
+                <div className="col-md-3">
+                  <label className="form-label">Shift</label>
+                  <select className="ip-select" onChange={handleShiftTypeChange}>
+                    {dataShiftTypes.map((dataShiftTypes) => (
+                      <option value={dataShiftTypes}>{dataShiftTypes}</option>
+                    ))}
+                  </select>
+                </div>
 
-            <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "120px"}}>
-              Print Weekly Plan
-            </button>
+                <button className="button-style mt-2 group-button mt-4"
+                  style={{ width: "180px" }}>
+                  Print Weekly Plan
+                </button>
 
-               <div className="col-md-3">
-                 <label className="form-label">Machine</label>
-                 <select className="ip-select" onChange={handleMachineChange}>
-                 {dataMachineList.map((dataMachineList) => (
-                    <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
-                   ))}
-                    
-                 </select>
-              </div>
+                <div className="col-md-3">
+                  <label className="form-label">Machine</label>
+                  <select className="ip-select" onChange={handleMachineChange}>
+                    {dataMachineList.map((dataMachineList) => (
+                      <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
+                    ))}
+
+                  </select>
+                </div>
 
             {/* <button className="button-style mt-2 group-button mt-4"
                style={{ width: "140px"}}>
@@ -488,24 +489,24 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
       </div>
     </div>
 
-    <div className='col-md-4 col-sm-12'>
-         <div>
-           <p>Display Date</p>
-        </div>
-       </div>
+          <div className='col-md-4 col-sm-12'>
+            <div>
+              <p>Display Date</p>
+            </div>
+          </div>
 
-    <div className="col-md-8 col-sm-12">
-        <div className="ip-box form-bg mt-3 ">
-          <div className='row'>
-               <div className="col-md-3">
-                 <label className="form-label">Shift Incharge</label>
-                 <select className="ip-select" onChange={handleShiftIncharge}>
-                  {dataShiftIncharge.map((dataShiftIncharge)=>(
-                  <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
-                  ))}
-                   
-                 </select>
-              </div>
+          <div className="col-md-8 col-sm-12">
+            <div className="ip-box form-bg mt-3 ">
+              <div className='row'>
+                <div className="col-md-3">
+                  <label className="form-label">Shift Incharge</label>
+                  <select className="ip-select" onChange={handleShiftIncharge}>
+                    {dataShiftIncharge.map((dataShiftIncharge) => (
+                      <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
+                    ))}
+
+                  </select>
+                </div>
 
             <button className="button-style mt-2 group-button mt-4"
               style={{ width: "150px"}} onClick={()=>{openCreateshiftmodal()
@@ -513,14 +514,14 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               Create Week Shift
             </button>
 
-               <div className="col-md-3">
-                 <label className="form-label">Operator</label>
-                 <select className="ip-select" onChange={handleOperatorList}>
-                 {dataOperatorList.map((dataOperatorList)=>(
-                  <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
-                  ))}
-                 </select>
-              </div>
+                <div className="col-md-3">
+                  <label className="form-label">Operator</label>
+                  <select className="ip-select" onChange={handleOperatorList}>
+                    {dataOperatorList.map((dataOperatorList) => (
+                      <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
+                    ))}
+                  </select>
+                </div>
 
             <button className="button-style mt-2 group-button mt-4"
                style={{ width: "140px"}} onClick = {()=>{onSetMachineOperators()
@@ -588,116 +589,116 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
        </Table>
        </div> 
 
-   <div>  
-   <Table bordered style={{width:"130px",border: "1px"}}>
-    <thead style={{textAlign:"center"}}>
-        <tr>
-            <th>Holiday</th>
-        </tr>
-    </thead>
-    <tbody>
-     <tr style={{height:"38px"}}>
-        <td>
-        <div>
-        <input
-          type="checkbox"
-          ref={checkbox1}
-          checked={isChecked}
-          onChange={handleOnChangeCheckBox1}
-        />
-        
-      </div>
-        </td>
-     </tr>
-      <tr style={{height:"38px"}}>
-        <td><div >
-        <input
-          type="checkbox"
-          ref={checkbox2}
-          checked={isChecked2}
-          onChange={handleOnChangeCheckBox2}
-        />
-        
-      </div></td>
-      </tr>
-      <tr style={{height:"38px"}}>
-        <td>
-        <div >
-        <input
-          type="checkbox"
-          ref={checkbox3}
-          checked={isChecked3}
-          onChange={handleOnChangeCheckBox3}
-        />
-        
-      </div>
-        </td>
-      </tr>
-      <tr style={{height:"38px"}}>
-        <td>
-        <div >
-        <input
-          type="checkbox"
-          ref={checkbox4}
-          checked={isChecked4}
-          onChange={handleOnChangeCheckBox4}
-        />
-       
-      </div>
-        </td>
-      </tr>
-      <tr style={{height:"38px"}}>
-        <td>
-        <div >
-        <input
-          type="checkbox"
-          ref={checkbox5}
-          checked={isChecked5}
-          onChange={handleOnChangeCheckBox5}
-        />
-        
-      </div>
-        </td>
-      </tr>
-      <tr style={{height:"37px"}}>
-        <td>
-        <div >
-        <input
-          type="checkbox"
-          ref={checkbox6}
-          checked={isChecked6}
-          onChange={handleOnChangeCheckBox6}
-        />
-        
-      </div>
-        </td>
-      </tr>
-      <tr style={{height:"37px"}}>
-        <td>
-        <div >
-        <input
-          type="checkbox"
-          ref={checkbox7}
-          defaultChecked = {true}
-          checked={isChecked7}
-          onChange={handleOnChangeCheckBox7}
-        />
-         </div>
-        </td>
-      </tr>
-        
-     
-      </tbody>
-      </Table>
-      </div> 
-    </div>
-    </div>
+            <div>
+              <Table bordered style={{ width: "130px", border: "1px",height:"180px"}}>
+                <thead style={{ textAlign: "center" }}>
+                  <tr>
+                    <th>Holiday</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={{ height: "38px" }}>
+                    <td>
+                      <div>
+                        <input
+                          type="checkbox"
+                          ref={checkbox1}
+                          checked={isChecked}
+                          onChange={handleOnChangeCheckBox1}
+                        />
+
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style={{ height: "38px" }}>
+                    <td><div >
+                      <input
+                        type="checkbox"
+                        ref={checkbox2}
+                        checked={isChecked2}
+                        onChange={handleOnChangeCheckBox2}
+                      />
+
+                    </div></td>
+                  </tr>
+                  <tr style={{ height: "38px" }}>
+                    <td>
+                      <div >
+                        <input
+                          type="checkbox"
+                          ref={checkbox3}
+                          checked={isChecked3}
+                          onChange={handleOnChangeCheckBox3}
+                        />
+
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style={{ height: "38px" }}>
+                    <td>
+                      <div >
+                        <input
+                          type="checkbox"
+                          ref={checkbox4}
+                          checked={isChecked4}
+                          onChange={handleOnChangeCheckBox4}
+                        />
+
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style={{ height: "38px" }}>
+                    <td>
+                      <div >
+                        <input
+                          type="checkbox"
+                          ref={checkbox5}
+                          checked={isChecked5}
+                          onChange={handleOnChangeCheckBox5}
+                        />
+
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style={{ height: "37px" }}>
+                    <td>
+                      <div >
+                        <input
+                          type="checkbox"
+                          ref={checkbox6}
+                          checked={isChecked6}
+                          onChange={handleOnChangeCheckBox6}
+                        />
+
+                      </div>
+                    </td>
+                  </tr>
+                  <tr style={{ height: "37px" }}>
+                    <td>
+                      <div >
+                        <input
+                          type="checkbox"
+                          ref={checkbox7}
+                          defaultChecked={true}
+                          checked={isChecked7}
+                          onChange={handleOnChangeCheckBox7}
+                        />
+                      </div>
+                    </td>
+                  </tr>
+
+
+                </tbody>
+              </Table>
+            </div>
+          </div>
+        </div>
         {/* <button onClick={createWeeklyShiftPlan}>Create Weekly Shift Plan</button> */}
-{/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-    
-       
-        
-        
+        {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+
+
+
+
 
            <div>
             <SecondTable week={secondTableShiftState}/>
