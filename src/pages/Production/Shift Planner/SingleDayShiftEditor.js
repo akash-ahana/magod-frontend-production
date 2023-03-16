@@ -107,8 +107,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
             </div> */}
             <div>
             <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "140px",fontSize:"14px"}} onClick = {()=>{onClickDeleteDayShiftPlan()
-                openDeletedayshift()}}>
+              style={{ width: "140px",fontSize:"14px"}} onClick = {()=>openDeletedayshift()}>
               Delete Day Shift Plan 
             </button>
             </div>
@@ -130,7 +129,8 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
           <DeleteDayShiftModal
           setDeletedayshift={setDeletedayshift}
           deletedayshift={deletedayshift}
-          rowselectDailyShiftTable={rowselectDailyShiftTable}/>
+          rowselectDailyShiftTable={rowselectDailyShiftTable}
+          onClickDeleteDayShiftPlan={onClickDeleteDayShiftPlan}/>
    
         </div>
     );

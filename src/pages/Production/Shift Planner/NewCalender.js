@@ -467,7 +467,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 </div>
 
                 <button className="button-style mt-2 group-button mt-4"
-                  style={{ width: "180px" }}>
+                  style={{ width: "150px" }}>
                   Print Weekly Plan
                 </button>
 
@@ -490,8 +490,8 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
     </div>
 
           <div className='col-md-4 col-sm-12'>
-            <div>
-              <p>Display Date</p>
+            <div style={{color:"red",fontSize:"14px"}}>
+              <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
             </div>
           </div>
 
@@ -524,7 +524,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 </div>
 
             <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "140px"}} onClick = {()=>{onSetMachineOperators()
+               style={{ width: "200px"}} onClick = {()=>{onSetMachineOperators()
                 openSetMachinemodal()}}>
                Set Machine Operator
             </button>
@@ -532,22 +532,38 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
           </div>
       </div>
     </div>
+{/* Try */}
+    <div className='col-md-4 col-sm-12'>
+            <div>
+            </div>
+          </div>
+
+          <div className="col-md-8 col-sm-12">
+            <div className="ip-box form-bg mt-3 ">
+              <div className='row'>
+                <div className="col-md-3">
+                </div>
+
+                <button className="button-style mt-2 group-button mt-4"
+              style={{ width: "150px" }} 
+              // onClick={onClickDeleteWeekShift}
+              onClick={openDeleteshiftmodal}
+             >Delete Week Shift</button>
+
+                <div className="col-md-3">
+                </div>
+
+                <button className="button-style mt-2 group-button mt-4"
+               style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
+               Delete Machine Operator 
+              </button>
+          </div>
+      </div>
+    </div>
+    
+    {/*Try  */}
     
   </div>
-  <div style={{marginLeft:"610px"}}>
-     <button className="button-style mt-2 group-button mt-4"
-      style={{ width: "150px" }} 
-      // onClick={onClickDeleteWeekShift}
-      onClick={openDeleteshiftmodal}
-      >Delete Week Shift</button>
-
-        <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "200px",marginLeft:"90px"}} onClick = {openDeletemachineoperator}>
-               Delete Machine Operator 
-            </button>
-  </div>
-
-
   </div>
   <hr  style={{
     backgroundColor: 'black',
