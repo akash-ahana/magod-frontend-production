@@ -14,7 +14,7 @@ export default function ScheduleListfabricationbody() {
     const [rowselectfabrication,setRowselectfabrication]=useState({})
     const [scheduleid,setScheduleid]=useState('');
     const fabricationrowSelectFun=(item,index)=>{
-      let list={...schedulelistfabricationdata,index:index}
+      let list={...item,index:index}
       // console.log("ScheduleNo",item.ScheduleNo)
       setScheduleid(item.OrdSchNo);
       setRowselectfabrication(list);
@@ -37,7 +37,7 @@ export default function ScheduleListfabricationbody() {
     const [fabprocessrowselect,setFabprocessrowselect]=useState({})
     const [taskno,setTaskno]=useState('');
     const fabprocesstableSelectFun=(item,index)=>{
-      let list={...processtable,index:index}
+      let list={...item,index:index}
       console.log("TaskNo",item.TaskNo);
       setTaskno(item.TaskNo);
       setFabprocessrowselect(list);

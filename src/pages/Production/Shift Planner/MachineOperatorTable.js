@@ -1,18 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Table from "react-bootstrap/Table";
+import axios from 'axios';
 
 
 
-function MachineOperatorTable(props) {
-    console.log('PROPS FROM Machine Operators Table is ' , props.data)
+function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable,machineOperatorTableData,
+  setMachineOperatorTableData,getMachineOperatorTableData, rowSelectFun}) {
+    console.log('PROPS FROM Machine Operators Table is ' , rowselectMachineOperator)
 
-    const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
-    // const rowSelectFun=(item,index)=>{let list={...schedulelistdata,index:index}
-    // // console.log("ScheduleNo",item.ScheduleNo)   
-    // // setScheduleid(item.OrdSchNo);
-    //  setRowselectMachineOperator(list);}
+    
+       useEffect(() => {
+        getMachineOperatorTableData()
+       },[rowselectDailyShiftTable])
+
 
      console.log('rowselectMachineOperator' , rowselectMachineOperator);
+    //  console.log('props.selectdata from MachineOperatorTable' , props.selectData)
     return (
         <div style={{height:"228px",overflowY:"scroll"}}>
 
@@ -24,11 +27,12 @@ function MachineOperatorTable(props) {
            
          </tr>
        </thead>
-       {props.data.map((rank, i, row) => {
+       {machineOperatorTableData.map((rank, i, row) => {
     return(
         <>
          <tbody className='tablebody'>
-              <tr onClick={()=>setRowselectMachineOperator(rank,i)}  >
+              <tr onClick={()=>rowSelectFun(rank,i)}  
+              className= {i=== rowselectMachineOperator?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
                  <td>{rank.Machine}</td>
                  <td>{rank.Operator}</td>

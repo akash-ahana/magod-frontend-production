@@ -14,7 +14,7 @@ export default function ScheduleListbody() {
     const [servicerowselect,setServicerowselect]=useState({})
     const [scheduleid,setScheduleid]=useState('');
     const servicerowSelectFun=(item,index)=>{
-      let list={...schedulelistservicedata,index:index}
+      let list={...item,index:index}
       // console.log("ScheduleNo",item.ScheduleNo)
       setScheduleid(item.OrdSchNo);
       setServicerowselect(list);
@@ -37,7 +37,7 @@ export default function ScheduleListbody() {
     const [serviceprocessrowselect,setServiceprocessrowselect]=useState({})
     const [taskno,setTaskno]=useState('');
     const serviceprocesstableSelectFun=(item,index)=>{
-      let list={...processtable,index:index}
+      let list={...item,index:index}
       console.log("TaskNo",item.TaskNo);
       setTaskno(item.TaskNo);
       setServiceprocessrowselect(list);

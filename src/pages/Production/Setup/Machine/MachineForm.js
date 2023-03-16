@@ -57,12 +57,11 @@ export default function ({selectedRow}) {
     const [selectRow,setSelectRow]=useState({})
 
     const selectedRowFun=(item,index)=>{
-      let list={...processdataList,index:index}
-      // console.log("api call ",item.Mprocess)
+      let list={...item,index:index}
       setMarh_srl(item.Machine_srl);
       setProcess(item.Mprocess);
-      // api call
       setSelectRow(list);
+      // console.log(index);
     }
    
  //PROCESSLIST
@@ -204,6 +203,7 @@ else{
               <DeleteProcess
                opendeleteprocess={opendeleteprocess}
                 setOpendeleteprocess={setOpendeleteprocess}
+                selectRow={selectRow}
                 // deleteProcess={deleteProcess}
                 processdataList={processdataList}
                 getprocessdataList={getprocessdataList}
