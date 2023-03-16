@@ -558,7 +558,7 @@ function NewCalender(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr style={{ height: "38px" }}>
+                  <tr style={{ height: "37.5px" }}>
                     <td>
                       <div>
                         <input
@@ -582,7 +582,7 @@ function NewCalender(props) {
 
                     </div></td>
                   </tr>
-                  <tr style={{ height: "38px" }}>
+                  <tr style={{ height: "37.5px" }}>
                     <td>
                       <div >
                         <input
@@ -608,7 +608,7 @@ function NewCalender(props) {
                       </div>
                     </td>
                   </tr>
-                  <tr style={{ height: "38px" }}>
+                  <tr style={{ height: "37.5px" }}>
                     <td>
                       <div >
                         <input
@@ -621,7 +621,7 @@ function NewCalender(props) {
                       </div>
                     </td>
                   </tr>
-                  <tr style={{ height: "37px" }}>
+                  <tr style={{ height: "37.5px" }}>
                     <td>
                       <div >
                         <input
@@ -634,7 +634,7 @@ function NewCalender(props) {
                       </div>
                     </td>
                   </tr>
-                  <tr style={{ height: "37px" }}>
+                  <tr style={{ height: "37.5px" }}>
                     <td>
                       <div >
                         <input

@@ -19,7 +19,7 @@ export default function Header() {
                     <option value="option 1">Second</option>
                     <option value="option 1">Third</option>
                  </select>
-              </div>
+               </div>
 
             <button className="button-style mt-2 group-button mt-4"
               style={{ width: "120px"}}>
@@ -29,7 +29,7 @@ export default function Header() {
                <div className="col-md-3">
                  <label className="form-label">Machine</label>
                  <select className="ip-select">
-                    <option value="option 1"> First</option>
+                    <option value="option 1">First</option>
                     <option value="option 1">Second</option>
                     <option value="option 1">Third</option>
                  </select>

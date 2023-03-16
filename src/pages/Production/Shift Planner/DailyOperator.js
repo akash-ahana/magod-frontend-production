@@ -75,7 +75,7 @@ function DailyOperator(props) {
 
     return (
 
-        <div style={{backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px",height:"220px"}}>
+        <div style={{backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px",height:"250px"}}>
             <div style={{color:'red',marginLeft:"5px"}}>
               <b>  {props.data.Shift} Shift</b>
             </div>
