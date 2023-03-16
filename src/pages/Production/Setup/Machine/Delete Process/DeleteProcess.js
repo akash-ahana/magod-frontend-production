@@ -5,13 +5,14 @@ import axios from "axios";
 import { baseURL } from '../../../../../api/baseUrl';
 
 export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,
-  processdataList,getprocessdataList}) {
+  processdataList,getprocessdataList,selectRow}) {
+    console.log(selectRow)
 
     // console.log(processdataList);
     const handleClose = () => setOpendeleteprocess(false);
 
-    let  mach_srl=processdataList[0].Machine_srl;
-    let process=processdataList[0].Mprocess;
+    let  mach_srl=selectRow.Machine_srl;
+    let process=selectRow.Mprocess;
 
     const deleteProcess=()=>{
       console.log(mach_srl,process)
@@ -22,7 +23,7 @@ export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,
           Mprocess:process
         }).then((response) => {
           // console.log("process delted",response.data)
-          getprocessdataList(processdataList[0] .Machine_srl);
+          getprocessdataList(selectRow.Machine_srl);
       });
     }
 
@@ -33,8 +34,8 @@ export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,
           <Modal.Title>DELETE PROCESS</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Are you sure u want delete {processdataList[0].Mprocess}
-        ({processdataList[0].RefProcess})</Modal.Body>
+        <Modal.Body> Are you sure u want delete {selectRow.Mprocess}
+        ({selectRow.RefProcess})</Modal.Body>
 
         <Modal.Footer>
           <Button variant="primary" onClick={()=>{deleteProcess()

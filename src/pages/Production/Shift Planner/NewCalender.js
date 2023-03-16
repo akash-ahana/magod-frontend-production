@@ -9,6 +9,7 @@ import axios from "axios";
 import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
 import DeleteshiftModal from './DeleteshiftModal';
+import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
 // import MachineOperatorTable from './MachineOperatorTable';
 
 function NewCalender(props) {
@@ -315,9 +316,9 @@ function NewCalender(props) {
       
     }
     const [rowselect,setRowselect]=useState()
-    const rowSelectFun=(item,index)=>{let list={...selectedWeek,index:index} 
+    const rowSelectFun=(item,index)=>{let list={...item,index:index} 
     console.log('ITEM IS ' , item)
-    setRowselect(item);
+    setRowselect(list);
   }
 
   useMemo(()=>{
@@ -333,7 +334,8 @@ function NewCalender(props) {
    const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
    const getSingleDayShiftPlan4thTable = () => {
 
-    const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable', {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
+    const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
+     {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
         console.log('response data is null')
     } else {
@@ -383,10 +385,10 @@ function NewCalender(props) {
 
    const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
     const rowSelectFunForDailyShiftTable=(item,index)=>{
-        let list={...props.data,index:index}
+        let list={...item,index:index}
         // console.log("ScheduleNo",item.ScheduleNo)    
         //setScheduleid(item.OrdSchNo);
-        setRowselectDailyShiftTable(item);
+        setRowselectDailyShiftTable(list);
     }
    
 
@@ -419,11 +421,27 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
        }
        const onClickDeleteWeekShift = () => {
          console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
-          axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', { selectedShift: selectedShift, selectedWeek: selectedWeek })
+          axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', 
+          { selectedShift: selectedShift, selectedWeek: selectedWeek })
           .then((response) => { console.log(response)
             getSecondTableData(); 
+            getSingleDayShiftPlan4thTable();
             // setWeekState1('')  
         }) }
+
+//DELETE MACHINE OPERATOR FOR WEEK 
+        const onClickDeleteWeekOperatorMachine = () => {
+          console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
+           axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekOperatorForMachine', {selectedShift : selectedShift, selectedWeek: selectedWeek, selectedMachine : selectedMachine , selectedOperator : selectedOperator})
+           .then((response) => {console.log(response)
+             getSecondTableData();
+              setWeekState1('')
+            })
+          }
+          const[opendeleteoperator,setOpendeleteoperator]=useState('')
+          const openDeletemachineoperator=()=>{
+            setOpendeleteoperator(true);
+          }
 
     return (
         <>
@@ -462,10 +480,10 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                  </select>
               </div>
 
-            <button className="button-style mt-2 group-button mt-4"
+            {/* <button className="button-style mt-2 group-button mt-4"
                style={{ width: "140px"}}>
                Create Day Shift
-            </button>
+            </button> */}
           </div>
       </div>
     </div>
@@ -509,6 +527,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 openSetMachinemodal()}}>
                Set Machine Operator
             </button>
+
           </div>
       </div>
     </div>
@@ -520,7 +539,14 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
       // onClick={onClickDeleteWeekShift}
       onClick={openDeleteshiftmodal}
       >Delete Week Shift</button>
+
+        <button className="button-style mt-2 group-button mt-4"
+               style={{ width: "200px",marginLeft:"90px"}} onClick = {openDeletemachineoperator}>
+               Delete Machine Operator 
+            </button>
   </div>
+
+
   </div>
   <hr  style={{
     backgroundColor: 'black',
@@ -683,7 +709,9 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
             rowselectDailyShiftTable={rowselectDailyShiftTable}
             getMachineOperatorTableData={getMachineOperatorTableData}
             machineOperatorTableData={machineOperatorTableData}
-            setRowselectDailyShiftTable={setRowselectDailyShiftTable}/>
+            setRowselectDailyShiftTable={setRowselectDailyShiftTable}
+            getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+            getSecondTableData={getSecondTableData}/>
 
             </div>
 
@@ -718,6 +746,15 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               selectedShift={selectedShift}
               selectedWeek={selectedWeek}
               />
+              <DeleteMachineoperatorweekModal
+              opendeleteoperator={opendeleteoperator}
+              setOpendeleteoperator={setOpendeleteoperator}
+              openDeletemachineoperator={openDeletemachineoperator}
+              onClickDeleteWeekOperatorMachine={onClickDeleteWeekOperatorMachine}
+              selectedShift={selectedShift}
+              selectedMachine={selectedMachine}
+              selectedWeek={selectedWeek}
+              selectedOperator={selectedOperator}/>
 
         </>
         

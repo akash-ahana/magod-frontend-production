@@ -1,8 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
+import UpdateDayshiftModal from './UpdateDayshiftModal';
+import DeleteDayShiftModal from './DeleteDayShiftModal';
 
 
-function SingleDayShiftEditor(props) {
+function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShiftTable,getSecondTableData}) {
 
     const[dataShiftIncharge,setDataShiftIncharge]=useState([]);
     const[selectedShiftIncharge,setSelectedShiftIncharge]=useState([]);
@@ -27,37 +29,50 @@ function SingleDayShiftEditor(props) {
       }, []);
 
       useEffect(() => {
-       
-        setSelectedShiftIncharge(props.data.Shift_Ic);
-        
-        
-      }, [props.data]);
-      console.log('PROPS FROM Single Day Shift Editor ' , props.data)
+        setSelectedShiftIncharge(rowselectDailyShiftTable.Shift_Ic);
+      }, [rowselectDailyShiftTable]);
+      console.log('PROPS FROM Single Day Shift Editor ' , rowselectDailyShiftTable)
       const onClickUpdateDayShift = () => {
         console.log('Update Day Shift Button is Clicked' , ' New Shift Inchrge Selected is ' , selectedShiftIncharge)
-        axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftIncharge', {...props.data , newShift_Ic :selectedShiftIncharge})
+        axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftIncharge', {...rowselectDailyShiftTable , newShift_Ic :selectedShiftIncharge})
         .then((response) => {console.log(response)
         //getSecondTableData()
-        
+        getSingleDayShiftPlan4thTable();
+        getSecondTableData();
       })
       }
 
       const onClickDeleteDayShiftPlan = () => {
-        console.log('Delete Daily Shift Plan is Clicked ' , props.data)
-        axios.post('http://172.16.20.61:5000/shiftEditor/deleteSingleDayShift', props.data)
+        console.log('Delete Daily Shift Plan is Clicked ' , rowselectDailyShiftTable)
+        axios.post('http://172.16.20.61:5000/shiftEditor/deleteSingleDayShift', rowselectDailyShiftTable)
         .then((response) => {console.log(response)
         //getSecondTableData()
-        
+        getSingleDayShiftPlan4thTable();
+        getSecondTableData();
       })
       }
+
+      //UPDATE DAYSHIFT MODAL
+      const[updatedayshift,setUpdatedayshift]=useState('')
+      const openUpdatedayshift=()=>{
+        setUpdatedayshift(true);
+      }
+
+      //DELETEDAYSHIFTMODAL
+      const[deletedayshift,setDeletedayshift]=useState('')
+      const openDeletedayshift=()=>{
+        setDeletedayshift(true);
+      }
+
     return (
-        <div style={{textAlign:"center",backgroundColor:"lightblue",marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
+        <div style={{textAlign:"center",backgroundColor:"lightblue",
+        marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
 
-           Shift Date is :  {props.data.ShiftDate}
+          <div style={{color:"red"}}> <b>Shift Date :  {rowselectDailyShiftTable.ShiftDate}</b></div>
            <br></br>
-           Shift is : {props.data.Shift}
+           <div style={{color:"red"}}><b>Shift : {rowselectDailyShiftTable.Shift}</b></div>
 
-            <div className="col-md-5"style={{textAlign:"center",marginLeft:"60px"}}>
+            <div className="col-md-5"style={{textAlign:"center",marginLeft:"40px",width:"120px"}}>
                 <label className="form-label">Shift InCharge</label>
                 <select className="ip-select" onChange={handleShiftIncharge} value={selectedShiftIncharge}>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
@@ -67,27 +82,33 @@ function SingleDayShiftEditor(props) {
             </div>
             <br></br>
             <div>
-                From Time {props.data.FromTime}
+                From Time 
             </div>
+            <div style={{marginLeft:"30px",textAlign:'center',fontSize:"13px",backgroundColor:"white",width:"125px"}}>
+              {rowselectDailyShiftTable.FromTime}</div>
             <div>
-                To Time {props.data.ToTime}
+                To Time 
             </div>
+            <div style={{marginLeft:"30px",textAlign:'center',fontSize:"13px",backgroundColor:"white",width:"125px"}}>
+              {rowselectDailyShiftTable.ToTime}</div>
           <div style={{textAlign:"center"}}>
             <div>
             <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "140px",fontSize:"14px"}} onClick = {onClickUpdateDayShift}>
+              style={{ width: "140px",fontSize:"14px"}} onClick = {()=>{openUpdatedayshift()
+                onClickUpdateDayShift()}}>
               Update Day Shift
             </button>
             </div>
-            <div>
+            {/* <div>
             <button className="button-style mt-2 group-button mt-4"
               style={{ width: "140px",fontSize:"14px"}}>
               Save Day Changes 
             </button>
-            </div>
+            </div> */}
             <div>
             <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "140px",fontSize:"14px"}} onClick = {onClickDeleteDayShiftPlan}>
+              style={{ width: "140px",fontSize:"14px"}} onClick = {()=>{onClickDeleteDayShiftPlan()
+                openDeletedayshift()}}>
               Delete Day Shift Plan 
             </button>
             </div>
@@ -100,8 +121,17 @@ function SingleDayShiftEditor(props) {
             </div>
             
             
+          <UpdateDayshiftModal
+          updatedayshift={updatedayshift}
+          setUpdatedayshift={setUpdatedayshift}
+          onClickUpdateDayShift={onClickUpdateDayShift}
+          rowselectDailyShiftTable={rowselectDailyShiftTable}/>
 
-            
+          <DeleteDayShiftModal
+          setDeletedayshift={setDeletedayshift}
+          deletedayshift={deletedayshift}
+          rowselectDailyShiftTable={rowselectDailyShiftTable}/>
+   
         </div>
     );
 }

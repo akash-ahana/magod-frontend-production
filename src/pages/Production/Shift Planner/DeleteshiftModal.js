@@ -20,14 +20,7 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
           <Modal.Title>Delete Shift</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are You sure want to Delete  {selectedShift}  shift for &nbsp;
-        {selectedWeek.map((item)=>{
-            return(
-                <>
-                {item} ,  
-                </>
-            )
-         })} ?
+        <Modal.Body>Are You sure want to Delete  {selectedShift}  shift  for the week?
          </Modal.Body> 
 
         <Modal.Footer>
@@ -35,7 +28,7 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
         handleClose()}}>
             Yes
           </Button>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={handleClose}>
             No
           </Button>
         </Modal.Footer>

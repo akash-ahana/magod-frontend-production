@@ -4,35 +4,18 @@ import axios from 'axios';
 
 
 
-function MachineOperatorTable(props) {
-    console.log('PROPS FROM Machine Operators Table is ' , props.data)
+function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable,machineOperatorTableData,
+  setMachineOperatorTableData,getMachineOperatorTableData, rowSelectFun}) {
+    console.log('PROPS FROM Machine Operators Table is ' , rowselectMachineOperator)
 
-    const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-    const getMachineOperatorTableData = () => {
-
-        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', props.selectData ).then((response) => {console.log('Api response is ' , response)
-        if(response.data === '') {
-            console.log('response data is null')
-        } else {
-            setMachineOperatorTableData(response.data)
-        }
-      
-    })
     
-       }
-
        useEffect(() => {
         getMachineOperatorTableData()
-       },[props.selectData])
+       },[rowselectDailyShiftTable])
 
-    const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
-    // const rowSelectFun=(item,index)=>{let list={...schedulelistdata,index:index}
-    // // console.log("ScheduleNo",item.ScheduleNo)   
-    // // setScheduleid(item.OrdSchNo);
-    //  setRowselectMachineOperator(list);}
 
      console.log('rowselectMachineOperator' , rowselectMachineOperator);
-     console.log('props.selectdata from MachineOperatorTable' , props.selectData)
+    //  console.log('props.selectdata from MachineOperatorTable' , props.selectData)
     return (
         <div style={{height:"240px",overflowY:"scroll"}}>
 
@@ -48,7 +31,8 @@ function MachineOperatorTable(props) {
     return(
         <>
          <tbody className='tablebody'>
-              <tr onClick={()=>setRowselectMachineOperator(rank,i)}  >
+              <tr onClick={()=>rowSelectFun(rank,i)}  
+              className= {i=== rowselectMachineOperator?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
                  <td>{rank.Machine}</td>
                  <td>{rank.Operator}</td>

@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import { height } from '@mui/system';
+import AddOperatorModal from './AddOperatorModal';
+import DeleteOperatorfordayModal from './DeleteOperatorfordayModal';
 
 
 function DailyOperator(props) {
+  console.log(props.rowselectMachineOperator[0])
 
     const [selectedMachine , setSelectedMachine] = useState('');
     const [ dataMachineList, setGetShiftTypesData] = useState([]);
@@ -64,20 +66,31 @@ function DailyOperator(props) {
 
 
     const onDeleteOperatorForDay = () => {
-        console.log('Delete Operator For day is Clicked')
-        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay', props.selectMachineOperatorData)
+        console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator[0])
+        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay', props.rowselectMachineOperator[0])
         .then((response) => {console.log(response)
         //getSecondTableData()
         //setMachineOperatorDay('')
       })
     }
 
+    //AddOperator
+    const[addoperator,setAddoperator]=useState('');
+    const openAddoperator=()=>{
+      setAddoperator(true);
+    }
 
+
+    //DeleteOperator
+    const[deleteoperator,setDeleteoperator]=useState('');
+    const openDeleteoperator=()=>{
+      setDeleteoperator(true);
+    }
     return (
 
         <div style={{textAlign:"center",backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px"}}>
             <div>
-                {props.data.Shift} Shift
+                <div style={{color:"red"}}><b>{props.data.Shift} Shift</b></div>
             </div>
             <div className="col-md-5" style={{textAlign:"center",marginLeft:"60px"}}> 
                  <label className="form-label">Machine</label>
@@ -99,18 +112,27 @@ function DailyOperator(props) {
               </div>
 
               <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "150px",fontSize:"14px"}} onClick = {createDailyOperatorList}>
+               style={{ width: "150px",fontSize:"14px"}}  onClick={()=>{openAddoperator()
+               createDailyOperatorList()}}>
                Add Operator for Day
             </button>
 
 
             {/* //need    \state from daily Shift Table and machine operator table      */}
             <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "160px",fontSize:"14px",marginBottom:"10px"}} onClick = {onDeleteOperatorForDay}>
+               style={{ width: "160px",fontSize:"14px",marginBottom:"10px"}} 
+               onClick = {()=>{onDeleteOperatorForDay()
+                openDeleteoperator()}}>
                Delete Operator For Day
             </button>
 
+        <AddOperatorModal  
+        addoperator={addoperator}
+        setAddoperator={setAddoperator}/>
 
+        <DeleteOperatorfordayModal
+        deleteoperator={deleteoperator}
+        setDeleteoperator={setDeleteoperator}/>
             
         </div>
     );

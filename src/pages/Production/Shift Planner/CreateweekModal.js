@@ -37,14 +37,8 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
           <Modal.Title>Create Weekshift </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Do you wish to add {selectedShiftIncharge} for {selectedShift} shift for &nbsp;
-         {selectedWeek.map((item)=>{
-            return(
-                <>
-                {item} ,  
-                </>
-            )
-         })} ?
+        <Modal.Body>Do you wish to add {selectedShiftIncharge} for {selectedShift} shift
+         for the week?
          </Modal.Body> 
 
         <Modal.Footer>
