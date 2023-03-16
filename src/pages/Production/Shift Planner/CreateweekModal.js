@@ -37,7 +37,7 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
           <Modal.Title>Create Weekshift </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Do you wish to add {selectedShiftIncharge} for {selectedShift} shift
+        <Modal.Body>Do you wish to add <b>{selectedShiftIncharge}</b> for <b>{selectedShift}</b> shift
          for the week?
          </Modal.Body> 
 
@@ -45,7 +45,7 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
           <Button variant="primary" onClick={()=>createWeekshift()} >
             Yes
           </Button>
-          <Button variant="secondary">
+          <Button variant="secondary" onClick={handleClose}>
             No
           </Button>
         </Modal.Footer>

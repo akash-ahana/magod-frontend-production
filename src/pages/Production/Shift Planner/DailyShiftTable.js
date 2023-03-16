@@ -87,7 +87,7 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
            <th >From</th>
            <th >To Time</th>
            <th>Shift Instructions</th>
-           <th>Submit </th>
+           <th>Save Shift Instruction</th>
          </tr>
        </thead>
        {SingleDayShiftPlan4thTable.map((rank, i, row) => {
@@ -111,7 +111,7 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
                  </td>
                  <td><button className="button-style group-button" style={{width:"100px"}}
                  onClick={()=>updateShiftinstruction()}
-                 >Submit</button></td>
+                 >Save</button></td>
              </tr>
            </tbody>
           

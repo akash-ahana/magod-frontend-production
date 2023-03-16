@@ -23,8 +23,8 @@ export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
           <Modal.Title>Update Dayshift</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> {rowselectDailyShiftTable.Shift_Ic} is updated as shift incharge for {rowselectDailyShiftTable.Shift} shift for 
-        &nbsp; {rowselectDailyShiftTable.ShiftDate}
+        <Modal.Body><b> {rowselectDailyShiftTable.Shift_Ic}</b> is updated as shift incharge for <b>{rowselectDailyShiftTable.Shift}</b> shift for 
+        &nbsp; <b>{rowselectDailyShiftTable.ShiftDate}</b>
         </Modal.Body> 
 
         <Modal.Footer>

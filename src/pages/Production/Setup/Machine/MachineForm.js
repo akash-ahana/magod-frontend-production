@@ -15,6 +15,7 @@ import { baseURL } from "../../../../api/baseUrl";
 
 
 export default function ({selectedRow}) {
+  const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
   // console.log(selectedRow.isInstallDatePresent);
 
   const formSchema = Yup.object().shape({
@@ -318,7 +319,8 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Target Rate</label>
-                <input className="in-field" type='number' value={machineData.TgtRate}
+                <input className="in-field" type='number'
+                onKeyDown={blockInvalidChar} value={machineData.TgtRate}
                 name='TgtRate' onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>
