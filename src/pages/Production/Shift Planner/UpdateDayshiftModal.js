@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
     rowselectDailyShiftTable}) {
-    console.log(rowselectDailyShiftTable)
+    console.log(rowselectDailyShiftTable);
 
 
     const handleClose=()=>{
