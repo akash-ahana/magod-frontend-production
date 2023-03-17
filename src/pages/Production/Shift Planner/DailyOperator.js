@@ -50,6 +50,9 @@ function DailyOperator(props) {
       const [MachineOperatorDay, setMachineOperatorDay] = useState([])
 
       useEffect(() => {
+        
+        //let constMachineOperatorDay = MachineOperatorDay
+        //console.log(constMachineOperatorDay)
         axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperatorDay', MachineOperatorDay)
         .then((response) => {console.log(response)
         //getSecondTableData()
