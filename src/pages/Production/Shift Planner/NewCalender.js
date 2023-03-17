@@ -313,20 +313,27 @@ function NewCalender(props) {
        }
        setSelectedWeek(weekArray)
       }
-      
     }
-    const [rowselect,setRowselect]=useState()
-    const rowSelectFun=(item,index)=>{let list={...item,index:index} 
-    console.log('ITEM IS ' , item)
+    const [rowselect,setRowselect]=useState({})
+    const rowSelectFun=(item,index)=>{
+      let list={item,index:index} 
+    console.log('ITEM IS' , item)
     setRowselect(list);
   }
+console.log("selected row of data table is ",rowselect)
+  // useMemo(() => {
+  //   setRowselect(selectedWeek[0])
+  // },[selectedWeek[0]])
 
+// Default row select for Date table
   useMemo(() => {
-    setRowselect(selectedWeek[0])
-  }
-    , [selectedWeek[0]])
+    setRowselect({item : selectedWeek[0],index:0})
+  },[selectedWeek[0]])
 
-  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect)
+console.log(rowselect)
+  
+
+  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
   // console.log("ScheduleNo",item.ScheduleNo)      setScheduleid(item.OrdSchNo);      setRowselect(list);    }
 
   //console.log('Selected Week is ' , selectedWeek)
@@ -334,7 +341,7 @@ function NewCalender(props) {
 
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
   const getSingleDayShiftPlan4thTable = () => {
-
+   console.log(rowselect)
     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
@@ -349,6 +356,10 @@ function NewCalender(props) {
   useEffect(() => {
     getSingleDayShiftPlan4thTable()
   }, [rowselect])
+
+  // useEffect(() => {
+  //   getSingleDayShiftPlan4thTable()
+  // }, [selectedWeek])
 
   const [secondTableShiftState, setSecondTableShiftState] = useState([])
 
@@ -366,6 +377,7 @@ function NewCalender(props) {
     })
   }
   console.log('Second Table Sift State in New Calender component', secondTableShiftState)
+  console.log(selectedWeek)
   useEffect(() => {
     getSecondTableData()
   }, [selectedWeek])
@@ -384,7 +396,7 @@ function NewCalender(props) {
 
    }
 
-   const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
+   const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState('')
     const rowSelectFunForDailyShiftTable=(item,index)=>{
         let list={...item,index:index}
         // console.log("ScheduleNo",item.ScheduleNo)    
@@ -402,8 +414,9 @@ const openSetMachinemodal=()=>{
 
 //MachineOperator Table
 const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-    const getMachineOperatorTableData = () => {
+// console.log(rowselectDailyShiftTable)
 
+    const getMachineOperatorTableData = () => {
         const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => {console.log('Api response is ' , response)
         if(response.data === '') {
             console.log('response data is null')
@@ -412,7 +425,6 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
         }
       
     })
-    
        }
 
 //Delete Weekshift
@@ -532,7 +544,6 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
           </div>
       </div>
     </div>
-{/* Try */}
     <div className='col-md-4 col-sm-12'>
             <div>
             </div>
@@ -559,10 +570,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               </button>
           </div>
       </div>
-    </div>
-    
-    {/*Try  */}
-    
+    </div>    
   </div>
   </div>
   <hr  style={{

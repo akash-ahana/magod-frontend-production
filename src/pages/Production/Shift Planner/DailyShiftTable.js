@@ -20,7 +20,7 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
 
       
        useMemo(()=>{
-        rowSelectFunForDailyShiftTable({...SingleDayShiftPlan4thTable
+        setRowselectDailyShiftTable({...SingleDayShiftPlan4thTable
         [0],index:0})
       },[SingleDayShiftPlan4thTable[0]])
 
@@ -60,11 +60,14 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
 
 //Machine Operator Table
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
-const rowSelectFun=(item,index)=>{let list={...item,index:index}
+const rowSelectFun=(item,index)=>{
+  let list={...item,index:index}
 // console.log("ScheduleNo",item.ScheduleNo)   
 // setScheduleid(item.OrdSchNo);
  setRowselectMachineOperator(list);
 }
+
+// console.log(rowselectMachineOperator);
     return (
         
         <div style={{display:"flex"}}>
