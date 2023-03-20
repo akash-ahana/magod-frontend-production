@@ -5,7 +5,7 @@ import DeleteOperatorfordayModal from './DeleteOperatorfordayModal';
 
 
 function DailyOperator(props) {
-  console.log(props.rowselectMachineOperator[0])
+  console.log(props.rowselectMachineOperator)
 
     const [selectedMachine , setSelectedMachine] = useState('');
     const [ dataMachineList, setGetShiftTypesData] = useState([]);
@@ -45,12 +45,14 @@ function DailyOperator(props) {
       useEffect(() => {
         getMachineListData(); 
         getOperatorListData();
-        
       }, []);
 
       const [MachineOperatorDay, setMachineOperatorDay] = useState([])
 
       useEffect(() => {
+        
+        //let constMachineOperatorDay = MachineOperatorDay
+        //console.log(constMachineOperatorDay)
         axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperatorDay', MachineOperatorDay)
         .then((response) => {console.log(response)
         //getSecondTableData()
@@ -66,8 +68,9 @@ function DailyOperator(props) {
 
 
     const onDeleteOperatorForDay = () => {
-        console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator[0])
-        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay', props.rowselectMachineOperator[0])
+        console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator);
+        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay',
+         props.rowselectMachineOperator)
         .then((response) => {console.log(response)
         //getSecondTableData()
         //setMachineOperatorDay('')

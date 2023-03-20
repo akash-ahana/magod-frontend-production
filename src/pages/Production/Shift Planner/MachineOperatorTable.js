@@ -8,7 +8,8 @@ function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable
   setMachineOperatorTableData,getMachineOperatorTableData, rowSelectFun}) {
     console.log('PROPS FROM Machine Operators Table is ' , rowselectMachineOperator)
 
-    
+    // console.log(machineOperatorTableData);
+
        useEffect(() => {
         getMachineOperatorTableData()
        },[rowselectDailyShiftTable])

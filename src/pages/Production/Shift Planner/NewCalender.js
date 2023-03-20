@@ -313,20 +313,27 @@ function NewCalender(props) {
        }
        setSelectedWeek(weekArray)
       }
-      
     }
-    const [rowselect,setRowselect]=useState()
-    const rowSelectFun=(item,index)=>{let list={...item,index:index} 
-    console.log('ITEM IS ' , item)
+    const [rowselect,setRowselect]=useState({})
+    const rowSelectFun=(item,index)=>{
+      let list={item,index:index} 
+    console.log('ITEM IS' , item)
     setRowselect(list);
   }
+console.log("selected row of data table is ",rowselect)
+  // useMemo(() => {
+  //   setRowselect(selectedWeek[0])
+  // },[selectedWeek[0]])
 
+// Default row select for Date table
   useMemo(() => {
-    setRowselect(selectedWeek[0])
-  }
-    , [selectedWeek[0]])
+    setRowselect({item : selectedWeek[0],index:0})
+  },[selectedWeek[0]])
 
-  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect)
+console.log(rowselect)
+  
+
+  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
   // console.log("ScheduleNo",item.ScheduleNo)      setScheduleid(item.OrdSchNo);      setRowselect(list);    }
 
   //console.log('Selected Week is ' , selectedWeek)
@@ -334,12 +341,52 @@ function NewCalender(props) {
 
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
   const getSingleDayShiftPlan4thTable = () => {
-
+   console.log(rowselect)
     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
         console.log('response data is null')
       } else {
+        console.log('SINGLE DAY SHIFT PLAN 4TH TABLE ' , response.data)
+        if(response.data.length ===0 ) { 
+          console.log('DATA IS EMPTY')
+      } else {
+          console.log('DATA IS PRESENT')
+          for(let i =0 ; i < response.data.length ; i++) {
+              let dateSplit = response.data[i].ShiftDate.split("-");
+              let year = dateSplit[2];
+              let month = dateSplit[1];
+              let day = dateSplit[0];
+              let finalDay = year+"-"+month+"-"+day 
+              console.log( 'RESPONSE SHIFT DATE IS ' , finalDay)
+              response.data[i].ShiftDate = finalDay 
+
+              let dateSplitFromTime = response.data[i].FromTime.split("-");
+              console.log( ' DATE SPLIT RESPONSE From tIME IS ' , dateSplitFromTime)
+              let yearFromTime = dateSplitFromTime[0];
+              let monthFromTime = dateSplitFromTime[1];
+              let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
+              let dayFromTimeFinal = dayFromTimeINITIAL[0]
+              let time = dayFromTimeINITIAL[1]
+              let finalDayFromTime = dayFromTimeFinal+"-"+monthFromTime+"-"+yearFromTime+" "+time
+              console.log( 'RESPONSE From tIME IS ' , finalDayFromTime)
+              response.data[i].FromTime = finalDayFromTime 
+
+              let dateSplitToTime = response.data[i].ToTime.split("-");
+              console.log( ' DATE SPLIT RESPONSE To tIME IS ' , dateSplitToTime)
+              let yearToTime = dateSplitToTime[0];
+              let monthToTime = dateSplitToTime[1];
+              let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
+              let dayToTimeFinal = dayToTimeINITIAL[0]
+              let time1 = dayToTimeINITIAL[1]
+              let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time
+              console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
+              response.data[i].ToTime = finalDayToTime 
+              //data[i].FromTime = finalDayFromTime 
+
+          } 
+      }
+
         setSingleDayShiftPlan4thTable(response.data)
       }
 
@@ -349,6 +396,10 @@ function NewCalender(props) {
   useEffect(() => {
     getSingleDayShiftPlan4thTable()
   }, [rowselect])
+
+  // useEffect(() => {
+  //   getSingleDayShiftPlan4thTable()
+  // }, [selectedWeek])
 
   const [secondTableShiftState, setSecondTableShiftState] = useState([])
 
@@ -366,6 +417,7 @@ function NewCalender(props) {
     })
   }
   console.log('Second Table Sift State in New Calender component', secondTableShiftState)
+  console.log(selectedWeek)
   useEffect(() => {
     getSecondTableData()
   }, [selectedWeek])
@@ -384,7 +436,7 @@ function NewCalender(props) {
 
    }
 
-   const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
+   const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState('')
     const rowSelectFunForDailyShiftTable=(item,index)=>{
         let list={...item,index:index}
         // console.log("ScheduleNo",item.ScheduleNo)    
@@ -402,17 +454,46 @@ const openSetMachinemodal=()=>{
 
 //MachineOperator Table
 const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-    const getMachineOperatorTableData = () => {
+console.log(rowselectDailyShiftTable)
 
-        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => {console.log('Api response is ' , response)
+    const getMachineOperatorTableData = () => {
+        let constRowSelectDailyShiftTable = rowselectDailyShiftTable
+        console.log(constRowSelectDailyShiftTable)
+        if(typeof(constRowSelectDailyShiftTable) !== 'undefined' && constRowSelectDailyShiftTable != null) {
+          console.log('data is there')
+          //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
+          // let year = dateSplit[2];
+          // let month = dateSplit[1];
+          // let day = dateSplit[0];
+          // let finalDay = year+"-"+month+"-"+day;
+          // constRowSelectDailyShiftTable.ShiftDate =  finalDay
+        } else {
+          console.log('data is  not there')
+        }
+        // if((constRowSelectDailyShiftTable && Object.keys(constRowSelectDailyShiftTable).length === 0 && Object.getPrototypeOf(constRowSelectDailyShiftTable) === Object.prototype)) {
+        //     console.log('data is null')
+        // } else {
+        //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
+        //   let year = dateSplit[2];
+        //   let month = dateSplit[1];
+        //   let day = dateSplit[0];
+        //   let finalDay = year+"-"+month+"-"+day;
+        //   constRowSelectDailyShiftTable.ShiftDate =  finalDay
+        // }
+       
+
+
+        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
+        {console.log('Api response is ' , response)
         if(response.data === '') {
             console.log('response data is null')
         } else {
-            setMachineOperatorTableData(response.data)
+          console.log(response.data);
+
+            setMachineOperatorTableData(response.data);
         }
       
     })
-    
        }
 
 //Delete Weekshift
@@ -532,7 +613,6 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
           </div>
       </div>
     </div>
-{/* Try */}
     <div className='col-md-4 col-sm-12'>
             <div>
             </div>
@@ -559,10 +639,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               </button>
           </div>
       </div>
-    </div>
-    
-    {/*Try  */}
-    
+    </div>    
   </div>
   </div>
   <hr  style={{
