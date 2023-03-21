@@ -31,10 +31,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
       useEffect(() => {
-       
         getShiftInchargeData();
-        
-        
       }, []);
 
       useEffect(() => {

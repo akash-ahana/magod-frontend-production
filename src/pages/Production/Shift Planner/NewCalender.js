@@ -534,7 +534,6 @@ console.log(rowselectDailyShiftTable)
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
-
   return (
     <>
       <div style={{ marginTop: "-35px" }}>
@@ -551,6 +550,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
                   <select className="ip-select" onChange={handleShiftTypeChange}>
+                    <option selected>Select Shift</option>
                     {dataShiftTypes.map((dataShiftTypes) => (
                       <option value={dataShiftTypes}>{dataShiftTypes}</option>
                     ))}
@@ -565,6 +565,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Machine</label>
                   <select className="ip-select" onChange={handleMachineChange}>
+                  <option selected>Select Machine</option>
                     {dataMachineList.map((dataMachineList) => (
                       <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
                     ))}
@@ -592,6 +593,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Shift Incharge</label>
                   <select className="ip-select" onChange={handleShiftIncharge}>
+                  <option selected>Select Shift Incharge</option>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
                       <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
                     ))}
@@ -608,6 +610,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Operator</label>
                   <select className="ip-select" onChange={handleOperatorList}>
+                  <option selected>Select Operator</option>
                     {dataOperatorList.map((dataOperatorList) => (
                       <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
                     ))}

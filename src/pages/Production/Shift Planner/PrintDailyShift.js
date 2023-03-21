@@ -1,9 +1,11 @@
-import React, {Fragment} from 'react'; 
+import React, {Fragment, useEffect, useState} from 'react'; 
 
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 //import PDFdocument from './PDFdocument';
 import { useLocation } from 'react-router-dom';
 import PrintDailyShiftTable from './PrintDailyShiftTable';
+import axios from "axios";
+
 
 const styles = StyleSheet.create({
     page: {
@@ -33,32 +35,109 @@ const styles = StyleSheet.create({
 
 
 export default function PrintDailyShift() {
-    const location = useLocation();
+  const location = useLocation();
+  let rowselect=location.state.rowselect.item;
 
-    let rowselect=location.state.rowselect.item;
-    console.log("to pass",rowselect);
 
-    const data = {
-        id: "5df3180a09ea16dc4b95f910",
-        items: [
-          {
-            Machine:"Laser 1",
-            Operator: "Suresh A",
-            ShiftRemarks : "",
-          },
-          {
-            Machine:"Laser 6",
-            Operator: "Deepak",
-            ShiftRemarks : ""
-          },
-          {
-            Machine:"Laser 8",
-            Operator: "Shreyas K",
-            ShiftRemarks : ""
-          }
-        ],
-      };
+  let dateSplit = rowselect.split("/")
+  let year = dateSplit[2]
+  let month = dateSplit[1]
+  let day = dateSplit[0]
+  let finalday = day + "-" + month + "-" + year
+
+  //First Shift
+  const[newData,setNewdata]=useState([]);
+    const getDailyMachineoperatorData=()=>{
+      axios.post('http://172.16.20.61:5000/shiftEditor/getSingleDayDetailShiftInformation', 
+      {
+        ShiftDate:finalday,
+      }).then((response) => {
+          console.log(response.data);
+          setNewdata(response.data)
+      })
+    }
     
+// //Second Shift
+// const[secondmachineoperator,setSecondmachineoperator]=useState([]);
+//     const getSecondShiftMachineoperatorData=()=>{
+//       axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', 
+//       {
+//         ShiftDate:finalday,
+//         Shift:"Second",
+//         ShiftId : null
+//       }).then((response) => {
+//           // console.log(response.data);
+//           setSecondmachineoperator(response.data)
+//       })
+//     }
+//     console.log('Print Daily Shift Component' , secondmachineoperator);
+    
+      useEffect(() => {
+        getDailyMachineoperatorData();
+      }, []);
+
+  //     const newData = [
+  //       { 
+  //         ShiftIc : "Kumar N",
+  //         Shift : "First",
+  //         machineOperators : [
+  //           {
+  //             Machine : "Laser 1",
+  //             Operator : "Operator 1"
+  //           } , 
+  //           {
+  //             Machine : "Laser 2",
+  //             Operator : "Operator 2"
+  //           } , 
+  //           {
+  //             Machine : "Laser 3",
+  //             Operator : "Operator 3"
+  //           } , 
+           
+  //         ]
+  //      } , 
+  //      { 
+  //       ShiftIc : "Shashidhara",
+  //       Shift : "Second",
+  //       machineOperators : [
+  //         {
+  //           Machine : "Laser 4",
+  //           Operator : "Operator 4"
+  //         } , 
+  //         {
+  //           Machine : "Laser 5",
+  //           Operator : "Operator 5"
+  //         } , 
+  //         {
+  //           Machine : "Laser 6",
+  //           Operator : "Operator 6"
+  //         } , 
+         
+  //       ]
+  //    } , 
+  //    { 
+  //     ShiftIc : "Mahesh Bogan",
+  //     Shift : "Third",
+  //     machineOperators : [
+  //       {
+  //         Machine : "Laser 7",
+  //         Operator : "Operator 7"
+  //       } , 
+  //       {
+  //         Machine : "Laser 8",
+  //         Operator : "Operator 8"
+  //       } , 
+  //       {
+  //         Machine : "Laser 9",
+  //         Operator : "Operator 9"
+  //       } , 
+       
+  //     ]
+  //  }  
+  //     ]
+    
+      // console.log(typeof(data));
+      // console.log(typeof(firstmachineoperator))
       return (
         // <div className="App">
         //   <PDFDownloadLink document={<PDFdocument />} fileName="somename.pdf">
@@ -68,11 +147,11 @@ export default function PrintDailyShift() {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <PrintDailyShiftTable data={data}
-              rowselect={rowselect} 
+              <PrintDailyShiftTable 
+                newdata = {newData}
+                rowselect={rowselect} 
               />
             </PDFViewer>
           </Fragment>
-      );
-    
+      ); 
 }

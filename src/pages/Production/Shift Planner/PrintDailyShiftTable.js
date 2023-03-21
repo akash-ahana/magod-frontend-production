@@ -68,32 +68,43 @@ const styles = StyleSheet.create({
   });
   
 
-const PrintDailyShiftTable = ({data,rowselect}) => (
+const PrintDailyShiftTable = ({data,rowselect,firstmachineoperator,secondmachineoperator, newdata}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
-        <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
+
+        <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd </Text>
         <Text style={styles.title2}>Production Department : Shift List - {rowselect}</Text>
 
-        <View style={styles.boxdata}>
-           <Text>Shift      &nbsp;&nbsp;&nbsp;First </Text>
-           <Text>Shift IC   &nbsp;Kumar now</Text>
-           <Text>From       &nbsp;{rowselect}</Text>
-           <Text>To         &nbsp;&nbsp;&nbsp;{rowselect}</Text>
-        </View>
-
-       <View style={styles.Headingrow}>
+        {newdata.map((value) => {
+         return(
+          <>
+           <View style={styles.boxdata}>
+             <Text>Shift      &nbsp;&nbsp;&nbsp;{value.Shift}</Text>
+             <Text>Shift IC   &nbsp;{value.ShiftIc}</Text>
+             <Text>From       &nbsp;{rowselect}</Text>
+             <Text>To         &nbsp;&nbsp;&nbsp;{rowselect}</Text>
+          </View>
+          <View style={styles.Headingrow}>
           <Text style={styles.machineHeading}>Machine</Text>
           <Text style={styles.operatorHeading}>Operator</Text>
           <Text style={styles.remarksHeading}>ShiftRemarks</Text>
        </View>
 
-    {/*<TableHeader />*/}
-    <View style={styles.tableview}>
-      <PrintDailyShiftTableRows  items={data.items} />
+       <View style={styles.tableview}>
+      <PrintDailyShiftTableRows 
+       newestdata = {value}
+       />
     </View>
 
-    <View style={styles.boxdata}>
+          </>
+         )
+
+        })}
+       
+    
+
+    {/* <View style={styles.boxdata}>
            <Text>Shift      &nbsp;&nbsp;&nbsp;Second </Text>
            <Text>Shift IC   &nbsp;Kumar now</Text>
            <Text>From       &nbsp;{rowselect}</Text>
@@ -104,14 +115,14 @@ const PrintDailyShiftTable = ({data,rowselect}) => (
           <Text style={styles.machineHeading}>Machine</Text>
           <Text style={styles.operatorHeading}>Operator</Text>
           <Text style={styles.remarksHeading}>ShiftRemarks</Text>
-       </View>
+       </View> */}
 
     {/*<TableHeader />*/}
-    <View style={styles.tableview}>
+    {/* <View style={styles.tableview}>
       <PrintDailyShiftTableRows  items={data.items} />
-    </View>
+    </View> */}
 
-    <View style={styles.boxdata}>
+    {/* <View style={styles.boxdata}>
            <Text>Shift      &nbsp;&nbsp;&nbsp;Third</Text>
            <Text>Shift IC   &nbsp;Kumar now</Text>
            <Text>From       &nbsp;{rowselect}</Text>
@@ -122,14 +133,14 @@ const PrintDailyShiftTable = ({data,rowselect}) => (
           <Text style={styles.machineHeading}>Machine</Text>
           <Text style={styles.operatorHeading}>Operator</Text>
           <Text style={styles.remarksHeading}>ShiftRemarks</Text>
-       </View>
+       </View> */}
 
     {/*<TableHeader />*/}
-    <View style={styles.tableview}>
-      <PrintDailyShiftTableRows  items={data.items} />
-    </View>
+    {/* <View style={styles.tableview}>
+      <PrintDailyShiftTableRows  items={data.items} newitems = {firstmachineoperator}/>
+    </View> */}
 
-    <View style={styles.boxdata}>
+    {/* <View style={styles.boxdata}>
            <Text>Shift      &nbsp;&nbsp;&nbsp;General</Text>
            <Text>Shift IC   &nbsp;Kumar now</Text>
            <Text>From       &nbsp;{rowselect}</Text>
@@ -140,12 +151,12 @@ const PrintDailyShiftTable = ({data,rowselect}) => (
           <Text style={styles.machineHeading}>Machine</Text>
           <Text style={styles.operatorHeading}>Operator</Text>
           <Text style={styles.remarksHeading}>ShiftRemarks</Text>
-       </View>
+       </View> */}
 
     {/*<TableHeader />*/}
-    <View style={styles.tableview}>
-      <PrintDailyShiftTableRows  items={data.items} />
-    </View>
+    {/* <View style={styles.tableview}>
+      <PrintDailyShiftTableRows  items={data.items} newitems = {firstmachineoperator}/>
+    </View> */}
 
     {/*<TableFooter items={data.items} />*/}
   </View>
