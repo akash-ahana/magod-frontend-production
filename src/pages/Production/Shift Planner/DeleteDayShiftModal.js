@@ -9,7 +9,7 @@ import axios from 'axios';
 
 export default function DeleteDayShiftModal({deletedayshift,setDeletedayshift,
   rowselectDailyShiftTable,onClickDeleteDayShiftPlan}) {
-    console.log(rowselectDailyShiftTable);
+    // console.log(rowselectDailyShiftTable);
 
     const handleClose=()=>{
         setDeletedayshift(false);

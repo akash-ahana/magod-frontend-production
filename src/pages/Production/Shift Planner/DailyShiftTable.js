@@ -7,10 +7,11 @@ import SingleDayShiftEditor from './SingleDayShiftEditor';
 
 function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable
 ,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData,
-setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData}) {
+setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData,selectedWeek,
+rowselect}) {
 
     // console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
-    console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
+    // console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
 
     
 
@@ -28,7 +29,7 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
        const onChangeInput = (e, Shift_instruction) => {
         const { name, value } = e.target
         setShiftinstruction(value);
-        console.log('value', value)
+        // console.log('value', value)
       
         // const editData =rowselectDailyShiftTable.map((item) =>
         //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
@@ -40,7 +41,8 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
         axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftInstructions',
          {...rowselectDailyShiftTable,
           shiftInstruction:shiftinstruction})
-        .then((response) => { console.log(response)
+        .then((response) => {
+          // console.log(response);
           // setWeekState1('')  
       })
       }
@@ -62,7 +64,7 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
 const rowSelectFun=(item,index)=>{
   let list={...item,index:index}
-// console.log("ScheduleNo",item.ScheduleNo)   
+console.log("ScheduleNo",item.ScheduleNo)
 // setScheduleid(item.OrdSchNo);
  setRowselectMachineOperator(list);
 }
@@ -74,10 +76,14 @@ const rowSelectFun=(item,index)=>{
         <div>
         <SingleDayShiftEditor rowselectDailyShiftTable={rowselectDailyShiftTable}
          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-         getSecondTableData={getSecondTableData}/>    
+         getSecondTableData={getSecondTableData}
+         selectedWeek={selectedWeek}
+         rowselect={rowselect}/>    
+
         <DailyOperator data={rowselectDailyShiftTable}
          selectMachineOperatorData={rowselectDailyShiftTable}
-         rowselectMachineOperator={rowselectMachineOperator}/>
+         rowselectMachineOperator={rowselectMachineOperator}
+         getMachineOperatorTableData={getMachineOperatorTableData}/>
         </div>
          
  <div >
@@ -131,7 +137,8 @@ const rowSelectFun=(item,index)=>{
         rowSelectFun={rowSelectFun}
         machineOperatorTableData={machineOperatorTableData}
         // setMachineOperatorTableData={setMachineOperatorTableData}
-        getMachineOperatorTableData={getMachineOperatorTableData}/>
+        getMachineOperatorTableData={getMachineOperatorTableData}
+        selectedWeek={selectedWeek}/>
 
        </div>   
         </div>

@@ -10,9 +10,19 @@ import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
 import DeleteshiftModal from './DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
+import { useNavigate, } from 'react-router-dom'
+import PrintWeeklyplan from './PrintWeeklyplan';
+
 // import MachineOperatorTable from './MachineOperatorTable';
 
 function NewCalender(props) {
+
+  //open Print Pdf
+  const navigate=useNavigate()
+  const openPdfmodel = () => {
+    navigate('PrintWeeklyplan',{state:{selectedWeek:selectedWeek}})
+  }
+
 
   //Header Component
   const [dataShiftTypes, setDataShiftTypes] = useState([]);
@@ -78,10 +88,10 @@ function NewCalender(props) {
 
   }
 
-  console.log('Selected Shift after setting ', selectedShift)
-  console.log('Selected Machine after setting ', selectedMachine)
-  console.log('Selected Operator after Setting', selectedOperator);
-  console.log('Selected Shift In Charge', selectedShiftIncharge)
+  // console.log('Selected Shift after setting ', selectedShift)
+  // console.log('Selected Machine after setting ', selectedMachine)
+  // console.log('Selected Operator after Setting', selectedOperator);
+  // console.log('Selected Shift In Charge', selectedShiftIncharge)
 
 
   useEffect(() => {
@@ -173,7 +183,7 @@ function NewCalender(props) {
     { checkboxValue: 5, isChecked: checkbox6.current.checked, ShiftDate: selectedWeek[5], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
     { checkboxValue: 6, isChecked: checkbox7.current.checked, ShiftDate: selectedWeek[6], Shift: selectedShift, Shift_Ic: selectedShiftIncharge }])
 
-    console.log('Create Weekly SHIFT plan is Clicked')
+    // console.log('Create Weekly SHIFT plan is Clicked')
 
          const NewWeekState  = [...weekState]
 
@@ -317,7 +327,7 @@ function NewCalender(props) {
     const [rowselect,setRowselect]=useState({})
     const rowSelectFun=(item,index)=>{
       let list={item,index:index} 
-    console.log('ITEM IS' , item)
+    // console.log('ITEM IS' , item)
     setRowselect(list);
   }
 console.log("selected row of data table is ",rowselect)
@@ -333,15 +343,15 @@ console.log("selected row of data table is ",rowselect)
 console.log(rowselect)
   
 
-  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
+  // console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
   // console.log("ScheduleNo",item.ScheduleNo)      setScheduleid(item.OrdSchNo);      setRowselect(list);    }
 
   //console.log('Selected Week is ' , selectedWeek)
-  console.log('week State is  is is ', weekState)
+  // console.log('week State is  is is ', weekState)
 
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
   const getSingleDayShiftPlan4thTable = () => {
-   console.log(rowselect)
+  //  console.log(rowselect)
     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
@@ -416,8 +426,8 @@ console.log(rowselect)
 
     })
   }
-  console.log('Second Table Sift State in New Calender component', secondTableShiftState)
-  console.log(selectedWeek)
+  // console.log('Second Table Sift State in New Calender component', secondTableShiftState)
+  // console.log(selectedWeek)
   useEffect(() => {
     getSecondTableData()
   }, [selectedWeek])
@@ -425,7 +435,7 @@ console.log(rowselect)
   
 
   const onSetMachineOperators = () => {
-    console.log('Set Machine Operators Clicked', 'Operator Clicked is ', selectedOperator, ' Selected MACHINE IS ', selectedMachine, 'Selected Shift is ', selectedShift, 'Selected Shift Incharge is ', selectedShiftIncharge, 'Week Selected is ', weekState)
+    // console.log('Set Machine Operators Clicked', 'Operator Clicked is ', selectedOperator, ' Selected MACHINE IS ', selectedMachine, 'Selected Shift is ', selectedShift, 'Selected Shift Incharge is ', selectedShiftIncharge, 'Week Selected is ', weekState)
     setWeekState1([{ checkboxValue: 0, isChecked: checkbox1.current.checked, ShiftDate: selectedWeek[0], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
     { checkboxValue: 1, isChecked: checkbox2.current.checked, ShiftDate: selectedWeek[1], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
     { checkboxValue: 2, isChecked: checkbox3.current.checked, ShiftDate: selectedWeek[2], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
@@ -458,9 +468,9 @@ console.log(rowselectDailyShiftTable)
 
     const getMachineOperatorTableData = () => {
         let constRowSelectDailyShiftTable = rowselectDailyShiftTable
-        console.log(constRowSelectDailyShiftTable)
+        // console.log(constRowSelectDailyShiftTable)
         if(typeof(constRowSelectDailyShiftTable) !== 'undefined' && constRowSelectDailyShiftTable != null) {
-          console.log('data is there')
+          // console.log('data is there')
           //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
           // let year = dateSplit[2];
           // let month = dateSplit[1];
@@ -468,7 +478,7 @@ console.log(rowselectDailyShiftTable)
           // let finalDay = year+"-"+month+"-"+day;
           // constRowSelectDailyShiftTable.ShiftDate =  finalDay
         } else {
-          console.log('data is  not there')
+          // console.log('data is  not there')
         }
         // if((constRowSelectDailyShiftTable && Object.keys(constRowSelectDailyShiftTable).length === 0 && Object.getPrototypeOf(constRowSelectDailyShiftTable) === Object.prototype)) {
         //     console.log('data is null')
@@ -486,9 +496,9 @@ console.log(rowselectDailyShiftTable)
         const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
         {console.log('Api response is ' , response)
         if(response.data === '') {
-            console.log('response data is null')
+            // console.log('response data is null')
         } else {
-          console.log(response.data);
+          // console.log(response.data);
 
             setMachineOperatorTableData(response.data);
         }
@@ -502,7 +512,7 @@ console.log(rowselectDailyShiftTable)
         setOpendeleteshift(true);
        }
        const onClickDeleteWeekShift = () => {
-         console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
+        //  console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
           axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', 
           { selectedShift: selectedShift, selectedWeek: selectedWeek })
           .then((response) => { console.log(response)
@@ -513,7 +523,7 @@ console.log(rowselectDailyShiftTable)
 
 //DELETE MACHINE OPERATOR FOR WEEK 
         const onClickDeleteWeekOperatorMachine = () => {
-          console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
+          // console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
            axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekOperatorForMachine', {selectedShift : selectedShift, selectedWeek: selectedWeek, selectedMachine : selectedMachine , selectedOperator : selectedOperator})
            .then((response) => {console.log(response)
              getSecondTableData();
@@ -524,7 +534,6 @@ console.log(rowselectDailyShiftTable)
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
-
   return (
     <>
       <div style={{ marginTop: "-35px" }}>
@@ -541,6 +550,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
                   <select className="ip-select" onChange={handleShiftTypeChange}>
+                    <option selected>Select Shift</option>
                     {dataShiftTypes.map((dataShiftTypes) => (
                       <option value={dataShiftTypes}>{dataShiftTypes}</option>
                     ))}
@@ -548,13 +558,14 @@ console.log(rowselectDailyShiftTable)
                 </div>
 
                 <button className="button-style mt-2 group-button mt-4"
-                  style={{ width: "150px" }}>
+                  style={{ width: "150px" }} onClick={openPdfmodel}>
                   Print Weekly Plan
                 </button>
 
                 <div className="col-md-3">
                   <label className="form-label">Machine</label>
                   <select className="ip-select" onChange={handleMachineChange}>
+                  <option selected>Select Machine</option>
                     {dataMachineList.map((dataMachineList) => (
                       <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
                     ))}
@@ -582,6 +593,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Shift Incharge</label>
                   <select className="ip-select" onChange={handleShiftIncharge}>
+                  <option selected>Select Shift Incharge</option>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
                       <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
                     ))}
@@ -598,6 +610,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                   <label className="form-label">Operator</label>
                   <select className="ip-select" onChange={handleOperatorList}>
+                  <option selected>Select Operator</option>
                     {dataOperatorList.map((dataOperatorList) => (
                       <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
                     ))}
@@ -801,11 +814,14 @@ console.log(rowselectDailyShiftTable)
             setSingleDayShiftPlan4thTable={setSingleDayShiftPlan4thTable}
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
             rowselectDailyShiftTable={rowselectDailyShiftTable}
+            selectedWeek={selectedWeek}
             getMachineOperatorTableData={getMachineOperatorTableData}
             machineOperatorTableData={machineOperatorTableData}
             setRowselectDailyShiftTable={setRowselectDailyShiftTable}
             getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-            getSecondTableData={getSecondTableData}/>
+            getSecondTableData={getSecondTableData}
+            rowselect={rowselect}
+            />
 
             </div>
 
@@ -849,6 +865,8 @@ console.log(rowselectDailyShiftTable)
               selectedMachine={selectedMachine}
               selectedWeek={selectedWeek}
               selectedOperator={selectedOperator}/>
+
+              {/* <PrintWeeklyplan selectedWeek={selectedWeek}/> */}
 
         </>
         

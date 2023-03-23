@@ -10,7 +10,7 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
     selectedShift,selectedShiftIncharge, selectedWeek,weekState,
     getSingleDayShiftPlan4thTable,getSecondTableData,setWeekState}) {
 
-        console.log(selectedShift,selectedShiftIncharge);
+        // console.log(selectedShift,selectedShiftIncharge);
 
     const handleClose=()=>{
         setOpenweekshift(false);
