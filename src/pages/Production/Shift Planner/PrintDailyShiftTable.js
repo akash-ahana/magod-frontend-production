@@ -82,8 +82,7 @@ const PrintDailyShiftTable = ({data,rowselect,firstmachineoperator,secondmachine
            <View style={styles.boxdata}>
              <Text>Shift      &nbsp;&nbsp;&nbsp;{value.Shift}</Text>
              <Text>Shift IC   &nbsp;{value.ShiftIc}</Text>
-             <Text>From       &nbsp;{rowselect}</Text>
-             <Text>To         &nbsp;&nbsp;&nbsp;{rowselect}</Text>
+             <Text>Date       &nbsp;{rowselect}</Text>
           </View>
           <View style={styles.Headingrow}>
           <Text style={styles.machineHeading}>Machine</Text>

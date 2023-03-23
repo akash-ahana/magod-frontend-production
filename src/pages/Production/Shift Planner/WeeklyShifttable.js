@@ -68,18 +68,26 @@ const styles = StyleSheet.create({
   });
   
 
-const WeeklyShifttable = ({data,selectedWeek}) => (
+const WeeklyShifttable = ({selectedWeek, newData}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Department</Text>
         <Text style={styles.shiftperiod}>Shift Plan  for Period  From : {selectedWeek[0]} To {selectedWeek[6]}</Text>
-        <View style={styles.boxdata}>
-           <Text>Shift      &nbsp;&nbsp;&nbsp;First </Text>
-           <Text>Shift IC   &nbsp;Kumar now</Text>
-           <Text>From       &nbsp;23/03/2021</Text>
-           <Text>To         &nbsp;&nbsp;&nbsp;24/04/2021</Text>
+       
+
+    {newData.map((mapItem) => {
+      return(
+        <>
+        {mapItem.map((innerMapItem) => {
+          return (
+            <>
+              <View style={styles.boxdata}>
+           <Text>Shift      &nbsp;&nbsp;&nbsp;{innerMapItem.Shift} </Text>
+           <Text>Shift IC   &nbsp;{innerMapItem.ShiftIc}</Text>
+           <Text>Date       &nbsp;{innerMapItem.day}</Text>
+         
         </View>
 
        <View style={styles.Headingrow}>
@@ -88,10 +96,24 @@ const WeeklyShifttable = ({data,selectedWeek}) => (
           <Text style={styles.remarksHeading}>ShiftRemarks</Text>
        </View>
 
-    {/*<TableHeader />*/}
-    <View style={styles.tableview}>
-      <WeeklyShiftTableRow  items={data.items} />
+      
+        
+            <View style={styles.tableview}>
+      <WeeklyShiftTableRow  items={innerMapItem.machineOperators} />
     </View>
+         
+
+       
+            </>
+          )
+        })}
+         
+      
+      </>
+      )
+
+    })}
+   
     {/*<TableFooter items={data.items} />*/}
   </View>
     </Page>
