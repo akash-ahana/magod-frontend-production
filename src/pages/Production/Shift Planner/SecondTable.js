@@ -13,11 +13,11 @@ function SecondTable(props) {
 
      console.log('secondTableShiftState in second TABLE 1' , props.week)
     return (
-        <div style={{width:"430px",height:"608px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
+        <div style={{marginLeft:"-45px",width:"430px",height:"608px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
         <div>
 
 
-<Table bordered style={{marginLeft:"5px",border:"1px",fontSize:"15px"}}>
+<Table bordered style={{border:"1px",fontSize:"15px"}}>
        <thead style={{textAlign:"center",backgroundColor:"lightblue"}}>
          <tr>
            <th style={{width:"100px"}}>ShiftDate</th>

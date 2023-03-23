@@ -67,8 +67,8 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
 }
     return (
         
-        <div style={{display:"flex"}}>
-        <div>
+        <div className='row'>
+        <div className='col-md-6 col-sm-12'>
         <SingleDayShiftEditor rowselectDailyShiftTable={rowselectDailyShiftTable}
          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
          getSecondTableData={getSecondTableData}/>    
@@ -77,7 +77,7 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
          rowselectMachineOperator={rowselectMachineOperator}/>
         </div>
          
- <div >
+        <div className='col-md-6 col-sm-12'>
  <div style={{marginTop:"23px",width:"300px",height:"385px",fontSize:"15px",overflowX: "scroll",overflowY: "scroll"}}>
 <Table bordered style={{marginLeft:"5px",border:"1px"}}>
        <thead style={{textAlign:"center",backgroundColor:"lightblue"}}>

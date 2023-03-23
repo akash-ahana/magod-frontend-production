@@ -17,7 +17,7 @@ function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable
      console.log('rowselectMachineOperator' , rowselectMachineOperator);
     //  console.log('props.selectdata from MachineOperatorTable' , props.selectData)
     return (
-        <div style={{height:"228px",overflowY:"scroll"}}>
+        <div style={{height:"228px",marginLeft:"0px",overflowY:"scroll",width:"300px"}}>
 
 <Table bordered style={{border:"1px",marginLeft:"5px",fontSize:"15px"}}>
        <thead style={{textAlign:"center",backgroundColor:"lightblue"}}>

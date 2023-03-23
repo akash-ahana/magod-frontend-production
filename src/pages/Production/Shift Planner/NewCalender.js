@@ -446,6 +446,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
 
   return (
     <>
+    
       <div style={{ marginTop: "-35px" }}>
         <div className='row'>
           <div className='col-md-4 col-sm-12 mt-4'>
@@ -554,20 +555,24 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
     height:'3px'}}/>
 
   {/* ////////////////////////////////////////////////////////////////////////////////////////////////////// */}
-           <div style={{display:"flex"}}>
-            <div>
-            <div>
-                <div style={{width:"260px",fontSize:"13px",marginTop:"23px"}}>
+          
+           
+           
+  <div className='row'>
+  <div className='col-md-6 col-sm-12'>
+
+        <div className='row'>
+        <div className='col-md-6 col-sm-12'>     
+                <div style={{width:"260px",fontSize:"13px",marginTop:"23px",marginLeft:"-20px"}}>
                   
                     <ReactCalendar onChange={e => {    selectWeek(e)  }} showWeekNumbers 
                         showFixedNumberOfWeeks value={date} />
                 </div> 
-            </div>
-        <div style={{display:"flex"}}>    
-        <div>   
-            {/* <div> */}
-            {/* <div> */}
-        <Table bordered style={{width:"130px",border: "1px"}}>
+          
+         
+        <div className='row'>
+        <div className='col-md-2 col-sm-4'>
+        <Table bordered style={{width:"130px",border: "1px",marginLeft:"-32px"}}>
        <thead style={{textAlign:"center"}}>
          <tr>
            <th>Date</th>
@@ -587,10 +592,10 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
   
 })}
        </Table>
-       </div> 
-
-            <div>
-              <Table bordered style={{ width: "130px", border: "1px",height:"180px"}}>
+       </div>
+    
+       <div className='col-md-2 col-sm-4'>
+              <Table bordered style={{ width: "130px", border: "1px",height:"180px",marginLeft:"53px"}}>
                 <thead style={{ textAlign: "center" }}>
                   <tr>
                     <th>Holiday</th>
@@ -662,7 +667,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                   </tr>
                   <tr style={{ height: "37.5px" }}>
                     <td>
-                      <div >
+                      <div>
                         <input
                           type="checkbox"
                           ref={checkbox6}
@@ -690,9 +695,13 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
 
                 </tbody>
               </Table>
-            </div>
-          </div>
-        </div>
+              </div>
+              </div>
+              </div>
+              
+           
+        
+       
         {/* <button onClick={createWeeklyShiftPlan}>Create Weekly Shift Plan</button> */}
         {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
@@ -700,10 +709,16 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
 
 
 
-           <div>
+        <div className='col-md-6 col-sm-12'>
             <SecondTable week={secondTableShiftState}/>
-            </div> 
-
+            </div>
+            </div>
+       </div>
+       
+            
+            
+            
+            <div className='col-md-6 col-sm-12'>
             <DailyShiftTable SingleDayShiftPlan4thTable={SingleDayShiftPlan4thTable}
             setSingleDayShiftPlan4thTable={setSingleDayShiftPlan4thTable}
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
@@ -713,8 +728,11 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
             setRowselectDailyShiftTable={setRowselectDailyShiftTable}
             getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
             getSecondTableData={getSecondTableData}/>
-
             </div>
+            </div>
+           
+             
+            
 
             <CreateweekModal
               openweekshift={openweekshift}
