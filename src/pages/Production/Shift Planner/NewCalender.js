@@ -4,14 +4,14 @@ import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
 import Table from "react-bootstrap/Table";
 import axios from "axios";
- import SecondTable from './SecondTable';
- import DailyShiftTable from './DailyShiftTable';
+import SecondTable from './SecondTable';
+import DailyShiftTable from './DailyShiftTable';
 import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
 import DeleteshiftModal from './DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom'
-import PrintWeeklyplan from './PrintWeeklyplan';
+// import PrintWeeklyplan from './PrintWeeklyplan';
 
 // import MachineOperatorTable from './MachineOperatorTable';
 
@@ -340,7 +340,7 @@ console.log("selected row of data table is ",rowselect)
     setRowselect({item : selectedWeek[0],index:0})
   },[selectedWeek[0]])
 
-console.log(rowselect)
+// console.log(rowselect)
   
 
   // console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
@@ -393,29 +393,20 @@ console.log(rowselect)
               console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
               response.data[i].ToTime = finalDayToTime 
               //data[i].FromTime = finalDayFromTime 
-
           } 
       }
-
         setSingleDayShiftPlan4thTable(response.data)
       }
-
     })
-
   }
+
   useEffect(() => {
     getSingleDayShiftPlan4thTable()
   }, [rowselect])
 
-  // useEffect(() => {
-  //   getSingleDayShiftPlan4thTable()
-  // }, [selectedWeek])
 
   const [secondTableShiftState, setSecondTableShiftState] = useState([])
-
-
   const getSecondTableData = () => {
-
     const res = axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', selectedWeek).then((response) => {
       console.log('Api response is ', response)
       if (response.data === '') {
@@ -499,10 +490,8 @@ console.log(rowselectDailyShiftTable)
             // console.log('response data is null')
         } else {
           // console.log(response.data);
-
             setMachineOperatorTableData(response.data);
         }
-      
     })
        }
 
@@ -534,6 +523,7 @@ console.log(rowselectDailyShiftTable)
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
+          
   return (
     <>
       <div style={{ marginTop: "-35px" }}>

@@ -21,8 +21,8 @@ import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/Sch
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
 import ScheduleListService from "./pages/Production/Production/ScheduleList/Service/ScheduleListService";
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
-import PrintWeeklyplan from "./pages/Production/Shift Planner/PrintWeeklyplan";
-import PrintDailyShift from "./pages/Production/Shift Planner/PrintDailyShift";
+import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/PrintWeeklyplan";
+import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/PrintDailyShift";
 
 
 function App() {
