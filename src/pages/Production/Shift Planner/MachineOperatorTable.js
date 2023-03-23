@@ -1,20 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import Table from "react-bootstrap/Table";
 import axios from 'axios';
 
 
 
 function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable,machineOperatorTableData,
-  setMachineOperatorTableData,getMachineOperatorTableData, rowSelectFun}) {
-    console.log('PROPS FROM Machine Operators Table is ' , rowselectMachineOperator)
+  getMachineOperatorTableData, rowSelectFun,setRowselectMachineOperator,
+  selectedWeek}) {
+    // console.log('PROPS FROM Machine Operators Table is ' , rowselectMachineOperator)
 
-    
+    // console.log(machineOperatorTableData);
+
        useEffect(() => {
         getMachineOperatorTableData()
        },[rowselectDailyShiftTable])
 
+      //  useEffect(() => {
+      //   getMachineOperatorTableData()
+      //  },[selectedWeek])
 
-     console.log('rowselectMachineOperator' , rowselectMachineOperator);
+       useMemo(()=>{
+        setRowselectMachineOperator({...machineOperatorTableData[0],index:0})
+      },[machineOperatorTableData[0]])
+
+
+    //  console.log('rowselectMachineOperator' , rowselectMachineOperator);
     //  console.log('props.selectdata from MachineOperatorTable' , props.selectData)
     return (
         <div style={{height:"228px",marginLeft:"0px",overflowY:"scroll",width:"300px"}}>

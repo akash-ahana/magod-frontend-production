@@ -101,14 +101,14 @@ export const customerSidebar = [
         title: "Shift Editor",
         path: "/production/shiftplanner/shifteditor",
         // icon: <IoIcons.IoIosPaper />,
-        subNav:
-         [ 
-          {
-           title: "New",
-           path: "/production/shiftplanner/shifteditor",
-           icon: <AiIcons.AiOutlineForward />
-          }
-          ]
+        // subNav:
+        //  [ 
+        //   {
+        //    title: "New",
+        //    path: "/production/shiftplanner/shifteditor",
+        //    icon: <AiIcons.AiOutlineForward />
+        //   }
+        //   ]
       },
       {
         title: "Weekly Shift Planner",

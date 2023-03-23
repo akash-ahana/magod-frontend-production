@@ -11,7 +11,7 @@ import axios from "axios";
 function SecondTable(props) {
 
 
-     console.log('secondTableShiftState in second TABLE 1' , props.week)
+    //  console.log('secondTableShiftState in second TABLE 1' , props.week)
     return (
         <div style={{marginLeft:"-45px",width:"430px",height:"608px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
         <div>

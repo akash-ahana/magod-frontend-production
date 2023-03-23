@@ -8,8 +8,8 @@ import axios from 'axios';
 
 
 export default function DeleteDayShiftModal({deletedayshift,setDeletedayshift,
-  rowselectDailyShiftTable}) {
-    console.log(rowselectDailyShiftTable);
+  rowselectDailyShiftTable,onClickDeleteDayShiftPlan}) {
+    // console.log(rowselectDailyShiftTable);
 
     const handleClose=()=>{
         setDeletedayshift(false);
@@ -22,12 +22,16 @@ export default function DeleteDayShiftModal({deletedayshift,setDeletedayshift,
           <Modal.Title>Delete Dayshift</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>{rowselectDailyShiftTable.Shift} shift for  {rowselectDailyShiftTable.ShiftDate} &nbsp;
-        with Shift Incharge {rowselectDailyShiftTable.Shift_Ic} is deleted.</Modal.Body> 
+        <Modal.Body>  Are you sure want to delete <b>{rowselectDailyShiftTable.Shift}</b> shift for <b>{rowselectDailyShiftTable.ShiftDate}</b> &nbsp;
+        with Shift Incharge <b>{rowselectDailyShiftTable.Shift_Ic}</b>?</Modal.Body> 
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            OK
+          <Button variant="primary" onClick={()=>{onClickDeleteDayShiftPlan()
+            handleClose()}}>
+            Yes
+          </Button>
+          <Button variant='secondary' onClick={handleClose}>
+            No
           </Button>
         </Modal.Footer>
       </Modal>

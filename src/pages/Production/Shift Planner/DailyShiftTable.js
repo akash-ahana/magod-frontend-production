@@ -7,10 +7,11 @@ import SingleDayShiftEditor from './SingleDayShiftEditor';
 
 function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable
 ,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData,
-setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData}) {
+setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData,selectedWeek,
+rowselect}) {
 
     // console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
-    console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
+    // console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
 
     
 
@@ -20,7 +21,7 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
 
       
        useMemo(()=>{
-        rowSelectFunForDailyShiftTable({...SingleDayShiftPlan4thTable
+        setRowselectDailyShiftTable({...SingleDayShiftPlan4thTable
         [0],index:0})
       },[SingleDayShiftPlan4thTable[0]])
 
@@ -28,7 +29,7 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
        const onChangeInput = (e, Shift_instruction) => {
         const { name, value } = e.target
         setShiftinstruction(value);
-        console.log('value', value)
+        // console.log('value', value)
       
         // const editData =rowselectDailyShiftTable.map((item) =>
         //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
@@ -40,7 +41,8 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
         axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftInstructions',
          {...rowselectDailyShiftTable,
           shiftInstruction:shiftinstruction})
-        .then((response) => { console.log(response)
+        .then((response) => {
+          // console.log(response);
           // setWeekState1('')  
       })
       }
@@ -60,21 +62,28 @@ setSingleDayShiftPlan4thTable,setRowselectDailyShiftTable,getSingleDayShiftPlan4
 
 //Machine Operator Table
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
-const rowSelectFun=(item,index)=>{let list={...item,index:index}
-// console.log("ScheduleNo",item.ScheduleNo)   
+const rowSelectFun=(item,index)=>{
+  let list={...item,index:index}
+console.log("ScheduleNo",item.ScheduleNo)
 // setScheduleid(item.OrdSchNo);
  setRowselectMachineOperator(list);
 }
+
+// console.log(rowselectMachineOperator);
     return (
         
         <div className='row'>
         <div className='col-md-6 col-sm-12'>
         <SingleDayShiftEditor rowselectDailyShiftTable={rowselectDailyShiftTable}
          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-         getSecondTableData={getSecondTableData}/>    
+         getSecondTableData={getSecondTableData}
+         selectedWeek={selectedWeek}
+         rowselect={rowselect}/>    
+
         <DailyOperator data={rowselectDailyShiftTable}
          selectMachineOperatorData={rowselectDailyShiftTable}
-         rowselectMachineOperator={rowselectMachineOperator}/>
+         rowselectMachineOperator={rowselectMachineOperator}
+         getMachineOperatorTableData={getMachineOperatorTableData}/>
         </div>
          
         <div className='col-md-6 col-sm-12'>
@@ -87,7 +96,7 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
            <th >From</th>
            <th >To Time</th>
            <th>Shift Instructions</th>
-           <th>Submit </th>
+           <th>Save Shift Instruction</th>
          </tr>
        </thead>
        {SingleDayShiftPlan4thTable.map((rank, i, row) => {
@@ -111,7 +120,7 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
                  </td>
                  <td><button className="button-style group-button" style={{width:"100px"}}
                  onClick={()=>updateShiftinstruction()}
-                 >Submit</button></td>
+                 >Save</button></td>
              </tr>
            </tbody>
           
@@ -128,7 +137,8 @@ const rowSelectFun=(item,index)=>{let list={...item,index:index}
         rowSelectFun={rowSelectFun}
         machineOperatorTableData={machineOperatorTableData}
         // setMachineOperatorTableData={setMachineOperatorTableData}
-        getMachineOperatorTableData={getMachineOperatorTableData}/>
+        getMachineOperatorTableData={getMachineOperatorTableData}
+        selectedWeek={selectedWeek}/>
 
        </div>   
         </div>

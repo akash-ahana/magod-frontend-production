@@ -10,9 +10,19 @@ import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
 import DeleteshiftModal from './DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
+import { useNavigate, } from 'react-router-dom'
+import PrintWeeklyplan from './PrintWeeklyplan';
+
 // import MachineOperatorTable from './MachineOperatorTable';
 
 function NewCalender(props) {
+
+  //open Print Pdf
+  const navigate=useNavigate()
+  const openPdfmodel = () => {
+    navigate('PrintWeeklyplan',{state:{selectedWeek:selectedWeek}})
+  }
+
 
   //Header Component
   const [dataShiftTypes, setDataShiftTypes] = useState([]);
@@ -78,10 +88,10 @@ function NewCalender(props) {
 
   }
 
-  console.log('Selected Shift after setting ', selectedShift)
-  console.log('Selected Machine after setting ', selectedMachine)
-  console.log('Selected Operator after Setting', selectedOperator);
-  console.log('Selected Shift In Charge', selectedShiftIncharge)
+  // console.log('Selected Shift after setting ', selectedShift)
+  // console.log('Selected Machine after setting ', selectedMachine)
+  // console.log('Selected Operator after Setting', selectedOperator);
+  // console.log('Selected Shift In Charge', selectedShiftIncharge)
 
 
   useEffect(() => {
@@ -173,7 +183,7 @@ function NewCalender(props) {
     { checkboxValue: 5, isChecked: checkbox6.current.checked, ShiftDate: selectedWeek[5], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
     { checkboxValue: 6, isChecked: checkbox7.current.checked, ShiftDate: selectedWeek[6], Shift: selectedShift, Shift_Ic: selectedShiftIncharge }])
 
-    console.log('Create Weekly SHIFT plan is Clicked')
+    // console.log('Create Weekly SHIFT plan is Clicked')
 
          const NewWeekState  = [...weekState]
 
@@ -313,33 +323,80 @@ function NewCalender(props) {
        }
        setSelectedWeek(weekArray)
       }
-      
     }
-    const [rowselect,setRowselect]=useState()
-    const rowSelectFun=(item,index)=>{let list={...item,index:index} 
-    console.log('ITEM IS ' , item)
+    const [rowselect,setRowselect]=useState({})
+    const rowSelectFun=(item,index)=>{
+      let list={item,index:index} 
+    // console.log('ITEM IS' , item)
     setRowselect(list);
   }
+console.log("selected row of data table is ",rowselect)
+  // useMemo(() => {
+  //   setRowselect(selectedWeek[0])
+  // },[selectedWeek[0]])
 
+// Default row select for Date table
   useMemo(() => {
-    setRowselect(selectedWeek[0])
-  }
-    , [selectedWeek[0]])
+    setRowselect({item : selectedWeek[0],index:0})
+  },[selectedWeek[0]])
 
-  console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect)
+console.log(rowselect)
+  
+
+  // console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
   // console.log("ScheduleNo",item.ScheduleNo)      setScheduleid(item.OrdSchNo);      setRowselect(list);    }
 
   //console.log('Selected Week is ' , selectedWeek)
-  console.log('week State is  is is ', weekState)
+  // console.log('week State is  is is ', weekState)
 
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
   const getSingleDayShiftPlan4thTable = () => {
-
+  //  console.log(rowselect)
     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
         console.log('response data is null')
       } else {
+        console.log('SINGLE DAY SHIFT PLAN 4TH TABLE ' , response.data)
+        if(response.data.length ===0 ) { 
+          console.log('DATA IS EMPTY')
+      } else {
+          console.log('DATA IS PRESENT')
+          for(let i =0 ; i < response.data.length ; i++) {
+              let dateSplit = response.data[i].ShiftDate.split("-");
+              let year = dateSplit[2];
+              let month = dateSplit[1];
+              let day = dateSplit[0];
+              let finalDay = year+"-"+month+"-"+day 
+              console.log( 'RESPONSE SHIFT DATE IS ' , finalDay)
+              response.data[i].ShiftDate = finalDay 
+
+              let dateSplitFromTime = response.data[i].FromTime.split("-");
+              console.log( ' DATE SPLIT RESPONSE From tIME IS ' , dateSplitFromTime)
+              let yearFromTime = dateSplitFromTime[0];
+              let monthFromTime = dateSplitFromTime[1];
+              let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
+              let dayFromTimeFinal = dayFromTimeINITIAL[0]
+              let time = dayFromTimeINITIAL[1]
+              let finalDayFromTime = dayFromTimeFinal+"-"+monthFromTime+"-"+yearFromTime+" "+time
+              console.log( 'RESPONSE From tIME IS ' , finalDayFromTime)
+              response.data[i].FromTime = finalDayFromTime 
+
+              let dateSplitToTime = response.data[i].ToTime.split("-");
+              console.log( ' DATE SPLIT RESPONSE To tIME IS ' , dateSplitToTime)
+              let yearToTime = dateSplitToTime[0];
+              let monthToTime = dateSplitToTime[1];
+              let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
+              let dayToTimeFinal = dayToTimeINITIAL[0]
+              let time1 = dayToTimeINITIAL[1]
+              let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time
+              console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
+              response.data[i].ToTime = finalDayToTime 
+              //data[i].FromTime = finalDayFromTime 
+
+          } 
+      }
+
         setSingleDayShiftPlan4thTable(response.data)
       }
 
@@ -349,6 +406,10 @@ function NewCalender(props) {
   useEffect(() => {
     getSingleDayShiftPlan4thTable()
   }, [rowselect])
+
+  // useEffect(() => {
+  //   getSingleDayShiftPlan4thTable()
+  // }, [selectedWeek])
 
   const [secondTableShiftState, setSecondTableShiftState] = useState([])
 
@@ -365,7 +426,8 @@ function NewCalender(props) {
 
     })
   }
-  console.log('Second Table Sift State in New Calender component', secondTableShiftState)
+  // console.log('Second Table Sift State in New Calender component', secondTableShiftState)
+  // console.log(selectedWeek)
   useEffect(() => {
     getSecondTableData()
   }, [selectedWeek])
@@ -373,7 +435,7 @@ function NewCalender(props) {
   
 
   const onSetMachineOperators = () => {
-    console.log('Set Machine Operators Clicked', 'Operator Clicked is ', selectedOperator, ' Selected MACHINE IS ', selectedMachine, 'Selected Shift is ', selectedShift, 'Selected Shift Incharge is ', selectedShiftIncharge, 'Week Selected is ', weekState)
+    // console.log('Set Machine Operators Clicked', 'Operator Clicked is ', selectedOperator, ' Selected MACHINE IS ', selectedMachine, 'Selected Shift is ', selectedShift, 'Selected Shift Incharge is ', selectedShiftIncharge, 'Week Selected is ', weekState)
     setWeekState1([{ checkboxValue: 0, isChecked: checkbox1.current.checked, ShiftDate: selectedWeek[0], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
     { checkboxValue: 1, isChecked: checkbox2.current.checked, ShiftDate: selectedWeek[1], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
     { checkboxValue: 2, isChecked: checkbox3.current.checked, ShiftDate: selectedWeek[2], Shift: selectedShift, Shift_Ic: selectedShiftIncharge, Machine: selectedMachine, Operator: selectedOperator },
@@ -384,7 +446,7 @@ function NewCalender(props) {
 
    }
 
-   const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState({})
+   const [rowselectDailyShiftTable,setRowselectDailyShiftTable]=useState('')
     const rowSelectFunForDailyShiftTable=(item,index)=>{
         let list={...item,index:index}
         // console.log("ScheduleNo",item.ScheduleNo)    
@@ -402,17 +464,46 @@ const openSetMachinemodal=()=>{
 
 //MachineOperator Table
 const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-    const getMachineOperatorTableData = () => {
+console.log(rowselectDailyShiftTable)
 
-        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => {console.log('Api response is ' , response)
-        if(response.data === '') {
-            console.log('response data is null')
+    const getMachineOperatorTableData = () => {
+        let constRowSelectDailyShiftTable = rowselectDailyShiftTable
+        // console.log(constRowSelectDailyShiftTable)
+        if(typeof(constRowSelectDailyShiftTable) !== 'undefined' && constRowSelectDailyShiftTable != null) {
+          // console.log('data is there')
+          //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
+          // let year = dateSplit[2];
+          // let month = dateSplit[1];
+          // let day = dateSplit[0];
+          // let finalDay = year+"-"+month+"-"+day;
+          // constRowSelectDailyShiftTable.ShiftDate =  finalDay
         } else {
-            setMachineOperatorTableData(response.data)
+          // console.log('data is  not there')
+        }
+        // if((constRowSelectDailyShiftTable && Object.keys(constRowSelectDailyShiftTable).length === 0 && Object.getPrototypeOf(constRowSelectDailyShiftTable) === Object.prototype)) {
+        //     console.log('data is null')
+        // } else {
+        //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
+        //   let year = dateSplit[2];
+        //   let month = dateSplit[1];
+        //   let day = dateSplit[0];
+        //   let finalDay = year+"-"+month+"-"+day;
+        //   constRowSelectDailyShiftTable.ShiftDate =  finalDay
+        // }
+       
+
+
+        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
+        {console.log('Api response is ' , response)
+        if(response.data === '') {
+            // console.log('response data is null')
+        } else {
+          // console.log(response.data);
+
+            setMachineOperatorTableData(response.data);
         }
       
     })
-    
        }
 
 //Delete Weekshift
@@ -421,7 +512,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
         setOpendeleteshift(true);
        }
        const onClickDeleteWeekShift = () => {
-         console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
+        //  console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
           axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', 
           { selectedShift: selectedShift, selectedWeek: selectedWeek })
           .then((response) => { console.log(response)
@@ -432,7 +523,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
 
 //DELETE MACHINE OPERATOR FOR WEEK 
         const onClickDeleteWeekOperatorMachine = () => {
-          console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
+          // console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
            axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekOperatorForMachine', {selectedShift : selectedShift, selectedWeek: selectedWeek, selectedMachine : selectedMachine , selectedOperator : selectedOperator})
            .then((response) => {console.log(response)
              getSecondTableData();
@@ -443,7 +534,6 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
-
   return (
     <>
     
@@ -461,6 +551,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
                   <select className="ip-select" onChange={handleShiftTypeChange}>
+                    <option selected>Select Shift</option>
                     {dataShiftTypes.map((dataShiftTypes) => (
                       <option value={dataShiftTypes}>{dataShiftTypes}</option>
                     ))}
@@ -468,13 +559,14 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 </div>
 
                 <button className="button-style mt-2 group-button mt-4"
-                  style={{ width: "180px" }}>
+                  style={{ width: "150px" }} onClick={openPdfmodel}>
                   Print Weekly Plan
                 </button>
 
                 <div className="col-md-3">
                   <label className="form-label">Machine</label>
                   <select className="ip-select" onChange={handleMachineChange}>
+                  <option selected>Select Machine</option>
                     {dataMachineList.map((dataMachineList) => (
                       <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
                     ))}
@@ -491,8 +583,8 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
     </div>
 
           <div className='col-md-4 col-sm-12'>
-            <div>
-              <p>Display Date</p>
+            <div style={{color:"red",fontSize:"14px"}}>
+              <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
             </div>
           </div>
 
@@ -502,6 +594,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 <div className="col-md-3">
                   <label className="form-label">Shift Incharge</label>
                   <select className="ip-select" onChange={handleShiftIncharge}>
+                  <option selected>Select Shift Incharge</option>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
                       <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
                     ))}
@@ -518,6 +611,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 <div className="col-md-3">
                   <label className="form-label">Operator</label>
                   <select className="ip-select" onChange={handleOperatorList}>
+                  <option selected>Select Operator</option>
                     {dataOperatorList.map((dataOperatorList) => (
                       <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
                     ))}
@@ -525,7 +619,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 </div>
 
             <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "140px"}} onClick = {()=>{onSetMachineOperators()
+               style={{ width: "200px"}} onClick = {()=>{onSetMachineOperators()
                 openSetMachinemodal()}}>
                Set Machine Operator
             </button>
@@ -533,22 +627,34 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
           </div>
       </div>
     </div>
-    
-  </div>
-  <div style={{marginLeft:"610px"}}>
-     <button className="button-style mt-2 group-button mt-4"
-      style={{ width: "150px" }} 
-      // onClick={onClickDeleteWeekShift}
-      onClick={openDeleteshiftmodal}
-      >Delete Week Shift</button>
+    <div className='col-md-4 col-sm-12'>
+            <div>
+            </div>
+          </div>
 
-        <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "200px",marginLeft:"90px"}} onClick = {openDeletemachineoperator}>
+          <div className="col-md-8 col-sm-12">
+            <div className="ip-box form-bg mt-3 ">
+              <div className='row'>
+                <div className="col-md-3">
+                </div>
+
+                <button className="button-style mt-2 group-button mt-4"
+              style={{ width: "150px" }} 
+              // onClick={onClickDeleteWeekShift}
+              onClick={openDeleteshiftmodal}
+             >Delete Week Shift</button>
+
+                <div className="col-md-3">
+                </div>
+
+                <button className="button-style mt-2 group-button mt-4"
+               style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
                Delete Machine Operator 
-            </button>
+              </button>
+          </div>
+      </div>
+    </div>    
   </div>
-
-
   </div>
   <hr  style={{
     backgroundColor: 'black',
@@ -723,12 +829,15 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
             setSingleDayShiftPlan4thTable={setSingleDayShiftPlan4thTable}
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
             rowselectDailyShiftTable={rowselectDailyShiftTable}
+            selectedWeek={selectedWeek}
             getMachineOperatorTableData={getMachineOperatorTableData}
             machineOperatorTableData={machineOperatorTableData}
             setRowselectDailyShiftTable={setRowselectDailyShiftTable}
             getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-            getSecondTableData={getSecondTableData}/>
-            </div>
+            getSecondTableData={getSecondTableData}
+            rowselect={rowselect}
+            />
+
             </div>
            
              
@@ -775,9 +884,14 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               selectedWeek={selectedWeek}
               selectedOperator={selectedOperator}/>
 
-        </>
+              {/* <PrintWeeklyplan selectedWeek={selectedWeek}/> */}
+
+      
+</div>
+</>
         
     );
-}
+ }   
+    
 
 export default NewCalender;

@@ -22,8 +22,8 @@ export default function DeleteMachineoperatorweekModal({opendeleteoperator,setOp
           <Modal.Title>Delete Machine Operator for week</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are you sure want to delete { selectedOperator} for {selectedMachine} for 
-         {selectedShift} shift?
+        <Modal.Body>Are you sure want to delete <b>{selectedOperator}</b> for <b>{selectedMachine}</b> for &nbsp;
+         <b>{selectedShift}</b> shift?
         </Modal.Body> 
 
         <Modal.Footer>

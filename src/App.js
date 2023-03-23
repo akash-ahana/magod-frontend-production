@@ -21,6 +21,8 @@ import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/Sch
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
 import ScheduleListService from "./pages/Production/Production/ScheduleList/Service/ScheduleListService";
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
+import PrintWeeklyplan from "./pages/Production/Shift Planner/PrintWeeklyplan";
+import PrintDailyShift from "./pages/Production/Shift Planner/PrintDailyShift";
 
 
 function App() {
@@ -57,8 +59,12 @@ function App() {
             
             <Route path="shiftplanner">
                 <Route index={true} element={<ShiftPlanner/>}/>
-                <Route path="shifteditor" element={<ShiftEditor/>} />
-                <Route path="weeklyShifteditor" element={<ShiftEditor/>} />
+                  <Route path="shifteditor">
+                    <Route   index ={true} element={<ShiftEditor/>} />
+                    <Route path="PrintWeeklyplan" element={<PrintWeeklyplan/>} />
+                    <Route path="PrintDailyplan" element={<PrintDailyShift/>}/>
+                {/* <Route path="weeklyShifteditor" element={<ShiftEditor/>} /> */}
+                </Route>
             </Route>
 
           </Route>

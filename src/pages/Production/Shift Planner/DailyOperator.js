@@ -5,12 +5,12 @@ import DeleteOperatorfordayModal from './DeleteOperatorfordayModal';
 
 
 function DailyOperator(props) {
-  console.log(props.rowselectMachineOperator[0])
+  console.log(props.rowselectMachineOperator.Machine);
 
     const [selectedMachine , setSelectedMachine] = useState('');
     const [ dataMachineList, setGetShiftTypesData] = useState([]);
-    const[dataOperatorList, setDataOperatorList] = useState([]);
-    const[selectedOperator, setSelectedOperator] = useState('');
+    const [dataOperatorList, setDataOperatorList] = useState([]);
+    const [selectedOperator, setSelectedOperator] = useState('');
 
     const getMachineListData = async () => {
         const { data } = await axios.get(`http://172.16.20.61:5000/productionSetup/getallmachines`);
@@ -37,38 +37,43 @@ function DailyOperator(props) {
     
       }
 
-      console.log('Selected Machine after setting in the daily set ' , selectedMachine)
-      console.log('Selected Operator after Setting',selectedOperator);
-      console.log('PROPS FROM Daily Week operator box is ', props.data)
-      console.log('MAIN PROPS', props.selectMachineOperatorData)
+      // console.log('Selected Machine after setting in the daily set ' , selectedMachine)
+      // console.log('Selected Operator after Setting',selectedOperator);
+      // console.log('PROPS FROM Daily Week operator box is ', props.data)
+      // console.log('MAIN PROPS', props.selectMachineOperatorData)
 
       useEffect(() => {
         getMachineListData(); 
         getOperatorListData();
-        
       }, []);
 
       const [MachineOperatorDay, setMachineOperatorDay] = useState([])
 
       useEffect(() => {
+        
+        //let constMachineOperatorDay = MachineOperatorDay
+        //console.log(constMachineOperatorDay)
         axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperatorDay', MachineOperatorDay)
         .then((response) => {console.log(response)
         //getSecondTableData()
-        setMachineOperatorDay('')
+        setMachineOperatorDay('');
+        props.getMachineOperatorTableData();
       })
       },[MachineOperatorDay])
 
       const createDailyOperatorList = () => {
-        console.log('createDailyOperatorList is clicked ' , ' Machine Selected is ' , selectedMachine , ' operator Selected is ' , selectedOperator, 'Shift is ' , props.data)
+        // console.log('createDailyOperatorList is clicked ' , ' Machine Selected is ' , selectedMachine , ' operator Selected is ' , selectedOperator, 'Shift is ' , props.data)
         setMachineOperatorDay({ShiftDate : props.data.ShiftDate , Shift : props.data.Shift , FromTime: props.data.FromTime , ToTime : props.data.ToTime , Machine : selectedMachine , Operator : selectedOperator , DayShiftID : props.data.ShiftId})
     }
 
 
 
     const onDeleteOperatorForDay = () => {
-        console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator[0])
-        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay', props.rowselectMachineOperator[0])
+        // console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator);
+        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay',
+         props.rowselectMachineOperator)
         .then((response) => {console.log(response)
+          props.getMachineOperatorTableData();
         //getSecondTableData()
         //setMachineOperatorDay('')
       })
@@ -98,6 +103,7 @@ function DailyOperator(props) {
                  </div>
                  <div style={{marginLeft:"33px",marginTop:"6px"}}>
                  <select className="ip-select" onChange={handleMachineChange}>
+                  <option selected>{props.rowselectMachineOperator.Machine}</option>
                  {dataMachineList.map((dataMachineList) => (
                     <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
                    ))}
@@ -112,6 +118,7 @@ function DailyOperator(props) {
                 </div>
                 <div style={{marginLeft:"30px",marginTop:"6px"}}>
                 <select className="ip-select" onChange={handleOperatorList}>
+                  <option selected>{props.rowselectMachineOperator.Operator}</option>
                  {dataOperatorList.map((dataOperatorList)=>(
                   <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
                   ))}
@@ -136,12 +143,12 @@ function DailyOperator(props) {
 
         <AddOperatorModal  
         addoperator={addoperator}
-        setAddoperator={setAddoperator}/>
+        setAddoperator={setAddoperator}
+        />
 
         <DeleteOperatorfordayModal
         deleteoperator={deleteoperator}
-        setDeleteoperator={setDeleteoperator}/>
-            
+        setDeleteoperator={setDeleteoperator}/>   
         </div>
     );
 }

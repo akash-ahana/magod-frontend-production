@@ -32,7 +32,7 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
           <Modal.Title>Set Machine </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are you sure want add {selectedOperator} to {selectedMachine} for the week?</Modal.Body> 
+        <Modal.Body>Are you sure want add <b>{selectedOperator}</b> to <b>{selectedMachine}</b> for the week?</Modal.Body> 
 
         <Modal.Footer>
           <Button variant="primary" onClick={()=>setMachineoperators()}>
