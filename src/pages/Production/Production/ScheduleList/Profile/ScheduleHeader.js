@@ -59,10 +59,10 @@ export default function ScheduleHeader() {
              Production list
             </button>
 
-            <button className="button-style mt-2 group-button" 
+            {/* <button className="button-style mt-2 group-button" 
               style={{ width: "120px" }}>
               Design
-            </button>
+            </button> */}
           </div>
       </div>
     </div>

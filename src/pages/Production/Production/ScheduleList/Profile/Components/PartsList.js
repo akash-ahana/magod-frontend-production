@@ -88,7 +88,7 @@ const onChangeInput = (e, TaskNo) => {
           <tbody className='tablebody'>
            <tr  key={item.TaskNo}>
            <td>{item.DwgName}</td>
-           <td>{item.QtyProgrammed}</td>
+           <td>{item.QtyToNest}</td>
            <td>{item.QtyProduced}</td>
            <td>
            <input className='table-cell-editor '
@@ -112,7 +112,7 @@ const onChangeInput = (e, TaskNo) => {
            <td>{item.LOC}</td>
            <td>{item.Pierces}</td>
            <td>{item.Part_Area}</td>
-           <td>{item.UnitWt}</td>
+           <td>{item.Unit_Wt}</td>
            <td>
             <input className="form-check-input"
                  type="checkbox"

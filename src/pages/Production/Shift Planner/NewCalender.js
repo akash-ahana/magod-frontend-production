@@ -99,7 +99,6 @@ function NewCalender(props) {
     getMachineListData();
     getShiftInchargeData();
     getOperatorListData();
-
   }, []);
 
 
@@ -183,20 +182,12 @@ function NewCalender(props) {
     { checkboxValue: 5, isChecked: checkbox6.current.checked, ShiftDate: selectedWeek[5], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
     { checkboxValue: 6, isChecked: checkbox7.current.checked, ShiftDate: selectedWeek[6], Shift: selectedShift, Shift_Ic: selectedShiftIncharge }])
 
-    // console.log('Create Weekly SHIFT plan is Clicked')
-
-         const NewWeekState  = [...weekState]
-
-         
-          //console.log(res.data)
-       
-          
+         const NewWeekState  = [...weekState]          
      }
 
 
   //Calender Component Function
   const selectWeek = (e) => {
-    // console.log('ONChange in Calender')
     setDate(e)
     createWeek(e)
   }
@@ -215,6 +206,8 @@ function NewCalender(props) {
   }
 
   const createWeek = (cuurentDate) => {
+    setMachineOperatorTableData([])
+
     //console.log('Create Week Array ')
     let weekArray = [];
     if (cuurentDate.toString().includes("Mon")) {
@@ -395,7 +388,7 @@ console.log("selected row of data table is ",rowselect)
               //data[i].FromTime = finalDayFromTime 
           } 
       }
-        setSingleDayShiftPlan4thTable(response.data)
+        setSingleDayShiftPlan4thTable(response.data);
       }
     })
   }
@@ -531,11 +524,12 @@ console.log(rowselectDailyShiftTable)
           <div className='col-md-4 col-sm-12 mt-4'>
             <div>
               <h4 className="form-title">Production Department: Shift Editor</h4>
+              <h6>Weekly Shift Editor</h6>
             </div>
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3 ">
+            <div className="ip-box form-bg mt-3">
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
@@ -571,14 +565,14 @@ console.log(rowselectDailyShiftTable)
       </div>
     </div>
 
-          <div className='col-md-4 col-sm-12'>
+          <div className='col-md-4 col-sm-12 mt-4'>
             <div style={{color:"red",fontSize:"14px"}}>
               <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
             </div>
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3 ">
+            <div className="ip-box form-bg mt-1">
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift Incharge</label>
@@ -622,12 +616,12 @@ console.log(rowselectDailyShiftTable)
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3 ">
+            <div className="ip-box form-bg mt-1">
               <div className='row'>
                 <div className="col-md-3">
                 </div>
 
-                <button className="button-style mt-2 group-button mt-4"
+                <button className="button-style mt-2 group-button mt-3"
               style={{ width: "150px" }} 
               // onClick={onClickDeleteWeekShift}
               onClick={openDeleteshiftmodal}
@@ -636,7 +630,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                 </div>
 
-                <button className="button-style mt-2 group-button mt-4"
+                <button className="button-style mt-2 group-button mt-3"
                style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
                Delete Machine Operator 
               </button>
@@ -836,7 +830,8 @@ console.log(rowselectDailyShiftTable)
               weekState1={weekState1}
               setWeekState1={setWeekState1}
               getSecondTableData={getSecondTableData}
-              getMachineOperatorTableData={getMachineOperatorTableData}/>
+              getMachineOperatorTableData={getMachineOperatorTableData}
+              getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}/>
 
               <DeleteshiftModal
               opendeleteshift={opendeleteshift}

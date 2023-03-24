@@ -9,8 +9,7 @@ export default function MachineTable({selectedRowFn,selectedRow}) {
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"430px",overflowY: "scroll"}}>
-      
+     <div style={{height:"430px",overflowY: "auto"}}>
      <Table bordered>
        <thead style={{textAlign:"center"}} >
          <tr>
