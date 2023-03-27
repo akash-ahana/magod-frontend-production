@@ -382,7 +382,7 @@ console.log("selected row of data table is ",rowselect)
               let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
               let dayToTimeFinal = dayToTimeINITIAL[0]
               let time1 = dayToTimeINITIAL[1]
-              let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time
+              let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time1
               console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
               response.data[i].ToTime = finalDayToTime 
               //data[i].FromTime = finalDayFromTime 

@@ -41,8 +41,8 @@ const onChangeInput = (e, TaskNo) => {
     <div>
         <div className="row mt-2">
            <button className="button-style mt-2 group-button"
-              style={{ width: "150px",marginLeft:"20px" }}>
-              UpDate Task Parts
+              style={{ width: "180px",marginLeft:"20px" }}>
+              Update Task Parts
             </button>
 
             <button className="button-style mt-2 group-button"
