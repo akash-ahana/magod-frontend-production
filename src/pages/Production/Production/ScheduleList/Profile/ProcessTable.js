@@ -35,13 +35,13 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
         <>
         <tbody className='tablebody'>
          <tr onClick={()=>processtableSelectFun(item,key)} className={key===processrowselect?.index? 'selcted-row-clr':'' }>
-          <td>{item.Schedule_Status}</td>
+          <td>{item.TStatus}</td>
           <td>{item.TaskNo}</td>
           <td>{item.Mtrl_Code}</td>
-          <td>{item.Mprocess}</td>
+          <td>{item.MProcess}</td>
           <td>{item.EstimatedTime}</td>
           <td>{item.TaskProcessTime}</td>
-          <td>{item.DwgsNested}</td>
+          <td>{item.NoOfDwgs}</td>
           <td>{item.DwgsNested}</td>
           <td>{item.TotalParts}</td>
           <td>{item.PartsNested}</td>

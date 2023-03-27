@@ -7,19 +7,17 @@ import axios from 'axios';
 
 
 export default function SetMachineModal({opensetmachine,setOpensetmachine,selectedMachine,
-    selectedOperator, selectedWeek,weekState1,setWeekState1,getMachineOperatorTableData}) {
+    selectedOperator, selectedWeek,weekState1,setWeekState1,getMachineOperatorTableData,
+    getSingleDayShiftPlan4thTable}) {
     const handleClose=()=>{
         setOpensetmachine(false);
     }
-
-    // useEffect(() => {
-        
-    //   },[weekState1])
 
       const setMachineoperators=()=>{
         axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperators', weekState1)
         .then((response) => {console.log(response)
         getMachineOperatorTableData();
+        getSingleDayShiftPlan4thTable();
         handleClose();
         setWeekState1('')
       })

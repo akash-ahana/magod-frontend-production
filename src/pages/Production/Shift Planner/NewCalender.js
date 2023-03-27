@@ -4,14 +4,14 @@ import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
 import Table from "react-bootstrap/Table";
 import axios from "axios";
- import SecondTable from './SecondTable';
- import DailyShiftTable from './DailyShiftTable';
+import SecondTable from './SecondTable';
+import DailyShiftTable from './DailyShiftTable';
 import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
 import DeleteshiftModal from './DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom'
-import PrintWeeklyplan from './PrintWeeklyplan';
+// import PrintWeeklyplan from './PrintWeeklyplan';
 
 // import MachineOperatorTable from './MachineOperatorTable';
 
@@ -99,7 +99,6 @@ function NewCalender(props) {
     getMachineListData();
     getShiftInchargeData();
     getOperatorListData();
-
   }, []);
 
 
@@ -183,20 +182,12 @@ function NewCalender(props) {
     { checkboxValue: 5, isChecked: checkbox6.current.checked, ShiftDate: selectedWeek[5], Shift: selectedShift, Shift_Ic: selectedShiftIncharge },
     { checkboxValue: 6, isChecked: checkbox7.current.checked, ShiftDate: selectedWeek[6], Shift: selectedShift, Shift_Ic: selectedShiftIncharge }])
 
-    // console.log('Create Weekly SHIFT plan is Clicked')
-
-         const NewWeekState  = [...weekState]
-
-         
-          //console.log(res.data)
-       
-          
+         const NewWeekState  = [...weekState]          
      }
 
 
   //Calender Component Function
   const selectWeek = (e) => {
-    // console.log('ONChange in Calender')
     setDate(e)
     createWeek(e)
   }
@@ -215,6 +206,8 @@ function NewCalender(props) {
   }
 
   const createWeek = (cuurentDate) => {
+    setMachineOperatorTableData([])
+
     //console.log('Create Week Array ')
     let weekArray = [];
     if (cuurentDate.toString().includes("Mon")) {
@@ -340,7 +333,7 @@ console.log("selected row of data table is ",rowselect)
     setRowselect({item : selectedWeek[0],index:0})
   },[selectedWeek[0]])
 
-console.log(rowselect)
+// console.log(rowselect)
   
 
   // console.log('THE SELECTED DAY FORTHE PAGE IS ', rowselect);
@@ -389,33 +382,24 @@ console.log(rowselect)
               let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
               let dayToTimeFinal = dayToTimeINITIAL[0]
               let time1 = dayToTimeINITIAL[1]
-              let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time
+              let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time1
               console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
               response.data[i].ToTime = finalDayToTime 
               //data[i].FromTime = finalDayFromTime 
-
           } 
       }
-
-        setSingleDayShiftPlan4thTable(response.data)
+        setSingleDayShiftPlan4thTable(response.data);
       }
-
     })
-
   }
+
   useEffect(() => {
     getSingleDayShiftPlan4thTable()
   }, [rowselect])
 
-  // useEffect(() => {
-  //   getSingleDayShiftPlan4thTable()
-  // }, [selectedWeek])
 
   const [secondTableShiftState, setSecondTableShiftState] = useState([])
-
-
   const getSecondTableData = () => {
-
     const res = axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', selectedWeek).then((response) => {
       console.log('Api response is ', response)
       if (response.data === '') {
@@ -499,10 +483,8 @@ console.log(rowselectDailyShiftTable)
             // console.log('response data is null')
         } else {
           // console.log(response.data);
-
             setMachineOperatorTableData(response.data);
         }
-      
     })
        }
 
@@ -534,6 +516,7 @@ console.log(rowselectDailyShiftTable)
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
+          
   return (
     <>
       <div style={{ marginTop: "-35px" }}>
@@ -541,11 +524,12 @@ console.log(rowselectDailyShiftTable)
           <div className='col-md-4 col-sm-12 mt-4'>
             <div>
               <h4 className="form-title">Production Department: Shift Editor</h4>
+              <h6>Weekly Shift Editor</h6>
             </div>
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3 ">
+            <div className="ip-box form-bg mt-3">
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
@@ -581,14 +565,14 @@ console.log(rowselectDailyShiftTable)
       </div>
     </div>
 
-          <div className='col-md-4 col-sm-12'>
+          <div className='col-md-4 col-sm-12 mt-4'>
             <div style={{color:"red",fontSize:"14px"}}>
               <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
             </div>
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3 ">
+            <div className="ip-box form-bg mt-1">
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift Incharge</label>
@@ -632,12 +616,12 @@ console.log(rowselectDailyShiftTable)
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3 ">
+            <div className="ip-box form-bg mt-1">
               <div className='row'>
                 <div className="col-md-3">
                 </div>
 
-                <button className="button-style mt-2 group-button mt-4"
+                <button className="button-style mt-2 group-button mt-3"
               style={{ width: "150px" }} 
               // onClick={onClickDeleteWeekShift}
               onClick={openDeleteshiftmodal}
@@ -646,7 +630,7 @@ console.log(rowselectDailyShiftTable)
                 <div className="col-md-3">
                 </div>
 
-                <button className="button-style mt-2 group-button mt-4"
+                <button className="button-style mt-2 group-button mt-3"
                style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
                Delete Machine Operator 
               </button>
@@ -846,7 +830,8 @@ console.log(rowselectDailyShiftTable)
               weekState1={weekState1}
               setWeekState1={setWeekState1}
               getSecondTableData={getSecondTableData}
-              getMachineOperatorTableData={getMachineOperatorTableData}/>
+              getMachineOperatorTableData={getMachineOperatorTableData}
+              getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}/>
 
               <DeleteshiftModal
               opendeleteshift={opendeleteshift}

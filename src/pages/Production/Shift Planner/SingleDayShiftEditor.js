@@ -73,6 +73,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
     return (
         <div style={{textAlign:"center",backgroundColor:"lightblue",
         marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
+          <h6>Daily Shift Editor</h6>
 
           <div style={{color:"red"}}> <b>Shift Date :  {rowselectDailyShiftTable.ShiftDate}</b></div>
            <br></br>
@@ -80,7 +81,8 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
 
             <div className="col-md-5"style={{textAlign:"center",marginLeft:"40px",width:"120px"}}>
                 <label className="form-label">Shift InCharge</label>
-                <select className="ip-select" onChange={handleShiftIncharge} value={selectedShiftIncharge}>
+                <select className="ip-select" onChange={handleShiftIncharge}>
+                  <option selected>{rowselectDailyShiftTable.Shift_Ic}</option>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
                         <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
                     ))}

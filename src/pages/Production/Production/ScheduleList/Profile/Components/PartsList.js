@@ -41,8 +41,8 @@ const onChangeInput = (e, TaskNo) => {
     <div>
         <div className="row mt-2">
            <button className="button-style mt-2 group-button"
-              style={{ width: "150px",marginLeft:"20px" }}>
-              UpDate Task Parts
+              style={{ width: "180px",marginLeft:"20px" }}>
+              Update Task Parts
             </button>
 
             <button className="button-style mt-2 group-button"
@@ -88,7 +88,7 @@ const onChangeInput = (e, TaskNo) => {
           <tbody className='tablebody'>
            <tr  key={item.TaskNo}>
            <td>{item.DwgName}</td>
-           <td>{item.QtyProgrammed}</td>
+           <td>{item.QtyToNest}</td>
            <td>{item.QtyProduced}</td>
            <td>
            <input className='table-cell-editor '
@@ -112,7 +112,7 @@ const onChangeInput = (e, TaskNo) => {
            <td>{item.LOC}</td>
            <td>{item.Pierces}</td>
            <td>{item.Part_Area}</td>
-           <td>{item.UnitWt}</td>
+           <td>{item.Unit_Wt}</td>
            <td>
             <input className="form-check-input"
                  type="checkbox"
