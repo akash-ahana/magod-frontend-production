@@ -26,15 +26,17 @@ export default function PartsList({taskno}){
 
 //  console.log(partlistdata);
 
-const onChangeInput = (e, TaskNo) => {
-  const { name, value } = e.target
-  console.log('value', value)
-
-  const editData = partlistdata.map((item) =>
-    item.TaskNo === TaskNo && name ? { ...item, [name]: value } : item
-  )
-  setPartlistdata(editData)
-}
+const [cleared,setCleared]=useState('')     
+       const onChangeInput = (e, QtyCleared) => {
+        const { name, value } = e.target
+        setCleared(value);
+        // console.log('value', value)
+      
+        // const editData =rowselectDailyShiftTable.map((item) =>
+        //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
+        // )
+        // setRowselectDailyShiftTable(editData);
+      }
 
  
   return (
@@ -92,11 +94,11 @@ const onChangeInput = (e, TaskNo) => {
            <td>{item.QtyProduced}</td>
            <td>
            <input className='table-cell-editor '
-           name="cleared"
-           defaultValue={item.QtyCleared}
-           type="number"
-           onChange={(e)=>onChangeInput(e,item.TaskNo)}
-            placeholder="Type Cleared"
+             name="cleared"
+             defaultValue={item.QtyCleared}
+             type="number"
+             onChange={(e)=>onChangeInput(e,item.QtyCleared)}
+             placeholder="Type Cleared"
          />
          </td>
            <td>{item.Task_Part_ID}</td>

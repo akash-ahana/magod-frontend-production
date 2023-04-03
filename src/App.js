@@ -23,6 +23,12 @@ import ScheduleListService from "./pages/Production/Production/ScheduleList/Serv
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
 import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/PrintWeeklyplan";
 import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/PrintDailyShift";
+import PrintShowStatus from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowStatus/PrintShowStatus";
+import ShowPartsPdf from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowParts/ShowPartsPdf";
+import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowStatus/PrintShowStatusFabrication";
+import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowParts/ShowPartsPdfFabrication";
+import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
+import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
 
 
 function App() {
@@ -37,9 +43,23 @@ function App() {
 
            <Route path="production">
                 <Route index={true} element={<Production/>}/>
-                <Route path="schedulelistprofile" element={<ScheduleList/>} />
-                <Route path="schedulelistservice" element={<ScheduleListService/>} />
-                <Route path="schedulelistfabrication" element={<ScheduleListFabrication/>} />
+                   <Route path="schedulelistprofile">
+                      <Route index ={true}  element={<ScheduleList/>} />
+                      <Route path="PrintShowStatus" element={<PrintShowStatus/>} />
+                      <Route path="PrintShowParts" element={<ShowPartsPdf/>} />
+                  </Route>
+
+                  <Route path="schedulelistfabrication">
+                      <Route index ={true}  element={<ScheduleListFabrication/>} />
+                      <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} />
+                      <Route path="PrintFabricationShowParts" element={<ShowPartsPdfFabrication/>} />
+                  </Route>
+
+                  <Route path="schedulelistservice">
+                      <Route index ={true}   element={<ScheduleListService/>} />
+                      <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} />
+                      <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} />
+                  </Route>            
             </Route>
 
             <Route path="fabrication" element={<Fabrication/>} />

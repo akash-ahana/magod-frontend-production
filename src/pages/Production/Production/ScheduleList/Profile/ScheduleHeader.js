@@ -1,10 +1,22 @@
 import React from 'react';
 import { useGlobalContext } from '../../../../../Context/Context';
+import { useNavigate, } from 'react-router-dom'
+import { useState } from 'react';
 
 
 export default function ScheduleHeader() {
   const{schedulelistdata,setSchedulelistdata,schedulelistdatas}=useGlobalContext();
 // console.log(schedulelistdata)
+
+const navigate=useNavigate()
+  const openShowStatusPdf = () => {
+    navigate('PrintShowStatus')
+  }
+
+  const openShowPartsPdf = () => {
+    console.log("Function called")
+    navigate('PrintShowParts');
+  }
 
    const searchText = (e) => {
    let number = e.target.value;
@@ -40,12 +52,12 @@ export default function ScheduleHeader() {
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "120px"}}>
+              style={{ width: "120px"}} onClick={openShowStatusPdf}>
               Show Status
             </button>
 
             <button className="button-style mt-2 group-button" 
-               style={{ width: "120px"}}>
+               style={{ width: "120px"}} onClick={openShowPartsPdf} >
                Show Parts
             </button>
 
