@@ -44,7 +44,7 @@ const navigate=useNavigate()
        </div>
 
     <div className="col-md-9 col-sm-12">
-        <div className="ip-box form-bg mt-5 ">
+        <div className="mt-5 ">
           <div className='row'>
             <button className="button-style mt-2 group-button"
              style={{ width: "120px"}}>

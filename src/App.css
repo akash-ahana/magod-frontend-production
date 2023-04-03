@@ -240,7 +240,7 @@ input:focus {
 }
 
 .ip-select {
-  font-size: 14px;
+  font-size: 16px;
   padding: -3px 10px 10px 5px;
   display: block;
   width: 100%;
@@ -282,6 +282,13 @@ label {
 .contact-details-tbl {
   background-color: white;
 }
+
+.form-bg {
+  background-color: #e6e6e6;
+  padding: 6px 1px 2px 15px;
+  /* border-radius: 10px; */
+}
+
 
 .css-63vwl1-MuiTypography-root-MuiBreadcrumbs-root {
   font-size: 1.3rem !important;
@@ -347,8 +354,9 @@ td {
   /* background-color: rgb(43, 43, 43); */
   background-color: rgb(128, 128, 128);
   color: white;
-  position: sticky;
+  position: sticky !important;
   top: -1px;
+  z-index: 999;
   /* z-index: 100; */
 }
 

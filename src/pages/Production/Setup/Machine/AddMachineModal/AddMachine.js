@@ -65,7 +65,7 @@ export default function AddMachine({show, setShow,machinetypes}) {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <Modal.Body>
         <div className="col-md-12 col-sm-12">
-          <div className="ip-box form-bg ">
+          <div >
             <div className="row">
               <div className="col-md-12">
                 <label className=""> Machine Reference Name</label>

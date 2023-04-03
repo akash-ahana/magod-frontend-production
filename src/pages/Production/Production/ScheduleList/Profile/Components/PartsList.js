@@ -58,8 +58,8 @@ const [cleared,setCleared]=useState('')
             </button>
         </div>    
         <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>DwgName</th>
            <th>Programed</th>
@@ -84,10 +84,10 @@ const [cleared,setCleared]=useState('')
          </tr>
        </thead>
 
-       {partlistdata.map((item,key)=>{
+          <tbody className='tablebody'>
+          {partlistdata.map((item,key)=>{
         return(
           <>
-          <tbody className='tablebody'>
            <tr  key={item.TaskNo}>
            <td>{item.DwgName}</td>
            <td>{item.QtyToNest}</td>
@@ -122,10 +122,10 @@ const [cleared,setCleared]=useState('')
                  id="flexCheckDefault"/></td>
            <td></td>
          </tr>
-   </tbody>
-          </>
+         </>
         )
        })}
+   </tbody>
  </Table>
      </div>
 

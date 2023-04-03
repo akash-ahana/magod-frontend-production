@@ -87,9 +87,10 @@ console.log("ScheduleNo",item.ScheduleNo)
         </div>
          
  <div >
- <div style={{marginTop:"23px",width:"300px",height:"385px",fontSize:"15px",overflowX: "scroll",overflowY: "scroll"}}>
-<Table bordered style={{marginLeft:"5px",border:"1px"}}>
-       <thead style={{textAlign:"center",backgroundColor:"lightblue"}}>
+ <div style={{marginTop:"23px",width:"300px",height:"385px",fontSize:"15px",
+ overflowX: "scroll",overflowY: "scroll"}}>
+<Table striped className="table-data border" style={{marginLeft:"5px",border:"1px"}}>
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Shift</th>
            <th>Shift Inchare</th>
@@ -99,10 +100,12 @@ console.log("ScheduleNo",item.ScheduleNo)
            <th>Save Shift Instruction</th>
          </tr>
        </thead>
+      
+         <tbody className='tablebody'>
+           
        {SingleDayShiftPlan4thTable.map((rank, i, row) => {
     return(
         <>
-         <tbody className='tablebody'>
               <tr onClick={()=>rowSelectFunForDailyShiftTable(rank,i)} 
                className= {i=== rowselectDailyShiftTable?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
@@ -121,13 +124,11 @@ console.log("ScheduleNo",item.ScheduleNo)
                  <td><button className="button-style group-button" style={{width:"100px"}}
                  onClick={()=>updateShiftinstruction()}
                  >Save</button></td>
-             </tr>
-           </tbody>
-          
+             </tr>       
         </>
       )
-  
 })}
+           </tbody>
        </Table>
        </div>
        <MachineOperatorTable

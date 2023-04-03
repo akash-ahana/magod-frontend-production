@@ -94,7 +94,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,
         <Modal.Body>
           <h5>{selectedRow.refName}</h5>
         <div className="col-md-12 col-sm-12">
-          <div className="ip-box form-bg ">
+          <div>
             <div className="row">
         
               <div className="col-md-12 mb-4 ">

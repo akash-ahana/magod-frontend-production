@@ -529,7 +529,7 @@ console.log(rowselectDailyShiftTable)
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-3">
+            <div className="mt-3">
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
@@ -572,7 +572,7 @@ console.log(rowselectDailyShiftTable)
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-1">
+            <div className="mt-1">
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift Incharge</label>
@@ -616,7 +616,7 @@ console.log(rowselectDailyShiftTable)
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="ip-box form-bg mt-1">
+            <div className="mt-1">
               <div className='row'>
                 <div className="col-md-3">
                 </div>
@@ -657,26 +657,28 @@ console.log(rowselectDailyShiftTable)
         <div>   
             {/* <div> */}
             {/* <div> */}
-        <Table bordered style={{width:"130px",border: "1px"}}>
+        <div style={{width:"130px",border: "1px"}}>
+        <Table bordered >
        <thead style={{textAlign:"center"}}>
          <tr>
            <th>Date</th>
          </tr>
        </thead>
-       {selectedWeek.map((rank, i, row) => {
+      
+
+         <tbody className='tablebody'>
+         {selectedWeek.map((rank, i, row) => {
     return(
         <>
-         <tbody className='tablebody'>
               <tr onClick={()=>rowSelectFun(rank,i)} className={i===rowselect?.index? 'selcted-row-clr':''}>
                  <td>{rank}</td>
-             </tr>
-           </tbody>
-          
+             </tr>  
         </>
       )
-  
 })}
+           </tbody>
        </Table>
+        </div>
        </div> 
 
             <div>

@@ -34,8 +34,8 @@ export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,
           <Modal.Title>DELETE PROCESS</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Are you sure u want delete {selectRow.Mprocess}
-        ({selectRow.RefProcess})</Modal.Body>
+        <Modal.Body> Are you sure u want delete <b>{selectRow.Mprocess}</b>
+        <b>({selectRow.RefProcess})</b> ?</Modal.Body>
 
         <Modal.Footer>
           <Button variant="primary" onClick={()=>{deleteProcess()

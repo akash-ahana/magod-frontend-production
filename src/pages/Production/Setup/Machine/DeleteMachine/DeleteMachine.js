@@ -15,7 +15,7 @@ export default function DeleteMachine({opendeletemachine,setOpendeletemachine,se
           <Modal.Title>DELETE MACHINE</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are You sure want to delete Machine : {selectedRow.refName}</Modal.Body>
+        <Modal.Body>Are You sure want to delete Machine :<b> {selectedRow.refName}</b> ?</Modal.Body>
 
         <Modal.Footer>
           <Button variant="primary" onClick={()=>{deleteMachine()

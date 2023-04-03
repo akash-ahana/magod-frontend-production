@@ -8,10 +8,10 @@ export default function MachineTable({selectedRowFn,selectedRow}) {
   
   return (
     <div className='row mt-1'>
-    <div className='col-md-12 col-sm-12'>
+    <div>
      <div style={{height:"430px",overflowY: "auto"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}} >
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Manufacturer</th>
            <th>Model</th>
@@ -19,29 +19,30 @@ export default function MachineTable({selectedRowFn,selectedRow}) {
          </tr>
        </thead>
 
-{post.map((item,key)=>{
+
+     <tbody>
+     {post.map((item,key)=>{
   return(
     <>
-     <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
+          <tr onClick={()=>selectedRowFn(item,key)} 
+          className={key===selectedRow?.index? 'selcted-row-clr':'' }  >
              <td>{item.manufacturer}</td>
              <td>{item.Model}</td>
              {
               <td>
                  <input className="form-check-input mt-2"
-               type="checkbox"
-               disabled
-               value=""
-               checked={item.Working===0 ? false : true}
-               id="flexCheckDefault"/>
+                   type="checkbox"
+                   disabled
+                   value=""
+                   checked={item.Working===0 ? false : true}
+                   id="flexCheckDefault"/>
               </td>
              }
          </tr>
-       </tbody>
-    </>
-
-  )
+         </>
+)
 })}
+       </tbody>
  </Table>
      </div>
 
