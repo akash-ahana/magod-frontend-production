@@ -93,9 +93,6 @@ const openDeleteProcess=()=>{
 setOpendeleteprocess(true);
 }
 
-
-
- 
     //DELETE MACHINE
     const[opendeletemachine,setOpendeletemachine]=useState('');
     const openDeletemachine=()=>{
@@ -228,7 +225,8 @@ else{
            )}
 
       <form className="form" onSubmit={handleSubmit(saveMachine)} >
-          <div className="row">
+         <div className="ip-box form-bg">
+         <div className="row">
             <div className="row">
               <div className="col-md-12 ">
                 <label className="">Reference Name</label>
@@ -278,7 +276,7 @@ else{
                  name='RegnNo' 
                  disabled={machineData.isRegnNumberPresent=== true ? true : false}
                   {...register("RegnNo")}
-                className={`in-field ${
+                className={`in-field mt-2 ${
                   errors.RegnNo ? "is-invalid" : ""}`} required 
                   onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -291,7 +289,7 @@ else{
                    name='location' value={machineData.location}
                    disabled={machineData.isLocationPresent===true ? true : false}
                    {...register("location")}
-                   className={`in-field ${
+                   className={`in-field mt-2 ${
                      errors.location ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -302,8 +300,7 @@ else{
             <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Machine_Type</label>
-                <select  value={machineData.Machine_Type}
-                    className="ip-select"
+                <select className="ip-select dropdown-field mt-2"  value={machineData.Machine_Type}
                     name='Machine_Type' onChange={(e)=>handleMachineChange(e)}>
                     {machinetypes.map((value,key)=>{
                       return(
@@ -319,7 +316,7 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Target Rate</label>
-                <input className="in-field" type='number'
+                <input className="in-field mt-2" type='number'
                 onKeyDown={blockInvalidChar} value={machineData.TgtRate}
                 name='TgtRate' onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -335,7 +332,7 @@ else{
                value={formatDate(machineData.InstallDate)} type="date"
                disabled={machineData.isInstallDatePresent === true ? true : false}
                {...register("InstallDate")} 
-                className={`in-field ${
+                className={`in-field  mt-2 ${
                   errors.InstallDate ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -344,7 +341,7 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Uninstall Date</label>
-                <input className="in-field" name='UnistallDate'
+                <input className="in-field mt-2" name='UnistallDate'
                   value={formatDate(machineData.UnistallDate)}
                  type="date"
                  onChange={(e)=>handleMachineChange(e)} />
@@ -354,7 +351,7 @@ else{
             <div className="row">
             <div className="col-md-12 ">
                 <label className="">Remarks</label>
-                <input className="in-field" name='remarks'
+                <input className="in-field mt-2" name='remarks'
                  value={machineData.remarks} 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -363,7 +360,7 @@ else{
           </div>
 
          
-      <div className="row mt-3">
+      <div className="row mt-3 mb-2">
         <button className="button-style mt-2 group-button" type='button'
          style={{ width: "150px",marginLeft:"20px" }} onClick={()=>addMachine()}>
            Add Machine
@@ -391,6 +388,7 @@ else{
        Delete Process
       </button>
      </div>
+         </div>
     </form>
      <div className='mt-4'>
         <ProcessTable processdataList={processdataList}

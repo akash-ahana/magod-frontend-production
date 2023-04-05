@@ -65,7 +65,7 @@ export default function AddMachine({show, setShow,machinetypes}) {
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <Modal.Body>
         <div className="col-md-12 col-sm-12">
-          <div className="ip-box form-bg ">
+          <div >
             <div className="row">
               <div className="col-md-12">
                 <label className=""> Machine Reference Name</label>
@@ -114,7 +114,7 @@ export default function AddMachine({show, setShow,machinetypes}) {
         </div>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" type='submit'>
+        <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} type='submit'>
             Save 
           </Button>
           <Button variant="secondary" onClick={handleClose}>

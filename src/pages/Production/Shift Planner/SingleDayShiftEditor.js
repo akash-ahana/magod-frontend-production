@@ -71,7 +71,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
     return (
-        <div style={{textAlign:"center",backgroundColor:"lightblue",
+        <div style={{textAlign:"center",backgroundColor:"#d3d3d3",
         marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
           <h6>Daily Shift Editor</h6>
 

@@ -94,7 +94,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,
         <Modal.Body>
           <h5>{selectedRow.refName}</h5>
         <div className="col-md-12 col-sm-12">
-          <div className="ip-box form-bg ">
+          <div>
             <div className="row">
         
               <div className="col-md-12 mb-4 ">
@@ -136,7 +136,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,
         </Modal.Body>
 
         <Modal.Footer>
-        <Button variant="primary" type='submit'>
+        <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} type='submit'>
            Add Process
           </Button>
           <Button variant="secondary" onClick={handleClose}>

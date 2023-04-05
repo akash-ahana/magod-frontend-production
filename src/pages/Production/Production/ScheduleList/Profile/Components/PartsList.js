@@ -24,17 +24,45 @@ export default function PartsList({taskno}){
     getpartslistdata();
  }, [taskno]);
 
-//  console.log(partlistdata);
 
-const onChangeInput = (e, TaskNo) => {
-  const { name, value } = e.target
-  console.log('value', value)
+ const clearAllonClick = () => { 
+  console.log("Clear All Button is Clicked" , "Parts List Data is " , partlistdata)
+  const  constpartListData = partlistdata;
+  console.log("Const part list data is " , constpartListData)
 
-  const editData = partlistdata.map((item) =>
-    item.TaskNo === TaskNo && name ? { ...item, [name]: value } : item
-  )
-  setPartlistdata(editData)
-}
+    for( let i = 0 ; i < constpartListData.length ; i++) {
+      constpartListData[i].QtyCleared = constpartListData[i].QtyProduced
+    }
+
+    console.log("Updated constPartListData is " , constpartListData)
+    setPartlistdata(constpartListData)
+    // setNewPartlistdata(constpartListData)
+    //setPartlistdata([])
+  
+ }
+
+ const saveClearedonClick = () => { 
+  console.log('Save Cleared button is clicked' , " task parts table state is " , partlistdata)
+  axios.post(
+    baseURL +
+    "/scheduleListProfile/scheduleListSaveCleared", partlistdata
+     ).then((response) => {
+      //setPartlistdata(response.data);
+      console.log(response.boby)
+   });
+ }
+
+const [cleared,setCleared]=useState('')     
+       const onChangeInput = (e, QtyCleared) => {
+        const { name, value } = e.target
+        setCleared(value);
+        // console.log('value', value)
+      
+        // const editData =rowselectDailyShiftTable.map((item) =>
+        //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
+        // )
+        // setRowselectDailyShiftTable(editData);
+      }
 
  
   return (
@@ -46,18 +74,18 @@ const onChangeInput = (e, TaskNo) => {
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "150px" ,marginLeft:"20px"}}>
+              style={{ width: "150px" ,marginLeft:"20px"}} onClick = {clearAllonClick}>
               Clear All
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "150px",marginLeft:"20px" }}>
+              style={{ width: "150px",marginLeft:"20px"}} onClick = {saveClearedonClick}>
               Save Cleared
             </button>
         </div>    
         <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>DwgName</th>
            <th>Programed</th>
@@ -82,21 +110,23 @@ const onChangeInput = (e, TaskNo) => {
          </tr>
        </thead>
 
-       {partlistdata.map((item,key)=>{
+          <tbody className='tablebody'>
+          {partlistdata.map((item,key)=>{
         return(
           <>
-          <tbody className='tablebody'>
            <tr  key={item.TaskNo}>
            <td>{item.DwgName}</td>
-           <td>{item.QtyToNest}</td>
-           <td>{item.QtyProduced}</td>
+           <td>{item.QtyToNest}</td>          <td>{item.QtyProduced}</td>
            <td>
+            <div key={item.QtyCleared}>
+
+            </div>
            <input className='table-cell-editor '
-           name="cleared"
-           defaultValue={item.QtyCleared}
-           type="number"
-           onChange={(e)=>onChangeInput(e,item.TaskNo)}
-            placeholder="Type Cleared"
+             name="cleared"
+             defaultValue={item.QtyCleared}
+             type="number"
+             onChange={(e)=>onChangeInput(e,item,key)}
+             placeholder="Type Cleared"
          />
          </td>
            <td>{item.Task_Part_ID}</td>
@@ -120,10 +150,10 @@ const onChangeInput = (e, TaskNo) => {
                  id="flexCheckDefault"/></td>
            <td></td>
          </tr>
-   </tbody>
-          </>
+         </>
         )
        })}
+   </tbody>
  </Table>
      </div>
 

@@ -26,8 +26,8 @@ export default function ProgramList({taskno}) {
  
   return (
     <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-    <Table bordered>
-      <thead style={{textAlign:"center"}}>
+    <Table striped className="table-data border">
+      <thead className="tableHeaderBGColor">
         <tr>
           <th>NCProgramNo</th>
           <th>Machine</th>
@@ -38,10 +38,10 @@ export default function ProgramList({taskno}) {
         </tr>
       </thead>
 
-{programlistdata.map((item,key)=>{
+    <tbody className='tablebody'>
+    {programlistdata.map((item,key)=>{
   return(
     <>
-    <tbody className='tablebody'>
   <tr>
     <td>{item.NCProgramNo}</td>
     <td>{item.Machine}</td>
@@ -50,10 +50,10 @@ export default function ProgramList({taskno}) {
     <td>{item.QtyAllotted}</td>
     <td>{item.QtyCut}</td>
   </tr>
-</tbody>
-    </>
+  </>
   )
 })}
+</tbody>
 </Table>
     </div>
   )

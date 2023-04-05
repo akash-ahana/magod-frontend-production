@@ -9,6 +9,9 @@ export default function AlertAddprocess({alert,setAlert,processform,
   setProcessform,selectedRow,getprocessdataList}) {
   let addprocessState={RefProcess:'',TgtRate:'',Machine_srl:'',Mprocess:''}
 
+  const handleClose=()=>{
+    setAlert(false);
+  }
 
     const submitProcessform = () => {
       setAlert(false)
@@ -27,18 +30,18 @@ export default function AlertAddprocess({alert,setAlert,processform,
 
   return (
     <div>
-      <Modal show={alert}>
+      <Modal show={alert} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Magod Production Manager </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body> Do you wish to add {processform.RefProcess},({processform.Mprocess}) with Target Rate 
-         {processform.TgtRate} / hour  to {selectedRow.refName} 
+        <Modal.Body><b>{processform.RefProcess}</b>,(<b>{processform.Mprocess}</b>) with Target Rate &nbsp;
+         <b>{processform.TgtRate}</b>/hour  is added to <b>{selectedRow.refName}.</b>
       
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={()=>submitProcessform()}>
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={()=>submitProcessform()}>
            OK
           </Button>
         </Modal.Footer>

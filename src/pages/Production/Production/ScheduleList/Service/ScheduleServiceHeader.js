@@ -1,11 +1,22 @@
 import React from 'react';
 import { useGlobalContext } from '../../../../../Context/Context';
+import { useNavigate, } from 'react-router-dom'
+
 
 
 export default function ScheduleServiceHeader() {
   const{schedulelistservicedata,setSchedulelistservicedata,
     schedulelistservicedatas}=useGlobalContext();
 
+    const navigate=useNavigate()
+  const openShowStatusPdfService= () => {
+    navigate('PrintServiceShowStatus')
+  }
+
+  const openShowPartsPdfService = () => {
+    console.log("Function called")
+    navigate('PrintServiceShowParts');
+  }
 
    const searchText = (e) => {
    let number = e.target.value;
@@ -35,7 +46,7 @@ export default function ScheduleServiceHeader() {
        </div>
 
     <div className="col-md-9 col-sm-12">
-        <div className="ip-box form-bg mt-5 ">
+        <div className="mt-5 ">
           <div className='row'>
             <button className="button-style mt-2 group-button"
              style={{ width: "120px"}}>
@@ -43,12 +54,12 @@ export default function ScheduleServiceHeader() {
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "120px"}}>
+              style={{ width: "120px"}} onClick={openShowStatusPdfService}>
               Show Status
             </button>
 
             <button className="button-style mt-2 group-button" 
-               style={{ width: "120px"}}>
+               style={{ width: "120px"}} onClick={openShowPartsPdfService}>
                Show Parts
             </button>
 
@@ -62,10 +73,6 @@ export default function ScheduleServiceHeader() {
              Production list
             </button>
 
-            <button className="button-style mt-2 group-button" 
-              style={{ width: "120px" }}>
-              Design
-            </button>
           </div>
       </div>
     </div>

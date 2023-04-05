@@ -13,8 +13,8 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
 
   return (
      <div style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Status</th>
            <th>Task No</th>
@@ -30,10 +30,10 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
          </tr>
        </thead>
 
+        <tbody className='tablebody'>
         {processtable.map((item,key)=>{
       return(
         <>
-        <tbody className='tablebody'>
          <tr onClick={()=>processtableSelectFun(item,key)} className={key===processrowselect?.index? 'selcted-row-clr':'' }>
           <td>{item.TStatus}</td>
           <td>{item.TaskNo}</td>
@@ -47,10 +47,10 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
           <td>{item.PartsNested}</td>
           <td>{item.NoOfSheets}</td>
          </tr>
-   </tbody>
-        </>
+         </>
       )
     })} 
+   </tbody>
  </Table>
      </div>
   )
