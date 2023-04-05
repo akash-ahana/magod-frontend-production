@@ -136,7 +136,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,
         </Modal.Body>
 
         <Modal.Footer>
-        <Button variant="primary" type='submit'>
+        <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} type='submit'>
            Add Process
           </Button>
           <Button variant="secondary" onClick={handleClose}>

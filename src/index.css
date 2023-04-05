@@ -12,11 +12,26 @@ code {
     monospace;
 }
 .selcted-row-clr{
-  background-color:rgb(204, 204, 204);
+  background-color:rgb(150, 147, 147) !important;
     color: white;
 }
 
+.in-field {
+  height: 35px;
+  margin-top: 10px;
+  border-radius: 6px;
+  text-indent: 5px;
+}
 
+.ip-select {
+  font-size: 14px;
+  padding: -3px 10px 10px 5px;
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  border-bottom: 1px solid #757575;
+}
 
 
 .admin-title {

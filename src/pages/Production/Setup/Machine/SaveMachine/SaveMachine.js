@@ -16,7 +16,7 @@ export default function SaveMachine({opensavemachine,setOpensavemachine,selected
         <Modal.Body> Machine  Details saved</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose} >
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={handleClose} >
             OK
           </Button>
         </Modal.Footer>

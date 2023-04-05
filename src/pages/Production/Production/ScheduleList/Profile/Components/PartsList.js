@@ -24,7 +24,33 @@ export default function PartsList({taskno}){
     getpartslistdata();
  }, [taskno]);
 
-//  console.log(partlistdata);
+
+ const clearAllonClick = () => { 
+  console.log("Clear All Button is Clicked" , "Parts List Data is " , partlistdata)
+  const  constpartListData = partlistdata;
+  console.log("Const part list data is " , constpartListData)
+
+    for( let i = 0 ; i < constpartListData.length ; i++) {
+      constpartListData[i].QtyCleared = constpartListData[i].QtyProduced
+    }
+
+    console.log("Updated constPartListData is " , constpartListData)
+    setPartlistdata(constpartListData)
+    // setNewPartlistdata(constpartListData)
+    //setPartlistdata([])
+  
+ }
+
+ const saveClearedonClick = () => { 
+  console.log('Save Cleared button is clicked' , " task parts table state is " , partlistdata)
+  axios.post(
+    baseURL +
+    "/scheduleListProfile/scheduleListSaveCleared", partlistdata
+     ).then((response) => {
+      //setPartlistdata(response.data);
+      console.log(response.boby)
+   });
+ }
 
 const [cleared,setCleared]=useState('')     
        const onChangeInput = (e, QtyCleared) => {
@@ -48,12 +74,12 @@ const [cleared,setCleared]=useState('')
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "150px" ,marginLeft:"20px"}}>
+              style={{ width: "150px" ,marginLeft:"20px"}} onClick = {clearAllonClick}>
               Clear All
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "150px",marginLeft:"20px" }}>
+              style={{ width: "150px",marginLeft:"20px"}} onClick = {saveClearedonClick}>
               Save Cleared
             </button>
         </div>    
@@ -90,14 +116,16 @@ const [cleared,setCleared]=useState('')
           <>
            <tr  key={item.TaskNo}>
            <td>{item.DwgName}</td>
-           <td>{item.QtyToNest}</td>
-           <td>{item.QtyProduced}</td>
+           <td>{item.QtyToNest}</td>          <td>{item.QtyProduced}</td>
            <td>
+            <div key={item.QtyCleared}>
+
+            </div>
            <input className='table-cell-editor '
              name="cleared"
              defaultValue={item.QtyCleared}
              type="number"
-             onChange={(e)=>onChangeInput(e,item.QtyCleared)}
+             onChange={(e)=>onChangeInput(e,item,key)}
              placeholder="Type Cleared"
          />
          </td>

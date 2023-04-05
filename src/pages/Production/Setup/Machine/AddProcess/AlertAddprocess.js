@@ -41,7 +41,7 @@ export default function AlertAddprocess({alert,setAlert,processform,
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={()=>submitProcessform()}>
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={()=>submitProcessform()}>
            OK
           </Button>
         </Modal.Footer>

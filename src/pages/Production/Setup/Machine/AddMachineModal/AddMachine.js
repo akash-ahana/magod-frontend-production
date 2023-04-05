@@ -114,7 +114,7 @@ export default function AddMachine({show, setShow,machinetypes}) {
         </div>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" type='submit'>
+        <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} type='submit'>
             Save 
           </Button>
           <Button variant="secondary" onClick={handleClose}>

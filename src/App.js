@@ -29,7 +29,7 @@ import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleLi
 import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowParts/ShowPartsPdfFabrication";
 import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
 import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
-
+import ShiftManager from "./pages/Production/Production/shiftmanager/ShiftManager"
 
 function App() {
   return (
@@ -56,10 +56,12 @@ function App() {
                   </Route>
 
                   <Route path="schedulelistservice">
-                      <Route index ={true}   element={<ScheduleListService/>} />
+                      <Route index ={true} element={<ScheduleListService/>} />
                       <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} />
                       <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} />
-                  </Route>            
+                  </Route>  
+
+                  <Route path="shiftmanager" element={<ShiftManager/>} />
             </Route>
 
             <Route path="fabrication" element={<Fabrication/>} />

@@ -300,8 +300,7 @@ else{
             <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Machine_Type</label>
-                <select  value={machineData.Machine_Type}
-                    className="ip-select mt-2"
+                <select className="ip-select dropdown-field mt-2"  value={machineData.Machine_Type}
                     name='Machine_Type' onChange={(e)=>handleMachineChange(e)}>
                     {machinetypes.map((value,key)=>{
                       return(

@@ -29,16 +29,17 @@ export default function DeleteProcess({opendeleteprocess,setOpendeleteprocess,
 
   return (
     <div>
-      <Modal show={opendeleteprocess} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>DELETE PROCESS</Modal.Title>
+      <Modal
+      show={opendeleteprocess} onHide={handleClose}>
+        <Modal.Header closeButton  style={{backgroundColor:"rgb(128, 128, 128)"}}>
+          <Modal.Title style={{color:"white"}}>DELETE PROCESS</Modal.Title>
         </Modal.Header>
 
         <Modal.Body> Are you sure u want delete <b>{selectRow.Mprocess}</b>
         <b>({selectRow.RefProcess})</b> ?</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={()=>{deleteProcess()
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={()=>{deleteProcess()
           handleClose()}}>
             Yes
           </Button>

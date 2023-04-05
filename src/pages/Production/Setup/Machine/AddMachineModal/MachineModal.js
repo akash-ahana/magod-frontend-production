@@ -63,7 +63,7 @@ export default function MachineModal({open,setOpen,formdata,setFormdata}) {
         &nbsp; to Magod Machine List?</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={()=>openThirdmodal()}>
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={()=>openThirdmodal()}>
             Yes
           </Button>
           <Button variant="secondary" onClick={handleClose}>

@@ -85,7 +85,7 @@ export const customerSidebar = [
       },
       {
         title: "Shift Manager",
-        path: "/customer/outstandings",
+        path:  "production/production/shiftmanager",
         // icon: <IoIcons.IoIosPaper />,
       },
     ]
@@ -167,7 +167,7 @@ export const customerSidebar = [
       },
       {
         title: "Shift Manager",
-        path: "/customer/outstandings",
+        path:  "production/production/shiftmanager",
         // icon: <IoIcons.IoIosPaper />,
       },
     ]
@@ -186,7 +186,7 @@ export const customerSidebar = [
       },
       {
         title: "Shift Manager",
-        path: "/customer/outstandings",
+        path: "production/production/shiftmanager",
         // icon: <IoIcons.IoIosPaper />,
       },
     ]

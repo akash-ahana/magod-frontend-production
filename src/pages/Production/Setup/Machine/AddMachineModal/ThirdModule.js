@@ -17,7 +17,7 @@ export default function ThirdModal({modalopen,setModalopen,finalresponse}) {
         </Modal.Header>
         <Modal.Body>{finalresponse}</Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={handleClose}>
             OK
           </Button>
         </Modal.Footer>
