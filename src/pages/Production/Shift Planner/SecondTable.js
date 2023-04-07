@@ -20,7 +20,7 @@ function SecondTable(props) {
          <tr>
            <th style={{width:"100px"}}>ShiftDate</th>
            <th>Shift</th>
-           <th style={{width:"70px"}}>Shift_IC</th>
+           <th style={{width:"70px"}}>Shift IC</th>
            <th style={{width:"100px"}}>From</th>
            <th style={{width:"100px"}}>To</th>
          </tr>

@@ -10,11 +10,7 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
 setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData,selectedWeek,
 rowselect}) {
 
-    // console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
-    // console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
-
-    
-
+   
        useEffect(() => {
         getMachineOperatorTableData();
        },[rowselectDailyShiftTable]) 
@@ -60,7 +56,7 @@ rowselect}) {
     
     //    }
 
-//Machine Operator Table
+//Machine Operator Table Rowselect
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
 const rowSelectFun=(item,index)=>{
   let list={...item,index:index}
@@ -78,7 +74,8 @@ console.log("ScheduleNo",item.ScheduleNo)
          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
          getSecondTableData={getSecondTableData}
          selectedWeek={selectedWeek}
-         rowselect={rowselect}/>    
+         rowselect={rowselect}
+         rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}/>    
 
         <DailyOperator data={rowselectDailyShiftTable}
          selectMachineOperatorData={rowselectDailyShiftTable}
@@ -93,7 +90,7 @@ console.log("ScheduleNo",item.ScheduleNo)
        <thead className="tableHeaderBGColor">
          <tr>
            <th>Shift</th>
-           <th>Shift Inchare</th>
+           <th>Incharge</th>
            <th >From</th>
            <th >To Time</th>
            <th>Shift Instructions</th>
@@ -101,8 +98,7 @@ console.log("ScheduleNo",item.ScheduleNo)
          </tr>
        </thead>
       
-         <tbody className='tablebody'>
-           
+         <tbody className='tablebody'>  
        {SingleDayShiftPlan4thTable.map((rank, i, row) => {
     return(
         <>

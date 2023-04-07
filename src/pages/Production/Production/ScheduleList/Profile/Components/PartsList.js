@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect} from 'react'; 
 import { Table } from 'react-bootstrap';
 import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
@@ -9,6 +9,7 @@ export default function PartsList({taskno}){
 
   //Process Table(Right First table) data
   const[partlistdata,setPartlistdata]=useState([])
+  const[newpartlistdata,setNewPartlistdata]=useState([])
   const getpartslistdata=()=>{
    axios.post(
     baseURL +
@@ -24,8 +25,26 @@ export default function PartsList({taskno}){
     getpartslistdata();
  }, [taskno]);
 
+//  console.log(partlistdata);
 
- const clearAllonClick = () => { 
+const onChangeInput = (e, TaskNo, key) => {
+  const { name, value } = e.target
+  console.log('value', value)
+  
+  console.log('key', key)
+
+  const NewEditData = partlistdata
+  NewEditData[key].QtyCleared = value
+
+  // const editData = partlistdata.map((item) =>
+  //   item.TaskNo === TaskNo && name ? { ...item, QtyCleared: value } : item
+  // )
+  setPartlistdata(NewEditData)
+  setNewPartlistdata(NewEditData)
+}
+console.log('Parts List Data is ' , partlistdata) 
+
+ const clearAllonClick = () => {
   console.log("Clear All Button is Clicked" , "Parts List Data is " , partlistdata)
   const  constpartListData = partlistdata;
   console.log("Const part list data is " , constpartListData)
@@ -36,12 +55,27 @@ export default function PartsList({taskno}){
 
     console.log("Updated constPartListData is " , constpartListData)
     setPartlistdata(constpartListData)
-    // setNewPartlistdata(constpartListData)
+    setNewPartlistdata(constpartListData)
     //setPartlistdata([])
   
  }
 
- const saveClearedonClick = () => { 
+ console.log('Parts List Data is ' , partlistdata)
+
+ const onChangeCleared = (e, item, key) => {
+   console.log("e is " , e.target.value, " item is " , item, " key is " , key)
+   //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array 
+   console.log(' PART LIST IS ' , partlistdata)
+   const newConstPartList = partlistdata
+   if(e.target.value <= newConstPartList[key].QtyProduced) {
+    newConstPartList[key].QtyCleared = e.target.value
+   }
+  
+   console.log('NEW CONST PART LIST IS ' , newConstPartList)
+   setPartlistdata(newConstPartList)
+ }
+
+ const saveClearedonClick = () => {
   console.log('Save Cleared button is clicked' , " task parts table state is " , partlistdata)
   axios.post(
     baseURL +
@@ -51,18 +85,6 @@ export default function PartsList({taskno}){
       console.log(response.boby)
    });
  }
-
-const [cleared,setCleared]=useState('')     
-       const onChangeInput = (e, QtyCleared) => {
-        const { name, value } = e.target
-        setCleared(value);
-        // console.log('value', value)
-      
-        // const editData =rowselectDailyShiftTable.map((item) =>
-        //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
-        // )
-        // setRowselectDailyShiftTable(editData);
-      }
 
  
   return (
@@ -79,13 +101,14 @@ const [cleared,setCleared]=useState('')
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "150px",marginLeft:"20px"}} onClick = {saveClearedonClick}>
+              style={{ width: "150px",marginLeft:"20px" }} onClick = {saveClearedonClick}>
               Save Cleared
             </button>
-        </div>    
+        </div>  
+         
         <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-     <Table striped className="table-data border">
-       <thead className="tableHeaderBGColor">
+     <Table bordered>
+       <thead style={{textAlign:"center"}}>
          <tr>
            <th>DwgName</th>
            <th>Programed</th>
@@ -110,24 +133,28 @@ const [cleared,setCleared]=useState('')
          </tr>
        </thead>
 
+      
           <tbody className='tablebody'>
-          {partlistdata.map((item,key)=>{
+          {
+       partlistdata.map((item,key)=>{
         return(
           <>
            <tr  key={item.TaskNo}>
            <td>{item.DwgName}</td>
-           <td>{item.QtyToNest}</td>          <td>{item.QtyProduced}</td>
+           <td>{item.QtyToNest}</td>
+           <td>{item.QtyProduced}</td>
            <td>
-            <div key={item.QtyCleared}>
 
-            </div>
-           <input className='table-cell-editor '
-             name="cleared"
-             defaultValue={item.QtyCleared}
-             type="number"
-             onChange={(e)=>onChangeInput(e,item,key)}
-             placeholder="Type Cleared"
+            <div key={item.QtyCleared}>
+            <input className='table-cell-editor '
+           name="cleared"
+           defaultValue={item.QtyCleared}
+           type="number"
+           //onChange={(e)=>onChangeCleared(e,  item, key)}
+           placeholder="Type Cleared"
          />
+            </div>
+           
          </td>
            <td>{item.Task_Part_ID}</td>
            <td>{item.NcTaskId}</td>
@@ -153,7 +180,7 @@ const [cleared,setCleared]=useState('')
          </>
         )
        })}
-   </tbody>
+   </tbody> 
  </Table>
      </div>
 

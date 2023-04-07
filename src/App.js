@@ -29,7 +29,7 @@ import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleLi
 import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowParts/ShowPartsPdfFabrication";
 import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
 import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
-import ShiftManager from "./pages/Production/Production/shiftmanager/ShiftManager"
+import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
 
 function App() {
   return (
@@ -48,20 +48,21 @@ function App() {
                       <Route path="PrintShowStatus" element={<PrintShowStatus/>} />
                       <Route path="PrintShowParts" element={<ShowPartsPdf/>} />
                   </Route>
-
                   <Route path="schedulelistfabrication">
                       <Route index ={true}  element={<ScheduleListFabrication/>} />
                       <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} />
                       <Route path="PrintFabricationShowParts" element={<ShowPartsPdfFabrication/>} />
                   </Route>
-
                   <Route path="schedulelistservice">
                       <Route index ={true} element={<ScheduleListService/>} />
                       <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} />
                       <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} />
                   </Route>  
 
-                  <Route path="shiftmanager" element={<ShiftManager/>} />
+                  <Route path="shiftmanagerProfile" element={<ShiftManager/>}/>
+                  <Route path="shiftmanagerFabrication" element={<ShiftManager/>}/>
+                  <Route path="shiftmanagerService" element={<ShiftManager/>}/>
+
             </Route>
 
             <Route path="fabrication" element={<Fabrication/>} />

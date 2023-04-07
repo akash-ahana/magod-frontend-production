@@ -10,7 +10,10 @@ import CreateweekModal from './CreateweekModal';
 import SetMachineModal from './SetMachineModal';
 import DeleteshiftModal from './DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
-import { useNavigate, } from 'react-router-dom'
+import { useNavigate, } from 'react-router-dom';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
 // import PrintWeeklyplan from './PrintWeeklyplan';
 
 // import MachineOperatorTable from './MachineOperatorTable';
@@ -323,7 +326,7 @@ function NewCalender(props) {
     // console.log('ITEM IS' , item)
     setRowselect(list);
   }
-console.log("selected row of data table is ",rowselect)
+// console.log("selected row of data table is ",rowselect)
   // useMemo(() => {
   //   setRowselect(selectedWeek[0])
   // },[selectedWeek[0]])
@@ -348,13 +351,13 @@ console.log("selected row of data table is ",rowselect)
     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
-        console.log('response data is null')
+        // console.log('response data is null')
       } else {
-        console.log('SINGLE DAY SHIFT PLAN 4TH TABLE ' , response.data)
+        // console.log('SINGLE DAY SHIFT PLAN 4TH TABLE ' , response.data)
         if(response.data.length ===0 ) { 
-          console.log('DATA IS EMPTY')
+          // console.log('DATA IS EMPTY')
       } else {
-          console.log('DATA IS PRESENT')
+          // console.log('DATA IS PRESENT')
           for(let i =0 ; i < response.data.length ; i++) {
               let dateSplit = response.data[i].ShiftDate.split("-");
               let year = dateSplit[2];
@@ -365,25 +368,25 @@ console.log("selected row of data table is ",rowselect)
               response.data[i].ShiftDate = finalDay 
 
               let dateSplitFromTime = response.data[i].FromTime.split("-");
-              console.log( ' DATE SPLIT RESPONSE From tIME IS ' , dateSplitFromTime)
+              // console.log( ' DATE SPLIT RESPONSE From tIME IS ' , dateSplitFromTime)
               let yearFromTime = dateSplitFromTime[0];
               let monthFromTime = dateSplitFromTime[1];
               let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
               let dayFromTimeFinal = dayFromTimeINITIAL[0]
               let time = dayFromTimeINITIAL[1]
               let finalDayFromTime = dayFromTimeFinal+"-"+monthFromTime+"-"+yearFromTime+" "+time
-              console.log( 'RESPONSE From tIME IS ' , finalDayFromTime)
+              // console.log( 'RESPONSE From tIME IS ' , finalDayFromTime)
               response.data[i].FromTime = finalDayFromTime 
 
               let dateSplitToTime = response.data[i].ToTime.split("-");
-              console.log( ' DATE SPLIT RESPONSE To tIME IS ' , dateSplitToTime)
+              // console.log( ' DATE SPLIT RESPONSE To tIME IS ' , dateSplitToTime)
               let yearToTime = dateSplitToTime[0];
               let monthToTime = dateSplitToTime[1];
               let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
               let dayToTimeFinal = dayToTimeINITIAL[0]
               let time1 = dayToTimeINITIAL[1]
               let finalDayToTime= dayToTimeFinal+"-"+monthToTime+"-"+yearToTime+" "+time1
-              console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
+              // console.log( 'RESPONSE To tIME IS ' , finalDayToTime)
               response.data[i].ToTime = finalDayToTime 
               //data[i].FromTime = finalDayFromTime 
           } 
@@ -394,7 +397,7 @@ console.log("selected row of data table is ",rowselect)
   }
 
   useEffect(() => {
-    getSingleDayShiftPlan4thTable()
+    getSingleDayShiftPlan4thTable();
   }, [rowselect])
 
 
@@ -448,11 +451,8 @@ const openSetMachinemodal=()=>{
 
 //MachineOperator Table
 const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-console.log(rowselectDailyShiftTable)
-
     const getMachineOperatorTableData = () => {
         let constRowSelectDailyShiftTable = rowselectDailyShiftTable
-        // console.log(constRowSelectDailyShiftTable)
         if(typeof(constRowSelectDailyShiftTable) !== 'undefined' && constRowSelectDailyShiftTable != null) {
           // console.log('data is there')
           //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
@@ -497,7 +497,8 @@ console.log(rowselectDailyShiftTable)
         //  console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
           axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', 
           { selectedShift: selectedShift, selectedWeek: selectedWeek })
-          .then((response) => { console.log(response)
+          .then((response) => {
+            //  console.log(response)
             getSecondTableData(); 
             getSingleDayShiftPlan4thTable();
             // setWeekState1('')  
@@ -507,8 +508,11 @@ console.log(rowselectDailyShiftTable)
         const onClickDeleteWeekOperatorMachine = () => {
           // console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
            axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekOperatorForMachine', {selectedShift : selectedShift, selectedWeek: selectedWeek, selectedMachine : selectedMachine , selectedOperator : selectedOperator})
-           .then((response) => {console.log(response)
-             getSecondTableData();
+           .then((response) => {
+            // console.log(response)
+            //  getSecondTableData();
+             getSingleDayShiftPlan4thTable();
+             getMachineOperatorTableData();
               setWeekState1('')
             })
           }
@@ -516,6 +520,16 @@ console.log(rowselectDailyShiftTable)
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
+
+
+//            //CLEAR FORM
+// const formOptions = { resolver: yupResolver(selectedShift) };
+// const {  reset } = useForm(formOptions);
+//         useEffect(() => {
+//           // reset form with user data
+//           reset(selectedWeek);
+//         }, [selectedWeek]);
+
           
   return (
     <>
@@ -631,7 +645,7 @@ console.log(rowselectDailyShiftTable)
                 </div>
 
                 <button className="button-style mt-2 group-button mt-3"
-               style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
+               style={{ width: "210px"}} onClick = {openDeletemachineoperator}>
                Delete Machine Operator 
               </button>
           </div>
