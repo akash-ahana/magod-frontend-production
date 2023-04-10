@@ -16,11 +16,10 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
        setProgramCompleteData(response.data)
    })
     }
+
     useEffect(() => {
       modalTable();
     }, [selectProgramCompleted])
-
-
     const handleClose = () => setShow(false);
 
     //console.log(programCompleteData);
@@ -50,14 +49,12 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
       for(let i =0 ; i<constProgramCompleteData.length ; i++) {
         constProgramCompleteData[i].QtyCleared = constProgramCompleteData[i].QtyCut
       }
-      console.log('Updated Const Program Complete Data is ' , constProgramCompleteData)
+      console.log('Updated Const Program Complete Data is',constProgramCompleteData)
       // setProgramCompleteData(constProgramCompleteData)
-      setProgramCompleteData([])
+      // setProgramCompleteData([])
       setProgramCompleteData(constProgramCompleteData)
     }
 
-    
-    
      const onChangeCleared = (e, item, key) => { 
       console.log("e is " , e.target.value, " item is " , item, " key is " , key)
       //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array 
@@ -70,11 +67,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
       // console.log('NEW CONST PART LIST IS ' , newConstPartList)
       // setPartlistdata(newConstPartList)
     }
-   
-   
-    
-    
-    console.log(programCompleteData , 'After Updating')  
+    // console.log(programCompleteData , 'After Updating')  
   return (
     <div>
       <Modal size='lg' show={show} onHide={handleClose}>
@@ -212,34 +205,32 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     <tbody className='tablebody'>
           <tr>
              <td>{item.DwgName}</td>
-             <td>{item.TotQtyNested}</td>
+             <td>{item.TotQtyNested}</td>               
              <td>{item.QtyNested}</td>
              <td>{item.QtyCut}</td>
              <td>
              <input className='table-cell-editor '
                    name="cleared"
                    type='number'
-                   onKeyDown={blockInvalidChar}
+                  //  onKeyDown={blockInvalidChar}
                    defaultValue={item.QtyRejected}
                   //  onChange={(e)=>onChangeInput(e,rank.Shift_instruction)}
                    placeholder="Type Cleared"
                   />
               </td>
              <td>
-
               <div key={item.QtyCleared}>
               <input className='table-cell-editor '
                    name="cleared"
                    //type='number'
                    //onKeyDown={blockInvalidChar}
                    defaultValue={item.QtyCleared}
-                   onChange={(e)=>onChangeCleared(e,item, key)}
+                  //  onChange={(e)=>onChangeCleared(e,item,key)}
                    placeholder="Type Cleared" 
                   />
               </div>
-              
-              
               </td>
+
              <td>
                 <input className='table-cell-editor '
                    name="cleared"
@@ -261,3 +252,4 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     </div>
   )
 }
+

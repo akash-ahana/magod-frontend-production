@@ -40,21 +40,21 @@ const styles = StyleSheet.create({
         padding:"10px",
         marginTop:"40px",
         width:"600px",
-        marginLeft:"50px",
+        marginLeft:"90px",
         marginRight:"100px"
     },
     tableview:
     {
-      marginLeft:"60px",
-      width:"430px",
+      marginLeft:"90px",
+      width:"400px",
     },
     Headingrow: {
         flexDirection: "row",
         alignItems: "center",
         borderBottom:"1px",
         marginTop:"20px",
-        marginLeft:"60px",
-        width:"430px",
+        marginLeft:"90px",
+        width:"400px",
       },
       machineHeading: {
         width: "30%",
