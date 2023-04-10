@@ -3,6 +3,8 @@ import React from 'react'
 // import { Schedulelistdata4 } from '../../ScheduleList/ScheduleListdata';
 import CustomModal from '../programpath/CustomModal';
 import { Table } from 'react-bootstrap'
+import ProgramProcessingModal from '../programpath/ProgramProcessingModal';
+import { useState } from 'react';
 
 export default function TabData({machineProgramesProcessing}) {
 
@@ -14,6 +16,13 @@ export default function TabData({machineProgramesProcessing}) {
 
     const handaleClick =()=>{
        setShow(true);
+    }
+
+    const[selectProgramCompleted,setSelectProgramCompleted]=useState('');
+    const programCompleted=(item,index)=>{
+      let list={...item,index:index}
+      // console.log("ScheduleNo",item.ScheduleNo)
+      setSelectProgramCompleted(list);
     }
 
 
@@ -49,7 +58,7 @@ export default function TabData({machineProgramesProcessing}) {
   return(
     <>
     <tbody className='tablebody'>
-          <tr >
+          <tr onClick={()=>programCompleted(item,key)} className={key===selectProgramCompleted?.index? 'selcted-row-clr':'' } >
              <td>{item.TaskNo}</td>
              <td>{item.Machine}</td>
              <td>{item.Operation}</td>
@@ -66,6 +75,10 @@ export default function TabData({machineProgramesProcessing}) {
 })}
  </Table>
      </div>
+     <ProgramProcessingModal show={show}
+     setShow={setShow}
+     selectProgramCompleted={selectProgramCompleted}/>
+
  </div>
 </div>
 
@@ -80,13 +93,13 @@ export default function TabData({machineProgramesProcessing}) {
     </div> */}
 </div>
 
-{
+{/* {
   (
     <CustomModal 
     show={show}
      setShow={setShow}/>
   )
-}
+} */}
 </>
   )
 }

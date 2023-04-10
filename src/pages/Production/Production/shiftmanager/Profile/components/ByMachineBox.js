@@ -10,6 +10,8 @@ export default function ByMachineBox() {
   const [machineProcessData, setMachineProcessData] = useState([])
   const [machineProgramesCompleted, setMachineProgramesCompleted] = useState([])
   const [machineProgramesProcessing, setmachineProgramesProcessing] = useState([])
+  const [taskProgramesCompleted,setTaskProgramesCompleted]=useState([])
+  const [taskProgramesProcessing,setTaskProgramesProcessing]=useState([])
 
   useEffect(() => {
       axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesTaskNo')
@@ -27,8 +29,21 @@ export default function ByMachineBox() {
 
 
   const taskNoOnClick = (Machine, TaskNo) => {
-    console.log('Task No on Click is ' , Machine , TaskNo)
+    console.log('Task No on Click is ' , TaskNo)
+    //setSelectedTask(TaskNo)
+    axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoCompleted' , TaskNo)
+          .then((response) => {
+            console.log(response.data)
+            setMachineProgramesCompleted(response.data)
+          })
+
+          axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoProcessing' , TaskNo)
+          .then((response) => {
+            console.log(response.data)
+            setmachineProgramesProcessing(response.data)
+          })
   }
+  
 
   const MachineOnClick = (Machine) => {
     console.log(' Machine Selected is ' , Machine)
@@ -50,10 +65,24 @@ export default function ByMachineBox() {
       {
           type: "Machines",
           collapsed: false,
-
           serverData: machineProcessData,
       },
   ];
+
+//   const[taskprogramCompleted,setTaskprogramCompleted]=useState([]);
+//   const taskProgramCompleted=()=>{
+//     axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNo',
+//     selectedTask)
+//    .then((response) => {
+//      console.log(response.data);
+//      setTaskprogramCompleted(response.data)
+//  })
+//   }
+
+//   useEffect(() => {
+//     taskProgramCompleted();
+//   }, [selectedTask])
+
 
   return (
     <div className="d-flex">
@@ -114,7 +143,8 @@ export default function ByMachineBox() {
         </div>   
             <div>
             <Iframe machineProgramesCompleted = {machineProgramesCompleted} 
-                    machineProgramesProcessing= {machineProgramesProcessing}/>
+                    machineProgramesProcessing= {machineProgramesProcessing}
+                    />
             </div>
         </div>
   );

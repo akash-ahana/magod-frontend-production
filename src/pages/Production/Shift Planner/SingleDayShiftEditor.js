@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import UpdateDayshiftModal from './UpdateDayshiftModal';
-import DeleteDayShiftModal from './DeleteDayShiftModal';
+import UpdateDayshiftModal from './Modals/UpdateDayshiftModal';
+import DeleteDayShiftModal from './Modals/DeleteDayShiftModal';
 import { useNavigate} from 'react-router-dom'
+import ModalPrintDailyShift from './PdfPrinter/DailyshiftTable/ModalPrintDailyShift';
 
 
 function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShiftTable,getSecondTableData,
@@ -10,9 +11,12 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
 
   console.log(rowselectDailyShiftTable.Shift_Ic)
   //PRINT DAILY SHIFT
-  let navigate=useNavigate();
+  // let navigate=useNavigate();
+
+  const[openPrintModal,setOpenPrintModal]=useState('');
   const openDailyShiftPrinter=()=>{
-    navigate("PrintDailyplan",{state:{rowselect:rowselect}});
+    setOpenPrintModal(true);
+    // navigate("PrintDailyplan",{state:{rowselect:rowselect}});
   }
 
     const[dataShiftIncharge,setDataShiftIncharge]=useState([]);
@@ -136,6 +140,10 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
           deletedayshift={deletedayshift}
           rowselectDailyShiftTable={rowselectDailyShiftTable}
           onClickDeleteDayShiftPlan={onClickDeleteDayShiftPlan}/>
+
+          <ModalPrintDailyShift openPrintModal={openPrintModal}
+          setOpenPrintModal={setOpenPrintModal}
+          rowselect={rowselect}/>
    
         </div>
     );

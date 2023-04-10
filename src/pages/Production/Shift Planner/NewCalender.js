@@ -6,14 +6,15 @@ import Table from "react-bootstrap/Table";
 import axios from "axios";
 import SecondTable from './SecondTable';
 import DailyShiftTable from './DailyShiftTable';
-import CreateweekModal from './CreateweekModal';
+import CreateweekModal from './Modals/CreateweekModal';
 import SetMachineModal from './SetMachineModal';
-import DeleteshiftModal from './DeleteshiftModal';
-import DeleteMachineoperatorweekModal from './DeleteMachineoperatorweekModal';
+import DeleteshiftModal from './Modals/DeleteshiftModal';
+import DeleteMachineoperatorweekModal from './Modals/DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import ModalPrintWeeklyPlan from './PdfPrinter/WeeklyshiftTable/ModalPrintWeeklyPlan';
 // import PrintWeeklyplan from './PrintWeeklyplan';
 
 // import MachineOperatorTable from './MachineOperatorTable';
@@ -21,10 +22,18 @@ import * as Yup from "yup";
 function NewCalender(props) {
 
   //open Print Pdf
-  const navigate=useNavigate()
+  const navigate=useNavigate();
+  const[openPrintModal,setOpenPrintModal]=useState('')
   const openPdfmodel = () => {
-    navigate('PrintWeeklyplan',{state:{selectedWeek:selectedWeek}})
+    // navigate('PrintWeeklyplan',{state:{selectedWeek:selectedWeek}});
+    setOpenPrintModal(true);
   }
+
+//   const navigate = useNavigate();
+// const openPdfmodel = () => {
+//  const url = `/PrintWeeklyplan?selectedWeek=${selectedWeek}`;
+//  window.open(url, '_blank');
+// };
 
 
   //Header Component
@@ -556,7 +565,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
                 </div>
 
                 <button className="button-style mt-2 group-button mt-4"
-                  style={{ width: "150px" }} onClick={openPdfmodel}>
+                  style={{ width: "150px" }} onClick={openPdfmodel} >
                   Print Weekly Plan
                 </button>
 
@@ -866,6 +875,10 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
               selectedMachine={selectedMachine}
               selectedWeek={selectedWeek}
               selectedOperator={selectedOperator}/>
+              
+              <ModalPrintWeeklyPlan openPrintModal={openPrintModal}
+              setOpenPrintModal={setOpenPrintModal}
+              selectedWeek={selectedWeek}/>
 
               {/* <PrintWeeklyplan selectedWeek={selectedWeek}/> */}
 

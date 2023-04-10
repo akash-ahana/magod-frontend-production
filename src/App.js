@@ -21,8 +21,8 @@ import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/Sch
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
 import ScheduleListService from "./pages/Production/Production/ScheduleList/Service/ScheduleListService";
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
-import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/PrintWeeklyplan";
-import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/PrintDailyShift";
+import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/WeeklyshiftTable/PrintWeeklyplan";
+import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/DailyshiftTable/PrintDailyShift";
 import PrintShowStatus from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowStatus/PrintShowStatus";
 import ShowPartsPdf from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowParts/ShowPartsPdf";
 import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowStatus/PrintShowStatusFabrication";

@@ -4,7 +4,7 @@ import { Table } from 'react-bootstrap'
 import axios from "axios";
 
 
-export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,
+export default function ProgramProcessingModal({show, setShow,selectProgramCompleted,
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -186,8 +186,8 @@ return (
             </div>
 
             <div className="col-md-2 mt-2" style={{padding:'0'}}>
-            <Button variant="secondary" onClick={onClickCloseProgram}>
-             CloseProgram
+            <Button variant="secondary" >
+             Change Machine
             </Button>
             </div>
 

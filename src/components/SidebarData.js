@@ -140,35 +140,35 @@ export const customerSidebar = [
     icon: <MdReport />,
     icon:<GoReport/>
   },
-  {
-    title: "Fabrication",
-    path: "/production/fabrication",
-    icon: <BsScrewdriver />,
-    iconClosed: <RiIcons.RiArrowDownSFill />,
-    iconOpened: <RiIcons.RiArrowUpSFill />,
-    subNav: [
-      {
-        title: "3D Schedules",
-        path: "/customer/custinvandpayments",
-        icon: <AiOutlineSchedule/>,
-      },
-      {
-        title: "Laser Welding",
-        path: "/customer/outstandings",
-        icon: <GiLaserPrecision />,
-      },
-      {
-        title: "Fabrication",
-        path: "/customer/outstandings",
-        icon: <HiCubeTransparent/>,
-      },
-      {
-        title: "Scheduler",
-        path: "/customer/outstandings",
-        icon: <AiFillSchedule/>,
-      },
-    ]
-  },
+  // {
+  //   title: "Fabrication",
+  //   path: "/production/fabrication",
+  //   icon: <BsScrewdriver />,
+  //   iconClosed: <RiIcons.RiArrowDownSFill />,
+  //   iconOpened: <RiIcons.RiArrowUpSFill />,
+  //   subNav: [
+  //     {
+  //       title: "3D Schedules",
+  //       path: "/customer/custinvandpayments",
+  //       icon: <AiOutlineSchedule/>,
+  //     },
+  //     {
+  //       title: "Laser Welding",
+  //       path: "/customer/outstandings",
+  //       icon: <GiLaserPrecision />,
+  //     },
+  //     {
+  //       title: "Fabrication",
+  //       path: "/customer/outstandings",
+  //       icon: <HiCubeTransparent/>,
+  //     },
+  //     {
+  //       title: "Scheduler",
+  //       path: "/customer/outstandings",
+  //       icon: <AiFillSchedule/>,
+  //     },
+  //   ]
+  // },
   // {
   //   title: "Profile",
   //   path: "/production/profile",

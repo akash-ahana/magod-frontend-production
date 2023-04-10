@@ -34,16 +34,20 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintDailyShift() {
-  const location = useLocation();
-  let rowselect=location.state.rowselect.item;
+export default function PrintDailyShift({rowselect}) {
+  // const location = useLocation();
+  // let rowselect=location.state.rowselect.item;
+    let date=rowselect.item;
 
 
-  let dateSplit = rowselect.split("/")
+  let dateSplit = date.split("/")
   let year = dateSplit[2]
   let month = dateSplit[1]
   let day = dateSplit[0]
   let finalday = day + "-" + month + "-" + year
+
+  console.log(finalday);
+
 
   //First Shift
   const[newData,setNewdata]=useState([]);
@@ -149,7 +153,7 @@ export default function PrintDailyShift() {
             <PDFViewer width="1200" height="600" filename="somename.pdf">
               <PrintDailyShiftTable 
                 newdata = {newData}
-                rowselect={rowselect} 
+                rowselect={date} 
               />
             </PDFViewer>
           </Fragment>
