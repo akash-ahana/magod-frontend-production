@@ -23,6 +23,10 @@ import ScheduleListService from "./pages/Production/Production/ScheduleList/Serv
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
 import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/PrintWeeklyplan";
 import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/PrintDailyShift";
+import ByMachineBox from "./pages/Production/Production/MachineAllotment/ByMachineBox";
+import MachieAlltmntCall from "./pages/Production/Production/MachineAllotment/MachieAlltmntCall";
+
+
 
 
 function App() {
@@ -40,6 +44,7 @@ function App() {
                 <Route path="schedulelistprofile" element={<ScheduleList/>} />
                 <Route path="schedulelistservice" element={<ScheduleListService/>} />
                 <Route path="schedulelistfabrication" element={<ScheduleListFabrication/>} />
+                <Route path="machineAllotment" element={<MachieAlltmntCall/>} />
             </Route>
 
             <Route path="fabrication" element={<Fabrication/>} />
