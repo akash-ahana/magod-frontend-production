@@ -58,11 +58,12 @@ export default function MachineModal({open,setOpen,formdata,setFormdata}) {
           <Modal.Title>Magod Production Manager</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Do you wish to add {formdata.manufacturer},{formdata.model} as {formdata.refName}
+        <Modal.Body>Do you wish to add <b>{formdata.manufacturer}</b>,<b>{formdata.model}</b> as &nbsp;
+         <b>{formdata.refName}</b>
         &nbsp; to Magod Machine List?</Modal.Body>
 
         <Modal.Footer>
-          <Button variant="primary" onClick={()=>openThirdmodal()}>
+          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={()=>openThirdmodal()}>
             Yes
           </Button>
           <Button variant="secondary" onClick={handleClose}>

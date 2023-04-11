@@ -11,8 +11,8 @@ console.log(selectRow)
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
      <div style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table bordered  striped className="table-data border">
+       <thead className="tableHeaderBGColor" style={{textAlign:"center"}}>
          <tr>
            <th>Process</th>
            <th>TgtRate</th>
@@ -22,10 +22,11 @@ console.log(selectRow)
          </tr>
        </thead>
 
-{processdataList.map((item,key)=>{
+
+    <tbody className='tablebody'>
+    {processdataList.map((item,key)=>{
   return(
     <>
-    <tbody className='tablebody'>
           <tr onClick={()=>selectedRowFun(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
              <td>{item.Mprocess}</td>
              <td>{item.TgtRate}</td>
@@ -33,10 +34,11 @@ console.log(selectRow)
              <td>{item.Machine_srl}</td>
              <td>{item.RefProcess}</td>
          </tr>
-       </tbody>
-    </>
+         </>
   )
 })}
+       </tbody>
+   
  </Table>
      </div>
  </div>

@@ -10,11 +10,7 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
 setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData,selectedWeek,
 rowselect}) {
 
-    // console.log('DATA FROM Daily Shift Table' , SingleDayShiftPlan4thTable)
-    // console.log('Selected Row in Daily Shift Table ' , rowselectDailyShiftTable)
-
-    
-
+   
        useEffect(() => {
         getMachineOperatorTableData();
        },[rowselectDailyShiftTable]) 
@@ -60,7 +56,7 @@ rowselect}) {
     
     //    }
 
-//Machine Operator Table
+//Machine Operator Table Rowselect
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
 const rowSelectFun=(item,index)=>{
   let list={...item,index:index}
@@ -78,7 +74,8 @@ console.log("ScheduleNo",item.ScheduleNo)
          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
          getSecondTableData={getSecondTableData}
          selectedWeek={selectedWeek}
-         rowselect={rowselect}/>    
+         rowselect={rowselect}
+         rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}/>    
 
         <DailyOperator data={rowselectDailyShiftTable}
          selectMachineOperatorData={rowselectDailyShiftTable}
@@ -87,22 +84,24 @@ console.log("ScheduleNo",item.ScheduleNo)
         </div>
          
  <div >
- <div style={{marginTop:"23px",width:"300px",height:"385px",fontSize:"15px",overflowX: "scroll",overflowY: "scroll"}}>
-<Table bordered style={{marginLeft:"5px",border:"1px"}}>
-       <thead style={{textAlign:"center",backgroundColor:"lightblue"}}>
+ <div style={{marginTop:"23px",width:"300px",height:"385px",fontSize:"15px",
+ overflowX: "scroll",overflowY: "scroll"}}>
+<Table striped className="table-data border" style={{marginLeft:"5px",border:"1px"}}>
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Shift</th>
-           <th>Shift Inchare</th>
+           <th>Incharge</th>
            <th >From</th>
            <th >To Time</th>
            <th>Shift Instructions</th>
            <th>Save Shift Instruction</th>
          </tr>
        </thead>
+      
+         <tbody className='tablebody'>  
        {SingleDayShiftPlan4thTable.map((rank, i, row) => {
     return(
         <>
-         <tbody className='tablebody'>
               <tr onClick={()=>rowSelectFunForDailyShiftTable(rank,i)} 
                className= {i=== rowselectDailyShiftTable?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
@@ -121,13 +120,11 @@ console.log("ScheduleNo",item.ScheduleNo)
                  <td><button className="button-style group-button" style={{width:"100px"}}
                  onClick={()=>updateShiftinstruction()}
                  >Save</button></td>
-             </tr>
-           </tbody>
-          
+             </tr>       
         </>
       )
-  
 })}
+           </tbody>
        </Table>
        </div>
        <MachineOperatorTable

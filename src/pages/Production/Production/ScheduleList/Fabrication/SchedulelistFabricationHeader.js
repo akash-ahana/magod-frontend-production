@@ -1,11 +1,23 @@
 import React from 'react';
 import { useGlobalContext } from '../../../../../Context/Context';
+import { useNavigate, } from 'react-router-dom'
+
 
 
 export default function SchedulelistFabricationHeader() {
   const{schedulelistfabricationdata,setSchedulelistfabricationdata,
     schedulelistfabricationdatas}=useGlobalContext();
 
+
+    const navigate=useNavigate()
+  const openShowStatusPdfFabrication = () => {
+    navigate('PrintFabricationShowStatus')
+  }
+
+  const openShowPartsPdfFabrication = () => {
+    console.log("Function called")
+    navigate('PrintFabricationShowParts');
+  }
 
     const searchText = (e) => {
       let number = e.target.value;
@@ -36,7 +48,7 @@ export default function SchedulelistFabricationHeader() {
        </div>
 
     <div className="col-md-9 col-sm-12">
-        <div className="ip-box form-bg mt-5 ">
+        <div className="mt-5 ">
           <div className='row'>
             <button className="button-style mt-2 group-button"
              style={{ width: "120px"}}>
@@ -44,12 +56,12 @@ export default function SchedulelistFabricationHeader() {
             </button>
 
             <button className="button-style mt-2 group-button"
-              style={{ width: "120px"}}>
+              style={{ width: "120px"}} onClick={openShowStatusPdfFabrication}>
               Show Status
             </button>
 
             <button className="button-style mt-2 group-button" 
-               style={{ width: "120px"}}>
+               style={{ width: "120px"}} onClick={openShowPartsPdfFabrication}>
                Show Parts
             </button>
 
@@ -61,11 +73,6 @@ export default function SchedulelistFabricationHeader() {
             <button className="button-style mt-2 group-button" 
              style={{ width: "140px" }}>
              Production list
-            </button>
-
-            <button className="button-style mt-2 group-button" 
-              style={{ width: "120px" }}>
-              Design
             </button>
           </div>
       </div>

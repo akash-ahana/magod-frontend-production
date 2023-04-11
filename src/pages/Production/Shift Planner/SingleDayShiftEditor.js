@@ -1,18 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import UpdateDayshiftModal from './UpdateDayshiftModal';
-import DeleteDayShiftModal from './DeleteDayShiftModal';
+import UpdateDayshiftModal from './Modals/UpdateDayshiftModal';
+import DeleteDayShiftModal from './Modals/DeleteDayShiftModal';
 import { useNavigate} from 'react-router-dom'
+import ModalPrintDailyShift from './PdfPrinter/DailyshiftTable/ModalPrintDailyShift';
 
 
 function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShiftTable,getSecondTableData,
-  rowselect}) {
+  rowselect,rowSelectFunForDailyShiftTable}) {
 
-  console.log(rowselectDailyShiftTable)
+  console.log(rowselectDailyShiftTable.Shift_Ic)
   //PRINT DAILY SHIFT
-  let navigate=useNavigate();
+  // let navigate=useNavigate();
+
+  const[openPrintModal,setOpenPrintModal]=useState('');
   const openDailyShiftPrinter=()=>{
-    navigate("PrintDailyplan",{state:{rowselect:rowselect}});
+    setOpenPrintModal(true);
+    // navigate("PrintDailyplan",{state:{rowselect:rowselect}});
   }
 
     const[dataShiftIncharge,setDataShiftIncharge]=useState([]);
@@ -20,13 +24,11 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
 
     const getShiftInchargeData=async()=>{
         const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
-        //console.log('Shift In Charge',data);
         setDataShiftIncharge(data);
     
       };
 
     const handleShiftIncharge=(e)=>{
-        //console.log("Shift in charge selected");
         setSelectedShiftIncharge(e.target.value);
       }
 
@@ -37,11 +39,10 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       useEffect(() => {
         setSelectedShiftIncharge(rowselectDailyShiftTable.Shift_Ic);
       }, [rowselectDailyShiftTable]);
-      // console.log('PROPS FROM Single Day Shift Editor ' , rowselectDailyShiftTable)
+
       const onClickUpdateDayShift = () => {
-        // console.log('Update Day Shift Button is Clicked' , ' New Shift Inchrge Selected is ' , selectedShiftIncharge)
         axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftIncharge', {...rowselectDailyShiftTable , newShift_Ic :selectedShiftIncharge})
-        .then((response) => {console.log(response)
+        .then((response) => {
         //getSecondTableData()
         getSingleDayShiftPlan4thTable();
         getSecondTableData();
@@ -49,10 +50,8 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
       const onClickDeleteDayShiftPlan = () => {
-        // console.log('Delete Daily Shift Plan is Clicked ' , rowselectDailyShiftTable)
         axios.post('http://172.16.20.61:5000/shiftEditor/deleteSingleDayShift', rowselectDailyShiftTable)
-        .then((response) => {console.log(response)
-        //getSecondTableData()
+        .then((response) => {
         getSingleDayShiftPlan4thTable();
         getSecondTableData();
       })
@@ -71,7 +70,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
     return (
-        <div style={{textAlign:"center",backgroundColor:"lightblue",
+        <div style={{textAlign:"center",backgroundColor:"#d3d3d3",
         marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
           <h6>Daily Shift Editor</h6>
 
@@ -82,10 +81,11 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
             <div className="col-md-5"style={{textAlign:"center",marginLeft:"40px",width:"120px"}}>
                 <label className="form-label">Shift InCharge</label>
                 <select className="ip-select" onChange={handleShiftIncharge}>
-                  <option selected>{rowselectDailyShiftTable.Shift_Ic}</option>
+                <option value={rowselectDailyShiftTable.Shift_Ic} selected>{rowselectDailyShiftTable.Shift_Ic}</option>
                     {dataShiftIncharge.map((dataShiftIncharge) => (
                         <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
                     ))}
+                    
                 </select>
             </div>
             <br></br>
@@ -140,6 +140,10 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
           deletedayshift={deletedayshift}
           rowselectDailyShiftTable={rowselectDailyShiftTable}
           onClickDeleteDayShiftPlan={onClickDeleteDayShiftPlan}/>
+
+          <ModalPrintDailyShift openPrintModal={openPrintModal}
+          setOpenPrintModal={setOpenPrintModal}
+          rowselect={rowselect}/>
    
         </div>
     );

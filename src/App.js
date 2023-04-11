@@ -21,13 +21,15 @@ import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/Sch
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
 import ScheduleListService from "./pages/Production/Production/ScheduleList/Service/ScheduleListService";
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
-import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/PrintWeeklyplan";
-import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/PrintDailyShift";
-import ByMachineBox from "./pages/Production/Production/MachineAllotment/ByMachineBox";
-import MachieAlltmntCall from "./pages/Production/Production/MachineAllotment/MachieAlltmntCall";
-
-
-
+import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/WeeklyshiftTable/PrintWeeklyplan";
+import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/DailyshiftTable/PrintDailyShift";
+import PrintShowStatus from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowStatus/PrintShowStatus";
+import ShowPartsPdf from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowParts/ShowPartsPdf";
+import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowStatus/PrintShowStatusFabrication";
+import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowParts/ShowPartsPdfFabrication";
+import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
+import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
+import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
 
 function App() {
   return (
@@ -41,10 +43,26 @@ function App() {
 
            <Route path="production">
                 <Route index={true} element={<Production/>}/>
-                <Route path="schedulelistprofile" element={<ScheduleList/>} />
-                <Route path="schedulelistservice" element={<ScheduleListService/>} />
-                <Route path="schedulelistfabrication" element={<ScheduleListFabrication/>} />
-                <Route path="machineAllotment" element={<MachieAlltmntCall/>} />
+                   <Route path="schedulelistprofile">
+                      <Route index ={true}  element={<ScheduleList/>} />
+                      <Route path="PrintShowStatus" element={<PrintShowStatus/>} />
+                      <Route path="PrintShowParts" element={<ShowPartsPdf/>} />
+                  </Route>
+                  <Route path="schedulelistfabrication">
+                      <Route index ={true}  element={<ScheduleListFabrication/>} />
+                      <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} />
+                      <Route path="PrintFabricationShowParts" element={<ShowPartsPdfFabrication/>} />
+                  </Route>
+                  <Route path="schedulelistservice">
+                      <Route index ={true} element={<ScheduleListService/>} />
+                      <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} />
+                      <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} />
+                  </Route>  
+
+                  <Route path="shiftmanagerProfile" element={<ShiftManager/>}/>
+                  <Route path="shiftmanagerFabrication" element={<ShiftManager/>}/>
+                  <Route path="shiftmanagerService" element={<ShiftManager/>}/>
+
             </Route>
 
             <Route path="fabrication" element={<Fabrication/>} />

@@ -7,7 +7,7 @@ const Tables = ({ theadData, tbodyData }) => {
   console.log("inside table", theadData);
   console.log("inside table", tbodyData);
   return (
-    <Table striped className="table-data border ">
+    <Table striped className="table-data border">
       <thead className="tableHeaderBGColor">
         <tr>
           {theadData.map((heading) => {

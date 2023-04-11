@@ -11,11 +11,10 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
  }, []);
 
 
-  
   return (
      <div style={{height:"500px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Select</th>
            <th>Schedule No</th>
@@ -27,10 +26,10 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
        </thead>
 
 
-    {schedulelistdata.map((item,key)=>{
+        <tbody className='tablebody'>
+        {schedulelistdata.map((item,key)=>{
       return(
         <>
-        <tbody className='tablebody'>
          <tr onClick={()=>rowSelectFun(item,key)} className={key===rowselect?.index? 'selcted-row-clr':'' } >
            <td>
                 <input className="form-check-input"
@@ -44,10 +43,10 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
            <td>{item.Delivery_Date}</td>
            <td>{item.Schedule_Status}</td>
          </tr>
-   </tbody>
-        </>
+         </>
       )
     })}
+   </tbody>
  </Table>
 
      </div>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from "axios";
-import AddOperatorModal from './AddOperatorModal';
-import DeleteOperatorfordayModal from './DeleteOperatorfordayModal';
+import AddOperatorModal from './Modals/AddOperatorModal';
+import DeleteOperatorfordayModal from './Modals/DeleteOperatorfordayModal';
 
 
 function DailyOperator(props) {

@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintWeeklyplan() {
-    const location = useLocation();
+export default function PrintWeeklyplan({selectedWeek}) {
+    // const location = useLocation();
 
-    let selectedWeek=location.state.selectedWeek;
+    // let selectedWeek=location.state.selectedWeek;
     console.log("to pass",selectedWeek);
     
     const newData1 = [

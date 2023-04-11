@@ -20,35 +20,31 @@ function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable
     return (
         <div style={{height:"228px",overflowY:"scroll"}}>
 
-<Table bordered style={{border:"1px",marginLeft:"5px",fontSize:"15px"}}>
-       <thead style={{textAlign:"center",backgroundColor:"lightblue"}}>
+<Table striped className="table-data border" style={{border:"1px",marginLeft:"5px"}}>
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Machine</th>
            <th>Operator</th>
            
          </tr>
        </thead>
-       {machineOperatorTableData.map((rank, i, row) => {
+
+      
+         <tbody className='tablebody'>
+         {machineOperatorTableData.map((rank, i, row) => {
     return(
         <>
-         <tbody className='tablebody'>
               <tr onClick={()=>rowSelectFun(rank,i)}  
               className= {i=== rowselectMachineOperator?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
                  <td>{rank.Machine}</td>
                  <td>{rank.Operator}</td>
-                
-             </tr>
-           </tbody>
-          
+             </tr>    
         </>
       )
-  
 })}
-
-
-       </Table>
-            
+           </tbody>
+       </Table>   
         </div>
     );
 }
