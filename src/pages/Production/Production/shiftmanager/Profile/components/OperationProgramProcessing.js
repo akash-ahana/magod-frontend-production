@@ -6,8 +6,9 @@ import { Table } from 'react-bootstrap'
 import ProgramProcessingModal from '../programpath/ProgramProcessingModal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import OperationsProcessingModal from '../programpath/OperationsProcessingModal';
 
-export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
+export default function OperationProgramProcessing({programProcessing}) {
 
   const [show, setShow] = useState(false);
   const [ machineData, setMachineData] = useState([])
@@ -21,7 +22,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
     }
 
     const[selectProgramProcessing,setSelectProgramProcessing]=useState('');
-    const programProcessing=(item,index)=>{
+    const programProcessingrow=(item,index)=>{
       let list={...item,index:index}
       // console.log("ScheduleNo",item.ScheduleNo)
       setSelectProgramProcessing(list);
@@ -68,11 +69,11 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
          </tr>
        </thead>
 
-       {machineProgramesProcessing && machineProgramesProcessing.map((item,key)=>{
+       {programProcessing && programProcessing.map((item,key)=>{
   return(
     <>
     <tbody className='tablebody'>
-          <tr onClick={()=>programProcessing(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
+          <tr onClick={()=>programProcessingrow(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
              <td>{item.TaskNo}</td>
              <td>{item.Machine}</td>
              <td>{item.Operation}</td>
@@ -89,11 +90,11 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 })}
  </Table>
      </div>
-     <ProgramProcessingModal show={show}
+     <OperationsProcessingModal show={show}
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
      machineData={machineData}
-     taskNoOnClick={taskNoOnClick}
+    //  taskNoOnClick={taskNoOnClick}
      />
 
  </div>

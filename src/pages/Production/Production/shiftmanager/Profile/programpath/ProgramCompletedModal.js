@@ -11,6 +11,8 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
   const[programCompleteData,setProgramCompleteData]=useState([]);
   const[newprogramCompleteData,setNewProgramCompleteData]=useState([]);
 
+  const [fullscreen, setFullscreen] = useState(true);
+
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
   const modalTable=()=>{
@@ -49,6 +51,13 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
     //modalTable();
+
+    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
+    programCompleteData)
+   .then((response) => {
+     console.log('Current State of programCompleteData' , response.data);
+     //setProgramCompleteData(response.data)
+ })
   }
 
   
@@ -66,8 +75,8 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
-    programCompleteData)
+    axios.post('http://172.16.20.61:5000/shiftManagerProfile/CloseProgram',
+    selectProgramCompleted)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
      //setProgramCompleteData(response.data)
@@ -103,7 +112,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
 return (
   <div>
-    <Modal size='lg' show={show} onHide={handleClose}>
+    <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Program Parts Inspection Form</Modal.Title>
       </Modal.Header>
@@ -217,7 +226,7 @@ return (
 
       <div className='row mt-1'>
   <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
-   <div style={{height:"150px",width:'760px',overflowY: "scroll", overflowX:'scroll'}}>
+   <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table bordered style={{border:'1px solid grey'}}>
      <thead style={{textAlign:"center"}}>
        <tr>

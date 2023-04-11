@@ -5,11 +5,11 @@ import axios from "axios";
 import Popup from "../components/Popup"
 
 
-export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
+export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
 }) {
-  const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
-
   const [fullscreen, setFullscreen] = useState(true);
+
+  const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
   const[programCompleteData,setProgramCompleteData]=useState([]);
   const[newprogramCompleteData,setNewProgramCompleteData]=useState([]);
@@ -230,7 +230,7 @@ return (
       </div>
 
       <div className='row mt-1'>
-  <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
+  <div className='col-md-12 col-sm-12 mt-4' style={{paddingRight:'462px', paddingBottom:'23px'}}>
    <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table bordered style={{border:'1px solid grey'}}>
      <thead style={{textAlign:"center"}}>

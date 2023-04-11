@@ -2,9 +2,10 @@ import React,{useState} from 'react'
 import { Table } from 'react-bootstrap'
 import ProgramCompletedModal from '../programpath/ProgramCompletedModal';
 import axios from "axios";
+import OperationsCompleteOpenProgram from '../programpath/OperationsCompletedOpenProgram';
 
 
-export default function ProgramCompletedData({machineProgramesCompleted}) {
+export default function OperationsProgramCompleteTable({proramCompleted}) {
 
     const [show, setShow] = useState(false);
 
@@ -38,9 +39,7 @@ export default function ProgramCompletedData({machineProgramesCompleted}) {
     // }
 
     // let difference=machineProgramesCompleted.ActualTime-machineProgramesCompleted.EstimatedTime;
-    console.log(machineProgramesCompleted);
 
-     console.log(' data from program compleated table component ' , machineProgramesCompleted)
   return (
     <>
     <div>
@@ -74,7 +73,7 @@ export default function ProgramCompletedData({machineProgramesCompleted}) {
 
 
     <tbody className='tablebody'>
-    {machineProgramesCompleted && machineProgramesCompleted.map((item,key)=>{
+    {proramCompleted && proramCompleted.map((item,key)=>{
   return(
     <>
           <tr  style={{backgroundColor:item.rowColor}}
@@ -100,17 +99,15 @@ export default function ProgramCompletedData({machineProgramesCompleted}) {
 
 </div>
 
-{show &&
-  (
-    <ProgramCompletedModal 
+
+    <OperationsCompleteOpenProgram
     show={show}
      setShow={setShow}
      selectProgramCompleted={selectProgramCompleted}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />
-  )
-}
+  
 
 </>
   )

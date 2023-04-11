@@ -10,8 +10,8 @@ export default function ByMachineBox() {
   const [machineProcessData, setMachineProcessData] = useState([])
   const [machineProgramesCompleted, setMachineProgramesCompleted] = useState([])
   const [machineProgramesProcessing, setmachineProgramesProcessing] = useState([])
-  const [taskProgramesCompleted,setTaskProgramesCompleted]=useState([])
-  const [taskProgramesProcessing,setTaskProgramesProcessing]=useState([])
+
+  
 
   useEffect(() => {
       axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesTaskNo')
@@ -28,12 +28,20 @@ export default function ByMachineBox() {
     }
 
 
+    function MyComponent() {
+     
+      }
+
   const taskNoOnClick = (Machine, TaskNo) => {
     console.log('Task No on Click is ' , TaskNo)
     //setSelectedTask(TaskNo)
     axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoCompleted' , TaskNo)
           .then((response) => {
-            console.log(response.data)
+            console.log('Programs Compleated DATA' , response.data);
+
+
+            //console.log('Programs Compleated DATA 1' , response.data);
+                  
             setMachineProgramesCompleted(response.data)
           })
 
@@ -43,6 +51,8 @@ export default function ByMachineBox() {
             setmachineProgramesProcessing(response.data)
           })
   }
+
+  console.log("Color code in data set",machineProgramesCompleted)
   
 
   const MachineOnClick = (Machine) => {
@@ -50,8 +60,38 @@ export default function ByMachineBox() {
     axios.post('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesProgramesCompleted' , {MachineName : Machine})
           .then((response) => {
             console.log(response.data)
+            console.log('Programs Compleated DATA 1' , response.data);
+            
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data) 
             setMachineProgramesCompleted(response.data)
           })
+          
 
           axios.post('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesProgramesProcessing' , {MachineName : Machine})
           .then((response) => {
@@ -144,6 +184,7 @@ export default function ByMachineBox() {
             <div>
             <Iframe machineProgramesCompleted = {machineProgramesCompleted} 
                     machineProgramesProcessing= {machineProgramesProcessing}
+                    taskNoOnClick={taskNoOnClick}
                     />
             </div>
         </div>
