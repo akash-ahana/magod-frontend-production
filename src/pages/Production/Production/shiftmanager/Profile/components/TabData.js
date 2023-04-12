@@ -52,9 +52,9 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", overflowX:'scroll',width:'800px'}}>
-     <Table bordered style={{border:'1px solid grey'}}>
-       <thead style={{textAlign:"center"}}>
+     <div style={{height:"200px",overflowY: "scroll", width:'100%'}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Task No</th>
            <th>Machine</th>
@@ -72,7 +72,8 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
   return(
     <>
     <tbody className='tablebody'>
-          <tr onClick={()=>programProcessing(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
+          <tr style={{backgroundColor:item.rowColor}}
+          onClick={()=>programProcessing(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
              <td>{item.TaskNo}</td>
              <td>{item.Machine}</td>
              <td>{item.Operation}</td>

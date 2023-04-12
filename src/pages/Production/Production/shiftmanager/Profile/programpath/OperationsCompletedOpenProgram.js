@@ -4,7 +4,8 @@ import { Table } from 'react-bootstrap'
 import axios from "axios";
 
 
-export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,
+export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,
+  onClickProgram,onClickMachine
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -80,6 +81,9 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
      //setProgramCompleteData(response.data)
+     onClickOperation();
+     onClickProgram();
+     onClickMachine();
  })
   }
   
@@ -228,8 +232,8 @@ return (
       <div className='row mt-1'>
   <div className='col-md-12 col-sm-12 mt-4' style={{paddingRight:'462px', paddingBottom:'23px'}}>
    <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
-   <Table bordered style={{border:'1px solid grey'}}>
-     <thead style={{textAlign:"center"}}>
+   <Table striped className="table-data border">
+     <thead className="tableHeaderBGColor">
        <tr>
          <th>DWG Name</th>
          <th>Total Qty Nested</th>

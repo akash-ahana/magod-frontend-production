@@ -4,7 +4,7 @@ import ProgramCompletedModal from '../programpath/ProgramCompletedModal';
 import axios from "axios";
 
 
-export default function ProgramCompletedData({machineProgramesCompleted}) {
+export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick}) {
 
     const [show, setShow] = useState(false);
 
@@ -56,9 +56,9 @@ export default function ProgramCompletedData({machineProgramesCompleted}) {
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll",overflowX:'scroll', width:'800px'}}>
-     <Table bordered style={{border:'1px solid grey'}}>
-       <thead style={{textAlign:"center"}}>
+     <div style={{height:"200px",overflowY: "scroll", width:'100%'}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Task No</th>
            <th>Machine</th>
@@ -106,6 +106,8 @@ export default function ProgramCompletedData({machineProgramesCompleted}) {
     show={show}
      setShow={setShow}
      selectProgramCompleted={selectProgramCompleted}
+     taskNoOnClick={taskNoOnClick}
+     MachineOnClick={MachineOnClick}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />

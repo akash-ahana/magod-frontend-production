@@ -10,7 +10,7 @@ import ProductionTaskListTable from './programpath/ProductionTaskListTable';
 // import ByCustomer from './components/ByCustomer';
 
 function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, machineProgramesProcessing
-,taskNoOnClick}) {
+,taskNoOnClick,MachineOnClick}) {
     const [key, setKey] = useState("tabdata");
 
     console.log(' data from i frame is ' , machineProgramesCompleted)
@@ -31,12 +31,13 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
       className="mb-3 mt-3 tab_font"
     >
       <Tab eventKey="tabdata" title="Programs Completed">
-      <ProgramCompletedData machineProgramesCompleted = {machineProgramesCompleted}/>
+      <ProgramCompletedData machineProgramesCompleted = {machineProgramesCompleted}
+      taskNoOnClick={taskNoOnClick} MachineOnClick={MachineOnClick}/>
       </Tab>
 
       <Tab eventKey="Programs Processing" title="Programs Processing">
       <TabData machineProgramesProcessing= {machineProgramesProcessing}
-      taskNoOnClick={taskNoOnClick}/>
+      taskNoOnClick={taskNoOnClick} MachineOnClick={MachineOnClick}/>
       </Tab>
 
       <Tab eventKey="Machine Log" title="Machine Log">

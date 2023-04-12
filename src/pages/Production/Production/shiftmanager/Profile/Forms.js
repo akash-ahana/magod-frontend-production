@@ -1,8 +1,9 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 // import Iframe from './Iframe'
 import ByMachineBox from './components/ByMachineBox';
 import ByOperations from './components/ByOperations';
 import ByCustomer from './components/ByCustomer';
+import axios from 'axios';
 
 function Forms() {
 
@@ -37,9 +38,54 @@ function Forms() {
         setIsCustomer(!isCustomer)
     }
 
+    const moment = require('moment');
+    const today = moment();
+    // let Date=today.format("HH:mm DD-MMMM-YYYY");
+    //  console.log(Date);
+    
+
+    const[shiftDetails,setShiftDetails]=useState([])
+    const[shiftFrom,setShiftFrom]=useState('');
+    const[shiftTo,setShiftTo]=useState('')
+    useEffect(()=>{
+        var date1 = moment()
+      .utcOffset('+05:30')
+      .format('YYYY-MM-DD HH:mm:ss ');
+      console.log(date1)
+      const dateArray =date1.split(' ')
+      console.log(dateArray[0])
+      console.log(dateArray[1])
+       const timeArray = dateArray[1].split(':')
+       console.log(timeArray[0])
+      let Shift = " "
+      if( (timeArray[0]>=6) && (timeArray[0]<=14)) {
+        Shift = "First"
+      }else if((timeArray[0]>=14) && (timeArray[0]<=22)) {
+        Shift = "Second"
+      } else {
+        Shift = "Third"
+      }
+      console.log("shift is",Shift)
+        axios.post('http://172.16.20.61:5000/shiftManagerProfile/getShiftInformation',
+        {ShiftDate : dateArray[0], Shift : Shift})
+        .then((response) => {
+          console.log('Shift Information' , response.data);
+          setShiftFrom( response.data[0].FromTime.split(' '));
+          setShiftTo(response.data[0].ToTime.split(' '))
+          setShiftDetails(response.data)
+       }) 
+    },[]);
+
+    
+console.log(shiftFrom[1])
+
   return (
     <>
-    <div className='bg-light'>
+    {shiftDetails && shiftDetails.map((item) => {
+         return (
+            (
+                <div>
+                        <div className='bg-light'>
         <div className="my-0" style={{margin: '40px'}}>
 
             <div className='row'>
@@ -51,34 +97,43 @@ function Forms() {
 
             <div className="col-md-9">
                 <label className="form-label">Date</label>
-                <input className="in-field bg-light" style={{marginTop:'-7px'}} value={date}/>
+                <input className="in-field bg-light" style={{marginTop:'-7px'}}
+                 value={date}/>
             </div>
 
             <div className="col-md-9">
                 <label className="form-label">Shift</label>
-                <input className="in-field" type="text" style={{marginTop:'-14px'}} disabled/>
+                <input className="in-field" type="text" style={{marginTop:'-14px'}} disabled
+                 value={shiftDetails[0].Shift}
+                />
             </div>
 
             <div className="col-md-9">
                 <label className="form-label">From</label>
-                <input className="in-field" type="time" style={{marginTop:'-10px'}} disabled/>
+                <input className="in-field" style={{marginTop:'-10px'}}
+                 value={shiftFrom[1]} 
+                disabled/>
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">To</label>
-                <input className="in-field" type="time" style={{marginTop:'-10px'}} disabled/>
+                <input className="in-field"  style={{marginTop:'-10px'}} disabled
+                 value={shiftTo[1]}
+                />
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">In Charge</label>
-                <input className="in-field" type="text" style={{marginTop:'-12px'}} disabled/>
+                <input className="in-field" type="text" style={{marginTop:'-12px'}} disabled
+                 value={shiftDetails[0].Shift_Ic}
+                />
             </div>
             </div>
 
             <div className="bg-light box01">
             <div className="mb-3" style={{paddingLeft: '2px', width: '450px' }}> 
                 <label htmlFor="myBox" className="bg-ligh tform-title tab_font mb-2">Shift Instructions</label>
-                <textarea className="form-control sticky-top" rows='8' id="" value={text} onChange={handleOnChange} style={{height:'201px', resize:'none'}} disabled></textarea>
+                <textarea className="form-control sticky-top" rows='8' id=""  onChange={handleOnChange} style={{height:'201px', resize:'none'}} value={shiftDetails[0].Shift_instruction} disabled></textarea>
                 </div>
             </div>
 
@@ -106,6 +161,15 @@ function Forms() {
             </form>
      </div>
     </div>
+                </div>
+               )
+         )
+           
+        
+    })
+   
+    }
+
     <div>
      <div className="box01 mt-1">
       {isToggled && <ByMachineBox/>}
@@ -113,7 +177,6 @@ function Forms() {
       {isCustomer && <ByCustomer/>}
      </div>
     </div>
-    {/* <Iframe isToggled={isToggled} isClick={isClick} isCustomer={isCustomer}/> */}
     </>
   )
 }

@@ -45,7 +45,10 @@ export default function AddMachine({show, setShow,machinetypes}) {
     }
 
   
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+      setShow(false);
+      setFormdata({manufacturer:'',refName:'',model:'',Machine_Type:''})
+    }
 
   return (
     <div>

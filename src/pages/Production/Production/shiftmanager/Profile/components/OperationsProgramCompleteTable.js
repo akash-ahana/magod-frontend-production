@@ -5,7 +5,7 @@ import axios from "axios";
 import OperationsCompleteOpenProgram from '../programpath/OperationsCompletedOpenProgram';
 
 
-export default function OperationsProgramCompleteTable({proramCompleted}) {
+export default function OperationsProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine}) {
 
     const [show, setShow] = useState(false);
 
@@ -56,8 +56,8 @@ export default function OperationsProgramCompleteTable({proramCompleted}) {
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
      <div style={{height:"200px",overflowY: "scroll",overflowX:'scroll', width:'800px'}}>
-     <Table bordered style={{border:'1px solid grey'}}>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Task No</th>
            <th>Machine</th>
@@ -104,6 +104,9 @@ export default function OperationsProgramCompleteTable({proramCompleted}) {
     show={show}
      setShow={setShow}
      selectProgramCompleted={selectProgramCompleted}
+     onClickOperation={onClickOperation}
+     onClickProgram={onClickProgram}
+     onClickMachine={onClickMachine}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />

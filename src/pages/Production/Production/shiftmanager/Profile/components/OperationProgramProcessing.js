@@ -73,7 +73,8 @@ export default function OperationProgramProcessing({programProcessing}) {
   return(
     <>
     <tbody className='tablebody'>
-          <tr onClick={()=>programProcessingrow(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
+          <tr style={{backgroundColor:item.rowColor}}
+           onClick={()=>programProcessingrow(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
              <td>{item.TaskNo}</td>
              <td>{item.Machine}</td>
              <td>{item.Operation}</td>

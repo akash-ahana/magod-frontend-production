@@ -11,7 +11,7 @@ import OperationProgramProcessing from './components/OperationProgramProcessing'
 // import ByOperations from './components/ByOperations';
 // import ByCustomer from './components/ByCustomer';
 
-export default  function ByOperationNavTab({programProcessing,proramCompleted}) {
+export default  function ByOperationNavTab({programProcessing,proramCompleted,onClickMachine,onClickProgram,onClickOperation}) {
     const [key, setKey] = useState("tabdata");
 
   return (
@@ -32,6 +32,9 @@ export default  function ByOperationNavTab({programProcessing,proramCompleted}) 
       <Tab eventKey="tabdata" title="Programs Completed">
       <OperationsProgramCompleteTable 
        proramCompleted={proramCompleted}
+       onClickOperation={onClickOperation}
+       onClickProgram={onClickProgram}
+       onClickMachine={onClickMachine}
       />
       </Tab>
 

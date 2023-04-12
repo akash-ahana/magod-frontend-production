@@ -31,13 +31,67 @@ const onClickOperation = (Operation) => {
     axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationProgramesCompleted' , { Operation : Operation})
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);                  
-            setProgramCompleted(response.data)
+            setProgramCompleted(response.data);
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data)
           })
 
           axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationProgramesProcessing',{ Operation : Operation})
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
-            setProgramProcessing(response.data)
+            setProgramProcessing(response.data);
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data)
           })
 }
 
@@ -45,14 +99,68 @@ const onClickMachine = (Machine, Operation) => {
     console.log('The Selected Machine is ' , Machine , 'With Operation ' , Operation);
     axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationMachinesProgramesCompleted' , {MachineName : Machine , Operation : Operation})
           .then((response) => {
-            console.log('Programs Compleated DATA' , response.data);                  
-            setProgramCompleted(response.data)
+            console.log('Programs Compleated DATA' , response.data);   
+            setProgramCompleted(response.data);
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data)
           })
 
           axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationMachinesProgramesProcessing',{MachineName : Machine , Operation : Operation})
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
-            setProgramProcessing(response.data)
+            setProgramProcessing(response.data);
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data)
           })
     
 }
@@ -64,13 +172,67 @@ const onClickProgram = (Operation , Machine , processItem ) => {
     axios.post('http://172.16.20.61:5000/shiftManagerProfile//taskNoProgramNoCompleted' , processItem)
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);                  
-            setProgramCompleted(response.data)
+            setProgramCompleted(response.data);
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data)
           })
 
           axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoProcessing',processItem)
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
-            setProgramProcessing(response.data)
+            setProgramProcessing(response.data);
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+                //break;
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+                //break;
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+                //break;
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+                //break;
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+             console.log('AFTER ADDING COLOR' , response.data)
           })
 }
 
@@ -152,7 +314,10 @@ const onClickProgram = (Operation , Machine , processItem ) => {
         </div>   
             <div>
             <ByOperationNavTab proramCompleted={proramCompleted}
-            programProcessing={programProcessing}/>
+            programProcessing={programProcessing}
+            onClickMachine={onClickMachine}
+            onClickProgram={onClickProgram}
+            onClickOperation={onClickOperation}/>
             </div>
         </div>
   );

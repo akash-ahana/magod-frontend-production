@@ -6,7 +6,8 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-export default function Popup({openChnageMachine, setOpenChangeMachine,selectProgramProcessing, machineData,taskNoOnClick}) {
+export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
+   machineData}) {
 console.log(selectProgramProcessing)
 console.log('MACHINE DATA' , machineData[0].refName)
 const [open, setOpen] = React.useState(false);

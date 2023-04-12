@@ -28,6 +28,10 @@ export default function ({selectedRow}) {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
+     const [Mprocess,setMprocess]=React.useState('')
+     const [RefProcess,setRefProcess]=React.useState('')
+     const [TgtRate,setTgRate]=React.useState('');
+
     const {MachineTabledata} = useGlobalContext()
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
@@ -148,6 +152,9 @@ else{
 }
 
   const openAddprocess=()=>{
+    //clear the state of the add process model here
+    setRefProcess('') 
+    setTgRate('')
      setAddprocess(true);
   }
 
@@ -214,6 +221,12 @@ else{
                setAddprocess={setAddprocess}
                selectedRow={selectedRow}
                getprocessdataList={getprocessdataList}
+               setMprocess={setMprocess}
+               setRefProcess={setRefProcess}
+               setTgRate={setTgRate}
+               Mprocess={Mprocess}
+               RefProcess={RefProcess}
+               TgtRate={TgtRate}
                />
             )}
 

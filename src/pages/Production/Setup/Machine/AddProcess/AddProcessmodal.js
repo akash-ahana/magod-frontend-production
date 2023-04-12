@@ -10,13 +10,18 @@ import { baseURL } from '../../../../../api/baseUrl';
 //import {process} from './ProcessList'
 
 export default function AddProcessmodal({addprocess,setAddprocess,
-  selectedRow,getprocessdataList}) {
+  selectedRow,getprocessdataList,setTgRate,setRefProcess,setMprocess,Mprocess,RefProcess,TgtRate}) {
+
+const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
   const formSchema = Yup.object().shape({
     RefProcess: Yup.string().required("This Field is required"),
     TgtRate: Yup.string().required("This Field is required"),
   });
 
+  
+
+  
   const formOptions = { resolver: yupResolver(formSchema) };
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
@@ -25,15 +30,19 @@ export default function AddProcessmodal({addprocess,setAddprocess,
     const [processList,setProcessList]=React.useState([])
 
     //  const [Machinesrl,setMachinesrl]=React.useState('')
-     const [Mprocess,setMprocess]=React.useState('')
-     const [RefProcess,setRefProcess]=React.useState('')
-     const [TgtRate,setTgRate]=React.useState('');
+     
 
     let addprocessState={RefProcess:'',TgtRate:'',Machine_srl:'',Mprocess:''}
      const[processform,setProcessform]=React.useState(addprocessState);
     function handleFormChange(e){
       let {name,value}=e.target
       setProcessform({...processform,[name]:value})
+    }
+
+    const handleClose=()=>{
+      setAddprocess(false);
+      console.log("Onclick Exit",processform);
+      setProcessform({RefProcess:'',TgtRate:'',Machine_srl:'',Mprocess:''})
     }
 
     useEffect(() => {
@@ -69,8 +78,20 @@ export default function AddProcessmodal({addprocess,setAddprocess,
         console.log('last console of state process form ' , processform)
       }
       
-
-    const handleClose = () => setAddprocess(false);
+      const submitProcessform = () => {
+        setAlert(false)
+        axios.post(
+          baseURL + "/productionSetup/addProcessToMachine",
+          {
+          ...processform
+          }).then((response) => {
+          console.log("sent", response)
+          console.log("final response", response.data);
+          console.log(selectedRow)
+          getprocessdataList(selectedRow.Machine_srl);
+          setProcessform(addprocessState)
+        });
+      };
 
   return (
     <div>
@@ -83,6 +104,7 @@ export default function AddProcessmodal({addprocess,setAddprocess,
             selectedRow={selectedRow}
             setProcessform={setProcessform}
             getprocessdataList={getprocessdataList}
+            submitProcessform={submitProcessform}
             />
         )}
       <Modal show={addprocess} onHide={handleClose}>
@@ -121,6 +143,8 @@ export default function AddProcessmodal({addprocess,setAddprocess,
               <div className="col-md-12">
                 <label className=""> Rate(/Hour)</label>
                 <input    value={processform.TgtRate} name='TgtRate'
+                type='number'
+                onKeyDown={blockInvalidChar}
                 {...register("TgtRate")}
                 className={`in-field ${
                   errors.TgtRate ? "is-invalid" : ""}`} required 
