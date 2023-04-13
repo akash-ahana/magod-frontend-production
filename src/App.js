@@ -31,6 +31,8 @@ import PrintShowStatusService from "./pages/Production/Production/ScheduleList/S
 import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
 import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
 
+import MachieAlltmntCall from "./pages/Production/Production/MachineAllotment/MachieAlltmntCall";
+
 function App() {
   return (
     <BrowserRouter>
@@ -47,7 +49,16 @@ function App() {
                       <Route index ={true}  element={<ScheduleList/>} />
                       <Route path="PrintShowStatus" element={<PrintShowStatus/>} />
                       <Route path="PrintShowParts" element={<ShowPartsPdf/>} />
+                      <Route path="machineallotement" element={<MachieAlltmntCall/>} />
                   </Route>
+
+
+                  <Route path="machineallotement">
+                     
+                      <Route index ={true} element={<MachieAlltmntCall/>} />
+                  </Route>
+
+
                   <Route path="schedulelistfabrication">
                       <Route index ={true}  element={<ScheduleListFabrication/>} />
                       <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} />

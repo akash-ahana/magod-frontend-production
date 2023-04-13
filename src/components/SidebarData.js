@@ -91,7 +91,7 @@ export const customerSidebar = [
       },
       {
         title: "Machine Allotment",
-        path: "/customer/outstandings",
+        path: "/production/production/machineallotement",
         icon: <BiGitMerge/>,
       },
       {
