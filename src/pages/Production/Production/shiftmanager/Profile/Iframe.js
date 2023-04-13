@@ -13,7 +13,7 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
 ,taskNoOnClick,MachineOnClick}) {
     const [key, setKey] = useState("tabdata");
 
-    console.log(' data from i frame is ' , machineProgramesCompleted)
+    console.log('data from i frame is ' , machineProgramesCompleted)
 
   return (
     <>
@@ -23,7 +23,7 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
       {isClick && <ByOperations/>}
       {isCustomer && <ByCustomer/>}
     </div> */}
-    <div style={{marginLeft: '40px'}}>
+    <div style={{width:"100%"}}>
       <Tabs
       id="controlled-tab-example"
       activeKey={key}
