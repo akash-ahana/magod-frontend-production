@@ -13,7 +13,7 @@ export default function PriorityTable({rowSelectFun,rowselect,getprocessTabledat
    }, []);
   return (
     <>
-    <div className='col-md-12 d-flex' >
+    <div className='row' >
 
     <div className='col-md-6' style={{overflowY:'scroll',overflowX:'scroll', height:'380px'}}>
      <Table bordered>
@@ -70,9 +70,10 @@ export default function PriorityTable({rowSelectFun,rowselect,getprocessTabledat
 
      </div >
 
+
 {/* priority print */}
 
-      <div className='col-md-6 ' style={{marginLeft:'20px'}} >
+      <div className='col-md-6 '  >
         <div className='' style={{backgroundColor:'#F2D7D5 '}}>
         <h4 className="form-title"  style={{backgroundColor:'#F2D7D5', padding:'6px'}}>Production Priority list</h4>
         
@@ -85,6 +86,7 @@ export default function PriorityTable({rowSelectFun,rowselect,getprocessTabledat
           </div>
       
       {/* Table2 */}
+
 
       <div className='' style={{height:"300px",overflowY: "scroll",overflowX: "scroll"}}>
      <Table bordered>

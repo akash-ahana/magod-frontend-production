@@ -45,19 +45,19 @@ export default function MachineAlltmntForm() {
    // console.log('API DATA IS ' , machineProcessData)
 
   return (
-    <div >
-         <div className='col-md-12 d-flex' style={{backgroundColor:'#F7DC6F ',height:'70px'}} >
-    <div className='col-md-4 col-sm-12 mt-3'  >
-      <div  >
-        <h4 className="form-title"  style={{backgroundColor:'#F7DC6F  '}}>Machine  Allotment Form</h4>
-       
-     </div>
+    <>
+    
+       <div className='row'>
+        
+    <div className='col-md-4  mt-3'  >    
+        <h4 className="form-title"  >Machine  Allotment Form</h4>
     </div>
+  
     
 
  <div className="col-md-6 col-sm-12"   >
      <div className="ip-box form-bg mt-2 " >
-       <div className='row' style={{backgroundColor:'#F7DC6F'}}>
+       <div className='row' >
 
          <button className="button-style mt-2 group-button" 
             style={{ width: "140px"}}>
@@ -80,12 +80,13 @@ export default function MachineAlltmntForm() {
        </div>
    </div>
  </div>
+ 
 </div>
-     
+   
 
 
 {/* ///////////////////// */}
-<div className='col-md-12 d-flex'>
+  <div className='row'>
 <div className="col-md-3 mt-4" style={{ height: "205px", overflowY: "scroll" }}>
  
 {dataSource.map((node, i) => {
@@ -132,12 +133,12 @@ export default function MachineAlltmntForm() {
 
         {/* \\\\\\\\\ ///////*/}
 
-    <div className='col-md-9' style={{marginLeft:'20px'}}>
+    <div className='col-md-9' >
       <Tabs
       id="controlled-tab-example"
       activeKey={key}
       onSelect={(k) => setKey(k)}
-      className="mb-3 mt-3 tab_font"
+      className="mb-3 mt-3 tab_font "
     >
       <Tab eventKey="ncprogram" title="Nc program">
        <PriorityTable/>
@@ -148,12 +149,14 @@ export default function MachineAlltmntForm() {
       </Tab>
     </Tabs>
   </div>
+
   </div>
   {
     open &&(
      < ChangeMachinePopUp open={open} setOpen={setOpen} />
     )
   }
-  </div>
+  
+  </>
   );
 }
