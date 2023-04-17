@@ -56,6 +56,7 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
   }
       
     } 
+    console.log(constWeekState);
 
         axios.post('http://172.16.20.61:5000/shiftEditor/createWeeklyShiftPlan', constWeekState)
         .then((response) => {console.log('CREATE WEEK SHIFT RESPONSE ' , response)

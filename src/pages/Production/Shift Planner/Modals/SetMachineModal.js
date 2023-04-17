@@ -14,8 +14,10 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
     }
 
       const setMachineoperators=()=>{
+        console.log(weekState1);
         axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperators', weekState1)
-        .then((response) => {console.log(response)
+        .then((response) => {
+          console.log(response);
         getMachineOperatorTableData();
         getSingleDayShiftPlan4thTable();
         handleClose();

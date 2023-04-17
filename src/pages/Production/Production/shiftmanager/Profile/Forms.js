@@ -45,8 +45,6 @@ function Forms() {
     
 
     const[shiftDetails,setShiftDetails]=useState([])
-    const[shiftFrom,setShiftFrom]=useState('');
-    const[shiftTo,setShiftTo]=useState('')
     useEffect(()=>{
         var date1 = moment()
       .utcOffset('+05:30')
@@ -70,15 +68,11 @@ function Forms() {
         {ShiftDate : dateArray[0], Shift : Shift})
         .then((response) => {
           console.log('Shift Information' , response.data);
-          setShiftFrom( response.data[0].FromTime.split(' '));
-          setShiftTo(response.data[0].ToTime.split(' '))
-          setShiftDetails(response.data)
+          setShiftDetails(response.data);
        }) 
     },[]);
 
     
-console.log(shiftFrom[1])
-
   return (
     <>
     {shiftDetails && shiftDetails.map((item) => {
@@ -111,14 +105,14 @@ console.log(shiftFrom[1])
             <div className="col-md-9">
                 <label className="form-label">From</label>
                 <input className="in-field" style={{marginTop:'-10px'}}
-                 value={shiftFrom[1]} 
+                 value={shiftDetails[0].FromTime} 
                 disabled/>
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">To</label>
                 <input className="in-field"  style={{marginTop:'-10px'}} disabled
-                 value={shiftTo[1]}
+                 value={shiftDetails[0].ToTime}
                 />
             </div>
 

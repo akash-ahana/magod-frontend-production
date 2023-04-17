@@ -7,7 +7,7 @@ import axios from "axios";
 import SecondTable from './SecondTable';
 import DailyShiftTable from './DailyShiftTable';
 import CreateweekModal from './Modals/CreateweekModal';
-import SetMachineModal from './SetMachineModal';
+import SetMachineModal from './Modals/SetMachineModal';
 import DeleteshiftModal from './Modals/DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './Modals/DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom';
@@ -40,6 +40,7 @@ function NewCalender(props) {
   const [dataShiftTypes, setDataShiftTypes] = useState([]);
   const [selectedShift, setSelectedShift] = useState('');
 
+  let initialStates={dataShiftIncharge:'',selectedShiftIncharge:''}
   const [dataShiftIncharge, setDataShiftIncharge] = useState([]);
   const [selectedShiftIncharge, setSelectedShiftIncharge] = useState([]);
   const [selectedMachine, setSelectedMachine] = useState('');
@@ -70,9 +71,7 @@ function NewCalender(props) {
     const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
     //console.log('Shift In Charge',data);
     setDataShiftIncharge(data);
-
   };
-
 
 
   const handleShiftTypeChange = (e) => {
@@ -82,9 +81,7 @@ function NewCalender(props) {
   };
 
 
-
   const handleShiftIncharge = (e) => {
-    //console.log("Shift in charge selected");
     setSelectedShiftIncharge(e.target.value);
   }
 
@@ -202,6 +199,7 @@ function NewCalender(props) {
   const selectWeek = (e) => {
     setDate(e)
     createWeek(e)
+    // initialStates
   }
 
   const dateFormatter = (inputDate) => {
@@ -485,8 +483,9 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
         // }
        
 
-
-        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
+console.log(rowselectDailyShiftTable);
+        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable )
+        .then((response) => 
         {console.log('Api response is ' , response)
         if(response.data === '') {
             // console.log('response data is null')
@@ -529,30 +528,23 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
           const openDeletemachineoperator=()=>{
             setOpendeleteoperator(true);
           }
-
-
-//            //CLEAR FORM
-// const formOptions = { resolver: yupResolver(selectedShift) };
-// const {  reset } = useForm(formOptions);
-//         useEffect(() => {
-//           // reset form with user data
-//           reset(selectedWeek);
-//         }, [selectedWeek]);
-
           
   return (
     <>
       <div style={{ marginTop: "-35px" }}>
         <div className='row'>
-          <div className='col-md-4 col-sm-12 mt-4'>
+        <div className='row mt-4'>
+            <h4 className="form-title">Production Department: Shift Editor</h4>
+              <hr className="horizontal-line" />
+            </div>
+          <div className='col-md-4 col-sm-12 mt-2'>
             <div>
-              <h4 className="form-title">Production Department: Shift Editor</h4>
               <h6>Weekly Shift Editor</h6>
             </div>
           </div>
 
           <div className="col-md-8 col-sm-12">
-            <div className="mt-3">
+            <div >
               <div className='row'>
                 <div className="col-md-3">
                   <label className="form-label">Shift</label>
@@ -588,7 +580,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
       </div>
     </div>
 
-          <div className='col-md-4 col-sm-12 mt-4'>
+          <div className='col-md-4 col-sm-12 mt-2'>
             <div style={{color:"red",fontSize:"14px"}}>
               <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
             </div>
@@ -672,7 +664,7 @@ const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
             <div>
                 <div style={{width:"260px",fontSize:"13px",marginTop:"23px"}}>
                   
-                    <ReactCalendar onChange={e => {    selectWeek(e)  }} showWeekNumbers 
+                    <ReactCalendar onChange={e => {selectWeek(e)  }} showWeekNumbers 
                         showFixedNumberOfWeeks value={date} />
                 </div> 
             </div>
