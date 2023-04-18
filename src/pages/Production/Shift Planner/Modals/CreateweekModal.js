@@ -1,11 +1,8 @@
-import React from 'react';
+import React from 'react'; 
 import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 
 
 export default function CreateweekModal({openweekshift,setOpenweekshift,
@@ -21,14 +18,14 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
     const createWeekshift=()=>{
         let constWeekState = weekState
         for(let i=0; i<constWeekState.length; i++) {
-          //console.log(letinputArray[i].ShiftDate)  
+          //console.log(letinputArray[i].ShiftDate)  
           let dateSplit = constWeekState[i].ShiftDate.split("/"); 
           let year = dateSplit[2];
           let month = dateSplit[1];
           let day = dateSplit[0];
           let finalDay = year+"-"+month+"-"+day 
           constWeekState[i].ShiftDate = finalDay
-          //console.log(finalDay)  
+          //console.log(finalDay)  
            }
 
            let fromTime =0; 
@@ -54,9 +51,9 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
     constWeekState[i].FromTime = constWeekState[i].ShiftDate + fromTime
     constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime
   }
-      
+
+        
     } 
-    console.log(constWeekState);
 
         axios.post('http://172.16.20.61:5000/shiftEditor/createWeeklyShiftPlan', constWeekState)
         .then((response) => {console.log('CREATE WEEK SHIFT RESPONSE ' , response)
@@ -71,7 +68,6 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
     //     createWeekshift();
     //   },[weekState])
 
-   
   return (
     <div>
          <Modal show={openweekshift} onHide={handleClose}>
