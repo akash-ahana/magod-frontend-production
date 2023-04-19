@@ -28,6 +28,10 @@ export default function ({selectedRow}) {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
 
+     const [Mprocess,setMprocess]=React.useState('')
+     const [RefProcess,setRefProcess]=React.useState('')
+     const [TgtRate,setTgRate]=React.useState('');
+
     const {MachineTabledata} = useGlobalContext()
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
@@ -148,6 +152,9 @@ else{
 }
 
   const openAddprocess=()=>{
+    //clear the state of the add process model here
+    setRefProcess('') 
+    setTgRate('')
      setAddprocess(true);
   }
 
@@ -214,6 +221,12 @@ else{
                setAddprocess={setAddprocess}
                selectedRow={selectedRow}
                getprocessdataList={getprocessdataList}
+               setMprocess={setMprocess}
+               setRefProcess={setRefProcess}
+               setTgRate={setTgRate}
+               Mprocess={Mprocess}
+               RefProcess={RefProcess}
+               TgtRate={TgtRate}
                />
             )}
 
@@ -230,7 +243,7 @@ else{
             <div className="row">
               <div className="col-md-12 ">
                 <label className="">Reference Name</label>
-                <input className="in-field" value={machineData.refName} 
+                <input className="in-fields" value={machineData.refName} 
                 disabled={true}
                 name='refName' onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -239,7 +252,7 @@ else{
             <div className="row">
               <div className="col-md-12">
                 <label className="">Manufacturer</label>
-                <input className="in-field"  name='manufacturer'
+                <input className="in-fields"  name='manufacturer'
                  value={machineData.manufacturer} 
                 disabled={true}  onChange={(e)=>handleMachineChange(e)}/>
               </div>
@@ -250,7 +263,7 @@ else{
               <div className="col-md-9">
               <div className="col-md-12 ">
                 <label className="">Model</label>
-                <input className="in-field" value={machineData.Model} 
+                <input className="in-fields" value={machineData.Model} 
                  disabled={true} name='model' onChange={(e)=>handleMachineChange(e)} />
               </div>
 
@@ -276,7 +289,7 @@ else{
                  name='RegnNo' 
                  disabled={machineData.isRegnNumberPresent=== true ? true : false}
                   {...register("RegnNo")}
-                className={`in-field mt-2 ${
+                className={`in-fields mt-2 ${
                   errors.RegnNo ? "is-invalid" : ""}`} required 
                   onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -289,7 +302,7 @@ else{
                    name='location' value={machineData.location}
                    disabled={machineData.isLocationPresent===true ? true : false}
                    {...register("location")}
-                   className={`in-field mt-2 ${
+                   className={`in-fields mt-2 ${
                      errors.location ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -316,7 +329,7 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Target Rate</label>
-                <input className="in-field mt-2" type='number'
+                <input className="in-fields mt-2" type='number'
                 onKeyDown={blockInvalidChar} value={machineData.TgtRate}
                 name='TgtRate' onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -332,7 +345,7 @@ else{
                value={formatDate(machineData.InstallDate)} type="date"
                disabled={machineData.isInstallDatePresent === true ? true : false}
                {...register("InstallDate")} 
-                className={`in-field  mt-2 ${
+                className={`in-fields  mt-2 ${
                   errors.InstallDate ? "is-invalid" : ""}`} required 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -341,7 +354,7 @@ else{
               <div className="col-md-6">
               <div className="col-md-12 ">
                 <label className="">Uninstall Date</label>
-                <input className="in-field mt-2" name='UnistallDate'
+                <input className="in-fields mt-2" name='UnistallDate'
                   value={formatDate(machineData.UnistallDate)}
                  type="date"
                  onChange={(e)=>handleMachineChange(e)} />
@@ -351,7 +364,7 @@ else{
             <div className="row">
             <div className="col-md-12 ">
                 <label className="">Remarks</label>
-                <input className="in-field mt-2" name='remarks'
+                <input className="in-fields mt-2" name='remarks'
                  value={machineData.remarks} 
                  onChange={(e)=>handleMachineChange(e)} />
               </div>

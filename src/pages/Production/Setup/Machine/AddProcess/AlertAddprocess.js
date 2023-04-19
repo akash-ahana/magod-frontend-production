@@ -6,27 +6,16 @@ import { useGlobalContext } from '../../../../../Context/Context';
 import { baseURL } from '../../../../../api/baseUrl';
 
 export default function AlertAddprocess({alert,setAlert,processform,
-  setProcessform,selectedRow,getprocessdataList}) {
+  setProcessform,selectedRow,getprocessdataList,submitProcessform}) {
   let addprocessState={RefProcess:'',TgtRate:'',Machine_srl:'',Mprocess:''}
 
   const handleClose=()=>{
     setAlert(false);
+    console.log(processform)
+    // processform.reset();
   }
 
-    const submitProcessform = () => {
-      setAlert(false)
-      axios.post(
-        baseURL + "/productionSetup/addProcessToMachine",
-        {
-        ...processform
-        }).then((response) => {
-        console.log("sent", response)
-        console.log("final response", response.data);
-        console.log(selectedRow)
-        getprocessdataList(selectedRow.Machine_srl);
-        setProcessform(addprocessState)
-      });
-    };
+    
 
   return (
     <div>

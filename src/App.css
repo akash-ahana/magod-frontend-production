@@ -272,7 +272,7 @@ input:focus {
 }
 
 .ip-select {
-  font-size: 16px;
+  font-size: 13px;
   padding: -3px 10px 10px 5px;
   display: block;
   width: 100%;
@@ -354,7 +354,7 @@ label {
 }
 
 .form-title {
-  font-size: 1.1rem;
+  font-size: 1.4rem;
   /* padding-bottom: -10px; */
   background-color: #ffffff;
   opacity: 1;

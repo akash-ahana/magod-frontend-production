@@ -2,23 +2,40 @@ import React from 'react'
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Prompt from './ConfirmForm';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
-function Popup({popup, setPopup}) {
-
+export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
+   machineData}) {
+console.log(selectProgramProcessing)
+console.log('MACHINE DATA' , machineData[0].refName)
 const [open, setOpen] = React.useState(false);
-
-const handleOpen=()=>{
-setOpen(true)
-setPopup(false)
-}
+const [selectedMachine, setSelectedMachine] = useState("")
 
 const handleClose = ()=>{
-  setPopup(false);
+  setOpenChangeMachine(false);
+}
+
+const[changeMachineList,setChangeMachineList]=useState([])
+const handleMachineChange = (e) => {
+  setChangeMachineList(e.target.value);
+  setSelectedMachine(e.target.value)
+};
+
+
+const changeMachineonClick = () => {
+  axios.post('http://172.16.20.61:5000/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
+  .then((response) => {
+    console.log('Current State of programCompleteData' , response.data);
+    handleClose();
+    // taskNoOnClick();
+ })
 }
 
   return (
     <>
-    <Modal show={popup} size='lg'>
+    <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"
     style={{ display: 'block', position: 'initial'}}
@@ -34,42 +51,50 @@ const handleClose = ()=>{
 
               <div className="col-md-6">
                 <label className="">Program No</label>
-                <input  className='in-field' />
+                <input  className='in-field'
+                value={selectProgramProcessing.NCProgramNo} />
               </div>
 
               <div className="col-md-6">
                 <label className="">Machine</label>
-                <input  className='in-field' />
+                <input  className='in-field' 
+                 value={selectProgramProcessing.Machine}/>
               </div>
 
               <div className="col-md-6 mt-1">
                 <label className="">Material</label>
-                <input  className='in-field' />
+                <input  className='in-field'
+                 value={selectProgramProcessing.Mtrl_Code} />
               </div>
           
               <div className="col-md-6 mb-3">
                  <label className="form-label">Change To</label>
-                 <select className='ip-select'>
-                    <option value={1}>select</option>
-                    <option value={1}>1</option>
-                    <option value={2}>2</option>
+                 <select className='ip-select' onChange={handleMachineChange}>
+                    <option selected>Select Machine</option>
+                    
+                    {machineData.map((machineData) => (
+                      <option value={machineData.refName}>{machineData.refName}</option>
+                    ))}
+                    
                   </select>
               </div>
               
               <div className="col-md-6">
                 <label className="">Process</label>
-                <input  className='in-field' />
+                <input  className='in-field'
+                 value={selectProgramProcessing.MProcess} />
               </div>
 
              <div className="col-md-5 mt-3">
-              <Button variant="secondary" onClick={handleOpen}>
+              <Button variant="secondary" onClick={changeMachineonClick}>
               Change Machine
               </Button> 
             </div> 
 
               <div className="col-md-6 mb-3">
                 <label className="">Status</label>
-                <input  className='in-field' />
+                <input  className='in-field'
+                 value={selectProgramProcessing.PStatus} />
               </div>  
             </div>
           </div>
@@ -90,4 +115,4 @@ const handleClose = ()=>{
   )
 }
 
-export default Popup
+

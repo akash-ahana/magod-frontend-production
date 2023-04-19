@@ -6,14 +6,13 @@ import ProgramCompletedData from './components/ProgramCompletedData';
 import TabData from './components/TabData';
 import MachineLogTable from './programpath/MachineLogTable';
 import ProductionTaskListTable from './programpath/ProductionTaskListTable';
+import OperationsProgramCompleteTable from './components/OperationsProgramCompleteTable';
+import OperationProgramProcessing from './components/OperationProgramProcessing';
 // import ByOperations from './components/ByOperations';
 // import ByCustomer from './components/ByCustomer';
 
-function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, machineProgramesProcessing
-,taskNoOnClick,MachineOnClick}) {
+export default  function ByOperationNavTab({programProcessing,proramCompleted,onClickMachine,onClickProgram,onClickOperation}) {
     const [key, setKey] = useState("tabdata");
-
-    console.log('data from i frame is ' , machineProgramesCompleted)
 
   return (
     <>
@@ -23,7 +22,7 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
       {isClick && <ByOperations/>}
       {isCustomer && <ByCustomer/>}
     </div> */}
-    <div style={{width:"100%"}}>
+    <div style={{marginLeft: '40px'}}>
       <Tabs
       id="controlled-tab-example"
       activeKey={key}
@@ -31,13 +30,16 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
       className="mb-3 mt-3 tab_font"
     >
       <Tab eventKey="tabdata" title="Programs Completed">
-      <ProgramCompletedData machineProgramesCompleted = {machineProgramesCompleted}
-      taskNoOnClick={taskNoOnClick} MachineOnClick={MachineOnClick}/>
+      <OperationsProgramCompleteTable 
+       proramCompleted={proramCompleted}
+       onClickOperation={onClickOperation}
+       onClickProgram={onClickProgram}
+       onClickMachine={onClickMachine}
+      />
       </Tab>
 
       <Tab eventKey="Programs Processing" title="Programs Processing">
-      <TabData machineProgramesProcessing= {machineProgramesProcessing}
-      taskNoOnClick={taskNoOnClick} MachineOnClick={MachineOnClick}/>
+      <OperationProgramProcessing programProcessing={programProcessing}/>
       </Tab>
 
       <Tab eventKey="Machine Log" title="Machine Log">
@@ -57,4 +59,3 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
   )
 }
 
-export default Iframe

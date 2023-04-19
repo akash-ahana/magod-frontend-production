@@ -4,14 +4,15 @@ import { Table } from 'react-bootstrap'
 import axios from "axios";
 
 
-export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick
+export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,
+  onClickProgram,onClickMachine
 }) {
+  const [fullscreen, setFullscreen] = useState(true);
+
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
   const[programCompleteData,setProgramCompleteData]=useState([]);
   const[newprogramCompleteData,setNewProgramCompleteData]=useState([]);
-
-  const [fullscreen, setFullscreen] = useState(true);
 
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
@@ -79,11 +80,13 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     selectProgramCompleted)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data);
-     taskNoOnClick();
-     MachineOnClick();
+     //setProgramCompleteData(response.data)
+     onClickOperation();
+     onClickProgram();
+     onClickMachine();
  })
   }
+  
   //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
@@ -114,7 +117,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
 return (
   <div>
-    <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
+    <Modal size='lg' show={show}  fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Program Parts Inspection Form</Modal.Title>
       </Modal.Header>
@@ -227,7 +230,7 @@ return (
       </div>
 
       <div className='row mt-1'>
-  <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
+  <div className='col-md-12 col-sm-12 mt-4' style={{paddingRight:'462px', paddingBottom:'23px'}}>
    <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">

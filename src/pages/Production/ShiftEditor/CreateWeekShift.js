@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 
-export default function CreateweekModal({openweekshift,setOpenweekshift,
+export default function CreateWeekShift({openweekshift,setOpenweekshift,
     selectedShift,selectedShiftIncharge, selectedWeek,weekState,
     getSingleDayShiftPlan4thTable,getSecondTableData,setWeekState}) {
 

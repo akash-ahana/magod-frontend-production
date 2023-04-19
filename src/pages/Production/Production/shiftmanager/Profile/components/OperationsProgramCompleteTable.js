@@ -2,9 +2,10 @@ import React,{useState} from 'react'
 import { Table } from 'react-bootstrap'
 import ProgramCompletedModal from '../programpath/ProgramCompletedModal';
 import axios from "axios";
+import OperationsCompleteOpenProgram from '../programpath/OperationsCompletedOpenProgram';
 
 
-export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick}) {
+export default function OperationsProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine}) {
 
     const [show, setShow] = useState(false);
 
@@ -38,9 +39,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
     // }
 
     // let difference=machineProgramesCompleted.ActualTime-machineProgramesCompleted.EstimatedTime;
-    console.log(machineProgramesCompleted);
 
-     console.log(' data from program compleated table component ' , machineProgramesCompleted)
   return (
     <>
     <div>
@@ -56,7 +55,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", width:'100%'}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:'scroll', width:'800px'}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -74,7 +73,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 
 
     <tbody className='tablebody'>
-    {machineProgramesCompleted && machineProgramesCompleted.map((item,key)=>{
+    {proramCompleted && proramCompleted.map((item,key)=>{
   return(
     <>
           <tr  style={{backgroundColor:item.rowColor}}
@@ -100,19 +99,18 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 
 </div>
 
-{show &&
-  (
-    <ProgramCompletedModal 
+
+    <OperationsCompleteOpenProgram
     show={show}
      setShow={setShow}
      selectProgramCompleted={selectProgramCompleted}
-     taskNoOnClick={taskNoOnClick}
-     MachineOnClick={MachineOnClick}
+     onClickOperation={onClickOperation}
+     onClickProgram={onClickProgram}
+     onClickMachine={onClickMachine}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />
-  )
-}
+  
 
 </>
   )

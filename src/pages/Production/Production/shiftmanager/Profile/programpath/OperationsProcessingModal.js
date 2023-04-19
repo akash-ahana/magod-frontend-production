@@ -2,37 +2,43 @@ import React,{useState, useEffect} from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
+import Popup from "../components/Popup"
 
 
-export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick
+export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
 }) {
+  const [fullscreen, setFullscreen] = useState(true);
+
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
   const[programCompleteData,setProgramCompleteData]=useState([]);
   const[newprogramCompleteData,setNewProgramCompleteData]=useState([]);
 
-  const [fullscreen, setFullscreen] = useState(true);
-
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
   const modalTable=()=>{
     axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerncProgramTaskList',
-    {...selectProgramCompleted})
+    {...selectProgramProcessing})
    .then((response) => {
      console.log(response.data);
      setProgramCompleteData(response.data)
  })
   }
+
   
   useEffect(() => {
     modalTable();
-  }, [selectProgramCompleted])
+  }, [selectProgramProcessing])
 
   const handleClose = () => setShow(false);
 
   //console.log(programCompleteData);
 
-
+//Open Popup
+const[openChnageMachine,setOpenChangeMachine]=useState('');
+const openChangeMachineModal=()=>{
+    setOpenChangeMachine(true);
+}
 
   const clearAllButton = () => {
     console.log('Clear All button Clicked' , programCompleteData)
@@ -51,7 +57,6 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
     //modalTable();
-
     axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
@@ -75,13 +80,11 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/CloseProgram',
-    selectProgramCompleted)
+    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
+    programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data);
-     taskNoOnClick();
-     MachineOnClick();
+     //setProgramCompleteData(response.data)
  })
   }
   //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
@@ -125,17 +128,17 @@ return (
             <div className="col-md-3">
               <label className="form-label"> Task no</label>
               <input  className='in-field'
-              value={selectProgramCompleted.TaskNo}/>
+              value={selectProgramProcessing.TaskNo}/>
             </div>
             <div className="col-md-2">
               <label className="form-label"> Quantity</label>
               <input  className='in-field'
-              value={selectProgramCompleted.Qty} />
+              value={selectProgramProcessing.Qty} />
             </div>
             <div className="col-md-5">
               <label className="form-label"> Material</label>
               <input  className='in-field'
-              value={selectProgramCompleted.Mtrl_Code} />
+              value={selectProgramProcessing.Mtrl_Code} />
             </div>
 
             <div className="col-md-2 mt-3">
@@ -150,76 +153,76 @@ return (
             <div className="col-md-3">
               <label className="form-label"> Program no</label>
               <input  className='in-field'
-              value={selectProgramCompleted.NCProgramNo} />
+              value={selectProgramProcessing.NCProgramNo} />
             </div>
 
             <div className="col-md-2">
               <label className="form-label">Alloted</label>
               <input  className='in-field'
-              value={selectProgramCompleted.QtyAllotted} />
+              value={selectProgramProcessing.QtyAllotted} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Process</label>
                <input  className='in-field'
-               value={selectProgramCompleted.MProcess} />
+               value={selectProgramProcessing.MProcess} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Status</label>
                <input  className='in-field'
-                value={selectProgramCompleted.PStatus} />
+                value={selectProgramProcessing.PStatus} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Machine</label>
                <input  className='in-field' 
-               value={selectProgramCompleted.Machine}/>
+               value={selectProgramProcessing.Machine}/>
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Processed</label>
                <input  className='in-field'
-               value={selectProgramCompleted.QtyCut} />
+               value={selectProgramProcessing.QtyCut} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Dwgs</label>
                <input  className='in-field'
-               value={selectProgramCompleted.NoOfDwgs} />
+               value={selectProgramProcessing.NoOfDwgs} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Parts</label>
                <input  className='in-field' 
-               value={selectProgramCompleted.TotalParts
+               value={selectProgramProcessing.TotalParts
                }/>
             </div>
 
             <div className="col-md-2 mt-2" style={{padding:'0'}}>
-            <Button variant="secondary" onClick={onClickCloseProgram}>
-             CloseProgram
+            <Button variant="secondary" onClick={openChangeMachineModal}>
+             Change Machine
             </Button>
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Process Time</label>
                <input  className='in-field'
-               value={selectProgramCompleted.ActualTime
+               value={selectProgramProcessing.ActualTime
                } />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Estimated</label>
                <input  className='in-field'
-               value={selectProgramCompleted.EstimatedTime
+               value={selectProgramProcessing.EstimatedTime
                } />
             </div>
 
             <div className="col-md-2 mb-2">
                <label className="form-label">Machine</label>
                <input  className='in-field' 
-               value={selectProgramCompleted.Machine}/>
+               value={selectProgramProcessing.Machine}/>
             </div>
 
           </div>
@@ -227,7 +230,7 @@ return (
       </div>
 
       <div className='row mt-1'>
-  <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
+  <div className='col-md-12 col-sm-12 mt-4' style={{paddingRight:'462px', paddingBottom:'23px'}}>
    <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
@@ -306,6 +309,12 @@ return(
 })}
 </Table>
    </div>
+   <Popup openChnageMachine={openChnageMachine}
+   setOpenChangeMachine={setOpenChangeMachine}
+   selectProgramProcessing={selectProgramProcessing}
+   machineData={machineData}
+   taskNoOnClick={taskNoOnClick}
+   />
 </div>
 </div>
       </Modal.Body>

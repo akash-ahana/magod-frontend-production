@@ -1,31 +1,28 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { useGlobalContext } from '../../../../../Context/Context';
 
-export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTabledata }) {
+export default function AllotmentTables() {
 
-  const { schedulelistdata, getSchedulistdata } = useGlobalContext();
 
-  useEffect(() => {
-    getSchedulistdata();
-  }, []);
+  
+
   return (
     <>
-
-      <div className="col-md-2 mb-1 " >
+      <div className="col-md-2 mb-1" >
         <div>
-          <label className="" style={{ marginLeft: '3px' }} >Find Schedule</label>
+          <label >Find Schedule</label>
         </div>
         <div>
-          <input className="in-field" name='RegnNo' type='search' />
+          <input className="in-field"  type='search' />
         </div>
       </div>
 
       <div className='row' >
 
         <div className='col-md-6' style={{ overflowY: 'scroll', overflowX: 'scroll', height: '550px' }}>
-          <Table bordered>
-            <thead style={{ textAlign: "center" }}>
+          <Table striped className="table-data border">
+            <thead className="tableHeaderBGColor">
               <tr>
                 <th>Shedule no</th>
                 <th>Delivery Date</th>
@@ -36,24 +33,15 @@ export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTab
               </tr>
             </thead>
 
-
-            {schedulelistdata.map((item, key) => {
-              return (
-                <>
                   <tbody className='tablebody'>
-                    <tr onClick={() => rowSelectFun(item, key)} className={key === rowselect?.index ? 'selcted-row-clr' : ''} >
-
-
-                      <td>{item.Delivery_Date}</td>
-                      <td>{item.Schedule_Status}</td>
-                      <td>{item.schTgtDate}</td>
-                      <td>{item.Delivery_Date}</td>
-                      <td>{item.Schedule_Status}</td>
+                    <tr >
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                   </tbody>
-                </>
-              )
-            })}
           </Table>
 
         </div >
@@ -61,8 +49,6 @@ export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTab
         {/* Form */}
 
         <div className='col-md-6'  >
-
-
           <div className='' style={{ marginTop: '-65px' }} >
 
 
@@ -78,19 +64,12 @@ export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTab
                     </div>
                   </div>
 
-
-
-
-
-
                   <div className="row">
-
                     <div className="col-md-6 ">
                       <label className="">Task no</label>
                       <input className="in-field"
                         disabled={false}
                         name='refName' />
-
                     </div>
 
                     <div className="col-md-6 ">
@@ -153,9 +132,9 @@ export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTab
                       <div className="ip-box form-bg mt-2 " style={{}}>
                         <div className='row'>
 
-                          <button className="button-style mt-2 group-button"
+                          <button style={{width:"200px"}} className="button-style mt-2 group-button"
                           >
-                            change machine
+                            Change Machine
                           </button>
                         </div>
                       </div>
@@ -194,8 +173,8 @@ export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTab
             {/* //TABLE3 */}
 
             <div className='' style={{ height: "300px", overflowY: "scroll", overflowX: "scroll" }}>
-              <Table bordered>
-                <thead style={{ textAlign: "center" }}>
+              <Table striped className="table-data border">
+                <thead className="tableHeaderBGColor">
                   <tr>
 
                     <th>Task no</th>
@@ -210,35 +189,19 @@ export default function AllotmentTables({ rowSelectFun, rowselect, getprocessTab
                 </thead>
 
 
-                {schedulelistdata.map((item, key) => {
-                  return (
-                    <>
                       <tbody className='tablebody'>
-                        <tr onClick={() => rowSelectFun(item, key)} className={key === rowselect?.index ? 'selcted-row-clr' : ''} >
-
-
-                          <td>{item.schTgtDate}</td>
-                          <td>{item.Delivery_Date}</td>
-                          <td>{item.Schedule_Status}</td>
-                          <td>{item.schTgtDate}</td>
-                          <td>{item.Delivery_Date}</td>
-                          <td>{item.Schedule_Status}</td>
+                        <tr>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
                         </tr>
                       </tbody>
-                    </>
-                  )
-                })}
               </Table>
-
             </div>
-
-
           </div>
-
-
-
-
-
         </div>
       </div>
     </>

@@ -6,8 +6,9 @@ import { Table } from 'react-bootstrap'
 import ProgramProcessingModal from '../programpath/ProgramProcessingModal';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import OperationsProcessingModal from '../programpath/OperationsProcessingModal';
 
-export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
+export default function OperationProgramProcessing({programProcessing}) {
 
   const [show, setShow] = useState(false);
   const [ machineData, setMachineData] = useState([])
@@ -21,7 +22,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
     }
 
     const[selectProgramProcessing,setSelectProgramProcessing]=useState('');
-    const programProcessing=(item,index)=>{
+    const programProcessingrow=(item,index)=>{
       let list={...item,index:index}
       // console.log("ScheduleNo",item.ScheduleNo)
       setSelectProgramProcessing(list);
@@ -52,9 +53,9 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", width:'100%'}}>
-     <Table striped className="table-data border">
-       <thead className="tableHeaderBGColor">
+     <div style={{height:"200px",overflowY: "scroll", overflowX:'scroll',width:'800px'}}>
+     <Table bordered style={{border:'1px solid grey'}}>
+       <thead style={{textAlign:"center"}}>
          <tr>
            <th>Task No</th>
            <th>Machine</th>
@@ -68,12 +69,12 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
          </tr>
        </thead>
 
-       {machineProgramesProcessing && machineProgramesProcessing.map((item,key)=>{
+       {programProcessing && programProcessing.map((item,key)=>{
   return(
     <>
     <tbody className='tablebody'>
           <tr style={{backgroundColor:item.rowColor}}
-          onClick={()=>programProcessing(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
+           onClick={()=>programProcessingrow(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
              <td>{item.TaskNo}</td>
              <td>{item.Machine}</td>
              <td>{item.Operation}</td>
@@ -90,11 +91,11 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 })}
  </Table>
      </div>
-     <ProgramProcessingModal show={show}
+     <OperationsProcessingModal show={show}
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
      machineData={machineData}
-     taskNoOnClick={taskNoOnClick}
+    //  taskNoOnClick={taskNoOnClick}
      />
 
  </div>

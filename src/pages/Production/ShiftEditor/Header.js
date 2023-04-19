@@ -4,21 +4,14 @@ import 'react-calendar/dist/Calendar.css';
 import moment from 'moment'
 import Table from "react-bootstrap/Table";
 import axios from "axios";
-import SecondTable from './SecondTable';
-import DailyShiftTable from './DailyShiftTable';
-import CreateweekModal from './Modals/CreateweekModal';
-import SetMachineModal from './Modals/SetMachineModal';
-import DeleteshiftModal from './Modals/DeleteshiftModal';
-import DeleteMachineoperatorweekModal from './Modals/DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom'
-// import PrintWeeklyplan from './PrintWeeklyplan';
+import CreateWeekShift from './CreateWeekShift';
+import SecondTable from './SecondTable';
+import SetMachineOperator from './SetMachineOperator';
+import DailyShift from './DailyShift';
 
-// import MachineOperatorTable from './MachineOperatorTable';
-
-function NewCalender(props) {
-
-  //open Print Pdf
-  const navigate=useNavigate()
+export default function Header() {
+    const navigate=useNavigate()
   const openPdfmodel = () => {
     navigate('PrintWeeklyplan',{state:{selectedWeek:selectedWeek}})
   }
@@ -34,72 +27,66 @@ function NewCalender(props) {
   const [dataOperatorList, setDataOperatorList] = useState([]);
   const [selectedOperator, setSelectedOperator] = useState('');
 
-  const getShiftTypesData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/typesOfShifts`);
-    //console.log('Shift Types' , data)
-    setDataShiftTypes(data);
-  };
-
-  const getMachineListData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/productionSetup/getallmachines`);
-    //console.log('Machine List' , data)
-    setGetShiftTypesData(data);
-  };
-
-  const getOperatorListData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/getMachineOperators`);
-    //console.log('Operator List',data);
-    setDataOperatorList(data);
-
-  }
-
-  const getShiftInchargeData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
-    //console.log('Shift In Charge',data);
-    setDataShiftIncharge(data);
-
-  };
 
 
-  const handleShiftTypeChange = (e) => {
-    //console.log("Shift Selected!!");
-    //selectedShift = e.target.value;
-    setSelectedShift(e.target.value);
-  };
+    const getShiftTypesData = async () => {
+        const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/typesOfShifts`);
+        //console.log('Shift Types' , data)
+        setDataShiftTypes(data);
+      };
+    
+      const getMachineListData = async () => {
+        const { data } = await axios.get(`http://172.16.20.61:5000/productionSetup/getallmachines`);
+        //console.log('Machine List' , data)
+        setGetShiftTypesData(data);
+      };
+    
+      const getOperatorListData = async () => {
+        const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/getMachineOperators`);
+        //console.log('Operator List',data);
+        setDataOperatorList(data);
+    
+      }
+    
+      const getShiftInchargeData = async () => {
+        const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
+        //console.log('Shift In Charge',data);
+        setDataShiftIncharge(data);
+    
+      };
+    
+    
+      const handleShiftTypeChange = (e) => {
+        //console.log("Shift Selected!!");
+        //selectedShift = e.target.value;
+        setSelectedShift(e.target.value);
+      };
+    
+    
+      const handleShiftIncharge = (e) => {
+        //console.log("Shift in charge selected");
+        setSelectedShiftIncharge(e.target.value);
+      }
+    
+      const handleMachineChange = (e) => {
+        //console.log("MachineSelected!!");
+        //selectedShift = e.target.value;
+        setSelectedMachine(e.target.value);
+      };
+    
+      const handleOperatorList = (e) => {
+        setSelectedOperator(e.target.value);
+    
+      }
+    
+      useEffect(() => {
+        getShiftTypesData();
+        getMachineListData();
+        getShiftInchargeData();
+        getOperatorListData();
+      }, []);
 
-
-  const handleShiftIncharge = (e) => {
-    //console.log("Shift in charge selected");
-    setSelectedShiftIncharge(e.target.value);
-  }
-
-  const handleMachineChange = (e) => {
-    //console.log("MachineSelected!!");
-    //selectedShift = e.target.value;
-    setSelectedMachine(e.target.value);
-  };
-
-  const handleOperatorList = (e) => {
-    //console.log("Operator List Selected");
-    setSelectedOperator(e.target.value);
-
-  }
-
-  // console.log('Selected Shift after setting ', selectedShift)
-  // console.log('Selected Machine after setting ', selectedMachine)
-  // console.log('Selected Operator after Setting', selectedOperator);
-  // console.log('Selected Shift In Charge', selectedShiftIncharge)
-
-  useEffect(() => {
-    getShiftTypesData();
-    getMachineListData();
-    getShiftInchargeData();
-    getOperatorListData();
-  }, []);
-
-
-  //Calender Component
-  const [date, setDate] = useState(new Date());
+      const [date, setDate] = useState(new Date());
   const [selectedWeek, setSelectedWeek] = useState([''])
   const [checkedState, setCheckedState] = useState(
     new Array(7).fill(false)
@@ -139,16 +126,7 @@ function NewCalender(props) {
 
     const [weekState, setWeekState] = useState([])
     const [weekState1, setWeekState1] = useState([])
-   // const [secondTableShiftState, setSecondTableShiftState] = useState([])
 
-  // useEffect(() => {
-  //   const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', weekState).then((response) => {console.log(response)
-  //   setSecondTableShiftState(response.data)})
-  // },[weekState])
-
-  
-    
-    //const [checkedItems, setCheckedItems] = useState(allIsHolidayCheckboxes); //plain object as state
     let sunday  = selectedWeek[6]
     const checkbox1 = useRef();
     const checkbox2 = useRef();
@@ -443,28 +421,8 @@ console.log(rowselectDailyShiftTable)
     const getMachineOperatorTableData = () => {
         let constRowSelectDailyShiftTable = rowselectDailyShiftTable
         if(typeof(constRowSelectDailyShiftTable) !== 'undefined' && constRowSelectDailyShiftTable != null) {
-          // console.log('data is there')
-          //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
-          // let year = dateSplit[2];
-          // let month = dateSplit[1];
-          // let day = dateSplit[0];
-          // let finalDay = year+"-"+month+"-"+day;
-          // constRowSelectDailyShiftTable.ShiftDate =  finalDay
         } else {
-          // console.log('data is  not there')
         }
-        // if((constRowSelectDailyShiftTable && Object.keys(constRowSelectDailyShiftTable).length === 0 && Object.getPrototypeOf(constRowSelectDailyShiftTable) === Object.prototype)) {
-        //     console.log('data is null')
-        // } else {
-        //   let dateSplit = rowselectDailyShiftTable.ShiftDate.split("-");
-        //   let year = dateSplit[2];
-        //   let month = dateSplit[1];
-        //   let day = dateSplit[0];
-        //   let finalDay = year+"-"+month+"-"+day;
-        //   constRowSelectDailyShiftTable.ShiftDate =  finalDay
-        // }
-       
-
         const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
         {console.log('Api response is ' , response)
         if(response.data === '') {
@@ -513,10 +471,10 @@ console.log(rowselectDailyShiftTable)
             const { data } = await axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable' , selectedWeek);
             console.log(data)
           }
-          
+    
   return (
-    <>
-      <div style={{ marginTop: "-35px" }}>
+    <div>
+        <div style={{ marginTop: "-35px" }}>
         <div className='row'>
           <div className='col-md-4 col-sm-12 mt-4'>
             <div>
@@ -786,78 +744,53 @@ console.log(rowselectDailyShiftTable)
             </div>
           </div>
         </div>
-        {/* <button onClick={createWeeklyShiftPlan}>Create Weekly Shift Plan</button> */}
-        {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
+        <div>
+    <SecondTable week={secondTableShiftState}/>
+    </div>
 
+<div>
+<DailyShift
+    SingleDayShiftPlan4thTable={SingleDayShiftPlan4thTable}
+    setSingleDayShiftPlan4thTable={setSingleDayShiftPlan4thTable}
+    rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
+    rowselectDailyShiftTable={rowselectDailyShiftTable}
+    selectedWeek={selectedWeek}
+    getMachineOperatorTableData={getMachineOperatorTableData}
+    machineOperatorTableData={machineOperatorTableData}
+    setRowselectDailyShiftTable={setRowselectDailyShiftTable}
+    getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+    getSecondTableData={getSecondTableData}
+    rowselect={rowselect}
+    />
+</div>
+    </div>
+    <CreateWeekShift
+    openweekshift={openweekshift}
+    setOpenweekshift={setOpenweekshift}
+    selectedShift={selectedShift}
+    selectedShiftIncharge={selectedShiftIncharge}
+    selectedWeek={selectedWeek}
+    weekState={weekState}
+    getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+    getSecondTableData={getSecondTableData}
+    setWeekState={setWeekState}
+    createWeeklyShiftPlan={createWeeklyShiftPlan}/>
 
+    <SetMachineOperator
+    opensetmachine={opensetmachine}
+    setOpensetmachine={setOpensetmachine}
+    selectedMachine={selectedMachine}
+    selectedOperator={selectedOperator}
+    selectedWeek={selectedWeek}
+    weekState1={weekState1}
+    setWeekState1={setWeekState1}
+    getSecondTableData={getSecondTableData}
+    getMachineOperatorTableData={getMachineOperatorTableData}
+    getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+    />
 
+   
 
-           <div>
-            <SecondTable week={secondTableShiftState}/>
-            </div> 
-
-            <DailyShiftTable SingleDayShiftPlan4thTable={SingleDayShiftPlan4thTable}
-            setSingleDayShiftPlan4thTable={setSingleDayShiftPlan4thTable}
-            rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
-            rowselectDailyShiftTable={rowselectDailyShiftTable}
-            selectedWeek={selectedWeek}
-            getMachineOperatorTableData={getMachineOperatorTableData}
-            machineOperatorTableData={machineOperatorTableData}
-            setRowselectDailyShiftTable={setRowselectDailyShiftTable}
-            getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-            getSecondTableData={getSecondTableData}
-            rowselect={rowselect}
-            />
-
-            </div>
-
-            <CreateweekModal
-              openweekshift={openweekshift}
-              setOpenweekshift={setOpenweekshift}
-              selectedShift={selectedShift}
-              selectedShiftIncharge={selectedShiftIncharge}
-              selectedWeek={selectedWeek}
-              weekState={weekState}
-              getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-              getSecondTableData={getSecondTableData}
-              setWeekState={setWeekState}
-              createWeeklyShiftPlan={createWeeklyShiftPlan}/>
-
-              <SetMachineModal
-              opensetmachine={opensetmachine}
-              setOpensetmachine={setOpensetmachine}
-              selectedMachine={selectedMachine}
-              selectedOperator={selectedOperator}
-              selectedWeek={selectedWeek}
-              weekState1={weekState1}
-              setWeekState1={setWeekState1}
-              getSecondTableData={getSecondTableData}
-              getMachineOperatorTableData={getMachineOperatorTableData}
-              getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}/>
-
-              <DeleteshiftModal
-              opendeleteshift={opendeleteshift}
-              setOpendeleteshift={setOpendeleteshift}
-              onClickDeleteWeekShift={onClickDeleteWeekShift}
-              selectedShiftIncharge={selectedShiftIncharge}
-              selectedShift={selectedShift}
-              selectedWeek={selectedWeek}
-              />
-              <DeleteMachineoperatorweekModal
-              opendeleteoperator={opendeleteoperator}
-              setOpendeleteoperator={setOpendeleteoperator}
-              openDeletemachineoperator={openDeletemachineoperator}
-              onClickDeleteWeekOperatorMachine={onClickDeleteWeekOperatorMachine}
-              selectedShift={selectedShift}
-              selectedMachine={selectedMachine}
-              selectedWeek={selectedWeek}
-              selectedOperator={selectedOperator}/>
-
-              {/* <PrintWeeklyplan selectedWeek={selectedWeek}/> */}
-
-        </>
-        
-    );
+</div>
+  )
 }
-
-export default NewCalender;
