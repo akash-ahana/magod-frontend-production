@@ -32,6 +32,7 @@ import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Serv
 import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
 
 import MachieAlltmntCall from "./pages/Production/Production/MachineAllotment/MachieAlltmntCall";
+import Header from "./pages/Production/ShiftEditor/Header";
 
 function App() {
   return (
@@ -100,9 +101,9 @@ function App() {
                 {/* <Route path="weeklyShifteditor" element={<ShiftEditor/>} /> */}
                 </Route>
             </Route>
-
           </Route>
         </Route>
+        <Route path="/Header" element={<Header/>}></Route>
 
       </Routes>
     </BrowserRouter>
