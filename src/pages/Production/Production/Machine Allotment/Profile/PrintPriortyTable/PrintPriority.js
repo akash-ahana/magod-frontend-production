@@ -32,6 +32,47 @@ const styles = StyleSheet.create({
 
 export default function PrintPriority({priorityTable}) {
   console.log(priorityTable)
+
+  const [sortedPriorityTable , setSortedPriorityTable] = useState([])
+  
+  useEffect(() => {
+    console.log('Priority Table from print priority ' , priorityTable)
+    const unique = [...new Set(priorityTable.map(item => item.Machine))];
+    console.log(unique)
+    let customArray = []
+    for(let i = 0 ; i < unique.length ; i ++) {
+      let customObject = {Machine : "" , priorityList : [], load : 0, newLoad : ""}
+      console.log(unique[i])
+      customObject.Machine = unique[i]
+      let load = 0 
+      for(let k =0 ; k<priorityTable.length ; k++) {
+        if(priorityTable[k].Machine == unique[i]) {
+          load = load + priorityTable[k].EstimatedTime
+          customObject.load = load
+          priorityTable[k].load = load
+          customObject.priorityList.push(priorityTable[k])
+        }
+
+      }
+      customArray.push(customObject)
+    }
+    
+    //converting the load from minutes to hours:minutes
+    for(let j = 0 ; j < customArray.length ; j++) {
+       const hours = Math.floor(customArray[j].load / 60);
+       const minutes = customArray[j].load % 60;
+       let newminutes = "default"
+       if(minutes <= 9) {
+        newminutes = "0" + minutes
+       } else {
+        newminutes = minutes
+       }
+       customArray[j].newLoad = hours + ":" + newminutes
+      console.log(customArray[j].newLoad = hours + ":" + newminutes)
+    }
+    console.log('Custom Array is ' , customArray)
+    setSortedPriorityTable(customArray)
+  }, [priorityTable])
     
       //API 
   // const[newData,setNewdata]=useState([]);
@@ -59,7 +100,7 @@ export default function PrintPriority({priorityTable}) {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <PrintPriorityTable priorityTable={priorityTable}/>
+              <PrintPriorityTable sortedPriorityTable={sortedPriorityTable}/>
             </PDFViewer>
           </Fragment>
       );

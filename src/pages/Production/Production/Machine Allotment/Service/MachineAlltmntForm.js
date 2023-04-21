@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React,{useState, useEffect} from 'react'
 import ChangeMachinePopUp from './NCprogrmTab/ChangeMachinePopup';
-import MachineTreeView from './MachineTreeView';
 import NavTab from './NavTab';
 import TreeView from 'react-treeview';
 
 
 export default function MachineAlltmntForm() {
     const [machineProcessData, setMachineProcessData] = useState([])
-    
-    const[machineSelect,setMachineSelect]=useState({})
+    const [machineList , setMachineList] = useState([])
+    const [selectedMachine , setSelectedMachine] = useState("")
+    const [machineSelect,setMachineSelect]=useState({})
     const selectedMachineFun=(item,index)=>{
         let list={...item,index:index}
         setMachineSelect(list);
@@ -25,7 +25,7 @@ export default function MachineAlltmntForm() {
     const [ncProgramsTableData , setNcProgramsTableData] = useState([])
     const onClickMachine = (Machine, key) => {
         console.log('Selected Machine is ' , Machine)
-        axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
+        axios.post('http://172.16.20.61:5000/machineAllotmentService/getNCprogramTabTableData',{MachineName : Machine})
         .then((response) => {
             console.log("data", response.data);
             setNcProgramsTableData(response.data)
@@ -50,6 +50,14 @@ export default function MachineAlltmntForm() {
     }
      setNcProgramsTableData(constncProgramsTableData)
   if(selectedRows.length === 0){
+    console.log('First ITem is SET')
+    axios.post('http://172.16.20.61:5000/machineAllotmentService/machineAllotmentScheduleTableFormMachinesService', item)
+        .then((response) => {
+            console.log("data of machinnes", response.data);
+            //setNcProgramsTableData(response.data)
+            setMachineList(response.data)
+           
+        })
     setSelectedRows([item])
   } else {
     console.log()
@@ -68,34 +76,11 @@ export default function MachineAlltmntForm() {
       setNcProgramsTableData(constNCProgramsTableData)
     }
   }
-
-    
-
-//   const rowValue = event.target.getAttribute('data-row-value');
-//   const isChecked = event.target.checked;
-//   if (isChecked) {
-//     setSelectedRows([...selectedRows, rowValue]);
-//  } else {
-//    setSelectedRows(selectedRows.filter((value) => value !== rowValue));
-//  }
   };
 
-  console.log(' Selected Rows Is ' , selectedRows)
-
-      // const onClickMachine=()=>{
-      //   axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',machineSelect.MachineName)
-      //   .then((response) => {
-      //       console.log("data", response.data);
-      //       setPriorityFirstTable(response.data)
-      //   })
-      // }
-
-//   useEffect(() => {
-//     onClickMachine();
-// }, [])
 
     useEffect(() => {
-        axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileListMachines')
+        axios.get('http://172.16.20.61:5000/machineAllotmentService/serviceListMachines')
             .then((response) => {
                 // console.log("data", response.data)
                 setMachineProcessData(response.data)
@@ -121,12 +106,20 @@ export default function MachineAlltmntForm() {
    // console.log('API DATA IS ' , machineProcessData)
 
    const clickChangeMachine=()=>{
-    console.log("Change Machine Button Clicked" , selectedRows)
-    // axios.post('http://172.16.20.61:5000/shiftManagerProfile/changeMachineHeaderButton' , {newMachine : })
-    // .then((response) => {
-    //     // console.log("data", response.data)
-    //     setMachineProcessData(response.data)
-    // })
+    console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
+    // for( let i  = 0 ; i<selectedRows.length ; i++) {
+    //   selectedRows[i].newMachine = selectedMachine
+    // }
+    axios.post('http://172.16.20.61:5000/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
+    .then((response) => {
+         console.log("data", response.data)
+       // setMachineProcessData(response.data)
+    })
+   }
+
+   const onMachineChange = (e) => {
+    console.log('On Machine Change' , e.target.value)
+    setSelectedMachine(e.target.value)
    }
 
   return (
@@ -134,7 +127,7 @@ export default function MachineAlltmntForm() {
        <div className='row '>
            <div className='row mb-3'>
                   <div className='col-md-4 mt-3'  >    
-                    <h4 className="form-title"  >Machine  Allotment Form</h4>
+                     <h4 className="form-title">Machine  Allotment Form</h4>
                   </div>
   
     
@@ -152,13 +145,16 @@ export default function MachineAlltmntForm() {
           Change Machine
          </button>
 
-         <div className="col-md-4 mt-2">
-                
-                 <select className="ip-select">
-                    <option value="option 1"> Name</option>
-                    <option value="option 1">Name</option>
-                    <option value="option 1">Name</option>
-                 </select>
+         <div className="col-md-4">
+         <select className="ip-select dropdown-field" onChange={(e) => onMachineChange(e)}>
+                    {machineList.map((value,key)=>{
+                      return(
+                        <>
+                          <option value={value.refName}>{value.refName}</option>
+                        </>
+                      )
+                    })}
+                  </select>
               </div>
 
        </div>

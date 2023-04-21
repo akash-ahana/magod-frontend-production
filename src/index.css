@@ -10,9 +10,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+    background-color: aqua;
 }
 .selcted-row-clr{
-  background-color:rgb(150, 147, 147) !important;
+  background-color:#98A8F8!important;
     color: white;
 }
 

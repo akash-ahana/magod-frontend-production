@@ -91,8 +91,22 @@ export const customerSidebar = [
       },
       {
         title: "Machine Allotment",
-        path: "/production/production/machineallotement",
+        // path: "/production/production/machineallotementprofile",
         icon: <BiGitMerge/>,
+        subNav: [
+          {
+            title: "Profile",
+            path: "/production/production/machineallotementProfile",
+            icon: <AiIcons.AiOutlineArrowRight />            
+          },
+          {
+            title: "Service",
+            path: "/production/production/machineallotementservice",
+            icon: <AiIcons.AiOutlineArrowRight />            
+          }
+        ]
+
+
       },
       {
         title: "Shift Manager",
