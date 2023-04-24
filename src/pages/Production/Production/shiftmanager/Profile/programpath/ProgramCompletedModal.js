@@ -138,15 +138,6 @@ return (
               value={selectProgramCompleted.Mtrl_Code} />
             </div>
 
-            <div className="col-md-2 mt-3">
-            <Button variant="primary" type='submit'
-            // onClick = {clearAllonClick}
-            onClick = {clearAllButton}
-             >
-             Clear Parts 
-            </Button>
-            </div>
-
             <div className="col-md-3">
               <label className="form-label"> Program no</label>
               <input  className='in-field'
@@ -196,13 +187,10 @@ return (
                }/>
             </div>
 
-            <div className="col-md-2 mt-2" style={{padding:'0'}}>
-            <Button variant="secondary" onClick={onClickCloseProgram}>
-             CloseProgram
-            </Button>
-            </div>
+            
 
-            <div className="col-md-2">
+           {/* <div className='row'> */}
+           <div className="col-md-3">
                <label className="form-label">Process Time</label>
                <input  className='in-field'
                value={selectProgramCompleted.ActualTime
@@ -222,13 +210,35 @@ return (
                value={selectProgramCompleted.Machine}/>
             </div>
 
+            <div className="col-md-2  mt-4">
+            {/* <button variant="button-style mt-3 group-button  ms-2" type='submit'
+            // onClick = {clearAllonClick}
+           
+             >
+             
+            </button> */}
+
+            <button className="button-style mt-3 group-button ms-2"
+          style={{ width:"120px"}}  onClick = {clearAllButton}>
+          Clear Parts 
+        </button>
+            </div>
+
+            <div className="col-md-2 mt-4 " style={{marginLeft:"-50px"}}>
+            <button style={{ width:"120px"}} className="button-style mt-3 group-button"
+             onClick={onClickCloseProgram}>
+             Close Program
+            </button>
+            </div>
+
+           {/* </div> */}
           </div>
         </div>
       </div>
 
-      <div className='row mt-1'>
-  <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
-   <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
+      <div className='row mt-2'>
+  <div className='col-md-12 col-sm-12' style={{marginLeft:"-12px"}}>
+   <div style={{height:"250px",width:'100%',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
        <tr>
@@ -240,15 +250,15 @@ return (
          <th>Cleared</th>
          
          <th>Remarks</th>
-         {/* <th>New Cleared</th> */}
        </tr>
      </thead>
 
-{ programCompleteData.map((item,key)=>{
-return(
-  <>
+
   
   <tbody className='tablebody'>
+  { programCompleteData.map((item,key)=>{
+return(
+  <>
         <tr >
            <td>{item.DwgName}</td>
            <td>{item.TotQtyNested}</td>
@@ -299,11 +309,10 @@ return(
               {item.QtyCleared}
                 </div></td> */}
        </tr>
-  </tbody>
-  
-  </>
+       </>
 )
 })}
+  </tbody>
 </Table>
    </div>
 </div>

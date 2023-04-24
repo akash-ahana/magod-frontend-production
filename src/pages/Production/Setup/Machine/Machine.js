@@ -53,8 +53,8 @@ export default function Machine() {
 
   return (
     <div className='row'>
-      <h4 className="form-title">Machine Process Setup Form</h4>
-      <hr className="horizontal-line" />
+      <h4 className="title mb-4">Machine Process Setup Form</h4>
+      {/* <hr className="horizontal-line" /> */}
        <div className='col-md-6 col-sm-12'>
         <MachineTable selectedRowFn={selectedRowFn} selectedRow={selectedRow}
         getprocessdataList={getprocessdataList}/>

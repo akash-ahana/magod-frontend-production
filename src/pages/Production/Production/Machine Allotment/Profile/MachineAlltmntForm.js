@@ -15,6 +15,10 @@ export default function MachineAlltmntForm() {
         setMachineSelect(list);
       }
 
+      const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+      );
+
       const[selectNcProgram,setSelectProgram]=useState({})
       // const selectRowNcProgram=(item,index)=>{
       //   let list={...item,index:index}
@@ -23,8 +27,10 @@ export default function MachineAlltmntForm() {
       // console.log(selectNcProgram);
       
     const [ncProgramsTableData , setNcProgramsTableData] = useState([])
+    const [selectedMachineTreeView , setSelectedMachineTreeView] = useState("")
     const onClickMachine = (Machine, key) => {
         console.log('Selected Machine is ' , Machine)
+        setSelectedMachineTreeView(Machine)
         axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
         .then((response) => {
             console.log("data", response.data);
@@ -105,14 +111,27 @@ export default function MachineAlltmntForm() {
 
    // console.log('API DATA IS ' , machineProcessData)
 
-   const clickChangeMachine=()=>{
+   const clickChangeMachine=async ()=>{
     console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
     axios.post('http://172.16.20.61:5000/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
     .then((response) => {
          console.log("data", response.data)
        onClickMachine();
     })
+
+    await delay(200);
+    
+    axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
+        .then((response) => {
+            console.log("data", response.data);
+            setNcProgramsTableData(response.data)
+            for(let i = 0; i< response.data.length ; i++){
+              response.data[i].isChecked = false;
+            }
+        })
    }
+
+  
 
    const onMachineChange = (e) => {
     console.log('On Machine Change' , e.target.value)

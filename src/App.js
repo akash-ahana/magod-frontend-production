@@ -35,7 +35,8 @@ import MachieAlltmntCall from "./pages/Production/Production/Machine Allotment/P
 import MachieAlltmntCallService from "./pages/Production/Production/Machine Allotment/Service/MachieAlltmntCallService";
 
 import Header from "./pages/Production/ShiftEditor/Header";
-
+import ShiftManagerFabrication from "./pages/Production/Production/shiftmanager/Fabrication/ShiftManagerFabrication";
+import ShiftManagerService from "./pages/Production/Production/shiftmanager/Services/ShiftManagerService"
 function App() {
   return (
     <BrowserRouter>
@@ -66,8 +67,8 @@ function App() {
                   </Route>  
 
                   <Route path="shiftmanagerProfile" element={<ShiftManager/>}/>
-                  <Route path="shiftmanagerFabrication" element={<ShiftManager/>}/>
-                  <Route path="shiftmanagerService" element={<ShiftManager/>}/>
+                  <Route path="shiftmanagerFabrication" element={<ShiftManagerFabrication/>}/>
+                  <Route path="shiftmanagerService" element={<ShiftManagerService/>}/>
 
                   <Route path="machineallotementProfile" element={<MachieAlltmntCall/>} />
                   <Route path="machineallotementservice" element={<MachieAlltmntCallService/>}/>

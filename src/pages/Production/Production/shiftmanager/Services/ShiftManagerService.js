@@ -2,7 +2,7 @@ import React from 'react'
 import Forms from './Forms'
 import TaskBar from './TaskBar'
 
-function ShiftManager() { 
+function shiftmanagerService() { 
   return (
     <div>
       <TaskBar/>
@@ -11,4 +11,4 @@ function ShiftManager() {
   )
 }
 
-export default ShiftManager
+export default shiftmanagerService

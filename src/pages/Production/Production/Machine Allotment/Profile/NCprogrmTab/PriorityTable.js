@@ -1,4 +1,3 @@
-import { margin } from '@mui/system';
 import axios from 'axios';
 import React  ,{useEffect,useState}from 'react';
 import { Table } from 'react-bootstrap';
@@ -31,9 +30,6 @@ export default function PriorityTable({machineSelect,ncProgramsTableData,selectN
        } else {
        setPriorityTable([...priorityTable , item])
        }
-
-       
-    // console.log('console in priority table is ' , priorityTable)
   }
 
   const selectRowPriorityTable = (row) => {
@@ -42,14 +38,7 @@ export default function PriorityTable({machineSelect,ncProgramsTableData,selectN
     var id = row.Ncid;
     let constPriorityTable  = priorityTable
 
-//   for(var i = 0; i < constPriorityTable.length; i++) {
-//     if(constPriorityTable[i].Ncid == id) {
-//       constPriorityTable.splice(i, 1);
-//         break;
-//     }
 
- 
-// }
 let filteredList=priorityTable.filter((item)=>{
   return item?.Ncid!=id
 })
@@ -58,21 +47,12 @@ let filteredList=priorityTable.filter((item)=>{
 
 console.log( 'Const Priority Table Data is ' , filteredList)
 setPriorityTable(filteredList)
-// selectRowTable()
-
   }
-
-
-// console.log('Current State of Priority Table is' , priorityTable)
   const[openPrint,setOpenPrint]=useState('');
   const openPrintPriority=()=>{
     setOpenPrint(true)
   }
 
-  // console.log(' Priority Table ' , priorityTable);
-
-  
-  
   return (
     <>
     <ModalPrintPriority openPrint={openPrint}
@@ -145,14 +125,14 @@ setPriorityTable(filteredList)
 {/* priority print */}
 
       <div className='col-md-6'>
-         <div style={{backgroundColor:'#F2D7D5 '}}>
+         <div style={{backgroundColor:'#F2D7D5 ',}}>
             <h4 className="form-title"
               style={{backgroundColor:'#F2D7D5', padding:'6px'}}>Production Priority list</h4>
-            <div>   
+            <div style={{textAlign:"center"}}>   
               <button className="button-style mt-3 mb-2 group-button"
-               style={{ width: "100px", marginLeft:'150px'}} onClick={openPrintPriority}>
+               style={{ width: "100px"}} onClick={openPrintPriority}>
                Print
-              </button>
+              </button> 
             </div>
           </div>
       
