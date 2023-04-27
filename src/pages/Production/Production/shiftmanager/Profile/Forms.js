@@ -1,12 +1,11 @@
 import React,{useEffect, useState} from 'react'
 // import Iframe from './Iframe'
-import ByMachineBox from './components/ByMachineBox';
-import ByOperations from './components/ByOperations';
-import ByCustomer from './components/ByCustomer';
+import ByMachineBox from './ByMachine/ByMachineBox';
+import ByOperations from './ByOperations/ByOperations';
+import ByCustomer from './ByCustomer/ByCustomer';
 import axios from 'axios';
 
 function Forms() {
-
     const [text, setText] = useState("");
     const [isToggled, setIsToggled] = useState(true);
     const [isClick, setIsClick] = useState(false);

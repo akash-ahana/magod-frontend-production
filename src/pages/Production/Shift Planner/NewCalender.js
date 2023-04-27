@@ -521,7 +521,7 @@ console.log(rowselectDailyShiftTable)
           <div className='col-md-4 col-sm-12 mt-4'>
             <div>
               <h4 className="form-title">Production Department: Shift Editor</h4>
-              <h6>Weekly Shift Editor</h6>
+              <h6 className='mt-4'>Weekly Shift Editor</h6>
             </div>
           </div>
 
@@ -567,7 +567,7 @@ console.log(rowselectDailyShiftTable)
       </div>
     </div>
 
-          <div className='col-md-4 col-sm-12 mt-4'>
+          <div className='col-md-4 col-sm-12'>
             <div style={{color:"red",fontSize:"14px"}}>
               <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
             </div>

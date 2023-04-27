@@ -10,9 +10,10 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+    background-color: aqua;
 }
 .selcted-row-clr{
-  background-color:rgb(150, 147, 147) !important;
+  background-color:#98A8F8!important;
     color: white;
 }
 
@@ -40,6 +41,14 @@ code {
   /* border-bottom: 1px solid #757575; */
 }
 
+
+.title {
+   text-align: center;
+   height: 34px;
+   color: white;
+   background-color: #2b3a55;
+   border-radius: 10px 10px 0px 0px;
+  }
 
 .admin-title {
   color: white;
