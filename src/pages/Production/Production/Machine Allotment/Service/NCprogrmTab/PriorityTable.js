@@ -146,10 +146,9 @@ setPriorityTable(filteredList)
 
       <div className='col-md-6'>
          <div style={{backgroundColor:'#F2D7D5 '}}>
-            <h4 className="form-title"
-              style={{backgroundColor:'#F2D7D5', padding:'6px'}}>Production Priority list</h4>
+            <h6 style={{padding:'3px'}}>Production Priority list</h6>
             <div style={{textAlign:"center"}}>   
-              <button className="button-style mt-3 mb-2  group-button"
+              <button className="button-style mt-1 mb-2  group-button"
                style={{width:"120px"}} onClick={openPrintPriority}>
                Print
               </button>
@@ -160,7 +159,7 @@ setPriorityTable(filteredList)
 
 
       <div  style={{height:"300px",overflowY: "scroll",overflowX: "scroll"}}>
-        <h3>Priority Table</h3>
+        <h5>Priority Table</h5>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>

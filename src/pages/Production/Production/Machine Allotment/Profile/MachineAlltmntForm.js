@@ -1,8 +1,9 @@
 import axios from 'axios';
-import React,{useState, useEffect} from 'react'
-import ChangeMachinePopUp from './NCprogrmTab/ChangeMachinePopup';
+import React,{useState, useEffect, useMemo} from 'react'
+// import ChangeMachinePopUp from './NCprogrmTab/ChangeMachinePopup';
 import NavTab from './NavTab';
 import TreeView from 'react-treeview';
+import ChangeMachineModal from './ChangeMachineModal';
 
 
 export default function MachineAlltmntForm() {
@@ -19,6 +20,18 @@ export default function MachineAlltmntForm() {
         resolve => setTimeout(resolve, ms)
       );
 
+      //open Change Machine Popup
+      const[openModal,setOpenModal]=useState('')
+      const openChangeMachineModal=()=>{
+        setOpenModal(true);
+      }
+
+      const handleClose=()=>{
+        setOpenModal(false);
+        setSelectedRows([])
+      }
+    
+
       const[selectNcProgram,setSelectProgram]=useState({})
       // const selectRowNcProgram=(item,index)=>{
       //   let list={...item,index:index}
@@ -28,24 +41,29 @@ export default function MachineAlltmntForm() {
       
     const [ncProgramsTableData , setNcProgramsTableData] = useState([])
     const [selectedMachineTreeView , setSelectedMachineTreeView] = useState("")
+    const [selectedRows, setSelectedRows] = useState([]);
+    
     const onClickMachine = (Machine, key) => {
-        console.log('Selected Machine is ' , Machine)
+        setSelectedRows([])
+       //console.log('Selected Rows are  ' , selectedRows)
         setSelectedMachineTreeView(Machine)
         axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
         .then((response) => {
-            console.log("data", response.data);
+          
+          //  console.log("data", response.data);
             setNcProgramsTableData(response.data)
             for(let i = 0; i< response.data.length ; i++){
               response.data[i].isChecked = false;
             }
         })
+        setSelectedRows([])
     }
-
-    const [selectedRows, setSelectedRows] = useState([]);
+    console.log(' Selected Rows Current State ' , selectedRows)
+   
   //SELECTED ROWS IS THE STATE TO CHANGE THE MACHINES 
   const handleCheckboxChange = (item, key) => {
-    console.log(item)
-    console.log('ncProgramsTableData', ncProgramsTableData)
+   // console.log(item)
+   // console.log('ncProgramsTableData', ncProgramsTableData)
 
      const constncProgramsTableData = ncProgramsTableData
     if(ncProgramsTableData[key].isChecked === true) {
@@ -59,14 +77,14 @@ export default function MachineAlltmntForm() {
     console.log('First ITem is SET')
     axios.post('http://172.16.20.61:5000/machineAllotment/machineAllotmentScheduleTableFormMachines', item)
         .then((response) => {
-            console.log("data of machinnes", response.data);
+           // console.log("data of machinnes", response.data);
             //setNcProgramsTableData(response.data)
             setMachineList(response.data)
            
         })
     setSelectedRows([item])
   } else {
-    console.log()
+  //  console.log()
     if(item.Operation === selectedRows[0].Operation){
       if (selectedRows.includes(item)) {
         setSelectedRows(selectedRows.filter(r => r !== item));
@@ -75,8 +93,8 @@ export default function MachineAlltmntForm() {
         }
     } else {
       alert('Please select a program with the same operation')
-      console.log('Item is ' , item , ' key is ' , key)
-      console.log('ncProgramsTableData' , ncProgramsTableData)
+    //  console.log('Item is ' , item , ' key is ' , key)
+    //  console.log('ncProgramsTableData' , ncProgramsTableData)
       const constNCProgramsTableData = ncProgramsTableData
       constNCProgramsTableData[key].isChecked = false
       setNcProgramsTableData(constNCProgramsTableData)
@@ -85,12 +103,15 @@ export default function MachineAlltmntForm() {
   };
 
 
-    useEffect(() => {
-        axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileListMachines')
+  const treeViewData=()=>{
+    axios.get('http://172.16.20.61:5000/machineAllotment/profileListMachineswithLoad')
             .then((response) => {
                 // console.log("data", response.data)
                 setMachineProcessData(response.data)
             })
+  }
+    useEffect(() => {
+      treeViewData();
     }, [])
 
     const dataSource = [
@@ -112,32 +133,56 @@ export default function MachineAlltmntForm() {
    // console.log('API DATA IS ' , machineProcessData)
 
    const clickChangeMachine=async ()=>{
-    console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
+   // console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
     axios.post('http://172.16.20.61:5000/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
     .then((response) => {
          console.log("data", response.data)
        onClickMachine();
+       handleClose();
+       //setSelectedRows([])
     })
 
     await delay(200);
     
     axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
         .then((response) => {
-            console.log("data", response.data);
+          //  console.log("data", response.data);
             setNcProgramsTableData(response.data)
             for(let i = 0; i< response.data.length ; i++){
               response.data[i].isChecked = false;
             }
         })
+        treeViewData();
+        setSelectedRows([])
    }
 
   
+   useMemo(()=>{
+    setMachineSelect({...machineProcessData[0],index:0})
+    console.log(machineProcessData[0]?.MachineName)
+    setSelectedMachineTreeView(machineProcessData[0]?.MachineName)
+  },[machineProcessData[0]])
 
+  console.log(machineSelect)
+
+  useEffect(() => {
+    console.log('USE EFFECT RAN' , selectedMachineTreeView)
+    //console.log(selectedMachineTreeView)
+    axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : selectedMachineTreeView})
+        .then((response) => {
+           console.log("data", response.data);
+            setNcProgramsTableData(response.data)
+            for(let i = 0; i< response.data.length ; i++){
+              response.data[i].isChecked = false;
+            }
+        })
+  },[selectedMachineTreeView])
+  
    const onMachineChange = (e) => {
-    console.log('On Machine Change' , e.target.value)
+   // console.log('On Machine Change' , e.target.value)
     setSelectedMachine(e.target.value)
    }
-
+   console.log(' Selected Rows Current State ' , selectedRows)
   return (
     <>
        <div className='row '>
@@ -157,13 +202,15 @@ export default function MachineAlltmntForm() {
          </button>
 
          <button className="button-style mt-2 group-button" 
-          style={{ width: "150px" }} onClick={clickChangeMachine}>
+          style={{ width: "150px" }} onClick={()=>
+            openChangeMachineModal()}>
           Change Machine
          </button>
 
          <div className="col-md-4">
                 
          <select className="ip-select dropdown-field" onChange={(e) => onMachineChange(e)}>
+          <option>Select Machine</option>
                     {machineList.map((value,key)=>{
                       return(
                         <>
@@ -183,7 +230,7 @@ export default function MachineAlltmntForm() {
 
 <div className='row'>
   <div className='col-md-3'> 
-  <div style={{overflowY:"scroll"}}>
+  <div style={{overflowY:"scroll",fontSize:"12px",marginLeft:"-20px",height:"380px"}}>
 {dataSource.map((node, i) => {
                     const type = node.type;
                     const label = <span className="node">{type}</span>;
@@ -191,7 +238,7 @@ export default function MachineAlltmntForm() {
                         <TreeView
                             key={type + "|" + i}
                            nodeLabel={label}
-                            defaultCollapsed={true} >
+                            defaultCollapsed={false} >
 
                             {node.serverData.map((data,key) => {
                                 const label2 = <span 
@@ -199,13 +246,13 @@ export default function MachineAlltmntForm() {
                                     selectedMachineFun(data,key)
                                     onClickMachine(data,key)
                                 }} 
-                                className={key===machineSelect?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
+                                className={key===machineSelect?.index? 'selcted-row-clr':'' }>{data.MachineName} &nbsp;{data.formattedLoad}</span>;
                                 
                                 return (
                                     <TreeView
                                         nodeLabel={label2}
                                         key={data.name }
-                                        defaultCollapsed={true}
+                                        defaultCollapsed={false}
                                     >
                                         
                                         {data.process.map((value) => {
@@ -213,7 +260,7 @@ export default function MachineAlltmntForm() {
                                                 <>
                                               
                                                 <div>
-                                             <span className="node">{value.RefProcess}</span>
+                                             <span className="node">{value.RefProcess} &nbsp; {value.formattedLoad}</span>
                                                 </div>
                                                
                                                 </>
@@ -230,7 +277,6 @@ export default function MachineAlltmntForm() {
   <div className='col-md-9'>
     <NavTab machineSelect={machineSelect}
     ncProgramsTableData={ncProgramsTableData}
-    //selectRowNcProgram={selectRowNcProgram}
     selectNcProgram={selectNcProgram}
     setNcProgramsTableData={setNcProgramsTableData}
     handleCheckboxChange={handleCheckboxChange}
@@ -239,12 +285,13 @@ export default function MachineAlltmntForm() {
 </div>
 </div>
 
-  
-  {
-    open &&(
-     < ChangeMachinePopUp open={open} setOpen={setOpen} />
-    )
-  }
+  <ChangeMachineModal
+  openModal={openModal}
+  setOpenModal={setOpenModal}
+  selectedRows={selectedRows}
+  selectedMachine={selectedMachine}
+  clickChangeMachine={clickChangeMachine}
+  handleClose={handleClose}/>
 
   </>
 

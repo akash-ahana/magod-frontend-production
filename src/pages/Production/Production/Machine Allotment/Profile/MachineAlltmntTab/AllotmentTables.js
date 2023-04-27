@@ -110,6 +110,7 @@ export default function AllotmentTables() {
     })
   }
 
+  console.log(rowSelect.Schedule_Status)
   return (
     <>
       <div className="col-md-3 ms-3">
@@ -216,7 +217,9 @@ export default function AllotmentTables() {
                     </div>
 
                     <div className="col-md-6 mt-3">
-                          <button onClick={onClickChangeMachine} style={{width:"150px"}} className="button-style mt-3 group-button">
+                          <button onClick={onClickChangeMachine} style={{width:"150px"}} className="button-style mt-3 group-button"
+                          
+                          disabled={rowSelect.Schedule_Status=='Completed' ? true : false}>
                             Change Machine
                           </button>
                     </div>

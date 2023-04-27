@@ -2,7 +2,7 @@ import React from 'react'
 import Forms from './Forms'
 import Heading from './Heading'
 
-function ShiftManager() { 
+function ShiftManagerService() { 
   return (
     <div>
       <Heading/>
@@ -11,4 +11,4 @@ function ShiftManager() {
   )
 }
 
-export default ShiftManager
+export default ShiftManagerService

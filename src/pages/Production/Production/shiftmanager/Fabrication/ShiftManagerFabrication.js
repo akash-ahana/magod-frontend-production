@@ -1,11 +1,11 @@
 import React from 'react'
 import Forms from './Forms'
-import TaskBar from './TaskBar'
+import Heading from './Heading'
 
 function ShiftManagerFabrication() { 
   return (
     <div>
-      <TaskBar/>
+      <Heading/>
       <Forms/>
     </div>
   )

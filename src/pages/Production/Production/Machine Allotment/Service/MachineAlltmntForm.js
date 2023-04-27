@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React,{useState, useEffect} from 'react'
-import ChangeMachinePopUp from './NCprogrmTab/ChangeMachinePopup';
+import React,{useState, useEffect, useMemo} from 'react'
 import NavTab from './NavTab';
 import TreeView from 'react-treeview';
+import ChangeMachineModal from './ChangeMachineModal';
 
 
 export default function MachineAlltmntForm() {
@@ -15,6 +15,21 @@ export default function MachineAlltmntForm() {
         setMachineSelect(list);
       }
 
+      const delay = ms => new Promise(
+        resolve => setTimeout(resolve, ms)
+      );
+
+      //open Change Machine Popup
+      const[openModal,setOpenModal]=useState('')
+      const openChangeMachineModal=()=>{
+        setOpenModal(true);
+      }
+
+      const handleClose=()=>{
+        setOpenModal(false);
+        setSelectedRows([])
+      }
+
       const[selectNcProgram,setSelectProgram]=useState({})
       // const selectRowNcProgram=(item,index)=>{
       //   let list={...item,index:index}
@@ -23,8 +38,11 @@ export default function MachineAlltmntForm() {
       // console.log(selectNcProgram);
       
     const [ncProgramsTableData , setNcProgramsTableData] = useState([])
+    const [selectedMachineTreeView , setSelectedMachineTreeView] = useState("")
     const onClickMachine = (Machine, key) => {
+      setSelectedRows([])
         console.log('Selected Machine is ' , Machine)
+        setSelectedMachineTreeView(Machine)
         axios.post('http://172.16.20.61:5000/machineAllotmentService/getNCprogramTabTableData',{MachineName : Machine})
         .then((response) => {
             console.log("data", response.data);
@@ -33,6 +51,7 @@ export default function MachineAlltmntForm() {
               response.data[i].isChecked = false;
             }
         })
+        setSelectedRows([])
     }
 
     const [selectedRows, setSelectedRows] = useState([]);
@@ -79,12 +98,15 @@ export default function MachineAlltmntForm() {
   };
 
 
+  const treeViewData=()=>{
+    axios.get('http://172.16.20.61:5000/machineAllotmentService/MachineswithLoadService')
+    .then((response) => {
+        // console.log("data", response.data)
+        setMachineProcessData(response.data)
+    })
+  }
     useEffect(() => {
-        axios.get('http://172.16.20.61:5000/machineAllotmentService/serviceListMachines')
-            .then((response) => {
-                // console.log("data", response.data)
-                setMachineProcessData(response.data)
-            })
+      treeViewData()
     }, [])
 
     const dataSource = [
@@ -103,17 +125,29 @@ export default function MachineAlltmntForm() {
       setOpen(true);
     }
 
-   // console.log('API DATA IS ' , machineProcessData)
-
    const clickChangeMachine=()=>{
     console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
     // for( let i  = 0 ; i<selectedRows.length ; i++) {
     //   selectedRows[i].newMachine = selectedMachine
     // }
     axios.post('http://172.16.20.61:5000/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
-    .then((response) => {
-         console.log("data", response.data)
-       // setMachineProcessData(response.data)
+    .then(async (response) => {
+         console.log("data", response.data);
+         onClickMachine();
+         handleClose();
+
+         await delay(200);
+    
+    axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
+        .then((response) => {
+            console.log("data", response.data);
+            setNcProgramsTableData(response.data)
+            for(let i = 0; i< response.data.length ; i++){
+              response.data[i].isChecked = false;
+            }
+        })
+        treeViewData();
+        setSelectedRows([])
     })
    }
 
@@ -121,6 +155,27 @@ export default function MachineAlltmntForm() {
     console.log('On Machine Change' , e.target.value)
     setSelectedMachine(e.target.value)
    }
+
+   useMemo(()=>{
+    setMachineSelect({...machineProcessData[0],index:0})
+    console.log(machineProcessData[0]?.MachineName)
+    setSelectedMachineTreeView(machineProcessData[0]?.MachineName)
+  },[machineProcessData[0]])
+
+  console.log(machineSelect)
+
+  useEffect(() => {
+    console.log('USE EFFECT RAN' , selectedMachineTreeView)
+    //console.log(selectedMachineTreeView)
+    axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableDataUSEEffect',{MachineName : selectedMachineTreeView})
+        .then((response) => {
+           console.log("data", response.data);
+            setNcProgramsTableData(response.data)
+            for(let i = 0; i< response.data.length ; i++){
+              response.data[i].isChecked = false;
+            }
+        })
+  },[selectedMachineTreeView])
 
   return (
     <>
@@ -141,12 +196,14 @@ export default function MachineAlltmntForm() {
          </button>
 
          <button className="button-style mt-2 group-button" 
-          style={{ width: "150px" }} onClick={clickChangeMachine}>
+          style={{ width: "150px" }}
+          onClick={openChangeMachineModal}>
           Change Machine
          </button>
 
          <div className="col-md-4">
          <select className="ip-select dropdown-field" onChange={(e) => onMachineChange(e)}>
+          <option>Select Machine</option>
                     {machineList.map((value,key)=>{
                       return(
                         <>
@@ -166,7 +223,7 @@ export default function MachineAlltmntForm() {
 
 <div className='row'>
   <div className='col-md-3'> 
-  <div style={{overflowY:"scroll"}}>
+  <div style={{overflowY:"scroll",fontSize:"12px",marginLeft:"-20px",height:"380px"}}>
 {dataSource.map((node, i) => {
                     const type = node.type;
                     const label = <span className="node">{type}</span>;
@@ -182,7 +239,7 @@ export default function MachineAlltmntForm() {
                                     selectedMachineFun(data,key)
                                     onClickMachine(data,key)
                                 }} 
-                                className={key===machineSelect?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
+                                className={key===machineSelect?.index? 'selcted-row-clr':'' }>{data.MachineName}&nbsp;{data.formattedLoad}</span>;
                                 
                                 return (
                                     <TreeView
@@ -196,7 +253,7 @@ export default function MachineAlltmntForm() {
                                                 <>
                                               
                                                 <div>
-                                             <span className="node">{value.RefProcess}</span>
+                                             <span className="node">{value.RefProcess} &nbsp; {value.formattedLoad}</span>
                                                 </div>
                                                
                                                 </>
@@ -229,11 +286,13 @@ export default function MachineAlltmntForm() {
 </div>
 
   
-  {
-    open &&(
-     < ChangeMachinePopUp open={open} setOpen={setOpen} />
-    )
-  }
+<ChangeMachineModal
+  openModal={openModal}
+  setOpenModal={setOpenModal}
+  selectedRows={selectedRows}
+  selectedMachine={selectedMachine}
+  clickChangeMachine={clickChangeMachine}
+  handleClose={handleClose}/>
 
   </>
 

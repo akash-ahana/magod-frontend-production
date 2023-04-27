@@ -1,6 +1,5 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Sidebar from "./pages/Sidebar";
 import WithNav from "./Layout/WithNav";
 import Parentroute from "./Layout/Parentroute";
 import Login from "./pages/Auth/Login";
@@ -30,25 +29,25 @@ import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/
 import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
 import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
 import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
-
 import MachieAlltmntCall from "./pages/Production/Production/Machine Allotment/Profile/MachieAlltmntCall";
 import MachieAlltmntCallService from "./pages/Production/Production/Machine Allotment/Service/MachieAlltmntCallService";
-
 import Header from "./pages/Production/ShiftEditor/Header";
 import ShiftManagerFabrication from "./pages/Production/Production/shiftmanager/Fabrication/ShiftManagerFabrication";
-import ShiftManagerService from "./pages/Production/Production/shiftmanager/Services/ShiftManagerService"
+import ShiftManagerService from "./pages/Production/Production/shiftmanager/Service/ShiftManagerService"
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Login />} path="/" />
-        <Route path="/home" element={<Home />} />
+        <Route path="/home" element={<Home/>} />
 
         <Route element={<WithNav />}>
           <Route path="/production" element={<Parentroute />}>
 
+     {/* Production  */}
            <Route path="production">
                 <Route index={true} element={<Production/>}/>
+                {/* ScheduleList */}
                    <Route path="schedulelistprofile">
                       <Route index ={true}  element={<ScheduleList/>} />
                       <Route path="PrintShowStatus" element={<PrintShowStatus/>} />
@@ -66,19 +65,23 @@ function App() {
                       <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} />
                   </Route>  
 
+                  {/* Shift Manager */}
                   <Route path="shiftmanagerProfile" element={<ShiftManager/>}/>
                   <Route path="shiftmanagerFabrication" element={<ShiftManagerFabrication/>}/>
                   <Route path="shiftmanagerService" element={<ShiftManagerService/>}/>
-
+                    
+                  {/* Machine Allotment */}
                   <Route path="machineallotementProfile" element={<MachieAlltmntCall/>} />
                   <Route path="machineallotementservice" element={<MachieAlltmntCallService/>}/>
             </Route>
 
+            {/* reports */}
             <Route path="fabrication" element={<Fabrication/>} />
             <Route path="profile" element={<Profile/>} />
             <Route path="reports" element={<Reports/>} />
             <Route path="services" element={<Services/>} />
 
+             {/* Setup*/}
             <Route path="setup">
                 <Route index={true} element={<Setup/>}/>
                 <Route path="server" element={<Server/>} />
@@ -88,18 +91,19 @@ function App() {
                 <Route path="stoppagelist" element={<StoppagesList/>} />
             </Route>
 
-            
+            {/* Shift Planner */}
             <Route path="shiftplanner">
                 <Route index={true} element={<ShiftPlanner/>}/>
+                {/* Shift Editor */}
                   <Route path="shifteditor">
                     <Route   index ={true} element={<ShiftEditor/>} />
                     <Route path="PrintWeeklyplan" element={<PrintWeeklyplan/>} />
                     <Route path="PrintDailyplan" element={<PrintDailyShift/>}/>
-                {/* <Route path="weeklyShifteditor" element={<ShiftEditor/>} /> */}
                 </Route>
             </Route>
           </Route>
         </Route>
+
         <Route path="/Header" element={<Header/>}></Route>
 
       </Routes>
