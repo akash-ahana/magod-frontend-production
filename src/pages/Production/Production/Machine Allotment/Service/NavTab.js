@@ -11,7 +11,7 @@ export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgra
 
   return (
     <div className='row'>
-      <Tabs
+      <Tabs style={{marginLeft:"-20px"}}
       id="controlled-tab-example"
       activeKey={key}
       onSelect={(k) => setKey(k)}

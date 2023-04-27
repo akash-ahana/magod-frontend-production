@@ -10,6 +10,19 @@ export default function AllotmentTables() {
     axios.get('http://172.16.20.61:5000/machineAllotment/machineAllotmentSchedule')
     .then((response) => {
         console.log("data", response.data)
+        for(let i =0;i<response.data.length;i++) { 
+          let dateSplit = response.data[i].Delivery_Date.split("-");
+        let year = dateSplit[0];
+        let month = dateSplit[1];
+        let day = dateSplit[2];
+
+        let newDay = day.split(" ")
+        let onlyDay = newDay[0]
+        console.log(onlyDay +  "-" + month + "-" + year)
+
+        response.data[i].Delivery_Date = onlyDay +  "-" + month + "-" + year
+       }
+
         setAllotmentTable(response.data);
     })
   },[])
@@ -112,22 +125,23 @@ export default function AllotmentTables() {
 
   console.log(rowSelect.Schedule_Status)
   return (
-    <>
-      <div className="col-md-3 ms-3">
+    <div>
+      <div className='col-md-12'>
+      <div className="col-md-4 mb-2 ms-3">
               <label >Find Schedule</label>
-              <input className="in-field my-0"  type='search' onChange={(e) => searchText(e)}/>
+              <input className="in-field " style={{marginTop:"-6px"}} type='search' onChange={(e) => searchText(e)}/>
       </div>
-
       <div className='row mt-3' >
-        <div className='col-md-6' style={{ overflowY: 'scroll', overflowX: 'scroll', height:"750px" }}>
+        <div className='col-md-6' style={{ overflowY: 'scroll', overflowX: 'scroll', height:"750px"}}>
+        
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th>Shedule No</th>
-                <th>Delivery Date</th>
+                <th style={{whiteSpace:"nowrap"}}>Shedule No</th>
+                <th style={{whiteSpace:"nowrap"}}>Delivery Date</th>
                 <th>Customer</th>
                 <th>Status</th>
-                <th>Special_instruction</th>
+                <th style={{whiteSpace:"nowrap"}}>Special_instruction</th>
 
               </tr>
             </thead>
@@ -153,7 +167,6 @@ export default function AllotmentTables() {
 
         {/* Form */}
         <div className='col-md-6'  >
-          
             <form className="form"  >
               <div className="ip-box form-bg">
                   <div className="row">
@@ -217,8 +230,7 @@ export default function AllotmentTables() {
                     </div>
 
                     <div className="col-md-6 mt-3">
-                          <button onClick={onClickChangeMachine} style={{width:"150px"}} className="button-style mt-3 group-button"
-                          
+                          <button onClick={onClickChangeMachine} style={{width:"160px"}} className="button-style mt-3 group-button"
                           disabled={rowSelect.Schedule_Status=='Completed' ? true : false}>
                             Change Machine
                           </button>
@@ -230,9 +242,9 @@ export default function AllotmentTables() {
                       <label className="">Machine</label>
                       <input className="in-field" value={tableRowSelect.Machine}/>
                     </div>
-                    <div className="col-md-6 mt-3">
-                          <button onClick={onClickReleaseForProgramming} style={{width:"160 px",height:"55px"}}
-                          className="button-style group-button ">
+                    <div className="col-md-6">
+                          <button onClick={onClickReleaseForProgramming} style={{width:"160px",height:"55px"}}
+                          className="button-style group-button">
                             Release For <br/>
                             Programming
                           </button>
@@ -250,14 +262,12 @@ export default function AllotmentTables() {
                 <thead className="tableHeaderBGColor">
                   <tr>
 
-                    <th>Task no</th>
+                    <th style={{whiteSpace:"nowrap"}}>Task No</th>
                     <th>Machine</th>
                     <th>Operation</th>
                     <th>Mtrl_code</th>
                     <th>Priority</th>
-                    <th>Estimated time</th>
-
-
+                    <th style={{whiteSpace:"nowrap"}}>Estimated time</th>
                   </tr>
                 </thead>
 
@@ -283,6 +293,7 @@ export default function AllotmentTables() {
             </div>
           </div>
       </div>
-    </>
+      </div>
+    </div>
   );
 }

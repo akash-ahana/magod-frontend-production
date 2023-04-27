@@ -6,19 +6,30 @@ const styles = StyleSheet.create({
     row: {
       flexDirection: "row",
       alignItems: "center",
-      borderBottom:"1px"
+      borderBottom:"1px",
+      paddingBottom:"1px"
     },
     srl: {
-      width: "10%",
+      width: "30px",
     },
     Program: {
-      width: "20%",
+      width: "50px",
     },
     operation:{
-        width:"20%"
+        width:"110px"
     },
     customer:{
-        width:"20%"
+        width:"210px"
+    },
+    newLoad:{
+      marginLeft:"250px",
+      marginTop:"10px",
+    },
+    processed:{
+      width:"40px"
+    },
+    load:{
+      width:"40px"
     }
   });
   
@@ -30,8 +41,8 @@ const styles = StyleSheet.create({
           <Text style={styles.Program}>{item.NCProgramNo}</Text>
           <Text style={styles.operation}>{item.Operation}</Text>
           <Text style={styles.customer}>{item.Cust_name}</Text>
-          <Text style={styles.operation}>{item.EstimatedTime}</Text>
-          <Text style={styles.operation}>{item.QtyCut}</Text>
+          <Text style={styles.processed}>{item.EstimatedTime}</Text>
+          <Text style={styles.load}>{item.QtyCut}</Text>
       </View>
     ));
     return <Fragment>{rows}</Fragment>;

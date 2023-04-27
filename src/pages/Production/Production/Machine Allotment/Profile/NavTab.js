@@ -11,16 +11,16 @@ export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgra
 
   return (
     <div className='row'>
-      <Tabs
+      <div className='col-md-12'>
+      <Tabs style={{marginLeft:"-30px"}}
       id="controlled-tab-example"
       activeKey={key}
       onSelect={(k) => setKey(k)}
-      className="mb-3 mt-3 tab_font "
+      className="mb-2 mt-1 tab_font "
     >
       <Tab eventKey="ncprogram" title="Nc program">
        <PriorityTable machineSelect={machineSelect}
        ncProgramsTableData={ncProgramsTableData}
-       //selectRowNcProgram={selectRowNcProgram}
        selectNcProgram={selectNcProgram}
        setNcProgramsTableData={setNcProgramsTableData}
        handleCheckboxChange={handleCheckboxChange}
@@ -31,6 +31,7 @@ export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgra
         <AllotmentTables/>
       </Tab>
     </Tabs>
+      </div>
   </div>
   )
 }

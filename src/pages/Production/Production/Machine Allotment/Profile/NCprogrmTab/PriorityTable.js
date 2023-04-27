@@ -10,7 +10,6 @@ export default function PriorityTable({machineSelect,ncProgramsTableData,selectN
 
 
   const [priorityTable , setPriorityTable] = useState([])
-  let constspriorityTabel = []
 
   useEffect(() => {
 
@@ -54,17 +53,16 @@ setPriorityTable(filteredList)
     setOpenPrint={setOpenPrint}
     priorityTable={priorityTable}
     />
-    {/* <h3>Prioriy Table</h3> */}
+    <div className='col-md-12'>
     <div className='row' >
-
     <div className='col-md-6'
-     style={{overflowY:'scroll',overflowX:'scroll', height:'380px'}}>
+     style={{overflowY:'scroll',overflowX:'scroll', height:'380px',marginLeft:"-40px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
           <th>Select</th>
-           <th>Program No</th>
-           <th>Task No</th>
+           <th style={{whiteSpace:"nowrap"}}>Program No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Machine</th>
            <th>Operation</th>
            <th>Material</th>
@@ -74,7 +72,7 @@ setPriorityTable(filteredList)
            <th>Processed</th>
            <th>Status</th>
            <th>PlanTime</th>
-           <th>Actual Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Actual Time</th>
            <th>Remarks</th>
          </tr>
        </thead>
@@ -120,12 +118,12 @@ setPriorityTable(filteredList)
 {/* priority print */}
 
       <div className='col-md-6'>
-         <div style={{backgroundColor:'#F2D7D5 ',}}>
-         <h6 style={{padding:'3px'}}>Production Priority list</h6>
-            <div style={{textAlign:"center"}}>   
-              <button className="button-style mt-3 mb-2 group-button"
-               style={{ width: "120px"}} onClick={openPrintPriority}>
-               Print
+         <div  style={{backgroundColor:'#F2D7D5 ',display:"flex",gap:"80px"}}>
+         <div><h6 className='ms-1 mt-3'>Production Priority list</h6></div>
+            <div style={{marginTop:"-5px"}}>   
+              <button className="button-style mb-2 group-button"
+               style={{ width: "120px",textAlign:"center"}} onClick={openPrintPriority}>
+               <span style={{marginLeft : "-5px"}}>Print</span>
               </button> 
             </div>
           </div>
@@ -133,13 +131,13 @@ setPriorityTable(filteredList)
       {/* Table2 */}
 
 
-      <div  style={{height:"300px",overflowY: "scroll",overflowX: "scroll"}}>
-         <h5>Priority Table</h5>
+      <div  style={{height:"330px",overflowY: "scroll",overflowX:"scroll"}}>
+         {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>Program No</th>
-           <th>Task No</th>
+           <th style={{whiteSpace:"nowrap"}}>Program No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Machine</th>
            <th>Operation</th>
            <th>Material</th>
@@ -149,7 +147,7 @@ setPriorityTable(filteredList)
            <th>Processed</th>
            <th>Status</th>
            <th>PlanTime</th>
-           <th>Actual Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Actual Time</th>
            <th>Remarks</th>
          </tr>
        </thead>
@@ -159,7 +157,7 @@ setPriorityTable(filteredList)
          {priorityTable.map((priorityTable) => 
            (
             
-                <tr key = {priorityTable?.Ncid} onDoubleClick={() =>selectRowPriorityTable(priorityTable)}>
+      <tr key = {priorityTable?.Ncid} onDoubleClick={() =>selectRowPriorityTable(priorityTable)}>
            <td>{priorityTable?.NCProgramNo}</td>
            <td>{priorityTable?.TaskNo}</td>
            <td>{priorityTable?.Machine}</td>
@@ -183,6 +181,7 @@ setPriorityTable(filteredList)
  </Table>
      </div>  
      </div>
+</div>
 </div>
 </>
   );
