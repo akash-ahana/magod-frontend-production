@@ -187,17 +187,16 @@ export default function MachineAlltmntForm() {
     <>
        <div className='row '>
            <div className='row mb-3'>
-                  <div className='col-md-4 mt-3'  >    
+                  <div className='col-md-12'>    
                      <h4 className="title">Machine  Allotment Form</h4>
                   </div>
-  
+            </div>
     
-
- <div className="col-md-8 col-sm-12"   >
-     <div className="ip-box  mt-2" >
-       <div className='row' >
-         <button className="button-style mt-2 group-button" 
-            style={{ width: "140px"}}>
+    <div className="col-md-12 col-sm-12 ms-5">
+     <div className="ip-box mt-2 ms-5">
+       <div className='row ms-5'>
+         <button className="button-style mt-2 group-button ms-5" 
+            style={{width:"140px"}}>
             Save
          </button>
 
@@ -220,15 +219,13 @@ export default function MachineAlltmntForm() {
                     })}
                   </select>
               </div>
-
        </div>
    </div>
- </div>
 </div>
-<hr className="horizontal-line" />
+{/* <hr className="horizontal-line mt-2" /> */}
 
 
-<div className='row'>
+<div className='row mt-3'>
   <div className='col-md-3'> 
   <div style={{overflowY:"scroll",fontSize:"12px",marginLeft:"-20px",height:"380px"}}>
 {dataSource.map((node, i) => {
