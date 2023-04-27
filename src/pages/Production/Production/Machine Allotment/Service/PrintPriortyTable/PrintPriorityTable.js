@@ -4,7 +4,7 @@ import PrintPriorityTableRow from './PrintPriorityTableRow';
 
 const styles = StyleSheet.create({
     page: {
-      fontSize: 11,
+      fontSize: 9,
       flexDirection: "column",
     },
      tableContainer: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     tableview:
     {
       marginLeft:"60px",
-      width:"450px",
+      width:"480px",
     },
     Headingrow: {
         flexDirection: "row",
@@ -47,29 +47,29 @@ const styles = StyleSheet.create({
         borderBottom:"1px",
         marginTop:"20px",
         marginLeft:"60px",
-        width:"450px",
+        width:"480px",
       },
       srl: {
-        width: "10%",
+        width: "30px",
       },
       Program: {
-        width: "20%",
+        width: "50px",
       },
       operation:{
-          width:"30%"
+          width:"110px"
       },
       customer:{
-          width:"50%"
+          width:"210px"
       },
       newLoad:{
         marginLeft:"250px",
         marginTop:"10px",
       },
       processed:{
-        width:"10%"
+        width:"40px"
       },
       load:{
-        width:"10%"
+        width:"40px"
       }
   });
   

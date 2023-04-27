@@ -80,16 +80,16 @@ setPriorityTable(filteredList)
     priorityTable={priorityTable}
     />
     {/* <h3>Prioriy Table</h3> */}
+    <div className='col-md-12'>
     <div className='row' >
-
     <div className='col-md-6'
-     style={{overflowY:'scroll',overflowX:'scroll', height:'400px'}}>
+     style={{overflowY:'scroll',overflowX:'scroll',height:'380px',marginLeft:"-30px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-          <th>Select</th>
-           <th>Program No</th>
-           <th>Task No</th>
+           <th>Select</th>
+           <th style={{whiteSpace:"nowrap"}}>Program No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Machine</th>
            <th>Operation</th>
            <th>Material</th>
@@ -99,7 +99,7 @@ setPriorityTable(filteredList)
            <th>Processed</th>
            <th>Status</th>
            <th>PlanTime</th>
-           <th>Actual Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Actual Time</th>
            <th>Remarks</th>
          </tr>
        </thead>
@@ -145,13 +145,13 @@ setPriorityTable(filteredList)
 {/* priority print */}
 
       <div className='col-md-6'>
-         <div style={{backgroundColor:'#F2D7D5 '}}>
-            <h6 style={{padding:'3px'}}>Production Priority list</h6>
-            <div style={{textAlign:"center"}}>   
-              <button className="button-style mt-1 mb-2  group-button"
-               style={{width:"120px"}} onClick={openPrintPriority}>
-               Print
-              </button>
+      <div  style={{backgroundColor:'#F2D7D5 ',display:"flex",gap:"80px"}}>
+         <div><h6 className='ms-1 mt-3'>Production Priority list</h6></div>
+            <div style={{marginTop:"-5px"}}>   
+              <button className="button-style mb-2 group-button"
+               style={{ width: "120px",textAlign:"center"}} onClick={openPrintPriority}>
+               <span style={{marginLeft : "-5px"}}>Print</span>
+              </button> 
             </div>
           </div>
       
@@ -159,12 +159,12 @@ setPriorityTable(filteredList)
 
 
       <div  style={{height:"300px",overflowY: "scroll",overflowX: "scroll"}}>
-        <h5>Priority Table</h5>
+      {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>Program No</th>
-           <th>Task No</th>
+           <th style={{whiteSpace:"nowrap"}}>Program No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Machine</th>
            <th>Operation</th>
            <th>Material</th>
@@ -174,7 +174,7 @@ setPriorityTable(filteredList)
            <th>Processed</th>
            <th>Status</th>
            <th>PlanTime</th>
-           <th>Actual Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Actual Time</th>
            <th>Remarks</th>
          </tr>
        </thead>
@@ -208,6 +208,7 @@ setPriorityTable(filteredList)
  </Table>
      </div>  
      </div>
+</div>
 </div>
 </>
   );

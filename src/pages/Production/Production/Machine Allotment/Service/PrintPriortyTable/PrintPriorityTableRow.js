@@ -6,25 +6,30 @@ const styles = StyleSheet.create({
     row: {
       flexDirection: "row",
       alignItems: "center",
-      borderBottom:"1px"
+      borderBottom:"1px",
+      paddingBottom:"1px"
     },
     srl: {
-      width: "10%",
+      width: "30px",
     },
     Program: {
-      width: "20%",
+      width: "50px",
     },
     operation:{
-        width:"30%"
+        width:"110px"
     },
     customer:{
-        width:"50%"
+        width:"210px"
+    },
+    newLoad:{
+      marginLeft:"250px",
+      marginTop:"10px",
     },
     processed:{
-      width:"10%"
+      width:"40px"
     },
     load:{
-      width:"10%"
+      width:"40px"
     }
   });
   
