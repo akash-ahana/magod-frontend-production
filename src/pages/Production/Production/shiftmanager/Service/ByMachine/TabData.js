@@ -9,7 +9,6 @@ import axios from 'axios';
 export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
   const [show, setShow] = useState(false);
-  const [ machineData, setMachineData] = useState([])
 
     // const getHeadings2 = () => {
     //     return Object.keys(Schedulelistdata4[0]);
@@ -26,17 +25,16 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
       setSelectProgramProcessing(list);
     }
 
-    // useEffect(() => {
 
-    // })
+//     useEffect(()=>{
+//   axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileMachines',)
+//   .then((response) => {
+//     console.log('Current State of programCompleteData' , response.data);
+//     setMachineData(response.data)
+//  })
+// },[])
 
-    useEffect(()=>{
-  axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileMachines',)
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    setMachineData(response.data)
- })
-},[])
+
 
 
   return (
@@ -45,7 +43,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
     <div className="row mt-2">
        <button className="button-style mt-2 group-button"
           style={{ width: "150px",marginLeft:"20px" }} onClick={handaleClick}>
-          Open Programs
+          Open Program
         </button>
     </div>   
 
@@ -92,32 +90,14 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
      <ProgramProcessingModal show={show}
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
-     machineData={machineData}
+    //  machineData={machineData}
      taskNoOnClick={taskNoOnClick}
      setSelectProgramProcessing={setSelectProgramProcessing}
      />
 
  </div>
 </div>
-
-
-
-    {/* <div className="col-md-12 col-sm-12 mt-3">
-      <div
-        className="table-data"
-        style={{overflowY: "scroll" }}>
-        <Tables theadData={getHeadings2()} tbodyData={Schedulelistdata4} />
-      </div>
-    </div> */}
 </div>
-
-{/* {
-  (
-    <CustomModal 
-    show={show}
-     setShow={setShow}/>
-  )
-} */}
 </>
   )
 }

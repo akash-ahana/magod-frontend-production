@@ -47,7 +47,6 @@ export default function AllotmentTables() {
     axios.post('http://172.16.20.61:5000/machineAllotmentService/machineAllotmentScheduleTableFormMachinesService',item)
     .then((response) => {
         console.log("OnClick Post response", response.data)
-
         setMachineList(response.data)
     })
     let list={...item,index:index}

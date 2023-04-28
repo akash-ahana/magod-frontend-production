@@ -9,7 +9,7 @@ import axios from 'axios';
 export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
   const [show, setShow] = useState(false);
-  const [ machineData, setMachineData] = useState([])
+  // const [ machineData, setMachineData] = useState([])
 
     // const getHeadings2 = () => {
     //     return Object.keys(Schedulelistdata4[0]);
@@ -30,13 +30,13 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
     // })
 
-    useEffect(()=>{
-  axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileMachines',)
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    setMachineData(response.data)
- })
-},[])
+//     useEffect(()=>{
+//   axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileMachines',)
+//   .then((response) => {
+//     console.log('Current State of programCompleteData' , response.data);
+//     setMachineData(response.data)
+//  })
+// },[])
 
 
   return (
@@ -51,16 +51,16 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", width:'100%'}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>Task No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Machine</th>
            <th>Operation</th>
-           <th>Program No</th>
-           <th>Plan Time</th>
-           <th>Actual Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Program No</th>
+           <th style={{whiteSpace:"nowrap"}}>Plan Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Actual Time</th>
            <th>QTY</th>
            <th>Allotted</th>
            <th>Processed</th>
@@ -73,15 +73,15 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
     <tbody className='tablebody'>
           <tr style={{backgroundColor:item.rowColor}}
           onClick={()=>programProcessing(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
-             <td>{item.TaskNo}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
              <td>{item.Machine}</td>
-             <td>{item.Operation}</td>
-             <td>{item.NCProgramNo}</td>
-             <td>{item.EstimatedTime}</td>
-             <td>{item.ActualTime}</td>
-             <td>{item.Qty}</td>
-             <td>{item.QtyAllotted}</td>
-             <td>{item.QtyCut}</td>
+             <td style={{whiteSpace:"nowrap"}} >{item.Operation}</td>
+             <td >{item.NCProgramNo}</td>
+             <td >{item.EstimatedTime}</td>
+             <td >{item.ActualTime}</td>
+             <td >{item.Qty}</td>
+             <td >{item.QtyAllotted}</td>
+             <td >{item.QtyCut}</td>
          </tr>
     </tbody>
     </>
@@ -92,7 +92,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
      <ProgramProcessingModal show={show}
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
-     machineData={machineData}
+    //  machineData={machineData}
      taskNoOnClick={taskNoOnClick}
      setSelectProgramProcessing={setSelectProgramProcessing}
      />
