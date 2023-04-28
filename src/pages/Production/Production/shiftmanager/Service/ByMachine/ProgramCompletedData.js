@@ -50,7 +50,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
           onClick={
             handaleClick
           }>
-          Open Programs
+          Open Program
         </button>
     </div>
 

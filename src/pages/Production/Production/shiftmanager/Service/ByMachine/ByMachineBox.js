@@ -15,7 +15,7 @@ export default function ByMachineBox() {
   
 
   useEffect(() => {
-      axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesTaskNo')
+      axios.get('http://172.16.20.61:5000/shiftManagerService/serviceListMachinesTaskNo')
           .then((response) => {
               setMachineProcessData(response.data);
           })

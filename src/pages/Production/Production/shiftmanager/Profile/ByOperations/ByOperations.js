@@ -275,7 +275,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                                             <>
                                                             <div style={{fontSize:'10px'}}>
                                                             {processItem.PStatus==='Completed' ? (
-                                                              <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )} style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
+                                                              <span style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
                                                             ):
                                                             <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
                                                             }
@@ -284,12 +284,6 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                                         )
                                                     })
                                                     }
-                                                    {/* {value.process.map((process) => {
-                                                        return (
-                                                            <span>{process.NCProgramNo}</span>
-                                                        )
-                                                        
-                                                    })} */}
                                                        
                                                 </TreeView>
                                               

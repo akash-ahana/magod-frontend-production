@@ -56,16 +56,16 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", width:'100%'}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>Task No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Machine</th>
            <th>Operation</th>
-           <th>Program No</th>
-           <th>Plan Time</th>
-           <th>Actual Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Program No</th>
+           <th style={{whiteSpace:"nowrap"}}>Plan Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Actual Time</th>
            <th>QTY</th>
            <th>Allotted</th>
            <th>Processed</th>
@@ -79,15 +79,15 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
     <>
           <tr  style={{backgroundColor:item.rowColor}}
           onClick={()=>programCompleted(item,key)} className={key===selectProgramCompleted?.index? 'selcted-row-clr':'' } >
-             <td>{item.TaskNo}</td>
-             <td>{item.Machine}</td>
-             <td>{item.Operation}</td>
-             <td>{item.NCProgramNo}</td>
-             <td>{item.EstimatedTime}</td>
-             <td>{item.ActualTime}</td>
-             <td>{item.Qty}</td>
-             <td>{item.QtyAllotted}</td>
-             <td>{item.QtyCut}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.Operation}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.NCProgramNo}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.EstimatedTime}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.ActualTime}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.Qty}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.QtyAllotted}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.QtyCut}</td>
          </tr>
          </>
   )

@@ -70,7 +70,7 @@ export default function AllotmentTables() {
  };
 
   useMemo(()=>{
-    setRowselect({...scheduleListData[0],index:0})
+    setTableRowSelect({...scheduleListData[0],index:0})
   },[scheduleListData[0]])
 
 
@@ -146,7 +146,7 @@ export default function AllotmentTables() {
               </tr>
             </thead>
 
-                  <tbody className='tablebody'>
+                  <tbody className='tablebody' >
                     {allotmentTable.map((item,key)=>{
                       return(
                         <>

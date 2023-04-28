@@ -5,7 +5,7 @@ import axios from "axios";
 import Popup from "./Popup"
 
 
-export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick,setSelectProgramProcessing
+export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,taskNoOnClick,setSelectProgramProcessing
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -114,6 +114,14 @@ const openChangeMachineModal=()=>{
   }
 
 
+  const [machineData, setMachineData] = useState([])
+  const clickChangeMachine=()=>{
+    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerProfileFilteredMachines', { Operation : selectProgramProcessing.MProcess})
+    .then((response) => {
+      console.log('Change Machine List in Machine Popup' , response.data);
+      setMachineData(response.data)
+   })
+  }
 
 return (
   <div>
@@ -221,8 +229,10 @@ return (
             </button>
             </div>
 
-            <div className="col-md-2 mt-4 " style={{marginLeft:"-50px"}}>
-            <button style={{ width:"120px"}} className="button-style mt-3 group-button" onClick={openChangeMachineModal}>
+            <div className="col-md-2 mt-4 " style={{marginLeft:"-70px"}}>
+            <button style={{ width:"150px"}} className="button-style mt-3 group-button" 
+            onClick={()=>{openChangeMachineModal()
+              clickChangeMachine()}}>
              Change Machine
             </button>
             </div>

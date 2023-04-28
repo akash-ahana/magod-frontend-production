@@ -221,8 +221,8 @@ return (
             </button>
             </div>
 
-            <div className="col-md-2 mt-4 " style={{marginLeft:"-50px"}}>
-            <button style={{ width:"120px"}} className="button-style mt-3 group-button" onClick={openChangeMachineModal}>
+            <div className="col-md-2 mt-4 " style={{marginLeft:"-70px"}}>
+            <button style={{ width:"150px"}} className="button-style mt-3 group-button" onClick={openChangeMachineModal}>
              Change Machine
             </button>
             </div>

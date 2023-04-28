@@ -216,14 +216,14 @@ return (
             </div>
 
             <div className="col-md-2  mt-4">
-            <button className="button-style mt-3 group-button ms-2"
-          style={{ width:"120px"}}  onClick = {clearAllButton}>
+            <button className="button-style mt-3 group-button"
+          style={{ width:"130px"}}  onClick = {clearAllButton}>
           Clear Parts 
         </button>
             </div>
 
-            <div className="col-md-2 mt-4 " style={{marginLeft:"-50px"}}>
-            <button style={{ width:"120px"}} className="button-style mt-3 group-button"
+            <div className="col-md-2 mt-4 " style={{marginLeft:"-60px"}}>
+            <button style={{ width:"140px"}} className="button-style mt-3 group-button"
              onClick={onClickCloseProgram}>
              Close Program
             </button>

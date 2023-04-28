@@ -77,20 +77,20 @@ function Forms() {
     {shiftDetails && shiftDetails.map((item) => {
          return (
             (
-                <div>
-                        <div className='bg-light'>
-        <div className="my-0" style={{margin: '40px'}}>
+            <div>
+          <div className='bg-light mt-2'>
+        <div className="my-0" style={{margin: '30px'}}>
 
             <div className='row'>
-                <h5 className="bg-light form-title">Shift In Charge Monitoring Form</h5>
+                <h8 style={{marginLeft:"-30px"}}><b>Shift In Charge Monitoring Form</b></h8>
             </div>
 
-            <form className='d-flex'>
+            <form className='d-flex mt-2'>
             <div className="box mb-3" style={{width:'300px', marginRight:'-60px'}}>
 
             <div className="col-md-9">
                 <label className="form-label">Date</label>
-                <input className="in-field bg-light" style={{marginTop:'-7px'}}
+                <input className="in-field bg-light" style={{marginTop:'-7px'}} disabled
                  value={date}/>
             </div>
 
@@ -130,25 +130,19 @@ function Forms() {
                 </div>
             </div>
 
-            <div className="bg-light form-title tab_font" style={{paddingTop:'6px', paddingLeft:'20px'}}>
-                <h5 className="bg-light form-title">Grouping Actions</h5>
-            <div className="col-md-0">
-              <div className="col-md-12" style={{display:"flex",gap:"5px"}}>
+            <div  className='mt-4 ms-5'>
+            <h8><b>Group Actions</b></h8>
+              <div className="col-md-12 mt-1" style={{display:"flex",gap:"5px"}}>
                 <label className="" style={{paddingRight:'4px'}}> By Machines</label>
                 <input className="form-check-input mt-2" onChange={byMachine} type="radio" name='working' defaultChecked/>
             </div>
-            </div>
-            <div className="col-md-0">
-              <div className="col-md-12" style={{display:"flex",gap:"5px"}}>
+              <div className="col-md-12 mt-1" style={{display:"flex",gap:"5px"}}>
                 <label className=""> By Operation</label>
                 <input className="form-check-input mt-2" onChange={byOperation} type="radio"  name='working'/>
             </div>
-            </div>
-            <div className="col-md-0">
-              <div className="col-md-12" style={{display:"flex",gap:"5px"}}>
+              <div className="col-md-12 mt-1" style={{display:"flex",gap:"5px"}}>
                 <label className="" style={{paddingRight:'3px'}}> By Customer</label>
                 <input className="form-check-input mt-2" onChange={byCustomer} type="radio" name='working'/>
-            </div>
             </div>
             </div>
             </form>
