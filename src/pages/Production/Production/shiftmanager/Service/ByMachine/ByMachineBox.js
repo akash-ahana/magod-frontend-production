@@ -304,7 +304,7 @@ export default function ByMachineBox() {
                             defaultCollapsed={false} >
 
                             {node.serverData.map((data,key) => {
-                                const label2 = <span
+                                const label2 = <span style={{fontSize:"14px",backgroundColor:'#C0C0C0'}}
                                  onClick={() => {MachineOnClick(data.MachineName)
                                     LaserRowselect(data,key)}}className={key===selectLaser?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
                                 
@@ -317,7 +317,7 @@ export default function ByMachineBox() {
                                         onClick={()=>LaserRowselect(data,key)} className={key===selectLaser?.index? 'selcted-row-clr':'' }
                                         
                                     >
-                                        
+                                        <ui>
                                         {data.process.map((value,key) => {
                                             return (
                                                 <>
@@ -326,8 +326,8 @@ export default function ByMachineBox() {
 }>
                                              
                                              {value.PStatus==="Completed" ? (
-                                                <span className="completed" style={{backgroundColor:'#afbfa1'}}>{value.TaskNo} / {value.Mtrl_Code} / {value.NCProgramNo} / {value.PStatus}</span> 
-                                             ):<span className="node">{value.TaskNo} / {value.Mtrl_Code} / {value.NCProgramNo} / {value.PStatus}</span> 
+                                                <li className="completed" style={{backgroundColor:'#afbfa1'}}>{value.TaskNo} / {value.Mtrl_Code} / {value.NCProgramNo} / {value.PStatus}</li> 
+                                             ):<li className="node">{value.TaskNo} / {value.Mtrl_Code} / {value.NCProgramNo} / {value.PStatus}</li> 
                                                    
                                              }
                                                 </div>
@@ -335,6 +335,7 @@ export default function ByMachineBox() {
                                                 </>
                                             )
                                         })}  
+                                        </ui>
                                      
                                     </TreeView>);
                             })}
