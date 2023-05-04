@@ -107,7 +107,7 @@ export default function OperationsProgramCompleteTable({proramCompleted,onClickO
      onClickProgram={onClickProgram}
      onClickMachine={onClickMachine}
     //  programCompleteData={programCompleteData}
-    //  setProgramCompleteData={setProgramCompleteData}
+    setSelectProgramCompleted={setSelectProgramCompleted}
      />
   
 
