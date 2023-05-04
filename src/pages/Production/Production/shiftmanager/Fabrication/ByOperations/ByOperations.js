@@ -250,7 +250,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
 
                             {node.serverData.map((data,key) => {
                                 const label2 = <span 
-                                style={{fontSize:"14px"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
+                                style={{fontSize:"14px",backgroundColor:"#C0C0C0"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
                                 
                                 
                                 return (
@@ -261,7 +261,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                         
                                     
                                     >
-
+                                       <ul>
                                         {data.Machines.map((value,key) => {
                                             const label3 = <span 
                                             style={{fontSize:"13px"}} onClick={() => onClickMachine(value.refName, data.Operation)}>{value.refName}</span>
@@ -277,9 +277,9 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                                             <>
                                                             <div style={{fontSize:'10px'}}>
                                                             {processItem.PStatus==='Completed' ? (
-                                                              <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )} style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
+                                                              <li onClick={() => onClickProgram(data.Operation , value.refName , processItem )} style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</li>
                                                             ):
-                                                            <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
+                                                            <li onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</li>
                                                             }
                                                             </div>
                                                             </>
@@ -301,7 +301,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                             )
                                         })}
                                         
-                                        
+                                        </ul>
                                      
                                     </TreeView>);
                             })}

@@ -4,8 +4,7 @@ import { Table } from 'react-bootstrap'
 import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
 
-export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,
-  onClickProgram,onClickMachine
+export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,onClickProgram,onClickMachine,setSelectProgramCompleted
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -80,6 +79,13 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
     selectProgramCompleted)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
+     console.log('current State of Program Complete data is ' , selectProgramCompleted)
+     const constSelectProgramCompleted = selectProgramCompleted;
+     constSelectProgramCompleted.PStatus = 'Closed'
+     setSelectProgramCompleted(constSelectProgramCompleted)
+     onClickProgram();
+     onClickMachine();
+     onClickOperation();
      //setProgramCompleteData(response.data)
     //  onClickOperation();
     //  onClickProgram();
@@ -119,7 +125,7 @@ return (
   <div>
     <Modal size='lg' show={show}  fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Program Parts Inspection Form</Modal.Title>
+      <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>
       </Modal.Header>
       <Modal.Body>
       <div className="col-md-12 col-sm-12">

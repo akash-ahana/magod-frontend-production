@@ -249,7 +249,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
 
                             {node.serverData.map((data,key) => {
                                 const label2 = <span 
-                                style={{fontSize:"14px"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
+                                style={{fontSize:"14px",backgroundColor:"#C0C0C0"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
                                 
                                 
                                 return (
@@ -271,20 +271,22 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                                  key={value.refName }
                                                  defaultCollapsed={true}
                                                 >
+                                                  <ul>
                                                     {value.process.map((processItem, key) => {
                                                         return(
                                                             <>
                                                             <div style={{fontSize:'10px'}}>
                                                             {processItem.PStatus==='Completed' ? (
-                                                              <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )} style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
+                                                              <li onClick={() => onClickProgram(data.Operation , value.refName , processItem )} style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</li>
                                                             ):
-                                                            <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
+                                                            <li onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</li>
                                                             }
                                                             </div>
                                                             </>
                                                         )
                                                     })
                                                     }
+                                                    </ul>
                                                     {/* {value.process.map((process) => {
                                                         return (
                                                             <span>{process.NCProgramNo}</span>

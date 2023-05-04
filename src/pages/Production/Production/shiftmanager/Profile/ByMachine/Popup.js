@@ -4,6 +4,8 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useState } from 'react';
 import {baseURL} from "../../../../../../api/baseUrl"
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
@@ -31,12 +33,16 @@ const changeMachineonClick = () => {
      const constSelectProgramCompleted = selectProgramProcessing;
      constSelectProgramCompleted.Machine = selectedMachine;
      setSelectProgramProcessing(constSelectProgramCompleted)
+     toast.success('Machine Name Changed',{
+      position: toast.POSITION.TOP_CENTER
+  })
     // taskNoOnClick();
  })
 }
 
   return (
     <>
+    <ToastContainer/>
     <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"

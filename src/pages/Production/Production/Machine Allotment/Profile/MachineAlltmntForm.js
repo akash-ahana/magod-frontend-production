@@ -241,7 +241,7 @@ useEffect(() => {
 
                             {node.serverData.map((data,key) => {
                                 const label2 = <span 
-                                style={{backgroundColor : "#808080", fontSize : "14px"}}
+                                style={{backgroundColor : "#C0C0C0", fontSize : "14px"}}
                                 onClick={()=>{
                                     selectedMachineFun(data,key)
                                     onClickMachine(data,key)

@@ -84,9 +84,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)
-    
-     //setProgramCompleteData(response.data);
-     taskNoOnClick();
+         taskNoOnClick();
      MachineOnClick();
  })
   }
@@ -122,7 +120,7 @@ return (
   <div>
     <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Program Parts Inspection Form</Modal.Title>
+      <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>
       </Modal.Header>
       <Modal.Body>
       <div className="col-md-12 col-sm-12">
