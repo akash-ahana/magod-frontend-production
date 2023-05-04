@@ -245,10 +245,11 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                         <TreeView
                             key={type + "|" + i}
                            nodeLabel={label}
-                            defaultCollapsed={true} >
+                            defaultCollapsed={false} >
 
                             {node.serverData.map((data,key) => {
-                                const label2 = <span onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
+                                const label2 = <span 
+                                style={{fontSize:"14px"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
                                 
                                 
                                 return (
@@ -261,7 +262,8 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                     >
 
                                         {data.Machines.map((value,key) => {
-                                            const label3 = <span onClick={() => onClickMachine(value.refName, data.Operation)}>{value.refName}</span>
+                                            const label3 = <span 
+                                            style={{fontSize:"13px"}} onClick={() => onClickMachine(value.refName, data.Operation)}>{value.refName}</span>
                                             return (
                                                 <>
                                                 <TreeView

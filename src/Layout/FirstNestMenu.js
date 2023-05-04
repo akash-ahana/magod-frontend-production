@@ -5,21 +5,21 @@ import NestMenu from "./NestMenu";
 
 function FirstNestMenu({ subNav1, subnav }) {
   const SidebarLink = styled.div`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    list-style: none;
-    height: 35px;
-    text-decoration: none;
-    font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  height: 35px;
+  text-decoration: none;
+  font-size: 13px;
 
-    &:hover {
-      background: #707075;
-      border-left: 4px solid #707075;
-      cursor: pointer;
-      color: #ffffff;
-    }
-  `;
+  &:hover {
+    /* background: #707075; */
+    /* border-left: 4px solid #707075; */
+    cursor: pointer;
+    color: #ffffff;
+  }
+`;
 
   const SidebarLabel = styled.span`
     margin-left: 8px;
@@ -31,9 +31,10 @@ function FirstNestMenu({ subNav1, subnav }) {
     display: flex;
     align-items: center;
     text-decoration: none;
-    font-size: 12px;
+    font-size: 13px;
     &:hover {
-      background-color: #707075;
+      /* background-color: #707075; */
+      background-color: #6c9bcf;
       cursor: pointer;
       color: #ffffff;
     }

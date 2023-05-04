@@ -17,16 +17,16 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
        <thead className="tableHeaderBGColor">
          <tr>
            <th>Status</th>
-           <th>Task No</th>
+           <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Material</th>
            <th>Process</th>
-           <th>Estm Time</th>
-           <th>Time Taken</th>
-           <th>No of Dwgs</th>
-           <th>Dwgs Nested</th>
-           <th>Total Parts</th>
-           <th>Parts Nested</th>
-           <th>No of Sheets</th>
+           <th style={{whiteSpace:"nowrap"}}>Estm Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Time Taken</th>
+           <th style={{whiteSpace:"nowrap"}}>No of Dwgs</th>
+           <th style={{whiteSpace:"nowrap"}}>Dwgs Nested</th>
+           <th style={{whiteSpace:"nowrap"}}>Total Parts</th>
+           <th style={{whiteSpace:"nowrap"}}>Parts Nested</th>
+           <th style={{whiteSpace:"nowrap"}}>No of Sheets</th>
          </tr>
        </thead>
 

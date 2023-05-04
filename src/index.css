@@ -45,11 +45,11 @@ code {
 
 
 .title {
-   text-align: center;
-   height: 34px;
-   color: white;
-   background-color: #2b3a55;
-   border-radius: 10px 10px 0px 0px;
+  text-align: center;
+  height: 34px;
+  color: white;
+  background-color: #2b3a55;
+  border-radius: 10px 10px 0px 0px;
   }
 
 .admin-title {
@@ -99,6 +99,7 @@ code {
 
 .side-nav-main-title {
   display: none;
+  font-size: 14px !important;
 }
 .side-nav-main-icon {
   font-size: 1.2rem;
@@ -144,6 +145,7 @@ code {
 }
 
 .link-default {
+  background-color: #707075;
   text-decoration: none;
   color: white;
 }
@@ -153,7 +155,8 @@ code {
   align-items: center;
   text-decoration: none;
   font-size: 12px;
-  background-color: #707075;
+  /* background-color: #707075; */
+  background-color: #6c9bcf;
   cursor: pointer;
   color: #ffffff;
 }

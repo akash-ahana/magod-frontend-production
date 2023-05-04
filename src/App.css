@@ -5,6 +5,22 @@ body {
   font-family: sans-serif;
 }
 
+/*  */
+.form-label {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.logo {
+  height: 54px;
+  width: 36px;
+  margin-top: 1vh;
+}
+
+td {
+    font-size: 14px;
+}
+
 .nav-tabs .nav-link {
  background-color: rgb(107, 162, 207) !important;
   color: white !important;
@@ -209,6 +225,7 @@ background-color: #e2e0e0 ;
   color: gray;
 }
 
+
 .form__field:focus,
 .form__label {
   top: 0;
@@ -386,14 +403,13 @@ td {
 }
 
 .tableHeaderBGColor {
-  /* background-color: rgb(43, 43, 43); */
-  font-size: 17px;
-  background-color: rgb(128, 128, 128);
-  color: white;
-  position: sticky !important;
-  top: -1px;
-  z-index: 999;
-  /* z-index: 100; */
+ /* background-color: rgb(43, 43, 43); */
+   font-size: 17px;
+   background-color: gray;
+   color: white;
+   position: sticky;
+   top: -1px;
+   /* z-index: 100; */
 }
 
 /* checkbox style */
