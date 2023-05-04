@@ -5,7 +5,7 @@ import axios from "axios";
 
 
 export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,
-  onClickProgram,onClickMachine
+  onClickProgram,onClickMachine,setSelectProgramCompleted
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -80,10 +80,12 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
     selectProgramCompleted)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data)
-     onClickOperation();
+     const constSelectProgramCompleted = selectProgramCompleted;
+     constSelectProgramCompleted.PStatus = 'Closed'
+     setSelectProgramCompleted(constSelectProgramCompleted)
      onClickProgram();
      onClickMachine();
+     onClickOperation();
  })
   }
   
