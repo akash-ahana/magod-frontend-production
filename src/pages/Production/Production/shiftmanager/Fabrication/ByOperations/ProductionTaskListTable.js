@@ -5,9 +5,9 @@ export default function ProductionTaskListTable() {
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowX: "scroll",width:'60%',overflowY:'scroll'}}>
-     <Table bordered style={{border:'1px solid grey'}}>
-       <thead style={{textAlign:"center"}}>
+     <div style={{height:"250px",overflowX: "scroll",maxWidth:"850px",overflowY:'scroll'}}>
+     <Table striped className="table-data border">
+       <thead  className="tableHeaderBGColor">
          <tr>
            <th>TaskNo</th>
            <th>Operation</th>

@@ -90,10 +90,10 @@ console.log('Parts List Data is ' , partlistdata)
   return (
     <div>
         <div className="row mt-2">
-           <button className="button-style mt-2 group-button"
+           {/* <button className="button-style mt-2 group-button"
               style={{ width: "180px",marginLeft:"20px" }}>
               Update Task Parts
-            </button>
+            </button> */}
 
             <button className="button-style mt-2 group-button"
               style={{ width: "150px" ,marginLeft:"20px"}} onClick = {clearAllonClick}>
@@ -106,9 +106,9 @@ console.log('Parts List Data is ' , partlistdata)
             </button>
         </div>  
          
-        <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+        <div  className='mt-4' style={{height:"160px",overflowY: "scroll"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>DwgName</th>
            <th>Programed</th>

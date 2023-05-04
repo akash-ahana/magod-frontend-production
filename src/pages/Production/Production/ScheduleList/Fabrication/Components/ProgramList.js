@@ -26,8 +26,8 @@ export default function ProgramList({taskno}) {
  
   return (
     <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-    <Table bordered>
-      <thead style={{textAlign:"center"}}>
+    <Table striped className="table-data border">
+      <thead className="tableHeaderBGColor">
         <tr>
           <th>NCProgramNo</th>
           <th>Machine</th>

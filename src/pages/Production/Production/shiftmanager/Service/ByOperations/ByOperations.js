@@ -9,7 +9,7 @@ export default function ByOperations() {
 
  const[OperationData,setOperationData]=useState([])
   useEffect(() => {
-    axios.get('http://172.16.20.61:5000/shiftManagerProfile/orderByOperations')
+    axios.get('http://172.16.20.61:5000/shiftManagerService/orderByOperationsService')
         .then((response) => {
           setOperationData(response.data);
           console.log(response.data)
@@ -20,7 +20,6 @@ const dataSource = [
   {
       type: "Operations",
       collapsed: false,
-
       serverData: OperationData,
   },
 ];

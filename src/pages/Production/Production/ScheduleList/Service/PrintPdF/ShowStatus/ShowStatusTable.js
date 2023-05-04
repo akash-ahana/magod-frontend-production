@@ -1,7 +1,6 @@
 import React from 'react'
 import { Page, Document, StyleSheet, View, Text } from "@react-pdf/renderer";
-import ShowStatusTableRowFabrication from './ShowStatusTableRowService';
-import ShowStatusTableRowService from './ShowStatusTableRowService';
+import ShowStatusTableRow from './ShowStatusTableRow';
 
 const styles = StyleSheet.create({
     page: {
@@ -66,7 +65,7 @@ const styles = StyleSheet.create({
   });
   
 
-const ShowStatusTableService = ({Date}) => (
+const ShowStatusTable = ({Date}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
@@ -85,7 +84,7 @@ const ShowStatusTableService = ({Date}) => (
        </View>
         
     <View style={styles.tableview}>
-      <ShowStatusTableRowService/>
+      <ShowStatusTableRow/>
     </View>
          
   </View>
@@ -95,4 +94,4 @@ const ShowStatusTableService = ({Date}) => (
 );
 
 
-export default ShowStatusTableService;
+export default ShowStatusTable;

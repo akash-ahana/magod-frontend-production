@@ -4,7 +4,7 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } fr
 //import PDFdocument from './PDFdocument';
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
-import ShowPartsTableFabrication from './ShowPartsTableFabrication';
+import ShowPartsTable from './ShowPartsTable';
 
 
 const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ShowPartsPdfFabrication() {
+export default function ShowPartsPdf() {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -64,7 +64,7 @@ export default function ShowPartsPdfFabrication() {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <ShowPartsTableFabrication Date={Date}/>
+              <ShowPartsTable Date={Date}/>
             </PDFViewer>
           </Fragment>
       ); 

@@ -12,9 +12,9 @@ export default function MachineLogTable() {
 
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", overflowX:"scroll",width:'570px'}}>
-     <Table bordered style={{border:'1px solid grey'}} >
-       <thead style={{textAlign:"center"}}>
+     <div style={{height:"250px",overflowY: "scroll", overflowX:"scroll",maxWidth:'850px'}}>
+     <Table striped className="table-data border">
+       <thead  className="tableHeaderBGColor">
          <tr>
            <th>Processed</th>
            <th>FromTime</th>

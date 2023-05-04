@@ -13,8 +13,8 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
 
   return (
      <div style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Status</th>
            <th>Task No</th>

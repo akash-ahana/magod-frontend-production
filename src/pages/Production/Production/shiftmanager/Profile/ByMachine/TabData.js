@@ -51,7 +51,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll"}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll",maxWidth:"850px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -74,7 +74,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick}) {
           <tr style={{backgroundColor:item.rowColor}}
           onClick={()=>programProcessing(item,key)} className={key===selectProgramProcessing?.index? 'selcted-row-clr':'' } >
              <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
-             <td>{item.Machine}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
              <td style={{whiteSpace:"nowrap"}} >{item.Operation}</td>
              <td >{item.NCProgramNo}</td>
              <td >{item.EstimatedTime}</td>

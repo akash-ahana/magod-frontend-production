@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     }
   });
   
-  const ShowStatusTableRowService= ({}) => {
+  const ShowPartsTableRow = ({}) => {
     // console.log(typeof(firstmachineoperator));
     //console.log(newitems , 'New Items from print daily Shift Table Row')
     const rows = (() => (
@@ -36,5 +36,5 @@ const styles = StyleSheet.create({
     return <Fragment>{rows}</Fragment>;
   };
   
-  export default ShowStatusTableRowService;
+  export default ShowPartsTableRow;
   

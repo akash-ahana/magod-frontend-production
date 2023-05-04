@@ -29,10 +29,10 @@ export default function PartsList({taskno}){
   return (
     <div>
         <div className="row mt-2">
-           <button className="button-style mt-2 group-button"
+           {/* <button className="button-style mt-2 group-button"
               style={{ width: "150px",marginLeft:"20px" }}>
               UpDate Task Parts
-            </button>
+            </button> */}
 
             <button className="button-style mt-2 group-button"
               style={{ width: "150px" ,marginLeft:"20px"}}>
@@ -45,8 +45,8 @@ export default function PartsList({taskno}){
             </button>
         </div>    
         <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table borderedstriped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>DwgName</th>
            <th>Programed</th>

@@ -3,6 +3,8 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useState } from 'react';
+import {baseURL} from "../../../../../../api/baseUrl"
+
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
    machineData,setSelectProgramProcessing}) {
@@ -22,7 +24,7 @@ const handleMachineChange = (e) => {
 
 
 const changeMachineonClick = () => {
-  axios.post('http://172.16.20.61:5000/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
+  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
   .then((response) => {
     console.log('Current State of programCompleteData' , response.data);
     handleClose();

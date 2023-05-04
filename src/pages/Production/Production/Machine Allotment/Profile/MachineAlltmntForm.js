@@ -232,7 +232,7 @@ useEffect(() => {
 }}>
 {dataSource.map((node, i) => {
                     const type = node.type;
-                    const label = <span style={{fontSize : "16px"}} className="node">{type}</span>;
+                    const label = <span style={{fontSize :"16px"}} className="node">{type}</span>;
                     return (
                         <TreeView
                             key={type + "|" + i}

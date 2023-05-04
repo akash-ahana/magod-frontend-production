@@ -22,12 +22,12 @@ import ScheduleListService from "./pages/Production/Production/ScheduleList/Serv
 import ScheduleListFabrication from "./pages/Production/Production/ScheduleList/Fabrication/ScheduleListFabrication";
 import PrintWeeklyplan from "./pages/Production/Shift Planner/PdfPrinter/WeeklyshiftTable/PrintWeeklyplan";
 import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/DailyshiftTable/PrintDailyShift";
-import PrintShowStatus from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowStatus/PrintShowStatus";
-import ShowPartsPdf from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowParts/ShowPartsPdf";
-import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowStatus/PrintShowStatusFabrication";
-import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowParts/ShowPartsPdfFabrication";
-import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
-import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
+// import PrintShowStatus from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowStatus/PrintShowStatus";
+// import ShowPartsPdf from "./pages/Production/Production/ScheduleList/Profile/PrintPdF/ShowParts/ShowPartsPdf";
+// import PrintShowStatusFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowStatus/PrintShowStatusFabrication";
+// import ShowPartsPdfFabrication from "./pages/Production/Production/ScheduleList/Fabrication/PrintPdF/ShowParts/ShowPartsPdfFabrication";
+// import PrintShowStatusService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowStatus/PrintShowStatusService";
+// import ShowPartsPdfService from "./pages/Production/Production/ScheduleList/Service/PrintPdF/ShowParts/ShowPartsPdfService";
 import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
 import MachieAlltmntCall from "./pages/Production/Production/Machine Allotment/Profile/MachieAlltmntCall";
 import MachieAlltmntCallService from "./pages/Production/Production/Machine Allotment/Service/MachieAlltmntCallService";
@@ -50,19 +50,19 @@ function App() {
                 {/* ScheduleList */}
                    <Route path="schedulelistprofile">
                       <Route index ={true}  element={<ScheduleList/>} />
-                      <Route path="PrintShowStatus" element={<PrintShowStatus/>} />
-                      <Route path="PrintShowParts" element={<ShowPartsPdf/>} />
+                      {/* <Route path="PrintShowStatus" element={<PrintShowStatus/>} /> */}
+                      {/* <Route path="PrintShowParts" element={<ShowPartsPdf/>} /> */}
                       <Route path="machineallotementprofile" element={<MachieAlltmntCall/>} />
                   </Route>
                   <Route path="schedulelistfabrication">
                       <Route index ={true}  element={<ScheduleListFabrication/>} />
-                      <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} />
-                      <Route path="PrintFabricationShowParts" element={<ShowPartsPdfFabrication/>} />
+                      {/* <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} /> */}
+                      {/* <Route path="PrintFabricationShowParts" element={<ShowPartsPdfFabrication/>} /> */}
                   </Route>
                   <Route path="schedulelistservice">
                       <Route index ={true} element={<ScheduleListService/>} />
-                      <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} />
-                      <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} />
+                      {/* <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} /> */}
+                      {/* <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} /> */}
                   </Route>  
 
                   {/* Shift Manager */}

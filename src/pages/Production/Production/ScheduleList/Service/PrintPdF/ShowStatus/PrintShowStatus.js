@@ -4,7 +4,7 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } fr
 //import PDFdocument from './PDFdocument';
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
-import ShowStatusTableService from './ShowStatusTableService';
+import ShowStatusTable from './ShowStatusTable';
 
 
 const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintShowStatusService() {
+export default function PrintShowStatus() {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -64,7 +64,7 @@ export default function PrintShowStatusService() {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <ShowStatusTableService Date={Date}/>
+              <ShowStatusTable Date={Date}/>
             </PDFViewer>
           </Fragment>
       ); 

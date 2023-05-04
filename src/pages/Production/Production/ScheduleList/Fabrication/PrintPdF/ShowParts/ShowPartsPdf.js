@@ -4,7 +4,7 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } fr
 //import PDFdocument from './PDFdocument';
 import { useLocation } from 'react-router-dom';
 import axios from "axios";
-import ShowStatusTableFabrication from './ShowStatusTableFabrication';
+import ShowPartsTable from './ShowPartsTable';
 
 
 const styles = StyleSheet.create({
@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintShowStatusFabrication() {
+export default function ShowPartsPdf() {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -50,7 +50,7 @@ export default function PrintShowStatusFabrication() {
     
     const moment = require('moment');
     const today = moment();
-    let Date=today.format("HH:mm DD-MMMM-YYYY");
+    let Date=today.format("HH:MM DD-MMMM-YYYY");
      console.log(Date);
 
       return (
@@ -64,7 +64,7 @@ export default function PrintShowStatusFabrication() {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <ShowStatusTableFabrication Date={Date}/>
+              <ShowPartsTable Date={Date}/>
             </PDFViewer>
           </Fragment>
       ); 
