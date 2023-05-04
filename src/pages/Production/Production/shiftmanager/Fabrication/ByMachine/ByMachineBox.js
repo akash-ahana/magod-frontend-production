@@ -301,7 +301,7 @@ export default function ByMachineBox() {
                         <TreeView
                             key={type + "|" + i}
                            nodeLabel={label}
-                            defaultCollapsed={true} >
+                            defaultCollapsed={false} >
 
                             {node.serverData.map((data,key) => {
                                 const label2 = <span

@@ -2,6 +2,7 @@ import React,{useState, useEffect} from 'react'
 import {Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
+import { baseURL } from '../../../../../../api/baseUrl';
 
 
 export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted
@@ -16,7 +17,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
   const modalTable=()=>{
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerncProgramTaskList',
+    axios.post(baseURL+'/shiftManagerProfile/shiftManagerncProgramTaskList',
     {...selectProgramCompleted})
    .then((response) => {
      console.log(response.data);
@@ -52,7 +53,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     setNewProgramCompleteData(constProgramCompleteData)
     //modalTable();
 
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
+    axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
@@ -75,7 +76,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/CloseProgram',
+    axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
     selectProgramCompleted)
    .then((response) => {
      console.log('Response of Api' , response.data)
@@ -235,18 +236,17 @@ return (
       </div>
 
       <div className='row mt-2'>
-  <div className='col-md-12 col-sm-12' style={{marginLeft:"-12px"}}>
-   <div style={{height:"250px",width:'100%',overflowY: "scroll", overflowX:'scroll'}}>
+  <div className='col-md-12 col-sm-12 mt-2' style={{marginLeft:"-15px"}}>
+   <div style={{height:"200px",maxWidth:"1000px",overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
        <tr>
-         <th>DWG Name</th>
-         <th>Total Qty Nested</th>
-         <th>To Produce/Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>DWG Name</th>
+         <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>To Produce/Qty Nested</th>
          <th>Produced</th>
          <th>Rejected</th>
          <th>Cleared</th>
-         
          <th>Remarks</th>
        </tr>
      </thead>
@@ -258,7 +258,7 @@ return (
 return(
   <>
         <tr >
-           <td>{item.DwgName}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            <td>{item.TotQtyNested}</td>
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>

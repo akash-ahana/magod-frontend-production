@@ -9,7 +9,7 @@ export default function ByOperations() {
 
  const[OperationData,setOperationData]=useState([])
   useEffect(() => {
-    axios.get('http://172.16.20.61:5000/shiftManagerProfile/orderByOperations')
+    axios.get('http://172.16.20.61:5000/shiftManagerService/orderByOperationsService')
         .then((response) => {
           setOperationData(response.data);
           console.log(response.data)
@@ -20,7 +20,6 @@ const dataSource = [
   {
       type: "Operations",
       collapsed: false,
-
       serverData: OperationData,
   },
 ];
@@ -246,10 +245,11 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                         <TreeView
                             key={type + "|" + i}
                            nodeLabel={label}
-                            defaultCollapsed={true} >
+                            defaultCollapsed={false} >
 
                             {node.serverData.map((data,key) => {
-                                const label2 = <span onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
+                                const label2 = <span 
+                                style={{fontSize:"14px"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
                                 
                                 
                                 return (
@@ -262,7 +262,8 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                     >
 
                                         {data.Machines.map((value,key) => {
-                                            const label3 = <span onClick={() => onClickMachine(value.refName, data.Operation)}>{value.refName}</span>
+                                            const label3 = <span 
+                                            style={{fontSize:"13px"}} onClick={() => onClickMachine(value.refName, data.Operation)}>{value.refName}</span>
                                             return (
                                                 <>
                                                 <TreeView

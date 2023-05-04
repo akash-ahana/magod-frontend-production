@@ -56,7 +56,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 
     <div className='row mt-3'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll"}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll",maxWidth:"850px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -77,17 +77,17 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
     {machineProgramesCompleted && machineProgramesCompleted.map((item,key)=>{
   return(
     <>
-          <tr  style={{backgroundColor:item.rowColor}}
+          <tr style={{backgroundColor:item.rowColor}}
           onClick={()=>programCompleted(item,key)} className={key===selectProgramCompleted?.index? 'selcted-row-clr':'' } >
              <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
              <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
              <td style={{whiteSpace:"nowrap"}}>{item.Operation}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.NCProgramNo}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.EstimatedTime}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.ActualTime}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.Qty}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.QtyAllotted}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.QtyCut}</td>
+             <td>{item.NCProgramNo}</td>
+             <td >{item.EstimatedTime}</td>
+             <td >{item.ActualTime}</td>
+             <td >{item.Qty}</td>
+             <td >{item.QtyAllotted}</td>
+             <td>{item.QtyCut}</td>
          </tr>
          </>
   )

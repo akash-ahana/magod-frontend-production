@@ -232,14 +232,14 @@ return (
       </div>
 
       <div className='row mt-1'>
-  <div className='col-md-12 col-sm-12' style={{paddingRight:'462px', paddingBottom:'23px'}}>
-   <div style={{height:"150px",width:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
+  <div className='col-md-12 col-sm-12 mt-2' style={{marginLeft:"-15px"}}>
+   <div style={{height:"200px",maxWidth:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
        <tr>
-         <th>DWG Name</th>
-         <th>Total Qty Nested</th>
-         <th>To Produce/Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>DWG Name</th>
+         <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>To Produce/Qty Nested</th>
          <th>Produced</th>
          <th>Rejected</th>
          <th>Cleared</th>
@@ -255,7 +255,7 @@ return(
   
   <tbody className='tablebody'>
         <tr >
-           <td>{item.DwgName}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            <td>{item.TotQtyNested}</td>
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>

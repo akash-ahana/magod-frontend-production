@@ -516,135 +516,129 @@ console.log(rowselectDailyShiftTable)
           
   return (
     <>
-      <div style={{ marginTop: "-35px" }}>
+      <div className='col-md-12'>
         <div className='row'>
-          <div className='col-md-4 col-sm-12 mt-4'>
-            <div>
-              <h4 className="form-title">Production Department: Shift Editor</h4>
-              <h6 className='mt-4'>Weekly Shift Editor</h6>
-            </div>
-          </div>
-
-          <div className="col-md-8 col-sm-12">
-            <div className="mt-3">
-              <div className='row'>
-                <div className="col-md-3">
-                  <label className="form-label">Shift</label>
-                  <select className="ip-select" onChange={handleShiftTypeChange}>
-                    <option selected>Select Shift</option>
-                    {dataShiftTypes.map((dataShiftTypes) => (
-                      <option value={dataShiftTypes}>{dataShiftTypes}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* <button className="button-style mt-2 group-button mt-4"
-                  style={{ width: "150px" }} onClick={createWeekPlannEW}>
-                  Create Week Plan new
-                </button> */}
-
-                <button className="button-style mt-2 group-button mt-4"
-                  style={{ width: "150px" }} onClick={openPdfmodel}>
-                  Print Weekly Plan
-                </button>
-
-                <div className="col-md-3">
-                  <label className="form-label">Machine</label>
-                  <select className="ip-select" onChange={handleMachineChange}>
-                  <option selected>Select Machine</option>
-                    {dataMachineList.map((dataMachineList) => (
-                      <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
-                    ))}
-
-                  </select>
-                </div>
-
-            {/* <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "140px"}}>
-               Create Day Shift
-            </button> */}
-          </div>
+           <h4 className="title">Production Department: Shift Editor</h4>
+        </div>
       </div>
-    </div>
 
-          <div className='col-md-4 col-sm-12'>
-            <div style={{color:"red",fontSize:"14px"}}>
-              <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
-            </div>
+      <div className='col-md-12'>
+         <div className='row'>
+          <div className='col-md-3'>
+             <h6 className='mt-2'>Weekly Shift Editor</h6>
           </div>
-
-          <div className="col-md-8 col-sm-12">
-            <div className="mt-1">
-              <div className='row'>
-                <div className="col-md-3">
-                  <label className="form-label">Shift Incharge</label>
-                  <select className="ip-select" onChange={handleShiftIncharge}>
-                  <option selected>Select Shift Incharge</option>
-                    {dataShiftIncharge.map((dataShiftIncharge) => (
-                      <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
-                    ))}
-
-                  </select>
-                </div>
-
-            <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "150px"}} onClick={()=>{openCreateshiftmodal()
-                createWeeklyShiftPlan()}}>
-              Create Week Shift
+          <div className='col-md-9'>
+             <div className='row'>
+             <div className='col-md-3'>
+             <label className="form-label">Shift</label>
+              <select className="ip-select" onChange={handleShiftTypeChange}>
+                <option selected>Select Shift</option>
+                {dataShiftTypes.map((dataShiftTypes) => (
+                  <option value={dataShiftTypes}>{dataShiftTypes}</option>
+                ))}
+              </select>
+             </div>
+             <div className='col-md-3' style={{marginTop:"20px"}}>
+             <button className="button-style  group-button"
+              style={{ width: "150px" }} onClick={openPdfmodel}>
+              Print Weekly Plan
             </button>
-
-                <div className="col-md-3">
-                  <label className="form-label">Operator</label>
-                  <select className="ip-select" onChange={handleOperatorList}>
-                  <option selected>Select Operator</option>
-                    {dataOperatorList.map((dataOperatorList) => (
-                      <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
-                    ))}
-                  </select>
-                </div>
-
-            <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "200px"}} onClick = {()=>{onSetMachineOperators()
-                openSetMachinemodal()}}>
-               Set Machine Operator
-            </button>
-
+             </div>
+             <div className='col-md-3'>
+             <label className="form-label">Machine</label>
+              <select className="ip-select" onChange={handleMachineChange}>
+              <option selected>Select Machine</option>
+                {dataMachineList.map((dataMachineList) => (
+                  <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
+                ))}
+              </select>
+             </div>
+             </div>
           </div>
+         </div>
       </div>
-    </div>
-    <div className='col-md-4 col-sm-12'>
-            <div>
+
+      {/* ////// */}
+
+      <div className='col-md-12'>
+         <div className='row'>
+          <div className='col-md-3'>
+              <div style={{color:"red",fontSize:"14px"}}>
+               <b>{selectedWeek[0]} Monday To {selectedWeek[6]} Sunday</b>
+             </div>
+          </div>
+          <div className='col-md-9'>
+             <div className='row'>
+             <div className='col-md-3'>
+             <label className="form-label">Shift Incharge</label>
+              <select className="ip-select" onChange={handleShiftIncharge}>
+              <option selected>Select Shift Incharge</option>
+                {dataShiftIncharge.map((dataShiftIncharge) => (
+                  <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
+                ))}
+
+              </select>
+             </div>
+             <div className='col-md-3' style={{marginTop:"20px"}}>
+             <button className="button-style mt-2 group-button mt-4"
+          style={{ width: "150px"}} onClick={()=>{openCreateshiftmodal()
+            createWeeklyShiftPlan()}}>
+          Create Week Shift
+        </button>
+             </div>
+             <div className='col-md-3'>
+             <label className="form-label">Operator</label>
+              <select className="ip-select" onChange={handleOperatorList}>
+              <option selected>Select Operator</option>
+                {dataOperatorList.map((dataOperatorList) => (
+                  <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
+                ))}
+              </select>
+             </div>
+            <div className='col-md-3' style={{marginTop:"20px"}}>
+            <button className="button-style mt-2 group-button mt-4" 
+           style={{ width: "200px"}} onClick = {()=>{onSetMachineOperators()
+            openSetMachinemodal()}}>
+           Set Machine Operator
+        </button>
             </div>
+             </div>
           </div>
-
-          <div className="col-md-8 col-sm-12">
-            <div className="mt-1">
-              <div className='row'>
-                <div className="col-md-3">
-                </div>
-
-                <button className="button-style mt-2 group-button mt-3"
-              style={{ width: "150px" }} 
-              // onClick={onClickDeleteWeekShift}
-              onClick={openDeleteshiftmodal}
-             >Delete Week Shift</button>
-
-                <div className="col-md-3">
-                </div>
-
-                <button className="button-style mt-2 group-button mt-3"
-               style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
-               Delete Machine Operator 
-              </button>
-          </div>
+         </div>
       </div>
-    </div>    
-  </div>
-  </div>
-  <hr  style={{
-    backgroundColor: 'black',
-    height:'3px'}}/>
+      
+      {/*  */}
+      <div className='col-md-12'>
+         <div className='row'>
+          <div className='col-md-3'>
+          </div>
 
+          <div className='col-md-9'>
+             <div className='row'>
+             <div className='col-md-3'>
+             </div>
+             <div className='col-md-3' style={{marginTop:"20px"}}>
+             <button className="button-style mt-2 group-button mt-3"
+          style={{ width: "150px" }} 
+          // onClick={onClickDeleteWeekShift}
+          onClick={openDeleteshiftmodal}
+         >Delete Week Shift</button>
+             </div>
+             <div className='col-md-3'>              
+             </div>
+             <div className='col-md-3'  style={{marginTop:"20px"}}>
+             <button className="button-style mt-2 group-button mt-3"
+           style={{ width: "200px"}} onClick = {openDeletemachineoperator}>
+           Delete Machine Operator 
+          </button>
+             </div>
+             </div>
+          </div>
+         </div>
+      </div>
+      <hr  style={{
+backgroundColor: 'black',
+height:'3px'}}/>
   {/* ////////////////////////////////////////////////////////////////////////////////////////////////////// */}
            <div style={{display:"flex"}}>
             <div>

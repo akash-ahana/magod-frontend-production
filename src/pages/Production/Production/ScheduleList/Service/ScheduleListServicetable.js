@@ -14,11 +14,11 @@ export default function ScheduleListServicetable({servicerowSelectFun,servicerow
   
   return (
      <div style={{height:"500px",overflowY: "scroll"}}>
-     <Table bordered>
-       <thead style={{textAlign:"center"}}>
+     <Table striped className="table-data border">
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Select</th>
-           <th>Schedule No</th>
+           <th style={{whiteSpace:"nowrap"}}>Schedule No</th>
            <th>Customer</th>
            <th>TgtDelDate</th>
            <th>Delivery_date</th>

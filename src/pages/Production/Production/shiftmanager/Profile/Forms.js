@@ -1,8 +1,7 @@
 import React,{useEffect, useState} from 'react'
-// import Iframe from './Iframe'
 import ByMachineBox from './ByMachine/ByMachineBox';
 import ByOperations from './ByOperations/ByOperations';
-import ByCustomer from './ByCustomer/ByCustomer';
+import ByCustomer from './ByCustomer/ByCustomers';
 import axios from 'axios';
 
 function Forms() {
@@ -38,10 +37,7 @@ function Forms() {
     }
 
     const moment = require('moment');
-    const today = moment();
-    // let Date=today.format("HH:mm DD-MMMM-YYYY");
-    //  console.log(Date);
-    
+    const today = moment();    
 
     const[shiftDetails,setShiftDetails]=useState([])
     useEffect(()=>{

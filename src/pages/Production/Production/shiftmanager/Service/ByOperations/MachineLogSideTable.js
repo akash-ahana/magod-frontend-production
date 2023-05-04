@@ -5,9 +5,9 @@ export default function MachineLogSideTable() {
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll", overflowX:"scroll"}}>
-     <Table bordered style={{border:'1px solid grey'}} >
-       <thead style={{textAlign:"center"}}>
+     <div style={{height:"250px",overflowY: "scroll", overflowX:"scroll"}}>
+     <Table striped className="table-data border" >
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>S-No</th>
            <th>Machine</th>

@@ -236,17 +236,16 @@ return (
 
       <div className='row mt-2'>
   <div className='col-md-12 col-sm-12' style={{marginLeft:"-12px"}}>
-   <div style={{height:"250px",width:'100%',overflowY: "scroll", overflowX:'scroll'}}>
+   <div style={{height:"200px",maxWidth:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
        <tr>
-         <th>DWG Name</th>
-         <th>Total Qty Nested</th>
-         <th>To Produce/Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>DWG Name</th>
+         <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>To Produce/Qty Nested</th>
          <th>Produced</th>
          <th>Rejected</th>
          <th>Cleared</th>
-         
          <th>Remarks</th>
        </tr>
      </thead>
@@ -258,7 +257,7 @@ return (
 return(
   <>
         <tr >
-           <td>{item.DwgName}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            <td>{item.TotQtyNested}</td>
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>

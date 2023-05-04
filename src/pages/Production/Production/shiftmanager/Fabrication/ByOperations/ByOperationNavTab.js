@@ -20,7 +20,7 @@ export default  function ByOperationNavTab({programProcessing,proramCompleted,on
       {isClick && <ByOperations/>}
       {isCustomer && <ByCustomer/>}
     </div> */}
-    <div style={{marginLeft: '40px'}}>
+    <div>
       <Tabs
       id="controlled-tab-example"
       activeKey={key}
