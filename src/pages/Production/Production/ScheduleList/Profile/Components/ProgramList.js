@@ -43,8 +43,8 @@ export default function ProgramList({taskno}) {
   return(
     <>
   <tr>
-    <td>{item.NCProgramNo}</td>
-    <td>{item.Machine}</td>
+    <td style={{whiteSpace:"nowrap"}}>{item.NCProgramNo}</td>
+    <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
     <td>{item.ActualTime}</td>
     <td>{item.EstimatedTime}</td>
     <td>{item.QtyAllotted}</td>

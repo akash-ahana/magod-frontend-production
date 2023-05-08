@@ -12,7 +12,7 @@ export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgra
   return (
     <div className='row'>
       <div className='col-md-12'>
-      <Tabs style={{marginLeft:"-30px"}}
+      <Tabs style={{marginLeft:"-20px"}}
       id="controlled-tab-example"
       activeKey={key}
       onSelect={(k) => setKey(k)}

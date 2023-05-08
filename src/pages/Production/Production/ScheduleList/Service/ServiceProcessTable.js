@@ -36,9 +36,9 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
         <tbody className='tablebody'>
          <tr onClick={()=>serviceprocesstableSelectFun(item,key)} className={key===serviceprocessrowselect?.index? 'selcted-row-clr':'' }>
           <td>{item.Schedule_Status}</td>
-          <td>{item.TaskNo}</td>
-          <td>{item.Mtrl_Code}</td>
-          <td>{item.Mprocess}</td>
+          <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
+          <td style={{whiteSpace:"nowrap"}}>{item.Mtrl_Code}</td>
+          <td style={{whiteSpace:"nowrap"}}>{item.Mprocess}</td>
           <td>{item.EstimatedTime}</td>
           <td>{item.TaskProcessTime}</td>
           <td>{item.DwgsNested}</td>

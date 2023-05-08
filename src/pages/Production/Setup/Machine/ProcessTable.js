@@ -11,7 +11,7 @@ console.log(selectRow)
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
      <div style={{height:"200px",overflowY: "scroll"}}>
-     <Table bordered  striped className="table-data border">
+     <Table  striped className="table-data border">
        <thead className="tableHeaderBGColor" style={{textAlign:"center"}}>
          <tr>
            <th>Process</th>
@@ -28,11 +28,11 @@ console.log(selectRow)
   return(
     <>
           <tr onClick={()=>selectedRowFun(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
-             <td>{item.Mprocess}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.Mprocess}</td>
              <td>{item.TgtRate}</td>
              <td>{item.Id}</td>
              <td>{item.Machine_srl}</td>
-             <td>{item.RefProcess}</td>
+             <td style={{whiteSpace:"nowrap"}}>{item.RefProcess}</td>
          </tr>
          </>
   )

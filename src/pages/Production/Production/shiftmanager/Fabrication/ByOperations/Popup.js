@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { baseURL } from '../../../../../../api/baseUrl';
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
    machineData,setSelectProgramProcessing}) {
@@ -24,7 +25,7 @@ const handleMachineChange = (e) => {
 
 
 const changeMachineonClick = () => {
-  axios.post('http://172.16.20.61:5000/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
+  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
   .then((response) => {
     console.log('Current State of programCompleteData' , response.data);
     handleClose();

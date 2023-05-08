@@ -76,20 +76,20 @@ export default function PartsList({taskno}){
           <>
           <tbody className='tablebody'>
          <tr>
-           <td>{item.DwgName}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            <td>{item.QtyProgrammed}</td>
            <td>{item.QtyProduced}</td>
            <td>{item.QtyCleared}</td>
            <td>{item.Task_Part_ID}</td>
            <td>{item.NcTaskId}</td>
-           <td>{item.TaskNo}</td>
-           <td>{item.SchDetailsId}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.SchDetailsId}</td>
            <td>{item.PartID}</td>
            <td>{item.QtyToNest}</td>
            <td>{item.QtyCleared}</td>
            <td>{item.QtyProduced}</td>
            <td>{item.QtyNested}</td>
-           <td>{item.Remarks}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.Remarks}</td>
            <td>{item.LOC}</td>
            <td>{item.Pierces}</td>
            <td>{item.Part_Area}</td>

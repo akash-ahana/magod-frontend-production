@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import TreeView from "react-treeview";
 import axios from 'axios';
-export default function List2() {
+import { baseURL } from '../../../../../../api/baseUrl';
 
+export default function List2() {
     const [machineProcessData, setMachineProcessData] = useState([])
 
     useEffect(() => {
-        axios.get('http://172.16.20.61:5000/machineAllotment/getMachineProcess')
+        axios.get(baseURL+'/machineAllotment/getMachineProcess')
             .then((response) => {
              //   console.log("byww", response.data)
                 setMachineProcessData(response.data)

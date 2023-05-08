@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
 import Popup from "./Popup"
+import { baseURL } from '../../../../../../api/baseUrl';
 
 
 export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
@@ -17,7 +18,7 @@ export default function OperationsProcessingModal({show, setShow,selectProgramPr
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
   const modalTable=()=>{
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerncProgramTaskList',
+    axios.post(baseURL+'/shiftManagerProfile/shiftManagerncProgramTaskList',
     {...selectProgramProcessing})
    .then((response) => {
      console.log(response.data);
@@ -57,7 +58,7 @@ const openChangeMachineModal=()=>{
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
     //modalTable();
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
+    axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
@@ -80,7 +81,7 @@ const openChangeMachineModal=()=>{
 
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerCloseProgram',
+    axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);

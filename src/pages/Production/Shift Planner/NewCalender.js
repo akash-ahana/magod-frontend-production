@@ -11,6 +11,7 @@ import SetMachineModal from './Modals/SetMachineModal';
 import DeleteshiftModal from './Modals/DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './Modals/DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom'
+import { baseURL } from '../../../api/baseUrl';
 // import PrintWeeklyplan from './PrintWeeklyplan';
 
 // import MachineOperatorTable from './MachineOperatorTable';
@@ -35,26 +36,26 @@ function NewCalender(props) {
   const [selectedOperator, setSelectedOperator] = useState('');
 
   const getShiftTypesData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/typesOfShifts`);
+    const { data } = await axios.get(baseURL+`/shiftEditor/typesOfShifts`);
     //console.log('Shift Types' , data)
     setDataShiftTypes(data);
   };
 
   const getMachineListData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/productionSetup/getallmachines`);
+    const { data } = await axios.get(baseURL+`/productionSetup/getallmachines`);
     //console.log('Machine List' , data)
     setGetShiftTypesData(data);
   };
 
   const getOperatorListData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/getMachineOperators`);
+    const { data } = await axios.get(baseURL+`/shiftEditor/getMachineOperators`);
     //console.log('Operator List',data);
     setDataOperatorList(data);
 
   }
 
   const getShiftInchargeData = async () => {
-    const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
+    const { data } = await axios.get(baseURL+`/shiftEditor/shiftInchargeList`);
     //console.log('Shift In Charge',data);
     setDataShiftIncharge(data);
 
@@ -337,7 +338,7 @@ console.log("selected row of data table is ",rowselect)
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([])
   const getSingleDayShiftPlan4thTable = () => {
   //  console.log(rowselect)
-    const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getDailyShiftPlanTable',
+    const res =  axios.post(baseURL+'/shiftEditor/getDailyShiftPlanTable',
      {ShiftDate  : rowselect}).then((response) => {console.log('DAILY SHIFT RESPONSE IS  ' , response)
     if(response.data === '') {
         console.log('response data is null')
@@ -392,7 +393,7 @@ console.log("selected row of data table is ",rowselect)
   const [secondTableShiftState, setSecondTableShiftState] = useState([])
   console.log(selectedWeek)
   const getSecondTableData = () => {
-    const res = axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable', selectedWeek).then((response) => {
+    const res = axios.post(baseURL+'/shiftEditor/getWeeklyShiftPlanSecondTable', selectedWeek).then((response) => {
       console.log('Api response is ', response)
       if (response.data === '') {
         console.log('response data is null')
@@ -465,7 +466,7 @@ console.log(rowselectDailyShiftTable)
         // }
        
 
-        const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
+        const res =  axios.post(baseURL+'/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => 
         {console.log('Api response is ' , response)
         if(response.data === '') {
             // console.log('response data is null')
@@ -483,7 +484,7 @@ console.log(rowselectDailyShiftTable)
        }
        const onClickDeleteWeekShift = () => {
         //  console.log('Delete Week Shift Clicked ', 'Shift Selected is ', selectedShift, 'selected week is ', selectedWeek)
-          axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekShift', 
+          axios.post(baseURL+'/shiftEditor/deleteWeekShift', 
           { selectedShift: selectedShift, selectedWeek: selectedWeek })
           .then((response) => { console.log(response)
             getSecondTableData(); 
@@ -494,7 +495,7 @@ console.log(rowselectDailyShiftTable)
 //DELETE MACHINE OPERATOR FOR WEEK 
         const onClickDeleteWeekOperatorMachine = () => {
           // console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
-           axios.post('http://172.16.20.61:5000/shiftEditor/deleteWeekOperatorForMachine', {selectedShift : selectedShift, selectedWeek: selectedWeek, selectedMachine : selectedMachine , selectedOperator : selectedOperator})
+           axios.post(baseURL+'/shiftEditor/deleteWeekOperatorForMachine', {selectedShift : selectedShift, selectedWeek: selectedWeek, selectedMachine : selectedMachine , selectedOperator : selectedOperator})
            .then((response) => {console.log(response)
              getSecondTableData();
               setWeekState1('')
@@ -510,7 +511,7 @@ console.log(rowselectDailyShiftTable)
             
             
             
-            const { data } = await axios.post('http://172.16.20.61:5000/shiftEditor/getWeeklyShiftPlanSecondTable' , selectedWeek);
+            const { data } = await axios.post(baseURL+'/shiftEditor/getWeeklyShiftPlanSecondTable' , selectedWeek);
             console.log(data)
           }
           

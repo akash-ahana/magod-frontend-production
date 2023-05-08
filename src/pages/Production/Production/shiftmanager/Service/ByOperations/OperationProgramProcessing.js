@@ -5,6 +5,7 @@ import { Table } from 'react-bootstrap'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import OperationsProcessingModal from './OperationsProcessingModal';
+import { baseURL } from '../../../../../../api/baseUrl';
 
 export default function OperationProgramProcessing({programProcessing}) {
 
@@ -31,7 +32,7 @@ export default function OperationProgramProcessing({programProcessing}) {
     // })
 
     useEffect(()=>{
-  axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileMachines',)
+  axios.get(baseURL+'/shiftManagerProfile/profileMachines',)
   .then((response) => {
     console.log('Current State of programCompleteData' , response.data);
     setMachineData(response.data)

@@ -1,11 +1,10 @@
 import React, {Fragment, useEffect, useState} from 'react'; 
 import axios from "axios";
-
-
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 //import PDFdocument from './PDFdocument';
 import WeeklyShifttable from './WeeklyShifttable';
 import { useLocation } from 'react-router-dom';
+import { baseURL } from '../../../../../api/baseUrl';
 
 const styles = StyleSheet.create({
     page: {
@@ -189,7 +188,7 @@ machineOperators : [
   //First Shift
   const[newData,setNewdata]=useState([]);
     const getWeeklyshiftPrint=()=>{
-      axios.post('http://172.16.20.61:5000/shiftEditor/getFullWeekDetailPlan', 
+      axios.post(baseURL+'/shiftEditor/getFullWeekDetailPlan', 
       {
         ShiftDate:selectedWeek,
       }).then((response) => {

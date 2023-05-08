@@ -75,7 +75,7 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
 
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/CloseProgram',
+    axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
     selectProgramCompleted)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);

@@ -39,10 +39,10 @@ export default function ScheduleListServicetable({servicerowSelectFun,servicerow
                  id="flexCheckDefault"/>
            </td>
            <td>{item.OrdSchNo}</td>
-           <td>{item.Cust_name}</td>
-           <td>{item.schTgtDate}</td>
-           <td>{item.Delivery_Date}</td>
-           <td>{item.Schedule_Status}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.Cust_name}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.schTgtDate}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.Delivery_Date}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.Schedule_Status}</td>
          </tr>
    </tbody>
         </>

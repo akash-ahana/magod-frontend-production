@@ -2,13 +2,14 @@ import axios from "axios";
 import React,{useState , useEffect} from "react";
 import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
+import { baseURL } from "../../../../../api/baseUrl";
 
 export default function ByMachineBox() {
 
   const [machineProcessData, setMachineProcessData] = useState([])
 
   useEffect(() => {
-      axios.get('http://172.16.20.61:5000/shiftManagerProfile/profileListMachines')
+      axios.get(baseURL+'/shiftManagerProfile/profileListMachines')
           .then((response) => {
               setMachineProcessData(response.data)
           })

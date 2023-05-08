@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { baseURL } from '../../../../api/baseUrl';
 
 
 export default function CreateweekModal({openweekshift,setOpenweekshift,
@@ -51,11 +52,10 @@ export default function CreateweekModal({openweekshift,setOpenweekshift,
     constWeekState[i].FromTime = constWeekState[i].ShiftDate + fromTime
     constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime
   }
-
         
     } 
 
-        axios.post('http://172.16.20.61:5000/shiftEditor/createWeeklyShiftPlan', constWeekState)
+        axios.post(baseURL+'/shiftEditor/createWeeklyShiftPlan', constWeekState)
         .then((response) => {console.log('CREATE WEEK SHIFT RESPONSE ' , response)
         getSecondTableData();
         getSingleDayShiftPlan4thTable();

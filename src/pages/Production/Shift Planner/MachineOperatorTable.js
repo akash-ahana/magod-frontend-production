@@ -17,9 +17,8 @@ function MachineOperatorTable({rowselectMachineOperator,rowselectDailyShiftTable
       },[machineOperatorTableData[0]])
 
     return (
-        <div style={{height:"228px",overflowY:"scroll"}}>
-
-<Table striped className="table-data border" style={{border:"1px",marginLeft:"5px"}}>
+        <div style={{height:"280px",overflowY:"scroll"}}>
+<Table striped className="table-data border ms-2" style={{border:"1px",marginLeft:"5px"}}>
        <thead className="tableHeaderBGColor">
          <tr>
            <th>Machine</th>

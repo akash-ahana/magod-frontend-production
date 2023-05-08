@@ -4,12 +4,13 @@ import "react-treeview/react-treeview.css";
 import { useState,useEffect } from "react";
 import axios from "axios";
 import ByOperationNavTab from "./ByOperationNavTab";
+import {baseURL}  from '../../../../../../api/baseUrl'
 
 export default function ByOperations() {
 
  const[OperationData,setOperationData]=useState([])
   useEffect(() => {
-    axios.get('http://172.16.20.61:5000/shiftManagerService/orderByOperationsService')
+    axios.get(baseURL+'/shiftManagerService/orderByOperationsService')
         .then((response) => {
           setOperationData(response.data);
           console.log(response.data)
@@ -26,7 +27,7 @@ const dataSource = [
 
 const onClickOperation = (Operation) => {
     console.log('The Operation Selected is ' , Operation)
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationProgramesCompleted' , { Operation : Operation})
+    axios.post(baseURL+'/shiftManagerProfile/OperationProgramesCompleted' , { Operation : Operation})
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);                  
             setProgramCompleted(response.data);
@@ -59,7 +60,7 @@ const onClickOperation = (Operation) => {
              console.log('AFTER ADDING COLOR' , response.data)
           })
 
-          axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationProgramesProcessing',{ Operation : Operation})
+          axios.post(baseURL+'/shiftManagerProfile/OperationProgramesProcessing',{ Operation : Operation})
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
             setProgramProcessing(response.data);
@@ -95,7 +96,7 @@ const onClickOperation = (Operation) => {
 
 const onClickMachine = (Machine, Operation) => {
     console.log('The Selected Machine is ' , Machine , 'With Operation ' , Operation);
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationMachinesProgramesCompleted' , {MachineName : Machine , Operation : Operation})
+    axios.post(baseURL+'/shiftManagerProfile/OperationMachinesProgramesCompleted' , {MachineName : Machine , Operation : Operation})
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);   
             setProgramCompleted(response.data);
@@ -128,7 +129,7 @@ const onClickMachine = (Machine, Operation) => {
              console.log('AFTER ADDING COLOR' , response.data)
           })
 
-          axios.post('http://172.16.20.61:5000/shiftManagerProfile/OperationMachinesProgramesProcessing',{MachineName : Machine , Operation : Operation})
+          axios.post(baseURL+'/shiftManagerProfile/OperationMachinesProgramesProcessing',{MachineName : Machine , Operation : Operation})
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
             setProgramProcessing(response.data);
@@ -167,7 +168,7 @@ const[proramCompleted,setProgramCompleted]=useState([])
 const[programProcessing,setProgramProcessing]=useState([])
 const onClickProgram = (Operation , Machine , processItem ) => {
     console.log('The Selected Operation is ' , Operation , " Machine is " , Machine , " Program is " , processItem)
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile//taskNoProgramNoCompleted' , processItem)
+    axios.post(baseURL+'/shiftManagerProfile//taskNoProgramNoCompleted' , processItem)
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);                  
             setProgramCompleted(response.data);
@@ -200,7 +201,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
              console.log('AFTER ADDING COLOR' , response.data)
           })
 
-          axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoProcessing',processItem)
+          axios.post(baseURL+'/shiftManagerProfile/taskNoProgramNoProcessing',processItem)
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
             setProgramProcessing(response.data);

@@ -4,6 +4,7 @@ import ByMachineBox from './ByMachine/ByMachineBox';
 import ByOperations from './ByOperations/ByOperations';
 import ByCustomer from './ByCustomer/ByCustomer';
 import axios from 'axios';
+import { baseURL } from '../../../../../api/baseUrl';
 
 function Forms() {
     const [text, setText] = useState("");
@@ -63,7 +64,7 @@ function Forms() {
         Shift = "Third"
       }
       console.log("shift is",Shift)
-        axios.post('http://172.16.20.61:5000/shiftManagerProfile/getShiftInformation',
+        axios.post(baseURL+'/shiftManagerProfile/getShiftInformation',
         {ShiftDate : dateArray[0], Shift : Shift})
         .then((response) => {
           console.log('Shift Information' , response.data);
