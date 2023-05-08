@@ -9,11 +9,11 @@ import { baseURL } from "../../../../../../api/baseUrl";
 
 export default function ByCustomer() {
 
- const[OperationData,setOperationData]=useState([])
+ const[CustomerData,setCustomerData]=useState([])
   useEffect(() => {
-    axios.get(baseURL+'/shiftManagerProfile/orderByOperations')
+    axios.get(baseURL+'/shiftManagerProfile/orderByCustomers')
         .then((response) => {
-          setOperationData(response.data);
+          setCustomerData(response.data);
           console.log(response.data)
         })
 }, [])
@@ -22,13 +22,13 @@ const dataSource = [
   {
       type: "Customer",
       collapsed: false,
-      serverData: OperationData,
+      serverData: CustomerData,
   },
 ];
 
-const onClickOperation = (Operation) => {
-    console.log('The Operation Selected is ' , Operation)
-    axios.post(baseURL+'/shiftManagerProfile/OperationProgramesCompleted' , { Operation : Operation})
+const onClickCustomer = (Cust_Code) => {
+    console.log('The CustCode Selected is ' , Cust_Code)
+    axios.post(baseURL+'/shiftManagerProfile/CustomerProgramesCompleted' , { Cust_Code : Cust_Code})
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);                  
             setProgramCompleted(response.data);
@@ -61,7 +61,7 @@ const onClickOperation = (Operation) => {
              console.log('AFTER ADDING COLOR' , response.data)
           })
 
-          axios.post(baseURL+'/shiftManagerProfile/OperationProgramesProcessing',{ Operation : Operation})
+          axios.post(baseURL+'/shiftManagerProfile/CustomerProgramesProcessing',{ Cust_Code : Cust_Code})
           .then((response) => {
             console.log('Programs Processing Data is ' , response.data);
             setProgramProcessing(response.data);
@@ -95,75 +95,75 @@ const onClickOperation = (Operation) => {
           })
 }
 
-const onClickMachine = (Machine, Operation) => {
-    console.log('The Selected Machine is ' , Machine , 'With Operation ' , Operation);
-    axios.post(baseURL+'/shiftManagerProfile/OperationMachinesProgramesCompleted' , {MachineName : Machine , Operation : Operation})
-          .then((response) => {
-            console.log('Programs Compleated DATA' , response.data);   
-            setProgramCompleted(response.data);
-            for(let i = 0; i< response.data.length ; i++) {
-              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
-                response.data[i].rowColor = "#339900"
-                //break;
-              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#82c2b4"
-                //break;
-              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#f08080"
-                //break;
-              }
-              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#f08080"
-                //break;
-              } 
-              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#FF7F50"
-                //break;
-              } 
-              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#FFA500"
-                //break;
-              } else {
-                response.data[i].rowColor = "#ff0000"
-              }
-            }
-             console.log('AFTER ADDING COLOR' , response.data)
-          })
+// const onClickPrograms = (NCProgramNo, Cust_name) => {
+    // console.log('The Selected NCProgram is ' ,NCProgramNo , 'With CustomerName is ' ,Cust_name);
+    // axios.post(baseURL+'/shiftManagerProfile/OperationMachinesProgramesCompleted' , {MachineName : Machine , Operation : Operation})
+    //       .then((response) => {
+    //         console.log('Programs Compleated DATA' , response.data);   
+    //         setProgramCompleted(response.data);
+    //         for(let i = 0; i< response.data.length ; i++) {
+    //           if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+    //             response.data[i].rowColor = "#339900"
+    //             //break;
+    //           } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#82c2b4"
+    //             //break;
+    //           } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#f08080"
+    //             //break;
+    //           }
+    //           else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#f08080"
+    //             //break;
+    //           } 
+    //           else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#FF7F50"
+    //             //break;
+    //           } 
+    //           else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#FFA500"
+    //             //break;
+    //           } else {
+    //             response.data[i].rowColor = "#ff0000"
+    //           }
+    //         }
+    //          console.log('AFTER ADDING COLOR' , response.data)
+    //       })
 
-          axios.post(baseURL+'/shiftManagerProfile/OperationMachinesProgramesProcessing',{MachineName : Machine , Operation : Operation})
-          .then((response) => {
-            console.log('Programs Processing Data is ' , response.data);
-            setProgramProcessing(response.data);
-            for(let i = 0; i< response.data.length ; i++) {
-              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
-                response.data[i].rowColor = "#339900"
-                //break;
-              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#82c2b4"
-                //break;
-              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#f08080"
-                //break;
-              }
-              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#f08080"
-                //break;
-              } 
-              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#FF7F50"
-                //break;
-              } 
-              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
-                response.data[i].rowColor = "#FFA500"
-                //break;
-              } else {
-                response.data[i].rowColor = "#ff0000"
-              }
-            }
-             console.log('AFTER ADDING COLOR' , response.data)
-          })
+    //       axios.post(baseURL+'/shiftManagerProfile/OperationMachinesProgramesProcessing',{MachineName : Machine , Operation : Operation})
+    //       .then((response) => {
+    //         console.log('Programs Processing Data is ' , response.data);
+    //         setProgramProcessing(response.data);
+    //         for(let i = 0; i< response.data.length ; i++) {
+    //           if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+    //             response.data[i].rowColor = "#339900"
+    //             //break;
+    //           } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#82c2b4"
+    //             //break;
+    //           } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#f08080"
+    //             //break;
+    //           }
+    //           else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#f08080"
+    //             //break;
+    //           } 
+    //           else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#FF7F50"
+    //             //break;
+    //           } 
+    //           else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+    //             response.data[i].rowColor = "#FFA500"
+    //             //break;
+    //           } else {
+    //             response.data[i].rowColor = "#ff0000"
+    //           }
+    //         }
+    //          console.log('AFTER ADDING COLOR' , response.data)
+    //       })
     
-}
+// }
 
 const[proramCompleted,setProgramCompleted]=useState([])
 const[programProcessing,setProgramProcessing]=useState([])
@@ -250,47 +250,40 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                             defaultCollapsed={true} >
 
                             {node.serverData.map((data,key) => {
-                                const label2 = <span onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
+                                const label2 = <span style={{fontSize:"13px"}} onClick={() => onClickCustomer(data.Customer.Cust_Code
+                                  )}>
+                                  {data.Customer.Cust_name}</span>;
                                 
                                 
                                 return (
                                     <TreeView
                                         nodeLabel={label2}
-                                        key={data.name }
+                                        key={data.Customer.Cust_name }
                                         defaultCollapsed={true}
-                                    >
-
-                                        {data.Machines.map((value,key) => {
-                                            const label3 = <span onClick={() => onClickMachine(value.refName, data.Operation)}>{value.refName}</span>
+                                    > 
+                                        <ul>
+                                        {data.Customer.programs.map((value,key) => {
+                                            const label3 = <span>{value.TaskNo}  / {value.NCProgramNo} / {value.Machine} / {value.PStatus}</span>
                                             return (
                                                 <>
-                                                <TreeView
-                                                 nodeLabel={label3}
-                                                 key={value.refName }
-                                                 defaultCollapsed={true}
-                                                >
-                                                    {value.process.map((processItem, key) => {
-                                                        return(
-                                                            <>
-                                                            <div style={{fontSize:'10px'}}>
-                                                            {processItem.PStatus==='Completed' ? (
-                                                              <span style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
-                                                            ):
-                                                            <span onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</span>
-                                                            }
-                                                            </div>
-                                                            </>
-                                                        )
-                                                    })
-                                                    }
-                                                       
-                                                </TreeView>
+                                                <div style={{fontSize:"11px"}}
+                                                //  onClick={() => onClickPrograms(value.NCProgramNo, data.Customer.Cust_name )}
+                                                 >
+                                                <li>
+                                                {value.TaskNo}  / {value.NCProgramNo} / {value.Machine} / {value.PStatus}
+                                                </li>
+
+                                                {value.PStatus==="Completed" ? (
+                                                <li className="completed" style={{backgroundColor:'#afbfa1'}}>{value.TaskNo} / {value.NCProgramNo} / {value.PStatus}</li> 
+                                             ):<li className="node">{value.TaskNo} / {value.NCProgramNo} / {value.PStatus}</li> 
+                                                   
+                                             }
+                                                </div>
                                                 </>
                                             )
                                         })}
-                                        
-                                        
-                                     
+                                        </ul>
+                                       
                                     </TreeView>);
                             })}
                         </TreeView>
@@ -304,9 +297,9 @@ const onClickProgram = (Operation , Machine , processItem ) => {
             <div>
             <NavTab proramCompleted={proramCompleted}
             programProcessing={programProcessing}
-            onClickMachine={onClickMachine}
-            onClickProgram={onClickProgram}
-            onClickOperation={onClickOperation}/>
+            // onClickPrograms={onClickPrograms}
+            // onClickProgram={onClickProgram}
+            onClickCustomer={onClickCustomer}/>
             </div>
         </div>
   );

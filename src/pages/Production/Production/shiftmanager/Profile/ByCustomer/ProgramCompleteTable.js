@@ -1,9 +1,12 @@
 import React,{useState} from 'react'
 import { Table } from 'react-bootstrap'
 import OperationsCompleteOpenProgram from './CompletedOpenProgram';
+import CompleteOpenProgram from './CompletedOpenProgram';
 
 
-export default function ProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine}) {
+export default function ProgramCompleteTable({proramCompleted,onClickCustomer,
+  // onClickProgram
+  onClickPrograms}) {
 
     const [show, setShow] = useState(false);
 
@@ -98,13 +101,13 @@ export default function ProgramCompleteTable({proramCompleted,onClickOperation,o
 </div>
 
 
-    <OperationsCompleteOpenProgram
+    <CompleteOpenProgram
     show={show}
      setShow={setShow}
      selectProgramCompleted={selectProgramCompleted}
-     onClickOperation={onClickOperation}
-     onClickProgram={onClickProgram}
-     onClickMachine={onClickMachine}
+     onClickCustomer={onClickCustomer}
+    //  onClickProgram={onClickProgram}
+     onClickPrograms={onClickPrograms}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />

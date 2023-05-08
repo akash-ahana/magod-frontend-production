@@ -325,8 +325,7 @@ export default function ByMachineBox() {
                                             return (
                                                 <>
                                               
-                                                <div style={{fontSize:"11px"}} onClick={() => taskNoOnClick(data.MachineName, value)
-}>
+                                                <div style={{fontSize:"11px"}} onClick={() => taskNoOnClick(data.MachineName, value)}>
                                              
                                              {value.PStatus==="Completed" ? (
                                                 <li className="completed" style={{backgroundColor:'#afbfa1'}}>{value.TaskNo} / {value.Mtrl_Code} / {value.NCProgramNo} / {value.PStatus}</li> 

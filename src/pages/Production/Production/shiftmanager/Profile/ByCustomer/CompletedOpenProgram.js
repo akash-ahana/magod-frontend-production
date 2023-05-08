@@ -5,8 +5,9 @@ import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function CompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,
-  onClickProgram,onClickMachine
+export default function CompleteOpenProgram({show, setShow,selectProgramCompleted,onClickCustomer,
+  onClickProgram,
+  // onClickPrograms
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -82,9 +83,9 @@ export default function CompleteOpenProgram({show, setShow,selectProgramComplete
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
      //setProgramCompleteData(response.data)
-     onClickOperation();
+     onClickCustomer();
      onClickProgram();
-     onClickMachine();
+    //  onClickPrograms();
  })
   }
   

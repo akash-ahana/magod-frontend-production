@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import OperationsProcessingModal from './ProcessingModal';
 import { baseURL } from '../../../../../../api/baseUrl';
+import ProcessingModal from './ProcessingModal';
 
 export default function ProgramProcessing({programProcessing}) {
 
@@ -90,7 +91,7 @@ export default function ProgramProcessing({programProcessing}) {
 })}
  </Table>
      </div>
-     <OperationsProcessingModal show={show}
+     <ProcessingModal show={show}
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
      machineData={machineData}
