@@ -2,10 +2,11 @@ import React,{useState, useEffect} from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
-import Popup from "./Popup"
+import Popup from "./Popup";
 import { baseURL } from '../../../../../../api/baseUrl';
 
-export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
+
+export default function ProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -78,15 +79,15 @@ const openChangeMachineModal=()=>{
     
   }
 
-//   const onClickCloseProgram = () => {
-//     console.log('Close Program button is clicked')
-//     axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
-//     programCompleteData)
-//    .then((response) => {
-//      console.log('Current State of programCompleteData' , response.data);
-//      //setProgramCompleteData(response.data)
-//  })
-//   }
+  const onClickCloseProgram = () => {
+    console.log('Close Program button is clicked')
+    axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
+    programCompleteData)
+   .then((response) => {
+     console.log('Current State of programCompleteData' , response.data);
+     //setProgramCompleteData(response.data)
+ })
+  }
   //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
@@ -119,7 +120,7 @@ return (
   <div>
     <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
-      <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>
+        <Modal.Title>Program Parts Inspection Form</Modal.Title>
       </Modal.Header>
       <Modal.Body>
       <div className="col-md-12 col-sm-12">
@@ -141,7 +142,8 @@ return (
               value={selectProgramProcessing.Mtrl_Code} />
             </div>
 
-        
+            
+
             <div className="col-md-3">
               <label className="form-label"> Program no</label>
               <input  className='in-field'

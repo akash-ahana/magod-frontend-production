@@ -36,7 +36,7 @@ const changeMachineonClick = () => {
      toast.success('Machine Name Changed',{
       position: toast.POSITION.TOP_CENTER
   })
-    // taskNoOnClick();
+
  })
 }
 

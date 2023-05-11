@@ -84,7 +84,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)
-         taskNoOnClick();
+     taskNoOnClick();
      MachineOnClick();
  })
   }

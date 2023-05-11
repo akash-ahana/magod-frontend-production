@@ -309,7 +309,7 @@ export default function ByMachineBox() {
                                 const label2 = <span
                                 style={{fontSize : "14px",backgroundColor:"#C0C0C0"}}
                                  onClick={() => {MachineOnClick(data.MachineName)
-                                    LaserRowselect(data,key)}}className={key===selectLaser?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
+                                    LaserRowselect(data,key)}} className={key===selectLaser?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
                                 
                                 
                                 return (
