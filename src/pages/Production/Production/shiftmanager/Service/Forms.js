@@ -2,8 +2,9 @@ import React,{useEffect, useState} from 'react'
 // import Iframe from './Iframe'
 import ByMachineBox from './ByMachine/ByMachineBox';
 import ByOperations from './ByOperations/ByOperations';
-import ByCustomer from './ByCustomer/ByCustomer';
+import ByCustomer from './ByCustomer/ByCustomers';
 import axios from 'axios';
+import {baseURL} from '../../../../../api/baseUrl'
 
 function Forms() {
     const [text, setText] = useState("");
@@ -63,10 +64,32 @@ function Forms() {
         Shift = "Third"
       }
       console.log("shift is",Shift)
-        axios.post('http://172.16.20.61:5000/shiftManagerProfile/getShiftInformation',
+        axios.post(baseURL+'/shiftManagerProfile/getShiftInformation',
         {ShiftDate : dateArray[0], Shift : Shift})
         .then((response) => {
           console.log('Shift Information' , response.data);
+           //changing Shift Date
+           let dateSplit = response.data[0].ShiftDate.split("-"); 
+           let year = dateSplit[0];
+           let month = dateSplit[1];
+           let day = dateSplit[2];
+           let finalDay = day+"-"+month+"-"+year 
+           console.log(finalDay , 'shift Information 1')
+           response.data[0].ShiftDate = finalDay
+ 
+           //changing from date
+           let dateSplit1 = response.data[0].FromTime.split(" "); 
+           let fromtime = dateSplit1[1]
+           console.log(fromtime , 'shift Information 1')
+           let finalDay1 = finalDay + " " + fromtime
+           response.data[0].FromTime = finalDay1
+ 
+           //changing to date
+           let dateSplit2 = response.data[0].ToTime.split(" "); 
+           let totime = dateSplit2[1]
+           console.log(fromtime , 'shift Information 1')
+           let finalDay2 = finalDay + " " + totime
+           response.data[0].ToTime = finalDay2
           setShiftDetails(response.data);
        }) 
     },[]);
@@ -91,7 +114,7 @@ function Forms() {
             <div className="col-md-9">
                 <label className="form-label">Date</label>
                 <input className="in-field bg-light" style={{marginTop:'-7px'}}
-                 value={date}/>
+                 value={shiftDetails[0].ShiftDate}/>
             </div>
 
             <div className="col-md-9">

@@ -2,15 +2,15 @@ import React,{useState, useEffect} from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
-import Popup from "./Popup"
+import Popup from "./Popup";
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,taskNoOnClick,setSelectProgramProcessing
+export default function ProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
 }) {
-  const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
-
   const [fullscreen, setFullscreen] = useState(true);
+
+  const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
   const[programCompleteData,setProgramCompleteData]=useState([]);
   const[newprogramCompleteData,setNewProgramCompleteData]=useState([]);
@@ -114,21 +114,13 @@ const openChangeMachineModal=()=>{
     setNewProgramCompleteData(newconstprogramCompleteData)
   }
 
-  const [ machineData, setMachineData] = useState([])
-const clickChangeMachine=()=>{
-  axios.post(baseURL+'/shiftManagerService/shiftManagerServiceFilteredMachines', { Operation : selectProgramProcessing.MProcess})
-  .then((response) => {
-    console.log('Change Machine List in Machine Popup' , response.data);
-    setMachineData(response.data)
- })
-}
 
 
 return (
   <div>
     <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
-      <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>
+        <Modal.Title>Program Parts Inspection Form</Modal.Title>
       </Modal.Header>
       <Modal.Body>
       <div className="col-md-12 col-sm-12">
@@ -150,7 +142,7 @@ return (
               value={selectProgramProcessing.Mtrl_Code} />
             </div>
 
-           
+            
 
             <div className="col-md-3">
               <label className="form-label"> Program no</label>
@@ -201,7 +193,8 @@ return (
                }/>
             </div>
 
-          
+            
+
             <div className="col-md-3">
                <label className="form-label">Process Time</label>
                <input  className='in-field'
@@ -222,19 +215,16 @@ return (
                value={selectProgramProcessing.Machine}/>
             </div>
 
-            <div className="col-md-2 mt-4">
+            <div className="col-md-2  mt-4">
             <button className="button-style mt-3 group-button ms-2"
-            style={{ width:"120px"}}
+              style={{ width:"120px"}}
             onClick = {clearAllButton}>
              Clear Parts 
             </button>
             </div>
 
-            <div className="col-md-2 mt-4" style={{marginLeft:"-70px"}}>
-            <button style={{ width:"150px"}} className="button-style mt-3 group-button" 
-            onClick={()=>{openChangeMachineModal()
-              clickChangeMachine()
-            }}>
+            <div className="col-md-2 mt-4 " style={{marginLeft:"-70px"}}>
+            <button style={{ width:"150px"}} className="button-style mt-3 group-button" onClick={openChangeMachineModal}>
              Change Machine
             </button>
             </div>
@@ -244,7 +234,7 @@ return (
       </div>
 
       <div className='row mt-1'>
-  <div className='col-md-12 col-sm-12' style={{marginLeft:"-15px"}}>
+  <div className='col-md-12 col-sm-12 mt-2' style={{marginLeft:"-15px"}}>
    <div style={{height:"200px",maxWidth:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
@@ -267,7 +257,7 @@ return(
   
   <tbody className='tablebody'>
         <tr >
-           <td>{item.DwgName}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            <td>{item.TotQtyNested}</td>
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>
@@ -328,7 +318,6 @@ return(
    selectProgramProcessing={selectProgramProcessing}
    machineData={machineData}
    taskNoOnClick={taskNoOnClick}
-   setSelectProgramProcessing={setSelectProgramProcessing}
    />
 </div>
 </div>

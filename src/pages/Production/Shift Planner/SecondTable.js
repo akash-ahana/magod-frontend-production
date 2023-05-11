@@ -11,18 +11,18 @@ import axios from "axios";
 function SecondTable(props) {
     //  console.log('secondTableShiftState in second TABLE 1' , props.week)
     return (
-        <div style={{width:"430px",height:"610px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
+        <div style={{width:"430px",height:"660px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
         <div>
 
 
 <Table striped className="table-data border" style={{marginLeft:"5px",border:"1px"}}>
        <thead className="tableHeaderBGColor">
          <tr>
-           <th style={{width:"100px"}}>ShiftDate</th>
+           <th >ShiftDate</th>
            <th>Shift</th>
-           <th style={{width:"70px"}}>Shift IC</th>
-           <th style={{width:"100px"}}>From</th>
-           <th style={{width:"100px"}}>To</th>
+           <th >Shift IC</th>
+           <th >From</th>
+           <th >To</th>
          </tr>
        </thead>
 
@@ -33,11 +33,11 @@ function SecondTable(props) {
     return(
         <>
               <tr   >
-                 <td>{rank.ShiftDate}</td>
-                 <td>{rank.Shift}</td>
-                 <td>{rank.Shift_Ic}</td>
-                 <td>{rank.FromTime}</td>
-                 <td>{rank.ToTime}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.ShiftDate}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.Shift}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.Shift_Ic}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.FromTime}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.ToTime}</td>
              </tr>      
         </>
       )

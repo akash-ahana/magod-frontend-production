@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { baseURL } from '../../../../api/baseUrl';
 
 
 
@@ -15,7 +16,7 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
 
       const setMachineoperators=()=>{
         console.log(weekState1);
-        axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperators', weekState1)
+        axios.post(baseURL+'/shiftEditor/setMachineOperators', weekState1)
         .then((response) => {
           console.log(response);
         getMachineOperatorTableData();

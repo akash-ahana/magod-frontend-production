@@ -1,89 +1,58 @@
-import { margin } from '@mui/system';
 import axios from 'axios';
 import React  ,{useEffect,useState}from 'react';
 import { Table } from 'react-bootstrap';
 import ModalPrintPriority from '../PrintPriortyTable/ModalPrintPriority';
 
+
 export default function PriorityTable({machineSelect,ncProgramsTableData,selectNcProgram,setNcProgramsTableData,handleCheckboxChange}) {
-  // console.log("Priority Table ",machineSelect.MachineName)
-
-  // console.log(selectNcProgram)
-
 
   const [priorityTable , setPriorityTable] = useState([])
   let constspriorityTabel = []
 
   useEffect(() => {
-
   },[priorityTable])
+
   function removeDuplicates(arr) {
-    return arr.filter((item,
-        index) => arr.indexOf(item) === index);
+    return arr.filter((item,index) => arr.indexOf(item) === index);
 }
+
   const selectRowTable = (item) => {
-    // console.log('The Selected Row is ' , item)
-
-    
-
     if (priorityTable.includes(item)) {
        //setPriorityTable(priorityTable.filter(r => r !== item));
        console.log(item)
        } else {
        setPriorityTable([...priorityTable , item])
-       }
-
-       
-    // console.log('console in priority table is ' , priorityTable)
+       }       
   }
 
   const selectRowPriorityTable = (row) => {
     console.log('Priority Table Is double clicked' ,row , 'Priority Table is ' , priorityTable)
-   
     var id = row.Ncid;
     let constPriorityTable  = priorityTable
+    let filteredList=priorityTable.filter((item)=>{
+     return item?.Ncid!=id
+   })
 
-//   for(var i = 0; i < constPriorityTable.length; i++) {
-//     if(constPriorityTable[i].Ncid == id) {
-//       constPriorityTable.splice(i, 1);
-//         break;
-//     }
-
- 
-// }
-let filteredList=priorityTable.filter((item)=>{
-  return item?.Ncid!=id
-})
-
-
-
-console.log( 'Const Priority Table Data is ' , filteredList)
-setPriorityTable(filteredList)
-// selectRowTable()
-
+   console.log( 'Const Priority Table Data is ' , filteredList)
+    setPriorityTable(filteredList)
   }
 
-
-// console.log('Current State of Priority Table is' , priorityTable)
   const[openPrint,setOpenPrint]=useState('');
   const openPrintPriority=()=>{
     setOpenPrint(true)
   }
 
-  // console.log(' Priority Table ' , priorityTable);
-
-  
-  
   return (
     <>
     <ModalPrintPriority openPrint={openPrint}
     setOpenPrint={setOpenPrint}
     priorityTable={priorityTable}
     />
-    {/* <h3>Prioriy Table</h3> */}
+
     <div className='col-md-12'>
     <div className='row' >
     <div className='col-md-6'
-     style={{overflowY:'scroll',overflowX:'scroll',height:'380px',marginLeft:"-30px"}}>
+     style={{overflowY:'scroll',overflowX:'scroll', height:'380px',marginLeft:"-20px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -145,10 +114,11 @@ setPriorityTable(filteredList)
 {/* priority print */}
 
       <div className='col-md-6'>
-      <div  style={{backgroundColor:'#F2D7D5 ',display:"flex",gap:"80px"}}>
+        <div style={{width:"480px"}}>
+         <div  style={{backgroundColor:'#F2D7D5 ',display:"flex",gap:"80px"}}>
          <div><h6 className='ms-1 mt-3'>Production Priority list</h6></div>
             <div style={{marginTop:"-5px"}}>   
-              <button className="button-style mb-2 group-button"
+            <button className="button-style mb-2 group-button"
                style={{ width: "120px",textAlign:"center"}} onClick={openPrintPriority}>
                <span style={{marginLeft : "-5px"}}>Print</span>
               </button> 
@@ -157,10 +127,9 @@ setPriorityTable(filteredList)
       
       {/* Table2 */}
 
-
-      <div  style={{height:"300px",overflowY: "scroll",overflowX: "scroll"}}>
-      {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
-     <Table striped className="table-data border">
+      <div  style={{height:"330px",overflowY: "scroll",overflowX:"scroll"}}>
+         {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
+         <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
            <th style={{whiteSpace:"nowrap"}}>Program No</th>
@@ -204,9 +173,9 @@ setPriorityTable(filteredList)
          )}
          
    </tbody>
-       
  </Table>
      </div>  
+     </div>
      </div>
 </div>
 </div>

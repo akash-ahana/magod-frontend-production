@@ -4,6 +4,7 @@ import UpdateDayshiftModal from './Modals/UpdateDayshiftModal';
 import DeleteDayShiftModal from './Modals/DeleteDayShiftModal';
 import { useNavigate} from 'react-router-dom'
 import ModalPrintDailyShift from './PdfPrinter/DailyshiftTable/ModalPrintDailyShift';
+import {baseURL} from '../../.././api/baseUrl'
 
 
 function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShiftTable,getSecondTableData,
@@ -23,7 +24,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
     const[selectedShiftIncharge,setSelectedShiftIncharge]=useState([]);
 
     const getShiftInchargeData=async()=>{
-        const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/shiftInchargeList`);
+        const { data } = await axios.get(baseURL+`/shiftEditor/shiftInchargeList`);
         setDataShiftIncharge(data);
     
       };
@@ -41,7 +42,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }, [rowselectDailyShiftTable]);
 
       const onClickUpdateDayShift = () => {
-        axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftIncharge', {...rowselectDailyShiftTable , newShift_Ic :selectedShiftIncharge})
+        axios.post(baseURL+'/shiftEditor/updateSingleDaySihiftIncharge', {...rowselectDailyShiftTable , newShift_Ic :selectedShiftIncharge})
         .then((response) => {
         //getSecondTableData()
         getSingleDayShiftPlan4thTable();
@@ -50,7 +51,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
       const onClickDeleteDayShiftPlan = () => {
-        axios.post('http://172.16.20.61:5000/shiftEditor/deleteSingleDayShift', rowselectDailyShiftTable)
+        axios.post(baseURL+'/shiftEditor/deleteSingleDayShift', rowselectDailyShiftTable)
         .then((response) => {
         getSingleDayShiftPlan4thTable();
         getSecondTableData();

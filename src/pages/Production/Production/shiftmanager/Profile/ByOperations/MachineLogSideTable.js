@@ -1,42 +1,50 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
 import { Table } from 'react-bootstrap'
+import {baseURL} from '../../../../../../api/baseUrl'
+import { useState } from 'react'
 
 export default function MachineLogSideTable() {
+const [machineList,setMachineList]=useState([])
+  useEffect(() => {
+    axios.get(baseURL+'/shiftManagerProfile/profileListMachinesTaskNo')
+        .then((response) => {
+          console.log("response  machine list",response.data)
+          setMachineList(response.data);
+        })
+}, [])
+
+const[selectmachinelog,setSelectmachinelog]=useState({})
+const selectMachineLog=(item,index)=>{
+  let list={...item,index:index}
+  setSelectmachinelog(list)
+}
+
+console.log("selected machine in Machine Log table is",selectmachinelog)
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
      <div style={{height:"250px",overflowY: "scroll", overflowX:"scroll"}}>
-     <Table striped className="table-data border">
+     <Table striped className="table-data border" >
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>S-No</th>
            <th>Machine</th>
-           {/* <th>From Time</th>
-           <th>To Time</th>
-           <th>Running Time</th>
-           <th>Program</th>
-           <th>Operation</th>
-           <th>Reset</th>
-           <th>Abc</th>
-           <th>Xyz</th> */}
          </tr>
        </thead>
 
-{/* {processdataList.map((item,key)=>{
+{machineList.map((item,key)=>{
   return(
     <>
     <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
-             <td>{item.Mprocess}</td>
-             <td>{item.TgtRate}</td>
-             <td>{item.Id}</td>
-             <td>{item.Machine_srl}</td>
-             <td>{item.RefProcess}</td>
+          <tr 
+          onClick={()=>selectMachineLog(item,key)} className={key===selectmachinelog?.index? 'selcted-row-clr':'' }
+          >
+             <td>{item.MachineName}</td>
          </tr>
     </tbody>
     </>
   )
-})} */}
+})}
  </Table>
      </div>
  </div>

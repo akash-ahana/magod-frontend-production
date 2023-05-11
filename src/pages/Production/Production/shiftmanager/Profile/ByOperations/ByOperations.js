@@ -26,6 +26,14 @@ const dataSource = [
   },
 ];
 
+//ONCLICK OPERATION
+const [selectoperation,setSelectoperation]=useState('');
+    const onOperationRowClick=(item,index)=>{
+      let list={...item,index:index}
+      // console.log("ScheduleNo",item.ScheduleNo)
+      setSelectoperation(list);
+    }
+
 const onClickOperation = (Operation) => {
     console.log('The Operation Selected is ' , Operation)
     axios.post(baseURL+'/shiftManagerProfile/OperationProgramesCompleted' , { Operation : Operation})
@@ -251,7 +259,8 @@ const onClickProgram = (Operation , Machine , processItem ) => {
 
                             {node.serverData.map((data,key) => {
                                 const label2 = <span
-                                style={{fontSize:"14px",backgroundColor:"#C0C0C0"}} onClick={() => onClickOperation(data.Operation)}>{data.Operation}</span>;
+                                style={{fontSize:"14px",backgroundColor:"#C0C0C0"}} onClick={() => {onClickOperation(data.Operation)
+                                  onOperationRowClick(data,key)}} className={key===selectoperation?.index? 'selcted-row-clr':'' }>{data.Operation}</span>;
                                 
                                 
                                 return (

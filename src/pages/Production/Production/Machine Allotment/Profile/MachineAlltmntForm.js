@@ -1,14 +1,14 @@
+import React,{useState, useEffect, useMemo} from 'react';
 import axios from 'axios';
-import React,{useState, useEffect, useMemo} from 'react'
-// import ChangeMachinePopUp from './NCprogrmTab/ChangeMachinePopup';
 import NavTab from './NavTab';
 import TreeView from 'react-treeview';
 import ChangeMachineModal from './ChangeMachineModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import {baseURL} from '../../../../.././api/baseUrl'
 
 export default function MachineAlltmntForm() {
+
   const [machineProcessData, setMachineProcessData] = useState([]) 
   const [machineList , setMachineList] = useState([])
   const [selectedMachine , setSelectedMachine] = useState("")
@@ -34,13 +34,7 @@ export default function MachineAlltmntForm() {
     }
   
 
-    const[selectNcProgram,setSelectProgram]=useState({})
-    // const selectRowNcProgram=(item,index)=>{
-    //   let list={...item,index:index}
-    //   setSelectProgram(list);
-    // }
-    // console.log(selectNcProgram);
-    
+  const[selectNcProgram,setSelectProgram]=useState({})
   const [ncProgramsTableData , setNcProgramsTableData] = useState([])
   const [selectedMachineTreeView , setSelectedMachineTreeView] = useState("")
   const [selectedRows, setSelectedRows] = useState([]);
@@ -49,7 +43,7 @@ export default function MachineAlltmntForm() {
       setSelectedRows([])
      //console.log('Selected Rows are  ' , selectedRows)
       
-      axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
+      axios.post(baseURL+'/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
       .then((response) => {
         
         //  console.log("data", response.data);
@@ -78,7 +72,7 @@ const handleCheckboxChange = (item, key) => {
    setNcProgramsTableData(constncProgramsTableData)
 if(selectedRows.length === 0){
   console.log('First ITem is SET')
-  axios.post('http://172.16.20.61:5000/machineAllotment/machineAllotmentScheduleTableFormMachines', item)
+  axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableFormMachines', item)
       .then((response) => {
          // console.log("data of machinnes", response.data);
           //setNcProgramsTableData(response.data)
@@ -108,7 +102,7 @@ if(selectedRows.length === 0){
 };
 
 const treeViewData=()=>{
-  axios.get('http://172.16.20.61:5000/machineAllotment/profileListMachineswithLoad')
+  axios.get(baseURL+'/machineAllotment/profileListMachineswithLoad')
           .then((response) => {
               // console.log("data", response.data)
               setMachineProcessData(response.data)
@@ -138,7 +132,7 @@ const treeViewData=()=>{
 
  const clickChangeMachine=async ()=>{
  // console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
-  axios.post('http://172.16.20.61:5000/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
+  axios.post(baseURL+'/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
   .then((response) => {
        console.log("data", response.data)
      onClickMachine();
@@ -148,7 +142,7 @@ const treeViewData=()=>{
 
   await delay(200);
   
-  axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
+  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
       .then((response) => {
         //  console.log("data", response.data);
           setNcProgramsTableData(response.data)
@@ -171,7 +165,7 @@ console.log(machineSelect)
 
 useEffect(() => {
   console.log('USE EFFECT RAN' , selectedMachineTreeView)
-  axios.post('http://172.16.20.61:5000/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
+  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
       .then((response) => {
          console.log("data use effect", response.data);
           setNcProgramsTableData(response.data)
@@ -183,21 +177,18 @@ useEffect(() => {
   setSelectedMachine(e.target.value)
  }
  console.log(' Selected Rows Current State ' , selectedRows)
-
   return (
-    <>
-    <ToastContainer />
-       <div className='row '>
-           <div className='row mb-1'>
-                  <div className='col-md-12'>    
-                     <h4 className="title">Machine  Allotment Form</h4>
-                  </div>
-            </div>
-    
-    <div className="col-md-8 col-sm-12">
-     <div className="ip-box mt-2">
-       <div className='row'>
-         <button className="button-style mt-2 group-button ms-2" 
+   <>
+   <ToastContainer/>
+   <div className='col-md-12'>
+     <div className='row'>
+        <h4 className="title">Machine  Allotment Form</h4>
+     </div>
+   </div>
+
+   <div className='col-md-12 mt-3'>
+     <div className='row'>
+     <button className="button-style mt-2 group-button ms-2" 
             style={{width:"150px"}}>
             Save
          </button>
@@ -208,7 +199,7 @@ useEffect(() => {
           Change Machine
          </button>
 
-         <div className="col-md-4 ">
+         <div className="col-md-3">
          <select className="ip-select dropdown-field" onChange={(e) => onMachineChange(e)}>
           <option>Select Machine</option>
                     {machineList.map((value,key)=>{
@@ -219,18 +210,15 @@ useEffect(() => {
                       )
                     })}
                   </select>
-              </div>
-       </div>
+            </div>
+     </div>
    </div>
-</div>
-{/* <hr className="horizontal-line mt-2" /> */}
 
-
-<div className='row mt-4'>
-  <div className='col-md-3'> 
-  <div style={{overflowY:"scroll",overflowX:"scroll",fontSize:"12px",marginLeft:"-20px",height:"430px",
-}}>
-{dataSource.map((node, i) => {
+   {/* Tree View */}
+   <div className='col-md-12'>
+    <div className='row'>
+       <div className='col-md-3 mt-4' style={{overflowY:"scroll",overflowX:"scroll",fontSize:"12px",marginLeft:"-20px",height:"430px"}}>
+       {dataSource.map((node, i) => {
                     const type = node.type;
                     const label = <span style={{fontSize :"16px"}} className="node">{type}</span>;
                     return (
@@ -274,28 +262,24 @@ useEffect(() => {
                         </TreeView>
                     );
                 })}
-            </div>
-  </div>
-  <div className='col-md-9'>
-    <NavTab machineSelect={machineSelect}
+       </div>
+       <div className='col-md-9 mt-4'>
+       <NavTab machineSelect={machineSelect}
     ncProgramsTableData={ncProgramsTableData}
     selectNcProgram={selectNcProgram}
     setNcProgramsTableData={setNcProgramsTableData}
     handleCheckboxChange={handleCheckboxChange}
     />
-  </div>
-</div>
-</div>
-
-  <ChangeMachineModal
+       </div>
+    </div>
+   </div>
+   <ChangeMachineModal
   openModal={openModal}
   setOpenModal={setOpenModal}
   selectedRows={selectedRows}
   selectedMachine={selectedMachine}
   clickChangeMachine={clickChangeMachine}
   handleClose={handleClose}/>
-
-  </>
-
-  );
+   </>
+  )
 }

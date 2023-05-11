@@ -309,7 +309,7 @@ export default function ByMachineBox() {
                                 const label2 = <span
                                 style={{fontSize : "14px",backgroundColor:"#C0C0C0"}}
                                  onClick={() => {MachineOnClick(data.MachineName)
-                                    LaserRowselect(data,key)}}className={key===selectLaser?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
+                                    LaserRowselect(data,key)}} className={key===selectLaser?.index? 'selcted-row-clr':'' }>{data.MachineName}</span>;
                                 
                                 
                                 return (
@@ -325,8 +325,7 @@ export default function ByMachineBox() {
                                             return (
                                                 <>
                                               
-                                                <div style={{fontSize:"11px"}} onClick={() => taskNoOnClick(data.MachineName, value)
-}>
+                                                <div style={{fontSize:"11px"}} onClick={() => taskNoOnClick(data.MachineName, value)}>
                                              
                                              {value.PStatus==="Completed" ? (
                                                 <li className="completed" style={{backgroundColor:'#afbfa1'}}>{value.TaskNo} / {value.Mtrl_Code} / {value.NCProgramNo} / {value.PStatus}</li> 

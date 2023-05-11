@@ -78,15 +78,15 @@ const openChangeMachineModal=()=>{
     
   }
 
-  const onClickCloseProgram = () => {
-    console.log('Close Program button is clicked')
-    axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
-    programCompleteData)
-   .then((response) => {
-     console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data)
- })
-  }
+//   const onClickCloseProgram = () => {
+//     console.log('Close Program button is clicked')
+//     axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
+//     programCompleteData)
+//    .then((response) => {
+//      console.log('Current State of programCompleteData' , response.data);
+//      //setProgramCompleteData(response.data)
+//  })
+//   }
   //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
@@ -141,8 +141,7 @@ return (
               value={selectProgramProcessing.Mtrl_Code} />
             </div>
 
-            
-
+        
             <div className="col-md-3">
               <label className="form-label"> Program no</label>
               <input  className='in-field'

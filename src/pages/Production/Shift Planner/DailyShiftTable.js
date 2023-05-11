@@ -4,6 +4,7 @@ import MachineOperatorTable from './MachineOperatorTable';
 import axios from "axios";
 import DailyOperator from './DailyOperator';
 import SingleDayShiftEditor from './SingleDayShiftEditor';
+import { baseURL } from '../../../api/baseUrl';
 
 function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable
 ,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData,
@@ -34,7 +35,7 @@ rowselect}) {
       }
 
       const updateShiftinstruction=()=>{
-        axios.post('http://172.16.20.61:5000/shiftEditor/updateSingleDaySihiftInstructions',
+        axios.post(baseURL+'/shiftEditor/updateSingleDaySihiftInstructions',
          {...rowselectDailyShiftTable,
           shiftInstruction:shiftinstruction})
         .then((response) => {
@@ -91,10 +92,10 @@ console.log("ScheduleNo",item.ScheduleNo)
          <tr>
            <th>Shift</th>
            <th>Incharge</th>
-           <th >From</th>
-           <th >To Time</th>
-           <th>Shift Instructions</th>
-           <th>Save Shift Instruction</th>
+           <th style={{whiteSpace:"nowrap"}}>From</th>
+           <th style={{whiteSpace:"nowrap"}} >To Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Shift Instructions</th>
+           <th style={{whiteSpace:"nowrap"}}>Save Shift Instruction</th>
          </tr>
        </thead>
       
@@ -105,11 +106,11 @@ console.log("ScheduleNo",item.ScheduleNo)
               <tr onClick={()=>rowSelectFunForDailyShiftTable(rank,i)} 
                className= {i=== rowselectDailyShiftTable?.index? 'selcted-row-clr':'' } >
                  {/* <td>{rank.ShiftDate}</td> */}
-                 <td>{rank.Shift}</td>
-                 <td>{rank.Shift_Ic}</td>
-                 <td>{rank.FromTime}</td>
-                 <td>{rank.ToTime}</td>
-                 <td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.Shift}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.Shift_Ic}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.FromTime}</td>
+                 <td style={{whiteSpace:"nowrap"}}>{rank.ToTime}</td>
+                 <td style={{whiteSpace:"nowrap"}}>
                  <input className='table-cell-editor '
                    name="cleared"
                    defaultValue={rank.Shift_instruction}
@@ -117,7 +118,7 @@ console.log("ScheduleNo",item.ScheduleNo)
                    placeholder="Type Cleared"
                   />
                  </td>
-                 <td><button className="button-style group-button" style={{width:"100px"}}
+                 <td style={{whiteSpace:"nowrap"}}><button className="button-style group-button" style={{width:"100px"}}
                  onClick={()=>updateShiftinstruction()}
                  >Save</button></td>
              </tr>       

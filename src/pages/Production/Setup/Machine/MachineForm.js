@@ -12,6 +12,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import SaveMachine from './SaveMachine/SaveMachine';
 import { baseURL } from "../../../../api/baseUrl";
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 export default function ({selectedRow}) {
@@ -181,12 +183,17 @@ else{
       }).then((response) => {
       console.log("sent", response);
       MachineTabledata();
-      openSavemachine();
+      toast.success('Machine Deatails Saved',{
+        position: toast.POSITION.TOP_CENTER
+    })
+      // openSavemachine();
     });
 }
 
   return (
     <div>
+          <ToastContainer/>
+
        { (
               <AddMachine
                 show={show}

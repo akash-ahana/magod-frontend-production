@@ -4,6 +4,7 @@ import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
 // import ProgramCompletedData from "./ProgramCompletedData";
 import Iframe from "./Iframe";
+import { baseURL } from '../../../../../../api/baseUrl';
 
 export default function ByMachineBox() {
 
@@ -15,7 +16,7 @@ export default function ByMachineBox() {
   
 
   useEffect(() => {
-      axios.get('http://172.16.20.61:5000/shiftManagerService/serviceListMachinesTaskNo')
+      axios.get(baseURL+'/shiftManagerService/serviceListMachinesTaskNo')
           .then((response) => {
               setMachineProcessData(response.data);
           })
@@ -120,7 +121,7 @@ export default function ByMachineBox() {
   const taskNoOnClick = (Machine, TaskNo) => {
     console.log('Task No on Click is ' , TaskNo)
     //setSelectedTask(TaskNo)
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoCompleted' , TaskNo)
+    axios.post(baseURL+'/shiftManagerProfile/taskNoProgramNoCompleted' , TaskNo)
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);
             for(let i = 0; i< response.data.length ; i++) {
@@ -156,7 +157,7 @@ export default function ByMachineBox() {
             setMachineProgramesCompleted(response.data)
           })
 
-          axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNoProcessing' , TaskNo)
+          axios.post(baseURL+'/shiftManagerProfile/taskNoProgramNoProcessing' , TaskNo)
           .then((response) => {
             console.log(response.data)
             for(let i = 0; i< response.data.length ; i++) {
@@ -196,7 +197,7 @@ export default function ByMachineBox() {
   const MachineOnClick = (Machine) => {
     console.log(' Machine Selected is ' , Machine)
     setSelectedMachine(Machine)
-    axios.post('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesProgramesCompleted' , {MachineName : Machine})
+    axios.post(baseURL+'/shiftManagerProfile/profileListMachinesProgramesCompleted' , {MachineName : Machine})
           .then((response) => {
             console.log(response.data)
             console.log('Programs Compleated DATA 1' , response.data);
@@ -232,7 +233,7 @@ export default function ByMachineBox() {
           })
           
 
-          axios.post('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesProgramesProcessing' , {MachineName : Machine})
+          axios.post(baseURL+'/shiftManagerProfile/profileListMachinesProgramesProcessing' , {MachineName : Machine})
           .then((response) => {
             console.log(response.data)
             for(let i = 0; i< response.data.length ; i++) {

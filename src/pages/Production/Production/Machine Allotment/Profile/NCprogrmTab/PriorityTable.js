@@ -56,7 +56,7 @@ setPriorityTable(filteredList)
     <div className='col-md-12'>
     <div className='row' >
     <div className='col-md-6'
-     style={{overflowY:'scroll',overflowX:'scroll', height:'380px',marginLeft:"-40px"}}>
+     style={{overflowY:'scroll',overflowX:'scroll', height:'380px',marginLeft:"-30px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -118,6 +118,7 @@ setPriorityTable(filteredList)
 {/* priority print */}
 
       <div className='col-md-6'>
+        <div style={{width:"480px"}}>
          <div  style={{backgroundColor:'#F2D7D5 ',display:"flex",gap:"80px"}}>
          <div><h6 className='ms-1 mt-3'>Production Priority list</h6></div>
             <div style={{marginTop:"-5px"}}>   
@@ -129,7 +130,6 @@ setPriorityTable(filteredList)
           </div>
       
       {/* Table2 */}
-
 
       <div  style={{height:"330px",overflowY: "scroll",overflowX:"scroll"}}>
          {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
@@ -180,6 +180,7 @@ setPriorityTable(filteredList)
        
  </Table>
      </div>  
+     </div>
      </div>
 </div>
 </div>

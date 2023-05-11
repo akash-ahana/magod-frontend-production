@@ -31,9 +31,9 @@ import PrintDailyShift from "./pages/Production/Shift Planner/PdfPrinter/Dailysh
 import ShiftManager from "./pages/Production/Production/shiftmanager/Profile/ShiftManager"
 import MachieAlltmntCall from "./pages/Production/Production/Machine Allotment/Profile/MachieAlltmntCall";
 import MachieAlltmntCallService from "./pages/Production/Production/Machine Allotment/Service/MachieAlltmntCallService";
-import Header from "./pages/Production/ShiftEditor/Header";
 import ShiftManagerFabrication from "./pages/Production/Production/shiftmanager/Fabrication/ShiftManagerFabrication";
 import ShiftManagerService from "./pages/Production/Production/shiftmanager/Service/ShiftManagerService"
+
 function App() {
   return (
     <BrowserRouter>
@@ -104,7 +104,7 @@ function App() {
           </Route>
         </Route>
 
-        <Route path="/Header" element={<Header/>}></Route>
+        {/* <Route path="/Header" element={<Header/>}></Route> */}
 
       </Routes>
     </BrowserRouter>

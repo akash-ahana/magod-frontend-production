@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Table } from 'react-bootstrap';
+import { baseURL } from '../../../../../../api/baseUrl';
 
 export default function AllotmentTables() {
   const [newSelectedMchine, setNewSelectedMachine] = useState("")
 
   const[allotmentTable,setAllotmentTable]=useState([]);
   useEffect(()=>{
-    axios.get('http://172.16.20.61:5000/machineAllotment/machineAllotmentSchedule')
+    axios.get(baseURL+'/machineAllotment/machineAllotmentSchedule')
     .then((response) => {
         console.log("data", response.data)
         for(let i =0;i<response.data.length;i++) { 
@@ -31,7 +32,7 @@ export default function AllotmentTables() {
   const[rowSelect,setRowSelect]=useState({})
   const RowSelectAllotmentTable=(item,index)=>{
     console.log(item ,  'item is ')
-    axios.post('http://172.16.20.61:5000/machineAllotment/machineAllotmentScheduleTableForm',item)
+    axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableForm',item)
     .then((response) => {
         setScheduleList(response.data)
     })
@@ -44,7 +45,7 @@ export default function AllotmentTables() {
   const[machineList,setMachineList]=useState([])
   const RowSelect=(item,index)=>{
     console.log('right table select is ' , item)
-    axios.post('http://172.16.20.61:5000/machineAllotment/machineAllotmentScheduleTableFormMachines',item)
+    axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableFormMachines',item)
     .then((response) => {
         console.log("OnClick Post response", response.data)
         setMachineList(response.data)
@@ -87,13 +88,13 @@ export default function AllotmentTables() {
     e.preventDefault();
     console.log('On Click Change Machine ' , tableRowSelect , 'new Machine is ' , newSelectedMchine)
 
-    axios.post('http://172.16.20.61:5000/machineAllotment/changeMachineInForm',{...tableRowSelect ,  newMachine : newSelectedMchine})
+    axios.post(baseURL+'/machineAllotment/changeMachineInForm',{...tableRowSelect ,  newMachine : newSelectedMchine})
     .then((response) => {
         //console.log("OnClick Post response",response.data)
     })
     await delay(200);
     console.log('Selected Row from right table is ' , tableRowSelect)
-    axios.post('http://172.16.20.61:5000/machineAllotment/formRefresh',tableRowSelect)
+    axios.post(baseURL+'/machineAllotment/formRefresh',tableRowSelect)
     .then((response) => {
         console.log("OnClick Post response change machine", response.data[0])
         //setMachineList(response.data)
@@ -108,14 +109,14 @@ export default function AllotmentTables() {
   const onClickReleaseForProgramming = async (e) => {
     e.preventDefault();
     console.log(' Release For Programming Button Is Clicked ' , tableRowSelect)
-    axios.post('http://172.16.20.61:5000/machineAllotment/releaseForProgramming',tableRowSelect)
+    axios.post(baseURL+'/machineAllotment/releaseForProgramming',tableRowSelect)
     .then((response) => {
         console.log("OnClick Post response", response.data)
    })
    await delay(200);
 
    
-   axios.post('http://172.16.20.61:5000/machineAllotment/formRefresh',tableRowSelect)
+   axios.post(baseURL+'/machineAllotment/formRefresh',tableRowSelect)
     .then((response) => {
         console.log("OnClick Post response", response.data)
         //setMachineList(response.data)

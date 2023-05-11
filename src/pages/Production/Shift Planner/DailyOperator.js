@@ -2,6 +2,9 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import AddOperatorModal from './Modals/AddOperatorModal';
 import DeleteOperatorForDay from './Modals/DeleteOperatorfordayModal';
+import { baseURL } from '../../../api/baseUrl';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
 function DailyOperator(props) {
@@ -13,13 +16,13 @@ function DailyOperator(props) {
     const [selectedOperator, setSelectedOperator] = useState('');
 
     const getMachineListData = async () => {
-        const { data } = await axios.get(`http://172.16.20.61:5000/productionSetup/getallmachines`);
+        const { data } = await axios.get(baseURL+`/productionSetup/getallmachines`);
         //console.log('Machine List' , data)
         setDataMachineList(data);
       };
     
       const getOperatorListData=async()=>{
-        const { data } = await axios.get(`http://172.16.20.61:5000/shiftEditor/getMachineOperators`);
+        const { data } = await axios.get(baseURL+`/shiftEditor/getMachineOperators`);
         //console.log('Operator List',data);
         setDataOperatorList(data);
          
@@ -49,36 +52,30 @@ function DailyOperator(props) {
 
       const [MachineOperatorDay, setMachineOperatorDay] = useState([])
 
-    //   useEffect(() => {
-        
-    //     //let constMachineOperatorDay = MachineOperatorDay
-    //     //console.log(constMachineOperatorDay)
-    //     axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperatorDay', MachineOperatorDay)
-    //     .then((response) => {console.log(response)
-    //     //getSecondTableData()
-    //     setMachineOperatorDay([]);
-    //     props.getMachineOperatorTableData();
-    //   })
-    //   },[MachineOperatorDay])
 
       const createDailyOperatorList = () => {
          console.log('createDailyOperatorList is clicked ' , ' Machine Selected is ' , selectedMachine , ' operator Selected is ' , selectedOperator, 'Shift is ' , props.data)
         //setMachineOperatorDay({ShiftDate : props.data.ShiftDate , Shift : props.data.Shift , FromTime: props.data.FromTime , ToTime : props.data.ToTime , Machine : selectedMachine , Operator : selectedOperator , DayShiftID : props.data.DayShiftId})
-        axios.post('http://172.16.20.61:5000/shiftEditor/setMachineOperatorDay' , {ShiftDate : props.data.ShiftDate , Shift : props.data.Shift, FromTime: props.data.FromTime , ToTime : props.data.ToTime, 
+        axios.post(baseURL+'/shiftEditor/setMachineOperatorDay' , {ShiftDate : props.data.ShiftDate , Shift : props.data.Shift, FromTime: props.data.FromTime , ToTime : props.data.ToTime, 
         Machine : selectedMachine , Operator : selectedOperator , DayShiftID : props.data.DayShiftId }
     ).then((response) => {console.log(response)
         props.getMachineOperatorTableData();
+        toast.success('Machine Operator Added',{
+          position: toast.POSITION.TOP_CENTER
+      })
     })
 }
 
 
-
     const onDeleteOperatorForDay = () => {
         // console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator);
-        axios.post('http://172.16.20.61:5000/shiftEditor/deleteMachineOperatorDay',
+        axios.post(baseURL+'/shiftEditor/deleteMachineOperatorDay',
          props.rowselectMachineOperator)
         .then((response) => {console.log(response)
           props.getMachineOperatorTableData();
+          toast.success('Machine Opearator Deleted',{
+            position: toast.POSITION.TOP_CENTER
+        })
         //getSecondTableData()
         //setMachineOperatorDay('')
       })
@@ -97,8 +94,8 @@ function DailyOperator(props) {
       setDeleteoperator(true);
     }
     return (
-
         <div style={{textAlign:"center",backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px"}}>
+              <ToastContainer/>
             <div>
                 <div style={{color:"red"}}><b>{props.data.Shift} Shift</b></div>
             </div>
@@ -132,8 +129,7 @@ function DailyOperator(props) {
               </div>
 
               <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "150px",fontSize:"14px"}}  onClick={()=>{openAddoperator()
-               createDailyOperatorList()}}>
+               style={{ width: "150px",fontSize:"14px"}}  onClick={()=>createDailyOperatorList()}>
                Add Operator for Day
             </button>
 
@@ -141,8 +137,7 @@ function DailyOperator(props) {
             {/* //need    \state from daily Shift Table and machine operator table      */}
             <button className="button-style mt-2 group-button mt-4"
                style={{ width: "160px",fontSize:"14px",marginBottom:"10px"}} 
-               onClick = {()=>{onDeleteOperatorForDay()
-                openDeleteoperator()}}>
+               onClick = {()=>onDeleteOperatorForDay()}>
                Delete Operator For Day
             </button>
 

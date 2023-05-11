@@ -5,6 +5,7 @@ import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } fr
 import { useLocation } from 'react-router-dom';
 import PrintDailyShiftTable from './PrintDailyShiftTable';
 import axios from "axios";
+import { baseURL } from '../../../../../api/baseUrl';
 
 
 const styles = StyleSheet.create({
@@ -52,7 +53,7 @@ export default function PrintDailyShift({rowselect}) {
   //First Shift
   const[newData,setNewdata]=useState([]);
     const getDailyMachineoperatorData=()=>{
-      axios.post('http://172.16.20.61:5000/shiftEditor/getSingleDayDetailShiftInformation', 
+      axios.post(baseURL+'/shiftEditor/getSingleDayDetailShiftInformation', 
       {
         ShiftDate:finalday,
       }).then((response) => {

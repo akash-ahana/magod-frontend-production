@@ -140,7 +140,7 @@ console.log('Parts List Data is ' , partlistdata)
         return(
           <>
            <tr  key={item.TaskNo}>
-           <td>{item.DwgName}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            <td>{item.QtyToNest}</td>
            <td>{item.QtyProduced}</td>
            <td>
@@ -158,14 +158,14 @@ console.log('Parts List Data is ' , partlistdata)
          </td>
            <td>{item.Task_Part_ID}</td>
            <td>{item.NcTaskId}</td>
-           <td>{item.TaskNo}</td>
-           <td>{item.SchDetailsId}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.SchDetailsId}</td>
            <td>{item.PartID}</td>
            <td>{item.QtyToNest}</td>
            <td>{item.QtyCleared}</td>
            <td>{item.QtyProduced}</td>
            <td>{item.QtyNested}</td>
-           <td>{item.Remarks}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.Remarks}</td>
            <td>{item.LOC}</td>
            <td>{item.Pierces}</td>
            <td>{item.Part_Area}</td>
