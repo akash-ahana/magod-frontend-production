@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PrintShowStatus from './PrintShowStatus';
 
- export default function ShowStatusPdfModal({setOpenShowStatus,openShowStatus}) {
+ export default function ShowStatusPdfModal({setOpenShowStatus,openShowStatus,showStatusData}) {
   const [fullscreen, setFullscreen] = useState(true);
 
 
@@ -12,7 +12,7 @@ import PrintShowStatus from './PrintShowStatus';
         <Modal.Header closeButton>
           <Modal.Title>Show Status Pdf</Modal.Title>
         </Modal.Header>
-        <Modal.Body><PrintShowStatus/></Modal.Body>
+        <Modal.Body><PrintShowStatus showStatusData={showStatusData}/></Modal.Body>
       </Modal>
     </>
   );

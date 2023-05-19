@@ -2,12 +2,12 @@ import React,{useState,useEffect} from 'react';
 import { Table } from 'react-bootstrap';
 
 
-export default function ProcessTable({scheduleid,getprocessTabledata,processtable,
+export default function ProcessTable({OrdSchNo,getprocessTabledata,processtable,
   processtableSelectFun,processrowselect}) {
 
  useEffect(() => {
   getprocessTabledata();
-}, [scheduleid]);
+}, [OrdSchNo]);
   
 
 

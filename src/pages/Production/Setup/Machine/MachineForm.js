@@ -410,7 +410,7 @@ else{
      </div>
          </div>
     </form>
-     <div className='mt-4'>
+     <div className='mt-2'>
         <ProcessTable processdataList={processdataList}
         selectedRowFun={selectedRowFun} 
         // selectedRow={selectedRow}

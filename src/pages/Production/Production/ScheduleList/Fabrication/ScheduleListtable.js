@@ -1,19 +1,18 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useMemo,useState} from 'react';
 import Table from "react-bootstrap/Table";
 import { useGlobalContext } from '../../../../../Context/Context';
 
 
-export default function ScheduleListFabricationtable({fabricationrowSelectFun,rowselectfabrication}) {
-  const{getSchedulistfabricationdata,schedulelistfabricationdata}=useGlobalContext();
+export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata,setRowselect}) {
+  const{schedulelistfabricationdata,getSchedulistfabricationdata}=useGlobalContext();
 
   useEffect(() => {
     getSchedulistfabricationdata();
  }, []);
 
-
-  
+ 
   return (
-     <div style={{height:"500px",overflowY: "scroll"}}>
+     <div style={{height:"500px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -27,27 +26,27 @@ export default function ScheduleListFabricationtable({fabricationrowSelectFun,ro
        </thead>
 
 
-    {schedulelistfabricationdata.map((item,key)=>{
+        <tbody className='tablebody'>
+        {schedulelistfabricationdata.map((item,key)=>{
       return(
         <>
-        <tbody className='tablebody'>
-         <tr onClick={()=>fabricationrowSelectFun(item,key)} className={key===rowselectfabrication?.index? 'selcted-row-clr':'' } >
+         <tr onClick={()=>rowSelectFun(item,key)} className={key===rowselect?.index? 'selcted-row-clr':'' } >
            <td>
                 <input className="form-check-input"
                  type="checkbox"
                  value=""
                  id="flexCheckDefault"/>
            </td>
-           <td>{item.OrdSchNo}</td>
+           <td style={{whiteSpace:"nowrap"}}>{item.OrdSchNo}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.Cust_name}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.schTgtDate}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.Delivery_Date}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.Schedule_Status}</td>
          </tr>
-   </tbody>
-        </>
+         </>
       )
     })}
+   </tbody>
  </Table>
 
      </div>

@@ -141,9 +141,9 @@ const[programProcessing,setProgramProcessing]=useState([])
                                                 <div style={{fontSize:"11px"}}
                                                 //  onClick={() => onClickPrograms(value.NCProgramNo, data.Customer.Cust_name )}
                                                  >
-                                                <li>
+                                                {/* <li>
                                                 {value.TaskNo}  / {value.NCProgramNo} / {value.Machine} / {value.PStatus}
-                                                </li>
+                                                </li> */}
 
                                                 {value.PStatus==="Completed" ? (
                                                 <li className="completed" style={{backgroundColor:'#afbfa1'}}>{value.TaskNo} / {value.NCProgramNo} / {value.PStatus}</li> 

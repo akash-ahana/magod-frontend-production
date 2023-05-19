@@ -71,8 +71,8 @@ function App() {
                   <Route path="shiftmanagerService" element={<ShiftManagerService/>}/>
                     
                   {/* Machine Allotment */}
-                  <Route path="machineallotementProfile" element={<MachieAlltmntCall/>} />
-                  <Route path="machineallotementservice" element={<MachieAlltmntCallService/>}/>
+                  <Route path="machineallotmentProfile" element={<MachieAlltmntCall/>} />
+                  <Route path="machineallotmentservice" element={<MachieAlltmntCallService/>}/>
             </Route>
 
             {/* reports */}

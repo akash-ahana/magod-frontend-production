@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import ShowPartsPdf from './ShowPartsPdf';
 
- export default function ShowPartsPdfModal({setOpenShowParts,openShowparts}) {
+ export default function ShowPartsPdfModal({setOpenShowParts,openShowparts,rowselect,processrowselect,partlistdata}) {
   const [fullscreen, setFullscreen] = useState(true);
 
 
@@ -12,7 +12,10 @@ import ShowPartsPdf from './ShowPartsPdf';
         <Modal.Header closeButton>
           <Modal.Title>Show Parts Pdf</Modal.Title>
         </Modal.Header>
-        <Modal.Body><ShowPartsPdf/></Modal.Body>
+        <Modal.Body><ShowPartsPdf 
+        rowselect={rowselect}
+        processrowselect={processrowselect}
+        partlistdata={partlistdata}/></Modal.Body>
       </Modal>
     </>
   );

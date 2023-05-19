@@ -2,10 +2,8 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 //import PDFdocument from './PDFdocument';
-import { useLocation } from 'react-router-dom';
-import axios from "axios";
 import ShowStatusTable from './ShowStatusTable';
-
+import { useGlobalContext } from '../../../../../../../Context/Context';
 
 const styles = StyleSheet.create({
     page: {
@@ -34,37 +32,36 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintShowStatus() {
+export default function PrintShowStatus({showStatusData}) {
+  const{schedulelistdata}=useGlobalContext();
 
-  //First Shift
-//   const[newData,setNewdata]=useState([]);
-//     const getDailyMachineoperatorData=()=>{
-//       axios.post('http://172.16.20.61:5000/shiftEditor/getSingleDayDetailShiftInformation', 
-//       {
-//         ShiftDate:finalday,
-//       }).then((response) => {
-//           console.log(response.data);
-//           setNewdata(response.data)
-//       })
-//     }
-    
+// const[showstatusdata,setShowStatusdata]=useState([])
+// useEffect(()=>{
+//   const unique = [...new Set(schedulelistdata.map(item => item.Schedule_Status))];
+//   console.log(unique)
+// let customArray = []
+// for(let i = 0 ; i < unique.length ; i ++) {
+//   let customObject = {Schedule_Status : "",schedulelistdata : []}
+//       console.log(unique[i])
+//       customObject.Schedule_Status = unique[i]
+//       customObject.schedulelistdata.push(schedulelistdata[i])
+//       setShowStatusdata(customObject)
+// }
+// },[schedulelistdata])
+
+// console.log(showstatusdata)
+
     const moment = require('moment');
     const today = moment();
     let Date=today.format("HH:mm DD-MMMM-YYYY");
      console.log(Date);
 
       return (
-        // <div className="App">
-        //   <PDFDownloadLink document={<PDFdocument />} fileName="somename.pdf">
-        //   {({ blob, url, loading, error }) => (loading ? 'Loading document...' : 'Download now!')}
-        // </PDFDownloadLink>
-        // </div>
-
-        
-    
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <ShowStatusTable Date={Date}/>
+              <ShowStatusTable Date={Date}
+              showStatusData={showStatusData}
+              />
             </PDFViewer>
           </Fragment>
       ); 

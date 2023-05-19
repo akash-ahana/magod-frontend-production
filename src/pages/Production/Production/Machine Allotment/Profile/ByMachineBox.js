@@ -20,7 +20,6 @@ export default function ByMachineBox() {
       {
           type: "Machines",
           collapsed: false,
-
           serverData: machineProcessData,
       },
   ];

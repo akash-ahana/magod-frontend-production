@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgram,setNcProgramsTableData,
   handleCheckboxChange}) {
-    const [key, setKey] = useState("ncprogram");
+    const [key, setKey] = useState("ncprograms");
 
   return (
     <div className='row'>
@@ -18,7 +18,7 @@ export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgra
       onSelect={(k) => setKey(k)}
       className="mb-2 mt-1 tab_font "
     >
-      <Tab eventKey="ncprogram" title="Nc program">
+      <Tab eventKey="ncprograms" title="Nc programs">
        <PriorityTable machineSelect={machineSelect}
        ncProgramsTableData={ncProgramsTableData}
        selectNcProgram={selectNcProgram}

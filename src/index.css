@@ -19,6 +19,13 @@ code {
     color: white;
 }
 
+.box1{
+  border:1px solid black;
+  padding-right:25px;
+  padding-left:5px;
+  margin-left:20px;
+}
+
 .in-fields{
   height: 35px;
   margin-top: 10px;

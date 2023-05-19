@@ -2,8 +2,6 @@ import React, {Fragment, useEffect, useState} from 'react';
 
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
 //import PDFdocument from './PDFdocument';
-import { useLocation } from 'react-router-dom';
-import axios from "axios";
 import ShowPartsTable from './ShowPartsTable';
 
 
@@ -34,7 +32,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ShowPartsPdf() {
+export default function ShowPartsPdf({processrowselect,rowselect,partlistdata}) {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -64,7 +62,10 @@ export default function ShowPartsPdf() {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <ShowPartsTable Date={Date}/>
+              <ShowPartsTable Date={Date}
+              processrowselect={processrowselect}
+              rowselect={rowselect}
+              partlistdata={partlistdata}/>
             </PDFViewer>
           </Fragment>
       ); 

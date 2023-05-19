@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
       flexDirection: "column",
     },
      tableContainer: {
-      // fontFamily:"strong",
       flexDirection: "row",
       flexWrap: "wrap",
     },
@@ -71,6 +70,10 @@ const styles = StyleSheet.create({
       },
       load:{
         width:"40px"
+      },
+      production:{
+        marginTop:"30px",
+        marginRight:"300px"
       }
   });
   
@@ -81,8 +84,6 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd:Production Department</Text>
         <Text style={styles.shiftperiod}>Production Plan:Jigani </Text>
-
-       
 
         {sortedPriorityTable.map((item)=>{
           return(
@@ -107,13 +108,11 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
         <Text style={styles.newLoad}>Load For {item.Machine} &nbsp;-&nbsp;{item.newLoad}</Text>
        </View>
            </>
-
           )
-          
-        })}
-       
-      
-            
+        })}   
+        <View >
+          <Text style={styles.production}>Production In Charge</Text>
+        </View>
   </View>
     </Page>
   </Document>

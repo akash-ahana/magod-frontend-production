@@ -4,25 +4,14 @@ import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
 
 
-export default function ProgramList({taskno}) {
-  console.log(taskno)  ;
+export default function ProgramList({getProgramlistdata,programlistdata,TaskNo}) {
 
    //Process Table(Right First table) data
-   const[programlistdata,setProgramlistdata]=useState([])
-   const getProgramlistdata=()=>{
-    axios.post(
-      baseURL + "/scheduleListProfile/schedulesListProgramList",
-      {
-       TaskId :taskno
-      }).then((response) => {
-        setProgramlistdata(response.data);
-    });
-   } 
-   console.log(programlistdata)
+  //  console.log(programlistdata)
  
    useEffect(() => {
     getProgramlistdata();
-  }, [taskno]);
+  }, [TaskNo]);
  
   return (
     <div  className='mt-4' style={{height:"200px",overflowY: "scroll"}}>
@@ -38,10 +27,10 @@ export default function ProgramList({taskno}) {
         </tr>
       </thead>
 
-{programlistdata.map((item,key)=>{
+    <tbody className='tablebody'>
+    {programlistdata.map((item,key)=>{
   return(
     <>
-    <tbody className='tablebody'>
   <tr>
     <td style={{whiteSpace:"nowrap"}}>{item.NCProgramNo}</td>
     <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
@@ -50,10 +39,10 @@ export default function ProgramList({taskno}) {
     <td>{item.QtyAllotted}</td>
     <td>{item.QtyCut}</td>
   </tr>
-</tbody>
-    </>
+  </>
   )
 })}
+</tbody>
 </Table>
     </div>
   )

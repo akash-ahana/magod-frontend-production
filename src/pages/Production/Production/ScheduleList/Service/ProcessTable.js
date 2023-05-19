@@ -2,17 +2,17 @@ import React,{useState,useEffect} from 'react';
 import { Table } from 'react-bootstrap';
 
 
-export default function ProcessTable({scheduleid,getprocessTabledata,processtable,
-  serviceprocesstableSelectFun,serviceprocessrowselect}) {
+export default function ProcessTable({OrdSchNo,getprocessTabledata,processtable,
+  processtableSelectFun,processrowselect}) {
 
  useEffect(() => {
   getprocessTabledata();
-}, [scheduleid]);
+}, [OrdSchNo]);
   
 
 
   return (
-     <div style={{height:"200px",overflowY: "scroll"}}>
+     <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
@@ -30,27 +30,27 @@ export default function ProcessTable({scheduleid,getprocessTabledata,processtabl
          </tr>
        </thead>
 
+        <tbody className='tablebody'>
         {processtable.map((item,key)=>{
       return(
         <>
-        <tbody className='tablebody'>
-         <tr onClick={()=>serviceprocesstableSelectFun(item,key)} className={key===serviceprocessrowselect?.index? 'selcted-row-clr':'' }>
-          <td>{item.Schedule_Status}</td>
+         <tr onClick={()=>processtableSelectFun(item,key)} className={key===processrowselect?.index? 'selcted-row-clr':'' }>
+          <td>{item.TStatus}</td>
           <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
           <td style={{whiteSpace:"nowrap"}}>{item.Mtrl_Code}</td>
-          <td style={{whiteSpace:"nowrap"}}>{item.Mprocess}</td>
+          <td style={{whiteSpace:"nowrap"}}>{item.MProcess}</td>
           <td>{item.EstimatedTime}</td>
           <td>{item.TaskProcessTime}</td>
-          <td>{item.DwgsNested}</td>
+          <td>{item.NoOfDwgs}</td>
           <td>{item.DwgsNested}</td>
           <td>{item.TotalParts}</td>
           <td>{item.PartsNested}</td>
           <td>{item.NoOfSheets}</td>
          </tr>
-   </tbody>
-        </>
+         </>
       )
     })} 
+   </tbody>
  </Table>
      </div>
   )

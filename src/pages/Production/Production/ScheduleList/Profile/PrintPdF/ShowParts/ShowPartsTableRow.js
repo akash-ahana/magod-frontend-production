@@ -4,30 +4,39 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
 
 const styles = StyleSheet.create({
-    row: {
-      flexDirection: "row",
-      alignItems: "center",
-      borderBottom:"1px"
+  Headingrow: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottom:"1px",
+    marginTop:"5px",
+    width:"500px",
+  },
+    Scheduled: {
+      width: "20%",
     },
-    machine: {
-      width: "30%",
+    dwgname: {
+      width: "40%",
     },
-    operator: {
-      width: "30%",
+    Nested:{
+        width:"10%"
     },
-    remarks:{
-        width:"40%"
+    lot:{
+      width:"10%",
     }
   });
   
-  const ShowPartsTableRow = ({}) => {
+  const ShowPartsTableRow = ({partlistdata}) => {
     // console.log(typeof(firstmachineoperator));
     //console.log(newitems , 'New Items from print daily Shift Table Row')
-    const rows = (() => (
-      <View style={styles.row}>
-         <Text style={styles.machine}></Text>
-         <Text style={styles.operator}></Text>
-         <Text style={styles.remarks}></Text>
+    const rows = partlistdata.map((item) => (
+      <View style={styles.Headingrow}>
+          <Text style={styles.dwgname}>{item.DwgName}</Text>
+          <Text style={styles.Scheduled}>{item.QtyToNest}</Text>
+          <Text style={styles.Nested}>{item.QtyNested}</Text>
+          <Text style={styles.lot}></Text>
+          <Text style={styles.lot}></Text>
+          <Text style={styles.lot}></Text>
+          <Text style={styles.lot}></Text>
       </View>
     ));
 

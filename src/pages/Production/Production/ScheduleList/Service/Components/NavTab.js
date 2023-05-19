@@ -4,7 +4,7 @@ import Tabs from "react-bootstrap/Tabs";
 import PartsList from "./PartsList";
 import ProgramList from "./ProgramList";
 
-function NabTab({taskno}) {
+function NabTab({taskno,processrowselect,getpartslistdata,partlistdata,setPartlistdata,getProgramlistdata,programlistdata,setProgramlistdata,TaskNo}) {
   const [key, setKey] = useState("partlist");
 
   return (
@@ -15,11 +15,21 @@ function NabTab({taskno}) {
       className="mb-3 mt-3 tab_font"
     >
       <Tab eventKey="partlist" title="Parts List">
-        <PartsList taskno={taskno}/>
+        <PartsList taskno={taskno}
+        processrowselect={processrowselect}
+        getpartslistdata={getpartslistdata}
+       partlistdata={partlistdata}
+       setPartlistdata={setPartlistdata}
+       TaskNo={TaskNo}/>
       </Tab>
 
       <Tab eventKey="programlist" title="Program List">
-        <ProgramList taskno={taskno}/>
+        <ProgramList taskno={taskno}
+        processrowselect={processrowselect}
+        getProgramlistdata={getProgramlistdata}
+       programlistdata={programlistdata}
+       setProgramlistdata={setProgramlistdata}
+       TaskNo={TaskNo}/>
       </Tab>
     </Tabs>
   );

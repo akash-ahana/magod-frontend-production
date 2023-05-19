@@ -10,9 +10,9 @@ console.log(selectRow)
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
-     <div style={{height:"200px",overflowY: "scroll"}}>
+     <div style={{height:"200px",overflowY: "scroll",maxWidth:"850px",marginLeft:"-10px"}}>
      <Table  striped className="table-data border">
-       <thead className="tableHeaderBGColor" style={{textAlign:"center"}}>
+       <thead className="tableHeaderBGColor">
          <tr>
            <th>Process</th>
            <th>TgtRate</th>

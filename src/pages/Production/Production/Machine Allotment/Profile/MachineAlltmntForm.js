@@ -55,7 +55,7 @@ export default function MachineAlltmntForm() {
       setSelectedRows([])
       setSelectedMachineTreeView(Machine)
   }
-  console.log(' Selected Rows Current State ' , selectedRows)
+  // console.log(' Selected Rows Current State ' , selectedRows)
  
 //SELECTED ROWS IS THE STATE TO CHANGE THE MACHINES 
 const handleCheckboxChange = (item, key) => {
@@ -71,7 +71,7 @@ const handleCheckboxChange = (item, key) => {
   }
    setNcProgramsTableData(constncProgramsTableData)
 if(selectedRows.length === 0){
-  console.log('First ITem is SET')
+  // console.log('First ITem is SET')
   axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableFormMachines', item)
       .then((response) => {
          // console.log("data of machinnes", response.data);
@@ -134,7 +134,7 @@ const treeViewData=()=>{
  // console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
   axios.post(baseURL+'/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
   .then((response) => {
-       console.log("data", response.data)
+      //  console.log("data", response.data)
      onClickMachine();
      handleClose();
      //setSelectedRows([])
@@ -161,13 +161,13 @@ const treeViewData=()=>{
   //setSelectedMachineTreeView(machineProcessData[0]?.MachineName)
 },[machineProcessData[0]])
 
-console.log(machineSelect)
+// console.log(machineSelect)
 
 useEffect(() => {
-  console.log('USE EFFECT RAN' , selectedMachineTreeView)
+  // console.log('USE EFFECT RAN' , selectedMachineTreeView)
   axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
       .then((response) => {
-         console.log("data use effect", response.data);
+        //  console.log("data use effect", response.data);
           setNcProgramsTableData(response.data)
       })
 },[])
@@ -176,7 +176,7 @@ useEffect(() => {
  // console.log('On Machine Change' , e.target.value)
   setSelectedMachine(e.target.value)
  }
- console.log(' Selected Rows Current State ' , selectedRows)
+//  console.log(' Selected Rows Current State ' , selectedRows)
   return (
    <>
    <ToastContainer/>
