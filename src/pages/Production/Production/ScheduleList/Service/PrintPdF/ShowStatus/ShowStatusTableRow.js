@@ -4,31 +4,45 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
 
 const styles = StyleSheet.create({
-    row: {
-      flexDirection: "row",
-      alignItems: "center",
-      borderBottom:"1px"
-    },
-    machine: {
-      width: "30%",
-    },
-    operator: {
-      width: "30%",
-    },
-    remarks:{
-        width:"40%"
-    }
+  Headingrow: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottom:"1px",
+    marginTop:"10px",
+    // marginLeft:"60px",
+    width:"500px",
+    // fontSize:"10px"
+  },
+  Scheduleno: {
+    width: "100px",
+    whiteSpace:"nowrap"
+  },
+  Customer: {
+    width: "100px",
+    whiteSpace:"nowrap"
+  },
+  Date:{
+      width:"100px",
+      whiteSpace:"nowrap"
+  },
+  Instruction:{
+    width:"100px",
+    whiteSpace:"nowrap"
+  }
   });
   
-  const ShowStatusTableRow = ({}) => {
+  const ShowStatusTableRow = ({showStatusData}) => {
+
     // console.log(typeof(firstmachineoperator));
     //console.log(newitems , 'New Items from print daily Shift Table Row')
-    const rows = (() => (
-      <View style={styles.row}>
-         <Text style={styles.machine}></Text>
-         <Text style={styles.operator}></Text>
-         <Text style={styles.remarks}></Text>
-      </View>
+    const rows =showStatusData.map((value) => (
+      <View style={styles.Headingrow}>
+          <Text style={styles.Scheduleno}>{value.OrdSchNo}</Text>
+          <Text style={styles.Customer}>{value.Cust_name}</Text>
+          <Text style={styles.Date}>{value.schTgtDate}</Text>
+          <Text style={styles.Date}>{value.Delivery_Date}</Text>
+          <Text style={styles.Instruction}></Text>
+       </View>
     ));
 
 

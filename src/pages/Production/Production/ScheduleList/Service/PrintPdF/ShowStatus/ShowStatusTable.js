@@ -42,30 +42,35 @@ const styles = StyleSheet.create({
         marginRight:"200px",
         marginLeft:"50px"
     },
-    Headingrow: {
-        flexDirection: "row",
-        alignItems: "center",
-        borderBottom:"1px",
-        marginTop:"5px",
-        marginLeft:"60px",
-        width:"460px",
-      },
-      Scheduleno: {
-        width: "20%",
-      },
-      Customer: {
-        width: "30%",
-      },
-      Date:{
-          width:"20%"
-      },
-      Instruction:{
-        width:"40%"
-      }
+     Headingrow: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottom:"1px",
+    marginTop:"10px",
+    marginLeft:"60px",
+    width:"500px",
+    // fontSize:"10px"
+  },
+  Scheduleno: {
+    width: "100px",
+    // whiteSpace:"nowrap"
+  },
+  Customer: {
+    width: "100px",
+    // whiteSpace:"nowrap"
+  },
+  Date:{
+      width:"100px",
+      // whiteSpace:"nowrap"
+  },
+  Instruction:{
+    width:"100px",
+    // whiteSpace:"nowrap"
+  }
   });
   
 
-const ShowStatusTable = ({Date}) => (
+const ShowStatusTable = ({Date,showStatusData}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
@@ -74,7 +79,10 @@ const ShowStatusTable = ({Date}) => (
         <Text style={styles.location}>Unit:Jigani</Text>
         <Text style={styles.datedisplay}>{Date}</Text>
 
-        <Text style={styles.tablemainheader} >Programmed</Text>
+{showStatusData.map((item,key)=>{
+  return(
+    <>
+    <Text style={styles.tablemainheader} >{item.status}</Text>
         <View style={styles.Headingrow}>
           <Text style={styles.Scheduleno}>Schedule No</Text>
           <Text style={styles.Customer}>Customer</Text>
@@ -84,9 +92,14 @@ const ShowStatusTable = ({Date}) => (
        </View>
         
     <View style={styles.tableview}>
-      <ShowStatusTableRow/>
+      <ShowStatusTableRow  showStatusData={item.data}/>
     </View>
          
+
+    </>
+  )
+})}
+        
   </View>
     </Page>
   </Document>

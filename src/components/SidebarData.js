@@ -96,12 +96,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/machineallotementProfile",
+            path: "/production/production/machineallotmentProfile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },
           {
             title: "Service",
-            path: "/production/production/machineallotementservice",
+            path: "/production/production/machineallotmentservice",
             icon: <AiIcons.AiOutlineArrowRight />            
           }
         ]

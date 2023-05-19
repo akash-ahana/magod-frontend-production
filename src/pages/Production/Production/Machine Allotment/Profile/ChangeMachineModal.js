@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 export default function ChangeMachineModal({openModal,setOpenModal,selectedRows,selectedMachine,clickChangeMachine,handleClose}) {
-    console.log(selectedRows[0])
+    // console.log(selectedRows[0])
 
   return (
     <div>

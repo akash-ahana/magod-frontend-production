@@ -1,16 +1,16 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useMemo,useState} from 'react';
 import Table from "react-bootstrap/Table";
 import { useGlobalContext } from '../../../../../Context/Context';
 
 
-export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata}) {
+export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata,setRowselect}) {
   const{schedulelistdata,getSchedulistdata}=useGlobalContext();
 
   useEffect(() => {
     getSchedulistdata();
  }, []);
 
-
+ 
   return (
      <div style={{height:"500px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">

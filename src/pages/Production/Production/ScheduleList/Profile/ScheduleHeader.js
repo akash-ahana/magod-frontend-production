@@ -1,16 +1,18 @@
 import React from 'react';
 import { useGlobalContext } from '../../../../../Context/Context';
-import { useNavigate, } from 'react-router-dom'
 import { useState } from 'react';
 import ShowStatusPdfModal from './PrintPdF/ShowStatus/ShowStatusPdfModal';
 import ShowPartsPdfModal from './PrintPdF/ShowParts/ShowPartsPdfModal';
+import {baseURL} from '../../../../../api/baseUrl'
+import axios from 'axios';
+import ShowProgramsPdfModal from './PrintPdF/ShowPrograms/ShowProgramsPdfModal';
 
 
-export default function ScheduleHeader() {
+export default function ScheduleHeader({rowselect,processrowselect,partlistdata,programlistdata}) {
   const{schedulelistdata,setSchedulelistdata,schedulelistdatas}=useGlobalContext();
-// console.log(schedulelistdata)
+  // console.log(rowselect,"selected row in left table");
+  // console.log("selected row in right table",processrowselect)
 
-// const navigate=useNavigate()
 const[openShowStatus,setOpenShowStatus]=useState('')
   const openShowStatusPdf = () => {
     setOpenShowStatus(true)
@@ -19,6 +21,11 @@ const[openShowStatus,setOpenShowStatus]=useState('')
   const[openShowparts,setOpenShowParts]=useState('')
   const openShowPartsPdf = () => {
     setOpenShowParts(true)
+  }
+
+  const[openShowPrograms,setOpenShowPrograms]=useState('')
+  const openShowProgram=()=>{
+    setOpenShowPrograms(true);
   }
 
    const searchText = (e) => {
@@ -33,6 +40,132 @@ const[openShowStatus,setOpenShowStatus]=useState('')
     setSchedulelistdata(schedulelistdatas);
   }
 };
+
+const[programmedtatus,setProgrammedstatus]=useState([])
+const[completedStatus,setCompletedStatus]=useState([])
+const[productionStatus,setProductionStatus]=useState([])
+const[taskedStatus,setTaskedStatus]=useState([])
+// const[showStatusdata,setShowStatusdata]=useState({})
+
+
+const getPrintStatus=()=>{
+  // Programmed Status
+  axios.get(
+  baseURL + "/scheduleListProfile/schedulesListStatusProgrammed").then((response) => {
+    for(let i =0;i<response.data.length;i++) { 
+      // FOR TgtDelDate
+      let dateSplit = response.data[i].schTgtDate.split(" ");
+      let date =dateSplit[0].split("-")
+      let year = date[0];
+      let month = date[1];
+      let day = date[2];
+      let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+      response.data[i].schTgtDate = finalDay;
+    }
+    for(let i =0;i<response.data.length;i++) { 
+      // Delivery_date
+      let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+      let date1 =dateSplit1[0].split("-")
+      let year1 = date1[0];
+      let month1 = date1[1];
+      let day1 = date1[2];
+      let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+      response.data[i].Delivery_Date = finalDay1;
+    }
+    setProgrammedstatus(response.data);
+    //  console.log(response)
+ });
+//  Completed Status
+ axios.get(
+  baseURL + "/scheduleListProfile/schedulesListStatusCompleted").then((response) => {
+    for(let i =0;i<response.data.length;i++) { 
+      // FOR TgtDelDate
+      let dateSplit = response.data[i].schTgtDate.split(" ");
+      let date =dateSplit[0].split("-")
+      let year = date[0];
+      let month = date[1];
+      let day = date[2];
+      let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+      response.data[i].schTgtDate = finalDay;
+    }
+    for(let i =0;i<response.data.length;i++) { 
+      // Delivery_date
+      let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+      let date1 =dateSplit1[0].split("-")
+      let year1 = date1[0];
+      let month1 = date1[1];
+      let day1 = date1[2];
+      let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+      response.data[i].Delivery_Date = finalDay1;
+    }
+    setCompletedStatus(response.data);
+    //  console.log(response)
+ });
+
+ //Production Status
+ axios.get(
+  baseURL + "/scheduleListProfile/schedulesListStatusProduction").then((response) => {
+    for(let i =0;i<response.data.length;i++) { 
+      // FOR TgtDelDate
+      let dateSplit = response.data[i].schTgtDate.split(" ");
+      let date =dateSplit[0].split("-")
+      let year = date[0];
+      let month = date[1];
+      let day = date[2];
+      let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+      response.data[i].schTgtDate = finalDay;
+    }
+    for(let i =0;i<response.data.length;i++) { 
+      // Delivery_date
+      let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+      let date1 =dateSplit1[0].split("-")
+      let year1 = date1[0];
+      let month1 = date1[1];
+      let day1 = date1[2];
+      let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+      response.data[i].Delivery_Date = finalDay1;
+    }
+    setProductionStatus(response.data);
+    //  console.log(response)
+ });
+
+ //Tasked Status
+ axios.get(
+  baseURL + "/scheduleListProfile/schedulesListStatusTasked").then((response) => {
+    for(let i =0;i<response.data.length;i++) { 
+      // FOR TgtDelDate
+      let dateSplit = response.data[i].schTgtDate.split(" ");
+      let date =dateSplit[0].split("-")
+      let year = date[0];
+      let month = date[1];
+      let day = date[2];
+      let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+      response.data[i].schTgtDate = finalDay;
+    }
+    for(let i =0;i<response.data.length;i++) { 
+      // Delivery_date
+      let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+      let date1 =dateSplit1[0].split("-")
+      let year1 = date1[0];
+      let month1 = date1[1];
+      let day1 = date1[2];
+      let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+      response.data[i].Delivery_Date = finalDay1;
+    }
+    setTaskedStatus(response.data);
+    //  console.log(response)
+ });
+} 
+
+const showStatusData=[
+  {status:"Programmed",data:programmedtatus},
+  {status:"Completed",data:completedStatus},
+  {status:"Production",data:productionStatus},
+  {status:"Tasked",data:taskedStatus},
+];
+
+// const jsonData=JSON.stringify(arrays)
+// console.log(arrays);
 
   return (
     <div>
@@ -49,40 +182,56 @@ const[openShowStatus,setOpenShowStatus]=useState('')
               <label className="mt-2">Find Schedule</label>
               <input className="in-field my-0"  type='search' onChange={(e) => searchText(e)}/>
            </div>
-            <button className="button-style mt-5 ms-5 group-button"
+
+            {/* <button className="button-style mt-5 ms-5 group-button"
              style={{ width: "120px"}}>
               Reset Status
-            </button>
+            </button> */}
 
-            <button className="button-style mt-5 group-button"
-              style={{ width: "120px"}} onClick={openShowStatusPdf}>
+            <button className="button-style mt-5 group-button ms-4"
+              style={{ width: "140px"}} onClick={()=>{openShowStatusPdf()
+                getPrintStatus()}}>
               Show Status
             </button>
 
-            <button className="button-style mt-5 group-button" 
-               style={{ width: "120px"}} onClick={openShowPartsPdf} >
+            <button className="button-style mt-5 group-button ms-3" 
+               style={{ width: "140px"}} onClick={openShowPartsPdf} >
                Show Parts
             </button>
 
-            <button className="button-style mt-5 group-button"
-               style={{ width: "140px"}}>
+            <button className="button-style mt-5 group-button ms-3"
+               style={{ width: "140px"}} onClick={openShowProgram}>
                Show Programs
             </button>
 
-            <button className="button-style mt-5 group-button" 
+            {/* <button className="button-style mt-5 group-button" 
              style={{ width: "140px" }}>
              Production list
-            </button>
+            </button> */}
           </div>
       </div>
     </div>
     <ShowStatusPdfModal
       openShowStatus={openShowStatus}
-      setOpenShowStatus={setOpenShowStatus}/>
+      setOpenShowStatus={setOpenShowStatus}
+      showStatusData={showStatusData}
+      />
 
       <ShowPartsPdfModal
       openShowparts={openShowparts}
-      setOpenShowParts={setOpenShowParts}/>
+      setOpenShowParts={setOpenShowParts}
+      rowselect={rowselect}
+      processrowselect={processrowselect}
+      partlistdata={partlistdata}
+      />
+
+      <ShowProgramsPdfModal
+      openShowPrograms={openShowPrograms}
+      setOpenShowPrograms={setOpenShowPrograms}
+      rowselect={rowselect}
+      processrowselect={processrowselect}
+      programlistdata={programlistdata}
+      />
   </div>
   )
 }

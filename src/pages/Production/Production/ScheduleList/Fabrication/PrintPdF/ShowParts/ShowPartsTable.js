@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   });
   
 
-const ShowPartsTable = ({Date}) => (
+const ShowPartsTable = ({processrowselect,rowselect,partlistdata}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
@@ -81,12 +81,12 @@ const ShowPartsTable = ({Date}) => (
         <Text style={styles.location}>Magod Laser:Jigani</Text>
 
         <View>
-            <Text style={styles.details}>Parts Sheet Scheduleno : 203269 01</Text>
-            <Text style={styles.details}>Task No: 203269 01 01          Inspected and Cleared</Text>
+            <Text style={styles.details}>Parts Sheet Scheduleno : {rowselect.OrdSchNo}</Text>
+            <Text style={styles.details}>Task No: {processrowselect.TaskNo}               Inspected and Cleared</Text>
         </View>
 
         <View style={styles.Headingrow}>
-          <Text style={styles.Customer}>Drawing  Name</Text>
+          <Text style={styles.dwgname}>Drawing  Name</Text>
           <Text style={styles.Scheduled}>Scheduled</Text>
           <Text style={styles.Nested}>Nested</Text>
           <Text style={styles.lot}>Lot1</Text>
@@ -96,7 +96,9 @@ const ShowPartsTable = ({Date}) => (
         </View>
         
     <View style={styles.tableview}>
-      <ShowPartsTableRow/>
+      <ShowPartsTableRow processrowselect={processrowselect}
+      rowselect={rowselect}
+      partlistdata={partlistdata}/>
     </View>
          
   </View>

@@ -31,18 +31,18 @@ const styles = StyleSheet.create({
 
 
 export default function PrintPriority({priorityTable}) {
-  console.log(priorityTable)
+  // console.log(priorityTable)
 
   const [sortedPriorityTable , setSortedPriorityTable] = useState([])
   
   useEffect(() => {
-    console.log('Priority Table from print priority ' , priorityTable)
+    // console.log('Priority Table from print priority ' , priorityTable)
     const unique = [...new Set(priorityTable.map(item => item.Machine))];
-    console.log(unique)
+    // console.log(unique)
     let customArray = []
     for(let i = 0 ; i < unique.length ; i ++) {
       let customObject = {Machine : "" , priorityList : [], load : 0, newLoad : ""}
-      console.log(unique[i])
+      // console.log(unique[i])
       customObject.Machine = unique[i]
       let load = 0 
       for(let k =0 ; k<priorityTable.length ; k++) {
@@ -68,9 +68,9 @@ export default function PrintPriority({priorityTable}) {
         newminutes = minutes
        }
        customArray[j].newLoad = hours + ":" + newminutes
-      console.log(customArray[j].newLoad = hours + ":" + newminutes)
+      // console.log(customArray[j].newLoad = hours + ":" + newminutes)
     }
-    console.log('Custom Array is ' , customArray)
+    // console.log('Custom Array is ' , customArray)
     setSortedPriorityTable(customArray)
   }, [priorityTable])
     
@@ -90,6 +90,7 @@ export default function PrintPriority({priorityTable}) {
     // useEffect(() => {
     //   getWeeklyshiftPrint();
     // }, []);
+
 
       return (
         // <div className="App">
