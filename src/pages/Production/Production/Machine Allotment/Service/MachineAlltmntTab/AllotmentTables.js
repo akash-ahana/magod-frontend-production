@@ -30,33 +30,53 @@ export default function AllotmentTables() {
     })
   },[])
 
+  //ALLOTMENT TABLE
   const[scheduleListData,setScheduleList]=useState([])
   const[rowSelect,setRowSelect]=useState({})
   const RowSelectAllotmentTable=(item,index)=>{
     // console.log(item ,  'item is ')
-    axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableForm',item)
-    .then((response) => {
-        setScheduleList(response.data)
-    })
     let list={...item,index:index}
     setRowSelect(list);
   }
+  const getScheduleListdata=()=>{
+    console.log('getScheduleListData is called')
+    axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableForm',rowSelect)
+    .then((response) => {
+        setScheduleList(response.data)
+    })
+  }
+  useEffect(()=>{
+    getScheduleListdata();
+  },[rowSelect])
 
+  useMemo(()=>{
+    setRowSelect({...allotmentTable[0],index:0})
+  },[allotmentTable[0]])
+
+
+
+  //SCHEDULELIST TABLE
   const[tableRowSelect,setTableRowSelect]=useState({})
   const[rowselect,setRowselect]=useState({})
   const[machineList,setMachineList]=useState([])
   const RowSelect=(item,index)=>{
-    // console.log('right table select is ' , item)
-    axios.post(baseURL+'/machineAllotmentService/machineAllotmentScheduleTableFormMachinesService',item)
-    .then((response) => {
-        // console.log("OnClick Post response", response.data)
-        setMachineList(response.data)
-    })
     let list={...item,index:index}
     setTableRowSelect(item);
     setRowselect(list)
   }
-
+  const getMachineList=()=>{
+    axios.post(baseURL+'/machineAllotmentService/machineAllotmentScheduleTableFormMachinesService',tableRowSelect)
+    .then((response) => {
+        setMachineList(response.data)
+    })
+  }
+useEffect(()=>{
+  getMachineList();
+},[tableRowSelect])
+ 
+useMemo(()=>{
+  setTableRowSelect({...scheduleListData[0],index:0})
+},[scheduleListData[0]])
 
   //Search
   const searchText = (e) => {
@@ -72,13 +92,9 @@ export default function AllotmentTables() {
    }
  };
 
-  useMemo(()=>{
-    setTableRowSelect({...scheduleListData[0],index:0})
-  },[scheduleListData[0]])
-
+  
 
   const onChangeMachine = (e) => {
-    // console.log('Machine is Changed' , e.target.value)
     setNewSelectedMachine(e.target.value)
   }
 
@@ -87,41 +103,33 @@ export default function AllotmentTables() {
   );
 
   const onClickChangeMachine = async (e) => {
+    console.log("function called")
     e.preventDefault();
-    // console.log('On Click Change Machine ' , tableRowSelect , 'new Machine is ' , newSelectedMchine)
-
+    console.log('On Click Change Machine ' , tableRowSelect , 'new Machine is ' , newSelectedMchine)
     axios.post(baseURL+'/machineAllotment/changeMachineInForm',{...tableRowSelect ,  newMachine : newSelectedMchine})
     .then((response) => {
         //console.log("OnClick Post response",response.data)
     })
     await delay(200);
-    // console.log('Selected Row from right table is ' , tableRowSelect)
+    console.log('Selected Row from right table is ' , tableRowSelect)
     axios.post(baseURL+'/machineAllotment/formRefresh',tableRowSelect)
     .then((response) => {
-        // console.log("OnClick Post response change machine", response.data[0])
+        console.log("OnClick Post response change machine", response.data[0])
         //setMachineList(response.data)
         setTableRowSelect(response.data[0])
-    })
+        getScheduleListdata()
+          })
   }
 
-  // console.log('Current State of Table Row Select' , tableRowSelect)
-
-  
 
   const onClickReleaseForProgramming = async (e) => {
     e.preventDefault();
-    // console.log(' Release For Programming Button Is Clicked ' , tableRowSelect)
     axios.post(baseURL+'/machineAllotment/releaseForProgramming',tableRowSelect)
     .then((response) => {
-        // console.log("OnClick Post response", response.data)
    })
    await delay(200);
-
-   
    axios.post(baseURL+'/machineAllotment/formRefresh',tableRowSelect)
     .then((response) => {
-        // console.log("OnClick Post response", response.data)
-        //setMachineList(response.data)
         setTableRowSelect(response.data[0])
     })
   }
@@ -139,7 +147,7 @@ export default function AllotmentTables() {
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th style={{whiteSpace:"nowrap"}}>Shedule No</th>
+                <th style={{whiteSpace:"nowrap"}}>Schedule No</th>
                 <th style={{whiteSpace:"nowrap"}}>Delivery Date</th>
                 <th>Customer</th>
                 <th>Status</th>
@@ -182,7 +190,7 @@ export default function AllotmentTables() {
 
                   <div className="row">
                     <div className="col-md-6 ">
-                      <label className="">Task no</label>
+                      <label className="">Task No</label>
                       <input className="in-field"
                         value={tableRowSelect.TaskNo} />
                     </div>
@@ -282,7 +290,7 @@ export default function AllotmentTables() {
                           return(
                             <>
                             <tr onClick={()=>{RowSelect(value,key)}} 
-                               className={key===rowselect?.index? 'selcted-row-clr':'' } >
+                               className={key===tableRowSelect?.index? 'selcted-row-clr':'' } >
                                <td>{value.TaskNo}</td>
                                <td>{value.Machine}</td>
                                <td>{value.Operation}</td>

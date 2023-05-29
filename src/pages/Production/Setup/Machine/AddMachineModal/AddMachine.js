@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect, useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import MachineModal from './MachineModal';
@@ -12,7 +12,7 @@ import { useGlobalContext } from '../../../../../Context/Context';
 export default function AddMachine({show, setShow,machinetypes}) {
   let initialState=
   {manufacturer:'',refName:'',model:'',Machine_Type:''}
-  const [formdata,setFormdata]=React.useState(initialState);
+  const [formdata,setFormdata]=useState(initialState);
   function handleFormChange(e){
     let {name,value}=e.target
     setFormdata({...formdata,[name]:value})

@@ -47,8 +47,6 @@ export default function MachineAlltmntForm() {
   
   const onClickMachine = (Machine, key) => {
       setSelectedRows([])
-     //console.log('Selected Rows are  ' , selectedRows)
-      
       axios.post(baseURL+'/machineAllotmentService/getNCprogramTabTableData',{MachineName : Machine})
       .then((response) => {
         
@@ -60,14 +58,12 @@ export default function MachineAlltmntForm() {
       })
       setSelectedRows([])
       setSelectedMachineTreeView(Machine)
+      setMachineList([])
   }
-  // console.log(' Selected Rows Current State ' , selectedRows)
- 
+
+  
 //SELECTED ROWS IS THE STATE TO CHANGE THE MACHINES 
 const handleCheckboxChange = (item, key) => {
- // console.log(item)
- // console.log('ncProgramsTableData', ncProgramsTableData)
-
    const constncProgramsTableData = ncProgramsTableData
   if(ncProgramsTableData[key].isChecked === true) {
     constncProgramsTableData[key].isChecked = false
@@ -77,17 +73,13 @@ const handleCheckboxChange = (item, key) => {
   }
    setNcProgramsTableData(constncProgramsTableData)
 if(selectedRows.length === 0){
-  // console.log('First ITem is SET')
   axios.post(baseURL+'/machineAllotmentService/machineAllotmentScheduleTableFormMachinesService', item)
       .then((response) => {
-         // console.log("data of machinnes", response.data);
-          //setNcProgramsTableData(response.data)
           setMachineList(response.data)
          
       })
   setSelectedRows([item])
 } else {
-//  console.log()
   if(item.Operation === selectedRows[0].Operation){
     if (selectedRows.includes(item)) {
       setSelectedRows(selectedRows.filter(r => r !== item));
@@ -97,8 +89,7 @@ if(selectedRows.length === 0){
   } else {
     toast.error('Please select a program with the same operation',{
       position: toast.POSITION.TOP_CENTER
-  })  //  console.log('Item is ' , item , ' key is ' , key)
-  //  console.log('ncProgramsTableData' , ncProgramsTableData)
+  })  
     const constNCProgramsTableData = ncProgramsTableData
     constNCProgramsTableData[key].isChecked = false
     setNcProgramsTableData(constNCProgramsTableData)
@@ -157,6 +148,7 @@ const treeViewData=()=>{
       })
       treeViewData();
       setSelectedRows([])
+      setMachineList([])
  }
 
  useMemo(()=>{

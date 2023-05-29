@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
           let year = date[0];
           let month = date[1];
           let day = date[2];
-          let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+          let finalDay = day+"-"+month+"-"+year
           response.data[i].schTgtDate = finalDay;
         }
         for(let i =0;i<response.data.length;i++) { 
@@ -48,7 +48,7 @@ const AuthProvider = ({ children }) => {
           let year1 = date1[0];
           let month1 = date1[1];
           let day1 = date1[2];
-          let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+          let finalDay1 = day1+"-"+month1+"-"+year1
           response.data[i].Delivery_Date = finalDay1;
         }
          console.log(response.data)
@@ -67,7 +67,7 @@ const AuthProvider = ({ children }) => {
         let year = date[0];
         let month = date[1];
         let day = date[2];
-        let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+        let finalDay = day+"-"+month+"-"+year
         // console.log(finalDay , 'shift Information 1')
         response.data[i].schTgtDate = finalDay;
       }
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
         let year1 = date1[0];
         let month1 = date1[1];
         let day1 = date1[2];
-        let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+        let finalDay1 = day1+"-"+month1+"-"+year1
         // console.log(finalDay1, 'shift Information 1')
         response.data[i].Delivery_Date = finalDay1;
       }
@@ -99,7 +99,7 @@ const AuthProvider = ({ children }) => {
         let year = date[0];
         let month = date[1];
         let day = date[2];
-        let finalDay = day+"-"+month+"-"+year+ " "+dateSplit[1]
+        let finalDay = day+"-"+month+"-"+year
         // console.log(finalDay , 'shift Information 1')
         response.data[i].schTgtDate = finalDay;
       }
@@ -111,7 +111,7 @@ const AuthProvider = ({ children }) => {
         let year1 = date1[0];
         let month1 = date1[1];
         let day1 = date1[2];
-        let finalDay1 = day1+"-"+month1+"-"+year1+ " "+dateSplit1[1]
+        let finalDay1 = day1+"-"+month1+"-"+year1
         // console.log(finalDay1, 'shift Information 1')
         response.data[i].Delivery_Date = finalDay1;
       }

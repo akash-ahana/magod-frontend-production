@@ -24,7 +24,7 @@ export default function ScheduleListbody({rowselect,setRowselect,rowSelectFun,sc
       if(OrdSchNo){
         console.log("excuted")
         axios.post(
-          baseURL + "/scheduleListProfile/schedulesListSecondTable",
+          baseURL + "/scheduleListService/schedulesListSecondTableService",
            {
              ScheduleID:OrdSchNo
            }).then((response) => {

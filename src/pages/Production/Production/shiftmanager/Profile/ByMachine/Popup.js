@@ -26,7 +26,7 @@ const handleMachineChange = (e) => {
 
 
 const changeMachineonClick = () => {
-  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
+  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing,NewMachine : selectedMachine })
   .then((response) => {
     console.log('Current State of programCompleteData' , response.data);
     handleClose();

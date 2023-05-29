@@ -14,7 +14,7 @@ export default function ChangeMachinePopUp({open, setOpen}) {
           <Modal.Title>Magod Production Manager</Modal.Title>
         </Modal.Header>
         <Modal.Body>   
-            <p>Do you want change machinr  from Laser 23 to Laser 27 </p>
+            <p>Do you wish change machinr  from Laser 23 to Laser 27 </p>
         </Modal.Body>
         <Modal.Footer>
         <Button variant="primary" type='submit' >
