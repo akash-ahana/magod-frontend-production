@@ -5,7 +5,7 @@ import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted
+export default function ProgramCompletedModal({show,setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -127,66 +127,66 @@ return (
         <div className="ip-box form-bg ">
           <div className="row">
             <div className="col-md-3">
-              <label className="form-label"> Task no</label>
-              <input  className='in-field'
+              <label className="form-label"> Task No</label>
+              <input  className='in-fields'
               value={selectProgramCompleted.TaskNo}/>
             </div>
             <div className="col-md-2">
               <label className="form-label"> Quantity</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramCompleted.Qty} />
             </div>
             <div className="col-md-5">
               <label className="form-label"> Material</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramCompleted.Mtrl_Code} />
             </div>
 
             <div className="col-md-3">
-              <label className="form-label"> Program no</label>
-              <input  className='in-field'
+              <label className="form-label"> Program No</label>
+              <input  className='in-fields'
               value={selectProgramCompleted.NCProgramNo} />
             </div>
 
             <div className="col-md-2">
               <label className="form-label">Alloted</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramCompleted.QtyAllotted} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Process</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramCompleted.MProcess} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Status</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                 value={selectProgramCompleted.PStatus} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Machine</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramCompleted.Machine}/>
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Processed</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramCompleted.QtyCut} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Dwgs</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramCompleted.NoOfDwgs} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Parts</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramCompleted.TotalParts
                }/>
             </div>
@@ -196,21 +196,21 @@ return (
            {/* <div className='row'> */}
            <div className="col-md-3">
                <label className="form-label">Process Time</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramCompleted.ActualTime
                } />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Estimated</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramCompleted.EstimatedTime
                } />
             </div>
 
             <div className="col-md-2 mb-2">
                <label className="form-label">Machine</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramCompleted.Machine}/>
             </div>
 
@@ -239,9 +239,9 @@ return (
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
        <tr>
-         <th style={{whiteSpace:"nowrap"}}>DWG Name</th>
-         <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th>
-         <th style={{whiteSpace:"nowrap"}}>To Produce/Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>Dwg Name</th>
+         {/* <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th> */}
+         <th style={{whiteSpace:"nowrap"}}>To Produce</th>
          <th>Produced</th>
          <th>Rejected</th>
          <th>Cleared</th>
@@ -257,7 +257,7 @@ return(
   <>
         <tr >
            <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
-           <td>{item.TotQtyNested}</td>
+           {/* <td>{item.TotQtyNested}</td> */}
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>
            <td >

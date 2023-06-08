@@ -8,13 +8,13 @@ function NabTab({taskno,processrowselect,getpartslistdata,partlistdata,setPartli
   const [key, setKey] = useState("partlist");
 
   return (
-    <Tabs
-      id="controlled-tab-example"
+    <Tabs 
+      id="controlled-tab-example" 
       activeKey={key}
       onSelect={(k) => setKey(k)}
       className="mb-3 mt-3 tab_font"
     >
-      <Tab eventKey="partlist" title="Parts List" >
+      <Tab  eventKey="partlist" title="Parts List"  >
         <PartsList taskno={taskno}
         processrowselect={processrowselect}
         getpartslistdata={getpartslistdata}
@@ -23,7 +23,7 @@ function NabTab({taskno,processrowselect,getpartslistdata,partlistdata,setPartli
        TaskNo={TaskNo}/>
       </Tab>
 
-      <Tab eventKey="programlist" title="Program List" style={{marginLeft:"-20px"}}>
+      <Tab eventKey="programlist" title="Program List">
         <ProgramList taskno={taskno}
         processrowselect={processrowselect}
         getProgramlistdata={getProgramlistdata}

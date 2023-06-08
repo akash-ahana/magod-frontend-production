@@ -17,7 +17,7 @@ export default function NavTab({machineSelect,ncProgramsTableData,selectNcProgra
       onSelect={(k) => setKey(k)}
       className="mb-3 mt-3 tab_font "
     >
-      <Tab eventKey="ncprogram" title="Nc program">
+      <Tab eventKey="ncprogram" title="Nc programs">
        <PriorityTable machineSelect={machineSelect}
        ncProgramsTableData={ncProgramsTableData}
        //selectRowNcProgram={selectRowNcProgram}

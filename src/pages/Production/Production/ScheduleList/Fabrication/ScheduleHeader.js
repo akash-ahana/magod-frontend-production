@@ -179,7 +179,7 @@ const showStatusData=[
         <div className="mt-2">
           <div className='row'>
           <div className="col-md-3 mt-2">
-              <label className="mt-2">Find Schedule</label>
+              <label className="form-label mt-2">Find Schedule</label>
               <input className="in-field my-0"  type='search' onChange={(e) => searchText(e)}/>
            </div>
 

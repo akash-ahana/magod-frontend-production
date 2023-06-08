@@ -16,7 +16,7 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>Select</th>
+           {/* <th>Select</th> */}
            <th style={{whiteSpace:"nowrap"}}>Schedule No</th>
            <th>Customer</th>
            <th style={{whiteSpace:"nowrap"}}>TgtDelDate</th>
@@ -31,12 +31,12 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
       return(
         <>
          <tr onClick={()=>rowSelectFun(item,key)} className={key===rowselect?.index? 'selcted-row-clr':'' } >
-           <td>
+           {/* <td>
                 <input className="form-check-input"
                  type="checkbox"
                  value=""
                  id="flexCheckDefault"/>
-           </td>
+           </td> */}
            <td style={{whiteSpace:"nowrap"}}>{item.OrdSchNo}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.Cust_name}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.schTgtDate}</td>

@@ -18,15 +18,12 @@ export default function PriorityTable({machineSelect,ncProgramsTableData,selectN
 
   const selectRowTable = (item) => {
     if (priorityTable.includes(item)) {
-       //setPriorityTable(priorityTable.filter(r => r !== item));
-      //  console.log(item)
        } else {
        setPriorityTable([...priorityTable , item])
        }       
   }
 
   const selectRowPriorityTable = (row) => {
-    // console.log('Priority Table Is double clicked' ,row , 'Priority Table is ' , priorityTable)
     var id = row.Ncid;
     let constPriorityTable  = priorityTable
     let filteredList=priorityTable.filter((item)=>{

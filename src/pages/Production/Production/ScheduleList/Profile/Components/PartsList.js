@@ -5,6 +5,8 @@ import { baseURL } from "../../../../../../api/baseUrl";
 import '../Styles.css'
 
 export default function PartsList({TaskNo,getpartslistdata,partlistdata,setPartlistdata}){
+  const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
+
   // console.log(taskno);
 
   //Process Table(Right First table) data
@@ -15,6 +17,8 @@ export default function PartsList({TaskNo,getpartslistdata,partlistdata,setPartl
     getpartslistdata();
  }, [TaskNo]);
 
+
+ 
 
 const onChangeInput = (e, TaskNo, key) => {
   const { name, value } = e.target
@@ -66,7 +70,50 @@ const onChangeInput = (e, TaskNo, key) => {
    });
  }
 
+//  //SelectedRow
+//  const [selectedRows, setSelectedRows] = useState([]);
+
+//  const handleRowClick = (index) => {
+//    if (selectedRows.includes(index)) {
+//      setSelectedRows(selectedRows.filter((row) => row !== index));
+//    } else {
+//      setSelectedRows([...selectedRows, index]);
+//    }
+//  };
+
+//  console.log(selectedRows)
+
+//  const[inputValue,setInputValue]=useState('');
  
+//  const inputCleared=(e)=>{
+//   setInputValue(e.target.value);
+//  }
+ 
+ const [selectedRows, setSelectedRows] = useState([]);
+
+ const handleCheckboxChange = (event, row) => {
+  if (event.target.checked) {
+    // Add the selected row object to the array
+    setSelectedRows([...selectedRows, row]);
+  } else {
+    // Remove the selected row object from the array
+    setSelectedRows(selectedRows.filter((selectedRow) => selectedRow.id !== row.id));
+  }
+};
+
+const handleSelectAll = (event) => {
+  if (event.target.checked) {
+    // Select all rows
+    setSelectedRows(partlistdata);
+  } else {
+    // Deselect all rows
+    setSelectedRows([]);
+  }
+};
+
+
+  console.log(selectedRows)
+
   return (
     <div>
         <div className="row mt-2">
@@ -84,14 +131,20 @@ const onChangeInput = (e, TaskNo, key) => {
               style={{ width: "150px",marginLeft:"20px" }} onClick = {saveClearedonClick}>
               Save Cleared
             </button>
+
+            <button className="button-style mt-2 group-button"
+              style={{ width: "150px",marginLeft:"20px" }} >
+              Clear Selected
+            </button>
         </div>  
          
         <div  className='mt-4' style={{height:"160px",overflowY: "scroll"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
+          <th></th>
            <th>DwgName</th>
-           <th>Programed</th>
+           <th>Programmed</th>
            <th>Produced</th>
            <th>Cleared</th>
            <th>Task_Part_ID</th>
@@ -116,42 +169,51 @@ const onChangeInput = (e, TaskNo, key) => {
       
           <tbody className='tablebody'>
           {
-       partlistdata.map((item,key)=>{
+       partlistdata.map((row,index)=>{
         return(
           <>
-           <tr  key={item.TaskNo}>
-           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
-           <td>{item.QtyToNest}</td>
-           <td>{item.QtyProduced}</td>
-           <td>
+           <tr         
 
-            <div key={item.QtyCleared}>
+       index={row.TaskNo}>
+        <td className='mt-2'>
+        <td>
+            <input style={{marginLeft:"20px"}} className="form-check-input"
+                                 type="checkbox"
+                 /></td>
+
+        </td>
+           <td style={{whiteSpace:"nowrap"}}>{row.DwgName}</td>
+           <td style={{textAlign:"center"}}>{row.QtyToNest}</td>
+           <td style={{textAlign:"center"}}>{row.QtyProduced}</td>
+           <td>
+            <div   key={row.QtyCleared}>
             <input className='table-cell-editor '
+            style={{textAlign:"center"}}
            name="cleared"
-           defaultValue={item.QtyCleared}
+           defaultValue={row.QtyCleared}
            type="number"
-           //onChange={(e)=>onChangeCleared(e,  item, key)}
            placeholder="Type Cleared"
+           onKeyDown={blockInvalidChar}
          />
             </div>
            
          </td>
-           <td>{item.Task_Part_ID}</td>
-           <td>{item.NcTaskId}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.SchDetailsId}</td>
-           <td>{item.PartID}</td>
-           <td>{item.QtyToNest}</td>
-           <td>{item.QtyCleared}</td>
-           <td>{item.QtyProduced}</td>
-           <td>{item.QtyNested}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.Remarks}</td>
-           <td>{item.LOC}</td>
-           <td>{item.Pierces}</td>
-           <td>{item.Part_Area}</td>
-           <td>{item.Unit_Wt}</td>
+           <td>{row.Task_Part_ID}</td>
+           <td style={{textAlign:"center"}}>{row.NcTaskId}</td>
+           <td style={{whiteSpace:"nowrap",textAlign:"center"}}>{row.TaskNo}</td>
+           <td style={{whiteSpace:"nowrap",textAlign:"center"}}>{row.SchDetailsId}</td>
+           <td style={{textAlign:"center"}}>{row.PartID}</td>
+           <td style={{textAlign:"center"}}>{row.QtyToNest}</td>
+           <td style={{textAlign:"center"}}>{row.QtyCleared}</td>
+           <td style={{textAlign:"center"}}>{row.QtyProduced}</td>
+           <td style={{textAlign:"center"}}>{row.QtyNested}</td>
+           <td style={{whiteSpace:"nowrap"}}>{row.Remarks}</td>
+           <td style={{textAlign:"center"}}>{row.LOC}</td>
+           <td style={{textAlign:"center"}}>{row.Pierces}</td>
+           <td style={{textAlign:"center"}}>{row.Part_Area}</td>
+           <td style={{textAlign:"center"}}>{row.Unit_Wt}</td>
            <td>
-            <input className="form-check-input"
+            <input style={{marginLeft:"20px"}} className="form-check-input"
                  type="checkbox"
                  value=""
                  id="flexCheckDefault"/></td>

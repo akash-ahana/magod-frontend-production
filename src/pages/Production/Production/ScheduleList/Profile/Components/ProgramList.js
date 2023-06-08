@@ -21,7 +21,7 @@ export default function ProgramList({getProgramlistdata,programlistdata,TaskNo})
           <th>NCProgramNo</th>
           <th>Machine</th>
           <th>ActualTime</th>
-          <th>EstmatedTime</th>
+          <th style={{whiteSpace:"nowrap"}}>Estimated Time</th>
           <th>QtyAlloted</th>
           <th>QtyProcessed</th>
         </tr>
@@ -34,10 +34,10 @@ export default function ProgramList({getProgramlistdata,programlistdata,TaskNo})
   <tr>
     <td style={{whiteSpace:"nowrap"}}>{item.NCProgramNo}</td>
     <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
-    <td>{item.ActualTime}</td>
-    <td>{item.EstimatedTime}</td>
-    <td>{item.QtyAllotted}</td>
-    <td>{item.QtyCut}</td>
+    <td style={{textAlign:"center"}}>{item.ActualTime}</td>
+    <td style={{textAlign:"center"}}>{item.EstimatedTime}</td>
+    <td style={{textAlign:"center"}}>{item.QtyAllotted}</td>
+    <td style={{textAlign:"center"}}>{item.QtyCut}</td>
   </tr>
   </>
   )

@@ -51,19 +51,19 @@ const changeMachineonClick = () => {
 
               <div className="col-md-6">
                 <label className="">Program No</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                 value={selectProgramProcessing.NCProgramNo} />
               </div>
 
               <div className="col-md-6">
                 <label className="">Machine</label>
-                <input  className='in-field' 
+                <input  className='in-fields' 
                  value={selectProgramProcessing.Machine}/>
               </div>
 
               <div className="col-md-6 mt-1">
                 <label className="">Material</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                  value={selectProgramProcessing.Mtrl_Code} />
               </div>
           
@@ -81,7 +81,7 @@ const changeMachineonClick = () => {
               
               <div className="col-md-6">
                 <label className="">Process</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                  value={selectProgramProcessing.MProcess} />
               </div>
 
@@ -93,7 +93,7 @@ const changeMachineonClick = () => {
 
               <div className="col-md-6 mb-3">
                 <label className="">Status</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                  value={selectProgramProcessing.PStatus} />
               </div>  
             </div>

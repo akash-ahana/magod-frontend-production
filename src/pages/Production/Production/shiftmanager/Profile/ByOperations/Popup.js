@@ -3,9 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useState } from 'react';
-import { baseURL } from '../../../../../../api/baseUrl';
+import {baseURL} from "../../../../../../api/baseUrl"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import MachineChangeModal from './MachineChangeModal';
+
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
    machineData,setSelectProgramProcessing}) {
@@ -25,23 +27,25 @@ const handleMachineChange = (e) => {
 
 
 const changeMachineonClick = () => {
-  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    handleClose();
-     const constSelectProgramCompleted = selectProgramProcessing;
-     constSelectProgramCompleted.Machine = selectedMachine;
-     setSelectProgramProcessing(constSelectProgramCompleted)
-    // taskNoOnClick();
-    toast.success('Machine Name Changed',{
-      position: toast.POSITION.TOP_CENTER
-  })
- })
+ changeMachineModal();
+}
+
+const[changeMachine,setChangeMachine]=useState('');
+const changeMachineModal=()=>{
+  setChangeMachine(true)
 }
 
   return (
     <>
-        <ToastContainer/>
+    <MachineChangeModal
+    changeMachine={changeMachine}
+    setChangeMachine={setChangeMachine}
+    selectProgramProcessing={selectProgramProcessing}
+    setSelectProgramProcessing={setSelectProgramProcessing}
+    selectedMachine={selectedMachine}
+    setOpenChangeMachine={setOpenChangeMachine}
+    />
+
     <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"
@@ -58,19 +62,19 @@ const changeMachineonClick = () => {
 
               <div className="col-md-6">
                 <label className="">Program No</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                 value={selectProgramProcessing.NCProgramNo} />
               </div>
 
               <div className="col-md-6">
                 <label className="">Machine</label>
-                <input  className='in-field' 
+                <input  className='in-fields' 
                  value={selectProgramProcessing.Machine}/>
               </div>
 
               <div className="col-md-6 mt-1">
                 <label className="">Material</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                  value={selectProgramProcessing.Mtrl_Code} />
               </div>
           
@@ -88,7 +92,7 @@ const changeMachineonClick = () => {
               
               <div className="col-md-6">
                 <label className="">Process</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                  value={selectProgramProcessing.MProcess} />
               </div>
 
@@ -100,7 +104,7 @@ const changeMachineonClick = () => {
 
               <div className="col-md-6 mb-3">
                 <label className="">Status</label>
-                <input  className='in-field'
+                <input  className='in-fields'
                  value={selectProgramProcessing.PStatus} />
               </div>  
             </div>

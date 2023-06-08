@@ -114,7 +114,7 @@ const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.prev
 
         <form className="form" onSubmit={handleSubmit(showAlert)}>
         <Modal.Body>
-          <h5>{selectedRow.refName}</h5>
+          <h5 className='ms-2'>{selectedRow.refName}</h5>
         <div className="col-md-12 col-sm-12">
           <div>
             <div className="row">
@@ -141,7 +141,7 @@ const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.prev
               </div>
 
               <div className="col-md-12">
-                <label className=""> Rate(/Hour)</label>
+                <label className="form-label"> Rate(/Hour)</label>
                 <input    value={processform.TgtRate} name='TgtRate'
                 type='number'
                 onKeyDown={blockInvalidChar}

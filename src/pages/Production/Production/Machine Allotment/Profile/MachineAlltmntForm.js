@@ -11,7 +11,7 @@ export default function MachineAlltmntForm() {
 
   const [machineProcessData, setMachineProcessData] = useState([]) 
   const [machineList , setMachineList] = useState([])
-  const [selectedMachine , setSelectedMachine] = useState("")
+  const [selectedMachine , setSelectedMachine] = useState('')
   const [machineSelect,setMachineSelect]=useState({})
   const selectedMachineFun=(item,index)=>{
       let list={...item,index:index}
@@ -39,14 +39,13 @@ export default function MachineAlltmntForm() {
   const [selectedMachineTreeView , setSelectedMachineTreeView] = useState("")
   const [selectedRows, setSelectedRows] = useState([]);
   
+  console.log(selectedMachineTreeView)
   const onClickMachine = (Machine, key) => {
       setSelectedRows([])
      //console.log('Selected Rows are  ' , selectedRows)
       
       axios.post(baseURL+'/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
-      .then((response) => {
-        
-        //  console.log("data", response.data);
+      .then((response) => {        
           setNcProgramsTableData(response.data)
           for(let i = 0; i< response.data.length ; i++){
             response.data[i].isChecked = false;
@@ -54,14 +53,12 @@ export default function MachineAlltmntForm() {
       })
       setSelectedRows([])
       setSelectedMachineTreeView(Machine)
+      setMachineList([])
   }
   // console.log(' Selected Rows Current State ' , selectedRows)
  
 //SELECTED ROWS IS THE STATE TO CHANGE THE MACHINES 
 const handleCheckboxChange = (item, key) => {
- // console.log(item)
- // console.log('ncProgramsTableData', ncProgramsTableData)
-
    const constncProgramsTableData = ncProgramsTableData
   if(ncProgramsTableData[key].isChecked === true) {
     constncProgramsTableData[key].isChecked = false
@@ -92,8 +89,6 @@ if(selectedRows.length === 0){
     toast.error('Please select a program with the same operation',{
       position: toast.POSITION.TOP_CENTER
   })
-  //  console.log('Item is ' , item , ' key is ' , key)
-  //  console.log('ncProgramsTableData' , ncProgramsTableData)
     const constNCProgramsTableData = ncProgramsTableData
     constNCProgramsTableData[key].isChecked = false
     setNcProgramsTableData(constNCProgramsTableData)
@@ -132,14 +127,11 @@ const treeViewData=()=>{
 
  const clickChangeMachine=async ()=>{
  // console.log("Change Machine Button Clicked" , selectedRows , " Selected Machine is " , selectedMachine)
-  axios.post(baseURL+'/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
+  axios.post(baseURL+'/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine})
   .then((response) => {
-      //  console.log("data", response.data)
      onClickMachine();
      handleClose();
-     //setSelectedRows([])
   })
-
   await delay(200);
   
   axios.post(baseURL+'/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
@@ -152,6 +144,7 @@ const treeViewData=()=>{
       })
       treeViewData();
       setSelectedRows([])
+      setMachineList([])
  }
 
 
@@ -246,12 +239,8 @@ useEffect(() => {
                                         {data.process.map((value) => {
 
                                             return (
-                                                <>
-                                              
-                                                
+                                                <>  
                                              <li className="node" style={{marginLeft:"-10px",fontSize:"11px"}} >{value.RefProcess} &nbsp; {value.formattedLoad}</li>
-                                                
-                                               
                                                 </>
                                             )
                                         })}  
