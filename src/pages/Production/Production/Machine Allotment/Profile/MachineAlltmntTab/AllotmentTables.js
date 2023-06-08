@@ -152,7 +152,7 @@ export default function AllotmentTables() {
     <div>
       <div className='col-md-12'>
       <div className="col-md-4 mb-2 ms-3">
-              <label >Find Schedule</label>
+              <label className='form-label' >Find Schedule</label>
               <input className="in-field "
                onKeyDown={blockInvalidChar} style={{marginTop:"-6px"}} type='search' onChange={(e) => searchText(e)}/>
       </div>
@@ -196,21 +196,21 @@ export default function AllotmentTables() {
               <div className="ip-box form-bg">
                   <div className="row">
                     <div className="col-md-12 ">
-                      <label className="">Customer</label>
-                      <input className="in-field"
+                      <label className="form-label">Customer</label>
+                      <input className="in-fields"
                         value={tableRowSelect.Cust_name}/>
                     </div>
                   </div>
 
                   <div className="row">
                     <div className="col-md-6 ">
-                      <label className="">Task No</label>
-                      <input className="in-field"
+                      <label className="form-label">Task No</label>
+                      <input className="in-fields"
                         value={tableRowSelect.TaskNo} />
                     </div>
                     <div className="col-md-6 ">
-                      <label className="">Status</label>
-                      <input className="in-field"
+                      <label className="form-label">Status</label>
+                      <input className="in-fields"
                       value={tableRowSelect.TStatus} />
                     </div>
                   </div>
@@ -218,8 +218,8 @@ export default function AllotmentTables() {
 
                   <div className="row">
                     <div className="col-md-12 ">
-                      <label className="">Material</label>
-                      <input className="in-field"
+                      <label className="form-label">Material</label>
+                      <input className="in-fields"
                         value={tableRowSelect.Mtrl_Code}/>
                     </div>
                   </div>
@@ -227,12 +227,12 @@ export default function AllotmentTables() {
 
                   <div className="row">
                     <div className="col-md-6">
-                        <label className="">Process</label>
-                        <input className="in-field mt-2" 
+                        <label className="form-label">Process</label>
+                        <input className="in-fields mt-2" 
                           value={tableRowSelect.MProcess} />
                     </div>
                     <div className="col-md-6">
-                        <label className="">Select machine</label>
+                        <label className="form-label">Select machine</label>
                         <select className="ip-select dropdown-field mt-2"  onChange = {(e) => onChangeMachine(e)}>
                           <option value={tableRowSelect.Machine} selected>{tableRowSelect.Machine}</option>
                     {machineList.map((value,key)=>{
@@ -249,12 +249,12 @@ export default function AllotmentTables() {
 
                   <div className="row">
                     <div className="col-md-6">
-                      <label className="">Priority</label>
-                      <input className="in-field"
+                      <label className="form-label">Priority</label>
+                      <input className="in-fields"
                         value={tableRowSelect.Priority} />
                     </div>
 
-                    <div className="col-md-6 mt-3">
+                    <div className="col-md-6 mt-4">
                           <button onClick={onClickChangeMachine} style={{width:"160px"}} className="button-style mt-3 group-button"
                           disabled={rowSelect.Schedule_Status=='Completed' ? true : false}>
                             Change Machine
@@ -264,8 +264,8 @@ export default function AllotmentTables() {
 
                   <div className="row mb-2">
                     <div className="col-md-6">
-                      <label className="">Machine</label>
-                      <input className="in-field" value={tableRowSelect.Machine}/>
+                      <label className="form-label">Machine</label>
+                      <input className="in-fields" value={tableRowSelect.Machine}/>
                     </div>
                     <div className="col-md-6">
                           <button onClick={onClickReleaseForProgramming} style={{width:"160px",height:"55px"}}

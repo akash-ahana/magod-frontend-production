@@ -89,8 +89,6 @@ if(selectedRows.length === 0){
     toast.error('Please select a program with the same operation',{
       position: toast.POSITION.TOP_CENTER
   })
-  //  console.log('Item is ' , item , ' key is ' , key)
-  //  console.log('ncProgramsTableData' , ncProgramsTableData)
     const constNCProgramsTableData = ncProgramsTableData
     constNCProgramsTableData[key].isChecked = false
     setNcProgramsTableData(constNCProgramsTableData)

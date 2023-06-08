@@ -30,6 +30,17 @@ const openPrintdailyPdf=()=>{
   setOpendailyReport(true);
 }
 
+//Select Date
+const[dateSelect,SetDateSelect]=useState('')
+const handleChangeSelectDate=(e)=>{
+  SetDateSelect(e.target.value);
+}
+
+let date=dateSelect.split('-')
+let finalDate=date[2]+'-'+date[1]+'-'+date[0];
+console.log(finalDate);
+
+
   return (
     <div>
       <DailyReportPrintModal
@@ -43,7 +54,7 @@ const openPrintdailyPdf=()=>{
       <div className='col-md-12'>
         <div className='row'>
            <div className='col-md-2 mt-3'>
-                <input  name='InstallDate' 
+                <input  name='InstallDate' onChange={handleChangeSelectDate}
                type="date"
                 required />
            </div>
@@ -58,16 +69,16 @@ const openPrintdailyPdf=()=>{
                Print Daily Report
             </button>
 
-           <div className='col-md-3 mt-2'>
+           {/* <div className='col-md-3'>
            <label  
            className="">Prepared By</label>
-                <input style={{marginTop:"-10px"}} className="in-field" required />
-           </div>
-           {/* <div className='col-md-3 mt-2' style={{display:"flex",gap:"20px"}}>
-           <label 
-           className="mt-2" style={{whiteSpace:"nowrap"}}>Prepared By</label>
-                <input style={{marginTop:"-5px"}} className="in-field" required />
+                <input style={{marginTop:"-6px"}} className="in-field" required />
            </div> */}
+           <div className='col-md-3 mt-2' style={{display:"flex",gap:"20px"}}>
+           <label 
+           className="mt-1 form-label" style={{whiteSpace:"nowrap"}}>Prepared By</label>
+                <input style={{marginTop:"-5px"}} className="in-field" required />
+           </div> 
         </div>
       </div>
 

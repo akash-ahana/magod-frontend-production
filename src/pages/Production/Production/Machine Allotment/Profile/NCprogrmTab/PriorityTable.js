@@ -47,6 +47,9 @@ setPriorityTable(filteredList)
     setOpenPrint(true)
   }
 
+  
+  
+
   return (
     <>
     <ModalPrintPriority openPrint={openPrint}
@@ -59,7 +62,7 @@ setPriorityTable(filteredList)
      style={{overflowY:'scroll',overflowX:'scroll', height:'380px',marginLeft:"-30px"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
-         <tr>
+         <tr >
           <th>Select</th>
            <th style={{whiteSpace:"nowrap"}}>Program No</th>
            <th style={{whiteSpace:"nowrap"}}>Task No</th>

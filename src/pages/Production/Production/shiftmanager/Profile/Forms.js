@@ -112,34 +112,34 @@ function Forms() {
 
             <div className="col-md-9">
                 <label className="form-label">Date</label>
-                <input className="in-field bg-light" style={{marginTop:'-7px'}} disabled
+                <input className="in-field bg-light"  disabled
                  value={shiftDetails[0].ShiftDate}/>
             </div>
 
             <div className="col-md-9">
                 <label className="form-label">Shift</label>
-                <input className="in-field" type="text" style={{marginTop:'-14px'}} disabled
+                <input className="in-field" type="text"  disabled
                  value={shiftDetails[0].Shift}
                 />
             </div>
 
             <div className="col-md-9">
                 <label className="form-label">From</label>
-                <input className="in-field" style={{marginTop:'-10px'}}
+                <input className="in-field" 
                  value={shiftDetails[0].FromTime} 
                 disabled/>
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">To</label>
-                <input className="in-field"  style={{marginTop:'-10px'}} disabled
+                <input className="in-field"  disabled
                  value={shiftDetails[0].ToTime}
                 />
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">In Charge</label>
-                <input className="in-field" type="text" style={{marginTop:'-12px'}} disabled
+                <input className="in-field" type="text"  disabled
                  value={shiftDetails[0].Shift_Ic}
                 />
             </div>

@@ -33,6 +33,7 @@ import MachieAlltmntCall from "./pages/Production/Production/Machine Allotment/P
 import MachieAlltmntCallService from "./pages/Production/Production/Machine Allotment/Service/MachieAlltmntCallService";
 import ShiftManagerFabrication from "./pages/Production/Production/shiftmanager/Fabrication/ShiftManagerFabrication";
 import ShiftManagerService from "./pages/Production/Production/shiftmanager/Service/ShiftManagerService"
+import ScheduleLisMain from "./pages/Production/Production/ScheduleList/ScheduleListMain";
 
 function App() {
   return (
@@ -47,24 +48,15 @@ function App() {
      {/* Production  */}
            <Route path="production">
                 <Route index={true} element={<Production/>}/>
-                {/* ScheduleList */}
-                   <Route path="schedulelistprofile">
-                      <Route index ={true}  element={<ScheduleList/>} />
-                      {/* <Route path="PrintShowStatus" element={<PrintShowStatus/>} /> */}
-                      {/* <Route path="PrintShowParts" element={<ShowPartsPdf/>} /> */}
-                      <Route path="machineallotementprofile" element={<MachieAlltmntCall/>} />
-                  </Route>
-                  <Route path="schedulelistfabrication">
-                      <Route index ={true}  element={<ScheduleListFabrication/>} />
-                      {/* <Route path="PrintFabricationShowStatus" element={<PrintShowStatusFabrication/>} /> */}
-                      {/* <Route path="PrintFabricationShowParts" element={<ShowPartsPdfFabrication/>} /> */}
-                  </Route>
-                  <Route path="schedulelistservice">
-                      <Route index ={true} element={<ScheduleListService/>} />
-                      {/* <Route path="PrintServiceShowStatus" element={<PrintShowStatusService/>} /> */}
-                      {/* <Route path="PrintServiceShowParts" element={<ShowPartsPdfService/>} /> */}
-                  </Route>  
-
+                  
+                  {/* ScheduleList */}
+                <Route path="schedulelist">
+                    <Route index={true} element={<ScheduleLisMain/>}/>
+                    <Route path='Profile' element={<ScheduleList/>} />
+                    <Route path='Fabrication' element={<ScheduleListFabrication/>}/>
+                    <Route path='Service' element={<ScheduleListService/>} />
+                </Route>
+                
                   {/* Shift Manager */}
                   <Route path="shiftmanagerProfile" element={<ShiftManager/>}/>
                   <Route path="shiftmanagerFabrication" element={<ShiftManagerFabrication/>}/>

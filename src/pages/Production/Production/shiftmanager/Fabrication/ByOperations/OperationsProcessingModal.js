@@ -128,17 +128,17 @@ return (
           <div className="row">
             <div className="col-md-3">
               <label className="form-label"> Task no</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.TaskNo}/>
             </div>
             <div className="col-md-2">
               <label className="form-label"> Quantity</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.Qty} />
             </div>
             <div className="col-md-5">
               <label className="form-label"> Material</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.Mtrl_Code} />
             </div>
 
@@ -146,49 +146,49 @@ return (
 
             <div className="col-md-3">
               <label className="form-label"> Program no</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.NCProgramNo} />
             </div>
 
             <div className="col-md-2">
               <label className="form-label">Alloted</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.QtyAllotted} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Process</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.MProcess} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Status</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                 value={selectProgramProcessing.PStatus} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Machine</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramProcessing.Machine}/>
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Processed</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.QtyCut} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Dwgs</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.NoOfDwgs} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Parts</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramProcessing.TotalParts
                }/>
             </div>
@@ -197,21 +197,21 @@ return (
 
             <div className="col-md-3">
                <label className="form-label">Process Time</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.ActualTime
                } />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Estimated</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.EstimatedTime
                } />
             </div>
 
             <div className="col-md-2 mb-2">
                <label className="form-label">Machine</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramProcessing.Machine}/>
             </div>
 

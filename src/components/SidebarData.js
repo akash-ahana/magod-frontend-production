@@ -77,15 +77,15 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/schedulelistprofile",
+            path: "/production/production/schedulelist/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Fabrication",
-            path: "/production/production/schedulelistfabrication",
+            path: "/production/production/schedulelist/Fabrication",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Services",
-            path: "/production/production/schedulelistservice",
+            path: "/production/production/schedulelist/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }]
       },

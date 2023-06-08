@@ -51,7 +51,6 @@ export default function ({selectedRow}) {
         }); 
    }
    
-
    useEffect(() => {
     getSelectmachinetypes();
    }, []);
@@ -249,7 +248,7 @@ else{
          <div className="row">
             <div className="row">
               <div className="col-md-12 ">
-                <label className="">Reference Name</label>
+                <label className="form-label">Reference Name</label>
                 <input className="in-fields" value={machineData.refName} 
                 disabled={true}
                 name='refName' onChange={(e)=>handleMachineChange(e)} />
@@ -258,7 +257,7 @@ else{
 
             <div className="row">
               <div className="col-md-12">
-                <label className="">Manufacturer</label>
+                <label className="form-label">Manufacturer</label>
                 <input className="in-fields"  name='manufacturer'
                  value={machineData.manufacturer} 
                 disabled={true}  onChange={(e)=>handleMachineChange(e)}/>
@@ -269,7 +268,7 @@ else{
             <div className="row">
               <div className="col-md-9">
               <div className="col-md-12 ">
-                <label className="">Model</label>
+                <label className="form-label">Model</label>
                 <input className="in-fields" value={machineData.Model} 
                  disabled={true} name='model' onChange={(e)=>handleMachineChange(e)} />
               </div>
@@ -278,7 +277,7 @@ else{
               <div className="col-md-3">
               <div className="col-md-12 mt-4"
                style={{display:"flex",gap:"5px"}}>
-                <label className="">Working</label>
+                <label className="form-label">Working</label>
                 <input className="form-check-input mt-2"
                     type="checkbox"
                     checked={machineData.Working===1 ? true : false}
@@ -291,7 +290,7 @@ else{
             <div className="row">
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="">RegnNo</label>
+                <label className="form-label">RegnNo</label>
                 <input   value={machineData.RegnNo}
                  name='RegnNo' 
                  disabled={machineData.isRegnNumberPresent=== true ? true : false}
@@ -304,7 +303,7 @@ else{
               </div>
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="">Location</label>
+                <label className="form-label">Location</label>
                 <input 
                    name='location' value={machineData.location}
                    disabled={machineData.isLocationPresent===true ? true : false}
@@ -319,7 +318,7 @@ else{
             <div className="row">
             <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="">Machine_Type</label>
+                <label className="form-label">Machine_Type</label>
                 <select className="ip-select dropdown-field mt-2"  value={machineData.Machine_Type}
                     name='Machine_Type' onChange={(e)=>handleMachineChange(e)}>
                     {machinetypes.map((value,key)=>{
@@ -335,7 +334,7 @@ else{
               
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="">Target Rate</label>
+                <label className="form-label">Target Rate</label>
                 <input className="in-fields mt-2" type='number'
                 onKeyDown={blockInvalidChar} value={machineData.TgtRate}
                 name='TgtRate' onChange={(e)=>handleMachineChange(e)} />
@@ -346,7 +345,7 @@ else{
             <div className="row">
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="">Install Date</label>
+                <label className="form-label">Install Date</label>
                 <input 
               name='InstallDate' 
                value={formatDate(machineData.InstallDate)} type="date"
@@ -360,7 +359,7 @@ else{
               </div>
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="">Uninstall Date</label>
+                <label className="form-label">Uninstall Date</label>
                 <input className="in-fields mt-2" name='UnistallDate'
                   value={formatDate(machineData.UnistallDate)}
                  type="date"
@@ -370,7 +369,7 @@ else{
             </div>
             <div className="row">
             <div className="col-md-12 ">
-                <label className="">Remarks</label>
+                <label className="form-label">Remarks</label>
                 <input className="in-fields mt-2" name='remarks'
                  value={machineData.remarks} 
                  onChange={(e)=>handleMachineChange(e)} />

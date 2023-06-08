@@ -126,67 +126,67 @@ return (
         <div className="ip-box form-bg ">
           <div className="row">
             <div className="col-md-3">
-              <label className="form-label"> Task no</label>
-              <input  className='in-field'
+              <label className="form-label"> Task No</label>
+              <input  className='in-fields'
               value={selectProgramProcessing.TaskNo}/>
             </div>
             <div className="col-md-2">
               <label className="form-label"> Quantity</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.Qty} />
             </div>
             <div className="col-md-5">
               <label className="form-label"> Material</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.Mtrl_Code} />
             </div>
 
         
             <div className="col-md-3">
-              <label className="form-label"> Program no</label>
-              <input  className='in-field'
+              <label className="form-label"> Program No</label>
+              <input  className='in-fields'
               value={selectProgramProcessing.NCProgramNo} />
             </div>
 
             <div className="col-md-2">
               <label className="form-label">Alloted</label>
-              <input  className='in-field'
+              <input  className='in-fields'
               value={selectProgramProcessing.QtyAllotted} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Process</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.MProcess} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Status</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                 value={selectProgramProcessing.PStatus} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Machine</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramProcessing.Machine}/>
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Processed</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.QtyCut} />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Dwgs</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.NoOfDwgs} />
             </div>
 
             <div className="col-md-3">
                <label className="form-label">Parts</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramProcessing.TotalParts
                }/>
             </div>
@@ -195,21 +195,21 @@ return (
 
             <div className="col-md-3">
                <label className="form-label">Process Time</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.ActualTime
                } />
             </div>
 
             <div className="col-md-2">
                <label className="form-label">Estimated</label>
-               <input  className='in-field'
+               <input  className='in-fields'
                value={selectProgramProcessing.EstimatedTime
                } />
             </div>
 
             <div className="col-md-2 mb-2">
                <label className="form-label">Machine</label>
-               <input  className='in-field' 
+               <input  className='in-fields' 
                value={selectProgramProcessing.Machine}/>
             </div>
 
@@ -221,8 +221,8 @@ return (
             </button>
             </div>
 
-            <div className="col-md-2 mt-4 " style={{marginLeft:"-70px"}}>
-            <button style={{ width:"150px"}} className="button-style mt-3 group-button" onClick={openChangeMachineModal}>
+            <div className="col-md-2 mt-4 " style={{marginLeft:"-60px"}}>
+            <button style={{ width:"130px"}} className="button-style mt-3 group-button" onClick={openChangeMachineModal}>
              Change Machine
             </button>
             </div>
@@ -237,9 +237,9 @@ return (
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
        <tr>
-         <th style={{whiteSpace:"nowrap"}}>DWG Name</th>
-         <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th>
-         <th style={{whiteSpace:"nowrap"}}>To Produce/Qty Nested</th>
+         <th style={{whiteSpace:"nowrap"}}>Dwg Name</th>
+         {/* <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th> */}
+         <th style={{whiteSpace:"nowrap"}}>To Produce</th>
          <th>Produced</th>
          <th>Rejected</th>
          <th>Cleared</th>
@@ -256,7 +256,7 @@ return(
   <tbody className='tablebody'>
         <tr >
            <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
-           <td>{item.TotQtyNested}</td>
+           {/* <td>{item.TotQtyNested}</td> */}
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>
            <td >

@@ -71,7 +71,7 @@ export default function AddMachine({show, setShow,machinetypes}) {
           <div >
             <div className="row">
               <div className="col-md-12">
-                <label className=""> Machine Reference Name</label>
+                <label className="form-label"> Machine Reference Name</label>
                 <input     name="refName"  value={formdata.refName} 
                 {...register('refName')}
                  className={`in-field ${
@@ -81,14 +81,14 @@ export default function AddMachine({show, setShow,machinetypes}) {
               </div>
 
               <div className="col-md-12">
-                <label className=""> Manufacturer</label>
+                <label className="form-label"> Manufacturer</label>
                 <input  value={formdata.manufacturer}   {...register("manufacturer")}
                 className={`in-field ${
                   errors.manufacturer ? "is-invalid" : ""}`} required name="manufacturer" onChange={(e)=>handleFormChange(e)} />
               </div>
 
               <div className="col-md-12">
-                <label className=""> Model</label>
+                <label className="form-label"> Model</label>
                 <input    {...register("model")} value={formdata.model}
                 className={`in-field ${
                   errors.model ? "is-invalid" : ""}`} required 

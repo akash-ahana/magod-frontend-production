@@ -10,30 +10,37 @@ export default function MachineUtilisationSummary() {
          <p><b>Total On 1440</b></p>
          <p>Production  135</p>
          <p>Non Production 1305</p>
-         <div className='d-inline-flex'>
-          <div>
-             <p>Total Off <span className='box1'>0</span ></p>
+
+        <div  className='row' >
+          <div className='col-md-4'style={{marginLeft:"-20px"}}>
+              <label>Total Off</label>
           </div>
-          <div>
-            <button  className="button-style group-button" type='button'
-              style={{ width: "120px",marginTop:"-10px",marginLeft:"20px"}}>
-              Update Production
+          <div className='col-md-4' style={{marginLeft:"-20px"}}>
+              <input></input>
+          </div><div className='col-md-4'>
+          <button className="button-style  group-button" type='button'
+              style={{ width: "120px",marginTop:"-20px",marginLeft:"-10px"}}>
+               Update Production
             </button>
           </div>
-         </div>
+        </div> 
 
-         <div className='d-inline-flex'>
-          <div>
-             <p>Laser ON<span className='box1'></span ></p>
+        <div  className='row mt-4'>
+          <div className='col-md-4' style={{marginLeft:"-20px"}}>
+              <label>Laser ON</label>
           </div>
-          <div>
-            <button  className="button-style group-button" type='button'
-              style={{ width: "120px",marginTop:"-10px",marginLeft:"30px"}}>
+          <div className='col-md-4' style={{marginLeft:"-20px"}}>
+              <input></input>
+          </div><div className='col-md-4'>
+          <button className="button-style  group-button" type='button'
+              style={{ width: "120px",marginTop:"-10px",marginLeft:"-10px"}}>
               Save
             </button>
           </div>
-         </div>
-         
+        </div>
+
+        
+
       </div>
       <div className='col-md-8'>
       <div style={{maxWidth:"800px",overflowX:"scroll",height:"300px",overflowY:"scroll"}}>
