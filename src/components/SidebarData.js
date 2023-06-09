@@ -96,12 +96,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/machineallotmentProfile",
+            path: "/production/production/MachineAllotment/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },
           {
             title: "Service",
-            path: "/production/production/machineallotmentservice",
+            path: "/production/production/MachineAllotment/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }
         ]
@@ -115,15 +115,15 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/shiftmanagerProfile",
+            path: "/production/production/ShiftManager/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Fabrication",
-            path: "/production/production/shiftmanagerFabrication",
+            path: "/production/production/ShiftManager/Fabrication",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Services",
-            path: "/production/production/shiftmanagerService",
+            path: "/production/production/ShiftManager/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }]
       },

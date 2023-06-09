@@ -34,6 +34,8 @@ import MachieAlltmntCallService from "./pages/Production/Production/Machine Allo
 import ShiftManagerFabrication from "./pages/Production/Production/shiftmanager/Fabrication/ShiftManagerFabrication";
 import ShiftManagerService from "./pages/Production/Production/shiftmanager/Service/ShiftManagerService"
 import ScheduleLisMain from "./pages/Production/Production/ScheduleList/ScheduleListMain";
+import ShiftManager1 from "./pages/Production/Production/shiftmanager/ShiftManager";
+import MachineAllotment from "./pages/Production/Production/Machine Allotment/MachineAllotment";
 
 function App() {
   return (
@@ -58,13 +60,22 @@ function App() {
                 </Route>
                 
                   {/* Shift Manager */}
-                  <Route path="shiftmanagerProfile" element={<ShiftManager/>}/>
-                  <Route path="shiftmanagerFabrication" element={<ShiftManagerFabrication/>}/>
-                  <Route path="shiftmanagerService" element={<ShiftManagerService/>}/>
+                  <Route path="ShiftManager">
+                    <Route index={true} element={<ShiftManager1/>}/>
+                    <Route path='Profile' element={<ShiftManager/>} />
+                    <Route path='Fabrication' element={<ShiftManagerFabrication/>}/>
+                    <Route path='Service' element={<ShiftManagerService/>} />
+                </Route>
+
+               
                     
                   {/* Machine Allotment */}
-                  <Route path="machineallotmentProfile" element={<MachieAlltmntCall/>} />
-                  <Route path="machineallotmentservice" element={<MachieAlltmntCallService/>}/>
+                  <Route path="MachineAllotment">
+                    <Route index={true} element={<MachineAllotment/>}/>
+                    <Route path='Profile' element={<MachieAlltmntCall/>} />
+                    <Route path='Service' element={<MachieAlltmntCallService/>}/>
+                </Route>
+
             </Route>
 
             {/* reports */}

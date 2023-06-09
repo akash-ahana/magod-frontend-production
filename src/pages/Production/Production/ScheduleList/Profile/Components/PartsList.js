@@ -3,27 +3,21 @@ import { Table } from 'react-bootstrap';
 import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
 import '../Styles.css'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function PartsList({TaskNo,getpartslistdata,partlistdata,setPartlistdata}){
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
-  // console.log(taskno);
-
   //Process Table(Right First table) data
   const[newpartlistdata,setNewPartlistdata]=useState([])
   
-
   useEffect(() => {
     getpartslistdata();
  }, [TaskNo]);
 
-
- 
-
 const onChangeInput = (e, TaskNo, key) => {
   const { name, value } = e.target
-  // console.log('value', value)
-  // console.log('key', key)
   const NewEditData = partlistdata
   NewEditData[key].QtyCleared = value
   setPartlistdata(NewEditData)
@@ -31,64 +25,39 @@ const onChangeInput = (e, TaskNo, key) => {
 }
 
  const clearAllonClick = () => {
-  // console.log("Clear All Button is Clicked" , "Parts List Data is " , partlistdata)
   const  constpartListData = partlistdata;
-  // console.log("Const part list data is " , constpartListData)
     for( let i = 0 ; i < constpartListData.length ; i++) {
       constpartListData[i].QtyCleared = constpartListData[i].QtyProduced
     }
-    // console.log("Updated constPartListData is " , constpartListData)
     setPartlistdata(constpartListData)
-    setNewPartlistdata(constpartListData)
-    //setPartlistdata([])
-  
+    setNewPartlistdata(constpartListData)  
  }
 
-//  console.log('Parts List Data is ' , partlistdata)
+ const clearSelected = () => {
+  const updatedPartListData = partlistdata.map((row) => {
+    if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
+      return { ...row, QtyCleared: row.QtyProduced };
+    }
+    return row;
+  });
 
- const onChangeCleared = (e, item, key) => {
-  //  console.log("e is " , e.target.value, " item is " , item, " key is " , key)
-   //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array 
-  //  console.log(' PART LIST IS ' , partlistdata)
-   const newConstPartList = partlistdata
-   if(e.target.value <= newConstPartList[key].QtyProduced) {
-    newConstPartList[key].QtyCleared = e.target.value
-   }
-  
-  //  console.log('NEW CONST PART LIST IS ' , newConstPartList)
-   setPartlistdata(newConstPartList)
- }
+  setPartlistdata(updatedPartListData);
+};
+
 
  const saveClearedonClick = () => {
-  // console.log('Save Cleared button is clicked' , " task parts table state is " , partlistdata)
   axios.post(
     baseURL +
     "/scheduleListProfile/scheduleListSaveCleared", partlistdata
      ).then((response) => {
-      //setPartlistdata(response.data);
-      // console.log(response.boby)
+      toast.success('Saved',{
+        position: toast.POSITION.TOP_CENTER
+    })
+
    });
  }
 
 //  //SelectedRow
-//  const [selectedRows, setSelectedRows] = useState([]);
-
-//  const handleRowClick = (index) => {
-//    if (selectedRows.includes(index)) {
-//      setSelectedRows(selectedRows.filter((row) => row !== index));
-//    } else {
-//      setSelectedRows([...selectedRows, index]);
-//    }
-//  };
-
-//  console.log(selectedRows)
-
-//  const[inputValue,setInputValue]=useState('');
- 
-//  const inputCleared=(e)=>{
-//   setInputValue(e.target.value);
-//  }
- 
  const [selectedRows, setSelectedRows] = useState([]);
 
  const handleCheckboxChange = (event, row) => {
@@ -111,20 +80,38 @@ const handleSelectAll = (event) => {
   }
 };
 
-
   console.log(selectedRows)
 
+  
+  const onChangeCleared = (e, item, key) => {
+    const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
+    const newValue = parseInt(e.target.value); // Convert the input value to an integer
+  
+    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyProduced) {
+      newConstPartList[key].QtyCleared = newValue; // Update QtyCleared if it's a valid value
+    } else {
+      newConstPartList[key].QtyCleared = ""; // Reset QtyCleared if the value is invalid
+    }
+  
+    setPartlistdata(newConstPartList);
+  };
+
+  
+
+  
   return (
     <div>
+        <ToastContainer/>
         <div className="row mt-2">
-           {/* <button className="button-style mt-2 group-button"
-              style={{ width: "180px",marginLeft:"20px" }}>
-              Update Task Parts
-            </button> */}
-
+  
             <button className="button-style mt-2 group-button"
               style={{ width: "150px" ,marginLeft:"20px"}} onClick = {clearAllonClick}>
               Clear All
+            </button>
+
+            <button className="button-style mt-2 group-button"
+              style={{ width: "150px",marginLeft:"20px" }} onClick={clearSelected} >
+              Clear Selected
             </button>
 
             <button className="button-style mt-2 group-button"
@@ -132,10 +119,7 @@ const handleSelectAll = (event) => {
               Save Cleared
             </button>
 
-            <button className="button-style mt-2 group-button"
-              style={{ width: "150px",marginLeft:"20px" }} >
-              Clear Selected
-            </button>
+            
         </div>  
          
         <div  className='mt-4' style={{height:"160px",overflowY: "scroll"}}>
@@ -172,7 +156,9 @@ const handleSelectAll = (event) => {
        partlistdata.map((row,index)=>{
         return(
           <>
-           <tr         
+           <tr       type="checkbox"
+                checked={selectedRows.some((selectedRow) => selectedRow.id === row.id)}
+                onChange={(event) => handleCheckboxChange(event, row)}
 
        index={row.TaskNo}>
         <td className='mt-2'>
@@ -187,14 +173,18 @@ const handleSelectAll = (event) => {
            <td style={{textAlign:"center"}}>{row.QtyProduced}</td>
            <td>
             <div   key={row.QtyCleared}>
-            <input className='table-cell-editor '
-            style={{textAlign:"center"}}
-           name="cleared"
-           defaultValue={row.QtyCleared}
-           type="number"
-           placeholder="Type Cleared"
-           onKeyDown={blockInvalidChar}
-         />
+            <input
+  className="table-cell-editor"
+  style={{ textAlign: "center" }}
+  name="cleared"
+  value={row.QtyCleared}
+  type="number"
+  placeholder="Type Cleared"
+  onKeyDown={blockInvalidChar}
+  onChange={(e) => onChangeCleared(e, row, index)}
+/>
+
+
             </div>
            
          </td>
@@ -216,7 +206,9 @@ const handleSelectAll = (event) => {
             <input style={{marginLeft:"20px"}} className="form-check-input"
                  type="checkbox"
                  value=""
-                 id="flexCheckDefault"/></td>
+                 id="flexCheckDefault"
+                 />
+                 </td>
            <td></td>
          </tr>
          </>
