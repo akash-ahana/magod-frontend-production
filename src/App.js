@@ -45,14 +45,14 @@ function App() {
         <Route path="/home" element={<Home/>} />
 
         <Route element={<WithNav />}>
-          <Route path="/production" element={<Parentroute />}>
+          <Route path="/Production" element={<Parentroute />}>
 
      {/* Production  */}
-           <Route path="production">
+           <Route path="Production">
                 <Route index={true} element={<Production/>}/>
                   
                   {/* ScheduleList */}
-                <Route path="schedulelist">
+                <Route path="Schedulelist">
                     <Route index={true} element={<ScheduleLisMain/>}/>
                     <Route path='Profile' element={<ScheduleList/>} />
                     <Route path='Fabrication' element={<ScheduleListFabrication/>}/>
@@ -81,24 +81,24 @@ function App() {
             {/* reports */}
             <Route path="fabrication" element={<Fabrication/>} />
             <Route path="profile" element={<Profile/>} />
-            <Route path="reports" element={<Reports/>} />
+            <Route path="Reports" element={<Reports/>} />
             <Route path="services" element={<Services/>} />
 
              {/* Setup*/}
-            <Route path="setup">
+            <Route path="Setup">
                 <Route index={true} element={<Setup/>}/>
                 <Route path="server" element={<Server/>} />
-                <Route path="machine" element={<Machine/>} />
+                <Route path="Machine" element={<Machine/>} />
                 <Route path="process" element={<Process/>} />
                 <Route path="editshiftIC" element={<EditShiftIC/>} />
                 <Route path="stoppagelist" element={<StoppagesList/>} />
             </Route>
 
             {/* Shift Planner */}
-            <Route path="shiftplanner">
+            <Route path="Shiftplanner">
                 <Route index={true} element={<ShiftPlanner/>}/>
                 {/* Shift Editor */}
-                  <Route path="shifteditor">
+                  <Route path="Shifteditor">
                     <Route   index ={true} element={<ShiftEditor/>} />
                     <Route path="PrintWeeklyplan" element={<PrintWeeklyplan/>} />
                     <Route path="PrintDailyplan" element={<PrintDailyShift/>}/>
