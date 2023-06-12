@@ -77,7 +77,7 @@ console.log(finalDate);
            <div className='col-md-3 mt-2' style={{display:"flex",gap:"20px"}}>
            <label 
            className="mt-1 form-label" style={{whiteSpace:"nowrap"}}>Prepared By</label>
-                <input style={{marginTop:"-5px"}} className="in-field" required />
+                <input  className="in-field" required />
            </div> 
         </div>
       </div>
