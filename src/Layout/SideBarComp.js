@@ -57,7 +57,7 @@ const SidebarComp = () => {
     
     //remove /production from the access array
     for(let i = 0; i<lazerUser.data.access.length;i++) {
-      if(lazerUser.data.access[i] === "/production") {
+      if(lazerUser.data.access[i] === "/Production") {
         lazerUser.data.access.splice(i, 1);
 
         for(let i =0; i<lazerUser.data.access.length;i++) {
