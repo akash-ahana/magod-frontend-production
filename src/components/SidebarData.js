@@ -27,6 +27,8 @@ import {GiLaserPrecision} from "react-icons/gi"
 import {HiCubeTransparent} from "react-icons/hi"
 import {AiFillSchedule} from "react-icons/ai"
 
+console.log(JSON.parse(localStorage.getItem("LazerUser")))
+
 export const customerSidebar = [
   {
     title: "Setup",
@@ -36,29 +38,9 @@ export const customerSidebar = [
     iconOpened: <RiIcons.RiArrowUpSFill />,
     subNav: [
       {
-        title: "Server",
-        path: "/production/setup/server",
-        icon: <BsServer />,
-      },
-      {
         title: "Machine",
         path: "/production/setup/machine",
         icon: <FiCpu/>,
-      },
-      {
-        title: "Process",
-        path: "/production/setup/process",
-        icon: <VscServerProcess />,
-      },
-      {
-        title: "Edit Shift IC",
-        path: "/production/setup/editshiftIC",
-        icon: <FiGitPullRequest />,
-      },
-      {
-        title: "Stoppages List",
-        path: "/production/setup/stoppagelist",
-        icon: <AiOutlineOrderedList/>,
       },
     ],
   },
@@ -141,11 +123,6 @@ export const customerSidebar = [
         path: "/production/shiftplanner/shifteditor",
         icon: <FiEdit />,
       },
-      {
-        title: "Weekly Shift Planner",
-        path: "/production/shiftplanner/weeklyShifteditor ",
-        icon: <FaDropbox />,
-      },
     ]
   },
   {
@@ -154,74 +131,6 @@ export const customerSidebar = [
     icon: <MdReport />,
     icon:<GoReport/>
   },
-  // {
-  //   title: "Fabrication",
-  //   path: "/production/fabrication",
-  //   icon: <BsScrewdriver />,
-  //   iconClosed: <RiIcons.RiArrowDownSFill />,
-  //   iconOpened: <RiIcons.RiArrowUpSFill />,
-  //   subNav: [
-  //     {
-  //       title: "3D Schedules",
-  //       path: "/customer/custinvandpayments",
-  //       icon: <AiOutlineSchedule/>,
-  //     },
-  //     {
-  //       title: "Laser Welding",
-  //       path: "/customer/outstandings",
-  //       icon: <GiLaserPrecision />,
-  //     },
-  //     {
-  //       title: "Fabrication",
-  //       path: "/customer/outstandings",
-  //       icon: <HiCubeTransparent/>,
-  //     },
-  //     {
-  //       title: "Scheduler",
-  //       path: "/customer/outstandings",
-  //       icon: <AiFillSchedule/>,
-  //     },
-  //   ]
-  // },
-  // {
-  //   title: "Profile",
-  //   path: "/production/profile",
-  //   icon: <BsPersonFill />,
-  //   iconClosed: <RiIcons.RiArrowDownSFill />,
-  //   iconOpened: <RiIcons.RiArrowUpSFill />,
-  //   subNav: [
-  //     {
-  //       title: "Schedules List",
-  //       path: "/customer/custinvandpayments",
-  //       // icon: <IoIcons.IoIosPaper />,
-  //     },
-  //     {
-  //       title: "Shift Manager",
-  //       path:  "production/production/shiftmanager",
-  //       icon: <SiGoogletagmanager />,
-  //     },
-  //   ]
-  // },
-  // {
-  //   title: "Service",
-  //   path: "/production/services",
-  //   icon: <MdHomeRepairService/>,
-  //   iconClosed: <RiIcons.RiArrowDownSFill />,
-  //   iconOpened: <RiIcons.RiArrowUpSFill />,
-  //   subNav: [
-  //     {
-  //       title: "Schedules List",
-  //       path: "/customer/custinvandpayments",
-  //       // icon: <IoIcons.IoIosPaper />,
-  //     },
-  //     {
-  //       title: "Shift Manager",
-  //       path: "production/production/shiftmanager",
-  //       icon: <SiGoogletagmanager />,
-  //     },
-  //   ]
-  // },
-  
 ];
 
 export const adminSidebar = [

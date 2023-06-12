@@ -12,12 +12,9 @@ import DeleteshiftModal from './Modals/DeleteshiftModal';
 import DeleteMachineoperatorweekModal from './Modals/DeleteMachineoperatorweekModal';
 import { useNavigate, } from 'react-router-dom'
 import { baseURL } from '../../../api/baseUrl';
-// import PrintWeeklyplan from './PrintWeeklyplan';
 
-// import MachineOperatorTable from './MachineOperatorTable';
 
 function NewCalender(props) {
-
   //open Print Pdf
   const navigate=useNavigate()
   const openPdfmodel = () => {
@@ -98,9 +95,12 @@ function NewCalender(props) {
     getOperatorListData();
   }, []);
 
-
+ 
   //Calender Component
+
   const [date, setDate] = useState(new Date());
+  console.log(date)
+  
   const [selectedWeek, setSelectedWeek] = useState([''])
   const [checkedState, setCheckedState] = useState(
     new Array(7).fill(false)
@@ -113,6 +113,8 @@ function NewCalender(props) {
   const [isChecked6, setIsChecked6] = useState(false);
   const [isChecked7, setIsChecked7] = useState(true);
 
+
+  
   const handleOnChangeCheckBox1 = () => {
     setIsChecked(!isChecked);
   };
