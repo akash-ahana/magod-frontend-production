@@ -127,7 +127,7 @@ return (
         <div className="ip-box form-bg ">
           <div className="row">
             <div className="col-md-3">
-              <label className="form-label"> Task no</label>
+              <label className="form-label"> Task No</label>
               <input  className='in-fields'
               value={selectProgramCompleted.TaskNo}/>
             </div>
@@ -145,7 +145,7 @@ return (
             
 
             <div className="col-md-3">
-              <label className="form-label"> Program no</label>
+              <label className="form-label"> Program No</label>
               <input  className='in-fields'
               value={selectProgramCompleted.NCProgramNo} />
             </div>
@@ -238,10 +238,10 @@ return (
    <div style={{height:"200px",maxWidth:'1000px',overflowY: "scroll", overflowX:'scroll'}}>
    <Table striped className="table-data border">
      <thead className="tableHeaderBGColor">
-       <tr>
-         <th style={{whiteSpace:"nowrap"}}>DWG Name</th>
-         <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th>
-         <th style={{whiteSpace:"nowrap"}}>To Produce/Qty Nested</th>
+     <tr>
+         <th style={{whiteSpace:"nowrap"}}>Dwg Name</th>
+         {/* <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th> */}
+         <th style={{whiteSpace:"nowrap"}}>To Produce</th>
          <th>Produced</th>
          <th>Rejected</th>
          <th>Cleared</th>
@@ -258,7 +258,7 @@ return(
   <tbody className='tablebody'>
         <tr >
            <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
-           <td>{item.TotQtyNested}</td>
+           {/* <td>{item.TotQtyNested}</td> */}
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>
            <td >

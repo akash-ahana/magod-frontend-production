@@ -93,6 +93,11 @@ function DailyOperator(props) {
     const openDeleteoperator=()=>{
       setDeleteoperator(true);
     }
+
+    // useEffect(() => {
+    //   setSelectedMachine(props.rowselectMachineOperator.Machine);
+    // }, [props.rowselectMachineOperator]);
+
     return (
         <div style={{textAlign:"center",backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px"}}>
               <ToastContainer/>
@@ -104,12 +109,12 @@ function DailyOperator(props) {
                  <label className="form-label">Machine</label>
                  </div>
                  <div style={{marginLeft:"33px",marginTop:"6px"}}>
-                 <select className="ip-select" onChange={handleMachineChange}>
-                  <option selected>{props.rowselectMachineOperator.Machine}</option>
-                 {dataMachineList.map((dataMachineList) => (
-                    <option value={dataMachineList.refName}>{dataMachineList.refName}</option>
-                   ))}
-                    
+                 <select className="ip-select" onChange={handleMachineChange} value={props.rowselectMachineOperator.Machine}>
+                    {dataMachineList.map((dataMachineList) => (
+                       <option key={dataMachineList.refName} value={dataMachineList.refName}>
+                               {dataMachineList.refName}
+                      </option>
+                    ))}
                  </select>
                  </div>
               </div>
@@ -119,12 +124,13 @@ function DailyOperator(props) {
                 <label className="form-label">Operator</label>
                 </div>
                 <div style={{marginLeft:"30px",marginTop:"6px"}}>
-                <select className="ip-select" onChange={handleOperatorList}>
-                  <option selected>{props.rowselectMachineOperator.Operator}</option>
-                 {dataOperatorList.map((dataOperatorList)=>(
-                  <option value={dataOperatorList.Name}>{dataOperatorList.Name}</option>
+                <select className="ip-select" onChange={handleOperatorList} value={props.rowselectMachineOperator.Operator}>
+                      {dataOperatorList.map((dataOperatorList) => (
+                      <option key={dataOperatorList.Name} value={dataOperatorList.Name}>
+                        {dataOperatorList.Name}
+                      </option>
                   ))}
-                 </select>
+               </select>
                 </div>
               </div>
 

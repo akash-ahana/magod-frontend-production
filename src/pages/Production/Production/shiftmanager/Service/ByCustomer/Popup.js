@@ -1,11 +1,16 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useState } from 'react';
-import {baseURL} from '../../../../../../api/baseUrl'
+import {baseURL} from "../../../../../../api/baseUrl"
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import MachineChangeModal from './MachineChangeModal';
+
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
-   machineData,setSelectProgramProcessing,taskNoOnClick}) {
+   machineData,setSelectProgramProcessing}) {
 // console.log(selectProgramProcessing)
 // console.log('MACHINE DATA' , machineData[0].refName)
 const [selectedMachine, setSelectedMachine] = useState("")
@@ -22,19 +27,25 @@ const handleMachineChange = (e) => {
 
 
 const changeMachineonClick = () => {
-  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    handleClose();
-     const constSelectProgramCompleted = selectProgramProcessing;
-     constSelectProgramCompleted.Machine = selectedMachine;
-     setSelectProgramProcessing(constSelectProgramCompleted)
-     taskNoOnClick();
- })
+ changeMachineModal();
+}
+
+const[changeMachine,setChangeMachine]=useState('');
+const changeMachineModal=()=>{
+  setChangeMachine(true)
 }
 
   return (
     <>
+    <MachineChangeModal
+    changeMachine={changeMachine}
+    setChangeMachine={setChangeMachine}
+    selectProgramProcessing={selectProgramProcessing}
+    setSelectProgramProcessing={setSelectProgramProcessing}
+    selectedMachine={selectedMachine}
+    setOpenChangeMachine={setOpenChangeMachine}
+    />
+
     <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"

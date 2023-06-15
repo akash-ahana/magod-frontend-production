@@ -20,7 +20,7 @@ export default function ProcessTable({OrdSchNo,getprocessTabledata,processtable,
            <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Material</th>
            <th>Process</th>
-           <th style={{whiteSpace:"nowrap"}}>Estm Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Estimated Time</th>
            <th style={{whiteSpace:"nowrap"}}>Time Taken</th>
            <th style={{whiteSpace:"nowrap"}}>No of Dwgs</th>
            <th style={{whiteSpace:"nowrap"}}>Dwgs Nested</th>
