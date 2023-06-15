@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 // import Iframe from './Iframe'
 import ByMachineBox from './ByMachine/ByMachineBox';
 import ByOperations from './ByOperations/ByOperations';
-import ByCustomer from './ByCustomer/ByCustomer';
+import ByCustomer from './ByCustomer/ByCustomers';
 import axios from 'axios';
 import { baseURL } from '../../../../../api/baseUrl';
 

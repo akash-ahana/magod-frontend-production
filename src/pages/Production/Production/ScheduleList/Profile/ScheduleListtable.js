@@ -1,54 +1,65 @@
-import React,{useEffect,useMemo,useState} from 'react';
+import React, { useEffect, useMemo, useState } from "react";
 import Table from "react-bootstrap/Table";
-import { useGlobalContext } from '../../../../../Context/Context';
+import { useGlobalContext } from "../../../../../Context/Context";
 
+export default function ScheduleListtable({
+  rowSelectFun,
+  rowselect,
+  getprocessTabledata,
+  setRowselect,
+  scheduleList,
+  custcode
+}) {
+  const { schedulelistdata, getSchedulistdata } = useGlobalContext();
 
-export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata,setRowselect}) {
-  const{schedulelistdata,getSchedulistdata}=useGlobalContext();
+  console.log(scheduleList);
 
   useEffect(() => {
     getSchedulistdata();
- }, []);
+  }, []);
 
- 
   return (
-     <div style={{height:"500px",overflowY: "scroll",overflowX:"scroll"}}>
-     <Table striped className="table-data border">
-       <thead className="tableHeaderBGColor">
-         <tr>
-           {/* <th>Select</th> */}
-           <th style={{whiteSpace:"nowrap"}}>Schedule No</th>
-           <th>Customer</th>
-           <th style={{whiteSpace:"nowrap"}}>TgtDelDate</th>
-           <th style={{whiteSpace:"nowrap"}}>Delivery_date</th>
-           <th>Status</th>
-         </tr>
-       </thead>
+    <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
+      <Table striped className="table-data border">
+        <thead className="tableHeaderBGColor">
+          <tr>
+            {/* <th>Select</th> */}
+            <th style={{ whiteSpace: "nowrap" }}>Schedule No</th>
+            <th>Customer</th>
+            <th style={{ whiteSpace: "nowrap" }}>TgtDelDate</th>
+            <th style={{ whiteSpace: "nowrap" }}>Delivery_date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
 
+        <tbody className="tablebody">
 
-        <tbody className='tablebody'>
-        {schedulelistdata.map((item,key)=>{
-      return(
-        <>
-         <tr onClick={()=>rowSelectFun(item,key)} className={key===rowselect?.index? 'selcted-row-clr':'' } >
-           {/* <td>
+          {schedulelistdata.map((item, key) => {
+            return (
+              <>
+                <tr
+                  onClick={() => rowSelectFun(item, key)}
+                  className={key === rowselect?.index ? "selcted-row-clr" : ""}
+                >
+                  {/* <td>
                 <input className="form-check-input"
                  type="checkbox"
                  value=""
                  id="flexCheckDefault"/>
            </td> */}
-           <td style={{whiteSpace:"nowrap"}}>{item.OrdSchNo}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.Cust_name}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.schTgtDate}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.Delivery_Date}</td>
-           <td style={{whiteSpace:"nowrap"}}>{item.Schedule_Status}</td>
-         </tr>
-         </>
-      )
-    })}
-   </tbody>
- </Table>
-
-     </div>
-  )
+                  <td style={{ whiteSpace: "nowrap" }}>{item.OrdSchNo}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.Cust_name}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.schTgtDate}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.Delivery_Date}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>
+                    {item.Schedule_Status}
+                  </td>
+                </tr>
+              </>
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
+  );
 }

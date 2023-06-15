@@ -27,11 +27,22 @@ const styles = StyleSheet.create({
         borderBottom:"1px",
         width:"500px"
     },
-    details:{
-        marginRight:"250px",
-        marginLeft:"60px",
-        borderBottom:"1px",
-        width:"500px"
+    details: {
+      marginRight: "250px",
+      marginLeft: "60px",
+      borderBottom: "1px",
+      width: "500px",
+      // marginTop: "50px",
+    },
+    details1: {
+      marginRight: "250px",
+      marginLeft: "60px",
+      borderBottom: "1px",
+      width: "500px",
+    },
+    details2: {
+      marginRight: "50px",
+      borderBottom: "1px",
     },
     datedisplay:{
         marginRight:"200px",
@@ -68,7 +79,14 @@ const styles = StyleSheet.create({
     },
     lot:{
       width:"10%"
-    }
+    },
+    detailss: {
+      marginRight: "250px",
+      marginLeft: "60px",
+      borderBottom: "1px",
+      width: "500px",
+      marginTop: "50px",
+    },
   });
   
 
@@ -76,13 +94,19 @@ const ShowPartsTable = ({processrowselect,rowselect,partlistdata}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
-        <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
+        {/* <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Status Report</Text>
-        <Text style={styles.location}>Magod Laser:Jigani</Text>
+        <Text style={styles.location}>Magod Laser:Jigani</Text> */}
 
         <View>
-            <Text style={styles.details}>Parts Sheet Scheduleno : {rowselect.OrdSchNo}</Text>
-            <Text style={styles.details}>Task No: {processrowselect.TaskNo}               Inspected and Cleared</Text>
+        <Text style={styles.detailss}>Magod Laser:Jigani</Text>
+          <Text style={styles.details}>
+            Parts Sheet Scheduleno : {rowselect.OrdSchNo}
+          </Text>
+          <Text style={styles.details1}>
+            Task No: {processrowselect.TaskNo} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Text style={styles.details2}>Inspected and Cleared</Text>
+          </Text>
         </View>
 
         <View style={styles.Headingrow}>

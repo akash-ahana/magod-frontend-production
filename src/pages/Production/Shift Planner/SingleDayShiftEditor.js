@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import axios from "axios";
 import UpdateDayshiftModal from './Modals/UpdateDayshiftModal';
 import DeleteDayShiftModal from './Modals/DeleteDayShiftModal';
-import { useNavigate} from 'react-router-dom'
 import ModalPrintDailyShift from './PdfPrinter/DailyshiftTable/ModalPrintDailyShift';
 import {baseURL} from '../../.././api/baseUrl'
 
@@ -32,6 +31,8 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
     const handleShiftIncharge=(e)=>{
         setSelectedShiftIncharge(e.target.value);
       }
+
+      console.log("selected",selectedShiftIncharge)
 
       useEffect(() => {
         getShiftInchargeData();
@@ -81,13 +82,14 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
 
             <div className="col-md-5"style={{textAlign:"center",marginLeft:"40px",width:"120px"}}>
                 <label className="form-label">Shift InCharge</label>
-                <select className="ip-select" onChange={handleShiftIncharge}>
-                <option value={rowselectDailyShiftTable.Shift_Ic} selected>{rowselectDailyShiftTable.Shift_Ic}</option>
-                    {dataShiftIncharge.map((dataShiftIncharge) => (
-                        <option value={dataShiftIncharge}>{dataShiftIncharge}</option>
-                    ))}
-                    
-                </select>
+                <select className="ip-select" onChange={handleShiftIncharge} value={selectedShiftIncharge}>
+                 {dataShiftIncharge.map((dataShiftIncharge) => (
+                   <option key={dataShiftIncharge} value={dataShiftIncharge}>
+                                   {dataShiftIncharge}
+                  </option>
+                 ))}
+               </select>
+
             </div>
             <br></br>
             <div>

@@ -3,14 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { useState } from 'react';
+import {baseURL} from "../../../../../../api/baseUrl"
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
-import { baseURL } from '../../../../../../api/baseUrl';
+import MachineChangeModal from './MachineChangeModal';
+
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
    machineData,setSelectProgramProcessing}) {
-console.log(selectProgramProcessing)
-console.log('MACHINE DATA' , machineData[0].refName)
+// console.log(selectProgramProcessing)
+// console.log('MACHINE DATA' , machineData[0].refName)
 const [selectedMachine, setSelectedMachine] = useState("")
 
 const handleClose = ()=>{
@@ -25,23 +27,25 @@ const handleMachineChange = (e) => {
 
 
 const changeMachineonClick = () => {
-  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    handleClose();
-     const constSelectProgramCompleted = selectProgramProcessing;
-     constSelectProgramCompleted.Machine = selectedMachine;
-     setSelectProgramProcessing(constSelectProgramCompleted)
-    // taskNoOnClick();
-    toast.success('Machine Name Changed',{
-      position: toast.POSITION.TOP_CENTER
-  })
- })
+ changeMachineModal();
+}
+
+const[changeMachine,setChangeMachine]=useState('');
+const changeMachineModal=()=>{
+  setChangeMachine(true)
 }
 
   return (
     <>
-        <ToastContainer/>
+    <MachineChangeModal
+    changeMachine={changeMachine}
+    setChangeMachine={setChangeMachine}
+    selectProgramProcessing={selectProgramProcessing}
+    setSelectProgramProcessing={setSelectProgramProcessing}
+    selectedMachine={selectedMachine}
+    setOpenChangeMachine={setOpenChangeMachine}
+    />
+
     <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"
@@ -92,8 +96,8 @@ const changeMachineonClick = () => {
                  value={selectProgramProcessing.MProcess} />
               </div>
 
-             <div className="col-md-5 mt-3">
-              <button style={{ width:"150px"}} className="button-style mt-3 group-button" onClick={changeMachineonClick}>
+             <div className="col-md-5">
+              <button style={{ width:"150px"}} className="button-style mt-3 group-button"  onClick={changeMachineonClick}>
               Change Machine
               </button> 
             </div> 

@@ -648,8 +648,8 @@ height:'3px'}}/>
             <div>
                 <div style={{width:"260px",fontSize:"13px",marginTop:"23px"}}>
                   
-                    <ReactCalendar onChange={e => {    selectWeek(e)  }} showWeekNumbers 
-                        showFixedNumberOfWeeks value={date} />
+                    <ReactCalendar onChange={e => {selectWeek(e)  }} showWeekNumbers 
+                        showFixedNumberOfWeeks/>
                 </div> 
             </div>
         <div style={{display:"flex"}}>    
