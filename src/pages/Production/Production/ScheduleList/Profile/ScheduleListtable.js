@@ -1,24 +1,22 @@
 import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useGlobalContext } from "../../../../../Context/Context";
+import { baseURL } from "../../../../../api/baseUrl";
 
 export default function ScheduleListtable({
   rowSelectFun,
   rowselect,
   getprocessTabledata,
   setRowselect,
-  scheduleList,
   custcode
 }) {
   const { schedulelistdata, getSchedulistdata, selectedRows, setSelectedRows, handleCheckboxChange } = useGlobalContext();
-
-  console.log(scheduleList);
 
   useEffect(() => {
     getSchedulistdata();
   }, []);
 
-  console.log("Hello Schedule List",custcode);
+   
 
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>

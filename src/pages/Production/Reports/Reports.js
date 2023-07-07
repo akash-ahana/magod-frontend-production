@@ -230,30 +230,6 @@ const treeViewHeader=()=>{
 }
 
 
-const pdfData = reportsTreeViewData.map((machine) => {
-  const productionTasks = [];
-  const nonProductionTasks = [];
-
-  machine.Shifts.forEach((shift) => {
-    shift.task.forEach((task) => {
-      if (task.action === "Production") {
-        productionTasks.push(...task.operations);
-      } else if (task.action === "Non Productive") {
-        nonProductionTasks.push(...task.operations);
-      }
-    });
-  });
-
-  return {
-    MachineName: machine.MachineName,
-    tasks: [
-      { task: "Production", operations: productionTasks },
-      { task: "Non Productive", operations: nonProductionTasks },
-    ],
-  };
-});
-
-console.log(pdfData);
 let [lazerUser, setLazerUser] = useState(
   JSON.parse(localStorage.getItem("LazerUser"))
 );
@@ -278,7 +254,31 @@ const dataSource = [
 ];
 
 
+//PDF
+const pdfData = reportsTreeViewData.map((machine) => {
+  const productionTasks = [];
+  const nonProductionTasks = [];
 
+  machine.Shifts.forEach((shift) => {
+    shift.task.forEach((task) => {
+      if (task.action === "Production") {
+        productionTasks.push(...task.operations);
+      } else if (task.action === "Non Productive") {
+        nonProductionTasks.push(...task.operations);
+      }
+    });
+  });
+
+  return {
+    MachineName: machine.MachineName,
+    tasks: [
+      { task: "Production", operations: productionTasks },
+      { task: "Non Productive", operations: nonProductionTasks },
+    ],
+  };
+});
+
+console.log(pdfData);
 
   return (
     <div>

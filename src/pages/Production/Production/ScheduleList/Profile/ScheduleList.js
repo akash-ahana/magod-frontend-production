@@ -8,7 +8,7 @@ import { baseURL } from '../../../../../api/baseUrl';
 import { useEffect } from 'react';
 
 export default function ScheduleList() {
-  const{schedulelistdata}=useGlobalContext();
+  const{schedulelistdata,setSchedulelistdata,getSchedulistdata}=useGlobalContext();
 
   //ScheduleList Table row select
     const [rowselect,setRowselect]=useState({})
@@ -88,43 +88,37 @@ const getpartslistdata=()=>{
      fetchData();
    }, []);
 
-   const[scheduleList,setScheduleList]=useState([])
    const [selectedCustomerCode, setSelectedCustomerCode] = useState("");
    let selectCust = async (e) => {
-     console.log("cust data = ", e);
-     console.log("cust code = ", e[0].Cust_Code);
-     setSelectedCustomerCode(e[0].Cust_Code)
- 
-     axios
-       .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
-         Cust_Code: e[0].Cust_Code,
-       })
-       .then((response) => {
-        //  console.log(response.data);
-         setScheduleList(response.data)
-       });
- 
-     console.log("table customer = ", custdata);
-     let cust;
-     for (let i = 0; i < custdata.length; i++) {
-       if (custdata[i]["Cust_Code"] === e[0].Cust_Code) {
-         cust = custdata[i];
-         break;
-       }
-     }
-     setCustCode(cust?.Cust_Code);
- 
-     postRequest(
-       baseURL + "/scheduleListProfile/getcustomerdetailsData",
-       {
-         custcode: cust.Cust_Code,
-       },
-       (resp) => {
-         console.log(resp);
-         let excustdata = resp[0];
-       }
-     );
-   };
+    console.log("cust data = ", e);
+    console.log("cust code = ", e[0].Cust_Code);
+    setSelectedCustomerCode(e[0].Cust_Code);
+  
+    if (e[0].Cust_Code !== "") {
+      // Perform any necessary actions when the customer code is not empty
+    }
+  
+    axios
+      .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
+        Cust_Code: e[0].Cust_Code,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setSchedulelistdata(response.data);
+      });
+  
+    let cust;
+    for (let i = 0; i < custdata.length; i++) {
+      if (custdata[i]["Cust_Code"] === e[0].Cust_Code) {
+        cust = custdata[i];
+        break;
+      }
+    }
+  };
+  
+  useEffect(() => {
+    getSchedulistdata();
+  }, [selectedCustomerCode]);
  
    useEffect(() => {
      axios
@@ -146,6 +140,7 @@ const getpartslistdata=()=>{
         programlistdata={programlistdata}
         custdata={custdata}
         selectCust={selectCust}
+        
         />
 
        <ScheduleListbody rowselect={rowselect}
@@ -163,7 +158,6 @@ const getpartslistdata=()=>{
        programlistdata={programlistdata}
        setProgramlistdata={setProgramlistdata}
        TaskNo={TaskNo}
-       scheduleList={scheduleList}
        custcode={custcode}
        />
     </div>

@@ -22,7 +22,6 @@ export default function ScheduleListbody({
   programlistdata,
   setProgramlistdata,
   TaskNo,
-  scheduleList,
   custcode,
 }) {
   const { schedulelistdata } = useGlobalContext();
@@ -64,7 +63,6 @@ export default function ScheduleListbody({
           rowSelectFun={rowSelectFun}
           rowselect={rowselect}
           setRowselect={setRowselect}
-          scheduleList={scheduleList}
           custcode={custcode}
         />
       </div>

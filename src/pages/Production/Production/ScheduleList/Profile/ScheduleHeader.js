@@ -240,35 +240,27 @@ export default function ScheduleHeader({
 
           <div className="col-md-3 mt-4">
             <Form.Group controlId="CustName">
-              {/* <label className="form-label">Customer Name </label>
-              <Form.Label
-                style={{
-                  color: "#f20707",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                }}
-              >
-                *
-              </Form.Label> */}
-              {custdata.length > 0 ? (
-                <Typeahead 
-                  options={custdata}
-                  placeholder="Search Customer"
-                  onChange={(label, event) => selectCust(label)}
-                />
-              ) : (
-                ""
-              )}
-            </Form.Group>
+    {custdata.length > 0 ? (
+      <Typeahead
+        options={custdata}
+        placeholder="Search Customer"
+        onChange={(label, event) => selectCust(label)}
+        clearButton
+      />
+    ) : (
+      ""
+    )}
+  </Form.Group>
           </div>
           
-            <div className="col-md-2 mt-2">
-              <label className="form-label mt-2">Find Schedule</label>
+            <div className="col-md-2 mt-3">
+              {/* <label className="form-label mt-2">Find Schedule</label> */}
               <input
-                className="in-field my-0"
+                className="in-field my-0 mt-4"
                 onKeyDown={blockInvalidChar}
                 type="number"
                 onChange={(e) => searchText(e)}
+                placeholder="Search Schedule"
               />
             </div>
 

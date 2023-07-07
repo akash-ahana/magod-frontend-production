@@ -45,10 +45,11 @@ code {
   text-indent: 5px;
 }
 .in-field {
-  height: 15px;
+  height: 18px;
   margin-top: 5px;
   /* border-radius: 6px; */
-  text-indent: 5px;
+  text-indent: 6px;
+  padding-bottom: 4px;
 }
 
 .ip-select {
