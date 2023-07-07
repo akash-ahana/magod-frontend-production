@@ -7,7 +7,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.selected-row {
+  background-color:#98A8F8!important;
+   /* Set your desired background color for selected rows */
+}
 
+
+.table-cell-align{
+  text-align: center;
+}
+
+.table-space{
+white-space: nowrap;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
@@ -33,10 +45,11 @@ code {
   text-indent: 5px;
 }
 .in-field {
-  height: 15px;
+  height: 18px;
   margin-top: 5px;
   /* border-radius: 6px; */
-  text-indent: 5px;
+  text-indent: 6px;
+  padding-bottom: 4px;
 }
 
 .ip-select {

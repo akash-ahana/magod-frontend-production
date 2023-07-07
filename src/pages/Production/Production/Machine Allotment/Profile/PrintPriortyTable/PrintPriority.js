@@ -73,6 +73,8 @@ export default function PrintPriority({priorityTable}) {
     // console.log('Custom Array is ' , customArray)
     setSortedPriorityTable(customArray)
   }, [priorityTable])
+
+  console.log("pdf data",sortedPriorityTable)
    
       return (
         // <div className="App">

@@ -1,20 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState } from 'react';
 import { Table } from 'react-bootstrap'
+import { useGlobalContext } from '../../../../../../Context/Context';
 
 export default function ProductionTaskListTable() {
+
+const {productionTaskList,SetProductionTaskList,getProductionTaskListData}=useGlobalContext();
+console.log(productionTaskList);
+
+useEffect(()=>{
+  getProductionTaskListData();
+},[productionTaskList])
+
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
      <div style={{height:"250px",overflowX: "scroll",maxWidth:"850px",overflowY:'scroll'}}>
      <Table striped className="table-data border">
-       <thead className="tableHeaderBGColor">
+       <thead className="tableHeaderBGColor table-space">
          <tr>
            <th>TaskNo</th>
            <th>Operation</th>
            <th>Mtrl_Code</th>
            <th>NoOfSheets</th>
            <th>NoOfDwgs</th>
-           {/* <th>DwgsNo</th> */}
+           <th>DwgsNo</th>
            <th>DwgsNested</th>
            <th>PartsNested</th>
            <th>TotalParts</th>
@@ -26,33 +36,31 @@ export default function ProductionTaskListTable() {
          </tr>
        </thead>
 
-       {/* <tbody className='tablebody' style={{textAlign:"center"}}>
-        <tr>
-          <td>265</td>
-          <td>laser 01</td>
-          <td>875456</td>
-          <td>9875798</td>
-          <td>987</td>
-          <td>8765</td>
-          <td>098756</td>
-        </tr>
-       </tbody> */}
-
-{/* {processdataList.map((item,key)=>{
+      
+{productionTaskList.map((item,key)=>{
   return(
     <>
-    <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
-             <td>{item.Mprocess}</td>
-             <td>{item.TgtRate}</td>
-             <td>{item.Id}</td>
-             <td>{item.Machine_srl}</td>
-             <td>{item.RefProcess}</td>
+    <tbody className='tablebody table-space'>
+          <tr>
+             <td>{item.TaskNo}</td>
+             <td>{item.Operation}</td>
+             <td>{item.Mtrl_Code}</td>
+             <td>{item.NoOfSheets}</td>
+             <td>{item.DwgsNested}</td>
+             <td>{item.NoOfDwgs}</td>
+             <td>{item.PartsNested}</td>
+             <td>{item.TotalParts}</td>
+             <td>{item.NestCount}</td>
+             <td>{item.Priority}</td>
+             <td>{item.EstimatedTime}</td>
+             <td>{item.NestCount}</td>
+             <td></td>
+             <td></td>
          </tr>
     </tbody>
     </>
   )
-})} */}
+})}
  </Table>
      </div>
  </div>

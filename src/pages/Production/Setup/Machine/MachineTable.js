@@ -5,6 +5,7 @@ import {useGlobalContext} from '../../../../Context/Context'
 export default function MachineTable({selectedRowFn,selectedRow}) {  
   const {post,MachineTabledata} = useGlobalContext();
 
+  console.log(selectedRow)
   
   return (
     <div className='row mt-1'>

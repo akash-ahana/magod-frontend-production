@@ -9,7 +9,7 @@ export default function ChangeMachineModal({openModal,setOpenModal,selectedRows,
     <div>
       <Modal show={openModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Magod Production manager</Modal.Title>
+          <Modal.Title>Magod Production Manager</Modal.Title>
         </Modal.Header>
         <Modal.Body>
          Do you wish to change the programs from <b>{selectedRows[0]?.Machine}</b> to <b>{selectedMachine}</b>?

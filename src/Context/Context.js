@@ -19,14 +19,39 @@ const AuthProvider = ({ children }) => {
   //Schedulelist Profile
   const [schedulelistdata,setSchedulelistdata]=useState([])
   const [schedulelistdatas,setSchedulelistdatas]=useState([])
+  const [selectedRows, setSelectedRows] = useState([]);
+
 
   //Schedulelist Service
   const [schedulelistservicedata,setSchedulelistservicedata]=useState([])
   const [schedulelistservicedatas,setSchedulelistservicedatas]=useState([])
+  const [selectedRowsService, setSelectedRowsService] = useState([]);
+
 
   // Schedulelist fabrication
   const [schedulelistfabricationdata,setSchedulelistfabricationdata]=useState([])
   const [schedulelistfabricationdatas,setSchedulelistfabricationdatas]=useState([])
+  const [selectedRowsFabrication, setSelectedRowsFabrication] = useState([]);
+
+
+  //Reports
+  const[machineutilisationSummartdata,setMachineutilisationSummarydata]=useState([])
+  const [multiplerowSelect, setMultipleRowSelect] = useState([]);
+  const handleCheckboxChange1 = (item) => {
+    setMultipleRowSelect((prevRows) => {
+      const isItemSelected = prevRows.some((row) => row === item);
+      if (isItemSelected) {
+        return prevRows.filter((row) => row !== item);
+      } else {
+        if (prevRows.length === machineutilisationSummartdata.length - 1) {
+          return [];
+        } else {
+          return [...prevRows, item];
+        }
+      }
+    });
+  };
+
 
   //Profile
   const getSchedulistdata=()=>{
@@ -52,12 +77,25 @@ const AuthProvider = ({ children }) => {
           let finalDay1 = day1+"-"+month1+"-"+year1
           response.data[i].Delivery_Date = finalDay1;
         }
-         console.log(response.data)
+        //  console.log(response.data)
           setSchedulelistdata(response.data); 
           setSchedulelistdatas(response.data);
         });
         
   }
+
+  const handleCheckboxChange = (item) => {
+    setSelectedRows(prevRows => {
+      const isItemSelected = prevRows.some(row => row.item === item);
+      if (isItemSelected) {
+        return prevRows.filter(row => row.item !== item);
+      } else {
+        return [...prevRows, item];
+      }
+    });
+  };
+  
+
 
   //fabrication
   const getSchedulistfabricationdata=()=>{
@@ -91,6 +129,17 @@ const AuthProvider = ({ children }) => {
         });
   }
 
+  const handleCheckboxChangeFabrication = (item) => {
+    setSelectedRowsFabrication(prevRows => {
+      const isItemSelected = prevRows.some(row => row.item === item);
+      if (isItemSelected) {
+        return prevRows.filter(row => row.item !== item);
+      } else {
+        return [...prevRows, item];
+      }
+    });
+  };
+
   //service
   const getSchedulistservicedata=()=>{
     axios.get(baseURL + "/scheduleListService/schedulesList").then((response) => {
@@ -123,6 +172,17 @@ const AuthProvider = ({ children }) => {
         });
   }
 
+  const handleCheckboxChangeService = (item) => {
+    setSelectedRowsService(prevRows => {
+      const isItemSelected = prevRows.some(row => row.item === item);
+      if (isItemSelected) {
+        return prevRows.filter(row => row.item !== item);
+      } else {
+        return [...prevRows, item];
+      }
+    });
+  };
+
 //Machine Setup
   const MachineTabledata=()=>{
     axios.get(baseURL + "/productionSetup/getallmachines").then((response) => {
@@ -131,6 +191,33 @@ const AuthProvider = ({ children }) => {
     });
   }
 
+
+  //SHIFT MANAGER PROFILE
+  const[productionTaskList,SetProductionTaskList]=useState([])
+const getProductionTaskListData=()=>{
+  axios
+  .post(baseURL + "/shiftManagerProfile/ProductionTaskList", {
+    Type:"Profile"
+  })
+  .then((res) => {
+    console.log("require response mus",res.data);
+    SetProductionTaskList(res.data)
+  });
+}
+
+
+  //SHIFT MANAGER SERVICE
+  const[productionTaskListService,SetProductionTaskListService]=useState([])
+const getProductionTaskListDataService=()=>{
+  axios
+  .post(baseURL + "/shiftManagerService/ProductionTaskList", {
+    Type:"Service"
+  })
+  .then((res) => {
+    console.log("require response mus",res.data);
+    SetProductionTaskListService(res.data)
+  });
+}
   return (
     <AppContext.Provider
       value={{
@@ -138,7 +225,7 @@ const AuthProvider = ({ children }) => {
         getSchedulistdata,schedulelistdatas,setSchedulelistdatas,
         schedulelistservicedata,setSchedulelistservicedata,getSchedulistservicedata,
         schedulelistfabricationdata,setSchedulelistfabricationdata,getSchedulistfabricationdata,
-        schedulelistfabricationdatas,setSchedulelistfabricationdatas,schedulelistservicedatas,setSchedulelistservicedatas
+        schedulelistfabricationdatas,setSchedulelistfabricationdatas,schedulelistservicedatas,setSchedulelistservicedatas,selectedRows,setSelectedRows,handleCheckboxChange,multiplerowSelect, setMultipleRowSelect,handleCheckboxChange1,machineutilisationSummartdata,setMachineutilisationSummarydata,selectedRowsService, setSelectedRowsService,handleCheckboxChangeService,selectedRowsFabrication, setSelectedRowsFabrication,handleCheckboxChangeFabrication,productionTaskList,SetProductionTaskList,getProductionTaskListData,productionTaskListService,SetProductionTaskListService,getProductionTaskListDataService
       }}
     >
       {children}

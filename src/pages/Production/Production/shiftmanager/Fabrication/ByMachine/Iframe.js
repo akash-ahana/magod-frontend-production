@@ -6,6 +6,7 @@ import ProgramCompletedData from './ProgramCompletedData';
 import TabData from './TabData';
 import MachineLogTable from './MachineLogTable';
 import ProductionTaskListTable from './ProductionTaskListTable';
+import ShiftReport from './ShiftReport';
 // import ByOperations from './components/ByOperations';
 // import ByCustomer from './components/ByCustomer';
 
@@ -49,6 +50,7 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
       </Tab>
 
       <Tab eventKey="Shift Report" title="Shift Report">
+        <ShiftReport/>
       </Tab>
     </Tabs>
     </div>

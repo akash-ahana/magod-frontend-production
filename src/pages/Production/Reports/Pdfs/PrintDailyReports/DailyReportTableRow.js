@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
     }
   });
   
-  const DailyReportTableRow = ({}) => {
+  const DailyReportTableRow = ({reportsTreeViewData}) => {
     // console.log(typeof(firstmachineoperator));
     //console.log(newitems , 'New Items from print daily Shift Table Row')
-    const rows = (() => (
+    const rows = reportsTreeViewData.map(() => (
       <View style={styles.row}>
          <Text style={styles.machine}></Text>
          <Text style={styles.operator}></Text>

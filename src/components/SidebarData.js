@@ -129,7 +129,14 @@ export const customerSidebar = [
     title: "Reports",
     path: "/production/reports",
     icon: <MdReport />,
-    icon:<GoReport/>
+    icon:<GoReport/>,
+    subNav: [
+      {
+        title: "Daily Report",
+        path: "/production/reports",
+        icon: <AiIcons.AiOutlineArrowRight />            
+      },
+    ]
   },
 ];
 

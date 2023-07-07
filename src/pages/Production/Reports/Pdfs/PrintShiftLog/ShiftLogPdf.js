@@ -1,8 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react'; 
-
 import { PDFDownloadLink, Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/renderer';
-//import PDFdocument from './PDFdocument';
-import DailyReportTable from './DailyReportTable';
+import ShiftLogTable from './ShiftLogTable';
 
 
 const styles = StyleSheet.create({
@@ -32,23 +30,12 @@ const styles = StyleSheet.create({
   
 
 
-export default function DailyReportsPdf() {
+export default function ShiftLogPdf({sortedMachineLogs}) {
 
-  //First Shift
-//   const[newData,setNewdata]=useState([]);
-//     const getDailyMachineoperatorData=()=>{
-//       axios.post('http://172.16.20.61:5000/shiftEditor/getSingleDayDetailShiftInformation', 
-//       {
-//         ShiftDate:finalday,
-//       }).then((response) => {
-//           console.log(response.data);
-//           setNewdata(response.data)
-//       })
-//     }
     
     const moment = require('moment');
     const today = moment();
-    let Date=today.format("DD-MMMM-YYYY");
+    let Date=today.format("DD/MM/YYYY");
      console.log(Date);
 
       return (
@@ -62,7 +49,8 @@ export default function DailyReportsPdf() {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <DailyReportTable Date={Date}/>
+              <ShiftLogTable Date={Date}
+              sortedMachineLogs={sortedMachineLogs}/>
             </PDFViewer>
           </Fragment>
       ); 

@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     borderBottom:"1px",
     marginTop:"10px",
     // marginLeft:"60px",
-    width:"500px",
+    width:"700px",
     // fontSize:"10px"
   },
   Scheduleno: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     whiteSpace:"nowrap"
   },
   Customer: {
-    width: "100px",
+    width: "250px",
     whiteSpace:"nowrap"
   },
   Date:{
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
       whiteSpace:"nowrap"
   },
   Instruction:{
-    width:"100px",
+    width:"150px",
     whiteSpace:"nowrap"
   }
   });

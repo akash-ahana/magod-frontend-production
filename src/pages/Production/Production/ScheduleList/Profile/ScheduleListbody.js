@@ -22,7 +22,6 @@ export default function ScheduleListbody({
   programlistdata,
   setProgramlistdata,
   TaskNo,
-  scheduleList,
   custcode,
 }) {
   const { schedulelistdata } = useGlobalContext();
@@ -31,7 +30,6 @@ export default function ScheduleListbody({
   useMemo(() => {
     setRowselect({ ...schedulelistdata[0], index: 0 });
   }, [schedulelistdata[0]]);
-  console.log(rowselect);
 
   //Process Table(Right First table) data
   const [processtable, setProcesstable] = useState([]);
@@ -65,7 +63,6 @@ export default function ScheduleListbody({
           rowSelectFun={rowSelectFun}
           rowselect={rowselect}
           setRowselect={setRowselect}
-          scheduleList={scheduleList}
           custcode={custcode}
         />
       </div>

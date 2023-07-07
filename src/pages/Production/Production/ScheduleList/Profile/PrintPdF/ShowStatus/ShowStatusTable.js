@@ -13,12 +13,12 @@ const styles = StyleSheet.create({
     },
     tableTitle : {
         textDecoration : "underline",
-        marginLeft:"200px",
+        marginLeft:"250px",
         marginTop:"20px",
     },
     title2 :{
-        textDecoration : "underline",
-        marginLeft:"220px"
+        textDecoration :"underline",
+        marginLeft:"100px"
     },
     location:{
         marginRight:"250px",
@@ -39,8 +39,7 @@ const styles = StyleSheet.create({
     tablemainheader:{
         textDecoration:"underline",
         marginTop:"20px",
-        marginRight:"200px",
-        marginLeft:"50px"
+marginLeft:"50px"        // marginLeft:"50px"
     },
      Headingrow: {
     flexDirection: "row",
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
     borderBottom:"1px",
     marginTop:"10px",
     marginLeft:"60px",
-    width:"500px",
+    width:"700px",
     // fontSize:"10px"
   },
   Scheduleno: {
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     // whiteSpace:"nowrap"
   },
   Customer: {
-    width: "100px",
+    width: "250px",
     // whiteSpace:"nowrap"
   },
   Date:{
@@ -64,7 +63,7 @@ const styles = StyleSheet.create({
       // whiteSpace:"nowrap"
   },
   Instruction:{
-    width:"100px",
+    width:"150px",
     // whiteSpace:"nowrap"
   }
   });
@@ -72,7 +71,7 @@ const styles = StyleSheet.create({
 
 const ShowStatusTable = ({Date,showStatusData}) => (
     <Document>
-    <Page size="A4" style={styles.page}>
+    <Page size="A4" style={styles.page} orientation="landscape">
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Status Report</Text>
@@ -86,7 +85,7 @@ const ShowStatusTable = ({Date,showStatusData}) => (
         <View style={styles.Headingrow}>
           <Text style={styles.Scheduleno}>Schedule No</Text>
           <Text style={styles.Customer}>Customer</Text>
-          <Text style={styles.Date}>Tg Date</Text>
+          <Text style={styles.Date}>Tgt Date</Text>
           <Text style={styles.Date}>Del Date</Text>
           <Text style={styles.Instruction}>Instructions</Text>
        </View>

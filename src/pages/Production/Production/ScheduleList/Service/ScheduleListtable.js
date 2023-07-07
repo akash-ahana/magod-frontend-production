@@ -4,19 +4,20 @@ import { useGlobalContext } from '../../../../../Context/Context';
 
 
 export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabledata,setRowselect}) {
-  const{schedulelistservicedata,getSchedulistservicedata}=useGlobalContext();
+  const{schedulelistservicedata,getSchedulistservicedata,selectedRowsService, setSelectedRowsService,handleCheckboxChangeService}=useGlobalContext();
 
   useEffect(() => {
     getSchedulistservicedata();
  }, []);
 
  
+ console.log("service multiple row select",selectedRowsService)
   return (
      <div style={{height:"500px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">
        <thead className="tableHeaderBGColor">
          <tr>
-           {/* <th>Select</th> */}
+           <th>Select</th>
            <th style={{whiteSpace:"nowrap"}}>Schedule No</th>
            <th>Customer</th>
            <th style={{whiteSpace:"nowrap"}}>TgtDelDate</th>
@@ -28,15 +29,19 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
 
         <tbody className='tablebody'>
         {schedulelistservicedata.map((item,key)=>{
+                      const isChecked = selectedRowsService.some(row => row === item);
+
       return(
         <>
          <tr onClick={()=>rowSelectFun(item,key)} className={key===rowselect?.index? 'selcted-row-clr':'' } >
-           {/* <td>
-                <input className="form-check-input"
-                 type="checkbox"
-                 value=""
-                 id="flexCheckDefault"/>
-           </td> */}
+         <td>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => handleCheckboxChangeService(item)}
+                  />
+                </td>
            <td style={{whiteSpace:"nowrap"}}>{item.OrdSchNo}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.Cust_name}</td>
            <td style={{whiteSpace:"nowrap"}}>{item.schTgtDate}</td>
