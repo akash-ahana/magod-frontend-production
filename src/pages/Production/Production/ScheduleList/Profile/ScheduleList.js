@@ -93,16 +93,35 @@ const getpartslistdata=()=>{
     console.log("cust data = ", e);
     console.log("cust code = ", e[0].Cust_Code);
     setSelectedCustomerCode(e[0].Cust_Code);
-  
-    if (e[0].Cust_Code !== "") {
-      // Perform any necessary actions when the customer code is not empty
+
+    if ( e[0].Cust_Code!==' '){
+      
     }
-  
     axios
       .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
         Cust_Code: e[0].Cust_Code,
       })
       .then((response) => {
+        for(let i =0;i<response.data.length;i++) { 
+          // FOR TgtDelDate
+          let dateSplit = response.data[i].schTgtDate.split(" ");
+          let date =dateSplit[0].split("-")
+          let year = date[0];
+          let month = date[1];
+          let day = date[2];
+          let finalDay = day+"-"+month+"-"+year
+          response.data[i].schTgtDate = finalDay;
+        }
+        for(let i =0;i<response.data.length;i++) { 
+          // Delivery_date
+          let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+          let date1 =dateSplit1[0].split("-")
+          let year1 = date1[0];
+          let month1 = date1[1];
+          let day1 = date1[2];
+          let finalDay1 = day1+"-"+month1+"-"+year1
+          response.data[i].Delivery_Date = finalDay1;
+        }
         console.log(response.data);
         setSchedulelistdata(response.data);
       });
@@ -115,10 +134,12 @@ const getpartslistdata=()=>{
       }
     }
   };
-  
+
   useEffect(() => {
     getSchedulistdata();
-  }, [selectedCustomerCode]);
+  }, []);
+
+
  
    useEffect(() => {
      axios

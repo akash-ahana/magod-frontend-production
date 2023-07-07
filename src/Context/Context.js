@@ -77,7 +77,7 @@ const AuthProvider = ({ children }) => {
           let finalDay1 = day1+"-"+month1+"-"+year1
           response.data[i].Delivery_Date = finalDay1;
         }
-         console.log(response.data)
+        //  console.log(response.data)
           setSchedulelistdata(response.data); 
           setSchedulelistdatas(response.data);
         });
