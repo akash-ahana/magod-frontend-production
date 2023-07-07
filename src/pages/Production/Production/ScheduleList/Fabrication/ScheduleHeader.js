@@ -16,6 +16,7 @@ import {
   FormCheck,
   Button,
 } from "react-bootstrap";
+import ProductionListModalFabrication from "./PrintPdF/ProductionList/ProductionListModal";
 
 export default function ScheduleHeader({
   rowselect,
@@ -197,6 +198,11 @@ export default function ScheduleHeader({
   // const jsonData=JSON.stringify(arrays)
   // console.log(arrays);
 
+  const[openProductionList,setOpenProductionList]=useState('')
+  const openProductionListPdf=()=>{
+    setOpenProductionList(true);
+  }
+
   return (
     <div>
       <div className="col-md-12 col-sm-12">
@@ -273,10 +279,10 @@ export default function ScheduleHeader({
               Show Programs
             </button>
 
-            {/* <button className="button-style mt-5 group-button" 
-             style={{ width: "140px" }}>
+            <button className="button-style mt-5 group-button" 
+             style={{ width: "140px" }} onClick={openProductionListPdf}>
              Production list
-            </button> */}
+            </button>
           </div>
         </div>
       </div>
@@ -301,6 +307,9 @@ export default function ScheduleHeader({
         processrowselect={processrowselect}
         programlistdata={programlistdata}
       />
+
+<ProductionListModalFabrication openProductionList={openProductionList}
+      setOpenProductionList={setOpenProductionList}/>
     </div>
   );
 }

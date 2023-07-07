@@ -31,7 +31,6 @@ export default function ScheduleListbody({
   useMemo(() => {
     setRowselect({ ...schedulelistdata[0], index: 0 });
   }, [schedulelistdata[0]]);
-  console.log(rowselect);
 
   //Process Table(Right First table) data
   const [processtable, setProcesstable] = useState([]);

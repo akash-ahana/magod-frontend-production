@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import DailyReportsPdf from './DailyReportsPdf';
 
- export default function DailyReportPrintModal({opendailyReport,setOpendailyReport}) {
+ export default function DailyReportPrintModal({opendailyReport,setOpendailyReport,pdfData}) {
   const [fullscreen, setFullscreen] = useState(true);
 
 
@@ -12,7 +12,7 @@ import DailyReportsPdf from './DailyReportsPdf';
         <Modal.Header closeButton>
           <Modal.Title>Show Parts Pdf</Modal.Title>
         </Modal.Header>
-        <Modal.Body><DailyReportsPdf/></Modal.Body>
+        <Modal.Body><DailyReportsPdf pdfData={pdfData}/></Modal.Body>
       </Modal>
     </>
   );

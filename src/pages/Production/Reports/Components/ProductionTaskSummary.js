@@ -1,40 +1,58 @@
-import React from 'react'
-import { Table } from 'react-bootstrap'
+import React from "react";
+import { useState } from "react";
+import { Table } from "react-bootstrap";
 
-export default function ProductionTaskSummary() {
+export default function ProductionTaskSummary({ productionTaskSummary }) {
+  const [selectrow, setSelectRow] = useState({});
+  const selectRowFunction = (item, index) => {
+    let list = { ...item, index: index };
+    setSelectRow(list);
+  };
+  console.log(selectrow);
+
   return (
     <div>
       <div
-      style={{maxWidth:"900px",overflowX:"scroll",height:"300px",overflowY:"scroll"}}>
-      <Table striped className="table-data border"  >
-       <thead className="tableHeaderBGColor">
-         <tr>
-           <th>Machine</th>
-           <th>Task No</th>
-           <th>Mtrl Code</th>
-           <th>Operation</th>
-           <th>Machine Time</th>
-           <th>MachineTime</th>
-         </tr>
-       </thead>
+        style={{
+          maxWidth: "900px",
+          overflowX: "scroll",
+          height: "300px",
+          overflowY: "scroll",
+        }}
+      >
+        <Table striped className="table-data border">
+          <thead className="tableHeaderBGColor">
+            <tr>
+              <th>Machine</th>
+              <th>Task No</th>
+              <th>Mtrl Code</th>
+              <th>Operation</th>
+              <th>Machine Time</th>
+            </tr>
+          </thead>
 
-{/* {processdataList.map((item,key)=>{
-  return(
-    <>
-    <tbody className='tablebody'>
-          <tr onClick={()=>selectedRowFn(item,key)} className={key===selectRow?.index? 'selcted-row-clr':'' }>
-             <td>{item.Mprocess}</td>
-             <td>{item.TgtRate}</td>
-             <td>{item.Id}</td>
-             <td>{item.Machine_srl}</td>
-             <td>{item.RefProcess}</td>
-         </tr>
-    </tbody>
-    </>
-  )
-})} */}
- </Table>
- </div>
+          <tbody className="tablebody">
+            {productionTaskSummary.map((item, key) => {
+              return (
+                <>
+                  <tr
+                    onClick={() => selectRowFunction(item, key)}
+                    className={
+                      key === selectrow?.index ? "selcted-row-clr" : ""
+                    }
+                  >
+                    <td>{item.Machine}</td>
+                    <td>{item.TaskNo}</td>
+                    <td>{item.Mtrl_Code}</td>
+                    <td>{item.Operation}</td>
+                    <td className="table-cell-align">{item.machineTime}</td>
+                  </tr>
+                </>
+              );
+            })}
+          </tbody>
+        </Table>
+      </div>
     </div>
-  )
+  );
 }

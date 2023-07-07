@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 
 export default function ScheduleList() {
   const{schedulelistdata}=useGlobalContext();
+
+  //ScheduleList Table row select
     const [rowselect,setRowselect]=useState({})
     const [scheduleid,setScheduleid]=useState('');
     const rowSelectFun=(item,index)=>{
@@ -17,7 +19,6 @@ export default function ScheduleList() {
       setRowselect(list);
       setScheduleid(item.OrdSchNo);
     }
-console.log(rowselect)
     
 //Processtable Row select
 const [processrowselect,setProcessrowselect]=useState({})
@@ -92,7 +93,7 @@ const getpartslistdata=()=>{
    let selectCust = async (e) => {
      console.log("cust data = ", e);
      console.log("cust code = ", e[0].Cust_Code);
-     //setSelectedCustomerCode(e[0].Cust_Code)
+     setSelectedCustomerCode(e[0].Cust_Code)
  
      axios
        .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
@@ -111,7 +112,7 @@ const getpartslistdata=()=>{
          break;
        }
      }
-     setCustCode(cust.Cust_Code);
+     setCustCode(cust?.Cust_Code);
  
      postRequest(
        baseURL + "/scheduleListProfile/getcustomerdetailsData",
@@ -135,7 +136,6 @@ const getpartslistdata=()=>{
        });
    }, [selectedCustomerCode]);
 
-   console.log("Selected customer data",scheduleList)
    
   return (
     <div>

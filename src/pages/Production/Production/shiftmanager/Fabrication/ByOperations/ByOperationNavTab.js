@@ -6,6 +6,7 @@ import MachineLogTable from './MachineLogTable';
 import ProductionTaskListTable from './ProductionTaskListTable';
 import OperationsProgramCompleteTable from './OperationsProgramCompleteTable';
 import OperationProgramProcessing from './OperationProgramProcessing';
+import ShiftReport from './ShiftReport';
 // import ByOperations from './components/ByOperations';
 // import ByCustomer from './components/ByCustomer';
 
@@ -49,6 +50,7 @@ export default  function ByOperationNavTab({programProcessing,proramCompleted,on
       </Tab>
 
       <Tab eventKey="Shift Report" title="Shift Report">
+      <ShiftReport/>
       </Tab>
     </Tabs>
     </div>

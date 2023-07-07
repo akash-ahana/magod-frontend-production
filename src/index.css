@@ -7,7 +7,19 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.selected-row {
+  background-color:#98A8F8!important;
+   /* Set your desired background color for selected rows */
+}
 
+
+.table-cell-align{
+  text-align: center;
+}
+
+.table-space{
+white-space: nowrap;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

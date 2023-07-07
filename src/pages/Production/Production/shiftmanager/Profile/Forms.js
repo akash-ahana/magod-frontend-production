@@ -181,7 +181,7 @@ function Forms() {
 
     <div>
      <div className="box01 mt-1">
-      {isToggled && <ByMachineBox/>}
+      {isToggled && <ByMachineBox />}
       {isClick && <ByOperations/>}
       {isCustomer && <ByCustomer/>}
      </div>
