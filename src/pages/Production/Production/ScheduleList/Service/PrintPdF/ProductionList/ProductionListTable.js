@@ -64,8 +64,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottom: "1px",
     marginTop: "5px",
-    marginLeft: "40px",
-    width: "750px",
+    marginLeft: "20px",
+    width: "800px",
   },
   schd: {
     width: "80px",
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     marginLeft:"10px"
   },
   customer: {
-    width: "200px",
+    width: "350px",
   },
   deldate: {
     width: "80px",
@@ -87,9 +87,9 @@ const styles = StyleSheet.create({
     width: "80px",
   },
   detailss: {
-    marginLeft: "40px",
+    marginLeft: "20px",
     borderBottom: "1px",
-    width: "750px",
+    width: "800px",
     marginTop: "50px",
   },
 });

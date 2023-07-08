@@ -32,6 +32,7 @@ const processtableSelectFun=(item,index)=>{
 
 let TaskNo=processrowselect.TaskNo
 const[partlistdata,setPartlistdata]=useState([])
+console.log("TaskId",TaskNo)
 const getpartslistdata=()=>{
   axios.post(
    baseURL +

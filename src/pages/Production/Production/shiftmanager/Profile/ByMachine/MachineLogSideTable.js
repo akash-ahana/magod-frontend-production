@@ -4,23 +4,8 @@ import { Table } from 'react-bootstrap'
 import {baseURL} from '../../../../../../api/baseUrl'
 import { useState } from 'react'
 
-export default function MachineLogSideTable() {
-const [machineList,setMachineList]=useState([])
-  useEffect(() => {
-    axios.get(baseURL+'/shiftManagerProfile/profileListMachinesTaskNo')
-        .then((response) => {
-          console.log("response  machine list",response.data)
-          setMachineList(response.data);
-        })
-}, [])
+export default function MachineLogSideTable({setSelectmachinelog,selectmachinelog,selectMachineLogFun,machineList}) {
 
-const[selectmachinelog,setSelectmachinelog]=useState({})
-const selectMachineLog=(item,index)=>{
-  let list={...item,index:index}
-  setSelectmachinelog(list)
-}
-
-console.log("selected machine in Machine Log table is",selectmachinelog)
   return (
     <div className='row mt-1'>
     <div className='col-md-12 col-sm-12'>
@@ -37,7 +22,7 @@ console.log("selected machine in Machine Log table is",selectmachinelog)
     <>
     <tbody className='tablebody'>
           <tr 
-          onClick={()=>selectMachineLog(item,key)} className={key===selectmachinelog?.index? 'selcted-row-clr':'' }
+          onClick={()=>selectMachineLogFun(item,key)} className={key===selectmachinelog?.index? 'selcted-row-clr':'' }
           >
              <td>{item.MachineName}</td>
          </tr>

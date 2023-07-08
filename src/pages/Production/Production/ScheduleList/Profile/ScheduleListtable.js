@@ -8,6 +8,7 @@ export default function ScheduleListtable({
   rowselect,
   getprocessTabledata,
   setRowselect,
+  scheduleList,
   custcode
 }) {
   const { schedulelistdata, getSchedulistdata, selectedRows, setSelectedRows, handleCheckboxChange } = useGlobalContext();
@@ -16,7 +17,7 @@ export default function ScheduleListtable({
     getSchedulistdata();
   }, []);
 
-   
+  
 
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>

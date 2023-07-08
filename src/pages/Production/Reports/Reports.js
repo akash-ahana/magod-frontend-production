@@ -1,8 +1,8 @@
 import axios from "axios";
-import React,{useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
-import { baseURL } from '../../../api/baseUrl'
+import { baseURL } from "../../../api/baseUrl";
 import NabTab from "./Components/NavTab";
 import DailyReportPrintModal from "./Pdfs/PrintDailyReports/DailyReportPrintModal";
 import PrepareReportModal1 from "./Components/PrepareReportModal1";
@@ -11,7 +11,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Reports() {
-  const {machineutilisationSummartdata,setMachineutilisationSummarydata,multiplerowSelect} = useGlobalContext();
+  const {
+    machineutilisationSummartdata,
+    setMachineutilisationSummarydata,
+    multiplerowSelect,
+  } = useGlobalContext();
   const [selectedRows, setSelectedRows] = useState([]);
 
   const machinelogRowSelect = (index) => {
@@ -29,400 +33,482 @@ export default function Reports() {
       setSelectedRows([...selectedRows, { data: selectedRowData }]);
     }
   };
-  
 
-
-//ONCLICK PRINTDAILY REPORT
-const[opendailyReport,setOpendailyReport]=useState('')
-const openPrintdailyPdf=()=>{
-  setOpendailyReport(true);
-}
-
-const[productionTaskSummary,setProductionTaskSummary]=useState([]);
-const[machineLogData,setMachineLogData]=useState([])
-//Select Date
-const[dateSelect,SetDateSelect]=useState('')
-const handleChangeSelectDate=(e)=>{
-  SetDateSelect(e.target.value);
-  axios
-  .post(baseURL + "/reports/getMachineUtilisationSummary", {
-    Date:e.target.value
-  })
-  .then((res) => {
-    console.log("require response mus",res.data);
-    setMachineutilisationSummarydata(res.data.data)
-  });
-      axios.post(baseURL+'/reports/productTaskSummary',{Date:e.target.value})
+  //Onchange
+  const [status, setStatus] = useState("");
+  const [productionTaskSummary, setProductionTaskSummary] = useState([]);
+  const [machineLogData, setMachineLogData] = useState([]);
+  //Select Date
+  const [dateSelect, SetDateSelect] = useState("");
+  const handleChangeSelectDate = (e) => {
+    SetDateSelect(e.target.value);
+    axios
+      .post(baseURL + "/reports/getMachineUtilisationSummary", {
+        Date: e.target.value,
+      })
+      .then((res) => {
+        console.log("require response mus", res.data);
+        setMachineutilisationSummarydata(res.data.data);
+      });
+    axios
+      .post(baseURL + "/reports/productTaskSummary", { Date: e.target.value })
       .then((response) => {
         //  console.log("data", response.data.data);
-         setProductionTaskSummary(response.data)
-      })
-      axios.post(baseURL+'/reports/machineLog',{Date:e.target.value})
+        setProductionTaskSummary(response.data);
+      });
+    axios
+      .post(baseURL + "/reports/machineLog", { Date: e.target.value })
       .then((response) => {
-        for(let i =0;i<response.data.length;i++) { 
+        for (let i = 0; i < response.data.length; i++) {
           let dateSplit1 = response.data[i].FromTime.split(" ");
-          let date1 =dateSplit1[0].split("-")
+          let date1 = dateSplit1[0].split("-");
           let year1 = date1[0];
           let month1 = date1[1];
           let day1 = date1[2];
-          let time=dateSplit1[1].split(":");
-          let Time=time[0]+":"+time[1];
-          let finalDay1 = day1+"/"+month1+"/"+year1+" "+ Time;
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
           response.data[i].FromTime = finalDay1;
         }
-        for(let i =0;i<response.data.length;i++) { 
+        for (let i = 0; i < response.data.length; i++) {
           let dateSplit2 = response.data[i].ToTime.split(" ");
-          let date2 =dateSplit2[0].split("-")
+          let date2 = dateSplit2[0].split("-");
           let year2 = date2[0];
           let month2 = date2[1];
           let day2 = date2[2];
-          let time1=dateSplit2[1].split(":");
-          let Time1=time1[0]+":"+time1[1];
-          let finalDay2 = day2+"/"+month2+"/"+year2+" "+ Time1;
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
           response.data[i].ToTime = finalDay2;
         }
         console.log(response.data);
-         setMachineLogData(response.data);
+        setMachineLogData(response.data);
+      });
+
+    //TryToget
+    //     axios
+    // .post(baseURL + "/reports/printDailyReport", {
+    //   Date:e.target.value
+    // })
+    // .then((res) => {
+    //   console.log("require response for PDF IS ",res.data);
+    // });
+  };
+
+  // //STATUS CODE
+  useEffect(() => {
+    axios
+      .post(baseURL + "/reports/getStatusPrintReport", {
+        Date: dateSelect,
       })
-}
+      .then((res) => {
+        setStatus(res.data);
+      });
+  }, [dateSelect]);
 
-const [prepareReportStatus, setPrepareReportStatus] = useState('');
-const[prepareReport1,setPrepareReport]=useState('');
-const openPrepareReport1 = () => {
-  let machinesWithNegativeValues = []; // Array to store machines with negative values
+  const [prepareReport1, setPrepareReport] = useState("");
+  const openPrepareReport1 = () => {
+    let machinesWithNegativeValues = []; // Array to store machines with negative values
 
-  multiplerowSelect.forEach(row => {
-    if (row.NonProdOn < 0) {
-      machinesWithNegativeValues.push(row); // Add machine to the array
-    }
-  });
-  selectedRows.forEach(row => {
-    if (row.MachineTime < 0) {
-      machinesWithNegativeValues.push(row); // Add machine to the array
-    }
-  });
-  machineLogData.forEach(row => {
-    if (row.MachineTime < 0) {
-      machinesWithNegativeValues.push(row); // Add machine to the array
-    }
-  });
-  machineutilisationSummartdata.forEach(row => {
-    if (row.NonProdOn < 0) {
-      machinesWithNegativeValues.push(row); // Add machine to the array
-    }
-  });
-  if (machinesWithNegativeValues.length > 0) {
-    const firstMachine = machinesWithNegativeValues[0].Machine;
-    toast.error(`Please check ${firstMachine}`, {
-      position: toast.POSITION.TOP_CENTER,
+    multiplerowSelect.forEach((row) => {
+      if (row.NonProdOn < 0) {
+        machinesWithNegativeValues.push(row); // Add machine to the array
+      }
     });
-  } else {
-    setPrepareReport(true);
-    setPrepareReportStatus(true);
-  }
-};
-
-console.log("Status for Prepare Report is",prepareReportStatus)
-
-//Machine OnClick
-const machineSelected = (Machine) => {
-  console.log('The Machine Selected is ', Machine)
-  axios
-  .post(baseURL + "/reports/machineOnclick", {
-    Date:dateSelect,
-    Machine:Machine
-  })
-  .then((response) => {
-    for(let i =0;i<response.data.length;i++) { 
-      let dateSplit1 = response.data[i].FromTime.split(" ");
-      let date1 =dateSplit1[0].split("-")
-      let year1 = date1[0];
-      let month1 = date1[1];
-      let day1 = date1[2];
-      let time=dateSplit1[1].split(":");
-      let Time=time[0]+":"+time[1];
-      let finalDay1 = day1+"/"+month1+"/"+year1+" "+ Time;
-      response.data[i].FromTime = finalDay1;
+    selectedRows.forEach((row) => {
+      if (row.MachineTime < 0) {
+        machinesWithNegativeValues.push(row); // Add machine to the array
+      }
+    });
+    machineLogData.forEach((row) => {
+      if (row.MachineTime < 0) {
+        machinesWithNegativeValues.push(row); // Add machine to the array
+      }
+    });
+    machineutilisationSummartdata.forEach((row) => {
+      if (row.NonProdOn < 0) {
+        machinesWithNegativeValues.push(row); // Add machine to the array
+      }
+    });
+    if (machinesWithNegativeValues.length > 0) {
+      const firstMachine = machinesWithNegativeValues[0].Machine;
+      toast.error(`Please check ${firstMachine}`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      setPrepareReport(true);
     }
-    for(let i =0;i<response.data.length;i++) { 
-      let dateSplit2 = response.data[i].ToTime.split(" ");
-      let date2 =dateSplit2[0].split("-")
-      let year2 = date2[0];
-      let month2 = date2[1];
-      let day2 = date2[2];
-      let time1=dateSplit2[1].split(":");
-      let Time1=time1[0]+":"+time1[1];
-      let finalDay2 = day2+"/"+month2+"/"+year2+" "+ Time1;
-      response.data[i].ToTime = finalDay2;
-    }
-    console.log("require response mus",response.data);
-    setMachineLogData(response.data);
-  });
-}
+  };
 
-//OnClick Shift
-const ShiftSelected = (Shift,Machine) => {
-  console.log('The  Selected is ', Shift,Machine)
-  axios
-  .post(baseURL + "/reports/shiftOnClick", {
-    Date:dateSelect,
-    Shift:Shift,
-    Machine:Machine
-  })
-  .then((response) => {
-    for(let i =0;i<response.data.length;i++) { 
-      let dateSplit1 = response.data[i].FromTime.split(" ");
-      let date1 =dateSplit1[0].split("-")
-      let year1 = date1[0];
-      let month1 = date1[1];
-      let day1 = date1[2];
-      let time=dateSplit1[1].split(":");
-      let Time=time[0]+":"+time[1];
-      let finalDay1 = day1+"/"+month1+"/"+year1+" "+ Time;
-      response.data[i].FromTime = finalDay1;
-    }
-    for(let i =0;i<response.data.length;i++) { 
-      let dateSplit2 = response.data[i].ToTime.split(" ");
-      let date2 =dateSplit2[0].split("-")
-      let year2 = date2[0];
-      let month2 = date2[1];
-      let day2 = date2[2];
-      let time1=dateSplit2[1].split(":");
-      let Time1=time1[0]+":"+time1[1];
-      let finalDay2 = day2+"/"+month2+"/"+year2+" "+ Time1;
-      response.data[i].ToTime = finalDay2;
-    }
-    console.log("require response mus",response.data);
-    setMachineLogData(response.data);
-  });
-}
-
-//Onclick MainTreeView
-const treeViewHeader=()=>{
-  axios.post(baseURL+'/reports/machineLog',{Date:dateSelect})
+  //Machine OnClick
+  const machineSelected = (Machine) => {
+    console.log("The Machine Selected is ", Machine);
+    axios
+      .post(baseURL + "/reports/machineOnclick", {
+        Date: dateSelect,
+        Machine: Machine,
+      })
       .then((response) => {
-        for(let i =0;i<response.data.length;i++) { 
+        for (let i = 0; i < response.data.length; i++) {
           let dateSplit1 = response.data[i].FromTime.split(" ");
-          let date1 =dateSplit1[0].split("-")
+          let date1 = dateSplit1[0].split("-");
           let year1 = date1[0];
           let month1 = date1[1];
           let day1 = date1[2];
-          let time=dateSplit1[1].split(":");
-          let Time=time[0]+":"+time[1];
-          let finalDay1 = day1+"/"+month1+"/"+year1+" "+ Time;
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
           response.data[i].FromTime = finalDay1;
         }
-        for(let i =0;i<response.data.length;i++) { 
+        for (let i = 0; i < response.data.length; i++) {
           let dateSplit2 = response.data[i].ToTime.split(" ");
-          let date2 =dateSplit2[0].split("-")
+          let date2 = dateSplit2[0].split("-");
           let year2 = date2[0];
           let month2 = date2[1];
           let day2 = date2[2];
-          let time1=dateSplit2[1].split(":");
-          let Time1=time1[0]+":"+time1[1];
-          let finalDay2 = day2+"/"+month2+"/"+year2+" "+ Time1;
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+          response.data[i].ToTime = finalDay2;
+        }
+        console.log("require response mus", response.data);
+        setMachineLogData(response.data);
+      });
+  };
+
+  //OnClick Shift
+  const ShiftSelected = (Shift, Machine) => {
+    console.log("The  Selected is ", Shift, Machine);
+    axios
+      .post(baseURL + "/reports/shiftOnClick", {
+        Date: dateSelect,
+        Shift: Shift,
+        Machine: Machine,
+      })
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit1 = response.data[i].FromTime.split(" ");
+          let date1 = dateSplit1[0].split("-");
+          let year1 = date1[0];
+          let month1 = date1[1];
+          let day1 = date1[2];
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+          response.data[i].FromTime = finalDay1;
+        }
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit2 = response.data[i].ToTime.split(" ");
+          let date2 = dateSplit2[0].split("-");
+          let year2 = date2[0];
+          let month2 = date2[1];
+          let day2 = date2[2];
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+          response.data[i].ToTime = finalDay2;
+        }
+        console.log("require response mus", response.data);
+        setMachineLogData(response.data);
+      });
+  };
+
+  //Onclick MainTreeView
+  const treeViewHeader = () => {
+    axios
+      .post(baseURL + "/reports/machineLog", { Date: dateSelect })
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit1 = response.data[i].FromTime.split(" ");
+          let date1 = dateSplit1[0].split("-");
+          let year1 = date1[0];
+          let month1 = date1[1];
+          let day1 = date1[2];
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+          response.data[i].FromTime = finalDay1;
+        }
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit2 = response.data[i].ToTime.split(" ");
+          let date2 = dateSplit2[0].split("-");
+          let year2 = date2[0];
+          let month2 = date2[1];
+          let day2 = date2[2];
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
           response.data[i].ToTime = finalDay2;
         }
         console.log(response.data);
-         setMachineLogData(response.data);
-      })
+        setMachineLogData(response.data);
+      });
+  };
 
-}
+  let [lazerUser, setLazerUser] = useState(
+    JSON.parse(localStorage.getItem("LazerUser"))
+  );
 
-
-let [lazerUser, setLazerUser] = useState(
-  JSON.parse(localStorage.getItem("LazerUser"))
-);
-
-
-// console.log(multiplerowSelect,selectedRows)
-const [reportsTreeViewData, setReportsTreeView] = useState([])
-useEffect(() => {
-  axios.post(baseURL+'/reports/reportsTreeView', {Date : dateSelect})
+  // console.log(multiplerowSelect,selectedRows)
+  const [reportsTreeViewData, setReportsTreeView] = useState([]);
+  useEffect(() => {
+    axios
+      .post(baseURL + "/reports/reportsTreeView", { Date: dateSelect })
       .then((response) => {
-          console.log(' RESPONSE ' , response.data)
-          setReportsTreeView(response.data)
-      })
-}, [])
+        console.log(" RESPONSE ", response.data);
+        setReportsTreeView(response.data);
+      });
+  }, []);
 
-const dataSource = [
-  {
+  const dataSource = [
+    {
       type: "Machines",
       collapsed: true,
       serverData: reportsTreeViewData,
-  },
-];
+    },
+  ];
 
+  //ONCLICK PRINTDAILY REPORT
+  const [opendailyReport, setOpendailyReport] = useState("");
+  const openPrintdailyPdf = () => {
+    if (status == false) {
+      toast.error("Prepare Report Before Printing", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      setOpendailyReport(true);
+    }
+  };
 
-//PDF
-const pdfData = reportsTreeViewData.map((machine) => {
-  const productionTasks = [];
-  const nonProductionTasks = [];
+  //PDF
+  const pdfData = reportsTreeViewData.map((machine) => {
+    const productionTasks = [];
+    const nonProductionTasks = [];
 
-  machine.Shifts.forEach((shift) => {
-    shift.task.forEach((task) => {
-      if (task.action === "Production") {
-        productionTasks.push(...task.operations);
-      } else if (task.action === "Non Productive") {
-        nonProductionTasks.push(...task.operations);
-      }
+    machine.Shifts.forEach((shift) => {
+      shift.task.forEach((task) => {
+        if (task.action === "Production") {
+          productionTasks.push(...task.operations);
+        } else if (task.action === "Non Productive") {
+          nonProductionTasks.push(...task.operations);
+        }
+      });
     });
+
+    return {
+      MachineName: machine.MachineName,
+      tasks: [
+        { task: "Production", operations: productionTasks },
+        { task: "Non Productive", operations: nonProductionTasks },
+      ],
+    };
   });
 
-  return {
-    MachineName: machine.MachineName,
-    tasks: [
-      { task: "Production", operations: productionTasks },
-      { task: "Non Productive", operations: nonProductionTasks },
-    ],
-  };
-});
-
-console.log(pdfData);
+  console.log(pdfData);
 
   return (
     <div>
-                  <ToastContainer />
+      <ToastContainer />
 
       <DailyReportPrintModal
-      opendailyReport={opendailyReport}
-      setOpendailyReport={setOpendailyReport}
-      pdfData={pdfData}/>
-
-     
+        opendailyReport={opendailyReport}
+        setOpendailyReport={setOpendailyReport}
+        pdfData={pdfData}
+      />
 
       <PrepareReportModal1
-      prepareReport1={prepareReport1}
-      setPrepareReport={setPrepareReport}
-      dateSelect={dateSelect}/>
-      
-      <div className='col-md-12'>
-        <div className='row'><h4 className='title'>Daily Production Report</h4></div>
+        prepareReport1={prepareReport1}
+        setPrepareReport={setPrepareReport}
+        dateSelect={dateSelect}
+      />
+
+      <div className="col-md-12">
+        <div className="row">
+          <h4 className="title">Daily Production Report</h4>
+        </div>
       </div>
 
-      <div className='col-md-12'>
-        <div className='row'>
-           <div className='col-md-2 mt-3'>
-                <input  name='InstallDate' onChange={handleChangeSelectDate}
-               type="date"
-                required />
-           </div>
+      <div className="col-md-12">
+        <div className="row">
+          <div className="col-md-2 mt-3">
+            <input
+              name="InstallDate"
+              onChange={handleChangeSelectDate}
+              type="date"
+              required
+            />
+          </div>
 
-            <button className="button-style mt-3 group-button" type='button'
-              style={{ width: "150px",marginLeft:"20px" }} onClick={openPrepareReport1}>
-               Prepare Report
-            </button>
+          <button
+            className="button-style mt-3 group-button"
+            type="button"
+            style={{ width: "150px", marginLeft: "20px" }}
+            onClick={openPrepareReport1}
+          >
+            Prepare Report
+          </button>
 
-            <button className="button-style mt-3  group-button" type='button'
-              style={{ width: "150px",marginLeft:"20px" }} onClick={openPrintdailyPdf}
-              disabled={prepareReportStatus==='' ? true : false}>
-               Print Daily Report
-            </button>
+          <button
+            className="button-style mt-3  group-button"
+            type="button"
+            style={{ width: "150px", marginLeft: "20px" }}
+            onClick={openPrintdailyPdf}
+            // disabled={status===false ? true : false}
+          >
+            Print Daily Report
+          </button>
 
-           {/* <div className='col-md-3'>
+          {/* <div className='col-md-3'>
            <label  
            className="">Prepared By</label>
                 <input style={{marginTop:"-6px"}} className="in-field" required />
            </div> */}
-           <div className='col-md-3 mt-3' style={{display:"flex",gap:"20px"}}>
-           <label 
-           className="mt-1 form-label" style={{whiteSpace:"nowrap"}}>Prepared By</label>
-                <input  className="in-field mt-2" required  defaultValue={lazerUser.data[0].Name}/>
-           </div> 
+          <div
+            className="col-md-3 mt-3"
+            style={{ display: "flex", gap: "20px" }}
+          >
+            <label className="mt-1 form-label" style={{ whiteSpace: "nowrap" }}>
+              Prepared By
+            </label>
+            <input
+              className="in-field mt-2"
+              required
+              defaultValue={lazerUser.data[0].Name}
+            />
+          </div>
         </div>
       </div>
 
-      <div className='col-md-12'>
-        <div className='row mt-4'>
-           <div className='col-md-3' style={{height:"420px",overflowY:"scroll",fontSize:"14px",marginLeft:"-10px"}}>
-           {dataSource.map((node, i) => {
-                    const type = node.type;
-                    const label = <span  onClick={treeViewHeader} className="node">{type}</span>;
-                    return (
-                        <TreeView
-                            key={type + "|" + i}
-                           nodeLabel={label}
-                            defaultCollapsed={false} >
-
-                            {node.serverData.map((data) => {
-                                const label2 = <span style={{fontSize:"13px"}} onClick={() =>{ machineSelected(data.MachineName)}} className="node">{data.MachineName}</span>;
-                                
-                                return (
-
-                                    <TreeView
-                                        nodeLabel={label2}
-                                        key={data.name }
-                                        defaultCollapsed={true}
-                                    >
-                                        
-                                        {data.Shifts.map((value) => {
-                                          const label3 = <span style={{fontSize:"13px"}}
-                                          onClick={() =>{ ShiftSelected(value.Shift,data.MachineName)}}  className="node">{value.Shift} - {value.time} </span>;
-                                            return (
-                                                <>
-                                              
-                                                 <TreeView
-                                        nodeLabel={label3}
-                                        key={data.name }
-                                        defaultCollapsed={true}
-                                    >
-                                        
-                                        {value.task.map((data) => {
-                                          const label4 = <span style={{fontSize:"12px"}} className="node">{data.action} - {data.time}</span>;
-                                            return (
-                                                <>
-                                              
-                                                <TreeView
-                                        nodeLabel={label4}
-                                        key={data.name }
-                                        defaultCollapsed={true}
-                                    >
-                                        
-                                        {data.operations.map((value) => {
-                                          const label5 = <span style={{fontSize:"11px"}} className="node">{value.Operation} - {value.time}</span>;
-                                            return (
-                                                <>
-                                                 <TreeView
-                                        nodeLabel={label5}
-                                        key={data.name }
-                                        defaultCollapsed={true}
-                                    >
-                                    </TreeView>
-                                                </>
-                                            )
-                                        })}  
-                                    </TreeView>
-                                                </>
-                                            )
-                                        })}  
-                                    </TreeView>
-                                               
-                                                </>
-                                            )
-                                        })}  
-                                     
-                                    </TreeView>
-                                    );
-                            })}
-                        </TreeView>
+      <div className="col-md-12">
+        <div className="row mt-4">
+          <div
+            className="col-md-3"
+            style={{
+              height: "420px",
+              overflowY: "scroll",
+              fontSize: "14px",
+              marginLeft: "-10px",
+            }}
+          >
+            {dataSource.map((node, i) => {
+              const type = node.type;
+              const label = (
+                <span onClick={treeViewHeader} className="node">
+                  {type}
+                </span>
+              );
+              return (
+                <TreeView
+                  key={type + "|" + i}
+                  nodeLabel={label}
+                  defaultCollapsed={false}
+                >
+                  {node.serverData.map((data) => {
+                    const label2 = (
+                      <span
+                        style={{ fontSize: "13px" }}
+                        onClick={() => {
+                          machineSelected(data.MachineName);
+                        }}
+                        className="node"
+                      >
+                        {data.MachineName}
+                      </span>
                     );
-                })}
-           </div>
-           <div className="col-md-9">
-              <NabTab machineutilisationSummartdata={machineutilisationSummartdata}
+
+                    return (
+                      <TreeView
+                        nodeLabel={label2}
+                        key={data.name}
+                        defaultCollapsed={true}
+                      >
+                        {data.Shifts.map((value) => {
+                          const label3 = (
+                            <span
+                              style={{ fontSize: "13px" }}
+                              onClick={() => {
+                                ShiftSelected(value.Shift, data.MachineName);
+                              }}
+                              className="node"
+                            >
+                              {value.Shift} - {value.time}{" "}
+                            </span>
+                          );
+                          return (
+                            <>
+                              <TreeView
+                                nodeLabel={label3}
+                                key={data.name}
+                                defaultCollapsed={true}
+                              >
+                                {value.task.map((data) => {
+                                  const label4 = (
+                                    <span
+                                      style={{ fontSize: "12px" }}
+                                      className="node"
+                                    >
+                                      {data.action} - {data.time}
+                                    </span>
+                                  );
+                                  return (
+                                    <>
+                                      <TreeView
+                                        nodeLabel={label4}
+                                        key={data.name}
+                                        defaultCollapsed={true}
+                                      >
+                                        {data.operations.map((value) => {
+                                          const label5 = (
+                                            <span
+                                              style={{ fontSize: "11px" }}
+                                              className="node"
+                                            >
+                                              {value.Operation} - {value.time}
+                                            </span>
+                                          );
+                                          return (
+                                            <>
+                                              <TreeView
+                                                nodeLabel={label5}
+                                                key={data.name}
+                                                defaultCollapsed={true}
+                                              ></TreeView>
+                                            </>
+                                          );
+                                        })}
+                                      </TreeView>
+                                    </>
+                                  );
+                                })}
+                              </TreeView>
+                            </>
+                          );
+                        })}
+                      </TreeView>
+                    );
+                  })}
+                </TreeView>
+              );
+            })}
+          </div>
+          <div className="col-md-9">
+            <NabTab
+              machineutilisationSummartdata={machineutilisationSummartdata}
               productionTaskSummary={productionTaskSummary}
               machineLogData={machineLogData}
               dateSelect={dateSelect}
               setMachineLogData={setMachineLogData}
-              setMachineutilisationSummarydata={setMachineutilisationSummarydata}
+              setMachineutilisationSummarydata={
+                setMachineutilisationSummarydata
+              }
               selectedRows={selectedRows}
               setSelectedRows={setSelectedRows}
               machinelogRowSelect={machinelogRowSelect}
-/>
-           </div>
+              status={status}
+            />
+          </div>
         </div>
       </div>
-      
     </div>
-  )
+  );
 }

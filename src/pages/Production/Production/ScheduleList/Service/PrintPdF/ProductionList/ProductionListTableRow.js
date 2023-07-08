@@ -9,8 +9,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottom: "1px",
     marginTop: "5px",
-    width: "750px",
-    marginLeft:"-20px"
+    width: "800px",
+    marginLeft:"-40px"
   },
   schd: {
     width: "80px",
@@ -19,13 +19,12 @@ const styles = StyleSheet.create({
     width: "80px",
   },
   customer: {
-    width: "200px",
-    marginLeft:"10px"
+    width: "350px",
 
   },
   deldate: {
     width: "80px",
-    marginLeft:"10px"
+    marginLeft:"-50px"
 
   },
   remaining: {
