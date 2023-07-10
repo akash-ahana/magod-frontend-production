@@ -101,6 +101,9 @@ const styles = StyleSheet.create({
     },
     task:{
       textDecoration:"underline"
+    },
+    Nodata:{
+      marginTop:"100px"
     }
   });
   
@@ -118,18 +121,18 @@ const DailyReportTable = ({Date,pdfData}) => (
     <React.Fragment key={machine.MachineName}>
       <View style={styles.details}>
         <Text style={styles.tablemainheaderName}>{machine.MachineName}</Text>
-        <Text style={styles.program}>Laser ON Reading 900</Text>
-        <Text style={styles.production}>Production ON:</Text>
-        <Text style={styles.production1}>Non-Production ON:</Text>
-        <Text style={styles.production2}>Total Off:</Text>
+        <Text style={styles.program}>Laser ON Reading {machine.LaserOn}</Text>
+        <Text style={styles.production}>Production ON : {machine.ProdON}</Text>
+        <Text style={styles.production1}>Non-Production ON : {machine.NonProdOn}</Text>
+        <Text style={styles.production2}>Total Off : {machine.TotalOff}</Text>
       </View>
 
       {machine.tasks.map((task) => (
         <View style={styles.tablemainheader1} key={task.task}>
-        <Text >{task.task}</Text>
+        <Text style={styles.task} >{task.task}</Text>
         {task.operations.map((operation) => (
           <Text  key={operation.Operation} style={styles.desc}>
-            {operation.Operation}
+            {operation.Operation}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{operation.time}
           </Text>
         ))}
       </View>
@@ -137,7 +140,7 @@ const DailyReportTable = ({Date,pdfData}) => (
     </React.Fragment>
   ))
 ) : (
-  <Text>No data available</Text>
+  <Text style={styles.Nodata}>No data available</Text>
 )}
 
 

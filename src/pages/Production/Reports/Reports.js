@@ -84,15 +84,6 @@ export default function Reports() {
         console.log(response.data);
         setMachineLogData(response.data);
       });
-
-    //TryToget
-    //     axios
-    // .post(baseURL + "/reports/printDailyReport", {
-    //   Date:e.target.value
-    // })
-    // .then((res) => {
-    //   console.log("require response for PDF IS ",res.data);
-    // });
   };
 
   // //STATUS CODE
@@ -253,12 +244,13 @@ export default function Reports() {
   const [reportsTreeViewData, setReportsTreeView] = useState([]);
   useEffect(() => {
     axios
-      .post(baseURL + "/reports/reportsTreeView", { Date: dateSelect })
+      .post(baseURL + "/reports/reportsTreeView", { Date: '2021-06-21' })
       .then((response) => {
         console.log(" RESPONSE ", response.data);
         setReportsTreeView(response.data);
       });
   }, []);
+  console.log(reportsTreeViewData)
 
   const dataSource = [
     {
@@ -270,6 +262,7 @@ export default function Reports() {
 
   //ONCLICK PRINTDAILY REPORT
   const [opendailyReport, setOpendailyReport] = useState("");
+  const[pDFData,setPDFData]=useState([])
   const openPrintdailyPdf = () => {
     if (status == false) {
       toast.error("Prepare Report Before Printing", {
@@ -277,34 +270,44 @@ export default function Reports() {
       });
     } else {
       setOpendailyReport(true);
+      //TRY PDF
+      axios
+      .post(baseURL + "/reports/printDailyReport", {
+        Date: dateSelect,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setPDFData(res.data);
+      });
+      
     }
   };
 
-  //PDF
-  const pdfData = reportsTreeViewData.map((machine) => {
-    const productionTasks = [];
-    const nonProductionTasks = [];
+  // //PDF
+  // const pdfData = reportsTreeViewData.map((machine) => {
+  //   const productionTasks = [];
+  //   const nonProductionTasks = [];
 
-    machine.Shifts.forEach((shift) => {
-      shift.task.forEach((task) => {
-        if (task.action === "Production") {
-          productionTasks.push(...task.operations);
-        } else if (task.action === "Non Productive") {
-          nonProductionTasks.push(...task.operations);
-        }
-      });
-    });
+  //   machine.Shifts.forEach((shift) => {
+  //     shift.task.forEach((task) => {
+  //       if (task.action === "Production") {
+  //         productionTasks.push(...task.operations);
+  //       } else if (task.action === "Non Productive") {
+  //         nonProductionTasks.push(...task.operations);
+  //       }
+  //     });
+  //   });
 
-    return {
-      MachineName: machine.MachineName,
-      tasks: [
-        { task: "Production", operations: productionTasks },
-        { task: "Non Productive", operations: nonProductionTasks },
-      ],
-    };
-  });
+  //   return {
+  //     MachineName: machine.MachineName,
+  //     tasks: [
+  //       { task: "Production", operations: productionTasks },
+  //       { task: "Non Productive", operations: nonProductionTasks },
+  //     ],
+  //   };
+  // });
 
-  console.log(pdfData);
+  // console.log(pdfData);
 
   return (
     <div>
@@ -313,7 +316,7 @@ export default function Reports() {
       <DailyReportPrintModal
         opendailyReport={opendailyReport}
         setOpendailyReport={setOpendailyReport}
-        pdfData={pdfData}
+        pdfData={pDFData}
       />
 
       <PrepareReportModal1
