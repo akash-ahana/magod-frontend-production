@@ -244,12 +244,12 @@ export default function Reports() {
   const [reportsTreeViewData, setReportsTreeView] = useState([]);
   useEffect(() => {
     axios
-      .post(baseURL + "/reports/reportsTreeView", { Date: '2021-06-21' })
+      .post(baseURL + "/reports/reportsTreeView", { Date:dateSelect })
       .then((response) => {
         console.log(" RESPONSE ", response.data);
         setReportsTreeView(response.data);
       });
-  }, []);
+  }, [dateSelect]);
   console.log(reportsTreeViewData)
 
   const dataSource = [
