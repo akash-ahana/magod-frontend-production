@@ -6,11 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useGlobalContext } from "../../../../Context/Context";
 
-export default function MachineUtilisationSummary({
-  dateSelect,
-}) {
-
-  const { multiplerowSelect, setMultipleRowSelect,handleCheckboxChange1,machineutilisationSummartdata,setMachineutilisationSummarydata} = useGlobalContext();
+export default function MachineUtilisationSummary({ dateSelect, status }) {
+  const {
+    multiplerowSelect,
+    setMultipleRowSelect,
+    handleCheckboxChange1,
+    machineutilisationSummartdata,
+    setMachineutilisationSummarydata,
+  } = useGlobalContext();
 
   const [rowSelected, setRowSelected] = useState({});
 
@@ -24,25 +27,26 @@ export default function MachineUtilisationSummary({
   const [inputValue2, setInputValue2] = useState("");
 
   const updateUtilisationSummary = () => {
-    axios.post(baseURL + "/reports/UpdateMachineUtilisationSummary", {
-      rowSelected:rowSelected,
-      TotalOff:inputValue1,
-      LaserOn:inputValue2
-    })
-    .then((res) => {
-      console.log("require response mus",res.data);
-    });
+    axios
+      .post(baseURL + "/reports/UpdateMachineUtilisationSummary", {
+        rowSelected: rowSelected,
+        TotalOff: inputValue1,
+        LaserOn: inputValue2,
+      })
+      .then((res) => {
+        console.log("require response mus", res.data);
+      });
 
-    axios.post(baseURL + "/reports/muData", {
-     Date:dateSelect
-    })
-    .then((res) => {
-      console.log(res.data);
-      setMachineutilisationSummarydata(res.data)
-    });
-    
+    axios
+      .post(baseURL + "/reports/muData", {
+        Date: dateSelect,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setMachineutilisationSummarydata(res.data);
+      });
   };
-  
+
   const handleInputChange1 = (event) => {
     setInputValue1(event.target.value);
   };
@@ -52,9 +56,9 @@ export default function MachineUtilisationSummary({
   };
 
   const saveUtilisationSummary = () => {
-        toast.success("Changes Saved", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+    toast.success("Changes Saved", {
+      position: toast.POSITION.TOP_CENTER,
+    });
   };
 
   useMemo(() => {
@@ -62,7 +66,6 @@ export default function MachineUtilisationSummary({
   }, [machineutilisationSummartdata[0]]);
 
   //Select using Checkbox
-  
 
   // const handleInputChange = (event, key, field) => {
   //   const value = event.target.value;
@@ -77,8 +80,8 @@ export default function MachineUtilisationSummary({
   //   });
   //   setUpdatedData(newUpdatedData);
   // };
-  console.log(multiplerowSelect)
-  
+  console.log(status);
+
   return (
     <div className="col-md-12">
       <ToastContainer />
@@ -103,24 +106,28 @@ export default function MachineUtilisationSummary({
               <label>Total Off</label>
             </div>
             <div className="col-md-4" style={{ marginLeft: "-20px" }}>
-              <input name={inputValue1} defaultValue={rowSelected.TotalOff} onChange={handleInputChange1} />
+              <input
+                name={inputValue1}
+                defaultValue={rowSelected.TotalOff}
+                onChange={handleInputChange1}
+              />
             </div>
             <div className="col-md-4">
-            <button
-  className="button-style group-button"
-  type="button"
-  style={{
-    width: "120px",
-    marginTop: "-10px",
-    marginLeft: "-10px",
-  }}
-  onClick={() =>
-    updateUtilisationSummary()
-  }
->
-  Update Production
-</button>
-
+              <button
+                className={`button-style group-button ${
+                  status ? "disabled" : ""
+                }`}
+                type="button"
+                style={{
+                  width: "120px",
+                  marginTop: "-10px",
+                  marginLeft: "-10px",
+                }}
+                onClick={() => updateUtilisationSummary()}
+                disabled={status}
+              >
+                Update Production
+              </button>
             </div>
           </div>
 
@@ -133,7 +140,9 @@ export default function MachineUtilisationSummary({
             </div>
             <div className="col-md-4">
               <button
-                className="button-style group-button"
+                className={`button-style group-button ${
+                  status ? "disabled" : ""
+                }`}
                 type="button"
                 style={{
                   width: "120px",
@@ -141,6 +150,7 @@ export default function MachineUtilisationSummary({
                   marginLeft: "-10px",
                 }}
                 onClick={saveUtilisationSummary}
+                disabled={status}
               >
                 Save
               </button>
@@ -187,38 +197,32 @@ export default function MachineUtilisationSummary({
               </thead>
 
               <tbody className="tablebody">
-  {machineutilisationSummartdata.map((item, key) => {
-    return (
-      <tr
-      key={key}
-        onClick={() => selectedRowFun(item, key)}
-        className={key === rowSelected?.index ? "selcted-row-clr" : ""}
-      >
-        <td>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            checked={multiplerowSelect.includes(item)}
-            onChange={() => handleCheckboxChange1(item)}
-          />
-        </td>
-        <td style={{whiteSpace:"nowrap"}}>{item.Machine}</td>
-        <td className="table-cell-align">
-        {item.TotalOn}
-        </td>
-        <td className="table-cell-align">
-        {item.TotalOff}
-        </td>
-        <td className="table-cell-align">
-        {item.ProdON}
-        </td>
-        <td className="table-cell-align">
-        {item.NonProdOn}
-        </td>
-      </tr>
-    );
-  })}
-</tbody>
+                {machineutilisationSummartdata.map((item, key) => {
+                  return (
+                    <tr
+                      key={key}
+                      onClick={() => selectedRowFun(item, key)}
+                      className={
+                        key === rowSelected?.index ? "selcted-row-clr" : ""
+                      }
+                    >
+                      <td>
+                        <input
+                          className="form-check-input"
+                          type="checkbox"
+                          checked={multiplerowSelect.includes(item)}
+                          onChange={() => handleCheckboxChange1(item)}
+                        />
+                      </td>
+                      <td style={{ whiteSpace: "nowrap" }}>{item.Machine}</td>
+                      <td className="table-cell-align">{item.TotalOn}</td>
+                      <td className="table-cell-align">{item.TotalOff}</td>
+                      <td className="table-cell-align">{item.ProdON}</td>
+                      <td className="table-cell-align">{item.NonProdOn}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </Table>
           </div>
         </div>

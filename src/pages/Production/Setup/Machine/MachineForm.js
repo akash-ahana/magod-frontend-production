@@ -18,6 +18,8 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function ({selectedRow}) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
+  const blockInvalidCharReg = e => ['!','@','#','$','%','^','&','*','(',')','_','-','+','=','|','\',','}','{','[',']','.',',','/','?'].includes(e.key) && e.preventDefault();
+
   // console.log(selectedRow.isInstallDatePresent);
 
   const formSchema = Yup.object().shape({
@@ -294,6 +296,7 @@ else{
                 <input   value={machineData.RegnNo}
                  name='RegnNo' 
                  disabled={machineData.isRegnNumberPresent=== true ? true : false}
+                 onKeyDown={blockInvalidCharReg} 
                   {...register("RegnNo")}
                 className={`in-fields mt-2 ${
                   errors.RegnNo ? "is-invalid" : ""}`} required 

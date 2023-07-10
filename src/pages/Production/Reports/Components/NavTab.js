@@ -5,7 +5,18 @@ import MachineLog from "./MachineLog";
 import MachineUtilisationSummary from "./MachineUtilisationSummary";
 import ProductionTaskSummary from "./ProductionTaskSummary";
 
-function NabTab({machineutilisationSummartdata,productionTaskSummary,machineLogData,dateSelect,setMachineLogData,setMachineutilisationSummarydata,selectedRows,setSelectedRows,machinelogRowSelect}) {
+function NabTab({
+  machineutilisationSummartdata,
+  productionTaskSummary,
+  machineLogData,
+  dateSelect,
+  setMachineLogData,
+  setMachineutilisationSummarydata,
+  selectedRows,
+  setSelectedRows,
+  machinelogRowSelect,
+  status,
+}) {
   const [key, setKey] = useState("machineLog");
 
   return (
@@ -16,22 +27,31 @@ function NabTab({machineutilisationSummartdata,productionTaskSummary,machineLogD
       className="mb-3 mt-3 tab_font"
     >
       <Tab eventKey="machineLog" title="Machine Log">
-        <MachineLog machineLogData={machineLogData}
-        setMachineLogData={setMachineLogData}
-        dateSelect={dateSelect}
-        selectedRows={selectedRows}
-              setSelectedRows={setSelectedRows}
-              machinelogRowSelect={machinelogRowSelect}/>
+        <MachineLog
+          machineLogData={machineLogData}
+          setMachineLogData={setMachineLogData}
+          dateSelect={dateSelect}
+          selectedRows={selectedRows}
+          setSelectedRows={setSelectedRows}
+          machinelogRowSelect={machinelogRowSelect}
+          status={status}
+        />
       </Tab>
 
-      <Tab eventKey="machineutilisationsummary" title="Machine Utilisation Summary">
-        <MachineUtilisationSummary machineutilisationSummartdata={machineutilisationSummartdata}
-        setMachineutilisationSummarydata={setMachineutilisationSummarydata}
-        dateSelect={dateSelect}/>
+      <Tab
+        eventKey="machineutilisationsummary"
+        title="Machine Utilisation Summary"
+      >
+        <MachineUtilisationSummary
+          machineutilisationSummartdata={machineutilisationSummartdata}
+          setMachineutilisationSummarydata={setMachineutilisationSummarydata}
+          dateSelect={dateSelect}
+          status={status}
+        />
       </Tab>
 
       <Tab eventKey="productiontasksummary" title="Production Task Summary">
-        <ProductionTaskSummary productionTaskSummary={productionTaskSummary}/>
+        <ProductionTaskSummary productionTaskSummary={productionTaskSummary} />
       </Tab>
     </Tabs>
   );

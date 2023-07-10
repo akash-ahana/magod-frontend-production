@@ -7,6 +7,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.disabled {
+  background-color: grey !important;
+}
+
+
 .selected-row {
   background-color:#98A8F8!important;
    /* Set your desired background color for selected rows */

@@ -15,7 +15,7 @@ export default function ShiftReport() {
   useEffect(() => {
     axios.post(baseURL + '/reports/reportsTreeView', { Date: currentDate })
       .then((response) => {
-        console.log('RESPONSE', response.data);
+        // console.log('RESPONSE', response.data);
         setReportsTreeView(response.data);
       });
   }, []);

@@ -245,7 +245,6 @@ export default function ScheduleHeader({
         options={custdata}
         placeholder="Search Customer"
         onChange={(label, event) => selectCust(label)}
-        closeButton
       />
     ) : (
       ""

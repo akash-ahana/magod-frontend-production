@@ -237,23 +237,18 @@ export default function ScheduleHeader({
                 )}
               </Form.Group>
             </div>
-            <div className="col-md-3 mt-2">
-              <label className="form-label mt-2">Find Schedule</label>
+            <div className="col-md-2 mt-3">
+              {/* <label className="form-label mt-2">Find Schedule</label> */}
               <input
-                className="in-field my-0"
+                className="in-field my-0 mt-4"
                 onKeyDown={blockInvalidChar}
                 type="number"
                 onChange={(e) => searchText(e)}
               />
             </div>
-
-            {/* <button className="button-style mt-5 ms-5 group-button"
-             style={{ width: "120px"}}>
-              Reset Status
-            </button> */}
-
-            <button
-              className="button-style mt-5 group-button ms-4"
+<div className=" col-md-7 mt-2">
+<button
+              className="button-style mt-4 group-button ms-3"
               style={{ width: "140px" }}
               onClick={() => {
                 openShowStatusPdf();
@@ -264,7 +259,7 @@ export default function ScheduleHeader({
             </button>
 
             <button
-              className="button-style mt-5 group-button ms-3"
+              className="button-style mt-4 group-button ms-3"
               style={{ width: "140px" }}
               onClick={openShowPartsPdf}
             >
@@ -272,17 +267,19 @@ export default function ScheduleHeader({
             </button>
 
             <button
-              className="button-style mt-5 group-button ms-3"
+              className="button-style mt-4 group-button ms-3"
               style={{ width: "140px" }}
               onClick={openShowProgram}
             >
               Show Programs
             </button>
 
-            <button className="button-style mt-5 group-button" 
+            <button className="button-style mt-4 group-button" 
              style={{ width: "140px" }} onClick={openProductionListPdf}>
              Production list
             </button>
+</div>
+            
           </div>
         </div>
       </div>

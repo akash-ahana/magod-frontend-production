@@ -17,11 +17,6 @@ export default function PartsList({
 
   //Process Table(Right First table) data
   const [newpartlistdata, setNewPartlistdata] = useState([]);
-
-  useEffect(() => {
-    getpartslistdata();
-  }, [TaskNo]);
-
   const onChangeInput = (e, TaskNo, key) => {
     const { name, value } = e.target;
     const NewEditData = partlistdata;
@@ -30,6 +25,7 @@ export default function PartsList({
     setNewPartlistdata(NewEditData);
   };
 
+  //CLEAR ALL
   const clearAllonClick = () => {
     const constpartListData = partlistdata;
     for (let i = 0; i < constpartListData.length; i++) {
@@ -39,6 +35,7 @@ export default function PartsList({
     setNewPartlistdata(constpartListData);
   };
 
+  //CLEAR SELECTED
   const clearSelected = () => {
     const updatedPartListData = partlistdata.map((row) => {
       if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
@@ -46,10 +43,10 @@ export default function PartsList({
       }
       return row;
     });
-
     setPartlistdata(updatedPartListData);
   };
 
+  //SAVE CLEARED
   const saveClearedonClick = () => {
     axios
       .post(
@@ -63,20 +60,19 @@ export default function PartsList({
       });
   };
 
-  //  //SelectedRow
+  ////SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);
-
-  const handleCheckboxChange = (event, row) => {
-    if (event.target.checked) {
-      // Add the selected row object to the array
-      setSelectedRows([...selectedRows, row]);
-    } else {
-      // Remove the selected row object from the array
-      setSelectedRows(
-        selectedRows.filter((selectedRow) => selectedRow.id !== row.id)
-      );
-    }
+  const handleCheckboxChange = (item) => {
+    setSelectedRows(prevRows => {
+      const isItemSelected = prevRows.some(row => row.item === item);
+      if (isItemSelected) {
+        return prevRows.filter(row => row.item !== item);
+      } else {
+        return [...prevRows, item];
+      }
+    });
   };
+  
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -102,6 +98,11 @@ export default function PartsList({
 
     setPartlistdata(newConstPartList);
   };
+
+  useEffect(() => {
+    getpartslistdata();
+    setSelectedRows([])
+  }, [TaskNo]);
 
   return (
     <div>
@@ -161,61 +162,55 @@ export default function PartsList({
           </thead>
 
           <tbody className="tablebody">
-            {partlistdata.map((row, index) => {
+            {partlistdata.map((item, index) => {
+              const isChecked = selectedRows.some(row => row === item);
               return (
                 <>
                   <tr
-                    type="checkbox"
-                    checked={selectedRows.some(
-                      (selectedRow) => selectedRow.id === row.id
-                    )}
-                    onChange={(event) => handleCheckboxChange(event, row)}
-                    index={row.TaskNo}
                   >
-                    <td className="mt-2">
-                      <td>
-                        <input
-                          style={{ marginLeft: "20px" }}
-                          className="form-check-input"
-                          type="checkbox"
-                        />
-                      </td>
-                    </td>
-                    <td style={{ whiteSpace: "nowrap" }}>{row.DwgName}</td>
-                    <td style={{ textAlign: "center" }}>{row.QtyToNest}</td>
-                    <td style={{ textAlign: "center" }}>{row.QtyProduced}</td>
+                   <td>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={() => handleCheckboxChange(item)}
+                  />
+                </td>
+                    <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
+                    <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
+                    <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
                     <td>
-                      <div key={row.QtyCleared}>
+                      <div key={item.QtyCleared}>
                         <input
                           className="table-cell-editor"
                           style={{ textAlign: "center" }}
                           name="cleared"
-                          value={row.QtyCleared}
+                          value={item.QtyCleared}
                           type="number"
                           placeholder="Type Cleared"
                           onKeyDown={blockInvalidChar}
-                          onChange={(e) => onChangeCleared(e, row, index)}
+                          onChange={(e) => onChangeCleared(e, item, index)}
                         />
                       </div>
                     </td>
-                    <td>{row.Task_Part_ID}</td>
-                    <td style={{ textAlign: "center" }}>{row.NcTaskId}</td>
+                    <td>{item.Task_Part_ID}</td>
+                    <td style={{ textAlign: "center" }}>{item.NcTaskId}</td>
                     <td style={{ whiteSpace: "nowrap", textAlign: "center" }}>
-                      {row.TaskNo}
+                      {item.TaskNo}
                     </td>
                     <td style={{ whiteSpace: "nowrap", textAlign: "center" }}>
-                      {row.SchDetailsId}
+                      {item.SchDetailsId}
                     </td>
-                    <td style={{ textAlign: "center" }}>{row.PartID}</td>
-                    <td style={{ textAlign: "center" }}>{row.QtyToNest}</td>
-                    <td style={{ textAlign: "center" }}>{row.QtyCleared}</td>
-                    <td style={{ textAlign: "center" }}>{row.QtyProduced}</td>
-                    <td style={{ textAlign: "center" }}>{row.QtyNested}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{row.Remarks}</td>
-                    <td style={{ textAlign: "center" }}>{row.LOC}</td>
-                    <td style={{ textAlign: "center" }}>{row.Pierces}</td>
-                    <td style={{ textAlign: "center" }}>{row.Part_Area}</td>
-                    <td style={{ textAlign: "center" }}>{row.Unit_Wt}</td>
+                    <td style={{ textAlign: "center" }}>{item.PartID}</td>
+                    <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
+                    <td style={{ textAlign: "center" }}>{item.QtyCleared}</td>
+                    <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
+                    <td style={{ textAlign: "center" }}>{item.QtyNested}</td>
+                    <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
+                    <td style={{ textAlign: "center" }}>{item.LOC}</td>
+                    <td style={{ textAlign: "center" }}>{item.Pierces}</td>
+                    <td style={{ textAlign: "center" }}>{item.Part_Area}</td>
+                    <td style={{ textAlign: "center" }}>{item.Unit_Wt}</td>
                     <td>
                       <input
                         style={{ marginLeft: "20px" }}

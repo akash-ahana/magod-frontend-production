@@ -14,6 +14,7 @@ export default function MachineLog({
   selectedRows,
   setSelectedRows,
   machinelogRowSelect,
+  status,
 }) {
   const [selectAll, setSelectAll] = useState(false);
   const [FinalMachineLogArray, setFinalMachineLogArray] = useState([]);
@@ -164,6 +165,17 @@ export default function MachineLog({
     setMachineLogData(updatedMachineLogData);
   };
 
+  //Open PDF
+  const PrintShiftLog = () => {
+    if (status == false) {
+      toast.error("Prepare Report Before Printing", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      setOpenShiftLog(true);
+    }
+  };
+
   return (
     <div>
       <ToastContainer />
@@ -182,18 +194,20 @@ export default function MachineLog({
 
       <div style={{ marginTop: "-15px" }}>
         <button
-          className="button-style group-button"
+          className={`button-style group-button ${status ? "disabled" : ""}`}
           type="button"
           style={{ width: "150px", marginLeft: "20px" }}
           onClick={onClickSaveLog}
+          disabled={status}
         >
           Save Log
         </button>
+
         <button
           className="button-style group-button"
           type="button"
           style={{ width: "150px", marginLeft: "20px" }}
-          onClick={() => setOpenShiftLog(true)}
+          onClick={PrintShiftLog}
         >
           Print Shift Log
         </button>
@@ -210,7 +224,7 @@ export default function MachineLog({
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor table-cell-align">
             <tr>
-             <th style={{ paddingLeft: "10px", paddingBottom: "10px" }}>
+              <th style={{ paddingLeft: "10px", paddingBottom: "10px" }}>
                 <input
                   type="checkbox"
                   checked={selectAll}
@@ -230,17 +244,19 @@ export default function MachineLog({
               <th>Operation</th>
             </tr>
           </thead>
-{Array.isArray(machineLogData) && machineLogData.length > 0 ? (
-  <tbody className="tablebody table-space table-cell-align">
-    {machineLogData.map((item, key) => {
-      const isSelected = selectedRows.some((row) => row.data === item);
-      return (
-        <tr
-          key={key}
-          onClick={() => machinelogRowSelect(key)}
-          className={isSelected ? "selected-row" : ""}
-        >
-           <td>
+          {Array.isArray(machineLogData) && machineLogData.length > 0 ? (
+            <tbody className="tablebody table-space table-cell-align">
+              {machineLogData.map((item, key) => {
+                const isSelected = selectedRows.some(
+                  (row) => row.data === item
+                );
+                return (
+                  <tr
+                    key={key}
+                    onClick={() => machinelogRowSelect(key)}
+                    className={isSelected ? "selected-row" : ""}
+                  >
+                    <td>
                       <input
                         type="checkbox"
                         checked={isSelected}
@@ -279,20 +295,19 @@ export default function MachineLog({
                     <td>{item?.Remarks}</td>
                     <td>{item?.Operator}</td>
                     <td>{item?.Operation}</td>
-        </tr>
-      );
-    })}
-  </tbody>
-) : (
-  <tbody>
-    <tr>
-      <td colSpan={11} style={{ textAlign: "center" }}>
-        <b>No machine log data available</b>
-      </td>
-    </tr>
-  </tbody>
-)}
-
+                  </tr>
+                );
+              })}
+            </tbody>
+          ) : (
+            <tbody>
+              <tr>
+                <td colSpan={11} style={{ textAlign: "center" }}>
+                  <b>No machine log data available</b>
+                </td>
+              </tr>
+            </tbody>
+          )}
         </Table>
       </div>
     </div>

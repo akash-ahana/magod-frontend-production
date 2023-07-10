@@ -13,22 +13,22 @@ const styles = StyleSheet.create({
     },
     tableTitle : {
         textDecoration : "underline",
-        marginLeft:"250px",
-        marginTop:"20px",
+        marginLeft:"400px",
     },
     title2 :{
         textDecoration :"underline",
-        marginLeft:"100px"
+        marginLeft:"60px",
+        marginTop:"20px"
     },
     location:{
         marginRight:"250px",
-        marginLeft:"250px",
+        // marginLeft:"350px",
         marginTop:"10px",
         textDecoration:"underline"
     },
     datedisplay:{
-        marginRight:"200px",
-        marginLeft:"225px",
+        // marginRight:"200px",
+        marginLeft:"325px",
         marginTop:"2px"
     },
     tableview:
@@ -39,7 +39,8 @@ const styles = StyleSheet.create({
     tablemainheader:{
         textDecoration:"underline",
         marginTop:"20px",
-marginLeft:"50px"        // marginLeft:"50px"
+        marginRight:"50px",
+        marginLeft:"50px"      
     },
      Headingrow: {
     flexDirection: "row",
