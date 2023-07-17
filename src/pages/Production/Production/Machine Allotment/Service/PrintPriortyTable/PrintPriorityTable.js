@@ -4,7 +4,7 @@ import PrintPriorityTableRow from './PrintPriorityTableRow';
 
 const styles = StyleSheet.create({
     page: {
-      fontSize: 9,
+      fontSize: 10,
       flexDirection: "column",
     },
      tableContainer: {
@@ -20,16 +20,16 @@ const styles = StyleSheet.create({
     },
     tableTitle : {
         textDecoration : "underline",
-        marginLeft:"150px",
-        marginTop:"20px",
+        marginLeft:"180px",
+        marginTop:"10px",
     },
     title2 :{
         textDecoration : "underline",
         marginLeft:"170px"
     },
     shiftperiod:{
-        marginLeft:"230px",
-        marginTop:"10px"
+        marginLeft:"250px",
+        marginTop:"3px"
     },
     machineName:{
        marginTop:"50px",
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderBottom:"1px",
         marginTop:"20px",
         marginLeft:"60px",
-        width:"480px",
+        width:"500px",
       },
       srl: {
         width: "30px",
@@ -56,20 +56,31 @@ const styles = StyleSheet.create({
         width: "50px",
       },
       operation:{
-          width:"110px"
+          width:"130px"
       },
       customer:{
-          width:"210px"
+          width:"250px"
       },
       newLoad:{
-        marginLeft:"250px",
-        marginTop:"10px",
+        marginLeft:"290px",
+        marginTop:"7px",
       },
       processed:{
         width:"40px"
       },
       load:{
         width:"40px"
+      },
+      production:{
+        marginTop:"30px",
+       marginLeft:"50px"
+      },
+      Signature:{
+        marginTop:"15px",
+        marginLeft:"50px"
+      },
+      Time:{
+        marginLeft:"50px"
       }
   });
   
@@ -80,8 +91,6 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd:Production Department</Text>
         <Text style={styles.shiftperiod}>Production Plan:Jigani </Text>
-
-       
 
         {sortedPriorityTable.map((item)=>{
           return(
@@ -103,16 +112,21 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
           />
        </View>
        <View>
-        <Text style={styles.newLoad}>Load For {item.Machine} &nbsp;-&nbsp;{item.newLoad}</Text>
+        <Text style={styles.newLoad}>Load For {item.Machine} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.newLoad}</Text>
        </View>
            </>
-
           )
-          
-        })}
-       
-      
-            
+        })}   
+        <View >
+          <Text style={styles.production}>Production In Charge</Text>
+          <Text style={styles.Signature}>Signature</Text>
+          <Text style={styles.Time}>Date and Time</Text>
+        </View>
+
+        {/* <View>
+          <Text style={styles.Signature}></Text>
+          <Text ></Text>
+        </View> */}
   </View>
     </Page>
   </Document>

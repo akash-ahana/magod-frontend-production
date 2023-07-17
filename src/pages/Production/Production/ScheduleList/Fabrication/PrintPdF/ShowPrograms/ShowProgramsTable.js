@@ -89,9 +89,9 @@ const ShowProgramsTable = ({processrowselect,rowselect,programlistdata}) => (
         </View>
 
         <View style={styles.Headingrow}>
-          <Text style={styles.dwgname}>{programlistdata[0].TaskNo}</Text>
-          <Text style={styles.Scheduled}>{programlistdata[0].Mtrl_Code}</Text>
-          <Text style={styles.Nested}>{programlistdata[0].MProcess}</Text>
+          <Text style={styles.dwgname}>{programlistdata[0]?.TaskNo}</Text>
+          <Text style={styles.Scheduled}>{programlistdata[0]?.Mtrl_Code}</Text>
+          <Text style={styles.Nested}>{programlistdata[0]?.MProcess}</Text>
           <Text style={styles.Nested}></Text>
         </View>
 

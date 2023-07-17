@@ -184,6 +184,7 @@ export default function MachineLog({
         openShiftLog={openShiftLog}
         setOpenShiftLog={setOpenShiftLog}
         sortedMachineLogs={sortedMachineLogs}
+        dateSelect={dateSelect}
       />
 
       <DateChangeModal
@@ -244,6 +245,7 @@ export default function MachineLog({
               <th>Operation</th>
             </tr>
           </thead>
+          
           {Array.isArray(machineLogData) && machineLogData.length > 0 ? (
             <tbody className="tablebody table-space table-cell-align">
               {machineLogData.map((item, key) => {

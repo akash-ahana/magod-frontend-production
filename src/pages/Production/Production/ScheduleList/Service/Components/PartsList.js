@@ -3,6 +3,9 @@ import { Table } from "react-bootstrap";
 import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
 import "../Styles.css";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+
 
 export default function PartsList({
   TaskNo,
@@ -14,6 +17,8 @@ export default function PartsList({
 
   //Process Table(Right First table) data
   const [newpartlistdata, setNewPartlistdata] = useState([]);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [isClearedDisabled, setIsClearedDisabled] = useState(true);
 
   useEffect(() => {
     getpartslistdata();
@@ -43,22 +48,32 @@ export default function PartsList({
     console.log("Updated constPartListData is ", constpartListData);
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
-    //setPartlistdata([])
+    setSelectedRows([]); // Clear selected rows
+    setIsClearedDisabled(true); // Disable the Save Cleared button
   };
 
-  console.log("Parts List Data is ", partlistdata);
 
   const onChangeCleared = (e, item, key) => {
-    console.log("e is ", e.target.value, " item is ", item, " key is ", key);
-    //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array
-    console.log(" PART LIST IS ", partlistdata);
-    const newConstPartList = partlistdata;
-    if (e.target.value <= newConstPartList[key].QtyProduced) {
-      newConstPartList[key].QtyCleared = e.target.value;
+    const newConstPartList = partlistdata.slice(); // Create a copy of the partlistdata array
+    const newValue = parseInt(e.target.value); // Convert the input value to an integer
+  
+    if (!isNaN(newValue)) {
+      newConstPartList[key].QtyCleared = newValue; // Update QtyCleared with the new value
+      setPartlistdata(newConstPartList); // Update the state with the modified data
+  
+      if (newValue > newConstPartList[key].QtyProduced) {
+        // Show an alert message if Cleared is greater than Produced
+        toast.error("Cleared cannot be greater than Produced!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+      }
+      updateClearedDisabledState(newConstPartList); // Update the disabled state of the Save Cleared button
     }
-
-    console.log("NEW CONST PART LIST IS ", newConstPartList);
-    setPartlistdata(newConstPartList);
+  };
+  
+  const updateClearedDisabledState = (data) => {
+    const isDisabled = data.every((row) => row.QtyCleared === row.QtyProduced);
+    setIsClearedDisabled(isDisabled);
   };
 
   const saveClearedonClick = () => {
@@ -74,7 +89,10 @@ export default function PartsList({
       )
       .then((response) => {
         //setPartlistdata(response.data);
-        console.log(response.boby);
+        // console.log(response.boby);
+        toast.success(" Cleared Saved", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       });
   };
 
@@ -88,6 +106,7 @@ export default function PartsList({
         selectedRows.filter((selectedRow) => selectedRow.id !== row.id)
       );
     }
+    updateClearedDisabledState(partlistdata); // Update the disabled state of the Save Cleared button
   };
 
   const clearSelected = () => {
@@ -99,16 +118,13 @@ export default function PartsList({
     });
 
     setPartlistdata(updatedPartListData);
+    updateClearedDisabledState(updatedPartListData); // Update the disabled state of the Save Cleared button
   };
 
   return (
     <div>
+      <ToastContainer />
       <div className="row mt-2">
-        {/* <button className="button-style mt-2 group-button"
-              style={{ width: "180px",marginLeft:"20px" }}>
-              Update Task Parts
-            </button> */}
-
         <button
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
@@ -129,6 +145,7 @@ export default function PartsList({
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
           onClick={saveClearedonClick}
+          disabled={isClearedDisabled} // Disable the button based on the state
         >
           Save Cleared
         </button>
@@ -165,64 +182,55 @@ export default function PartsList({
           <tbody className="tablebody">
             {partlistdata.map((item, key) => {
               return (
-                <>
-                  <tr
-                    type="checkbox"
-                    checked={selectedRows.some(
-                      (selectedRow) => selectedRow.id === row.id
-                    )}
-                    onChange={(event) => handleCheckboxChange(event, row)}
-                    index={row.TaskNo}
-                  >
-                    <td>
-                        <input
-                          style={{ marginLeft: "20px" }}
-                          className="form-check-input"
-                          type="checkbox"
-                        />
-                      </td>
-                    <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
-                    <td>{item.QtyToNest}</td>
-                    <td>{item.QtyProduced}</td>
-                    <td>
-                      <div key={item.QtyCleared}>
-                        <input
-                          className="table-cell-editor "
-                          name="cleared"
-                          defaultValue={item.QtyCleared}
-                          type="number"
-                          //onChange={(e)=>onChangeCleared(e,  item, key)}
-                          placeholder="Type Cleared"
-                        />
-                      </div>
-                    </td>
-                    <td>{item.Task_Part_ID}</td>
-                    <td>{item.NcTaskId}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{item.TaskNo}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>
-                      {item.SchDetailsId}
-                    </td>
-                    <td>{item.PartID}</td>
-                    <td>{item.QtyToNest}</td>
-                    <td>{item.QtyCleared}</td>
-                    <td>{item.QtyProduced}</td>
-                    <td>{item.QtyNested}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
-                    <td>{item.LOC}</td>
-                    <td>{item.Pierces}</td>
-                    <td>{item.Part_Area}</td>
-                    <td>{item.Unit_Wt}</td>
-                    <td>
+                <tr key={item.id}>
+                  <td>
+                    <input
+                      style={{ marginLeft: "20px" }}
+                      className="form-check-input"
+                      type="checkbox"
+                      checked={selectedRows.some((row) => row.id === item.id)}
+                      onChange={(event) => handleCheckboxChange(event, item)}
+                    />
+                  </td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
+                  <td>{item.QtyToNest}</td>
+                  <td>{item.QtyProduced}</td>
+                  <td>
+                    <div>
                       <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
+                        className="table-cell-editor "
+                        name="cleared"
+                        defaultValue={item.QtyCleared}
+                        type="number"
+                        onBlur={(e) => onChangeCleared(e, item, key)}
+                        placeholder="Type Cleared"
                       />
-                    </td>
-                    <td></td>
-                  </tr>
-                </>
+                    </div>
+                  </td>
+                  <td>{item.Task_Part_ID}</td>
+                  <td>{item.NcTaskId}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.TaskNo}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.SchDetailsId}</td>
+                  <td>{item.PartID}</td>
+                  <td>{item.QtyToNest}</td>
+                  <td>{item.QtyCleared}</td>
+                  <td>{item.QtyProduced}</td>
+                  <td>{item.QtyNested}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
+                  <td>{item.LOC}</td>
+                  <td>{item.Pierces}</td>
+                  <td>{item.Part_Area}</td>
+                  <td>{item.Unit_Wt}</td>
+                  <td>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      value=""
+                      id="flexCheckDefault"
+                    />
+                  </td>
+                  <td></td>
+                </tr>
               );
             })}
           </tbody>

@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
   },
   schd: {
     width: "80px",
+    fontFamily: "Helvetica-Bold"
   },
   status: {
     width: "80px",
@@ -24,8 +25,8 @@ const styles = StyleSheet.create({
   },
   deldate: {
     width: "80px",
-    marginLeft:"-50px"
-
+    marginLeft:"-50px",
+    fontFamily: "Helvetica-Bold"
   },
   remaining: {
     width: "50px",

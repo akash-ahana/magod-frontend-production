@@ -248,7 +248,7 @@ const onClickProgram = (Operation , Machine , processItem ) => {
     <div className="d-flex">
         <div>
             <div className="" style={{ height: "323px", overflowY: "scroll",overflowX:'scroll',width:'330px'}}>   
-                {dataSource.map((node, i) => {
+                {dataSource && dataSource.map((node, i) => {
                     const type = node.type;
                     const label = <span className="node">{type}</span>;
                     return (
@@ -284,10 +284,10 @@ const onClickProgram = (Operation , Machine , processItem ) => {
                                                         return(
                                                             <>
                                                             <div style={{fontSize:'10px'}}>
-                                                            {processItem.PStatus==='Completed' ? (
-                                                              <li style={{backgroundColor:"#afbfa1"}}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</li>
+                                                            {processItem?.PStatus==='Completed' ? (
+                                                              <li style={{backgroundColor:"#afbfa1"}}>{processItem?.TaskNo} / {processItem?.NCProgramNo} - {processItem?.PStatus}</li>
                                                             ):
-                                                            <li onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem.TaskNo} / {processItem.NCProgramNo} - {processItem.PStatus}</li>
+                                                            <li onClick={() => onClickProgram(data.Operation , value.refName , processItem )}>{processItem?.TaskNo} / {processItem?.NCProgramNo} - {processItem?.PStatus}</li>
                                                             }
                                                             </div>
                                                             </>
@@ -317,7 +317,9 @@ const onClickProgram = (Operation , Machine , processItem ) => {
             programProcessing={programProcessing}
             onClickMachine={onClickMachine}
             onClickProgram={onClickProgram}
-            onClickOperation={onClickOperation}/>
+            onClickOperation={onClickOperation}
+            setProgramCompleted={setProgramCompleted}
+            setProgramProcessing={setProgramProcessing}/>
             </div>
         </div>
   );

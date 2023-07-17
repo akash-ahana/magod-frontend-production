@@ -329,7 +329,9 @@ const onClickProgram = (Operation , Machine , processItem ) => {
             programProcessing={programProcessing}
             onClickMachine={onClickMachine}
             onClickProgram={onClickProgram}
-            onClickOperation={onClickOperation}/>
+            onClickOperation={onClickOperation}
+            setProgramCompleted={setProgramCompleted}
+            setProgramProcessing={setProgramProcessing}/>
             </div>
         </div>
   );

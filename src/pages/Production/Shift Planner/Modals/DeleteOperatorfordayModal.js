@@ -19,6 +19,7 @@ export default function DeleteOperatorfordayModal({deleteoperator,setDeleteopera
         <Modal.Header closeButton>
           <Modal.Title>Delete Oprator</Modal.Title>
         </Modal.Header>
+        
 
         <Modal.Body> Machine Operator Deleted</Modal.Body> 
 

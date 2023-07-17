@@ -171,7 +171,9 @@ const[programProcessing,setProgramProcessing]=useState([])
             programProcessing={programProcessing}
             // onClickPrograms={onClickPrograms}
             // onClickProgram={onClickProgram}
-            onClickCustomer={onClickCustomer}/>
+            onClickCustomer={onClickCustomer}
+            setProgramProcessing={setProgramProcessing}
+            setProgramCompleted={setProgramCompleted}/>
             </div>
         </div>
   );

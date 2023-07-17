@@ -20,7 +20,7 @@ export default function ProcessTable({OrdSchNo,getprocessTabledata,processtable,
            <th style={{whiteSpace:"nowrap"}}>Task No</th>
            <th>Material</th>
            <th>Process</th>
-           <th style={{whiteSpace:"nowrap"}}>EstimatedTime Time</th>
+           <th style={{whiteSpace:"nowrap"}}>Estimated Time Time</th>
            <th style={{whiteSpace:"nowrap"}}>Time Taken</th>
            <th style={{whiteSpace:"nowrap"}}>No of Dwgs</th>
            <th style={{whiteSpace:"nowrap"}}>Dwgs Nested</th>
@@ -39,13 +39,13 @@ export default function ProcessTable({OrdSchNo,getprocessTabledata,processtable,
           <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
           <td style={{whiteSpace:"nowrap"}}>{item.Mtrl_Code}</td>
           <td style={{whiteSpace:"nowrap"}}>{item.MProcess}</td>
-          <td>{item.EstimatedTime}</td>
-          <td>{item.TaskProcessTime}</td>
-          <td>{item.NoOfDwgs}</td>
-          <td>{item.DwgsNested}</td>
-          <td>{item.TotalParts}</td>
-          <td>{item.PartsNested}</td>
-          <td>{item.NoOfSheets}</td>
+          <td style={{textAlign:"center"}}>{item.EstimatedTime}</td>
+          <td style={{textAlign:"center"}}>{item.TaskProcessTime}</td>
+          <td style={{textAlign:"center"}}>{item.NoOfDwgs}</td>
+          <td style={{textAlign:"center"}}>{item.DwgsNested}</td>
+          <td style={{textAlign:"center"}}>{item.TotalParts}</td>
+          <td style={{textAlign:"center"}}>{item.PartsNested}</td>
+          <td style={{textAlign:"center"}}>{item.NoOfSheets}</td>
          </tr>
          </>
       )

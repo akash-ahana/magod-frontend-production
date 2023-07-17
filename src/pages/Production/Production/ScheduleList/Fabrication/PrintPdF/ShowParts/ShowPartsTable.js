@@ -39,10 +39,13 @@ const styles = StyleSheet.create({
       marginLeft: "60px",
       borderBottom: "1px",
       width: "500px",
+      fontFamily: "Helvetica-Bold"
     },
     details2: {
       marginRight: "50px",
       borderBottom: "1px",
+      fontFamily: "Helvetica-Bold"
+
     },
     datedisplay:{
         marginRight:"200px",
@@ -101,7 +104,7 @@ const ShowPartsTable = ({processrowselect,rowselect,partlistdata}) => (
         <View>
         <Text style={styles.detailss}>Magod Laser:Jigani</Text>
           <Text style={styles.details}>
-            Parts Sheet Scheduleno : {rowselect.OrdSchNo}
+            Parts Sheet Schedule No : {rowselect.OrdSchNo}
           </Text>
           <Text style={styles.details1}>
             Task No: {processrowselect.TaskNo} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

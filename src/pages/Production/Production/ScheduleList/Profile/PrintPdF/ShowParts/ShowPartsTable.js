@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     marginLeft: "60px",
     borderBottom: "1px",
     width: "500px",
+    fontFamily: "Helvetica-Bold"
   },
   details2: {
     marginRight: "50px",
@@ -66,6 +67,7 @@ const styles = StyleSheet.create({
     marginTop: "5px",
     marginLeft: "60px",
     width: "500px",
+    fontFamily: "Helvetica-Bold"
   },
   Scheduled: {
     width: "20%",
@@ -92,14 +94,11 @@ const ShowPartsTable = ({ processrowselect, rowselect, partlistdata }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
-        {/* <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
-        <Text style={styles.title2}>Production Status Report</Text>
-        <Text style={styles.location}>Magod Laser:Jigani</Text> */}
 
         <View>
         <Text style={styles.detailss}>Magod Laser:Jigani</Text>
           <Text style={styles.details}>
-            Parts Sheet Scheduleno : {rowselect.OrdSchNo}
+            Parts Sheet Schedule No : {rowselect.OrdSchNo}
           </Text>
           <Text style={styles.details1}>
             Task No: {processrowselect.TaskNo} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

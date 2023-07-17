@@ -3,35 +3,36 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
 
 const styles = StyleSheet.create({
-    row: {
-      flexDirection: "row",
-      alignItems: "center",
-      borderBottom:"1px",
-      paddingBottom:"1px"
-    },
-    srl: {
-      width: "30px",
-    },
-    Program: {
-      width: "50px",
-    },
-    operation:{
-        width:"110px"
-    },
-    customer:{
-        width:"210px"
-    },
-    newLoad:{
-      marginLeft:"250px",
-      marginTop:"10px",
-    },
-    processed:{
-      width:"40px"
-    },
-    load:{
-      width:"40px"
-    }
-  });
+  row: {
+    flexDirection: "row",
+    alignItems: "center",
+    borderBottom:"1px",
+    paddingBottom:"1px",
+    width:"500px"
+  },
+  srl: {
+    width: "30px",
+  },
+  Program: {
+    width: "50px",
+  },
+  operation:{
+      width:"130px"
+  },
+  customer:{
+      width:"250px"
+  },
+  newLoad:{
+    marginLeft:"250px",
+    marginTop:"10px",
+  },
+  processed:{
+    width:"40px"
+  },
+  load:{
+    width:"40px"
+  }
+});
   
   const PrintPriorityTableRow = ({sortedPriorityTable}) => {
     const rows = sortedPriorityTable.map((item,key) => (

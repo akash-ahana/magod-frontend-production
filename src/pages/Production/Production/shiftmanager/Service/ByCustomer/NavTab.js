@@ -14,7 +14,7 @@ import ShiftReport from './ShiftReport';
 
 export default  function NavTab({programProcessing,proramCompleted,
   // onClickPrograms,
-  onClickProgram,onClickCustomer}) {
+  onClickProgram,onClickCustomer,setProgramCompleted,setProgramProcessing}) {
     const [key, setKey] = useState("tabdata");
 
   return (
@@ -36,13 +36,15 @@ export default  function NavTab({programProcessing,proramCompleted,
       <ProgramCompleteTable 
        proramCompleted={proramCompleted}
        onClickCustomer={onClickCustomer}
+       setProgramCompleted={setProgramCompleted}
       //  onClickProgram={onClickProgram}
       //  onClickPrograms={onClickPrograms}
       />
       </Tab>
 
       <Tab eventKey="Programs Processing" title="Programs Processing">
-      <ProgramProcessing programProcessing={programProcessing}/>
+      <ProgramProcessing programProcessing={programProcessing}
+      setProgramProcessing={setProgramProcessing}/>
       </Tab>
 
       <Tab eventKey="Machine Log" title="Machine Log">

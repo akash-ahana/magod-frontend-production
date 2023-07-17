@@ -2,24 +2,44 @@ import React,{useState} from 'react'
 import { Table } from 'react-bootstrap'
 import ProgramCompletedModal from './ProgramCompletedModal';
 import axios from "axios";
+import { useEffect } from 'react';
+import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick}) {
+export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick, setMachineProgramesCompleted}) {
 
     const [show, setShow] = useState(false);
 
     const handaleClick =()=>{
         setShow(true);
      }
-
-    //  let difference = [];
-    //  for (let i = 0; i < machineProgramesCompleted.length; i++) {
-    //   difference[i] = machineProgramesCompleted[i].ActualTime - machineProgramesCompleted[i].EstimatedTime;
-    //  }
-     
-    //  console.log(difference);
-     
-    
+     useEffect(() => {
+      axios.get(baseURL+'/shiftManagerProfile/allCompleted')
+          .then((response) => {
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+            console.log("response  machine list",response.data)
+            setMachineProgramesCompleted(response.data)
+          })
+  }, [])
       
      const[selectProgramCompleted,setSelectProgramCompleted]=useState('');
      const programCompleted=(item,index)=>{
@@ -27,20 +47,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
       setSelectProgramCompleted(list);
     }
 
-    // const[programCompleteData,setProgramCompleteData]=useState([])
-    // const SelectedRow=()=>{
-    //   axios.post('http://172.16.20.61:5000/shiftManagerProfile/shiftManagerncProgramTaskList',
-    //    {...selectProgramCompleted})
-    //   .then((response) => {
-    //     console.log(response.data);
-    //     setProgramCompleteData(response.data)
-    // })
-    // }
 
-    // let difference=machineProgramesCompleted.ActualTime-machineProgramesCompleted.EstimatedTime;
-    console.log(machineProgramesCompleted);
-
-     console.log(' data from program compleated table component ' , machineProgramesCompleted)
   return (
     <>
     <div>

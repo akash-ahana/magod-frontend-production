@@ -7,14 +7,11 @@ import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 import ProcessingModal from './ProcessingModal';
 
-export default function ProgramProcessing({programProcessing}) {
+export default function ProgramProcessing({programProcessing,setProgramProcessing}) {
 
   const [show, setShow] = useState(false);
   const [ machineData, setMachineData] = useState([])
 
-    // const getHeadings2 = () => {
-    //     return Object.keys(Schedulelistdata4[0]);
-    //   };
 
     const handaleClick =()=>{
        setShow(true);
@@ -23,13 +20,9 @@ export default function ProgramProcessing({programProcessing}) {
     const[selectProgramProcessing,setSelectProgramProcessing]=useState('');
     const programProcessingrow=(item,index)=>{
       let list={...item,index:index}
-      // console.log("ScheduleNo",item.ScheduleNo)
       setSelectProgramProcessing(list);
     }
 
-    // useEffect(() => {
-
-    // })
 
     useEffect(()=>{
   axios.get(baseURL+'/shiftManagerProfile/profileMachines',)
@@ -38,6 +31,35 @@ export default function ProgramProcessing({programProcessing}) {
     setMachineData(response.data)
  })
 },[])
+
+useEffect(() => {
+  axios.get(baseURL+'/shiftManagerProfile/allProcessing')
+      .then((response) => {
+        for(let i = 0; i< response.data.length ; i++) {
+          if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+            response.data[i].rowColor = "#339900"
+          } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#82c2b4"
+          } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#f08080"
+          }
+          else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#f08080"
+          } 
+          else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#FF7F50"
+          } 
+          else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#FFA500"
+          } else {
+            response.data[i].rowColor = "#ff0000"
+          }
+        }
+        console.log("response  machine list",response.data)
+        setProgramProcessing(response.data)
+      })
+}, [])
+
 
 
   return (

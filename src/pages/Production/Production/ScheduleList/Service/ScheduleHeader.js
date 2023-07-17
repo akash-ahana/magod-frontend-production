@@ -26,7 +26,7 @@ export default function ScheduleHeader({
   custdata,
   selectCust,
 }) {
-  const { schedulelistservicedata, setSchedulelistdata, schedulelistdatas } =
+  const { schedulelistservicedata, setSchedulelistservicedata, schedulelistservicedatas } =
     useGlobalContext();
 
   const blockInvalidChar = (e) =>
@@ -56,10 +56,10 @@ export default function ScheduleHeader({
       return data.OrdSchNo.startsWith(number);
     });
     if (filteredData.length > 0) {
-      setSchedulelistdata(filteredData);
+      setSchedulelistservicedata(filteredData);
     }
     if (e.target.value.length === 0) {
-      setSchedulelistdata(schedulelistdatas);
+      setSchedulelistservicedata(schedulelistservicedatas);
     }
   };
 
@@ -182,19 +182,16 @@ export default function ScheduleHeader({
           response.data[i].Delivery_Date = finalDay1;
         }
         setTaskedStatus(response.data);
-        //  console.log(response)
       });
   };
 
   const showStatusData = [
     { status: "Programmed", data: programmedtatus },
-    { status: "Completed", data: completedStatus },
     { status: "Production", data: productionStatus },
     { status: "Tasked", data: taskedStatus },
   ];
 
-  // const jsonData=JSON.stringify(arrays)
-  // console.log(arrays);
+ 
 
   const[openProductionList,setOpenProductionList]=useState('')
   const openProductionListPdf=()=>{
