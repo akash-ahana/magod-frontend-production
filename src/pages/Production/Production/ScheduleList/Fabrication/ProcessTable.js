@@ -14,31 +14,31 @@ export default function ProcessTable({OrdSchNo,getprocessTabledata,processtable,
   return (
      <div style={{height:"200px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">
-       <thead className="tableHeaderBGColor">
+       <thead className="tableHeaderBGColor table-space">
          <tr>
            <th>Status</th>
-           <th style={{whiteSpace:"nowrap"}}>Task No</th>
+           <th >Task No</th>
            <th>Material</th>
            <th>Process</th>
-           <th style={{whiteSpace:"nowrap"}}>Estimated Time</th>
-           <th style={{whiteSpace:"nowrap"}}>Time Taken</th>
-           <th style={{whiteSpace:"nowrap"}}>No of Dwgs</th>
-           <th style={{whiteSpace:"nowrap"}}>Dwgs Nested</th>
-           <th style={{whiteSpace:"nowrap"}}>Total Parts</th>
-           <th style={{whiteSpace:"nowrap"}}>Parts Nested</th>
-           <th style={{whiteSpace:"nowrap"}}>No of Sheets</th>
+           <th >Estimated Time</th>
+           <th >Time Taken</th>
+           <th >No of Dwgs</th>
+           <th >Dwgs Nested</th>
+           <th >Total Parts</th>
+           <th >Parts Nested</th>
+           <th >No of Sheets</th>
          </tr>
        </thead>
 
-        <tbody className='tablebody'>
+        <tbody className='tablebody table-cell-align table-space'>
         {processtable.map((item,key)=>{
       return(
         <>
          <tr onClick={()=>processtableSelectFun(item,key)} className={key===processrowselect?.index? 'selcted-row-clr':'' }>
           <td>{item.TStatus}</td>
-          <td style={{whiteSpace:"nowrap"}}>{item.TaskNo}</td>
-          <td style={{whiteSpace:"nowrap"}}>{item.Mtrl_Code}</td>
-          <td style={{whiteSpace:"nowrap"}}>{item.MProcess}</td>
+          <td>{item.TaskNo}</td>
+          <td >{item.Mtrl_Code}</td>
+          <td >{item.MProcess}</td>
           <td>{item.EstimatedTime}</td>
           <td>{item.TaskProcessTime}</td>
           <td>{item.NoOfDwgs}</td>

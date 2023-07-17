@@ -139,7 +139,6 @@ useMemo(()=>{
 const handleMachineChange=(e)=>{
   let {name,value}=e.target
   if(name==="Working"){
-  
     let status=''
 if(e.target.checked){
   status=1
@@ -151,7 +150,7 @@ else{
     return
   }
   setMachineData({...machineData,[name]:value})
-  // console.log("On change fn ",name,value)
+  // console.log(value);
 }
 
   const openAddprocess=()=>{
@@ -175,8 +174,7 @@ else{
   // console.log(opensavemachine)
   const saveMachine=()=>{
     // openSavemachine();
-    console.log("called")
-
+    console.log("consoling data before save",machineData)
     axios.post(
       baseURL + "/productionSetup/saveMachine",
       {
@@ -184,7 +182,7 @@ else{
       }).then((response) => {
       console.log("sent", response);
       MachineTabledata();
-      toast.success('Machine Deatails Saved',{
+      toast.success('Machine Details Saved',{
         position: toast.POSITION.TOP_CENTER
     })
       // openSavemachine();

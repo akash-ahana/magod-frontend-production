@@ -47,7 +47,7 @@ export default function PrintDailyShift({rowselect}) {
   let day = dateSplit[0]
   let finalday = day + "-" + month + "-" + year
 
-  console.log(finalday);
+  // console.log(finalday);
 
 
   //First Shift

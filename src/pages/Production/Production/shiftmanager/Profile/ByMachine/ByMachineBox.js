@@ -2,7 +2,6 @@ import axios from "axios";
 import React,{useState , useEffect} from "react";
 import TreeView from "react-treeview";
 import "react-treeview/react-treeview.css";
-// import ProgramCompletedData from "./ProgramCompletedData";
 import Iframe from "./Iframe";
 import {baseURL} from "../../../../../../api/baseUrl"
 
@@ -12,8 +11,6 @@ export default function ByMachineBox() {
   const [machineProgramesCompleted, setMachineProgramesCompleted] = useState([])
   const [machineProgramesProcessing, setmachineProgramesProcessing] = useState([])
   const [selectedMachine, setSelectedMachine]= useState([])
-
-  
 
   useEffect(() => {
       axios.get(baseURL+'/shiftManagerProfile/profileListMachinesTaskNo')
@@ -26,7 +23,6 @@ export default function ByMachineBox() {
   const [selectLaser,setSelectLaser]=useState('');
     const LaserRowselect=(item,index)=>{
       let list={...item,index:index}
-      // console.log("ScheduleNo",item.ScheduleNo)
       setSelectLaser(list);
     }
 
@@ -37,124 +33,32 @@ export default function ByMachineBox() {
       setSelectProgramCompleted(list);
     }
 
-  //   const onClickCloseProgram = () => {
-  //     console.log('Close Program button is clicked')
-  //     axios.post('http://172.16.20.61:5000/shiftManagerProfile/CloseProgram',
-  //     selectProgramCompleted)
-  //    .then((response) => {
-  //      console.log('Current State of programCompleteData' , response.data);
-  //      //setProgramCompleteData(response.data);
-  //      taskNoOnClick();
-  //      MachineOnClick();
-
-  //      axios.post('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesProgramesCompleted' , {MachineName : selectedMachine})
-  //         .then((response) => {
-  //           console.log(response.data)
-  //           console.log('Programs Compleated DATA 1' , response.data);
-            
-  //           for(let i = 0; i< response.data.length ; i++) {
-  //             if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
-  //               response.data[i].rowColor = "#339900"
-  //               //break;
-  //             } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#82c2b4"
-  //               //break;
-  //             } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#f08080"
-  //               //break;
-  //             }
-  //             else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#f08080"
-  //               //break;
-  //             } 
-  //             else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#FF7F50"
-  //               //break;
-  //             } 
-  //             else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#FFA500"
-  //               //break;
-  //             } else {
-  //               response.data[i].rowColor = "#ff0000"
-  //             }
-  //           }
-  //            console.log('AFTER ADDING COLOR' , response.data) 
-  //           setMachineProgramesCompleted(response.data)
-  //         })
-          
-
-  //         axios.post('http://172.16.20.61:5000/shiftManagerProfile/profileListMachinesProgramesProcessing' , {MachineName : selectedMachine})
-  //         .then((response) => {
-  //           console.log(response.data)
-  //           for(let i = 0; i< response.data.length ; i++) {
-  //             if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
-  //               response.data[i].rowColor = "#339900"
-  //               //break;
-  //             } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#82c2b4"
-  //               //break;
-  //             } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#f08080"
-  //               //break;
-  //             }
-  //             else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#f08080"
-  //               //break;
-  //             } 
-  //             else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#FF7F50"
-  //               //break;
-  //             } 
-  //             else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
-  //               response.data[i].rowColor = "#FFA500"
-  //               //break;
-  //             } else {
-  //               response.data[i].rowColor = "#ff0000"
-  //             }
-  //           }
-  //            console.log('AFTER ADDING COLOR' , response.data) 
-  //           setmachineProgramesProcessing(response.data);
-  //         })
-  //  })
-  //   }
-
 
   const taskNoOnClick = (Machine, TaskNo) => {
     console.log('Task No on Click is ' , TaskNo)
-    //setSelectedTask(TaskNo)
     axios.post(baseURL+'/shiftManagerProfile/taskNoProgramNoCompleted' , TaskNo)
           .then((response) => {
             console.log('Programs Compleated DATA' , response.data);
             for(let i = 0; i< response.data.length ; i++) {
               if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
                 response.data[i].rowColor = "#339900"
-                //break;
               } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#82c2b4"
-                //break;
               } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               }
               else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FF7F50"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FFA500"
-                //break;
               } else {
                 response.data[i].rowColor = "#ff0000"
               }
-            }
-             console.log('AFTER ADDING COLOR' , response.data) 
-
-            //console.log('Programs Compleated DATA 1' , response.data);
-                  
+            }                  
             setMachineProgramesCompleted(response.data)
           })
 
@@ -164,25 +68,19 @@ export default function ByMachineBox() {
             for(let i = 0; i< response.data.length ; i++) {
               if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
                 response.data[i].rowColor = "#339900"
-                //break;
               } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#82c2b4"
-                //break;
               } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               }
               else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FF7F50"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FFA500"
-                //break;
               } else {
                 response.data[i].rowColor = "#ff0000"
               }
@@ -192,7 +90,6 @@ export default function ByMachineBox() {
           })
   }
 
-  console.log("Color code in data set",machineProgramesCompleted)
   
 
   const MachineOnClick = (Machine) => {
@@ -206,25 +103,19 @@ export default function ByMachineBox() {
             for(let i = 0; i< response.data.length ; i++) {
               if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
                 response.data[i].rowColor = "#339900"
-                //break;
               } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#82c2b4"
-                //break;
               } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               }
               else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FF7F50"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FFA500"
-                //break;
               } else {
                 response.data[i].rowColor = "#ff0000"
               }
@@ -240,25 +131,19 @@ export default function ByMachineBox() {
             for(let i = 0; i< response.data.length ; i++) {
               if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
                 response.data[i].rowColor = "#339900"
-                //break;
               } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#82c2b4"
-                //break;
               } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               }
               else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#f08080"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FF7F50"
-                //break;
               } 
               else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
                 response.data[i].rowColor = "#FFA500"
-                //break;
               } else {
                 response.data[i].rowColor = "#ff0000"
               }
@@ -277,19 +162,8 @@ export default function ByMachineBox() {
       },
   ];
 
-//   const[taskprogramCompleted,setTaskprogramCompleted]=useState([]);
-//   const taskProgramCompleted=()=>{
-//     axios.post('http://172.16.20.61:5000/shiftManagerProfile/taskNoProgramNo',
-//     selectedTask)
-//    .then((response) => {
-//      console.log(response.data);
-//      setTaskprogramCompleted(response.data)
-//  })
-//   }
 
-//   useEffect(() => {
-//     taskProgramCompleted();
-//   }, [selectedTask])
+
 
 
   return (
@@ -356,6 +230,8 @@ export default function ByMachineBox() {
                     MachineOnClick={MachineOnClick}
                     selectProgramCompleted={selectProgramCompleted}
                     programCompleted={programCompleted}
+                    setMachineProgramesCompleted={setMachineProgramesCompleted}
+                    setmachineProgramesProcessing={setmachineProgramesProcessing}
                     //onClickCloseProgram={onClickCloseProgram}
                     />
             </div>

@@ -7,6 +7,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/*  */
+.table-data thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+/*  */
 .disabled {
   background-color: grey !important;
 }

@@ -9,8 +9,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottom:"1px",
     marginTop:"10px",
+    marginBottom : "17px",
     // marginLeft:"60px",
     width:"700px",
+
     // fontSize:"10px"
   },
   Scheduleno: {

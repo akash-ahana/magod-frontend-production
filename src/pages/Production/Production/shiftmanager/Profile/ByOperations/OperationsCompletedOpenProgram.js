@@ -86,10 +86,6 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
      onClickProgram();
      onClickMachine();
      onClickOperation();
-     //setProgramCompleteData(response.data)
-    //  onClickOperation();
-    //  onClickProgram();
-    //  onClickMachine();
  })
   }
   
@@ -97,8 +93,6 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
     console.log(" On CHANGE CLEARED " , " e.target.value is " , e.target.value, " item is " , item, " key is " , key)
-    // //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array
-    // console.log(' PART LIST IS ' , partlistdata)
      const newconstprogramCompleteData = programCompleteData
     // if(e.target.value <= newconstprogramCompleteData[key].QtyProduced) {
        newconstprogramCompleteData[key].QtyCleared = Number(e.target.value)

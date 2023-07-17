@@ -22,18 +22,34 @@ export default function DeleteMachineoperatorweekModal({opendeleteoperator,setOp
           <Modal.Title>Delete Machine Operator for week</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are you sure want to delete <b>{selectedOperator}</b> for <b>{selectedMachine}</b> for &nbsp;
+        
+        {selectedOperator && selectedMachine && selectedShift ? (
+         <Modal.Body>Are you sure want to delete <b>{selectedOperator}</b> for <b>{selectedMachine}</b> for 
          <b>{selectedShift}</b> shift?
         </Modal.Body> 
+        ) : (
+          <Modal.Body>
+            Please select Shift ,Operator and Machine before deleting
+          </Modal.Body>
+        )}
+        
 
         <Modal.Footer>
-          <Button variant="primary" onClick={()=>{handleClose()
+          {selectedOperator && selectedMachine && selectedShift ? (
+            <>
+             <Button variant="primary" onClick={()=>{handleClose()
           onClickDeleteWeekOperatorMachine()}}>
            Yes
           </Button>
           <Button variant="secondary" onClick={handleClose}>
           No
           </Button>
+            </>
+          ) : (
+            <Button variant="primary" onClick={handleClose}>
+              OK
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </div>

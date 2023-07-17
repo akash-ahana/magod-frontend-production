@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PrintShowStatus from './PrintShowStatus';
 
  export default function ShowStatusPdfModal({setOpenShowStatus,openShowStatus,showStatusData}) {
   const [fullscreen, setFullscreen] = useState(true);
+
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    if (showStatusData && showStatusData.length > 0) {
+      setLoading(false); // Set loading to false when the data is available
+    }
+  }, [showStatusData]); // Run the effect whenever pdfData changes
 
 
   return (
@@ -12,7 +19,13 @@ import PrintShowStatus from './PrintShowStatus';
         <Modal.Header closeButton>
           <Modal.Title>Show Status Pdf</Modal.Title>
         </Modal.Header>
-        <Modal.Body><PrintShowStatus showStatusData={showStatusData}/></Modal.Body>
+        <Modal.Body>
+        {loading ? (
+            <div>Loading...</div>
+          ) : (
+            <PrintShowStatus showStatusData={showStatusData}/>
+          )}
+          </Modal.Body>
       </Modal>
     </>
   );

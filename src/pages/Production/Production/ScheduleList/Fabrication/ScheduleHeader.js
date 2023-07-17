@@ -26,10 +26,11 @@ export default function ScheduleHeader({
   custdata,
   selectCust,
 }) {
+
   const {
     schedulelistfabricationdata,
-    setSchedulelistdata,
-    schedulelistdatas,
+    setSchedulelistfabricationdata,
+    schedulelistfabricationdatas,
   } = useGlobalContext();
   // console.log(rowselect,"selected row in left table");
   // console.log("selected row in right table",processrowselect)
@@ -58,10 +59,10 @@ export default function ScheduleHeader({
       return data.OrdSchNo.startsWith(number);
     });
     if (filteredData.length > 0) {
-      setSchedulelistdata(filteredData);
+      setSchedulelistfabricationdata(filteredData);
     }
     if (e.target.value.length === 0) {
-      setSchedulelistdata(schedulelistdatas);
+      setSchedulelistfabricationdata(schedulelistfabricationdatas);
     }
   };
 
@@ -190,7 +191,7 @@ export default function ScheduleHeader({
 
   const showStatusData = [
     { status: "Programmed", data: programmedtatus },
-    { status: "Completed", data: completedStatus },
+    // { status: "Completed", data: completedStatus },
     { status: "Production", data: productionStatus },
     { status: "Tasked", data: taskedStatus },
   ];
@@ -198,10 +199,10 @@ export default function ScheduleHeader({
   // const jsonData=JSON.stringify(arrays)
   // console.log(arrays);
 
-  const[openProductionList,setOpenProductionList]=useState('')
-  const openProductionListPdf=()=>{
+  const [openProductionList, setOpenProductionList] = useState("");
+  const openProductionListPdf = () => {
     setOpenProductionList(true);
-  }
+  };
 
   return (
     <div>
@@ -242,44 +243,47 @@ export default function ScheduleHeader({
               <input
                 className="in-field my-0 mt-4"
                 onKeyDown={blockInvalidChar}
+                placeholder="Search Schedule"
                 type="number"
                 onChange={(e) => searchText(e)}
               />
             </div>
-<div className=" col-md-7 mt-2">
-<button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={() => {
-                openShowStatusPdf();
-                getPrintStatus();
-              }}
-            >
-              Show Status
-            </button>
+            <div className=" col-md-7 mt-2">
+              <button
+                className="button-style mt-4 group-button ms-3"
+                style={{ width: "140px" }}
+                onClick={() => {
+                  openShowStatusPdf();
+                  getPrintStatus();
+                }}
+              >
+                Show Status
+              </button>
 
-            <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={openShowPartsPdf}
-            >
-              Show Parts
-            </button>
+              <button
+                className="button-style mt-4 group-button ms-3"
+                style={{ width: "140px" }}
+                onClick={openShowPartsPdf}
+              >
+                Show Parts
+              </button>
 
-            <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={openShowProgram}
-            >
-              Show Programs
-            </button>
+              <button
+                className="button-style mt-4 group-button ms-3"
+                style={{ width: "140px" }}
+                onClick={openShowProgram}
+              >
+                Show Programs
+              </button>
 
-            <button className="button-style mt-4 group-button" 
-             style={{ width: "140px" }} onClick={openProductionListPdf}>
-             Production list
-            </button>
-</div>
-            
+              <button
+                className="button-style mt-4 group-button"
+                style={{ width: "140px" }}
+                onClick={openProductionListPdf}
+              >
+                Production list
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -305,8 +309,10 @@ export default function ScheduleHeader({
         programlistdata={programlistdata}
       />
 
-<ProductionListModalFabrication openProductionList={openProductionList}
-      setOpenProductionList={setOpenProductionList}/>
+      <ProductionListModalFabrication
+        openProductionList={openProductionList}
+        setOpenProductionList={setOpenProductionList}
+      />
     </div>
   );
 }

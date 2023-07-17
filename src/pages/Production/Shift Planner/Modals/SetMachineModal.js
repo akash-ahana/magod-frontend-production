@@ -33,15 +33,32 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
           <Modal.Title>Set Machine </Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are you sure want add <b>{selectedOperator}</b> to <b>{selectedMachine}</b> for the week?</Modal.Body> 
+        {selectedOperator && selectedMachine ? (
+          <Modal.Body>Are you sure want add <b>{selectedOperator}</b> to <b>{selectedMachine}</b> for the week?</Modal.Body> 
 
-        <Modal.Footer>
+        ) : (
+          <Modal.Body>
+            Please select a Operator and Machine  before clicking Set MachineOperator
+          </Modal.Body>
+        )}
+
+
+
+<Modal.Footer>
+          {selectedOperator && selectedMachine ? (
+            <>
           <Button variant="primary" onClick={()=>setMachineoperators()}>
             Yes
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             No
           </Button>
+            </>
+          ) : (
+            <Button variant="primary" onClick={handleClose}>
+              OK
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </div>

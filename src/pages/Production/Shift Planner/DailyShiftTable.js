@@ -5,6 +5,8 @@ import axios from "axios";
 import DailyOperator from './DailyOperator';
 import SingleDayShiftEditor from './SingleDayShiftEditor';
 import { baseURL } from '../../../api/baseUrl';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTable
 ,rowselectDailyShiftTable,getMachineOperatorTableData,machineOperatorTableData,
@@ -39,23 +41,11 @@ rowselect}) {
          {...rowselectDailyShiftTable,
           shiftInstruction:shiftinstruction})
         .then((response) => {
-          // console.log(response);
-          // setWeekState1('')  
+          toast.success(' Shift Instructions Saved',{
+            position: toast.POSITION.TOP_CENTER
+        })
       })
       }
-
-    //   const [machineOperatorTableData, setMachineOperatorTableData] = useState([])
-    // const getMachineOperatorTableData = () => {
-    //     const res =  axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', rowselectDailyShiftTable ).then((response) => {console.log('Api response is ' , response)
-    //     if(response.data === '') {
-    //         console.log('response data is null')
-    //     } else {
-    //         setMachineOperatorTableData(response.data)
-    //     }
-      
-    // })
-    
-    //    }
 
 //Machine Operator Table Rowselect
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
@@ -70,6 +60,7 @@ console.log("ScheduleNo",item.ScheduleNo)
     return (
         
         <div style={{display:"flex"}}>
+                  <ToastContainer/>
         <div>
         <SingleDayShiftEditor rowselectDailyShiftTable={rowselectDailyShiftTable}
          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}

@@ -163,12 +163,10 @@ const AuthProvider = ({ children }) => {
         let month1 = date1[1];
         let day1 = date1[2];
         let finalDay1 = day1+"-"+month1+"-"+year1
-        // console.log(finalDay1, 'shift Information 1')
         response.data[i].Delivery_Date = finalDay1;
       }
           setSchedulelistservicedata(response.data);
           setSchedulelistservicedatas(response.data); 
-          // console.log(response.data)
         });
   }
 

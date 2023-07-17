@@ -7,7 +7,8 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       alignItems: "center",
       borderBottom:"1px",
-      paddingBottom:"1px"
+      paddingBottom:"1px",
+      width:"500px"
     },
     srl: {
       width: "30px",
@@ -16,10 +17,10 @@ const styles = StyleSheet.create({
       width: "50px",
     },
     operation:{
-        width:"110px"
+        width:"130px"
     },
     customer:{
-        width:"210px"
+        width:"250px"
     },
     newLoad:{
       marginLeft:"250px",

@@ -356,7 +356,9 @@ export default function ByMachineBox() {
                     MachineOnClick={MachineOnClick}
                     selectProgramCompleted={selectProgramCompleted}
                     programCompleted={programCompleted}
+                    setmachineProgramesProcessing={setmachineProgramesProcessing}
                     //onClickCloseProgram={onClickCloseProgram}
+                    setMachineProgramesCompleted={setMachineProgramesCompleted}
                     />
             </div>
         </div>

@@ -36,6 +36,7 @@ import ShiftManagerService from "./pages/Production/Production/shiftmanager/Serv
 import ScheduleLisMain from "./pages/Production/Production/ScheduleList/ScheduleListMain";
 import ShiftManager1 from "./pages/Production/Production/shiftmanager/ShiftManager";
 import MachineAllotment from "./pages/Production/Production/Machine Allotment/MachineAllotment";
+import ReportMian from "./pages/Production/Reports/ReportMian";
 
 function App() {
   return (
@@ -83,6 +84,12 @@ function App() {
             <Route path="profile" element={<Profile/>} />
             <Route path="reports" element={<Reports/>} />
             <Route path="services" element={<Services/>} />
+
+            {/* REPORTS */}
+            <Route path="reports">
+                <Route index={true} element={<ReportMian/>}/>
+                <Route path="dailyreports" element={<Reports/>} />
+            </Route>
 
              {/* Setup*/}
             <Route path="setup">

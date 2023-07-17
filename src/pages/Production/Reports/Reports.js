@@ -11,6 +11,12 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function Reports() {
+
+  const moment = require('moment');
+  const today = moment();
+  let Date=today.format("YYYY-MM-DD");
+  //  console.log(Date);
+
   const {
     machineutilisationSummartdata,
     setMachineutilisationSummarydata,
@@ -244,7 +250,7 @@ export default function Reports() {
   const [reportsTreeViewData, setReportsTreeView] = useState([]);
   useEffect(() => {
     axios
-      .post(baseURL + "/reports/reportsTreeView", { Date:dateSelect })
+      .post(baseURL + "/reports/reportsTreeView", { Date:dateSelect ||Date })
       .then((response) => {
         console.log(" RESPONSE ", response.data);
         setReportsTreeView(response.data);
@@ -283,31 +289,14 @@ export default function Reports() {
     }
   };
 
-  // //PDF
-  // const pdfData = reportsTreeViewData.map((machine) => {
-  //   const productionTasks = [];
-  //   const nonProductionTasks = [];
+  ////INPUT VALUE
+  const [preparedby, setPreparedby] = useState(lazerUser.data[0].Name);
+  const InputChange=(e)=>{
+    setPreparedby(e.target.value);
+  }
 
-  //   machine.Shifts.forEach((shift) => {
-  //     shift.task.forEach((task) => {
-  //       if (task.action === "Production") {
-  //         productionTasks.push(...task.operations);
-  //       } else if (task.action === "Non Productive") {
-  //         nonProductionTasks.push(...task.operations);
-  //       }
-  //     });
-  //   });
-
-  //   return {
-  //     MachineName: machine.MachineName,
-  //     tasks: [
-  //       { task: "Production", operations: productionTasks },
-  //       { task: "Non Productive", operations: nonProductionTasks },
-  //     ],
-  //   };
-  // });
-
-  // console.log(pdfData);
+  let roleValue = localStorage.getItem("Role");
+console.log(roleValue);
 
   return (
     <div>
@@ -317,6 +306,9 @@ export default function Reports() {
         opendailyReport={opendailyReport}
         setOpendailyReport={setOpendailyReport}
         pdfData={pDFData}
+        dateSelect={dateSelect}
+        preparedby={preparedby}
+        roleValue={roleValue}
       />
 
       <PrepareReportModal1
@@ -339,6 +331,7 @@ export default function Reports() {
               onChange={handleChangeSelectDate}
               type="date"
               required
+              defaultValue={Date}
             />
           </div>
 
@@ -368,15 +361,17 @@ export default function Reports() {
            </div> */}
           <div
             className="col-md-3 mt-3"
-            style={{ display: "flex", gap: "20px" }}
+            style={{ display: "flex", gap:"20px" }}
           >
             <label className="mt-1 form-label" style={{ whiteSpace: "nowrap" }}>
               Prepared By
             </label>
             <input
               className="in-field mt-2"
-              required
-              defaultValue={lazerUser.data[0].Name}
+              name="preparedby"
+              onChange={InputChange}
+              value={preparedby}
+              // defaultValue={lazerUser.data[0].Name}
             />
           </div>
         </div>

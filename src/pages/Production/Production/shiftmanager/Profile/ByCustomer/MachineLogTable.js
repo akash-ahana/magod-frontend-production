@@ -11,7 +11,6 @@ export default function MachineLogTable() {
   const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
   const day = String(today.getDate()).padStart(2, '0');
   const currentDate = `${year}-${month}-${day}`;
-  console.log(currentDate);
 
   //SIDETABLE DATA
   const [machineList,setMachineList]=useState([])
@@ -26,6 +25,7 @@ export default function MachineLogTable() {
 
   const[selectmachinelog,setSelectmachinelog]=useState({})
   const[machineLog,setMachineLog]=useState([])
+  // const[operation,setOperation]=useState([])
   const selectMachineLogFun=(item,index)=>{
   let list={...item,index:index}
   setSelectmachinelog(list)
@@ -54,15 +54,22 @@ export default function MachineLogTable() {
           let finalDay2 = day2+"/"+month2+"/"+year2+" "+ Time1;
           response.data[i].ToTime = finalDay2;
         }
-        console.log(' REQUIRED RESPONSE FOR MACHINE LOG IS ', response.data);
-        setMachineLog(response.data)
+        setMachineLog(response.data);
+console.log("machineLog updated:", response.data);
       });
 }
-   
+  
 
 useMemo(()=>{
   setSelectmachinelog({...machineList[0],index:0})
 },[machineList[0]])
+
+useEffect(() => {
+  console.log("useEffect hook called");
+  // Rest of your code
+}, [machineLog]);
+
+
 
   return (
     <>
@@ -96,28 +103,40 @@ useMemo(()=>{
          </tr>
        </thead>
 
-{machineLog.map((item,key)=>{
-  return(
-    <>
-    <tbody className='tablebody'>
-          <tr>
-             <td style={{whiteSpace:"nowrap"}}>{item.QtyProcessed}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.FromTime}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.ToTime}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.MachineTime}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.Program}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.Operation}</td>
-             <td style={{whiteSpace:"nowrap"}}>{item.Remarks}</td>
-             <td style={{whiteSpace:"nowrap"}}>
-              <input type="checkbox"
-              checked={item.Locked==1 ? true:false}/>
-             </td>
-             <td style={{whiteSpace:"nowrap"}}>{item.Operator}</td>
-         </tr>
-    </tbody>
-    </>
-  )
-})}
+       {Array.isArray(machineLog) && machineLog.length > 0 ? (
+  <tbody className="tablebody table-space table-cell-align">
+    {machineLog.map((item, key) => {
+      return (
+        <tr>
+          <td>{item?.Machine}</td>
+          <td>{item?.Shift}</td>
+          <td>{item?.Srl}</td>
+          <td>
+          {item?.FromTime}
+          </td>
+          <td>
+          {item?.ToTime}
+          </td>
+          <td>{item?.MachineTime}</td>
+          <td>{item?.Program}</td>
+          <td>{item?.Remarks}</td>
+          <td>{item?.Operator}</td>
+          <td>{item?.Operation}</td>
+        </tr>
+      );
+    })}
+  </tbody>
+) : (
+  <tbody className="tablebody table-space table-cell-align">
+    {machineLog.length === 0 && (
+      <tr>
+        <td colSpan="11">No data available</td>
+      </tr>
+    )}
+  </tbody>
+)}
+
+
  </Table>
      </div>
  </div>

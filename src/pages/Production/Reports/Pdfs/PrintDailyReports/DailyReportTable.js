@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     tablemainheader1:{
       // textDecoration:"underline",
       marginLeft:"100px",
-      marginTop:"10px"
+      marginTop:"14px"
   },
   tablemainheader:{
     textDecoration:"underline",
@@ -73,10 +73,6 @@ const styles = StyleSheet.create({
     production2:{
       marginLeft:"350px",
       marginTop:"10px"
-    },
-    desc:{
-      marginLeft:"80px",
-      marginTop:"5px"
     },
     name:{
       marginRight:"100px",
@@ -104,6 +100,20 @@ const styles = StyleSheet.create({
     },
     Nodata:{
       marginTop:"100px"
+    },
+    desc:{
+      marginLeft:"80px",
+      marginTop:"5px",
+    },
+    desc2:{
+      paddingLeft:"220px",
+      paddingTop : "-12px",
+      marginTop:"-12px",
+      marginBottom : "15px"
+    },
+    desc3 : {
+      marginLeft:"124px",
+      marginTop:"5px",
     }
   });
   
@@ -131,10 +141,11 @@ const DailyReportTable = ({Date,pdfData}) => (
         <View style={styles.tablemainheader1} key={task.task}>
         <Text style={styles.task} >{task.task}</Text>
         {task.operations.map((operation) => (
-          <Text  key={operation.Operation} style={styles.desc}>
-            {operation.Operation}   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{operation.time}
-          </Text>
-        ))}
+          <Text key={operation.Operation} style={styles.desc}>{operation.Operation}</Text> 
+          ))}
+           {task.operations.map((operation) => (
+            <Text key={operation.Operation} style={styles.desc2}>{operation.time}</Text>
+            ))}      
       </View>
       ))}
     </React.Fragment>

@@ -15,16 +15,18 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setMachineutilisationSummarydata,
   } = useGlobalContext();
 
+  console.log(machineutilisationSummartdata);
   const [rowSelected, setRowSelected] = useState({});
 
   const selectedRowFun = (item, index) => {
     let list = { ...item, index: index };
     setRowSelected(list);
     // console.log(index);
+    setInputValue2([])
   };
 
   const [inputValue1, setInputValue1] = useState("");
-  const [inputValue2, setInputValue2] = useState("");
+  const [inputValue2, setInputValue2] = useState(rowSelected.LaserOn || "");
 
   const updateUtilisationSummary = () => {
     axios
@@ -63,24 +65,8 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
   useMemo(() => {
     setRowSelected({ ...machineutilisationSummartdata[0], index: 0 });
+    setInputValue2([])
   }, [machineutilisationSummartdata[0]]);
-
-  //Select using Checkbox
-
-  // const handleInputChange = (event, key, field) => {
-  //   const value = event.target.value;
-  //   const newUpdatedData = updatedData.map((item, index) => {
-  //     if (index === key) {
-  //       return {
-  //         ...item,
-  //         [field]: value,
-  //       };
-  //     }
-  //     return item;
-  //   });
-  //   setUpdatedData(newUpdatedData);
-  // };
-  console.log(status);
 
   return (
     <div className="col-md-12">

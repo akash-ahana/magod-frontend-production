@@ -3,7 +3,9 @@ import axios from "axios";
 import UpdateDayshiftModal from './Modals/UpdateDayshiftModal';
 import DeleteDayShiftModal from './Modals/DeleteDayShiftModal';
 import ModalPrintDailyShift from './PdfPrinter/DailyshiftTable/ModalPrintDailyShift';
-import {baseURL} from '../../.././api/baseUrl'
+import {baseURL} from '../../.././api/baseUrl';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 
 function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShiftTable,getSecondTableData,
@@ -14,10 +16,17 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
   // let navigate=useNavigate();
 
   const[openPrintModal,setOpenPrintModal]=useState('');
-  const openDailyShiftPrinter=()=>{
-    setOpenPrintModal(true);
-    // navigate("PrintDailyplan",{state:{rowselect:rowselect}});
-  }
+  const openDailyShiftPrinter = () => {
+    console.log(rowselect);
+    if (rowselect.item === "" && rowselect.index === 0) {
+      toast.error("Please select a Date", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      setOpenPrintModal(true);
+    }
+  };
+  
 
     const[dataShiftIncharge,setDataShiftIncharge]=useState([]);
     const[selectedShiftIncharge,setSelectedShiftIncharge]=useState([]);
@@ -48,6 +57,9 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
         //getSecondTableData()
         getSingleDayShiftPlan4thTable();
         getSecondTableData();
+        toast.success('Shift Instructor Updated',{
+          position: toast.POSITION.TOP_CENTER
+      })
       })
       }
 
@@ -60,10 +72,10 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
       //UPDATE DAYSHIFT MODAL
-      const[updatedayshift,setUpdatedayshift]=useState('')
-      const openUpdatedayshift=()=>{
-        setUpdatedayshift(true);
-      }
+      // const[updatedayshift,setUpdatedayshift]=useState('')
+      // const openUpdatedayshift=()=>{
+      //   setUpdatedayshift(true);
+      // }
 
       //DELETEDAYSHIFTMODAL
       const[deletedayshift,setDeletedayshift]=useState('')
@@ -72,10 +84,11 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
     return (
+      <>
+            <ToastContainer />
         <div style={{textAlign:"center",backgroundColor:"#d3d3d3",
         marginTop:"23px",marginLeft:"5px",fontSize:"14px",width:"210px"}}>
           <h6>Daily Shift Editor</h6>
-
           <div style={{color:"red"}}> <b>Shift Date :  {rowselectDailyShiftTable.ShiftDate}</b></div>
            <br></br>
            <div style={{color:"red"}}><b>Shift : {rowselectDailyShiftTable.Shift}</b></div>
@@ -105,8 +118,8 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
           <div style={{textAlign:"center"}}>
             <div>
             <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "140px",fontSize:"14px"}} onClick = {()=>{openUpdatedayshift()
-                onClickUpdateDayShift()}}>
+              style={{ width: "140px",fontSize:"14px"}} onClick = {
+                onClickUpdateDayShift}>
               Update Day Shift
             </button>
             </div>
@@ -132,11 +145,11 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
             </div>
             
             
-          <UpdateDayshiftModal
+          {/* <UpdateDayshiftModal
           updatedayshift={updatedayshift}
           setUpdatedayshift={setUpdatedayshift}
           onClickUpdateDayShift={onClickUpdateDayShift}
-          rowselectDailyShiftTable={rowselectDailyShiftTable}/>
+          rowselectDailyShiftTable={rowselectDailyShiftTable}/> */}
 
           <DeleteDayShiftModal
           setDeletedayshift={setDeletedayshift}
@@ -149,6 +162,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
           rowselect={rowselect}/>
    
         </div>
+        </>
     );
 }
 

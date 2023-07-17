@@ -197,7 +197,7 @@ export default function ScheduleHeader({
 
   const showStatusData = [
     { status: "Programmed", data: programmedtatus },
-    { status: "Completed", data: completedStatus },
+    // { status: "Completed", data: completedStatus },
     { status: "Production", data: productionStatus },
     { status: "Tasked", data: taskedStatus },
   ];

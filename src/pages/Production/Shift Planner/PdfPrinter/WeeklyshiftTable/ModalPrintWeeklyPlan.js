@@ -3,7 +3,9 @@ import Modal from 'react-bootstrap/Modal';
 import PrintWeeklyplan from './PrintWeeklyplan';
 
  export default function ModalPrintWeeklyPlan({openPrintModal,setOpenPrintModal,selectedWeek}) {
+
     console.log("in Print Modal",selectedWeek)
+
 //   const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
   const [fullscreen, setFullscreen] = useState(true);
 

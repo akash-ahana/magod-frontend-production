@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from "axios";
 import AddOperatorModal from './Modals/AddOperatorModal';
 import DeleteOperatorForDay from './Modals/DeleteOperatorfordayModal';
@@ -8,155 +8,136 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 function DailyOperator(props) {
-  console.log(props.data);
+  const [selectedMachine, setSelectedMachine] = useState('');
+  const [dataMachineList, setDataMachineList] = useState([]);
+  const [dataOperatorList, setDataOperatorList] = useState([]);
+  const [selectedOperator, setSelectedOperator] = useState('');
 
-    const [selectedMachine , setSelectedMachine] = useState('');
-    const [ dataMachineList, setDataMachineList] = useState([]);
-    const [dataOperatorList, setDataOperatorList] = useState([]);
-    const [selectedOperator, setSelectedOperator] = useState('');
+  const getMachineListData = async () => {
+    const { data } = await axios.get(baseURL + `/productionSetup/getallmachines`);
+    setDataMachineList(data);
+  };
 
-    const getMachineListData = async () => {
-        const { data } = await axios.get(baseURL+`/productionSetup/getallmachines`);
-        //console.log('Machine List' , data)
-        setDataMachineList(data);
-      };
-    
-      const getOperatorListData=async()=>{
-        const { data } = await axios.get(baseURL+`/shiftEditor/getMachineOperators`);
-        //console.log('Operator List',data);
-        setDataOperatorList(data);
-         
-      }
+  const getOperatorListData = async () => {
+    const { data } = await axios.get(baseURL + `/shiftEditor/getMachineOperators`);
+    setDataOperatorList(data);
+  };
 
-      const handleMachineChange = (e) =>  {
-        //console.log("MachineSelected!!");
-        //selectedShift = e.target.value;
-        setSelectedMachine(e.target.value);
-      };
-      
-      const handleOperatorList=(e)=>{
-        //console.log("Operator List Selected");
-        setSelectedOperator(e.target.value);
-    
-      }
+  const handleMachineChange = (e) => {
+    setSelectedMachine(e.target.value);
+  };
 
-      // console.log('Selected Machine after setting in the daily set ' , selectedMachine)
-      // console.log('Selected Operator after Setting',selectedOperator);
-      // console.log('PROPS FROM Daily Week operator box is ', props.data)
-      // console.log('MAIN PROPS', props.selectMachineOperatorData)
+  const handleOperatorChange = (e) => {
+    setSelectedOperator(e.target.value);
+  };
 
-      useEffect(() => {
-        getMachineListData(); 
-        getOperatorListData();
-      }, []);
+  const createDailyOperatorList = () => {
+    axios.post(baseURL + '/shiftEditor/setMachineOperatorDay', {
+      ShiftDate: props.data.ShiftDate,
+      Shift: props.data.Shift,
+      FromTime: props.data.FromTime,
+      ToTime: props.data.ToTime,
+      Machine: selectedMachine,
+      Operator: selectedOperator,
+      DayShiftID: props.data.DayShiftId
+    }).then((response) => {
+      console.log(response);
+      props.getMachineOperatorTableData();
+      toast.success('Machine Operator Added', {
+        position: toast.POSITION.TOP_CENTER
+      });
+    });
+  };
 
-      const [MachineOperatorDay, setMachineOperatorDay] = useState([])
-
-
-      const createDailyOperatorList = () => {
-         console.log('createDailyOperatorList is clicked ' , ' Machine Selected is ' , selectedMachine , ' operator Selected is ' , selectedOperator, 'Shift is ' , props.data)
-        //setMachineOperatorDay({ShiftDate : props.data.ShiftDate , Shift : props.data.Shift , FromTime: props.data.FromTime , ToTime : props.data.ToTime , Machine : selectedMachine , Operator : selectedOperator , DayShiftID : props.data.DayShiftId})
-        axios.post(baseURL+'/shiftEditor/setMachineOperatorDay' , {ShiftDate : props.data.ShiftDate , Shift : props.data.Shift, FromTime: props.data.FromTime , ToTime : props.data.ToTime, 
-        Machine : selectedMachine , Operator : selectedOperator , DayShiftID : props.data.DayShiftId }
-    ).then((response) => {console.log(response)
+  const onDeleteOperatorForDay = () => {
+    axios.post(baseURL + '/shiftEditor/deleteMachineOperatorDay', props.rowselectMachineOperator)
+      .then((response) => {
+        console.log(response);
         props.getMachineOperatorTableData();
-        toast.success('Machine Operator Added',{
+        toast.success('Machine Operator Deleted', {
           position: toast.POSITION.TOP_CENTER
-      })
-    })
-}
+        });
+      });
+  };
 
+  useEffect(() => {
+    getMachineListData();
+    getOperatorListData();
+    setSelectedMachine(props.rowselectMachineOperator.Machine);
+    setSelectedOperator(props.rowselectMachineOperator.Operator);
+  }, [props.rowselectMachineOperator]);
 
-    const onDeleteOperatorForDay = () => {
-        // console.log('Delete Operator For day is Clicked',props.rowselectMachineOperator);
-        axios.post(baseURL+'/shiftEditor/deleteMachineOperatorDay',
-         props.rowselectMachineOperator)
-        .then((response) => {console.log(response)
-          props.getMachineOperatorTableData();
-          toast.success('Machine Opearator Deleted',{
-            position: toast.POSITION.TOP_CENTER
-        })
-        //getSecondTableData()
-        //setMachineOperatorDay('')
-      })
-    }
+  const openAddOperator = () => {
+    // Implement your logic for opening the AddOperatorModal here
+  };
 
-    //AddOperator
-    const[addoperator,setAddoperator]=useState('');
-    const openAddoperator=()=>{
-      setAddoperator(true);
-    }
+  const openDeleteOperator = () => {
+    // Implement your logic for opening the DeleteOperatorForDay modal here
+  };
 
+  return (
+    <div style={{ textAlign: "center", backgroundColor: "lightgrey", marginTop: "5px", marginLeft: "5px", fontSize: "14px" }}>
+      <ToastContainer />
+      <div>
+        <div style={{ color: "red" }}><b>{props.data.Shift} Shift</b></div>
+      </div>
+      <div className="col-md-11" style={{ display: "flex" }}>
+        <div style={{ marginLeft: "5px" }}>
+          <label className="form-label">Machine</label>
+        </div>
+        <div style={{ marginLeft: "33px", marginTop: "6px" }}>
+          <select className="ip-select" onChange={handleMachineChange} value={selectedMachine}>
+            {dataMachineList.map((dataMachineList) => (
+              <option key={dataMachineList.refName} value={dataMachineList.refName}>
+                {dataMachineList.refName}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
-    //DeleteOperator
-    const[deleteoperator,setDeleteoperator]=useState('');
-    const openDeleteoperator=()=>{
-      setDeleteoperator(true);
-    }
+      <div className="col-md-11" style={{ display: "flex" }}>
+        <div style={{ marginLeft: "5px" }} >
+          <label className="form-label">Operator</label>
+        </div>
+        <div style={{ marginLeft: "30px", marginTop: "6px" }}>
+          <select className="ip-select" onChange={handleOperatorChange} value={selectedOperator}>
+            {dataOperatorList.map((dataOperatorList) => (
+              <option key={dataOperatorList.Name} value={dataOperatorList.Name}>
+                {dataOperatorList.Name}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
-    // useEffect(() => {
-    //   setSelectedMachine(props.rowselectMachineOperator.Machine);
-    // }, [props.rowselectMachineOperator]);
+      <button
+        className="button-style mt-2 group-button mt-4"
+        style={{ width: "150px", fontSize: "14px" }}
+        onClick={createDailyOperatorList}
+      >
+        Add Operator for Day
+      </button>
 
-    return (
-        <div style={{textAlign:"center",backgroundColor:"lightgrey",marginTop:"5px",marginLeft:"5px",fontSize:"14px"}}>
-              <ToastContainer/>
-            <div>
-                <div style={{color:"red"}}><b>{props.data.Shift} Shift</b></div>
-            </div>
-            <div className="col-md-11"style={{display:"flex"}}> 
-                 <div style={{marginLeft:"5px"}}>
-                 <label className="form-label">Machine</label>
-                 </div>
-                 <div style={{marginLeft:"33px",marginTop:"6px"}}>
-                 <select className="ip-select" onChange={handleMachineChange} value={props.rowselectMachineOperator.Machine}>
-                    {dataMachineList.map((dataMachineList) => (
-                       <option key={dataMachineList.refName} value={dataMachineList.refName}>
-                               {dataMachineList.refName}
-                      </option>
-                    ))}
-                 </select>
-                 </div>
-              </div>
-
-              <div className="col-md-11" style={{display:"flex"}}>
-                <div style={{marginLeft:"5px"}} >
-                <label className="form-label">Operator</label>
-                </div>
-                <div style={{marginLeft:"30px",marginTop:"6px"}}>
-                <select className="ip-select" onChange={handleOperatorList} value={props.rowselectMachineOperator.Operator}>
-                      {dataOperatorList.map((dataOperatorList) => (
-                      <option key={dataOperatorList.Name} value={dataOperatorList.Name}>
-                        {dataOperatorList.Name}
-                      </option>
-                  ))}
-               </select>
-                </div>
-              </div>
-
-              <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "150px",fontSize:"14px"}}  onClick={()=>createDailyOperatorList()}>
-               Add Operator for Day
-            </button>
-
-
-            {/* //need    \state from daily Shift Table and machine operator table      */}
-            <button className="button-style mt-2 group-button mt-4"
-               style={{ width: "160px",fontSize:"14px",marginBottom:"10px"}} 
-               onClick = {()=>onDeleteOperatorForDay()}>
-               Delete Operator For Day
-            </button>
-
-        <AddOperatorModal  
+      <button
+        className="button-style mt-2 group-button mt-4"
+        style={{ width: "160px", fontSize: "14px", marginBottom: "10px" }}
+        onClick={onDeleteOperatorForDay}
+      >
+        Delete Operator For Day
+      </button>
+{/* 
+      <AddOperatorModal
         addoperator={addoperator}
         setAddoperator={setAddoperator}
-        />
+      />
 
-        <DeleteOperatorForDay
+      <DeleteOperatorForDay
         deleteoperator={deleteoperator}
-        setDeleteoperator={setDeleteoperator}/>   
-        </div>
-    );
+        setDeleteoperator={setDeleteoperator}
+      /> */}
+    </div>
+  );
 }
 
 export default DailyOperator;

@@ -74,7 +74,7 @@ const SidebarComp = () => {
         }
 
         //Reports - Daily Reports
-        if(newSideBarData[3].path.includes(lazerUser.data.access[j])) {
+        if(newSideBarData[3].subNav[0].path.includes(lazerUser.data.access[j])) {
           tempArray.push(newSideBarData[3])
         }
         }
