@@ -82,7 +82,7 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       const openDeletedayshift=()=>{
         setDeletedayshift(true);
       }
-
+console.log(selectedShiftIncharge)
     return (
       <>
             <ToastContainer />

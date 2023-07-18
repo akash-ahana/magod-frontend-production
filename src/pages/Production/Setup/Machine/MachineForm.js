@@ -18,7 +18,7 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function ({selectedRow}) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
-  const blockInvalidCharReg = e => ['!','@','#','$','%','^','&','*','(',')','_','-','+','=','|','\',','}','{','[',']','.',',','/','?'].includes(e.key) && e.preventDefault();
+  const blockInvalidCharReg = e => ['!','@','#','$','%','^','&','*','(',')','_','-','+','=','|','\',','}','{','[',']','.',',','/','?','""','<','>'].includes(e.key) && e.preventDefault();
 
   // console.log(selectedRow.isInstallDatePresent);
 
@@ -173,7 +173,6 @@ else{
   }
   // console.log(opensavemachine)
   const saveMachine=()=>{
-    // openSavemachine();
     console.log("consoling data before save",machineData)
     axios.post(
       baseURL + "/productionSetup/saveMachine",
