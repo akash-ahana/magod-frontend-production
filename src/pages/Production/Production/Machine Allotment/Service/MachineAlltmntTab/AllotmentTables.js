@@ -384,7 +384,7 @@ export default function AllotmentTables() {
                             RowSelect(value, key);
                           }}
                           className={
-                            key === tableRowSelect?.index
+                            key === rowselect?.index
                               ? "selcted-row-clr"
                               : ""
                           }

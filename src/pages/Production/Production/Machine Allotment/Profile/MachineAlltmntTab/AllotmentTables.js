@@ -182,7 +182,6 @@ export default function AllotmentTables() {
       .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
       .then((response) => {
         console.log("OnClick Post response", response.data);
-        //setMachineList(response.data)
         setTableRowSelect(response.data[0]);
       });
   };
@@ -391,7 +390,7 @@ export default function AllotmentTables() {
                             RowSelect(value, key);
                           }}
                           className={
-                            key === tableRowSelect?.index
+                            key === rowselect?.index
                               ? "selcted-row-clr"
                               : ""
                           }

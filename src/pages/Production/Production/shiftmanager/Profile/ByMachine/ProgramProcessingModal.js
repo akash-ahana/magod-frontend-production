@@ -268,18 +268,7 @@ return(
            {/* <td>{item.TotQtyNested}</td> */}
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>
-           <td >
-            <div key={item.QtyRejected}>
-           <input className='table-cell-editor '
-                 name="cleared"
-                 type='number'
-                 onKeyDown={blockInvalidChar}
-                 defaultValue={item.QtyRejected}
-                 onChange={(e)=>onChangeRejected(e,  item, key)}
-                 placeholder="Type Cleared"
-                />
-                </div>
-            </td>
+           <td >{item.QtyRejected}</td>
            <td>
 
           <div key={item.QtyCleared || item.QtyRejected} >

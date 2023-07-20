@@ -33,7 +33,6 @@ export default function MachineAlltmntForm() {
       setSelectedRows([])
     }
   
-
   const[selectNcProgram,setSelectProgram]=useState({})
   const [ncProgramsTableData , setNcProgramsTableData] = useState([])
   const [selectedMachineTreeView , setSelectedMachineTreeView] = useState("")
@@ -41,9 +40,7 @@ export default function MachineAlltmntForm() {
   
   console.log(selectedMachineTreeView)
   const onClickMachine = (Machine, key) => {
-      setSelectedRows([])
-     //console.log('Selected Rows are  ' , selectedRows)
-      
+      // setSelectedRows([])      
       axios.post(baseURL+'/machineAllotment/getNCprogramTabTableData',{MachineName : Machine})
       .then((response) => {        
           setNcProgramsTableData(response.data)
@@ -51,7 +48,7 @@ export default function MachineAlltmntForm() {
             response.data[i].isChecked = false;
           }
       })
-      setSelectedRows([])
+      // setSelectedRows([])
       setSelectedMachineTreeView(Machine)
       setMachineList([])
   }
@@ -67,7 +64,6 @@ const handleCheckboxChange = (item, key) => {
   }
    setNcProgramsTableData(constncProgramsTableData)
 if(selectedRows.length === 0){
-  // console.log('First ITem is SET')
   axios.post(baseURL+'/machineAllotment/machineAllotmentScheduleTableFormMachines', item)
       .then((response) => {
           setMachineList(response.data)
@@ -143,7 +139,7 @@ const treeViewData = () => {
           }
       })
       treeViewData();
-      setSelectedRows([])
+      // setSelectedRows([])
       setMachineList([])
  }
 
@@ -152,16 +148,21 @@ const treeViewData = () => {
 },[machineProcessData[0]])
 
 
-useEffect(() => {
-  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
-      .then((response) => {
-          setNcProgramsTableData(response.data);
-      })
-},[])
-
  const onMachineChange = (e) => {
   setSelectedMachine(e.target.value)
  }
+
+ const onClickMachineLabel=()=>{
+  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
+  .then((response) => {
+    console.log(response.data);
+      setNcProgramsTableData(response.data);
+  })
+ }
+
+ useEffect(() => {
+  onClickMachineLabel();
+ },[])
 
   return (
     <>
@@ -217,7 +218,7 @@ useEffect(() => {
             dataSource.map((node, i) => {
               const type = node.type;
               const label = (
-                <span style={{ fontSize: "16px" }} className="node">
+                <span style={{ fontSize: "16px" }} className="node" onClick={onClickMachineLabel}>
                   {type}
                 </span>
               );
