@@ -153,8 +153,6 @@ const DailyReportTable = ({Date,pdfData}) => (
 ) : (
   <Text style={styles.Nodata}>No data available</Text>
 )}
-
-
     <View >
           <Text style={styles.power}>Power Meter Reading</Text>
           <Text style={styles.power1}>Power Units Consume</Text>

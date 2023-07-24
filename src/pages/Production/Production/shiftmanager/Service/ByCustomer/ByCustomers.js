@@ -102,10 +102,61 @@ const onClickCustomer = (Cust_Code) => {
           })
 }
 
-
-
 const[proramCompleted,setProgramCompleted]=useState([])
 const[programProcessing,setProgramProcessing]=useState([])
+
+const onClickCustLabel=()=>{
+  axios.get(baseURL+'/shiftManagerProfile/allCompleted')
+  .then((response) => {
+    for(let i = 0; i< response.data.length ; i++) {
+      if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+        response.data[i].rowColor = "#339900"
+      } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+        response.data[i].rowColor = "#82c2b4"
+      } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+        response.data[i].rowColor = "#f08080"
+      }
+      else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+        response.data[i].rowColor = "#f08080"
+      } 
+      else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+        response.data[i].rowColor = "#FF7F50"
+      } 
+      else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+        response.data[i].rowColor = "#FFA500"
+      } else {
+        response.data[i].rowColor = "#ff0000"
+      }
+    }
+    console.log("response  machine list",response.data)
+    setProgramCompleted(response.data)
+  })
+  axios.get(baseURL+'/shiftManagerProfile/allProcessing')
+      .then((response) => {
+        for(let i = 0; i< response.data.length ; i++) {
+          if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+            response.data[i].rowColor = "#339900"
+          } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#82c2b4"
+          } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#f08080"
+          }
+          else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#f08080"
+          } 
+          else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#FF7F50"
+          } 
+          else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+            response.data[i].rowColor = "#FFA500"
+          } else {
+            response.data[i].rowColor = "#ff0000"
+          }
+        }
+        console.log("response  machine list",response.data)
+        setProgramProcessing(response.data)
+      })
+}
 
 
   return (
@@ -114,7 +165,7 @@ const[programProcessing,setProgramProcessing]=useState([])
             <div className="" style={{ height: "323px", overflowY: "scroll",overflowX:'scroll',width:'330px'}}>   
                 {dataSource.map((node, i) => {
                     const type = node.type;
-                    const label = <span className="node">{type}</span>;
+                    const label = <span className="node" onClick={onClickCustLabel}>{type}</span>;
                     return (
                         <TreeView
                             key={type + "|" + i}

@@ -7,7 +7,7 @@ import axios from 'axios';
 import { baseURL } from '../../../../../api/baseUrl';
 
 export default function ScheduleListFabrication() {
-  const{schedulelistfabricationdata,setSchedulelistfabricationdata}=useGlobalContext();
+  const{schedulelistfabricationdata,setSchedulelistfabricationdata,getSchedulistfabricationdata}=useGlobalContext();
     const [rowselect,setRowselect]=useState({})
     const [scheduleid,setScheduleid]=useState('');
     const rowSelectFun=(item,index)=>{
@@ -90,15 +90,9 @@ const getpartslistdata=()=>{
    const[scheduleList,setScheduleList]=useState([])
    const [selectedCustomerCode, setSelectedCustomerCode] = useState("");
    let selectCust = async (e) => {
-     console.log("cust data = ", e);
-     console.log("cust code = ", e[0].Cust_Code);
-     //setSelectedCustomerCode(e[0].Cust_Code)
- 
-     axios
-       .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
-         Cust_Code: e[0].Cust_Code,
-       })
-       .then((response) => {
+    if (e.length === 0) {
+      // If input field is empty, make a GET request
+      axios.get(baseURL + "/scheduleListFabrication/schedulesList").then((response) => {
         for(let i =0;i<response.data.length;i++) { 
           // FOR TgtDelDate
           let dateSplit = response.data[i].schTgtDate.split(" ");
@@ -107,8 +101,10 @@ const getpartslistdata=()=>{
           let month = date[1];
           let day = date[2];
           let finalDay = day+"-"+month+"-"+year
+          // console.log(finalDay , 'shift Information 1')
           response.data[i].schTgtDate = finalDay;
         }
+  
         for(let i =0;i<response.data.length;i++) { 
           // Delivery_date
           let dateSplit1 = response.data[i].Delivery_Date.split(" ");
@@ -117,33 +113,60 @@ const getpartslistdata=()=>{
           let month1 = date1[1];
           let day1 = date1[2];
           let finalDay1 = day1+"-"+month1+"-"+year1
+          // console.log(finalDay1, 'shift Information 1')
           response.data[i].Delivery_Date = finalDay1;
         }
-        //  console.log(response.data);
-        setSchedulelistfabricationdata(response.data)
-       });
- 
-     console.log("table customer = ", custdata);
-     let cust;
-     for (let i = 0; i < custdata.length; i++) {
-       if (custdata[i]["Cust_Code"] === e[0].Cust_Code) {
-         cust = custdata[i];
-         break;
-       }
-     }
-     setCustCode(cust.Cust_Code);
- 
-     postRequest(
-       baseURL + "/scheduleListProfile/getcustomerdetailsData",
-       {
-         custcode: cust.Cust_Code,
-       },
-       (resp) => {
-         console.log(resp);
-         let excustdata = resp[0];
-       }
-     );
-   };
+        setSchedulelistfabricationdata(response.data); 
+              // console.log(response.data)
+          });
+    } else {
+      // If input field has a value, make a POST request with the Cust_Code
+      const custCode = e[0].Cust_Code;
+      axios.post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
+        Cust_Code: custCode,
+      })
+        .then((response) => {
+          for(let i =0;i<response.data.length;i++) { 
+            // FOR TgtDelDate
+            let dateSplit = response.data[i].schTgtDate.split(" ");
+            let date =dateSplit[0].split("-")
+            let year = date[0];
+            let month = date[1];
+            let day = date[2];
+            let finalDay = day+"-"+month+"-"+year
+            // console.log(finalDay , 'shift Information 1')
+            response.data[i].schTgtDate = finalDay;
+          }
+    
+          for(let i =0;i<response.data.length;i++) { 
+            // Delivery_date
+            let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+            let date1 =dateSplit1[0].split("-")
+            let year1 = date1[0];
+            let month1 = date1[1];
+            let day1 = date1[2];
+            let finalDay1 = day1+"-"+month1+"-"+year1
+            // console.log(finalDay1, 'shift Information 1')
+            response.data[i].Delivery_Date = finalDay1;
+          }
+          setSchedulelistfabricationdata(response.data); 
+        })
+        .catch((error) => {
+          // Handle error, if any
+          console.error("Error fetching data:", error);
+        });
+    }
+  };
+  
+  // ...
+  
+  // The useEffect hook to fetch initial data
+  useEffect(() => {
+    getSchedulistfabricationdata(); // Assuming you have this function defined somewhere else
+  }, []);
+  
+  
+   
  
    useEffect(() => {
      axios

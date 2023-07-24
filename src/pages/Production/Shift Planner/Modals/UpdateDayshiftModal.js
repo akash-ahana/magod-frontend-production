@@ -8,7 +8,7 @@ import axios from 'axios';
 
 
 export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
-    rowselectDailyShiftTable}) {
+    rowselectDailyShiftTable,onClickUpdateDayShift,selectedShiftIncharge}) {
     console.log(rowselectDailyShiftTable.Shift_Ic);
 
 
@@ -23,13 +23,17 @@ export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
           <Modal.Title>Update Dayshift</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body><b> {rowselectDailyShiftTable.Shift_Ic}</b> is updated as shift incharge for <b>{rowselectDailyShiftTable.Shift}</b> shift for 
-        &nbsp; <b>{rowselectDailyShiftTable.ShiftDate}</b>
+        <Modal.Body>Do you wish to add <b>{selectedShiftIncharge}</b> as Shift Incharge for <b>{rowselectDailyShiftTable.Shift}</b> shift for  <b>{rowselectDailyShiftTable.ShiftDate} ?</b>
         </Modal.Body> 
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            OK
+          <Button variant="primary" onClick={()=>{handleClose()
+            onClickUpdateDayShift()
+            }}>
+            Yes
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            No
           </Button>
         </Modal.Footer>
       </Modal>

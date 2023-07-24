@@ -16,11 +16,9 @@ export default function MachineChangeModal({changeMachine,setChangeMachine,selec
         axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing,NewMachine : selectedMachine })
         .then((response) => {
           console.log('Current State of programCompleteData' , response.data);
-          handleClose();
            const constSelectProgramCompleted = selectProgramProcessing;
            constSelectProgramCompleted.Machine = selectedMachine;
            setSelectProgramProcessing(constSelectProgramCompleted)
-      
        })
         toast.success('Machine Name Changed',{
             position: toast.POSITION.TOP_CENTER
@@ -36,7 +34,7 @@ export default function MachineChangeModal({changeMachine,setChangeMachine,selec
           <Modal.Title>Machine Selection Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Do you wish to shift Program No {selectProgramProcessing.NCProgramNo} from {selectProgramProcessing.Machine} To laser {selectedMachine}?
+          Do you wish to shift Program No <b>{selectProgramProcessing.NCProgramNo}</b> from <b>{selectProgramProcessing.Machine}</b> To laser <b>{selectedMachine}</b>?
         </Modal.Body>
         <Modal.Footer>
         <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={onClickYes} >

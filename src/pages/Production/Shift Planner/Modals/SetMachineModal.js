@@ -4,12 +4,13 @@ import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../../../api/baseUrl';
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 
 export default function SetMachineModal({opensetmachine,setOpensetmachine,selectedMachine,
     selectedOperator, selectedWeek,weekState1,setWeekState1,getMachineOperatorTableData,
-    getSingleDayShiftPlan4thTable}) {
+    getSingleDayShiftPlan4thTable,selectedShift}) {
     const handleClose=()=>{
         setOpensetmachine(false);
     }
@@ -19,6 +20,9 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
         axios.post(baseURL+'/shiftEditor/setMachineOperators', weekState1)
         .then((response) => {
           console.log(response);
+          toast.success("Machine Operator Added Sucesfully", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         getMachineOperatorTableData();
         getSingleDayShiftPlan4thTable();
         handleClose();
@@ -33,12 +37,12 @@ export default function SetMachineModal({opensetmachine,setOpensetmachine,select
           <Modal.Title>Set Machine </Modal.Title>
         </Modal.Header>
 
-        {selectedOperator && selectedMachine ? (
+        {selectedOperator && selectedMachine && selectedShift ? (
           <Modal.Body>Are you sure want add <b>{selectedOperator}</b> to <b>{selectedMachine}</b> for the week?</Modal.Body> 
 
         ) : (
           <Modal.Body>
-            Please select a Operator and Machine  before clicking Set MachineOperator
+            Please select a <b>Operator</b> and <b>Machine</b> and <b>Shift</b>  before clicking Set MachineOperator
           </Modal.Body>
         )}
 

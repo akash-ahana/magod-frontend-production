@@ -116,6 +116,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
      taskNoOnClick={taskNoOnClick}
      MachineOnClick={MachineOnClick}
      setSelectProgramCompleted={setSelectProgramCompleted}
+     setMachineProgramesCompleted={setMachineProgramesCompleted}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />

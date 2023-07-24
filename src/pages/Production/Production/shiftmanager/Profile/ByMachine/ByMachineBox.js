@@ -7,20 +7,19 @@ import { baseURL } from "../../../../../../api/baseUrl";
 
 export default function ByMachineBox() {
   const [machineProcessData, setMachineProcessData] = useState([]);
-  const [machineProgramesCompleted, setMachineProgramesCompleted] = useState(
-    []
-  );
-  const [machineProgramesProcessing, setmachineProgramesProcessing] = useState(
-    []
-  );
+  const [machineProgramesCompleted, setMachineProgramesCompleted] = useState([]);
+  const [machineProgramesProcessing, setmachineProgramesProcessing] = useState([]);
   const [selectedMachine, setSelectedMachine] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true); // Set loading state to true before fetching data
     axios
       .get(baseURL + "/shiftManagerProfile/profileListMachinesTaskNo")
       .then((response) => {
         console.log("response  machine list", response.data);
         setMachineProcessData(response.data);
+        setLoading(false); // Set loading state to false in case of error
       });
   }, []);
 
@@ -37,7 +36,6 @@ export default function ByMachineBox() {
   };
 
   const taskNoOnClick = (Machine, TaskNo) => {
-    console.log("Task No on Click is ", TaskNo);
     axios
       .post(baseURL + "/shiftManagerProfile/taskNoProgramNoCompleted", TaskNo)
       .then((response) => {
@@ -256,6 +254,31 @@ export default function ByMachineBox() {
       console.log("response  machine list",response.data)
       setMachineProgramesCompleted(response.data)
     })
+    axios.get(baseURL+'/shiftManagerProfile/allProcessing')
+          .then((response) => {
+            for(let i = 0; i< response.data.length ; i++) {
+              if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+                response.data[i].rowColor = "#339900"
+              } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#82c2b4"
+              } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+              }
+              else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#f08080"
+              } 
+              else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FF7F50"
+              } 
+              else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+                response.data[i].rowColor = "#FFA500"
+              } else {
+                response.data[i].rowColor = "#ff0000"
+              }
+            }
+            console.log("response  machine list",response.data)
+            setmachineProgramesProcessing(response.data)
+          })
   }
 
   useEffect(() => {
@@ -265,7 +288,16 @@ export default function ByMachineBox() {
 
   return (
     <div className="d-flex">
-      <div>
+    <div className=""
+          style={{
+            height: "323px",
+            overflowY: "scroll",
+            overflowX: "scroll",
+            width: "330px",
+          }}>
+      {loading ? (
+        <b>Loading...</b>
+      ) : (
         <div
           className=""
           style={{
@@ -350,19 +382,20 @@ export default function ByMachineBox() {
             );
           })}
         </div>
-      </div>
-      <div>
-        <Iframe
-          machineProgramesCompleted={machineProgramesCompleted}
-          machineProgramesProcessing={machineProgramesProcessing}
-          taskNoOnClick={taskNoOnClick}
-          MachineOnClick={MachineOnClick}
-          selectProgramCompleted={selectProgramCompleted}
-          programCompleted={programCompleted}
-          setMachineProgramesCompleted={setMachineProgramesCompleted}
-          setmachineProgramesProcessing={setmachineProgramesProcessing}
-        />
-      </div>
+      )}
     </div>
+    <div>
+      <Iframe
+        machineProgramesCompleted={machineProgramesCompleted}
+        machineProgramesProcessing={machineProgramesProcessing}
+        taskNoOnClick={taskNoOnClick}
+        MachineOnClick={MachineOnClick}
+        selectProgramCompleted={selectProgramCompleted}
+        programCompleted={programCompleted}
+        setMachineProgramesCompleted={setMachineProgramesCompleted}
+        setmachineProgramesProcessing={setmachineProgramesProcessing}
+      />
+    </div>
+  </div>
   );
 }

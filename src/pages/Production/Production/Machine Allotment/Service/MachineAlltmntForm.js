@@ -30,7 +30,7 @@ export default function MachineAlltmntForm() {
 
     const handleClose=()=>{
       setOpenModal(false);
-      setSelectedRows([])
+      // setSelectedRows([])
     }
   
 
