@@ -449,7 +449,6 @@ function NewCalender(props) {
   }, [selectedWeek]);
 
   const onSetMachineOperators = () => {
-    // console.log('Set Machine Operators Clicked', 'Operator Clicked is ', selectedOperator, ' Selected MACHINE IS ', selectedMachine, 'Selected Shift is ', selectedShift, 'Selected Shift Incharge is ', selectedShiftIncharge, 'Week Selected is ', weekState)
     setWeekState1([
       {
         checkboxValue: 0,
@@ -673,6 +672,18 @@ function NewCalender(props) {
                   ))}
                 </select>
               </div>
+              <div className="col-md-3" style={{ marginTop: "20px" }}>
+                <button
+                  className="button-style mt-2 group-button mt-4"
+                  style={{ width: "200px" }}
+                  onClick={() => {
+                    onSetMachineOperators();
+                    openSetMachinemodal();
+                  }}
+                >
+                  Set Machine Operator
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -727,16 +738,14 @@ function NewCalender(props) {
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
                 <button
-                  className="button-style mt-2 group-button mt-4"
+                  className="button-style mt-2 group-button mt-3"
                   style={{ width: "200px" }}
-                  onClick={() => {
-                    onSetMachineOperators();
-                    openSetMachinemodal();
-                  }}
+                  onClick={openDeletemachineoperator}
                 >
-                  Set Machine Operator
+                  Delete Machine Operator
                 </button>
               </div>
+              
             </div>
           </div>
         </div>
@@ -761,15 +770,7 @@ function NewCalender(props) {
                 </button>
               </div>
               <div className="col-md-3"></div>
-              <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <button
-                  className="button-style mt-2 group-button mt-3"
-                  style={{ width: "200px" }}
-                  onClick={openDeletemachineoperator}
-                >
-                  Delete Machine Operator
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>
@@ -929,7 +930,6 @@ function NewCalender(props) {
             </div>
           </div>
         </div>
-        {/* <button onClick={createWeeklyShiftPlan}>Create Weekly Shift Plan</button> */}
         {/* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////// */}
 
         <div>
@@ -975,6 +975,7 @@ function NewCalender(props) {
         getSecondTableData={getSecondTableData}
         getMachineOperatorTableData={getMachineOperatorTableData}
         getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+        selectedShift={selectedShift}
       />
 
       <DeleteshiftModal
@@ -985,6 +986,7 @@ function NewCalender(props) {
         selectedShift={selectedShift}
         selectedWeek={selectedWeek}
       />
+      
       <DeleteMachineoperatorweekModal
         opendeleteoperator={opendeleteoperator}
         setOpendeleteoperator={setOpendeleteoperator}

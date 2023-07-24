@@ -87,7 +87,7 @@ export default function AllotmentTables() {
   }, [allotmentTable[0]]);
 
   //SCHEDULELIST TABLE
-  const [tableRowSelect, setTableRowSelect] = useState({});
+  const [tableRowSelect, setTableRowSelect] = useState({Machine: ''});
   const [rowselect, setRowselect] = useState({});
   const [machineList, setMachineList] = useState([]);
   const RowSelect = (item, index) => {
@@ -134,41 +134,43 @@ export default function AllotmentTables() {
 
   const onChangeMachine = (e) => {
     console.log("Machine is Changed", e.target.value);
-    setNewSelectedMachine(e.target.value);
+    // Use e.target.value directly to set the selected machine
+    setTableRowSelect({ ...tableRowSelect, Machine: e.target.value });
   };
+  
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const onClickChangeMachine = async (e) => {
-    console.log("function called");
     e.preventDefault();
-    console.log(
-      "On Click Change Machine ",
-      tableRowSelect,
-      "new Machine is ",
-      newSelectedMchine
-    );
+    console.log("On Click Change Machine ", tableRowSelect);
+  
+    // Use tableRowSelect.Machine directly instead of newSelectedMchine
     axios
       .post(baseURL + "/machineAllotment/changeMachineInForm", {
         ...tableRowSelect,
-        newMachine: newSelectedMchine,
+        newMachine: tableRowSelect.Machine,
       })
       .then((response) => {
         toast.success("Machine Changed", {
           position: toast.POSITION.TOP_CENTER,
         });
       });
+  
     await delay(200);
     console.log("Selected Row from right table is ", tableRowSelect);
     axios
       .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
       .then((response) => {
-        console.log("OnClick Post response change machine", response.data[0]);
+        console.log(
+          "OnClick Post response change machine",
+          response.data[0]
+        );
         setTableRowSelect(response.data[0]);
         getScheduleList();
       });
   };
-
+  
   const onClickReleaseForProgramming = async (e) => {
     e.preventDefault();
     console.log(" Release For Programming Button Is Clicked ", tableRowSelect);
@@ -182,10 +184,10 @@ export default function AllotmentTables() {
       .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
       .then((response) => {
         console.log("OnClick Post response", response.data);
-        //setMachineList(response.data)
         setTableRowSelect(response.data[0]);
       });
   };
+
 
   return (
     <div>
@@ -295,24 +297,23 @@ export default function AllotmentTables() {
                       value={tableRowSelect.MProcess}
                     />
                   </div>
+
                   <div className="col-md-6">
-                    <label className="form-label">Select machine</label>
-                    <select
-                      className="ip-select dropdown-field mt-2"
-                      onChange={(e) => onChangeMachine(e)}
-                      value={tableRowSelect.Machine}
-                    >
-                      {machineList.map((value, key) => {
-                        return (
-                          <>
-                            <option value={value.refName}>
-                              {value.refName}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </select>
-                  </div>
+  <label className="form-label">Select machine</label>
+  <select
+    className="ip-select dropdown-field mt-2"
+    onChange={onChangeMachine}
+    value={tableRowSelect.Machine}
+  >
+    {/* Render the default empty option */}
+    <option value="">Select an option</option>
+    {machineList.map((value, key) => (
+      <option key={key} value={value.refName}>
+        {value.refName}
+      </option>
+    ))}
+  </select>
+</div>;
                 </div>
 
                 <div className="row">
@@ -391,7 +392,7 @@ export default function AllotmentTables() {
                             RowSelect(value, key);
                           }}
                           className={
-                            key === tableRowSelect?.index
+                            key === rowselect?.index
                               ? "selcted-row-clr"
                               : ""
                           }

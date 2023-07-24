@@ -96,7 +96,6 @@ console.log("ScheduleNo",item.ScheduleNo)
         <>
               <tr onClick={()=>rowSelectFunForDailyShiftTable(rank,i)} 
                className= {i=== rowselectDailyShiftTable?.index? 'selcted-row-clr':'' } >
-                 {/* <td>{rank.ShiftDate}</td> */}
                  <td style={{whiteSpace:"nowrap"}}>{rank.Shift}</td>
                  <td style={{whiteSpace:"nowrap"}}>{rank.Shift_Ic}</td>
                  <td style={{whiteSpace:"nowrap"}}>{rank.FromTime}</td>

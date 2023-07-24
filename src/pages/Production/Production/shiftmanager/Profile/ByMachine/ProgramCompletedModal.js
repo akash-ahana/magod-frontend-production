@@ -3,9 +3,11 @@ import {Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 
-export default function ProgramCompletedModal({show,setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted
+export default function ProgramCompletedModal({show,setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted,setMachineProgramesCompleted
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -31,37 +33,26 @@ export default function ProgramCompletedModal({show,setShow,selectProgramComplet
 
   const handleClose = () => setShow(false);
 
-  //console.log(programCompleteData);
-
-
-
   const clearAllButton = () => {
     console.log('Clear All button Clicked' , programCompleteData)
     const constProgramCompleteData = programCompleteData;
     console.log('Const Program Complete Data is ' , constProgramCompleteData)
-    //console.log('TYPE OF' , typeof(constProgramCompleteData[0].QtyCleared))
     for(let i =0 ; i<constProgramCompleteData.length ; i++) {
       constProgramCompleteData[i].QtyCleared = constProgramCompleteData[i].QtyCut - constProgramCompleteData[i].QtyRejected
     }
     console.log('Updated Const Program Complete Data is ' , constProgramCompleteData)
-    // setProgramCompleteData(constProgramCompleteData)
-    //setProgramCompleteData([])
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
     setNewPartlistdata(constProgramCompleteData)
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
-    //modalTable();
 
     axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data)
  })
   }
-
-  
 
   const onChangeRejected = (e, item, key) => {
     console.log("onChange Rejected" , "e is " , e.target.value, " item is " , item, " key is " , key)
@@ -79,30 +70,48 @@ export default function ProgramCompletedModal({show,setShow,selectProgramComplet
     axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
     selectProgramCompleted)
    .then((response) => {
-     console.log('Response of Api' , response.data)
-     console.log('current State of Program Complete data is ' , selectProgramCompleted)
+    toast.success('Program Closed', {
+      position: toast.POSITION.TOP_CENTER
+    });
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)
-     taskNoOnClick();
-     MachineOnClick();
+ })
+ axios.get(baseURL+'/shiftManagerProfile/allCompleted')
+ .then((response) => {
+   for(let i = 0; i< response.data.length ; i++) {
+     if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
+       response.data[i].rowColor = "#339900"
+     } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
+       response.data[i].rowColor = "#82c2b4"
+     } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
+       response.data[i].rowColor = "#f08080"
+     }
+     else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
+       response.data[i].rowColor = "#f08080"
+     } 
+     else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
+       response.data[i].rowColor = "#FF7F50"
+     } 
+     else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
+       response.data[i].rowColor = "#FFA500"
+     } else {
+       response.data[i].rowColor = "#ff0000"
+     }
+   }
+   console.log("response  machine list",response.data)
+   setMachineProgramesCompleted(response.data)
  })
   }
-  //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
-  console.log(programCompleteData , 'After Updating')  
+
   const onChangeCleared = (e, item, key) => {
     console.log(" On CHANGE CLEARED " , " e.target.value is " , e.target.value, " item is " , item, " key is " , key)
-    // //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array
-    // console.log(' PART LIST IS ' , partlistdata)
      const newconstprogramCompleteData = programCompleteData
-    // if(e.target.value <= newconstprogramCompleteData[key].QtyProduced) {
        newconstprogramCompleteData[key].QtyCleared = Number(e.target.value)
-    // }
     setProgramCompleteData(newconstprogramCompleteData)
     setNewProgramCompleteData(newconstprogramCompleteData)
      console.log('NEW CONST PROGRAM COMPLETE DATA IS ' , newconstprogramCompleteData)
      setNewProgramCompleteData(newconstprogramCompleteData)
-    
      setNewPartlistdata(newconstprogramCompleteData)
   }
 
@@ -191,9 +200,6 @@ return (
                }/>
             </div>
 
-            
-
-           {/* <div className='row'> */}
            <div className="col-md-3">
                <label className="form-label">Process Time</label>
                <input  className='in-fields'
@@ -227,8 +233,6 @@ return (
              Close Program
             </button>
             </div>
-
-           {/* </div> */}
           </div>
         </div>
       </div>
@@ -240,7 +244,6 @@ return (
      <thead className="tableHeaderBGColor">
        <tr>
          <th style={{whiteSpace:"nowrap"}}>Dwg Name</th>
-         {/* <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th> */}
          <th style={{whiteSpace:"nowrap"}}>To Produce</th>
          <th>Produced</th>
          <th>Rejected</th>
@@ -257,7 +260,6 @@ return(
   <>
         <tr >
            <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
-           {/* <td>{item.TotQtyNested}</td> */}
            <td>{item.QtyNested}</td>
            <td>{item.QtyCut}</td>
            <td >
@@ -272,26 +274,7 @@ return(
                 />
                 </div>
             </td>
-           <td>
-
-          <div key={item.QtyCleared || item.QtyRejected} >
-          <input className='table-cell-editor '
-         name="cleared"
-         defaultValue={item.QtyCleared}
-         //value = {item.QtyCleared}
-         key={`cleared:${item.QtyCleared || "default"}`}
-         //key={"OKAYG_" + (10000 + Math.random() * (1000000 - 10000))}
-         type="number"
-         onChange={(e)=>onChangeCleared(e,  item, key)}
-         placeholder="Type Cleared"
-       />
-          </div>
-          {/* <td>{item.QtyCleared}</td> */}
-          
-          
-            
-            
-            </td>
+           <td>{item.QtyCleared}</td>
            <td>
               <input className='table-cell-editor '
                  name="cleared"
@@ -300,10 +283,6 @@ return(
                  placeholder="Type Cleared"
                 />
             </td>
-            {/* <td >
-              <div key={item.QtyCleared}>
-              {item.QtyCleared}
-                </div></td> */}
        </tr>
        </>
 )

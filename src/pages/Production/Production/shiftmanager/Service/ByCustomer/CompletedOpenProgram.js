@@ -280,7 +280,7 @@ return(
             </td>
            <td>
 
-          <div key={item.QtyCleared || item.QtyRejected} >
+          {/* <div key={item.QtyCleared || item.QtyRejected} >
           <input className='table-cell-editor '
          name="cleared"
          defaultValue={item.QtyCleared}
@@ -291,8 +291,8 @@ return(
          onChange={(e)=>onChangeCleared(e,  item, key)}
          placeholder="Type Cleared"
        />
-          </div>
-          {/* <td>{item.QtyCleared}</td> */}
+          </div> */}
+          <td>{item.QtyCleared}</td>
           
             
             </td>

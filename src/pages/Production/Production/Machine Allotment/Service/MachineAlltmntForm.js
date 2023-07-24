@@ -30,7 +30,7 @@ export default function MachineAlltmntForm() {
 
     const handleClose=()=>{
       setOpenModal(false);
-      setSelectedRows([])
+      // setSelectedRows([])
     }
   
 
@@ -153,12 +153,18 @@ const treeViewData=()=>{
 },[machineProcessData[0]])
 
 
-useEffect(() => {
-  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "LasWeld4"})
-      .then((response) => {
-          setNcProgramsTableData(response.data)
-      })
-},[])
+const onClickMachineLabel=()=>{
+  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
+  .then((response) => {
+    console.log(response.data);
+    setNcProgramsTableData(response.data)
+  })
+ }
+
+ useEffect(() => {
+  onClickMachineLabel();
+ },[])
+
 
  const onMachineChange = (e) => {
   setSelectedMachine(e.target.value)
@@ -218,7 +224,7 @@ useEffect(() => {
             dataSource.map((node, i) => {
               const type = node.type;
               const label = (
-                <span style={{ fontSize: "16px" }} className="node">
+                <span style={{ fontSize: "16px" }} className="node" onClick={onClickMachineLabel}>
                   {type}
                 </span>
               );

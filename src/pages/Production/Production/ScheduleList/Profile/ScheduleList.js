@@ -86,22 +86,45 @@ const getpartslistdata=()=>{
          }
        );
      }
-     fetchData();
+     fetchData(); 
    }, []);
 
    const [selectedCustomerCode, setSelectedCustomerCode] = useState("");
-   let selectCust = async (e) => {
-    console.log("cust data = ", e);
-    console.log("cust code = ", e[0].Cust_Code);
-    setSelectedCustomerCode(e[0].Cust_Code);
 
-    if ( e[0].Cust_Code!==' '){
-      
-    }
-    axios
-      .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
-        Cust_Code: e[0].Cust_Code,
-      })
+  let selectCust = async (e) => {
+  if (e.length === 0) {
+    // If input field is empty, make a GET request
+    axios.get(baseURL + "/scheduleListProfile/schedulesList").then((response) => {
+      console.log(response.data)
+for(let i =0;i<response.data.length;i++) { 
+// FOR TgtDelDate
+let dateSplit = response.data[i].schTgtDate.split(" ");
+let date =dateSplit[0].split("-")
+let year = date[0];
+let month = date[1];
+let day = date[2];
+let finalDay = day+"-"+month+"-"+year
+response.data[i].schTgtDate = finalDay;
+}
+for(let i =0;i<response.data.length;i++) { 
+// Delivery_date
+let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+let date1 =dateSplit1[0].split("-")
+let year1 = date1[0];
+let month1 = date1[1];
+let day1 = date1[2];
+let finalDay1 = day1+"-"+month1+"-"+year1
+response.data[i].Delivery_Date = finalDay1;
+}
+//  console.log(response.data)
+setSchedulelistdata(response.data); 
+});
+  } else {
+    // If input field has a value, make a POST request with the Cust_Code
+    const custCode = e[0].Cust_Code;
+    axios.post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
+      Cust_Code: custCode,
+    })
       .then((response) => {
         for(let i =0;i<response.data.length;i++) { 
           // FOR TgtDelDate
@@ -112,8 +135,8 @@ const getpartslistdata=()=>{
           let day = date[2];
           let finalDay = day+"-"+month+"-"+year
           response.data[i].schTgtDate = finalDay;
-        }
-        for(let i =0;i<response.data.length;i++) { 
+          }
+          for(let i =0;i<response.data.length;i++) { 
           // Delivery_date
           let dateSplit1 = response.data[i].Delivery_Date.split(" ");
           let date1 =dateSplit1[0].split("-")
@@ -122,23 +145,22 @@ const getpartslistdata=()=>{
           let day1 = date1[2];
           let finalDay1 = day1+"-"+month1+"-"+year1
           response.data[i].Delivery_Date = finalDay1;
-        }
-        console.log(response.data);
+          }
         setSchedulelistdata(response.data);
+      })
+      .catch((error) => {
+        // Handle error, if any
+        console.error("Error fetching data:", error);
       });
-  
-    let cust;
-    for (let i = 0; i < custdata.length; i++) {
-      if (custdata[i]["Cust_Code"] === e[0].Cust_Code) {
-        cust = custdata[i];
-        break;
-      }
-    }
-  };
+  }
+};
 
-  useEffect(() => {
-    getSchedulistdata();
-  }, []);
+// ...
+
+// The useEffect hook to fetch initial data
+useEffect(() => {
+  getSchedulistdata(); // Assuming you have this function defined somewhere else
+}, []);
 
 
  

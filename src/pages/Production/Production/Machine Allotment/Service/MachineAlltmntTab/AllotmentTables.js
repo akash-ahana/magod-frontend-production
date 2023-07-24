@@ -132,6 +132,7 @@ export default function AllotmentTables() {
 
   const onChangeMachine = (e) => {
     setNewSelectedMachine(e.target.value);
+    setTableRowSelect((prevSelect) => ({ ...prevSelect, Machine: newSelectedMchine }));
   };
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -179,6 +180,8 @@ export default function AllotmentTables() {
       });
   };
 
+  console.log(tableRowSelect.Machine);
+  const isMachineListEmpty = machineList.length === 0;
   return (
     <>
       <ToastContainer />
@@ -289,22 +292,24 @@ export default function AllotmentTables() {
                     />
                   </div>
                   <div className="col-md-6">
-                    <label className="form-label">Select machine</label>
-                    <select
-                      className="ip-select dropdown-field mt-2"
-                      onChange={(e) => onChangeMachine(e)}
-                      value={tableRowSelect.Machine}
-                    >
-                      {machineList.map((value, key) => {
-                        return (
-                          <>
-                            <option value={value.refName}>
-                              {value.refName}
-                            </option>
-                          </>
-                        );
-                      })}
-                    </select>
+                  <label className="form-label">Select machine</label>
+      {isMachineListEmpty ? (
+        // Render a disabled input or label showing the selected machine
+        <input type="text" className="ip-select dropdown-field mt-2" value={tableRowSelect.Machine} disabled />
+      ) : (
+        // Render the regular select element with options
+        <select
+          className="ip-select dropdown-field mt-2"
+          onChange={onChangeMachine}
+          value={tableRowSelect.Machine}
+        >
+          {machineList.map((value, key) => (
+            <option key={key} value={value.refName}>
+              {value.refName}
+            </option>
+          ))}
+        </select>
+      )}
                   </div>
                 </div>
 
@@ -384,7 +389,7 @@ export default function AllotmentTables() {
                             RowSelect(value, key);
                           }}
                           className={
-                            key === tableRowSelect?.index
+                            key === rowselect?.index
                               ? "selcted-row-clr"
                               : ""
                           }

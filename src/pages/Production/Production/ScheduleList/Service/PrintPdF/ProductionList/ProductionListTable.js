@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     width: "80px",
   },
   remaining: {
-    width: "50px",
+    width: "60px",
   },
   remarks: {
     width: "80px",

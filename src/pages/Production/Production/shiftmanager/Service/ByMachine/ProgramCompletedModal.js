@@ -31,33 +31,24 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
   const handleClose = () => setShow(false);
 
-  //console.log(programCompleteData);
-
-
-
   const clearAllButton = () => {
     console.log('Clear All button Clicked' , programCompleteData)
     const constProgramCompleteData = programCompleteData;
     console.log('Const Program Complete Data is ' , constProgramCompleteData)
-    //console.log('TYPE OF' , typeof(constProgramCompleteData[0].QtyCleared))
     for(let i =0 ; i<constProgramCompleteData.length ; i++) {
       constProgramCompleteData[i].QtyCleared = constProgramCompleteData[i].QtyCut - constProgramCompleteData[i].QtyRejected
     }
     console.log('Updated Const Program Complete Data is ' , constProgramCompleteData)
-    // setProgramCompleteData(constProgramCompleteData)
-    //setProgramCompleteData([])
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
     setNewPartlistdata(constProgramCompleteData)
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
-    //modalTable();
 
     axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data)
  })
   }
 
@@ -67,7 +58,6 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     console.log("onChange Rejected" , "e is " , e.target.value, " item is " , item, " key is " , key)
     const newconstprogramCompleteData = programCompleteData
     newconstprogramCompleteData[key].QtyRejected = Number(e.target.value)
-    //newconstprogramCompleteData[key].QtyCleared = Number(0)
     console.log('NEW CONST PROGRAM COMPLETE DATA IS ' , newconstprogramCompleteData)
     setProgramCompleteData(newconstprogramCompleteData)
     setNewProgramCompleteData(newconstprogramCompleteData)
@@ -83,23 +73,16 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
      console.log('current State of Program Complete data is ' , selectProgramCompleted)
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
-     setSelectProgramCompleted(constSelectProgramCompleted)
-    
-     //setProgramCompleteData(response.data);
+     setSelectProgramCompleted(constSelectProgramCompleted)    
      taskNoOnClick();
      MachineOnClick();
  })
   }
-  //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
     console.log(" On CHANGE CLEARED " , " e.target.value is " , e.target.value, " item is " , item, " key is " , key)
-    // //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array
-    // console.log(' PART LIST IS ' , partlistdata)
      const newconstprogramCompleteData = programCompleteData
-    // if(e.target.value <= newconstprogramCompleteData[key].QtyProduced) {
        newconstprogramCompleteData[key].QtyCleared = Number(e.target.value)
-    // }
     setProgramCompleteData(newconstprogramCompleteData)
     setNewProgramCompleteData(newconstprogramCompleteData)
      console.log('NEW CONST PROGRAM COMPLETE DATA IS ' , newconstprogramCompleteData)
@@ -276,26 +259,7 @@ return(
                 />
                 </div>
             </td>
-           <td>
-
-          <div key={item.QtyCleared || item.QtyRejected} >
-          <input className='table-cell-editor '
-         name="cleared"
-         defaultValue={item.QtyCleared}
-         //value = {item.QtyCleared}
-         key={`cleared:${item.QtyCleared || "default"}`}
-         //key={"OKAYG_" + (10000 + Math.random() * (1000000 - 10000))}
-         type="number"
-         onChange={(e)=>onChangeCleared(e,  item, key)}
-         placeholder="Type Cleared"
-       />
-          </div>
-          {/* <td>{item.QtyCleared}</td> */}
-          
-          
-            
-            
-            </td>
+           <td>{item.QtyCleared}</td>
            <td>
               <input className='table-cell-editor '
                  name="cleared"
@@ -304,10 +268,6 @@ return(
                  placeholder="Type Cleared"
                 />
             </td>
-            {/* <td >
-              <div key={item.QtyCleared}>
-              {item.QtyCleared}
-                </div></td> */}
        </tr>
        </>
 )

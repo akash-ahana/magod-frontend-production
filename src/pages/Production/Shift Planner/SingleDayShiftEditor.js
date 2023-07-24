@@ -41,7 +41,6 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
         setSelectedShiftIncharge(e.target.value);
       }
 
-      console.log("selected",selectedShiftIncharge)
 
       useEffect(() => {
         getShiftInchargeData();
@@ -54,7 +53,6 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       const onClickUpdateDayShift = () => {
         axios.post(baseURL+'/shiftEditor/updateSingleDaySihiftIncharge', {...rowselectDailyShiftTable , newShift_Ic :selectedShiftIncharge})
         .then((response) => {
-        //getSecondTableData()
         getSingleDayShiftPlan4thTable();
         getSecondTableData();
         toast.success('Shift Instructor Updated',{
@@ -72,17 +70,17 @@ function SingleDayShiftEditor({getSingleDayShiftPlan4thTable,rowselectDailyShift
       }
 
       //UPDATE DAYSHIFT MODAL
-      // const[updatedayshift,setUpdatedayshift]=useState('')
-      // const openUpdatedayshift=()=>{
-      //   setUpdatedayshift(true);
-      // }
+      const[updatedayshift,setUpdatedayshift]=useState('')
+      const openUpdatedayshift=()=>{
+        setUpdatedayshift(true);
+      }
 
       //DELETEDAYSHIFTMODAL
       const[deletedayshift,setDeletedayshift]=useState('')
       const openDeletedayshift=()=>{
         setDeletedayshift(true);
       }
-console.log(selectedShiftIncharge)
+
     return (
       <>
             <ToastContainer />
@@ -118,8 +116,7 @@ console.log(selectedShiftIncharge)
           <div style={{textAlign:"center"}}>
             <div>
             <button className="button-style mt-2 group-button mt-4"
-              style={{ width: "140px",fontSize:"14px"}} onClick = {
-                onClickUpdateDayShift}>
+              style={{ width: "140px",fontSize:"14px"}} onClick = {openUpdatedayshift}>
               Update Day Shift
             </button>
             </div>
@@ -145,11 +142,13 @@ console.log(selectedShiftIncharge)
             </div>
             
             
-          {/* <UpdateDayshiftModal
+          <UpdateDayshiftModal
           updatedayshift={updatedayshift}
           setUpdatedayshift={setUpdatedayshift}
           onClickUpdateDayShift={onClickUpdateDayShift}
-          rowselectDailyShiftTable={rowselectDailyShiftTable}/> */}
+          rowselectDailyShiftTable={rowselectDailyShiftTable}
+          selectedShiftIncharge={selectedShiftIncharge}
+          />
 
           <DeleteDayShiftModal
           setDeletedayshift={setDeletedayshift}

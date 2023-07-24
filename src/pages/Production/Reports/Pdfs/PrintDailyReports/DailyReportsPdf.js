@@ -32,24 +32,10 @@ const styles = StyleSheet.create({
   
 
 
-export default function DailyReportsPdf({pdfData}) {
+export default function DailyReportsPdf({pdfData,dateSelect}) {
 
-  //First Shift
-//   const[newData,setNewdata]=useState([]);
-//     const getDailyMachineoperatorData=()=>{
-//       axios.post('http://172.16.20.61:5000/shiftEditor/getSingleDayDetailShiftInformation', 
-//       {
-//         ShiftDate:finalday,
-//       }).then((response) => {
-//           console.log(response.data);
-//           setNewdata(response.data)
-//       })
-//     }
-    
-    const moment = require('moment');
-    const today = moment();
-    let Date=today.format("DD/MM/YYYY");
-     console.log(Date);
+let array=dateSelect.split('-');
+let Date=array[2]+"/"+array[1]+"/"+array[0]
 
       return (
         // <div className="App">

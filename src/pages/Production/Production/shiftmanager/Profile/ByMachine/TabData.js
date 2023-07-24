@@ -21,6 +21,7 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick,setmac
     }
 
 
+    console.log("after change machine",selectProgramProcessing)
     useEffect(() => {
       axios.get(baseURL+'/shiftManagerProfile/allProcessing')
           .then((response) => {

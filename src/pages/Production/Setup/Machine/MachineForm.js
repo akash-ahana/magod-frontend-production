@@ -18,10 +18,13 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function ({selectedRow}) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
-  const blockInvalidCharReg = e => ['!','@','#','$','%','^','&','*','(',')','_','-','+','=','|','\',','}','{','[',']','.',',','/','?','""','<','>'].includes(e.key) && e.preventDefault();
-
-  // console.log(selectedRow.isInstallDatePresent);
-
+  const blockInvalidCharReg = e => {
+    const invalidChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '|', '}', '{', '[', ']', '.', ',', '/', '?', '"', '<', '>', '`', '~', ';', ':'];
+    if (invalidChars.includes(e.key) || e.key === "'" || e.key === '\\') {
+      e.preventDefault();
+    }
+  };
+  
   const formSchema = Yup.object().shape({
     // RegnNo: Yup.string().required("This Field is required"),
     // location: Yup.string().required("This Field is requiredy"),

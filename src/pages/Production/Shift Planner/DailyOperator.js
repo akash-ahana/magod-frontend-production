@@ -41,13 +41,25 @@ function DailyOperator(props) {
       Operator: selectedOperator,
       DayShiftID: props.data.DayShiftId
     }).then((response) => {
-      console.log(response);
-      props.getMachineOperatorTableData();
-      toast.success('Machine Operator Added', {
-        position: toast.POSITION.TOP_CENTER
-      });
+      console.log(response.data);
+      if (response.data === "Data is already present") {
+        toast.error('Data is already present', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      } else if (response.data === "Success") {
+        props.getMachineOperatorTableData();
+        toast.success('Machine Operator Added', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      } else {
+        // Handle other response cases if needed
+      }
+    }).catch((error) => {
+      console.error('Error occurred:', error);
+      // Handle error cases if needed
     });
   };
+  
 
   const onDeleteOperatorForDay = () => {
     axios.post(baseURL + '/shiftEditor/deleteMachineOperatorDay', props.rowselectMachineOperator)

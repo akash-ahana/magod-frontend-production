@@ -5,6 +5,7 @@ import { baseURL } from "../../../../../../api/baseUrl";
 import "../Styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useMemo } from "react";
 
 
 export default function PartsList({
@@ -13,7 +14,7 @@ export default function PartsList({
   partlistdata,
   setPartlistdata,
 }) {
-  // console.log(taskno);
+
 
   //Process Table(Right First table) data
   const [newpartlistdata, setNewPartlistdata] = useState([]);
@@ -56,13 +57,12 @@ export default function PartsList({
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = partlistdata.slice(); // Create a copy of the partlistdata array
     const newValue = parseInt(e.target.value); // Convert the input value to an integer
-  
+
     if (!isNaN(newValue)) {
       newConstPartList[key].QtyCleared = newValue; // Update QtyCleared with the new value
       setPartlistdata(newConstPartList); // Update the state with the modified data
-  
+
       if (newValue > newConstPartList[key].QtyProduced) {
-        // Show an alert message if Cleared is greater than Produced
         toast.error("Cleared cannot be greater than Produced!", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -70,7 +70,7 @@ export default function PartsList({
       updateClearedDisabledState(newConstPartList); // Update the disabled state of the Save Cleared button
     }
   };
-  
+
   const updateClearedDisabledState = (data) => {
     const isDisabled = data.every((row) => row.QtyCleared === row.QtyProduced);
     setIsClearedDisabled(isDisabled);
@@ -121,6 +121,20 @@ export default function PartsList({
     updateClearedDisabledState(updatedPartListData); // Update the disabled state of the Save Cleared button
   };
 
+  //ONSELECT
+  const [selectPartList, setSelectPartList] = useState({})
+  const rowSelectFun = (item, index) => {
+    let list = { ...item, index: index }
+    // console.log("ScheduleNo",item.ScheduleNo)
+    setSelectPartList(list);
+  }
+
+
+  useMemo(() => {
+    setSelectPartList({ ...partlistdata[0], index: 0 });
+  }, [partlistdata[0]]);
+
+
   return (
     <div>
       <ToastContainer />
@@ -145,7 +159,6 @@ export default function PartsList({
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
           onClick={saveClearedonClick}
-          disabled={isClearedDisabled} // Disable the button based on the state
         >
           Save Cleared
         </button>
@@ -160,7 +173,7 @@ export default function PartsList({
               <th>Programed</th>
               <th>Produced</th>
               <th>Cleared</th>
-              <th>Task_Part_ID</th>
+              {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
               <th>SchDetailsId</th>
@@ -175,15 +188,18 @@ export default function PartsList({
               <th>Part_Area</th>
               <th>Unit_Wt</th>
               <th>HasBOM</th>
-              <th>QtnDetailId</th>
+              <th>QtnDetailId</th> */}
             </tr>
           </thead>
 
           <tbody className="tablebody">
             {partlistdata.map((item, key) => {
               return (
-                <tr key={item.id}>
-                  <td>
+                <tr
+                  key={item.id}
+                  onClick={() => rowSelectFun(item, key)}
+                  className={key === selectPartList?.index ? "selcted-row-clr" : ""}>               
+                     <td>
                     <input
                       style={{ marginLeft: "20px" }}
                       className="form-check-input"
@@ -207,7 +223,7 @@ export default function PartsList({
                       />
                     </div>
                   </td>
-                  <td>{item.Task_Part_ID}</td>
+                  {/* <td>{item.Task_Part_ID}</td>
                   <td>{item.NcTaskId}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.TaskNo}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.SchDetailsId}</td>
@@ -229,7 +245,7 @@ export default function PartsList({
                       id="flexCheckDefault"
                     />
                   </td>
-                  <td></td>
+                  <td></td> */}
                 </tr>
               );
             })}

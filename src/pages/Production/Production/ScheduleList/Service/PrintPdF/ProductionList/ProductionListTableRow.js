@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 
   },
   remaining: {
-    width: "50px",
+    width: "60px",
   },
   });
   

@@ -5,6 +5,7 @@ import { baseURL } from "../../../../../../api/baseUrl";
 import "../Styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import { useMemo } from "react";
 
 export default function PartsList({
   TaskNo,
@@ -107,8 +108,21 @@ export default function PartsList({
     setSelectedRows([]);
   }, [TaskNo]);
 
-  const isClearedDisabled = selectedRows.length === 0 && partlistdata.every(row => row.QtyCleared === row.QtyProduced);
+  //ONSELECT
+  const [selectPartList, setSelectPartList] = useState({});
+  const rowSelectFun = (item, index) => {
+    let list = { ...item, index: index };
+    // console.log("ScheduleNo",item.ScheduleNo)
+    setSelectPartList(list);
+  };
 
+  useMemo(() => {
+    setSelectPartList({ ...partlistdata[0], index: 0 });
+  }, [partlistdata[0]]);
+
+  const isClearedDisabled =
+    selectedRows.length === 0 &&
+    partlistdata.every((row) => row.QtyCleared === row.QtyProduced);
   return (
     <div>
       <ToastContainer />
@@ -133,16 +147,12 @@ export default function PartsList({
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
           onClick={saveClearedonClick}
-          disabled={isClearedDisabled}
         >
           Save Cleared
         </button>
       </div>
 
-      <div
-        className="mt-4"
-        style={{ height: "160px", overflowY: "scroll" }}
-      >
+      <div className="mt-4" style={{ height: "160px", overflowY: "scroll" }}>
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
             <tr>
@@ -150,8 +160,8 @@ export default function PartsList({
               <th>DwgName</th>
               <th>Programmed</th>
               <th>Produced</th>
-              <th>Cleared</th>
-              <th>Task_Part_ID</th>
+              <th style={{ textAlign: "center" }}>Cleared</th>
+              {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
               <th>SchDetailsId</th>
@@ -166,15 +176,21 @@ export default function PartsList({
               <th>Part_Area</th>
               <th>Unit_Wt</th>
               <th>HasBOM</th>
-              <th>QtnDetailId</th>
+              <th>QtnDetailId</th> */}
             </tr>
           </thead>
 
           <tbody className="tablebody">
-            {partlistdata.map((item, index) => {
+            {partlistdata.map((item, key) => {
               const isChecked = selectedRows.some((row) => row === item);
               return (
-                <tr key={item.id}>
+                <tr
+                  key={item.id}
+                  onClick={() => rowSelectFun(item, key)}
+                  className={
+                    key === selectPartList?.index ? "selcted-row-clr" : ""
+                  }
+                >
                   <td>
                     <input
                       className="form-check-input"
@@ -195,12 +211,12 @@ export default function PartsList({
                         type="number"
                         placeholder="Type Cleared"
                         value={item.QtyCleared}
-                        onChange={(e) => onChangeCleared(e, item, index)}
+                        onChange={(e) => onChangeCleared(e, item, key)}
                         onKeyDown={blockInvalidChar}
                       />
                     </div>
                   </td>
-                  <td>{item.Task_Part_ID}</td>
+                  {/* <td>{item.Task_Part_ID}</td>
                   <td style={{ textAlign: "center" }}>{item.NcTaskId}</td>
                   <td style={{ whiteSpace: "nowrap", textAlign: "center" }}>
                     {item.TaskNo}
@@ -227,7 +243,7 @@ export default function PartsList({
                       id="flexCheckDefault"
                     />
                   </td>
-                  <td></td>
+                  <td></td> */}
                 </tr>
               );
             })}

@@ -275,25 +275,7 @@ return(
                 </div>
             </td>
 
-           <td >
-          <div  key={item.QtyCleared || item.QtyRejected} >
-          <input className='table-cell-editor ' 
-         name="cleared"
-         defaultValue={item.QtyCleared}
-         //value = {item.QtyCleared}
-         key={`cleared:${item.QtyCleared || "default"}`}
-         //key={"OKAYG_" + (10000 + Math.random() * (1000000 - 10000))}
-         type="number"
-         onChange={(e)=>onChangeCleared(e,  item, key)}
-         placeholder="Type Cleared"
-       />
-          </div>
-          {/* <td>{item.QtyCleared}</td> */}
-          
-          
-            
-            
-            </td>
+           <td >{item.QtyCleared}</td>
            <td>
               <input className='table-cell-editor '
                  name="cleared"
@@ -302,10 +284,6 @@ return(
                  placeholder="Type Cleared"
                 />
             </td>
-            {/* <td >
-              <div key={item.QtyCleared}>
-              {item.QtyCleared}
-                </div></td> */}
        </tr>
   </tbody>
   
