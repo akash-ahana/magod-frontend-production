@@ -67,6 +67,7 @@ export default function AllotmentTables() {
     console.log(item, "item is ");
     let list = { ...item, index: index };
     setRowSelect(list);
+    setNewSelectedMachine('')
   };
   const getScheduleList = () => {
     axios
@@ -87,7 +88,7 @@ export default function AllotmentTables() {
   }, [allotmentTable[0]]);
 
   //SCHEDULELIST TABLE
-  const [tableRowSelect, setTableRowSelect] = useState({Machine: ''});
+  const [tableRowSelect, setTableRowSelect] = useState({ Machine: "" });
   const [rowselect, setRowselect] = useState({});
   const [machineList, setMachineList] = useState([]);
   const RowSelect = (item, index) => {
@@ -136,16 +137,21 @@ export default function AllotmentTables() {
     console.log("Machine is Changed", e.target.value);
     // Use e.target.value directly to set the selected machine
     setTableRowSelect({ ...tableRowSelect, Machine: e.target.value });
+    setNewSelectedMachine(e.target.value)
   };
-  
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const onClickChangeMachine = async (e) => {
     e.preventDefault();
-    console.log("On Click Change Machine ", tableRowSelect);
-  
-    // Use tableRowSelect.Machine directly instead of newSelectedMchine
+    console.log("On Click Change Machine ", newSelectedMchine);
+
+    if(newSelectedMchine==''){
+      toast.error("Machine Not Selected", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    else{
     axios
       .post(baseURL + "/machineAllotment/changeMachineInForm", {
         ...tableRowSelect,
@@ -156,21 +162,19 @@ export default function AllotmentTables() {
           position: toast.POSITION.TOP_CENTER,
         });
       });
-  
+
     await delay(200);
     console.log("Selected Row from right table is ", tableRowSelect);
     axios
       .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
       .then((response) => {
-        console.log(
-          "OnClick Post response change machine",
-          response.data[0]
-        );
+        console.log("OnClick Post response change machine", response.data[0]);
         setTableRowSelect(response.data[0]);
         getScheduleList();
       });
+    }
   };
-  
+
   const onClickReleaseForProgramming = async (e) => {
     e.preventDefault();
     console.log(" Release For Programming Button Is Clicked ", tableRowSelect);
@@ -188,6 +192,14 @@ export default function AllotmentTables() {
       });
   };
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    // ... Other existing code ...
+    // Assuming you have some logic to set the button status based on tableRowSelect.TStatus
+    // For example, if the TStatus is "completed", we set the buttonDisabled state to true
+    setButtonDisabled(tableRowSelect.TStatus === "Completed");
+  }, [tableRowSelect.TStatus]);
 
   return (
     <div>
@@ -297,23 +309,22 @@ export default function AllotmentTables() {
                       value={tableRowSelect.MProcess}
                     />
                   </div>
-
                   <div className="col-md-6">
-  <label className="form-label">Select machine</label>
-  <select
-    className="ip-select dropdown-field mt-2"
-    onChange={onChangeMachine}
-    value={tableRowSelect.Machine}
-  >
-    {/* Render the default empty option */}
-    <option value="">Select an option</option>
-    {machineList.map((value, key) => (
-      <option key={key} value={value.refName}>
-        {value.refName}
-      </option>
-    ))}
-  </select>
-</div>;
+                    <label className="form-label">Select machine</label>
+                    <select
+                      className="ip-select dropdown-field mt-2"
+                      onChange={onChangeMachine}
+                      value={tableRowSelect.Machine}
+                    >
+                      {/* Render the default empty option */}
+                      <option value="">Select an option</option>
+                      {machineList.map((value, key) => (
+                        <option key={key} value={value.refName}>
+                          {value.refName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="row">
@@ -326,16 +337,16 @@ export default function AllotmentTables() {
                   </div>
 
                   <div className="col-md-6 mt-4">
-                    <button
-                      onClick={onClickChangeMachine}
-                      style={{ width: "160px" }}
-                      className="button-style mt-3 group-button"
-                      disabled={
-                        rowSelect.Schedule_Status == "Completed" ? true : false
-                      }
-                    >
-                      Change Machine
-                    </button>
+                  <button
+          onClick={onClickChangeMachine}
+          style={{ width: "160px" }}
+          className={`button-style mt-3 group-button ${
+            buttonDisabled ? "disabled" : ""
+          }`}
+          disabled={buttonDisabled}
+        >
+          Change Machine
+        </button>
                   </div>
                 </div>
 
@@ -392,9 +403,7 @@ export default function AllotmentTables() {
                             RowSelect(value, key);
                           }}
                           className={
-                            key === rowselect?.index
-                              ? "selcted-row-clr"
-                              : ""
+                            key === rowselect?.index ? "selcted-row-clr" : ""
                           }
                         >
                           <td>{value.TaskNo}</td>

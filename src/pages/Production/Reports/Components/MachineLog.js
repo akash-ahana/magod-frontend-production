@@ -168,7 +168,7 @@ export default function MachineLog({
   //Open PDF
   const PrintShiftLog = () => {
     if (status == false) {
-      toast.error("Prepare Report Before Printing", {
+      toast.error("Prepare Report Before Printing ShiftLog", {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {

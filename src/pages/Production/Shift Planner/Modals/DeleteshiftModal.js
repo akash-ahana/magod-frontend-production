@@ -25,7 +25,7 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
           </Modal.Body>
         ) : (
           <Modal.Body>
-            Please select Shift before deleting
+            Please select <b>Shift</b> before deleting
           </Modal.Body>
         )}
         

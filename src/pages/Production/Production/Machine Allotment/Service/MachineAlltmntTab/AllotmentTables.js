@@ -95,6 +95,7 @@ export default function AllotmentTables() {
     let list = { ...item, index: index };
     setTableRowSelect(item);
     setRowselect(list);
+    setNewSelectedMachine('')
   };
   const getMachineList = () => {
     axios
@@ -138,33 +139,34 @@ export default function AllotmentTables() {
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const onClickChangeMachine = async (e) => {
-    console.log("function called");
     e.preventDefault();
-    console.log(
-      "On Click Change Machine ",
-      tableRowSelect,
-      "new Machine is ",
-      newSelectedMchine
-    );
-    axios
-      .post(baseURL + "/machineAllotment/changeMachineInForm", {
-        ...tableRowSelect,
-        newMachine: newSelectedMchine,
-      })
-      .then((response) => {
-        toast.success("Machine Changed", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      });
-    await delay(200);
-    console.log("Selected Row from right table is ", tableRowSelect);
-    axios
-      .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
-      .then((response) => {
-        console.log("OnClick Post response change machine", response.data[0]);
-        setTableRowSelect(response.data[0]);
-        getScheduleListdata();
-      });
+if(newSelectedMchine==''){
+  toast.error("Machine Not Selected", {
+    position: toast.POSITION.TOP_CENTER,
+  });
+}
+else{
+  axios
+  .post(baseURL + "/machineAllotment/changeMachineInForm", {
+    ...tableRowSelect,
+    newMachine: newSelectedMchine,
+  })
+  .then((response) => {
+    toast.success("Machine Changed", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+  });
+await delay(200);
+console.log("Selected Row from right table is ", tableRowSelect);
+axios
+  .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
+  .then((response) => {
+    console.log("OnClick Post response change machine", response.data[0]);
+    setTableRowSelect(response.data[0]);
+    getScheduleListdata();
+  });
+  
+}
   };
 
   const onClickReleaseForProgramming = async (e) => {
@@ -182,6 +184,16 @@ export default function AllotmentTables() {
 
   console.log(tableRowSelect.Machine);
   const isMachineListEmpty = machineList.length === 0;
+
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
+  useEffect(() => {
+    // ... Other existing code ...
+    // Assuming you have some logic to set the button status based on tableRowSelect.TStatus
+    // For example, if the TStatus is "completed", we set the buttonDisabled state to true
+    setButtonDisabled(tableRowSelect.TStatus === "Completed");
+  }, [tableRowSelect.TStatus]);
+
   return (
     <>
       <ToastContainer />
@@ -323,16 +335,16 @@ export default function AllotmentTables() {
                   </div>
 
                   <div className="col-md-6 mt-4">
-                    <button
-                      onClick={onClickChangeMachine}
-                      style={{ width: "160px" }}
-                      className="button-style mt-3 group-button"
-                      disabled={
-                        rowSelect.Schedule_Status == "Completed" ? true : false
-                      }
-                    >
-                      Change Machine
-                    </button>
+                     <button
+          onClick={onClickChangeMachine}
+          style={{ width: "160px" }}
+          className={`button-style mt-3 group-button ${
+            buttonDisabled ? "disabled" : ""
+          }`}
+          disabled={buttonDisabled}
+        >
+          Change Machine
+        </button>
                   </div>
                 </div>
 

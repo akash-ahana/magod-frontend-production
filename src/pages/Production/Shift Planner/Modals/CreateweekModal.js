@@ -82,7 +82,7 @@ constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime
           </Modal.Body>
         ) : (
           <Modal.Body>
-            Please select a shift and shift operator before clicking Create Weekshift.
+            Please select a <b>shift</b> and <b>shift Instructor</b> before clicking Create Weekshift.
           </Modal.Body>
         )}
 
