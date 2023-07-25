@@ -175,21 +175,30 @@ else{
     setOpensavemachine(true);
   }
   // console.log(opensavemachine)
-  const saveMachine=()=>{
-    console.log("consoling data before save",machineData)
+  const saveMachine = () => {
+    console.log("consoling data before save", machineData);
+  
+    if (machineData.TgtRate.trim() === '') {
+      toast.error('Target Rate cannot be empty. Please enter a value', {
+        position: toast.POSITION.TOP_CENTER
+      })
+      return;
+    }
+  
     axios.post(
       baseURL + "/productionSetup/saveMachine",
       {
-      ...machineData
+        ...machineData
       }).then((response) => {
-      console.log("sent", response);
-      MachineTabledata();
-      toast.success('Machine Details Saved',{
-        position: toast.POSITION.TOP_CENTER
-    })
-      // openSavemachine();
-    });
-}
+        console.log("sent", response);
+        MachineTabledata();
+        toast.success('Machine Details Saved', {
+          position: toast.POSITION.TOP_CENTER
+        })
+        // openSavemachine();
+      });
+  }
+  
 
   return (
     <div>

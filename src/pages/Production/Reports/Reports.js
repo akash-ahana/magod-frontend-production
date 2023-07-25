@@ -100,7 +100,7 @@ export default function Reports() {
       })
       .then((res) => {
         setStatus(res.data);
-      });
+      }); 
   }, [dateSelect]);
 
   const [prepareReport1, setPrepareReport] = useState("");
@@ -137,9 +137,14 @@ export default function Reports() {
     }
   };
 
+
+  const[selectedMachine,setSelectedMachine]=useState({})
   //Machine OnClick
-  const machineSelected = (Machine) => {
+  const machineSelected = (Machine,item, index) => {
     console.log("The Machine Selected is ", Machine);
+    let list = { ...item, index: index };
+    setSelectedMachine(list);
+
     axios
       .post(baseURL + "/reports/machineOnclick", {
         Date: dateSelect,
@@ -173,8 +178,12 @@ export default function Reports() {
       });
   };
 
+
   //OnClick Shift
-  const ShiftSelected = (Shift, Machine) => {
+  const[selectedShift,setSelectedShft]=useState({})
+  const ShiftSelected = (Shift, Machine,item,index) => {
+    let list = { ...item, index: index };
+    setSelectedShft(list);
     console.log("The  Selected is ", Shift, Machine);
     axios
       .post(baseURL + "/reports/shiftOnClick", {
@@ -401,14 +410,18 @@ console.log(roleValue);
                   nodeLabel={label}
                   defaultCollapsed={false}
                 >
-                  {node.serverData.map((data) => {
+                  {node.serverData.map((data,key) => {
                     const label2 = (
                       <span
                         style={{ fontSize: "13px" }}
                         onClick={() => {
-                          machineSelected(data.MachineName);
+                          machineSelected(data.MachineName,data,key);
                         }}
-                        className="node"
+                        className={
+                          key === selectedMachine?.index
+                            ? "selcted-row-clr"
+                            : ""
+                        }
                       >
                         {data.MachineName}
                       </span>
@@ -420,14 +433,18 @@ console.log(roleValue);
                         key={data.name}
                         defaultCollapsed={true}
                       >
-                        {data.Shifts.map((value) => {
+                        {data.Shifts.map((value,key) => {
                           const label3 = (
                             <span
                               style={{ fontSize: "13px" }}
                               onClick={() => {
-                                ShiftSelected(value.Shift, data.MachineName);
+                                ShiftSelected(value.Shift, data.MachineName,value,key);
                               }}
-                              className="node"
+                              className={
+                                key === selectedShift?.index
+                                  ? "selcted-row-clr"
+                                  : ""
+                              }
                             >
                               {value.Shift} - {value.time}{" "}
                             </span>

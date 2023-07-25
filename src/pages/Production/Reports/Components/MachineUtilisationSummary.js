@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Table } from "react-bootstrap";
 import { baseURL } from "../../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,9 +21,9 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   const selectedRowFun = (item, index) => {
     let list = { ...item, index: index };
     setRowSelected(list);
-    // console.log(index);
     setInputValue2([])
   };
+
 
   const [inputValue1, setInputValue1] = useState("");
   const [inputValue2, setInputValue2] = useState(rowSelected.LaserOn || "");
@@ -57,6 +57,14 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setInputValue2(event.target.value);
   };
 
+
+  
+  useEffect(() => {
+    // Whenever rowSelected changes, update the input values accordingly
+    setInputValue1(rowSelected.TotalOff || "");
+    setInputValue2(rowSelected.LaserOn || "");
+  }, [rowSelected]);
+
   const saveUtilisationSummary = () => {
     toast.success("Changes Saved", {
       position: toast.POSITION.TOP_CENTER,
@@ -67,6 +75,8 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setRowSelected({ ...machineutilisationSummartdata[0], index: 0 });
     setInputValue2([])
   }, [machineutilisationSummartdata[0]]);
+
+  console.log("Utilisation summary ",rowSelected)
 
   return (
     <div className="col-md-12">

@@ -599,6 +599,7 @@ function NewCalender(props) {
   const openDeletemachineoperator = () => {
     setOpendeleteoperator(true);
   };
+  
   const createWeekPlannEW = async () => {
     console.log("button clicked");
     const { data } = await axios.post(
@@ -654,14 +655,16 @@ function NewCalender(props) {
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
                 <button
-                  className="button-style  group-button"
+                  className="button-style mt-2 group-button mt-4"
                   style={{ width: "150px" }}
-                  onClick={openPdfmodel}
+                  onClick={() => {
+                    openCreateshiftmodal();
+                    createWeeklyShiftPlan();
+                  }}
                 >
-                  Print Weekly Plan
+                  Create Week Shift
                 </button>
-              </div>
-              <div className="col-md-3">
+              </div>              <div className="col-md-3">
                 <label className="form-label">Machine</label>
                 <select className="ip-select" onChange={handleMachineChange}>
                   <option selected>Select Machine</option>
@@ -715,17 +718,14 @@ function NewCalender(props) {
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
                 <button
-                  className="button-style mt-2 group-button mt-4"
+                  className="button-style mt-2 group-button mt-3"
                   style={{ width: "150px" }}
-                  onClick={() => {
-                    openCreateshiftmodal();
-                    createWeeklyShiftPlan();
-                  }}
+                  // onClick={onClickDeleteWeekShift}
+                  onClick={openDeleteshiftmodal}
                 >
-                  Create Week Shift
+                  Delete Week Shift
                 </button>
-              </div>
-              <div className="col-md-3">
+              </div>              <div className="col-md-3">
                 <label className="form-label">Operator</label>
                 <select className="ip-select" onChange={handleOperatorList}>
                   <option selected>Select Operator</option>
@@ -761,15 +761,13 @@ function NewCalender(props) {
               <div className="col-md-3"></div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
                 <button
-                  className="button-style mt-2 group-button mt-3"
+                  className="button-style  group-button"
                   style={{ width: "150px" }}
-                  // onClick={onClickDeleteWeekShift}
-                  onClick={openDeleteshiftmodal}
+                  onClick={openPdfmodel}
                 >
-                  Delete Week Shift
+                  Print Weekly Plan
                 </button>
-              </div>
-              <div className="col-md-3"></div>
+              </div>              <div className="col-md-3"></div>
               
             </div>
           </div>

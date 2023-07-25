@@ -12,6 +12,7 @@ export default function MachineAlltmntForm() {
   const [machineList, setMachineList] = useState([]);
   const [selectedMachine, setSelectedMachine] = useState("");
   const [machineSelect, setMachineSelect] = useState({});
+  
   const selectedMachineFun = (item, index) => {
     let list = { ...item, index: index };
     setMachineSelect(list);

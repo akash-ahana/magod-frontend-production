@@ -5,11 +5,8 @@ import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-
-
 export default function DeleteMachineoperatorweekModal({opendeleteoperator,setOpendeleteoperator,
     onClickDeleteWeekOperatorMachine,selectedOperator,selectedWeek,selectedMachine,selectedShift}) {
-
 
     const handleClose=()=>{
         setOpendeleteoperator(false);
@@ -29,7 +26,7 @@ export default function DeleteMachineoperatorweekModal({opendeleteoperator,setOp
         </Modal.Body> 
         ) : (
           <Modal.Body>
-            Please select Shift ,Operator and Machine before deleting
+            Please select <b>Shift</b> ,<b>Operator</b> and <b>Machine</b> before deleting
           </Modal.Body>
         )}
         

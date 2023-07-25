@@ -36,16 +36,29 @@ rowselect}) {
         // setRowselectDailyShiftTable(editData);
       }
 
-      const updateShiftinstruction=()=>{
-        axios.post(baseURL+'/shiftEditor/updateSingleDaySihiftInstructions',
-         {...rowselectDailyShiftTable,
-          shiftInstruction:shiftinstruction})
-        .then((response) => {
-          toast.success(' Shift Instructions Saved',{
+      const updateShiftinstruction = () => {
+        // Check if the shift instruction is null or empty
+        if (!shiftinstruction || shiftinstruction.trim() === "") {
+          toast.error('Shift Instructions cannot be empty!', {
             position: toast.POSITION.TOP_CENTER
-        })
-      })
-      }
+          });
+        } else {
+          axios.post(baseURL + '/shiftEditor/updateSingleDaySihiftInstructions', {
+              ...rowselectDailyShiftTable,
+              shiftInstruction: shiftinstruction
+            })
+            .then((response) => {
+              toast.success('Shift Instructions Saved', {
+                position: toast.POSITION.TOP_CENTER
+              });
+            })
+            .catch((error) => {
+              toast.error('An error occurred while saving Shift Instructions', {
+                position: toast.POSITION.TOP_CENTER
+              });
+            });
+        }
+      };
 
 //Machine Operator Table Rowselect
 const [rowselectMachineOperator,setRowselectMachineOperator]=useState({})
