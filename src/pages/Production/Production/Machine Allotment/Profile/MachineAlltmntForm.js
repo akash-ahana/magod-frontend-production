@@ -38,7 +38,7 @@ export default function MachineAlltmntForm() {
 
   console.log(selectedMachineTreeView);
   const onClickMachine = (Machine, key) => {
-    // setSelectedRows([])
+    setSelectedRows([])
     axios
       .post(baseURL + "/machineAllotment/getNCprogramTabTableData", {
         MachineName: Machine,
@@ -49,7 +49,7 @@ export default function MachineAlltmntForm() {
           response.data[i].isChecked = false;
         }
       });
-    // setSelectedRows([])
+    setSelectedRows([])
     setSelectedMachineTreeView(Machine);
     setMachineList([]);
   };
@@ -146,7 +146,7 @@ export default function MachineAlltmntForm() {
         setNcProgramsTableData(response.data);
       });
     treeViewData();
-    // setSelectedRows([])
+    setSelectedRows([])
     setMachineList([]);
   };
 

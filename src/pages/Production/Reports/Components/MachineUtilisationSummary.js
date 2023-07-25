@@ -59,11 +59,11 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
 
   
-  useEffect(() => {
-    // Whenever rowSelected changes, update the input values accordingly
-    setInputValue1(rowSelected.TotalOff || "");
-    setInputValue2(rowSelected.LaserOn || "");
-  }, [rowSelected]);
+  // useEffect(() => {
+  //   // Whenever rowSelected changes, update the input values accordingly
+  //   setInputValue1(rowSelected.TotalOff || "");
+  //   setInputValue2(rowSelected.LaserOn || "");
+  // }, [rowSelected]);
 
   const saveUtilisationSummary = () => {
     toast.success("Changes Saved", {
