@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import DailyReportsPdf from './DailyReportsPdf';
 
-export default function DailyReportPrintModal({ opendailyReport, setOpendailyReport, pdfData,dateSelect}) {
+export default function DailyReportPrintModal({ opendailyReport, setOpendailyReport, pdfData,dateSelect,preparedby,roleValue}) {
   const [fullscreen, setFullscreen] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -22,8 +22,8 @@ export default function DailyReportPrintModal({ opendailyReport, setOpendailyRep
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <DailyReportsPdf pdfData={pdfData} 
-            dateSelect={dateSelect}/>
+            <DailyReportsPdf pdfData={pdfData} dateSelect={dateSelect} preparedby={preparedby}
+            roleValue={roleValue} />
           )}
         </Modal.Body>
       </Modal>

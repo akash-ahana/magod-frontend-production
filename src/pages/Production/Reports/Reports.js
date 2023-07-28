@@ -135,6 +135,16 @@ export default function Reports() {
     } else {
       setPrepareReport(true);
     }
+    if (machinesWithNegativeValues.length > 0) {
+      const firstMachine = machinesWithNegativeValues[0].Machine;
+      toast.error(`Please check ${firstMachine}`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      // Set status to true to enable the "Print Daily Report" button
+      setStatus(true);
+      setPrepareReport(true);
+    }
   };
 
 

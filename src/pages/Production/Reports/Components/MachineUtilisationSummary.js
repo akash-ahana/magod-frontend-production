@@ -18,15 +18,13 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   console.log(machineutilisationSummartdata);
   const [rowSelected, setRowSelected] = useState({});
 
+  const [inputValue1, setInputValue1] = useState("");
+  const [inputValue2, setInputValue2] = useState(rowSelected.LaserOn || "");
+  
   const selectedRowFun = (item, index) => {
     let list = { ...item, index: index };
     setRowSelected(list);
-    setInputValue2([])
   };
-
-
-  const [inputValue1, setInputValue1] = useState("");
-  const [inputValue2, setInputValue2] = useState(rowSelected.LaserOn || "");
 
   const updateUtilisationSummary = () => {
     axios
@@ -57,14 +55,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setInputValue2(event.target.value);
   };
 
-
-  
-  // useEffect(() => {
-  //   // Whenever rowSelected changes, update the input values accordingly
-  //   setInputValue1(rowSelected.TotalOff || "");
-  //   setInputValue2(rowSelected.LaserOn || "");
-  // }, [rowSelected]);
-
   const saveUtilisationSummary = () => {
     toast.success("Changes Saved", {
       position: toast.POSITION.TOP_CENTER,
@@ -77,7 +67,21 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   }, [machineutilisationSummartdata[0]]);
 
   console.log("Utilisation summary ",rowSelected)
+  console.log(inputValue2)
 
+  
+  useEffect(() => {
+    setInputValue2(rowSelected.LaserOn || "");
+  }, [rowSelected]);
+  
+
+
+  useEffect(() => {
+    setInputValue1(rowSelected.TotalOff || "");
+    setInputValue2(rowSelected.LaserOn || "");
+  }, [rowSelected]);
+
+  
   return (
     <div className="col-md-12">
       <ToastContainer />
@@ -102,11 +106,11 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               <label>Total Off</label>
             </div>
             <div className="col-md-4" style={{ marginLeft: "-20px" }}>
-              <input
-                name={inputValue1}
-                defaultValue={rowSelected.TotalOff}
-                onChange={handleInputChange1}
-              />
+            <input
+      name={inputValue1}
+      value={inputValue1}
+      onChange={handleInputChange1}
+    />
             </div>
             <div className="col-md-4">
               <button
@@ -132,7 +136,11 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               <label>Laser ON</label>
             </div>
             <div className="col-md-4" style={{ marginLeft: "-20px" }}>
-              <input value={inputValue2} onChange={handleInputChange2}></input>
+            <input 
+      name={inputValue2}
+      value={inputValue2}
+      onChange={handleInputChange2}
+    />
             </div>
             <div className="col-md-4">
               <button

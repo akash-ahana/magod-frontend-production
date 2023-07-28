@@ -178,7 +178,7 @@ else{
   const saveMachine = () => {
     console.log("consoling data before save", machineData);
   
-    if (machineData.TgtRate.trim() === '') {
+    if (machineData.TgtRate === '') {
       toast.error('Target Rate cannot be empty. Please enter a value', {
         position: toast.POSITION.TOP_CENTER
       })
