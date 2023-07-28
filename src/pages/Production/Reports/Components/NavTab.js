@@ -5,7 +5,7 @@ import MachineLog from "./MachineLog";
 import MachineUtilisationSummary from "./MachineUtilisationSummary";
 import ProductionTaskSummary from "./ProductionTaskSummary";
 
-function NabTab({
+export default function NabTab({
   machineutilisationSummartdata,
   productionTaskSummary,
   machineLogData,
@@ -57,4 +57,3 @@ function NabTab({
   );
 }
 
-export default NabTab;

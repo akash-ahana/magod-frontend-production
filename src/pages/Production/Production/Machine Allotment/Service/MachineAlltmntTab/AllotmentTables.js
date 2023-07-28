@@ -117,6 +117,11 @@ export default function AllotmentTables() {
     setTableRowSelect({ ...scheduleListData[0], index: 0 });
   }, [scheduleListData[0]]);
 
+
+  useMemo(() => {
+    setRowselect({ ...scheduleListData[0], index: 0 });
+  }, [scheduleListData[0]]);
+
   //Search
   const searchText = (e) => {
     let number = e.target.value;
@@ -229,7 +234,7 @@ axios
                 </tr>
               </thead>
 
-              <tbody className="tablebody">
+              <tbody className="tablebody table-space">
                 {allotmentTable.map((item, key) => {
                   return (
                     <>
@@ -392,7 +397,7 @@ axios
                   </tr>
                 </thead>
 
-                <tbody className="tablebody">
+                <tbody className="tablebody table-space">
                   {scheduleListData.map((value, key) => {
                     return (
                       <>

@@ -30,7 +30,6 @@ function NewCalender(props) {
 
   const getShiftTypesData = async () => {
     const { data } = await axios.get(baseURL + `/shiftEditor/typesOfShifts`);
-    //console.log('Shift Types' , data)
     setDataShiftTypes(data);
   };
 
@@ -38,7 +37,6 @@ function NewCalender(props) {
     const { data } = await axios.get(
       baseURL + `/productionSetup/getallmachines`
     );
-    //console.log('Machine List' , data)
     setGetShiftTypesData(data);
   };
 
@@ -46,7 +44,6 @@ function NewCalender(props) {
     const { data } = await axios.get(
       baseURL + `/shiftEditor/getMachineOperators`
     );
-    //console.log('Operator List',data);
     setDataOperatorList(data);
   };
 
@@ -54,7 +51,6 @@ function NewCalender(props) {
     const { data } = await axios.get(
       baseURL + `/shiftEditor/shiftInchargeList`
     );
-    //console.log('Shift In Charge',data);
     setDataShiftIncharge(data);
   };
 
@@ -64,7 +60,6 @@ function NewCalender(props) {
   };
 
   const handleShiftIncharge = (e) => {
-    //console.log("Shift in charge selected");
     setSelectedShiftIncharge(e.target.value);
     console.log("Selected machine:", e.target.value);
   };
@@ -75,15 +70,10 @@ function NewCalender(props) {
   };
 
   const handleOperatorList = (e) => {
-    //console.log("Operator List Selected");
     setSelectedOperator(e.target.value);
   };
 
-  // console.log('Selected Shift after setting ', selectedShift)
-  // console.log('Selected Machine after setting ', selectedMachine)
-  // console.log('Selected Operator after Setting', selectedOperator);
-  // console.log('Selected Shift In Charge', selectedShiftIncharge)
-
+ 
   useEffect(() => {
     getShiftTypesData();
     getMachineListData();
@@ -91,10 +81,9 @@ function NewCalender(props) {
     getOperatorListData();
   }, []);
 
-  //Calender Component
 
+  //Calender Component
   const [date, setDate] = useState(new Date());
-  console.log(date);
 
   const [selectedWeek, setSelectedWeek] = useState([""]);
   const [checkedState, setCheckedState] = useState(new Array(7).fill(false));
@@ -228,15 +217,11 @@ function NewCalender(props) {
     let month = dateSplit[1];
     let day = dateSplit[2];
     let finalDay = day + "/" + month + "/" + year;
-    // console.log('FINAL DAY IS ' , finalDay)
-
     return finalDay;
   };
 
   const createWeek = (cuurentDate) => {
     setMachineOperatorTableData([]);
-
-    //console.log('Create Week Array ')
     let weekArray = [];
     if (cuurentDate.toString().includes("Mon")) {
       for (let i = 0; i < 7; i++) {
@@ -574,13 +559,11 @@ function NewCalender(props) {
         console.log(response);
         getSecondTableData();
         getSingleDayShiftPlan4thTable();
-        // setWeekState1('')
       });
   };
 
   //DELETE MACHINE OPERATOR FOR WEEK
   const onClickDeleteWeekOperatorMachine = () => {
-    // console.log(' Delete Operator for week is clicked ' , ' Shift Selected is ' , selectedShift , ' Selected Week is ' , selectedWeek , ' selected Machine is ' , selectedMachine , ' Selected Operator is ' ,selectedOperator )
     axios
       .post(baseURL + "/shiftEditor/deleteWeekOperatorForMachine", {
         selectedShift: selectedShift,

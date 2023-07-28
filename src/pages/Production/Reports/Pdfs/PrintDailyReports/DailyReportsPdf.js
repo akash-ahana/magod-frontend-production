@@ -32,11 +32,10 @@ const styles = StyleSheet.create({
   
 
 
-export default function DailyReportsPdf({pdfData,dateSelect}) {
+export default function DailyReportsPdf({pdfData,dateSelect,preparedby,roleValue}) {
 
-let array=dateSelect.split('-');
-let Date=array[2]+"/"+array[1]+"/"+array[0]
-
+  let array=dateSelect.split('-')
+  let Date=array[2]+"/"+array[1]+'/'+array[0];
       return (
         // <div className="App">
         //   <PDFDownloadLink document={<PDFdocument />} fileName="somename.pdf">
@@ -49,7 +48,9 @@ let Date=array[2]+"/"+array[1]+"/"+array[0]
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
               <DailyReportTable Date={Date}
-              pdfData={pdfData}/>
+              pdfData={pdfData}
+              preparedby={preparedby}
+              roleValue={roleValue}/>
             </PDFViewer>
           </Fragment>
       ); 

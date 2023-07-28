@@ -12,10 +12,20 @@ export default function MachineAlltmntForm() {
   const [machineList, setMachineList] = useState([]);
   const [selectedMachine, setSelectedMachine] = useState("");
   const [machineSelect, setMachineSelect] = useState({});
-  
+  const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
+  const [isPageRefreshed, setIsPageRefreshed] = useState(true);
+  const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
+
+  useEffect(() => {
+    const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
+    setIsPageRefreshed(isPageRefreshed);
+    localStorage.setItem("isPageRefreshed", false);
+  }, []);
+
+
   const selectedMachineFun = (item, index) => {
-    let list = { ...item, index: index };
-    setMachineSelect(list);
+    setSelectedMachineIndex(index);
+    setSelectedLabelIndex(-1);
   };
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -38,7 +48,7 @@ export default function MachineAlltmntForm() {
 
   console.log(selectedMachineTreeView);
   const onClickMachine = (Machine, key) => {
-    setSelectedRows([])
+    setSelectedRows([]);
     axios
       .post(baseURL + "/machineAllotment/getNCprogramTabTableData", {
         MachineName: Machine,
@@ -49,7 +59,7 @@ export default function MachineAlltmntForm() {
           response.data[i].isChecked = false;
         }
       });
-    setSelectedRows([])
+    setSelectedRows([]);
     setSelectedMachineTreeView(Machine);
     setMachineList([]);
   };
@@ -115,7 +125,10 @@ export default function MachineAlltmntForm() {
     {
       type: "Machines",
       collapsed: false,
-      serverData: machineProcessData,
+      serverData: machineProcessData.map((data, index) => ({
+        ...data,
+        labelIndex: index,
+      })),
     },
   ];
 
@@ -146,7 +159,7 @@ export default function MachineAlltmntForm() {
         setNcProgramsTableData(response.data);
       });
     treeViewData();
-    setSelectedRows([])
+    setSelectedRows([]);
     setMachineList([]);
   };
 
@@ -156,7 +169,7 @@ export default function MachineAlltmntForm() {
     setSelectedMachine(e.target.value);
   };
 
-  const onClickMachineLabel = () => {
+  const onClickMachineLabel = (index) => {
     axios
       .post(baseURL + "/machineAllotment/getNCprogramTabTableDatauseEffect", {
         MachineName: "Laser 6",
@@ -165,7 +178,13 @@ export default function MachineAlltmntForm() {
         console.log(response.data);
         setNcProgramsTableData(response.data);
       });
-  };
+      setSelectedLabelIndex(index);
+      setSelectedMachineIndex(-1);
+      setIsPageRefreshed(false);
+      localStorage.setItem("isPageRefreshed", false); 
+     };
+      
+    
 
   useEffect(() => {
     onClickMachineLabel();
@@ -234,12 +253,12 @@ export default function MachineAlltmntForm() {
                 const type = node.type;
                 const label = (
                   <span
-                    style={{ fontSize: "16px" }}
-                    className="node"
-                    onClick={onClickMachineLabel}
-                  >
-                    {type}
-                  </span>
+                  style={{ fontSize: "16px" }}
+                  className={`node ${selectedLabelIndex === node.labelIndex ? "selcted-row-clr" : ""}`}
+                  onClick={() => onClickMachineLabel(node.labelIndex)}
+                >
+                  {type}
+                </span>
                 );
                 return (
                   <TreeView
@@ -250,22 +269,18 @@ export default function MachineAlltmntForm() {
                     {node.serverData.map((data, key) => {
                       const label2 = (
                         <span
-                          style={{
-                            backgroundColor: "#C0C0C0",
-                            fontSize: "14px",
-                          }}
-                          onClick={() => {
-                            selectedMachineFun(data, key);
-                            onClickMachine(data, key);
-                          }}
-                          className={
-                            key === machineSelect?.index
-                              ? "selcted-row-clr"
-                              : ""
-                          }
-                        >
-                          {data.MachineName} &nbsp;{data.formattedLoad}
-                        </span>
+      style={{
+        backgroundColor: "#C0C0C0",
+        fontSize: "14px",
+      }}
+      onClick={() => {
+        selectedMachineFun(data, key);
+        onClickMachine(data, key);
+      }}
+      className={`node ${key === selectedMachineIndex ? "selcted-row-clr" : ""}`}
+    >
+      {data.MachineName} &nbsp;{data.formattedLoad}
+    </span>
                       );
 
                       return (
