@@ -176,14 +176,14 @@ else{
   }
   // console.log(opensavemachine)
   const saveMachine = () => {
-    console.log("consoling data before save", machineData);
+    // console.log("consoling data before save", machineData);
   
-    if (machineData.TgtRate === '') {
-      toast.error('Target Rate cannot be empty. Please enter a value', {
-        position: toast.POSITION.TOP_CENTER
-      })
-      return;
-    }
+    // if (machineData.TgtRate === '') {
+    //   toast.error('Target Rate cannot be empty. Please enter a value', {
+    //     position: toast.POSITION.TOP_CENTER
+    //   })
+    //   return;
+    // }
   
     axios.post(
       baseURL + "/productionSetup/saveMachine",
