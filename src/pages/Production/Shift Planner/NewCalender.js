@@ -238,6 +238,12 @@ function NewCalender(props) {
         datenew.setDate(datenew.getDate() - i);
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
+        setIsChecked(false);
+        setIsChecked2(false)
+        setIsChecked3(false);
+        setIsChecked4(false);
+        setIsChecked5(false)
+        setIsChecked6(false);
       }
 
       for (let i = 0; i < 6; i++) {
@@ -978,8 +984,6 @@ function NewCalender(props) {
         selectedWeek={selectedWeek}
         selectedOperator={selectedOperator}
       />
-
-      {/* <PrintWeeklyplan selectedWeek={selectedWeek}/> */}
     </>
   );
 }
