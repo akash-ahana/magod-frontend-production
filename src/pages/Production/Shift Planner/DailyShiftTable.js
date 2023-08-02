@@ -1,4 +1,4 @@
-import React , {useState, useEffect,useMemo} from 'react';
+import React , {useState, useEffect,useMemo, useRef} from 'react';
 import Table from "react-bootstrap/Table";
 import MachineOperatorTable from './MachineOperatorTable';
 import axios from "axios";
@@ -13,7 +13,7 @@ function DailyShiftTable({SingleDayShiftPlan4thTable,rowSelectFunForDailyShiftTa
 setRowselectDailyShiftTable,getSingleDayShiftPlan4thTable,getSecondTableData,selectedWeek,
 rowselect}) {
 
-   
+  //  console.log(selectedWeek)
        useEffect(() => {
         getMachineOperatorTableData();
        },[rowselectDailyShiftTable]) 
@@ -25,15 +25,10 @@ rowselect}) {
       },[SingleDayShiftPlan4thTable[0]])
 
       const [shiftinstruction,setShiftinstruction]=useState('')     
+      
        const onChangeInput = (e, Shift_instruction) => {
         const { name, value } = e.target
         setShiftinstruction(value);
-        // console.log('value', value)
-      
-        // const editData =rowselectDailyShiftTable.map((item) =>
-        //   item.Shift_instruction === Shift_instruction && name ? { ...item, [name]: value } : item
-        // )
-        // setRowselectDailyShiftTable(editData);
       }
 
       const updateShiftinstruction = () => {
@@ -69,7 +64,8 @@ console.log("ScheduleNo",item.ScheduleNo)
  setRowselectMachineOperator(list);
 }
 
-// console.log(rowselectMachineOperator);
+
+
     return (
         
         <div style={{display:"flex"}}>
