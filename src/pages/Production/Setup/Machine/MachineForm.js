@@ -184,7 +184,7 @@ else{
     //   })
     //   return;
     // }
-  
+    console.log(machineData)
     axios.post(
       baseURL + "/productionSetup/saveMachine",
       {
