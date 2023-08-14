@@ -9,15 +9,19 @@ export default function ScheduleListtable({
   getprocessTabledata,
   setRowselect,
   scheduleList,
-  custcode
+  custcode,
 }) {
-  const { schedulelistdata, getSchedulistdata, selectedRows, setSelectedRows, handleCheckboxChange } = useGlobalContext();
+  const {
+    schedulelistdata,
+    getSchedulistdata,
+    selectedRows,
+    setSelectedRows,
+    handleCheckboxChange,
+  } = useGlobalContext();
 
   useEffect(() => {
     getSchedulistdata();
   }, []);
-
-  
 
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
@@ -35,7 +39,7 @@ export default function ScheduleListtable({
 
         <tbody className="tablebody">
           {schedulelistdata.map((item, key) => {
-            const isChecked = selectedRows.some(row => row === item);
+            const isChecked = selectedRows.some((row) => row === item);
 
             return (
               <tr

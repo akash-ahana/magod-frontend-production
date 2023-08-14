@@ -10,7 +10,7 @@ import ShiftReport from './ShiftReport';
 // import ByOperations from './components/ByOperations';
 // import ByCustomer from './components/ByCustomer';
 
-export default  function ByOperationNavTab({programProcessing,proramCompleted,onClickMachine,onClickProgram,onClickOperation,setProgramCompleted,setProgramProcessing}) {
+export default  function ByOperationNavTab({programProcessing,proramCompleted,onClickMachine,onClickProgram,onClickOperation,setProgramCompleted,setProgramProcessing,onClickMachines,operation}) {
     const [key, setKey] = useState("tabdata");
 
   return (
@@ -35,12 +35,16 @@ export default  function ByOperationNavTab({programProcessing,proramCompleted,on
        onClickProgram={onClickProgram}
        onClickMachine={onClickMachine}
        setProgramCompleted={setProgramCompleted}
+       operation={operation}
       />
       </Tab>
 
       <Tab eventKey="Programs Processing" title="Programs Processing">
       <OperationProgramProcessing programProcessing={programProcessing}
-      setProgramProcessing={setProgramProcessing}/>
+      setProgramProcessing={setProgramProcessing}
+      onClickMachines={onClickMachines}
+      operation={operation}
+      />
       </Tab>
 
       <Tab eventKey="Machine Log" title="Machine Log">

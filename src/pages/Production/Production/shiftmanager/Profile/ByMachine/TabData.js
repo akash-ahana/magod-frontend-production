@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 
-export default function TabData({machineProgramesProcessing,taskNoOnClick,setmachineProgramesProcessing}) {
+export default function TabData({machineProgramesProcessing,taskNoOnClick,setmachineProgramesProcessing,onClickMachine,selectedMachine}) {
 
   const [show, setShow] = useState(false);
     const handaleClick =()=>{
@@ -106,6 +106,9 @@ export default function TabData({machineProgramesProcessing,taskNoOnClick,setmac
     //  machineData={machineData}
      taskNoOnClick={taskNoOnClick}
      setSelectProgramProcessing={setSelectProgramProcessing}
+     onClickMachine={onClickMachine}
+     selectedMachine={selectedMachine}
+     setmachineProgramesProcessing={setmachineProgramesProcessing}
      />
 
  </div>

@@ -12,10 +12,21 @@ export default function MachineAlltmntForm() {
   const [machineProcessData, setMachineProcessData] = useState([]) 
   const [machineList , setMachineList] = useState([])
   const [selectedMachine , setSelectedMachine] = useState("")
+  const [currentSelectedMachine, setCurrentSelectedMachine] = useState("");
+  const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
+  const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
+  const [isPageRefreshed, setIsPageRefreshed] = useState(true);
+
+  useEffect(() => {
+    const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
+    setIsPageRefreshed(isPageRefreshed);
+    localStorage.setItem("isPageRefreshed", false);
+  }, []);
+
   const [machineSelect,setMachineSelect]=useState({})
   const selectedMachineFun=(item,index)=>{
-      let list={...item,index:index}
-      setMachineSelect(list);
+    setSelectedMachineIndex(index);
+    setSelectedLabelIndex(-1);
     }
 
     const delay = ms => new Promise(
@@ -58,6 +69,8 @@ export default function MachineAlltmntForm() {
       })
       setSelectedRows([])
       setSelectedMachineTreeView(Machine)
+      setCurrentSelectedMachine(Machine);
+
       setMachineList([])
   }
 
@@ -115,7 +128,10 @@ const treeViewData=()=>{
       {
           type: "Machines",
           collapsed: false,
-          serverData: machineProcessData,
+          serverData: machineProcessData.map((data, index) => ({
+            ...data,
+            labelIndex: index,
+          })),
       },
   ];
  
@@ -129,36 +145,38 @@ const treeViewData=()=>{
 
 
  const clickChangeMachine=async ()=>{
-  axios.post(baseURL+'/machineAllotment/changeMachineHeaderButton' , {programs : selectedRows , newMachine : selectedMachine })
+  axios.post(baseURL+'/machineAllotment/changeMachineHeaderButton' ,
+   {programs : selectedRows , newMachine : selectedMachine })
   .then((response) => {
-     onClickMachine();
      handleClose();
   })
-
-  await delay(200);
-  
-  axios.post(baseURL+'/machineAllotment/getNCprogramTabTableData',{MachineName : selectedMachineTreeView})
+  console.log("Selected machine:", currentSelectedMachine.MachineName);
+      setSelectedRows([])
+      setMachineList([])
+      axios.post(baseURL+'/machineAllotment/afterChangeMachine',{MachineName : currentSelectedMachine.MachineName})
       .then((response) => {
           setNcProgramsTableData(response.data)
           for(let i = 0; i< response.data.length ; i++){
             response.data[i].isChecked = false;
           }
       })
-      treeViewData();
-      setSelectedRows([])
-      setMachineList([])
  }
+
 
  useMemo(()=>{
 },[machineProcessData[0]])
 
 
-const onClickMachineLabel=()=>{
+const onClickMachineLabel=(index)=>{
   axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
   .then((response) => {
     console.log(response.data);
     setNcProgramsTableData(response.data)
   })
+  setSelectedLabelIndex(index);
+    setSelectedMachineIndex(-1);
+    setIsPageRefreshed(false);
+    localStorage.setItem("isPageRefreshed", false);
  }
 
  useEffect(() => {
@@ -224,7 +242,11 @@ const onClickMachineLabel=()=>{
             dataSource.map((node, i) => {
               const type = node.type;
               const label = (
-                <span style={{ fontSize: "16px" }} className="node" onClick={onClickMachineLabel}>
+                <span style={{ fontSize: "16px" }} className={`node ${
+                  selectedLabelIndex === node.labelIndex
+                    ? "selcted-row-clr"
+                    : ""
+                }`} onClick={()=>onClickMachineLabel(node.labelIndex)}>
                   {type}
                 </span>
               );
@@ -238,8 +260,11 @@ const onClickMachineLabel=()=>{
                           selectedMachineFun(data, key);
                           onClickMachine(data, key);
                         }}
-                        className={key === machineSelect?.index ? "selcted-row-clr" : ""}
-                      >
+                        className={`node ${
+                          key === selectedMachineIndex
+                            ? "selcted-row-clr"
+                            : ""
+                        }`}                      >
                         {data.MachineName}&nbsp;{data.formattedLoad}
                       </span>
                     );

@@ -23,6 +23,20 @@ export default function Reports() {
     multiplerowSelect,
   } = useGlobalContext();
   const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
+  const [isPageRefreshed, setIsPageRefreshed] = useState(true);
+  const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
+
+  const selectedMachineFun = (item, index) => {
+    setSelectedMachineIndex(index);
+    setSelectedLabelIndex(-1);
+  };
+
+  useEffect(() => {
+    const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
+    setIsPageRefreshed(isPageRefreshed);
+    localStorage.setItem("isPageRefreshed", false);
+  }, []);
 
   const machinelogRowSelect = (index) => {
     const selectedRowData = machineLogData[index];
@@ -45,7 +59,7 @@ export default function Reports() {
   const [productionTaskSummary, setProductionTaskSummary] = useState([]);
   const [machineLogData, setMachineLogData] = useState([]);
   //Select Date
-  const [dateSelect, SetDateSelect] = useState("");
+  const [dateSelect, SetDateSelect] = useState(Date);
   const handleChangeSelectDate = (e) => {
     SetDateSelect(e.target.value);
     axios
@@ -89,6 +103,7 @@ export default function Reports() {
         }
         console.log(response.data);
         setMachineLogData(response.data);
+        setMachineName('')
       });
   };
 
@@ -99,6 +114,7 @@ export default function Reports() {
         Date: dateSelect,
       })
       .then((res) => {
+        console.log(res.data)
         setStatus(res.data);
       }); 
   }, [dateSelect]);
@@ -148,13 +164,14 @@ export default function Reports() {
   };
 
 
-  const[selectedMachine,setSelectedMachine]=useState({})
+  const[selectedMachine,setSelectedMachine]=useState({});
+  const[machineName,setMachineName]=useState('')
   //Machine OnClick
   const machineSelected = (Machine,item, index) => {
     console.log("The Machine Selected is ", Machine);
     let list = { ...item, index: index };
     setSelectedMachine(list);
-
+    setMachineName(list.MachineName);
     axios
       .post(baseURL + "/reports/machineOnclick", {
         Date: dateSelect,
@@ -187,6 +204,7 @@ export default function Reports() {
         setMachineLogData(response.data);
       });
   };
+  console.log(machineName);
 
 
   //OnClick Shift
@@ -230,7 +248,7 @@ export default function Reports() {
   };
 
   //Onclick MainTreeView
-  const treeViewHeader = () => {
+  const treeViewHeader = (index) => {
     axios
       .post(baseURL + "/reports/machineLog", { Date: dateSelect })
       .then((response) => {
@@ -258,6 +276,10 @@ export default function Reports() {
         }
         console.log(response.data);
         setMachineLogData(response.data);
+        setSelectedLabelIndex(index);
+    setSelectedMachineIndex(-1);
+    setIsPageRefreshed(false);
+    localStorage.setItem("isPageRefreshed", false);
       });
   };
 
@@ -281,7 +303,10 @@ export default function Reports() {
     {
       type: "Machines",
       collapsed: true,
-      serverData: reportsTreeViewData,
+      serverData: reportsTreeViewData.map((data, index) => ({
+        ...data,
+        labelIndex: index,
+      })),
     },
   ];
 
@@ -379,7 +404,7 @@ console.log(roleValue);
                 <input style={{marginTop:"-6px"}} className="in-field" required />
            </div> */}
           <div
-            className="col-md-3 mt-3"
+            className="col-md-3 mt-2"
             style={{ display: "flex", gap:"20px" }}
           >
             <label className="mt-1 form-label" style={{ whiteSpace: "nowrap" }}>
@@ -390,7 +415,6 @@ console.log(roleValue);
               name="preparedby"
               onChange={InputChange}
               value={preparedby}
-              // defaultValue={lazerUser.data[0].Name}
             />
           </div>
         </div>
@@ -410,7 +434,12 @@ console.log(roleValue);
             {dataSource.map((node, i) => {
               const type = node.type;
               const label = (
-                <span onClick={treeViewHeader} className="node">
+                <span onClick={()=>treeViewHeader(node.labelIndex)} 
+                className={`node ${
+                  selectedLabelIndex === node.labelIndex
+                    ? "selcted-row-clr"
+                    : ""
+                }`}>
                   {type}
                 </span>
               );
@@ -425,13 +454,14 @@ console.log(roleValue);
                       <span
                         style={{ fontSize: "13px" }}
                         onClick={() => {
+                          selectedMachineFun(data, key);
                           machineSelected(data.MachineName,data,key);
                         }}
-                        className={
-                          key === selectedMachine?.index
+                        className={`node ${
+                          key === selectedMachineIndex
                             ? "selcted-row-clr"
                             : ""
-                        }
+                        }`}
                       >
                         {data.MachineName}
                       </span>
@@ -530,6 +560,7 @@ console.log(roleValue);
               setSelectedRows={setSelectedRows}
               machinelogRowSelect={machinelogRowSelect}
               status={status}
+              machineName={machineName}
             />
           </div>
         </div>

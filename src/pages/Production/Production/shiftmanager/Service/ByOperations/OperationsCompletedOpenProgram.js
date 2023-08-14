@@ -3,10 +3,11 @@ import { Button, Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
+import CloseProgramModal from '../../Profile/ByMachine/CloseProgramModal';
 
 
 export default function OperationsCompleteOpenProgram({show, setShow,selectProgramCompleted,onClickOperation,
-  onClickProgram,onClickMachine,setSelectProgramCompleted
+  onClickProgram,onClickMachine,setSelectProgramCompleted,operation,setProgramCompleted
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -75,6 +76,7 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
     
   }
 
+  const[openCloseProgram,setCloseProgram]=useState(false);
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
     axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
@@ -84,9 +86,56 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)
-     onClickProgram();
-     onClickMachine();
-     onClickOperation();
+     setCloseProgram(true);
+     axios
+     .post(baseURL + "/shiftManagerProfile/OperationProgramesCompleted", {
+       Operation: operation,
+     })
+     .then((response) => {
+       for (let i = 0; i < response.data.length; i++) {
+         if (
+           response.data[i].ActualTime <
+           0.5 * response.data[i].EstimatedTime
+         ) {
+           response.data[i].rowColor = "#339900";
+           //break;
+         } else if (
+           response.data[i].ActualTime <
+           0.75 * response.data[i].EstimatedTime
+         ) {
+           response.data[i].rowColor = "#82c2b4";
+           //break;
+         } else if (
+           response.data[i].ActualTime <
+           0.9 * response.data[i].EstimatedTime
+         ) {
+           response.data[i].rowColor = "#f08080";
+           //break;
+         } else if (
+           response.data[i].ActualTime <
+           1.1 * response.data[i].EstimatedTime
+         ) {
+           response.data[i].rowColor = "#f08080";
+           //break;
+         } else if (
+           response.data[i].ActualTime <
+           1.25 * response.data[i].EstimatedTime
+         ) {
+           response.data[i].rowColor = "#FF7F50";
+           //break;
+         } else if (
+           response.data[i].ActualTime <
+           1.5 * response.data[i].EstimatedTime
+         ) {
+           response.data[i].rowColor = "#FFA500";
+           //break;
+         } else {
+           response.data[i].rowColor = "#ff0000";
+         }
+       }
+       console.log("AFTER ADDING COLOR", response.data);
+       setProgramCompleted(response.data);
+     });
  })
   }
   
@@ -120,6 +169,9 @@ export default function OperationsCompleteOpenProgram({show, setShow,selectProgr
 
 return (
   <div>
+    <CloseProgramModal openCloseProgram={openCloseProgram}
+    setCloseProgram={setCloseProgram}/>
+    
     <Modal size='lg' show={show}  fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
       <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>
@@ -194,8 +246,6 @@ return (
                value={selectProgramCompleted.TotalParts
                }/>
             </div>
-
-            
 
             <div className="col-md-3">
                <label className="form-label">Process Time</label>

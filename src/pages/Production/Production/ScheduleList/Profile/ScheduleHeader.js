@@ -26,10 +26,12 @@ export default function ScheduleHeader({
   partlistdata,
   programlistdata,
   custdata,
-  selectCust
+  selectCust,
 }) {
   const { schedulelistdata, setSchedulelistdata, schedulelistdatas } =
     useGlobalContext();
+    const [allotmentTable, setAllotmentTable] = useState([]);
+
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
 
@@ -48,24 +50,23 @@ export default function ScheduleHeader({
     setOpenShowPrograms(true);
   };
 
-  const[openProductionList,setOpenProductionList]=useState('')
-  const openProductionListPdf=()=>{
+  const [openProductionList, setOpenProductionList] = useState("");
+  const openProductionListPdf = () => {
     setOpenProductionList(true);
-  }
-
-
-  const searchText = (e) => {
-    let number = e.target.value;
-    let filteredData = schedulelistdata.filter((data) => {
-      return data.OrdSchNo.startsWith(number);
-    });
-    if (filteredData.length > 0) {
-      setSchedulelistdata(filteredData);
-    }
-    if (e.target.value.length === 0) {
-      setSchedulelistdata(schedulelistdatas);
-    }
   };
+
+  // const searchText = (e) => {
+  //   let number = e.target.value;
+  //   let filteredData = schedulelistdata.filter((data) => {
+  //     return data.OrdSchNo.startsWith(number);
+  //   });
+  //   if (filteredData.length > 0) {
+  //     setSchedulelistdata(filteredData);
+  //   }
+  //   if (e.target.value.length === 0) {
+  //     setSchedulelistdata(schedulelistdatas);
+  //   }
+  // };
 
   const [programmedtatus, setProgrammedstatus] = useState([]);
   const [completedStatus, setCompletedStatus] = useState([]);
@@ -74,13 +75,9 @@ export default function ScheduleHeader({
 
   // const[showStatusdata,setShowStatusdata]=useState({})
 
-  
-
   const handleChangeCustomer = (e) => {
     // setSelectedCustomer(e.target.value);
   };
-
- 
 
   const getPrintStatus = () => {
     // Programmed Status
@@ -219,6 +216,18 @@ export default function ScheduleHeader({
     getCustomerList();
   }, []);
 
+  //TRY SEARCH
+  const [searchInput, setSearchInput] = useState("");
+  const searchText1 = (e) => {
+    const searchText = e.target.value;
+    const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
+    setSearchInput(sanitizedSearchText);
+    // Apply the filter on allotmentTable based on the search input value
+    const filteredData = schedulelistdatas.filter((data) =>
+        data.OrdSchNo.includes(sanitizedSearchText)
+      );
+    setSchedulelistdata(filteredData);
+  };
 
   return (
     <div>
@@ -229,37 +238,34 @@ export default function ScheduleHeader({
       </div>
 
       <div>
-        <div className="row">
-          
-        </div>
+        <div className="row"></div>
       </div>
 
       <div className="col-md-12 col-sm-12">
         <div className="mt-2">
           <div className="row">
+            <div className="col-md-3 mt-4">
+              <Form.Group controlId="CustName">
+                {custdata.length > 0 ? (
+                  <Typeahead
+                    options={custdata}
+                    placeholder="Search Customer"
+                    onChange={(label, event) => selectCust(label)}
+                  />
+                ) : (
+                  ""
+                )}
+              </Form.Group>
+            </div>
 
-          <div className="col-md-3 mt-4">
-            <Form.Group controlId="CustName">
-    {custdata.length > 0 ? (
-      <Typeahead
-        options={custdata}
-        placeholder="Search Customer"
-        onChange={(label, event) => selectCust(label)}
-      />
-    ) : (
-      ""
-    )}
-  </Form.Group>
-          </div>
-          
-            <div className="col-md-2 mt-3">
+            <div className="col-md-2 mt-4">
               {/* <label className="form-label mt-2">Find Schedule</label> */}
-              <input
-                className="in-field my-0 mt-4"
+              <input 
+                className="in-field my-0 mt-3"
                 onKeyDown={blockInvalidChar}
-                type="number"
-                onChange={(e) => searchText(e)}
-                placeholder="Search Schedule"
+                type="text" // Change the input type to "text"
+                value={searchInput} // Set the value to the state variable
+                onChange={searchText1} // Call the searchText function on change
               />
             </div>
 
@@ -268,40 +274,41 @@ export default function ScheduleHeader({
               Reset Status
             </button> */}
             <div className="col-md-7 mt-2">
-            <button
-              className="button-style mt-2 group-button ms-3 "
-              style={{ width: "140px" }}
-              onClick={() => {
-                openShowStatusPdf();
-                getPrintStatus();
-              }}
-            >
-              Show Status
-            </button>
+              <button
+                className="button-style mt-2 group-button ms-3 "
+                style={{ width: "140px" }}
+                onClick={() => {
+                  openShowStatusPdf();
+                  getPrintStatus();
+                }}
+              >
+                Show Status
+              </button>
 
-            <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={openShowPartsPdf}
-            >
-              Show Parts
-            </button>
+              <button
+                className="button-style mt-4 group-button ms-3"
+                style={{ width: "140px" }}
+                onClick={openShowPartsPdf}
+              >
+                Show Parts
+              </button>
 
-            <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={openShowProgram}
-            >
-              Show Programs
-            </button>
+              <button
+                className="button-style mt-4 group-button ms-3"
+                style={{ width: "140px" }}
+                onClick={openShowProgram}
+              >
+                Show Programs
+              </button>
 
-            <button className="button-style mt-4 group-button ms-3" 
-             style={{ width: "140px" }} onClick={openProductionListPdf}>
-             Production list
-            </button>
+              <button
+                className="button-style mt-4 group-button ms-3"
+                style={{ width: "140px" }}
+                onClick={openProductionListPdf}
+              >
+                Production list
+              </button>
             </div>
-
-           
           </div>
         </div>
       </div>
@@ -327,8 +334,10 @@ export default function ScheduleHeader({
         programlistdata={programlistdata}
       />
 
-      <ProductionListModal openProductionList={openProductionList}
-      setOpenProductionList={setOpenProductionList}/>
+      <ProductionListModal
+        openProductionList={openProductionList}
+        setOpenProductionList={setOpenProductionList}
+      />
     </div>
   );
 }

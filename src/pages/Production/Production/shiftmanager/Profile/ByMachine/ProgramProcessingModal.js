@@ -6,8 +6,9 @@ import Popup from "./Popup";
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,taskNoOnClick,setSelectProgramProcessing
+export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,taskNoOnClick,setSelectProgramProcessing,onClickMachine,selectedMachine,setmachineProgramesProcessing
 }) {
+  console.log(selectedMachine)
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
   const [fullscreen, setFullscreen] = useState(true);
@@ -286,6 +287,9 @@ return(
    machineData={machineData}
    taskNoOnClick={taskNoOnClick}
    setSelectProgramProcessing={setSelectProgramProcessing}
+   onClickMachine={onClickMachine}
+   selectedMachine={selectedMachine}
+   setmachineProgramesProcessing={setmachineProgramesProcessing}
    />
 </div>
 </div>

@@ -15,6 +15,7 @@ export default function MachineLog({
   setSelectedRows,
   machinelogRowSelect,
   status,
+  machineName
 }) {
   const [selectAll, setSelectAll] = useState(false);
   const [FinalMachineLogArray, setFinalMachineLogArray] = useState([]);
@@ -24,6 +25,8 @@ export default function MachineLog({
   const [SumMachineTime, setSumMachineTime] = useState("");
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
+  console.log(status)
+
 
   const sortMachineLogs = (logs) => {
     // Perform sorting based on your desired logic
@@ -122,32 +125,36 @@ export default function MachineLog({
           position: toast.POSITION.TOP_CENTER,
         });
         axios
-          .post(baseURL + "/reports/machineLog", { Date: dateSelect })
-          .then((response) => {
-            for (let i = 0; i < response.data.length; i++) {
-              let dateSplit1 = response.data[i].FromTime.split(" ");
-              let date1 = dateSplit1[0].split("-");
-              let year1 = date1[0];
-              let month1 = date1[1];
-              let day1 = date1[2];
-              let time = dateSplit1[1].split(":");
-              let Time = time[0] + ":" + time[1];
-              let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-              response.data[i].FromTime = finalDay1;
-            }
-            for (let i = 0; i < response.data.length; i++) {
-              let dateSplit2 = response.data[i].ToTime.split(" ");
-              let date2 = dateSplit2[0].split("-");
-              let year2 = date2[0];
-              let month2 = date2[1];
-              let day2 = date2[2];
-              let time1 = dateSplit2[1].split(":");
-              let Time1 = time1[0] + ":" + time1[1];
-              let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-              response.data[i].ToTime = finalDay2;
-            }
-            setMachineLogData(response.data);
-          });
+      .post(baseURL + "/reports/machineOnclick", {
+        Date: dateSelect,
+        Machine: machineName,
+      })
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit1 = response.data[i].FromTime.split(" ");
+          let date1 = dateSplit1[0].split("-");
+          let year1 = date1[0];
+          let month1 = date1[1];
+          let day1 = date1[2];
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+          response.data[i].FromTime = finalDay1;
+        }
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit2 = response.data[i].ToTime.split(" ");
+          let date2 = dateSplit2[0].split("-");
+          let year2 = date2[0];
+          let month2 = date2[1];
+          let day2 = date2[2];
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+          response.data[i].ToTime = finalDay2;
+        }
+        console.log("require response mus", response.data);
+        setMachineLogData(response.data);
+      });
       });
   };
 

@@ -7,7 +7,7 @@ import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 import ProcessingModal from './ProcessingModal';
 
-export default function ProgramProcessing({programProcessing,setProgramProcessing}) {
+export default function ProgramProcessing({programProcessing,setProgramProcessing,onClickCustLabel,custCode}) {
 
   const [show, setShow] = useState(false);
   const [ machineData, setMachineData] = useState([])
@@ -118,6 +118,9 @@ useEffect(() => {
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
      machineData={machineData}
+     onClickCustLabel={onClickCustLabel}
+     custCode={custCode}
+     setProgramProcessing={setProgramProcessing}
     //  taskNoOnClick={taskNoOnClick}
      />
 

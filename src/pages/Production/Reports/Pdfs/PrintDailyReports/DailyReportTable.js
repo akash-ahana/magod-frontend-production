@@ -198,7 +198,7 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
                   </View>
                   <View>
                     <Text style={styles.name}>{preparedby}</Text>
-                    <Text style={styles.desig}>hiiiiiiiiiiii</Text>
+                    <Text style={styles.desig}>{roleValue}</Text>
                   </View>
                 </React.Fragment>
               )}

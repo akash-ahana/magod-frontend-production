@@ -3,11 +3,11 @@ import { Button, Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
+import CloseProgramModal from '../ByMachine/CloseProgramModal';
 
 
 export default function CompleteOpenProgram({show, setShow,selectProgramCompleted,onClickCustomer,
-  onClickProgram,setSelectProgramCompleted
-  // onClickPrograms
+  onClickProgram,setSelectProgramCompleted,custCode,setProgramCompleted
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -15,7 +15,6 @@ export default function CompleteOpenProgram({show, setShow,selectProgramComplete
 
   const[programCompleteData,setProgramCompleteData]=useState([]);
   const[newprogramCompleteData,setNewProgramCompleteData]=useState([]);
-
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
   const modalTable=()=>{
@@ -33,76 +32,97 @@ export default function CompleteOpenProgram({show, setShow,selectProgramComplete
 
   const handleClose = () => setShow(false);
 
-  //console.log(programCompleteData);
-
-
-
   const clearAllButton = () => {
     console.log('Clear All button Clicked' , programCompleteData)
     const constProgramCompleteData = programCompleteData;
     console.log('Const Program Complete Data is ' , constProgramCompleteData)
-    //console.log('TYPE OF' , typeof(constProgramCompleteData[0].QtyCleared))
     for(let i =0 ; i<constProgramCompleteData.length ; i++) {
       constProgramCompleteData[i].QtyCleared = constProgramCompleteData[i].QtyCut - constProgramCompleteData[i].QtyRejected
     }
     console.log('Updated Const Program Complete Data is ' , constProgramCompleteData)
-    // setProgramCompleteData(constProgramCompleteData)
-    //setProgramCompleteData([])
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
     setNewPartlistdata(constProgramCompleteData)
     setProgramCompleteData(constProgramCompleteData)
     setNewProgramCompleteData(constProgramCompleteData)
-    //modalTable();
-
     axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
     programCompleteData)
    .then((response) => {
      console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data)
  })
   }
-
-  
 
   const onChangeRejected = (e, item, key) => {
     console.log("onChange Rejected" , "e is " , e.target.value, " item is " , item, " key is " , key)
     const newconstprogramCompleteData = programCompleteData
     newconstprogramCompleteData[key].QtyRejected = Number(e.target.value)
-    //newconstprogramCompleteData[key].QtyCleared = Number(0)
     console.log('NEW CONST PROGRAM COMPLETE DATA IS ' , newconstprogramCompleteData)
     setProgramCompleteData(newconstprogramCompleteData)
     setNewProgramCompleteData(newconstprogramCompleteData)
     
   }
 
+  ////
+  const[openCloseProgram,setCloseProgram]=useState(false);
   const onClickCloseProgram = () => {
-    console.log('Close Program button is clicked')
     axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
     selectProgramCompleted)
    .then((response) => {
-     console.log('Current State of programCompleteData' , response.data);
-     console.log('current State of Program Complete data is ' , selectProgramCompleted)
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)
-     //setProgramCompleteData(response.data)
-     onClickCustomer();
-     onClickProgram();
-    //  onClickPrograms();
+     setCloseProgram(true);
+     axios
+      .post(baseURL + "/shiftManagerProfile/CustomerProgramesCompleted", {
+        Cust_Code: custCode,
+      })
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if (
+            response.data[i].ActualTime <
+            0.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#339900";
+          } else if (
+            response.data[i].ActualTime <
+            0.75 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#82c2b4";
+          } else if (
+            response.data[i].ActualTime <
+            0.9 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.1 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.25 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FF7F50";
+          } else if (
+            response.data[i].ActualTime <
+            1.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FFA500";
+          } else {
+            response.data[i].rowColor = "#ff0000";
+          }
+        }
+        setProgramCompleted(response.data);
+        console.log("AFTER ADDING COLOR", response.data);
+      });
  })
   }
   
-  //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')  
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
     console.log(" On CHANGE CLEARED " , " e.target.value is " , e.target.value, " item is " , item, " key is " , key)
-    // //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array
-    // console.log(' PART LIST IS ' , partlistdata)
      const newconstprogramCompleteData = programCompleteData
-    // if(e.target.value <= newconstprogramCompleteData[key].QtyProduced) {
        newconstprogramCompleteData[key].QtyCleared = Number(e.target.value)
-    // }
     setProgramCompleteData(newconstprogramCompleteData)
     setNewProgramCompleteData(newconstprogramCompleteData)
      console.log('NEW CONST PROGRAM COMPLETE DATA IS ' , newconstprogramCompleteData)
@@ -119,10 +139,11 @@ export default function CompleteOpenProgram({show, setShow,selectProgramComplete
     setNewProgramCompleteData(newconstprogramCompleteData)
   }
 
-
-
 return (
   <div>
+    <CloseProgramModal openCloseProgram={openCloseProgram}
+    setCloseProgram={setCloseProgram}/>
+
     <Modal size='lg' show={show}  fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Program Parts Inspection Form</Modal.Title>

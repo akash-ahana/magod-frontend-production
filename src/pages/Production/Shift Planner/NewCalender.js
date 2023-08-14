@@ -73,14 +73,12 @@ function NewCalender(props) {
     setSelectedOperator(e.target.value);
   };
 
- 
   useEffect(() => {
     getShiftTypesData();
     getMachineListData();
     getShiftInchargeData();
     getOperatorListData();
   }, []);
-
 
   //Calender Component
   const [date, setDate] = useState(new Date());
@@ -239,10 +237,10 @@ function NewCalender(props) {
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
         setIsChecked(false);
-        setIsChecked2(false)
+        setIsChecked2(false);
         setIsChecked3(false);
         setIsChecked4(false);
-        setIsChecked5(false)
+        setIsChecked5(false);
         setIsChecked6(false);
       }
 
@@ -335,13 +333,14 @@ function NewCalender(props) {
     let list = { item, index: index };
     setRowselect(list);
   };
-  
 
   // Default row select for Date table
   useMemo(() => {
     setRowselect({ item: selectedWeek[0], index: 0 });
   }, [selectedWeek[0]]);
-  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([]);
+  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState(
+    []
+  );
   const getSingleDayShiftPlan4thTable = () => {
     const res = axios
       .post(baseURL + "/shiftEditor/getDailyShiftPlanTable", {
@@ -588,7 +587,7 @@ function NewCalender(props) {
   const openDeletemachineoperator = () => {
     setOpendeleteoperator(true);
   };
-  
+
   const createWeekPlannEW = async () => {
     console.log("button clicked");
     const { data } = await axios.post(
@@ -653,7 +652,8 @@ function NewCalender(props) {
                 >
                   Create Week Shift
                 </button>
-              </div>              <div className="col-md-3">
+              </div>{" "}
+              <div className="col-md-3">
                 <label className="form-label">Machine</label>
                 <select className="ip-select" onChange={handleMachineChange}>
                   <option selected>Select Machine</option>
@@ -714,7 +714,8 @@ function NewCalender(props) {
                 >
                   Delete Week Shift
                 </button>
-              </div>              <div className="col-md-3">
+              </div>{" "}
+              <div className="col-md-3">
                 <label className="form-label">Operator</label>
                 <select className="ip-select" onChange={handleOperatorList}>
                   <option selected>Select Operator</option>
@@ -734,7 +735,6 @@ function NewCalender(props) {
                   Delete Machine Operator
                 </button>
               </div>
-              
             </div>
           </div>
         </div>
@@ -756,8 +756,8 @@ function NewCalender(props) {
                 >
                   Print Weekly Plan
                 </button>
-              </div>              <div className="col-md-3"></div>
-              
+              </div>{" "}
+              <div className="col-md-3"></div>
             </div>
           </div>
         </div>
@@ -949,6 +949,10 @@ function NewCalender(props) {
         getSecondTableData={getSecondTableData}
         setWeekState={setWeekState}
         createWeeklyShiftPlan={createWeeklyShiftPlan}
+        setSelectedShift={setSelectedShift}
+        setSelectedMachine={setSelectedMachine}
+        setSelectedShiftIncharge={setSelectedShiftIncharge}
+        setSelectedOperator={setSelectedOperator}
       />
 
       <SetMachineModal
@@ -973,7 +977,7 @@ function NewCalender(props) {
         selectedShift={selectedShift}
         selectedWeek={selectedWeek}
       />
-      
+
       <DeleteMachineoperatorweekModal
         opendeleteoperator={opendeleteoperator}
         setOpendeleteoperator={setOpendeleteoperator}

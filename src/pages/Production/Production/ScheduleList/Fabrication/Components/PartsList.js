@@ -38,13 +38,14 @@ export default function PartsList({
 
   // CLEAR SELECTED
   const clearSelected = () => {
-    const updatedPartListData = partlistdata.map((row) => {
-      if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
+    const updatedRows = partlistdata.map((row) => {
+      if (selectedRows.includes(row)) {
         return { ...row, QtyCleared: row.QtyProduced };
       }
       return row;
     });
-    setPartlistdata(updatedPartListData);
+    setPartlistdata(updatedRows);
+    setSelectedRows([]);
   };
 
   // SAVE CLEARED
@@ -65,14 +66,14 @@ export default function PartsList({
   const [selectedRows, setSelectedRows] = useState([]);
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
-      const isItemSelected = prevRows.some((row) => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter((row) => row.item !== item);
+      if (prevRows.includes(item)) {
+        return prevRows.filter((row) => row !== item);
       } else {
         return [...prevRows, item];
       }
     });
   };
+  
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -194,12 +195,13 @@ export default function PartsList({
                 >
                   {" "}
                   <td>
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={isChecked}
-                      onChange={() => handleCheckboxChange(item)}
-                    />
+                  <input
+  className="form-check-input"
+  type="checkbox"
+  checked={selectedRows.includes(item)}
+  onChange={() => handleCheckboxChange(item)}
+/>
+
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>

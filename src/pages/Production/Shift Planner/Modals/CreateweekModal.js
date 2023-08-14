@@ -14,7 +14,10 @@ export default function CreateweekModal({
   weekState,
   getSingleDayShiftPlan4thTable,
   getSecondTableData,
-  setWeekState
+  setWeekState,
+  setSelectedShift,
+  setSelectedMachine,
+  setSelectedShiftIncharge
 }) {
   const handleClose = () => {
     setOpenweekshift(false);
@@ -56,7 +59,6 @@ for(let i=0; i<constWeekState.length; i++) {
 constWeekState[i].FromTime = constWeekState[i].ShiftDate + fromTime
 constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime
 }
-    
 } 
     axios
       .post(baseURL + '/shiftEditor/createWeeklyShiftPlan', constWeekState)
@@ -66,7 +68,10 @@ constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime
         getSingleDayShiftPlan4thTable();
         handleClose();
         setWeekState('');
+        // setSelectedShift('');
       });
+      // setSelectedMachine("");
+      // setSelectedShiftIncharge("")
   };
 
   return (
@@ -87,12 +92,22 @@ constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime
         )}
 
         <Modal.Footer>
-          <Button variant="primary" onClick={createWeekshift}>
+          {selectedShiftIncharge.length > 0 && selectedShift ? (
+         <>
+         <Button variant="primary" onClick={createWeekshift}>
             Yes
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             No
           </Button>
+         </>
+        ) : (
+         <>
+         <Button variant="primary" onClick={handleClose}>
+            OK
+          </Button>
+         </>
+        )}
         </Modal.Footer>
       </Modal>
     </div>

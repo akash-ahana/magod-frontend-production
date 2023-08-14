@@ -6,7 +6,7 @@ import Popup from "./Popup"
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,taskNoOnClick,setSelectProgramProcessing
+export default function ProgramProcessingModal({show, setShow,selectProgramProcessing,taskNoOnClick,setSelectProgramProcessing,onClickMachineLabel,laser,setmachineProgramesProcessing
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -310,6 +310,9 @@ return(
    machineData={machineData}
    taskNoOnClick={taskNoOnClick}
    setSelectProgramProcessing={setSelectProgramProcessing}
+   onClickMachineLabel={onClickMachineLabel}
+   laser={laser}
+   setmachineProgramesProcessing={setmachineProgramesProcessing}
    />
 </div>
 </div>

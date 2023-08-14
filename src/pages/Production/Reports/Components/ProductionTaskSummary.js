@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useState } from "react";
 import { Table } from "react-bootstrap";
 
@@ -8,7 +8,11 @@ export default function ProductionTaskSummary({ productionTaskSummary }) {
     let list = { ...item, index: index };
     setSelectRow(list);
   };
-  console.log(selectrow);
+
+  useMemo(()=>{
+    setSelectRow({...productionTaskSummary[0],index:0})
+  },[productionTaskSummary[0]])
+
 
   return (
     <div>

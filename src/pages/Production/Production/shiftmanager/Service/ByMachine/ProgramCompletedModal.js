@@ -3,9 +3,10 @@ import {Modal } from 'react-bootstrap';
 import { Table } from 'react-bootstrap'
 import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
+import CloseProgramModal from '../../Profile/ByMachine/CloseProgramModal';
 
 
-export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted
+export default function ProgramCompletedModal({show, setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted,laser,setMachineProgramesCompleted
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -64,6 +65,7 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
     
   }
 
+  const[openCloseProgram,setCloseProgram]=useState(false);
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
     axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
@@ -74,8 +76,52 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)    
-     taskNoOnClick();
-     MachineOnClick();
+     setCloseProgram(true);
+     axios
+      .post(
+        baseURL + "/shiftManagerProfile/profileListMachinesProgramesCompleted",
+        { MachineName: laser }
+      )
+      .then((response) => {
+
+        for (let i = 0; i < response.data.length; i++) {
+          if (
+            response.data[i].ActualTime <
+            0.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#339900";
+          } else if (
+            response.data[i].ActualTime <
+            0.75 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#82c2b4";
+          } else if (
+            response.data[i].ActualTime <
+            0.9 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.1 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.25 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FF7F50";
+          } else if (
+            response.data[i].ActualTime <
+            1.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FFA500";
+          } else {
+            response.data[i].rowColor = "#ff0000";
+          }
+        }
+        console.log("AFTER ADDING COLOR", response.data);
+        setMachineProgramesCompleted(response.data);
+      });
  })
   }
   console.log(programCompleteData , 'After Updating')  
@@ -103,6 +149,9 @@ export default function ProgramCompletedModal({show, setShow,selectProgramComple
 
 return (
   <div>
+    <CloseProgramModal openCloseProgram={openCloseProgram}
+    setCloseProgram={setCloseProgram}/>
+
     <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
       <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>

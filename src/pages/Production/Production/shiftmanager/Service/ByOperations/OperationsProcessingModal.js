@@ -6,7 +6,7 @@ import Popup from "./Popup"
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
+export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick,onClickOpeartion,setProgramProcessing,operation
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -297,6 +297,9 @@ return(
    selectProgramProcessing={selectProgramProcessing}
    machineData={machineData}
    taskNoOnClick={taskNoOnClick}
+   onClickOpeartion={onClickOpeartion}
+   setProgramProcessing={setProgramProcessing}
+   operation={operation}
    />
 </div>
 </div>

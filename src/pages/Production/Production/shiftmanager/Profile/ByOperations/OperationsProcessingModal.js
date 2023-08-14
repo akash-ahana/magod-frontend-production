@@ -5,7 +5,7 @@ import axios from "axios";
 import Popup from "./Popup"
 import { baseURL } from '../../../../../../api/baseUrl';
 
-export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
+export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick,onClickMachines,operation,setProgramProcessing
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -273,6 +273,9 @@ return(
    selectProgramProcessing={selectProgramProcessing}
    machineData={machineData}
    taskNoOnClick={taskNoOnClick}
+   onClickMachines={onClickMachines}
+   operation={operation}
+   setProgramProcessing={setProgramProcessing}
    />
 </div>
 </div>

@@ -5,8 +5,7 @@ import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick,setMachineProgramesCompleted}) {
-
+export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick,setMachineProgramesCompleted,selectedMachine}) {
     const [show, setShow] = useState(false);
 
     const handaleClick =()=>{
@@ -48,6 +47,8 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
       let list={...item,index:index}
       setSelectProgramCompleted(list);
     }
+
+    console.log(selectProgramCompleted)
   return (
     <>
     <div>
@@ -117,6 +118,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
      MachineOnClick={MachineOnClick}
      setSelectProgramCompleted={setSelectProgramCompleted}
      setMachineProgramesCompleted={setMachineProgramesCompleted}
+     selectedMachine={selectedMachine}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />

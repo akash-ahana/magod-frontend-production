@@ -6,6 +6,7 @@ import "../Styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useMemo } from "react";
+import { useGlobalContext } from "../../../../../../Context/Context";
 
 export default function PartsList({
   TaskNo,
@@ -13,6 +14,8 @@ export default function PartsList({
   partlistdata,
   setPartlistdata,
 }) {
+  const {getSchedulistdata,getSchedulistfabricationdata,getSchedulistservicedata } = useGlobalContext();
+
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
 
@@ -38,14 +41,16 @@ export default function PartsList({
 
   // CLEAR SELECTED
   const clearSelected = () => {
-    const updatedPartListData = partlistdata.map((row) => {
-      if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
+    const updatedRows = partlistdata.map((row) => {
+      if (selectedRows.includes(row)) {
         return { ...row, QtyCleared: row.QtyProduced };
       }
       return row;
     });
-    setPartlistdata(updatedPartListData);
+    setPartlistdata(updatedRows);
+    setSelectedRows([]);
   };
+  
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
@@ -59,20 +64,24 @@ export default function PartsList({
           position: toast.POSITION.TOP_CENTER,
         });
       });
+      getSchedulistdata();
+      getSchedulistfabricationdata();
+      getSchedulistservicedata();
   };
 
   // SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
-      const isItemSelected = prevRows.some((row) => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter((row) => row.item !== item);
+      if (prevRows.some((row) => row.id === item.id)) {
+        return prevRows.filter((row) => row.id !== item.id);
       } else {
         return [...prevRows, item];
       }
     });
   };
+  
+  console.log(selectedRows)
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -123,6 +132,8 @@ export default function PartsList({
   const isClearedDisabled =
     selectedRows.length === 0 &&
     partlistdata.every((row) => row.QtyCleared === row.QtyProduced);
+
+    
   return (
     <div>
       <ToastContainer />
@@ -195,7 +206,7 @@ export default function PartsList({
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      checked={isChecked}
+                      checked={selectedRows.includes(item)}
                       onChange={() => handleCheckboxChange(item)}
                     />
                   </td>

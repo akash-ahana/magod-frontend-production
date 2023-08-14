@@ -6,76 +6,76 @@ import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function MachineChangeModal({changeMachine,setChangeMachine,selectProgramProcessing,setSelectProgramProcessing,selectedMachine,setOpenChangeMachine,onClickMachines,operation,setProgramProcessing}) {
+export default function MachineChangeModal({changeMachine,setChangeMachine,selectProgramProcessing,setSelectProgramProcessing,selectedMachine,setOpenChangeMachine,onClickMachine,FirstSelectedMachine,setmachineProgramesProcessing,laser}) {
+
+  console.log(FirstSelectedMachine)
     const handleClose=()=>{
         setChangeMachine(false);
         setOpenChangeMachine(false);
     }
 
-    const onClickYes=()=>{
-        axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing,NewMachine : selectedMachine })
-        .then((response) => {
-          console.log('Current State of programCompleteData' , response.data);
-          handleClose();
-           const constSelectProgramCompleted = selectProgramProcessing;
-           constSelectProgramCompleted.Machine = selectedMachine;
-           setSelectProgramProcessing(constSelectProgramCompleted)
-       })
-        toast.success('Machine Name Changed',{
-            position: toast.POSITION.TOP_CENTER
-        })
-        handleClose();
-        axios
-      .post(baseURL + "/shiftManagerProfile/OperationProgramesProcessing", {
-        Operation: operation,
-      })
+    const onClickYes = () => {
+      axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,
+          NewMachine : selectedMachine })
       .then((response) => {
+        console.log('Current State of programCompleteData' , response.data);
+        handleClose();
+         const constSelectProgramCompleted = selectProgramProcessing;
+         constSelectProgramCompleted.Machine = selectedMachine;
+         setSelectProgramProcessing(constSelectProgramCompleted)
+         setSelectProgramProcessing(constSelectProgramCompleted)
+         toast.success('Machine Name Changed',{
+          position: toast.POSITION.TOP_CENTER
+      })
+      axios
+      .post(
+        baseURL + "/shiftManagerProfile/profileListMachinesProgramesProcessing",
+        { MachineName: laser }
+      )
+      .then((response) => {
+        console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
             0.5 * response.data[i].EstimatedTime
           ) {
             response.data[i].rowColor = "#339900";
-            //break;
           } else if (
             response.data[i].ActualTime <
             0.75 * response.data[i].EstimatedTime
           ) {
             response.data[i].rowColor = "#82c2b4";
-            //break;
           } else if (
             response.data[i].ActualTime <
             0.9 * response.data[i].EstimatedTime
           ) {
             response.data[i].rowColor = "#f08080";
-            //break;
           } else if (
             response.data[i].ActualTime <
             1.1 * response.data[i].EstimatedTime
           ) {
             response.data[i].rowColor = "#f08080";
-            //break;
           } else if (
             response.data[i].ActualTime <
             1.25 * response.data[i].EstimatedTime
           ) {
             response.data[i].rowColor = "#FF7F50";
-            //break;
           } else if (
             response.data[i].ActualTime <
             1.5 * response.data[i].EstimatedTime
           ) {
             response.data[i].rowColor = "#FFA500";
-            //break;
           } else {
             response.data[i].rowColor = "#ff0000";
           }
         }
         console.log("AFTER ADDING COLOR", response.data);
-        setProgramProcessing(response.data);
+        setmachineProgramesProcessing(response.data);
       });
+     })
+    };
+    
 
-    }
   return (
     <>
         <ToastContainer/>
@@ -85,7 +85,7 @@ export default function MachineChangeModal({changeMachine,setChangeMachine,selec
           <Modal.Title>Machine Selection Form</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Do you wish to shift Program No {selectProgramProcessing.NCProgramNo} from {selectProgramProcessing.Machine} To laser {selectedMachine}?
+          Do you wish to shift Program No <b>{selectProgramProcessing.NCProgramNo}</b> from <b>{selectProgramProcessing.Machine}</b> To laser <b>{FirstSelectedMachine}</b>?
         </Modal.Body>
         <Modal.Footer>
         <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={onClickYes} >

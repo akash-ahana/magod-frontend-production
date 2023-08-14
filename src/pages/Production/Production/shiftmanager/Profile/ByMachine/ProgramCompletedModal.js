@@ -5,9 +5,10 @@ import axios from "axios";
 import { baseURL } from '../../../../../../api/baseUrl';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import CloseProgramModal from './CloseProgramModal';
 
 
-export default function ProgramCompletedModal({show,setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted,setMachineProgramesCompleted
+export default function ProgramCompletedModal({show,setShow,selectProgramCompleted,taskNoOnClick,MachineOnClick,setSelectProgramCompleted,setMachineProgramesCompleted,selectedMachine
 }) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
 
@@ -65,42 +66,60 @@ export default function ProgramCompletedModal({show,setShow,selectProgramComplet
     
   }
 
+  const[openCloseProgram,setCloseProgram]=useState(false);
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
     axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
     selectProgramCompleted)
    .then((response) => {
-    toast.success('Program Closed', {
-      position: toast.POSITION.TOP_CENTER
-    });
      const constSelectProgramCompleted = selectProgramCompleted;
      constSelectProgramCompleted.PStatus = 'Closed'
      setSelectProgramCompleted(constSelectProgramCompleted)
- })
- axios.get(baseURL+'/shiftManagerProfile/allCompleted')
- .then((response) => {
-   for(let i = 0; i< response.data.length ; i++) {
-     if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){
-       response.data[i].rowColor = "#339900"
-     } else if (response.data[i].ActualTime < (0.75)*response.data[i].EstimatedTime) {
-       response.data[i].rowColor = "#82c2b4"
-     } else if (response.data[i].ActualTime < (0.9)*response.data[i].EstimatedTime) {
-       response.data[i].rowColor = "#f08080"
-     }
-     else if (response.data[i].ActualTime < (1.1)*response.data[i].EstimatedTime) {
-       response.data[i].rowColor = "#f08080"
-     } 
-     else if (response.data[i].ActualTime < (1.25)*response.data[i].EstimatedTime) {
-       response.data[i].rowColor = "#FF7F50"
-     } 
-     else if (response.data[i].ActualTime < (1.5)*response.data[i].EstimatedTime) {
-       response.data[i].rowColor = "#FFA500"
-     } else {
-       response.data[i].rowColor = "#ff0000"
-     }
-   }
-   console.log("response  machine list",response.data)
-   setMachineProgramesCompleted(response.data)
+     setCloseProgram(true)
+     axios
+      .post(
+        baseURL + "/shiftManagerProfile/profileListMachinesProgramesCompleted",
+        { MachineName: selectedMachine }
+      )
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if (
+            response.data[i].ActualTime <
+            0.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#339900";
+          } else if (
+            response.data[i].ActualTime <
+            0.75 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#82c2b4";
+          } else if (
+            response.data[i].ActualTime <
+            0.9 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.1 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.25 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FF7F50";
+          } else if (
+            response.data[i].ActualTime <
+            1.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FFA500";
+          } else {
+            response.data[i].rowColor = "#ff0000";
+          }
+        }
+        console.log("AFTER ADDING COLOR", response.data);
+        setMachineProgramesCompleted(response.data);
+      });
  })
   }
 
@@ -127,6 +146,9 @@ export default function ProgramCompletedModal({show,setShow,selectProgramComplet
 
 return (
   <div>
+    <CloseProgramModal openCloseProgram={openCloseProgram}
+    setCloseProgram={setCloseProgram}/>
+    
     <Modal size='lg' show={show} fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
       <Modal.Title style={{width:"100%"}} className='title'>Program Parts Inspection Form</Modal.Title>

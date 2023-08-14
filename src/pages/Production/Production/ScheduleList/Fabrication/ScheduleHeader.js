@@ -53,18 +53,6 @@ export default function ScheduleHeader({
     setOpenShowPrograms(true);
   };
 
-  const searchText = (e) => {
-    let number = e.target.value;
-    let filteredData = schedulelistfabricationdata.filter((data) => {
-      return data.OrdSchNo.startsWith(number);
-    });
-    if (filteredData.length > 0) {
-      setSchedulelistfabricationdata(filteredData);
-    }
-    if (e.target.value.length === 0) {
-      setSchedulelistfabricationdata(schedulelistfabricationdatas);
-    }
-  };
 
   const [programmedtatus, setProgrammedstatus] = useState([]);
   const [completedStatus, setCompletedStatus] = useState([]);
@@ -204,6 +192,19 @@ export default function ScheduleHeader({
     setOpenProductionList(true);
   };
 
+  //TRY SEARCH
+  const [searchInput, setSearchInput] = useState("");
+    const searchText1 = (e) => {
+      const searchText = e.target.value;
+      const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
+      setSearchInput(sanitizedSearchText);
+      // Apply the filter on allotmentTable based on the search input value
+      const filteredData = schedulelistfabricationdatas.filter((data) =>
+          data.OrdSchNo.includes(sanitizedSearchText)
+        );
+        setSchedulelistfabricationdata(filteredData);
+  };
+
   return (
     <div>
       <div className="col-md-12 col-sm-12">
@@ -244,8 +245,8 @@ export default function ScheduleHeader({
                 className="in-field my-0 mt-4"
                 onKeyDown={blockInvalidChar}
                 placeholder="Search Schedule"
-                type="number"
-                onChange={(e) => searchText(e)}
+                type="text"
+                onChange={(e) => searchText1(e)}
               />
             </div>
             <div className=" col-md-7 mt-2">

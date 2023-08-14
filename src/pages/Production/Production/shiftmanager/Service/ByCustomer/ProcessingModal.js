@@ -6,7 +6,8 @@ import Popup from "./Popup";
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick
+export default function ProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick,
+  onClickCustLabel,custCode,setProgramProcessing
 }) {
   const [fullscreen, setFullscreen] = useState(true);
 
@@ -282,6 +283,10 @@ return(
                  placeholder="Type Cleared"
                 />
             </td>
+            {/* <td >
+              <div key={item.QtyCleared}>
+              {item.QtyCleared}
+                </div></td> */}
        </tr>
   </tbody>
   
@@ -295,6 +300,9 @@ return(
    selectProgramProcessing={selectProgramProcessing}
    machineData={machineData}
    taskNoOnClick={taskNoOnClick}
+   onClickCustLabel={onClickCustLabel}
+   custCode={custCode}
+   setProgramProcessing={setProgramProcessing}
    />
 </div>
 </div>

@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import ProcessTable from "./ProcessTable";
 import ScheduleListtable from "./ScheduleListtable";
-import NavTab from "../Fabrication/Components/NavTab";
+import NavTab from "../Profile/Components/NavTab";
 import axios from "axios";
 import { useGlobalContext } from "../../../../../Context/Context";
 import { baseURL } from "../../../../../api/baseUrl";

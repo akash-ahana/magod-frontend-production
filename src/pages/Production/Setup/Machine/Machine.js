@@ -8,7 +8,6 @@ import { baseURL } from '../../../../api/baseUrl';
 
 export default function Machine() {
   const {post,MachineTabledata} = useGlobalContext();
-  // console.log(post[0])
   const [selectedRow,setSelectedRow]=useState({refName:'',remarks:'',installDate:'',uninstallDate:'',targetRate:'',Working:'',location:'',RegnNo:''})
   const [machine_srl,setMachine_srl]=React.useState('')
   const [processdataList,setProcessdataList]=useState([])
@@ -17,9 +16,11 @@ export default function Machine() {
     MachineTabledata();
   },[])
   
-  useMemo(()=>{
-    setSelectedRow({...post[0],index:0})
-  },[post[0]])
+  // useMemo(()=>{
+  //   setSelectedRow({...post[0],index:0})
+  // },[post[0]])
+
+  
 
   const selectedRowFn=(item,index)=>{
     let list={...item,index:index}
@@ -39,7 +40,14 @@ export default function Machine() {
       InstallDate,UnistallDate,TgtRate,Working,location,RegnNo,Machine_srl,
       isRegnNumberPresent,isLocationPresent,isInstallDatePresent,index:index})
   }
-  // console.log("Machine",machine_srl);
+
+  //Default first row select
+  useEffect(() => {
+    if (post.length > 0 && !selectedRow.refName) {
+      selectedRowFn(post[0], 0); // Select the first row
+    }
+  }, [post, selectedRow, selectedRowFn]);
+
   const getprocessdataList=()=>{
    axios.post(
       baseURL + "/productionSetup/getProcessForMachine",

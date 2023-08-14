@@ -6,7 +6,7 @@ import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function OperationsProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine,setProgramCompleted}) {
+export default function OperationsProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine,setProgramCompleted,operation}) {
 
     const [show, setShow] = useState(false);
 
@@ -119,6 +119,8 @@ export default function OperationsProgramCompleteTable({proramCompleted,onClickO
      onClickMachine={onClickMachine}
     //  programCompleteData={programCompleteData}
     setSelectProgramCompleted={setSelectProgramCompleted}
+    setProgramCompleted={setProgramCompleted}
+    operation={operation}
      />
   
 

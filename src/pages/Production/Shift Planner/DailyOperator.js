@@ -96,13 +96,21 @@ function DailyOperator(props) {
           <label className="form-label">Machine</label>
         </div>
         <div style={{ marginLeft: "33px", marginTop: "6px" }}>
-          <select className="ip-select" onChange={handleMachineChange} value={selectedMachine}>
-            {dataMachineList.map((dataMachineList) => (
-              <option key={dataMachineList.refName} value={dataMachineList.refName}>
-                {dataMachineList.refName}
-              </option>
-            ))}
-          </select>
+        <select className="ip-select" onChange={handleMachineChange} value={selectedMachine}>
+  {selectedMachine === undefined ? (
+    <option value="" disabled>Select machine</option>
+  ) : (
+    <>
+      <option value="" disabled>Select machine</option>
+      {dataMachineList.map((data) => (
+        <option key={data.refName} value={data.refName}>
+          {data.refName}
+        </option>
+      ))}
+    </>
+  )}
+</select>
+
         </div>
       </div>
 
@@ -112,12 +120,20 @@ function DailyOperator(props) {
         </div>
         <div style={{ marginLeft: "30px", marginTop: "6px" }}>
           <select className="ip-select" onChange={handleOperatorChange} value={selectedOperator}>
-            {dataOperatorList.map((dataOperatorList) => (
-              <option key={dataOperatorList.Name} value={dataOperatorList.Name}>
-                {dataOperatorList.Name}
-              </option>
-            ))}
-          </select>
+  {selectedOperator === undefined ? (
+    <option value="" disabled>Select  operator</option>
+  ) : (
+    <>
+      <option value="" disabled>Select  operator</option>
+      {dataOperatorList.map((data) => (
+        <option key={data.Name} value={data.Name}>
+          {data.Name}
+        </option>
+      ))}
+    </>
+  )}
+</select>
+
         </div>
       </div>
 

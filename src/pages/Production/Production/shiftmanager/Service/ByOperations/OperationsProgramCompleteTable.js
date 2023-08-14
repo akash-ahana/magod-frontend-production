@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function OperationsProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine,setProgramCompleted}) {
+export default function OperationsProgramCompleteTable({proramCompleted,onClickOperation,onClickProgram,onClickMachine,setProgramCompleted,operation}) {
 
     const [show, setShow] = useState(false);
 
@@ -128,8 +128,10 @@ export default function OperationsProgramCompleteTable({proramCompleted,onClickO
      onClickOperation={onClickOperation}
      onClickProgram={onClickProgram}
      onClickMachine={onClickMachine}
+     operation={operation}
     //  programCompleteData={programCompleteData}
     setSelectProgramCompleted={setSelectProgramCompleted}
+    setProgramCompleted={setProgramCompleted}
      />
   
 

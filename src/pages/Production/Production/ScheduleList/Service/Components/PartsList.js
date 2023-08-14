@@ -96,29 +96,25 @@ export default function PartsList({
       });
   };
 
-  const handleCheckboxChange = (event, row) => {
-    if (event.target.checked) {
-      // Add the selected row object to the array
-      setSelectedRows([...selectedRows, row]);
-    } else {
-      // Remove the selected row object from the array
-      setSelectedRows(
-        selectedRows.filter((selectedRow) => selectedRow.id !== row.id)
-      );
-    }
-    updateClearedDisabledState(partlistdata); // Update the disabled state of the Save Cleared button
+  const handleCheckboxChange = (item) => {
+    setSelectedRows((prevRows) => {
+      if (prevRows.includes(item)) {
+        return prevRows.filter((row) => row !== item);
+      } else {
+        return [...prevRows, item];
+      }
+    });
   };
 
   const clearSelected = () => {
-    const updatedPartListData = partlistdata.map((row) => {
-      if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
+    const updatedRows = partlistdata.map((row) => {
+      if (selectedRows.includes(row)) {
         return { ...row, QtyCleared: row.QtyProduced };
       }
       return row;
     });
-
-    setPartlistdata(updatedPartListData);
-    updateClearedDisabledState(updatedPartListData); // Update the disabled state of the Save Cleared button
+    setPartlistdata(updatedRows);
+    setSelectedRows([]);
   };
 
   //ONSELECT
@@ -200,13 +196,13 @@ export default function PartsList({
                   onClick={() => rowSelectFun(item, key)}
                   className={key === selectPartList?.index ? "selcted-row-clr" : ""}>               
                      <td>
-                    <input
-                      style={{ marginLeft: "20px" }}
-                      className="form-check-input"
-                      type="checkbox"
-                      checked={selectedRows.some((row) => row.id === item.id)}
-                      onChange={(event) => handleCheckboxChange(event, item)}
-                    />
+                     <input
+  className="form-check-input"
+  type="checkbox"
+  checked={selectedRows.includes(item)}
+  onChange={() => handleCheckboxChange(item)}
+/>
+
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
                   <td>{item.QtyToNest}</td>

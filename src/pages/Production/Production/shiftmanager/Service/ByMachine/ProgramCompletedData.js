@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick, setMachineProgramesCompleted}) {
+export default function ProgramCompletedData({machineProgramesCompleted,taskNoOnClick,MachineOnClick, setMachineProgramesCompleted,laser}) {
 
     const [show, setShow] = useState(false);
 
@@ -116,8 +116,8 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
      taskNoOnClick={taskNoOnClick}
      MachineOnClick={MachineOnClick}
      setSelectProgramCompleted={setSelectProgramCompleted}
-    //  programCompleteData={programCompleteData}
-    //  setProgramCompleteData={setProgramCompleteData}
+     setMachineProgramesCompleted={setMachineProgramesCompleted}
+    laser={laser}
      />
   )
 }

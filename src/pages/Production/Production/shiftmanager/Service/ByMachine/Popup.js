@@ -6,12 +6,13 @@ import { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { baseURL } from '../../../../../../api/baseUrl';
+import MachineChangeModal from './MachineChangeModal';
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
-   machineData,setSelectProgramProcessing}) {
+   machineData,setSelectProgramProcessing,onClickMachineLabel,laser,setmachineProgramesProcessing}) {
 // console.log(selectProgramProcessing)
 // console.log('MACHINE DATA' , machineData[0].refName)
-const [selectedMachine, setSelectedMachine] = useState("")
+const [selectedMachine1, setSelectedMachine] = useState("")
 
 const handleClose = ()=>{
   setOpenChangeMachine(false);
@@ -24,24 +25,24 @@ const handleMachineChange = (e) => {
 };
 
 
+const[changeMachine,setChangeMachine]=useState('');
 const changeMachineonClick = () => {
-  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    handleClose();
-     const constSelectProgramCompleted = selectProgramProcessing;
-     constSelectProgramCompleted.Machine = selectedMachine;
-     setSelectProgramProcessing(constSelectProgramCompleted)
-     setSelectProgramProcessing(constSelectProgramCompleted)
-     toast.success('Machine Name Changed',{
-      position: toast.POSITION.TOP_CENTER
-  })
-    // taskNoOnClick();
- })
-}
+  setChangeMachine(true);
+ }
+
 
   return (
     <>
+    <MachineChangeModal
+    changeMachine={changeMachine}
+    setChangeMachine={setChangeMachine}
+    selectProgramProcessing={selectProgramProcessing}
+    setSelectProgramProcessing={setSelectProgramProcessing}
+    laser={laser}
+    FirstSelectedMachine={selectedMachine1}
+    setOpenChangeMachine={setOpenChangeMachine}
+    setmachineProgramesProcessing={setmachineProgramesProcessing}
+    />
         <ToastContainer/>
     <Modal show={openChnageMachine} size='lg'>
     <div 

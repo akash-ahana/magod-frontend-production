@@ -6,7 +6,7 @@ import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 
 
-export default function MachineChangeModal({changeMachine,setChangeMachine,selectProgramProcessing,setSelectProgramProcessing,selectedMachine,setOpenChangeMachine}) {
+export default function MachineChangeModal({changeMachine,setChangeMachine,selectProgramProcessing,setSelectProgramProcessing,selectedMachine,setOpenChangeMachine,onClickCustLabel,custCode,setProgramProcessing}) {
     const handleClose=()=>{
         setChangeMachine(false);
         setOpenChangeMachine(false);
@@ -26,7 +26,55 @@ export default function MachineChangeModal({changeMachine,setChangeMachine,selec
             position: toast.POSITION.TOP_CENTER
         })
         handleClose();
-    }
+        axios
+        .post(baseURL + "/shiftManagerProfile/CustomerProgramesProcessing", {
+          Cust_Code:custCode,
+        })
+        .then((response) => {
+          for (let i = 0; i < response.data.length; i++) {
+            if (
+              response.data[i].ActualTime <
+              0.5 * response.data[i].EstimatedTime
+            ) {
+              response.data[i].rowColor = "#339900";
+              //break;
+            } else if (
+              response.data[i].ActualTime <
+              0.75 * response.data[i].EstimatedTime
+            ) {
+              response.data[i].rowColor = "#82c2b4";
+              //break;
+            } else if (
+              response.data[i].ActualTime <
+              0.9 * response.data[i].EstimatedTime
+            ) {
+              response.data[i].rowColor = "#f08080";
+              //break;
+            } else if (
+              response.data[i].ActualTime <
+              1.1 * response.data[i].EstimatedTime
+            ) {
+              response.data[i].rowColor = "#f08080";
+              //break;
+            } else if (
+              response.data[i].ActualTime <
+              1.25 * response.data[i].EstimatedTime
+            ) {
+              response.data[i].rowColor = "#FF7F50";
+              //break;
+            } else if (
+              response.data[i].ActualTime <
+              1.5 * response.data[i].EstimatedTime
+            ) {
+              response.data[i].rowColor = "#FFA500";
+              //break;
+            } else {
+              response.data[i].rowColor = "#ff0000";
+            }
+          }
+          console.log("AFTER ADDING COLOR", response.data);
+          setProgramProcessing(response.data);
+        });    }
   return (
     <>
         <ToastContainer/>
