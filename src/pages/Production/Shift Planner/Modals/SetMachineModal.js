@@ -10,7 +10,7 @@
 
   export default function SetMachineModal({opensetmachine,setOpensetmachine,selectedMachine,
       selectedOperator, selectedWeek,weekState1,setWeekState1,getMachineOperatorTableData,
-      getSingleDayShiftPlan4thTable,selectedShift}) {
+      getSingleDayShiftPlan4thTable,selectedShift,rowselectDailyShiftTable,setMachineOperatorTableData}) {
       const handleClose=()=>{
           setOpensetmachine(false);
       }
@@ -18,40 +18,45 @@
       const setMachineoperators = () => {
         // Check if any of the fields have the "Select" value
         const invalidFields = weekState1.some(
-          (item) =>
-            item.Machine === 'Select Machine' ||
-            item.Shift === 'Select Shift' ||
-            item.Operator === 'Select Operator'
+            (item) =>
+                item.Machine === 'Select Machine' ||
+                item.Shift === 'Select Shift' ||
+                item.Operator === 'Select Operator'
         );
-      
         if (invalidFields) {
-          handleClose();
-          toast.error('Please select all fields (Machine, Shift, and Operator)', {
-            position: toast.POSITION.TOP_CENTER,
-          });
-          return; // Stop the function execution since there are invalid fields
+            handleClose();
+            toast.error('Please select all fields (Machine, Shift, and Operator)', {
+                position: toast.POSITION.TOP_CENTER,
+            });
+            return; // Stop the function execution since there are invalid fields
         }
-      
         console.log(weekState1);
         axios
-          .post(baseURL + '/shiftEditor/setMachineOperators', weekState1)
-          .then((response) => {
-            console.log(response);
-            toast.success('Machine Operator Added Successfully', {
-              position: toast.POSITION.TOP_CENTER,
+            .post(baseURL + '/shiftEditor/setMachineOperators', weekState1)
+            .then((response) => {
+              handleClose();
+                console.log(response.data);
+                if (response.data === 'Operator already present') {
+                    toast.error('Operator already present', {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
+                } else if (response.data === 'Data Added Sucessfully') {
+                    toast.success('Machine Operator Added Successfully', {
+                        position: toast.POSITION.TOP_CENTER,
+                    });
+                    getMachineOperatorTableData();
+                    getSingleDayShiftPlan4thTable();
+                    setWeekState1('');
+                }
+            })
+            .catch((error) => {
+                console.error(error); // Handle error if needed
+                toast.error('An error occurred while processing your request', {
+                    position: toast.POSITION.TOP_CENTER,
+                });
             });
-            getMachineOperatorTableData();
-            getSingleDayShiftPlan4thTable();
-            handleClose();
-            setWeekState1('');
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-            toast.error('Error while adding Machine Operator', {
-              position: toast.POSITION.TOP_CENTER,
-            });
-          });
-      };
+    };
+    
 
     return (
       <div>
@@ -69,10 +74,8 @@
             </Modal.Body>
           )}
 
-
-
   <Modal.Footer>
-            {selectedOperator && selectedMachine ? (
+            {selectedOperator && selectedMachine && selectedShift ? (
               <>
             <Button variant="primary" onClick={()=>setMachineoperators()}>
               Yes

@@ -93,7 +93,7 @@ export default function PartsList({
     }
   };
 
-  console.log(partlistdata);
+  // console.log(partlistdata);
 
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array

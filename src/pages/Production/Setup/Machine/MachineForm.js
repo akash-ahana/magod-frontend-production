@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 
 
-export default function ({selectedRow}) {
+export default function ({selectedRow,setSelectedRow}) {
   const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.preventDefault();
   const blockInvalidCharReg = e => {
     const invalidChars = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '|', '}', '{', '[', ']', '.', ',', '/', '?', '"', '<', '>', '`', '~', ';', ':'];
@@ -39,7 +39,7 @@ export default function ({selectedRow}) {
      const [RefProcess,setRefProcess]=React.useState('')
      const [TgtRate,setTgRate]=React.useState('');
 
-    const {MachineTabledata} = useGlobalContext()
+    const {MachineTabledata,post} = useGlobalContext()
     const [finaldata,setFinaldata]=React.useState([])
     const [show, setShow] = React.useState(false);
     const [addprocess,setAddprocess]=React.useState(false)
@@ -117,9 +117,9 @@ setOpendeleteprocess(true);
         {
           refName:referencename
         }).then((response) => {
-          // console.log("deleted",response)
-        MachineTabledata();
-      });
+          console.log("deleted",response)
+          setSelectedRow({...post[0],index:0})     
+         });
     }
 
     //GET MACHINE DETAILS
@@ -174,30 +174,35 @@ else{
   const openSavemachine=()=>{
     setOpensavemachine(true);
   }
+
+  console.log(selectedRow)
   // console.log(opensavemachine)
   const saveMachine = () => {
-    // console.log("consoling data before save", machineData);
-  
-    // if (machineData.TgtRate === '') {
-    //   toast.error('Target Rate cannot be empty. Please enter a value', {
-    //     position: toast.POSITION.TOP_CENTER
-    //   })
-    //   return;
-    // }
-    console.log(machineData)
     axios.post(
       baseURL + "/productionSetup/saveMachine",
       {
         ...machineData
-      }).then((response) => {
-        console.log("sent", response);
-        MachineTabledata();
-        toast.success('Machine Details Saved', {
-          position: toast.POSITION.TOP_CENTER
-        })
-        // openSavemachine();
+      }
+    ).then((response) => {
+      console.log("sent", response.data);
+      MachineTabledata();
+      toast.success('Machine Details Saved', {
+        position: toast.POSITION.TOP_CENTER
       });
-  }
+  
+      // Update the state properties after successful save
+      setMachineData(prevMachineData => ({
+        ...prevMachineData,
+        isInstallDatePresent: true, // Update to the desired value
+        isLocationPresent: true,    // Update to the desired value
+        isRegnNumberPresent: true   // Update to the desired value
+      }));
+  
+      // Close the save machine modal or perform other actions if needed
+      // setOpensavemachine(false);
+    });
+  };
+  
   
 
   return (
@@ -270,7 +275,7 @@ else{
               <div className="col-md-12">
                 <label className="form-label">Manufacturer</label>
                 <input className="in-fields"  name='manufacturer'
-                 value={machineData.manufacturer} 
+                 value={machineData.manufacturer || ' '} 
                 disabled={true}  onChange={(e)=>handleMachineChange(e)}/>
               </div>
             </div>
@@ -280,7 +285,7 @@ else{
               <div className="col-md-9">
               <div className="col-md-12 ">
                 <label className="form-label">Model</label>
-                <input className="in-fields" value={machineData.Model} 
+                <input className="in-fields" value={machineData.Model || ' '} 
                  disabled={true} name='model' onChange={(e)=>handleMachineChange(e)} />
               </div>
 
@@ -301,7 +306,7 @@ else{
             <div className="row">
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="form-label">RegnNo</label>
+                <label className="form-label">RegnNo <span style={{color:"red"}}>*</span></label>
                 <input   value={machineData.RegnNo}
                  name='RegnNo' 
                  disabled={machineData.isRegnNumberPresent=== true ? true : false}
@@ -315,7 +320,7 @@ else{
               </div>
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="form-label">Location</label>
+                <label className="form-label">Location <span style={{color:"red"}}>*</span></label>
                 <input 
                    name='location' value={machineData.location}
                    disabled={machineData.isLocationPresent===true ? true : false}
@@ -357,7 +362,7 @@ else{
             <div className="row">
               <div className="col-md-6">
               <div className="col-md-12 ">
-                <label className="form-label">Install Date</label>
+                <label className="form-label">Install Date <span style={{color:"red"}}>*</span></label>
                 <input 
               name='InstallDate' 
                value={formatDate(machineData.InstallDate)} type="date"
@@ -375,6 +380,7 @@ else{
                 <input className="in-fields mt-2" name='UnistallDate'
                   value={formatDate(machineData.UnistallDate)}
                  type="date"
+                 min={machineData.InstallDate}
                  onChange={(e)=>handleMachineChange(e)} />
               </div>
               </div>

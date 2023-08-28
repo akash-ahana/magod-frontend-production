@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintWeeklyplan({selectedWeek}) {
+export default function PrintWeeklyplan({selectedWeek,pdfShifts}) {
    
   //API 
   //First Shift
@@ -43,7 +43,7 @@ export default function PrintWeeklyplan({selectedWeek}) {
       {
         ShiftDate:selectedWeek,
       }).then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           setNewdata(response.data)
       })
     }
@@ -63,7 +63,7 @@ export default function PrintWeeklyplan({selectedWeek}) {
             <PDFViewer width="1200" height="600" filename="somename.pdf">
               <WeeklyShifttable 
               selectedWeek={selectedWeek} 
-              newData = {newData}
+              newData = {pdfShifts}
               />
             </PDFViewer>
           </Fragment>

@@ -242,10 +242,10 @@ export default function ScheduleHeader({
       </div>
 
       <div className="col-md-12 col-sm-12">
-        <div className="mt-2">
+        <div className="">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <Form.Group controlId="CustName">
+              <Form.Group controlId="CustName" style={{marginTop:"2px"}}>
                 {custdata.length > 0 ? (
                   <Typeahead
                     options={custdata}
@@ -258,10 +258,11 @@ export default function ScheduleHeader({
               </Form.Group>
             </div>
 
-            <div className="col-md-2 mt-4">
+            <div className="col-md-2 mt-3">
               {/* <label className="form-label mt-2">Find Schedule</label> */}
               <input 
                 className="in-field my-0 mt-3"
+                placeholder="Search Schedule"
                 onKeyDown={blockInvalidChar}
                 type="text" // Change the input type to "text"
                 value={searchInput} // Set the value to the state variable

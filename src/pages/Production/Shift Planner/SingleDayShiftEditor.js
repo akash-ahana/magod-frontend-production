@@ -14,7 +14,7 @@ function SingleDayShiftEditor({
   rowselect,
   rowSelectFunForDailyShiftTable,
 }) {
-  console.log(rowselectDailyShiftTable.Shift_Ic);
+  // console.log(rowselectDailyShiftTable.Shift_Ic);
   //PRINT DAILY SHIFT
   // let navigate=useNavigate();
 
@@ -95,13 +95,12 @@ function SingleDayShiftEditor({
     <>
       <ToastContainer />
       <div
+      className="col-md-4"
         style={{
+          width:"190px",
           textAlign: "center",
           backgroundColor: "#d3d3d3",
-          marginTop: "23px",
-          marginLeft: "5px",
           fontSize: "14px",
-          width: "210px",
         }}
       >
         <h6>Daily Shift Editor</h6>
@@ -154,6 +153,7 @@ function SingleDayShiftEditor({
           }}
         >
           {rowselectDailyShiftTable.FromTime}
+
         </div>
         <div>To Time</div>
         <div

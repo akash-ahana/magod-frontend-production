@@ -206,10 +206,10 @@ export default function ScheduleHeader({
       </div>
 
       <div className="col-md-12 col-sm-12">
-        <div className="mt-2">
+        <div className="">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <Form.Group controlId="CustName">
+              <Form.Group controlId="CustName" style={{marginTop:"9px"}}>
                 {/* <label className="form-label">Customer Name </label>
               <Form.Label
                 style={{

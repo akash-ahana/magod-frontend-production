@@ -9,6 +9,7 @@ import PrepareReportModal1 from "./Components/PrepareReportModal1";
 import { useGlobalContext } from "../../../Context/Context";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import CustomModal from "../CustomModal";
 
 export default function Reports() {
 
@@ -26,6 +27,7 @@ export default function Reports() {
   const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
+  const [modalShow, setModalShow] = useState(false);
 
   const selectedMachineFun = (item, index) => {
     setSelectedMachineIndex(index);
@@ -122,7 +124,6 @@ export default function Reports() {
   const [prepareReport1, setPrepareReport] = useState("");
   const openPrepareReport1 = () => {
     let machinesWithNegativeValues = []; // Array to store machines with negative values
-
     multiplerowSelect.forEach((row) => {
       if (row.NonProdOn < 0) {
         machinesWithNegativeValues.push(row); // Add machine to the array
@@ -158,7 +159,6 @@ export default function Reports() {
       });
     } else {
       // Set status to true to enable the "Print Daily Report" button
-      setStatus(true);
       setPrepareReport(true);
     }
   };
@@ -315,9 +315,10 @@ export default function Reports() {
   const[pDFData,setPDFData]=useState([])
   const openPrintdailyPdf = () => {
     if (status == false) {
-      toast.error("Prepare Report Before Printing", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      // toast.error("Prepare Report Before Printing", {
+      //   position: toast.POSITION.TOP_CENTER,
+      // });
+      setModalShow(true);
     } else {
       setOpendailyReport(true);
       //TRY PDF
@@ -333,13 +334,23 @@ export default function Reports() {
     }
   };
 
+  const closeModal = () => {
+    setModalShow(false);
+  };
+  const modalData = {
+    title: 'Reports',
+    content: 'Prepare Report Before Printing'
+  };
+
   ////INPUT VALUE
   const [preparedby, setPreparedby] = useState(lazerUser.data[0].Name);
   const InputChange=(e)=>{
     setPreparedby(e.target.value);
   }
 
-  let roleValue = localStorage.getItem("Role");
+
+  const [userRole, setUserRole] = useState(lazerUser.data[0].Role);
+  const roleValue = userRole;
 console.log(roleValue);
 
   return (
@@ -359,6 +370,7 @@ console.log(roleValue);
         prepareReport1={prepareReport1}
         setPrepareReport={setPrepareReport}
         dateSelect={dateSelect}
+        setStatus={setStatus}
       />
 
       <div className="col-md-12">
@@ -562,6 +574,7 @@ console.log(roleValue);
               status={status}
               machineName={machineName}
             />
+            <CustomModal show={modalShow} handleClose={closeModal} data={modalData} />
           </div>
         </div>
       </div>

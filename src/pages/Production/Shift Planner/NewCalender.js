@@ -17,6 +17,47 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 function NewCalender(props) {
+  ////
+  const [selectedcompWeek, setselectedcompWeek] = useState([]);
+const [currentDate, setCurrentDate] = useState(new Date());
+const [selectedWeek, setSelectedWeek] = useState([""]);
+
+useEffect(() => {
+  handleDateSelect(currentDate);
+}, []); // Run this effect only once on component mount
+
+const handleDateSelect = (date) => {
+  const selectedDay = new Date(date);
+  const startOfWeek = new Date(selectedDay);
+  
+  // Adjust the startOfWeek to start from Monday
+  const dayOfWeek = selectedDay.getDay();
+  const diff = (dayOfWeek === 0 ? 6 : dayOfWeek - 1); // Handle Sunday as special case
+  startOfWeek.setDate(selectedDay.getDate() - diff);
+  
+  const weekArray = [];
+
+  for (let i = 0; i < 7; i++) {
+    const day = new Date(startOfWeek);
+    day.setDate(startOfWeek.getDate() + i);
+    const formattedDate = formatDate(day); // Format the date
+    weekArray.push(formattedDate);
+  }
+  setselectedcompWeek(weekArray);
+  setCurrentDate(date);
+  setSelectedWeek(weekArray)
+};
+
+const formatDate = (date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1; // Months are zero-based
+  const year = date.getFullYear();
+  return `${day < 10 ? "0" : ""}${day}/${
+    month < 10 ? "0" : ""
+  }${month}/${year}`;
+};
+
+//////
   //Header Component
   const [dataShiftTypes, setDataShiftTypes] = useState([]);
   const [selectedShift, setSelectedShift] = useState("");
@@ -55,13 +96,13 @@ function NewCalender(props) {
   };
 
   const handleShiftTypeChange = (e) => {
-    setSelectedShift(e.target.value);
     console.log("Shift type:", e.target.value);
+    setSelectedShift(e.target.value);
   };
 
   const handleShiftIncharge = (e) => {
+    console.log("Selected shift incharge:", e.target.value);
     setSelectedShiftIncharge(e.target.value);
-    console.log("Selected machine:", e.target.value);
   };
 
   const handleMachineChange = (e) => {
@@ -83,7 +124,6 @@ function NewCalender(props) {
   //Calender Component
   const [date, setDate] = useState(new Date());
 
-  const [selectedWeek, setSelectedWeek] = useState([""]);
   const [checkedState, setCheckedState] = useState(new Array(7).fill(false));
   const [isChecked, setIsChecked] = useState(false);
   const [isChecked2, setIsChecked2] = useState(false);
@@ -338,76 +378,53 @@ function NewCalender(props) {
   useMemo(() => {
     setRowselect({ item: selectedWeek[0], index: 0 });
   }, [selectedWeek[0]]);
-  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState(
-    []
-  );
+  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([]);
+
   const getSingleDayShiftPlan4thTable = () => {
-    const res = axios
+    console.log("getSingleDayShiftPlan4thTable inside ", rowselect);
+    axios
       .post(baseURL + "/shiftEditor/getDailyShiftPlanTable", {
         ShiftDate: rowselect,
       })
       .then((response) => {
-        console.log("DAILY SHIFT RESPONSE IS  ", response);
-        if (response.data === "") {
-          console.log("response data is null");
-        } else {
-          console.log("SINGLE DAY SHIFT PLAN 4TH TABLE ", response.data);
-          if (response.data.length === 0) {
-            console.log("DATA IS EMPTY");
-          } else {
-            console.log("DATA IS PRESENT");
-            for (let i = 0; i < response.data.length; i++) {
-              let dateSplit = response.data[i].ShiftDate.split("-");
-              let year = dateSplit[2];
-              let month = dateSplit[1];
-              let day = dateSplit[0];
-              let finalDay = year + "-" + month + "-" + day;
-              console.log("RESPONSE SHIFT DATE IS ", finalDay);
-              response.data[i].ShiftDate = finalDay;
+        console.log(response.data);
+        // Process and display data in the table
+        const processedData = response.data.map((item) => {
+          let dateSplit = item.ShiftDate.split("-");
+          let year = dateSplit[2];
+          let month = dateSplit[1];
+          let day = dateSplit[0];
+          let finalDay = year + "-" + month + "-" + day;
+          item.ShiftDate = finalDay;
 
-              let dateSplitFromTime = response.data[i].FromTime.split("-");
-              console.log(
-                " DATE SPLIT RESPONSE From tIME IS ",
-                dateSplitFromTime
-              );
-              let yearFromTime = dateSplitFromTime[0];
-              let monthFromTime = dateSplitFromTime[1];
-              let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
-              let dayFromTimeFinal = dayFromTimeINITIAL[0];
-              let time = dayFromTimeINITIAL[1];
-              let finalDayFromTime =
-                dayFromTimeFinal +
-                "-" +
-                monthFromTime +
-                "-" +
-                yearFromTime +
-                " " +
-                time;
-              console.log("RESPONSE From tIME IS ", finalDayFromTime);
-              response.data[i].FromTime = finalDayFromTime;
+          let dateSplitFromTime = item.FromTime.split("-");
+          let yearFromTime = dateSplitFromTime[0];
+          let monthFromTime = dateSplitFromTime[1];
+          let dayFromTimeINITIAL = dateSplitFromTime[2].split(" ");
+          let dayFromTimeFinal = dayFromTimeINITIAL[0];
+          let time = dayFromTimeINITIAL[1];
+          let finalDayFromTime =
+            dayFromTimeFinal +
+            "-" +
+            monthFromTime +
+            "-" +
+            yearFromTime +
+            " " +
+            time;
+          item.FromTime = finalDayFromTime;
+          let dateSplitToTime = item.ToTime.split("-");
+          let yearToTime = dateSplitToTime[0];
+          let monthToTime = dateSplitToTime[1];
+          let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
+          let dayToTimeFinal = dayToTimeINITIAL[0];
+          let time1 = dayToTimeINITIAL[1];
+          let finalDayToTime =
+            dayToTimeFinal + "-" + monthToTime + "-" + yearToTime + " " + time1;
+          item.ToTime = finalDayToTime;
 
-              let dateSplitToTime = response.data[i].ToTime.split("-");
-              console.log(" DATE SPLIT RESPONSE To tIME IS ", dateSplitToTime);
-              let yearToTime = dateSplitToTime[0];
-              let monthToTime = dateSplitToTime[1];
-              let dayToTimeINITIAL = dateSplitToTime[2].split(" ");
-              let dayToTimeFinal = dayToTimeINITIAL[0];
-              let time1 = dayToTimeINITIAL[1];
-              let finalDayToTime =
-                dayToTimeFinal +
-                "-" +
-                monthToTime +
-                "-" +
-                yearToTime +
-                " " +
-                time1;
-              console.log("RESPONSE To tIME IS ", finalDayToTime);
-              response.data[i].ToTime = finalDayToTime;
-              //data[i].FromTime = finalDayFromTime
-            }
-          }
-          setSingleDayShiftPlan4thTable(response.data);
-        }
+          return item; // Return the processed item
+        });
+        setSingleDayShiftPlan4thTable(processedData);
       });
   };
 
@@ -522,17 +539,11 @@ function NewCalender(props) {
 
   //MachineOperator Table
   const [machineOperatorTableData, setMachineOperatorTableData] = useState([]);
-  console.log(rowselectDailyShiftTable);
+  // console.log(rowselectDailyShiftTable);
 
   const getMachineOperatorTableData = () => {
-    let constRowSelectDailyShiftTable = rowselectDailyShiftTable;
-    if (
-      typeof constRowSelectDailyShiftTable !== "undefined" &&
-      constRowSelectDailyShiftTable != null
-    ) {
-    } else {
-    }
-    const res = axios
+    console.log(rowselectDailyShiftTable);
+axios
       .post(
         baseURL + "/shiftEditor/getMachineOperatorsShift",
         rowselectDailyShiftTable
@@ -547,6 +558,8 @@ function NewCalender(props) {
         }
       });
   };
+  console.log(machineOperatorTableData);
+
 
   //Delete Weekshift
   const [opendeleteshift, setOpendeleteshift] = useState("");
@@ -583,6 +596,8 @@ function NewCalender(props) {
         setWeekState1("");
       });
   };
+
+
   const [opendeleteoperator, setOpendeleteoperator] = useState("");
   const openDeletemachineoperator = () => {
     setOpendeleteoperator(true);
@@ -609,6 +624,8 @@ function NewCalender(props) {
     }
   };
 
+  ///////////////////////
+  
   return (
     <>
       <ToastContainer />
@@ -634,10 +651,16 @@ function NewCalender(props) {
             <div className="row">
               <div className="col-md-3">
                 <label className="form-label">Shift</label>
-                <select className="ip-select" onChange={handleShiftTypeChange}>
-                  <option selected>Select Shift</option>
-                  {dataShiftTypes.map((dataShiftTypes) => (
-                    <option value={dataShiftTypes}>{dataShiftTypes}</option>
+                <select
+                  className="ip-select"
+                  value={selectedShift}
+                  onChange={handleShiftTypeChange}
+                >
+                  <option value="">Select Shift</option>
+                  {dataShiftTypes.map((dataShiftType) => (
+                    <option key={dataShiftType} value={dataShiftType}>
+                      {dataShiftType}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -696,10 +719,14 @@ function NewCalender(props) {
             <div className="row">
               <div className="col-md-3">
                 <label className="form-label">Shift Incharge</label>
-                <select className="ip-select" onChange={handleShiftIncharge}>
-                  <option selected>Select Shift Incharge</option>
+                <select
+                  className="ip-select"
+                  value={selectedShiftIncharge}
+                  onChange={handleShiftIncharge}
+                >
+                  <option value="">Select Shift Incharge</option>
                   {dataShiftIncharge.map((dataShiftIncharge) => (
-                    <option value={dataShiftIncharge}>
+                    <option key={dataShiftIncharge} value={dataShiftIncharge}>
                       {dataShiftIncharge}
                     </option>
                   ))}
@@ -709,8 +736,10 @@ function NewCalender(props) {
                 <button
                   className="button-style mt-2 group-button mt-3"
                   style={{ width: "150px" }}
-                  // onClick={onClickDeleteWeekShift}
-                  onClick={openDeleteshiftmodal}
+                  onClick={() => {
+                    onClickDeleteWeekShift();
+                    openDeleteshiftmodal();
+                  }}
                 >
                   Delete Week Shift
                 </button>
@@ -740,7 +769,6 @@ function NewCalender(props) {
         </div>
       </div>
 
-      {/*  */}
       <div className="col-md-12">
         <div className="row">
           <div className="col-md-3"></div>
@@ -779,6 +807,8 @@ function NewCalender(props) {
                 onChange={(e) => {
                   selectWeek(e);
                 }}
+                value={currentDate}
+                onClickDay={handleDateSelect}
                 showWeekNumbers
                 showFixedNumberOfWeeks
               />
@@ -819,7 +849,7 @@ function NewCalender(props) {
             <div>
               <Table
                 bordered
-                style={{ width: "130px", border: "1px", height: "180px" }}
+                style={{ width: "130px", height: "180px" }}
               >
                 <thead style={{ textAlign: "center" }}>
                   <tr>
@@ -967,6 +997,8 @@ function NewCalender(props) {
         getMachineOperatorTableData={getMachineOperatorTableData}
         getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
         selectedShift={selectedShift}
+        rowselectDailyShiftTable={rowselectDailyShiftTable}
+        setMachineOperatorTableData={setMachineOperatorTableData}
       />
 
       <DeleteshiftModal
@@ -976,6 +1008,8 @@ function NewCalender(props) {
         selectedShiftIncharge={selectedShiftIncharge}
         selectedShift={selectedShift}
         selectedWeek={selectedWeek}
+        setSelectedShiftIncharge={setSelectedShiftIncharge}
+        setSelectedOperator={setSelectedOperator}
       />
 
       <DeleteMachineoperatorweekModal

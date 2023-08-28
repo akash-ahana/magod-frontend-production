@@ -71,7 +71,9 @@ export default function Machine() {
     <div className="col-md-6 col-sm-12">
         <MachineForm  selectedRow={selectedRow}
          getprocessdataList={getprocessdataList}
-         processdataList={processdataList}/>
+         processdataList={processdataList}
+         setSelectedRow={setSelectedRow}
+         />
         {/* <div className='mt-5'>
         </div> */}
     </div>

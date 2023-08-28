@@ -5,6 +5,7 @@ import { baseURL } from "../../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useGlobalContext } from "../../../../Context/Context";
+import CustomModal from "../../CustomModal";
 
 export default function MachineUtilisationSummary({ dateSelect, status }) {
   const {
@@ -20,6 +21,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
   const [inputValue1, setInputValue1] = useState("");
   const [inputValue2, setInputValue2] = useState(rowSelected.LaserOn || "");
+  const [modalShow6, setModalShow6] = useState(false);
 
   const selectedRowFun = (item, index) => {
     let list = { ...item, index: index };
@@ -27,6 +29,35 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   };
 
   const updateUtilisationSummary = () => {
+    if (!rowSelected || !inputValue1) {
+      // Check if rowSelected and inputValue1 are valid
+      return;
+    }
+    const updatedRow = {
+      ...rowSelected,
+      TotalOff: inputValue1,
+      NonProdOn: rowSelected.TotalOn - inputValue1,
+    };
+    // Update the selected row in the machineutilisationSummartdata array
+    const updatedData = machineutilisationSummartdata.map((item, index) =>
+      index === rowSelected.index ? updatedRow : item
+    );
+    // Update the machineutilisationSummartdata with the updatedData
+    setMachineutilisationSummarydata(updatedData);
+    // Show a success toast
+  };
+  
+
+  const handleInputChange1 = (event) => {
+    setInputValue1(event.target.value);
+    console.log(event.target.value)
+  };
+
+  const handleInputChange2 = (event) => {
+    setInputValue2(event.target.value);
+  };
+
+  const saveUtilisationSummary = () => {
     axios
       .post(baseURL + "/reports/UpdateMachineUtilisationSummary", {
         rowSelected: rowSelected,
@@ -44,23 +75,20 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
       .then((res) => {
         console.log(res.data);
         setMachineutilisationSummarydata(res.data);
+        // toast.success("Changes Saved", {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
+        setModalShow6(true);
       });
   };
-
-  const handleInputChange1 = (event) => {
-    setInputValue1(event.target.value);
-    console.log(event.target.value)
+  const closeModal = () => {
+    setModalShow6(false);
+  };
+  const modalData = {
+    title: 'Reports',
+    content: 'Changes Saved'
   };
 
-  const handleInputChange2 = (event) => {
-    setInputValue2(event.target.value);
-  };
-
-  const saveUtilisationSummary = () => {
-    toast.success("Changes Saved", {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  };
 
   // useMemo(() => {
   //   setRowSelected({ ...machineutilisationSummartdata[0], index: 0 });
@@ -85,6 +113,8 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
       selectedRowFun(machineutilisationSummartdata[0], 0); // Select the first row
     }
   }, [machineutilisationSummartdata, rowSelected, selectedRowFun]);
+
+  
 
   return (
     <div className="col-md-12">
@@ -235,6 +265,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
           </div>
         </div>
       </div>
+      <CustomModal show={modalShow6} handleClose={closeModal} data={modalData} />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import ChangeMachineModal from "./ChangeMachineModal";
 import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { baseURL } from "../../../../.././api/baseUrl";
+import CustomModal from "../../../CustomModal";
 
 export default function MachineAlltmntForm() {
   const [machineProcessData, setMachineProcessData] = useState([]);
@@ -16,6 +17,8 @@ export default function MachineAlltmntForm() {
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
   const [currentSelectedMachine, setCurrentSelectedMachine] = useState("");
+  const [modalShow2, setModalShow2] = useState(false);
+
 
   useEffect(() => {
     const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
@@ -92,9 +95,10 @@ export default function MachineAlltmntForm() {
           setSelectedRows([...selectedRows, item]);
         }
       } else {
-        toast.error("Please select a program with the same operation", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        // toast.error("Please select a program with the same operation", {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
+        setModalShow2(true);
         const constNCProgramsTableData = ncProgramsTableData;
         constNCProgramsTableData[key].isChecked = false;
         setNcProgramsTableData(constNCProgramsTableData);
@@ -189,6 +193,15 @@ export default function MachineAlltmntForm() {
   useEffect(() => {
     onClickMachineLabel();
   }, []);
+
+  const closeModal = () => {
+    setModalShow2(false);
+  };
+  const modalData = {
+    title: 'Machine Allotment',
+    content: 'Please select a program with the same operation'
+  };
+
 
 
   return (
@@ -343,6 +356,7 @@ export default function MachineAlltmntForm() {
         clickChangeMachine={clickChangeMachine}
         handleClose={handleClose}
       />
+            <CustomModal show={modalShow2} handleClose={closeModal} data={modalData} />
     </>
   );
 }

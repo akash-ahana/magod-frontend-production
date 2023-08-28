@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
   tableContainer: {
     flexDirection: "row",
     flexWrap: "wrap",
-    height: "800px",
+    height: "820px",
     overflow: "hidden",
   },
   tableTitle: {
@@ -46,7 +46,8 @@ const styles = StyleSheet.create({
   },
   tablemainheader1: {
     // textDecoration:"underline",
-    marginLeft: "100px",
+    marginLeft: "80px",
+    textAlign:"left",
     marginTop: "14px",
   },
   tablemainheader: {
@@ -102,19 +103,42 @@ const styles = StyleSheet.create({
     marginTop: "100px",
   },
   desc: {
-    marginLeft: "80px",
-    marginTop: "5px",
-  },
+  width:"200px",
+    marginTop: "10px",
+    },
   desc2: {
     paddingLeft: "220px",
-    paddingTop: "-12px",
+    paddingTop: "-33px",
+    paddingBottom:"-16px",
     marginTop: "-12px",
-    marginBottom: "15px",
+    marginBottom: "8px",
   },
   desc3: {
     marginLeft: "124px",
     marginTop: "5px",
   },
+  descalign :{
+    marginLeft:"20px"
+  },
+  column:{
+    flexDirection:"row",
+    flexWrap:"wrap"
+  },
+  desc1: {
+    marginLeft: "40px",
+    marginTop: "10px",
+    textAlign:"left",
+    width:"100px",
+  },
+  action:{
+    width:"80px",
+  
+  },
+  time:{
+    flexDirection:"column",
+    width:"30%"
+  }
+ 
 });
 
 const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
@@ -163,25 +187,36 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
                       </Text>
                     </View>
 
-                    {machine.tasks.map((task) => (
+                    {machine.task.map((task) => (
                       <View style={styles.tablemainheader1} key={task.task}>
-                        <Text style={styles.task}>{task.task}</Text>
+                   <View style={styles.column}>
+                      <View style={styles.action}>
+                         <Text style={styles.task}>{task.action}</Text>
+                      </View>
+                      
+                      <View>
+                        
                         {task.operations.map((operation) => (
-                          <Text
-                            key={operation.Operation}
-                            style={styles.desc}
-                          >
-                            {operation.Operation}
+                          <Text key={operation.Operation} style={styles.desc}>
+                            {operation.Operation} 
                           </Text>
                         ))}
+
+                        </View>
+
+                        <View style={styles.time}>
                         {task.operations.map((operation) => (
-                          <Text
-                            key={operation.Operation}
-                            style={styles.desc2}
-                          >
+                          <Text key={operation.Operation} style={styles.desc1}>
                             {operation.time}
                           </Text>
                         ))}
+                        </View>
+                        
+                        </View>
+                      
+                       
+                       
+                       
                       </View>
                     ))}
                   </React.Fragment>
@@ -190,7 +225,7 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
                 <Text style={styles.Nodata}>No data available</Text>
               )}
 
-              {pageIndex === totalPages - 1 && ( // check if it is the last page
+              {pageIndex === totalPages - 1 && (
                 <React.Fragment>
                   <View>
                     <Text style={styles.power}>Power Meter Reading 0</Text>

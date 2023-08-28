@@ -6,9 +6,9 @@ import ChangeMachineModal from './ChangeMachineModal';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {baseURL} from '../../../../../api/baseUrl'
+import CustomModal from '../../../CustomModal';
 
 export default function MachineAlltmntForm() {
-
   const [machineProcessData, setMachineProcessData] = useState([]) 
   const [machineList , setMachineList] = useState([])
   const [selectedMachine , setSelectedMachine] = useState("")
@@ -16,6 +16,8 @@ export default function MachineAlltmntForm() {
   const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
+  const [modalShow3, setModalShow3] = useState(false);
+
 
   useEffect(() => {
     const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
@@ -100,9 +102,10 @@ if(selectedRows.length === 0){
         setSelectedRows([...selectedRows , item])
       }
   } else {
-    toast.error('Please select a program with the same operation',{
-      position: toast.POSITION.TOP_CENTER
-  })  
+  //   toast.error('Please select a program with the same operation',{
+  //     position: toast.POSITION.TOP_CENTER
+  // })  
+  setModalShow3(true);
     const constNCProgramsTableData = ncProgramsTableData
     constNCProgramsTableData[key].isChecked = false
     setNcProgramsTableData(constNCProgramsTableData)
@@ -187,6 +190,14 @@ const onClickMachineLabel=(index)=>{
  const onMachineChange = (e) => {
   setSelectedMachine(e.target.value)
  }
+ const closeModal = () => {
+  setModalShow3(false);
+};
+const modalData = {
+  title: 'Machine Allotment',
+  content: 'Please select a program with the same operation'
+};
+
 
   return (
     <>
@@ -317,6 +328,8 @@ const onClickMachineLabel=(index)=>{
       clickChangeMachine={clickChangeMachine}
       handleClose={handleClose}
     />
+      <CustomModal show={modalShow3} handleClose={closeModal} data={modalData} />
+
   </>
   )
 }

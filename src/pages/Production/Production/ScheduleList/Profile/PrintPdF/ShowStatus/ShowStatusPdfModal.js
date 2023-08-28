@@ -13,6 +13,7 @@ import PrintShowStatus from './PrintShowStatus';
   }, [showStatusData]); // Run the effect whenever pdfData changes
 
 
+  console.log(showStatusData);
   return (
     <>
       <Modal show={openShowStatus} fullscreen={fullscreen} onHide={() => setOpenShowStatus(false)}>

@@ -25,13 +25,11 @@ const styles = StyleSheet.create({
         textDecoration : "underline",
         marginLeft:"200px",
         marginTop:"20px",
-        fontFamily: "Helvetica-Bold"
     },
     title2 :{
         textDecoration : "underline",
         marginLeft:"160px",
-        marginTop:"10px",
-        fontFamily: "Helvetica-Bold"
+        marginTop:"10px"
     },
     shiftperiod:{
         marginLeft:"140px",
@@ -42,21 +40,21 @@ const styles = StyleSheet.create({
         padding:"10px",
         marginTop:"40px",
         width:"600px",
-        marginLeft:"90px",
+        marginLeft:"50px",
         marginRight:"100px"
     },
     tableview:
     {
-      marginLeft:"90px",
-      width:"400px",
+      marginLeft:"60px",
+      width:"430px",
     },
     Headingrow: {
         flexDirection: "row",
         alignItems: "center",
         borderBottom:"1px",
         marginTop:"20px",
-        marginLeft:"90px",
-        width:"400px",
+        marginLeft:"60px",
+        width:"430px",
       },
       machineHeading: {
         width: "30%",

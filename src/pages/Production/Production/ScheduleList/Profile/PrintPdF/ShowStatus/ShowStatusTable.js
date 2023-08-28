@@ -43,10 +43,9 @@ const styles = StyleSheet.create({
     },
     tablemainheader:{
         textDecoration:"underline",   
-        paddingTop : "20px",
-        paddingLeft : "30px",
-        marginLeft : "-460px",
-        marginTop : "51px"
+       marginLeft:"60px",
+        marginTop : "51px",
+        fontFamily: "Helvetica-Bold"
     },
      Headingrow: {
     flexDirection: "row",
@@ -57,6 +56,7 @@ const styles = StyleSheet.create({
     marginBottom : "10px",
     width:"700px",
     // fontSize:"10px"
+    fontFamily: "Helvetica-Bold"
   },
   Scheduleno: {
     width: "100px",
@@ -86,25 +86,21 @@ const ShowStatusTable = ({Date,showStatusData}) => (
         <Text style={styles.location}>Unit:Jigani</Text>
         <Text style={styles.datedisplay}>{Date}</Text>
 
-{showStatusData.map((item,key)=>{
-  return(
-    <>
-    <Text style={styles.tablemainheader}>{item.status}</Text>
-        <View style={styles.Headingrow}>
-          <Text style={styles.Scheduleno}>Schedule No</Text>
-          <Text style={styles.Customer}>Customer</Text>
-          <Text style={styles.Date}>Tgt Date</Text>
-          <Text style={styles.Date}>Del Date</Text>
-          <Text style={styles.Instruction}>Instructions</Text>
-       </View>
-        
-    <View style={styles.tableview}>
-      <ShowStatusTableRow showStatusData={item.data} />
-    </View>
-
-    </>
-  )
-})}
+        {showStatusData.map((item, key) => (
+          <View key={key}>
+            <Text style={styles.tablemainheader}>{item.status}</Text>
+            <View style={styles.Headingrow}>
+              <Text style={styles.Scheduleno}>Schedule No</Text>
+              <Text style={styles.Customer}>Customer</Text>
+              <Text style={styles.Date}>Tgt Date</Text>
+              <Text style={styles.Date}>Del Date</Text>
+              <Text style={styles.Instruction}>Instructions</Text>
+            </View>
+            <View style={styles.tableview}>
+              <ShowStatusTableRow showStatusData={item.data} />
+            </View>
+          </View>
+        ))}
         
   </View>
     </Page>

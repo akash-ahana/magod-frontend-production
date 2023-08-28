@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import PrepareReportModal3 from './PrepareReportModal3';
 
-export default function PrepareReportModal2({prepareReport2,setPrepareReport2,dateSelect}) {
+export default function PrepareReportModal2({prepareReport2,setPrepareReport2,dateSelect,setStatus}) {
     const handleClose=()=>{
       setPrepareReport2(false);
     }
@@ -19,7 +19,9 @@ export default function PrepareReportModal2({prepareReport2,setPrepareReport2,da
       <PrepareReportModal3
       prepareReport3={prepareReport3}
       setPrepareReport3={setPrepareReport3}
-      dateSelect={dateSelect}/>
+      dateSelect={dateSelect}
+      setStatus={setStatus}
+      />
 
         <Modal show={prepareReport2} onHide={handleClose}>
         <Modal.Header closeButton>

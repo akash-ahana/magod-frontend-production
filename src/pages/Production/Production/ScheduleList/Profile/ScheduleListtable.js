@@ -23,6 +23,8 @@ export default function ScheduleListtable({
     getSchedulistdata();
   }, []);
 
+  console.log(rowselect)
+
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">
