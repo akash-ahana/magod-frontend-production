@@ -33,6 +33,8 @@ export default function Reports() {
     setSelectedMachineIndex(index);
     setSelectedLabelIndex(-1);
   };
+  console.log(machineutilisationSummartdata);
+
 
   useEffect(() => {
     const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
@@ -62,22 +64,9 @@ export default function Reports() {
   const [machineLogData, setMachineLogData] = useState([]);
   //Select Date
   const [dateSelect, SetDateSelect] = useState(Date);
+
   const handleChangeSelectDate = (e) => {
     SetDateSelect(e.target.value);
-    axios
-      .post(baseURL + "/reports/getMachineUtilisationSummary", {
-        Date: e.target.value,
-      })
-      .then((res) => {
-        console.log("require response mus", res.data);
-        setMachineutilisationSummarydata(res.data.data);
-      });
-    axios
-      .post(baseURL + "/reports/productTaskSummary", { Date: e.target.value })
-      .then((response) => {
-        //  console.log("data", response.data.data);
-        setProductionTaskSummary(response.data);
-      });
     axios
       .post(baseURL + "/reports/machineLog", { Date: e.target.value })
       .then((response) => {
@@ -107,6 +96,21 @@ export default function Reports() {
         setMachineLogData(response.data);
         setMachineName('')
       });
+    axios
+      .post(baseURL + "/reports/getMachineUtilisationSummary", {
+        Date: e.target.value,
+      })
+      .then((res) => {
+        console.log("require response mus", res.data.data);
+        setMachineutilisationSummarydata(res.data.data);
+      });
+    axios
+      .post(baseURL + "/reports/productTaskSummary", { Date: e.target.value })
+      .then((response) => {
+        //  console.log("data", response.data.data);
+        setProductionTaskSummary(response.data);
+      });
+    
   };
 
   // //STATUS CODE
@@ -355,7 +359,6 @@ console.log(roleValue);
 
   return (
     <div>
-      <ToastContainer />
 
       <DailyReportPrintModal
         opendailyReport={opendailyReport}

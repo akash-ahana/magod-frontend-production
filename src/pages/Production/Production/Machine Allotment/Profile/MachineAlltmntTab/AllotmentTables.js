@@ -115,13 +115,13 @@
       getMachineList();
     }, [tableRowSelect]);
 
-    // useMemo(() => {
-    //   setTableRowSelect({ ...scheduleListData[0], index: 0 });
-    // }, [scheduleListData[0]]);
+    useMemo(() => {
+      setTableRowSelect({ ...scheduleListData[0], index: 0 });
+    }, [scheduleListData[0]]);
 
-    // useMemo(() => {
-    //   setRowselect({ ...scheduleListData[0], index: 0 });
-    // }, [scheduleListData[0]]);
+    useMemo(() => {
+      setRowselect({ ...scheduleListData[0], index: 0 });
+    }, [scheduleListData[0]]);
 
     const onChangeMachine = (e) => {
       console.log("Machine is Changed", e.target.value);
@@ -202,15 +202,17 @@
       setAllotmentTable(filteredData);
     };
     
-    useEffect(() => {
-      if (scheduleListData.length > 0 && !rowselect.TaskNo) {
-        RowSelect(scheduleListData[0], 0); // Select the first row
-      }
-    }, [scheduleListData, rowselect]);
+    // useEffect(() => {
+    //   if (scheduleListData.length > 0 && !rowselect.TaskNo) {
+    //     RowSelect(scheduleListData[0], 0); // Select the first row
+    //   }
+    // }, [scheduleListData, rowselect]);
+    
+
+    console.log(tableRowSelect);
 
     return (
       <div>
-        <ToastContainer />
         <div className="col-md-12">
           <div className="col-md-4 mb-2 ms-3">
             <label className="form-label">Find Schedule</label>

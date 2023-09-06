@@ -38,24 +38,22 @@ export default function ModalPrintWeeklyPlan({
   //TryPDF
   const[newTry,setNewTry]=useState([])
   const TryPdfData = () => {
+    console.log(selectedWeek)
     axios
       .post(baseURL + "/shiftEditor/TryWeeklyPdf", {
         ShiftDate: selectedWeek,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setNewTry(response.data);
       });
   };
   console.log(newTry)
 
   useEffect(() => {
-    // getWeeklyshiftPrint1();
-    // getMachineOperatorTableData();
     TryPdfData();
   }, [selectedWeek]);
 
-  // console.log("Machine Operator Data", pdfMOData);
   console.log("Shift Details  Data", pdfShifts);
 
   return (

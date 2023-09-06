@@ -113,14 +113,14 @@ export default function AllotmentTables() {
     getMachineList();
   }, [tableRowSelect]);
 
-  // useMemo(() => {
-  //   setTableRowSelect({ ...scheduleListData[0], index: 0 });
-  // }, [scheduleListData[0]]);
+  useMemo(() => {
+    setTableRowSelect({ ...scheduleListData[0], index: 0 });
+  }, [scheduleListData[0]]);
 
 
-  // useMemo(() => {
-  //   setRowselect({ ...scheduleListData[0], index: 0 });
-  // }, [scheduleListData[0]]);
+  useMemo(() => {
+    setRowselect({ ...scheduleListData[0], index: 0 });
+  }, [scheduleListData[0]]);
 
   // //Search
   // const searchText = (e) => {
@@ -187,7 +187,6 @@ axios
       });
   };
 
-  console.log(tableRowSelect.Machine);
   const isMachineListEmpty = machineList.length === 0;
 
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -212,16 +211,15 @@ axios
      setAllotmentTable(filteredData);
    };
 
-   useEffect(() => {
-    if (scheduleListData.length > 0 && !rowselect.TaskNo) {
-      RowSelect(scheduleListData[0], 0); // Select the first row
-    }
-  }, [scheduleListData, rowselect]);
+  //  useEffect(() => {
+  //   if (scheduleListData.length > 0 && !rowselect.TaskNo) {
+  //     RowSelect(scheduleListData[0], 0); // Select the first row
+  //   }
+  // }, [scheduleListData, rowselect]);
 
 
   return (
     <>
-      <ToastContainer />
       <div className="col-md-12">
         <div className="col-md-3 mb-2 ms-3">
           <label className="form-label">Find Schedule</label>

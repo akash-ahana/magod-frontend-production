@@ -9,10 +9,10 @@ import { baseURL } from '../../../../../../api/baseUrl';
 import MachineChangeModal from './MachineChangeModal';
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
-   machineData,setSelectProgramProcessing,onClickMachineLabel,laser,setmachineProgramesProcessing}) {
+   machineData,setSelectProgramProcessing,onClickMachineLabel,laser,setmachineProgramesProcessing,selectedMachine}) {
 // console.log(selectProgramProcessing)
 // console.log('MACHINE DATA' , machineData[0].refName)
-const [selectedMachine1, setSelectedMachine] = useState("")
+const [selectedMachine1, setSelectedMachine1] = useState("")
 
 const handleClose = ()=>{
   setOpenChangeMachine(false);
@@ -21,7 +21,7 @@ const handleClose = ()=>{
 const[changeMachineList,setChangeMachineList]=useState([])
 const handleMachineChange = (e) => {
   setChangeMachineList(e.target.value);
-  setSelectedMachine(e.target.value)
+  setSelectedMachine1(e.target.value)
 };
 
 
@@ -39,11 +39,11 @@ const changeMachineonClick = () => {
     selectProgramProcessing={selectProgramProcessing}
     setSelectProgramProcessing={setSelectProgramProcessing}
     laser={laser}
-    FirstSelectedMachine={selectedMachine1}
+    selectedMachine={selectedMachine1}
+    FirstSelectedMachine={selectedMachine}
     setOpenChangeMachine={setOpenChangeMachine}
     setmachineProgramesProcessing={setmachineProgramesProcessing}
     />
-        <ToastContainer/>
     <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"

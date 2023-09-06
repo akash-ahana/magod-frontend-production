@@ -118,7 +118,8 @@ setOpendeleteprocess(true);
           refName:referencename
         }).then((response) => {
           console.log("deleted",response)
-          setSelectedRow({...post[0],index:0})     
+          setSelectedRow({...post[0],index:0})   
+          MachineTabledata();  
          });
     }
 
@@ -175,40 +176,41 @@ else{
     setOpensavemachine(true);
   }
 
-  console.log(selectedRow)
-  // console.log(opensavemachine)
   const saveMachine = () => {
-    axios.post(
-      baseURL + "/productionSetup/saveMachine",
-      {
-        ...machineData
-      }
-    ).then((response) => {
-      console.log("sent", response.data);
-      MachineTabledata();
-      toast.success('Machine Details Saved', {
+    if (machineData.TgtRate === null || machineData.TgtRate === '') {
+      // Show an error toast using Toastify
+      toast.error('Target Rate is required', {
         position: toast.POSITION.TOP_CENTER
       });
+    } else {
+      axios.post(
+        baseURL + "/productionSetup/saveMachine",
+        {
+          ...machineData
+        }
+      ).then((response) => {
+        console.log("sent", response.data);
+        MachineTabledata();
+        toast.success('Machine Details Saved', {
+          position: toast.POSITION.TOP_CENTER
+        });
   
-      // Update the state properties after successful save
-      setMachineData(prevMachineData => ({
-        ...prevMachineData,
-        isInstallDatePresent: true, // Update to the desired value
-        isLocationPresent: true,    // Update to the desired value
-        isRegnNumberPresent: true   // Update to the desired value
-      }));
-  
-      // Close the save machine modal or perform other actions if needed
-      // setOpensavemachine(false);
-    });
+        // Update the state properties after successful save
+        setMachineData(prevMachineData => ({
+          ...prevMachineData,
+          isInstallDatePresent: true, // Update to the desired value
+          isLocationPresent: true,    // Update to the desired value
+          isRegnNumberPresent: true   // Update to the desired value
+        }));
+      });
+    }
   };
+  
   
   
 
   return (
     <div>
-          <ToastContainer/>
-
        { (
               <AddMachine
                 show={show}

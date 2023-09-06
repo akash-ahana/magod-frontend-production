@@ -113,6 +113,7 @@ export default function MachineAlltmntForm() {
     axios
       .get(baseURL + "/machineAllotment/profileListMachineswithLoad")
       .then((response) => {
+        console.log(response.data)
         setMachineProcessData(response.data);
         setIsLoading(false); // Set loading state to false after data is fetched
       })
@@ -206,7 +207,6 @@ export default function MachineAlltmntForm() {
 
   return (
     <>
-      <ToastContainer />
       <div className="col-md-12">
         <div className="row">
           <h4 className="title">Machine Allotment Form</h4>

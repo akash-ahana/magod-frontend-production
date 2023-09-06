@@ -78,8 +78,6 @@ export default function MachineChangeModal({changeMachine,setChangeMachine,selec
     }
   return (
     <>
-        <ToastContainer/>
-
     <Modal show={changeMachine}>
     <Modal.Header closeButton  onClick={handleClose}>
           <Modal.Title>Machine Selection Form</Modal.Title>

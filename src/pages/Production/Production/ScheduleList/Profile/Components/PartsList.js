@@ -39,17 +39,24 @@ export default function PartsList({
     setNewPartlistdata(constpartListData);
   };
 
-  // CLEAR SELECTED
-  const clearSelected = () => {
-    const updatedRows = partlistdata.map((row) => {
-      if (selectedRows.includes(row)) {
-        return { ...row, QtyCleared: row.QtyProduced };
-      }
-      return row;
-    });
-    setPartlistdata(updatedRows);
-    setSelectedRows([]);
-  };
+ /// CLEAR SELECTED
+const clearSelected = () => {
+  const updatedPartListData = [...partlistdata];
+  // Iterate through the selectedRows and update QtyCleared with QtyProduced for all selected rows
+  updatedPartListData.forEach((item, index) => {
+    if (selectedRows.includes(item)) {
+      updatedPartListData[index].QtyCleared = item.QtyProduced;
+    }
+  });
+
+  setPartlistdata(updatedPartListData);
+  setNewPartlistdata(updatedPartListData);
+  setSelectedRows([])
+};
+
+
+
+  console.log(partlistdata)
   
 
   // SAVE CLEARED
@@ -73,15 +80,13 @@ export default function PartsList({
   const [selectedRows, setSelectedRows] = useState([]);
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
-      if (prevRows.some((row) => row.id === item.id)) {
-        return prevRows.filter((row) => row.id !== item.id);
+      if (prevRows.includes(item)) {
+        return prevRows.filter((row) => row !== item);
       } else {
         return [...prevRows, item];
       }
     });
   };
-  
-  console.log(selectedRows)
 
   const handleSelectAll = (event) => {
     if (event.target.checked) {
@@ -93,7 +98,6 @@ export default function PartsList({
     }
   };
 
-  // console.log(partlistdata);
 
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
@@ -132,8 +136,6 @@ export default function PartsList({
   const isClearedDisabled =
     selectedRows.length === 0 &&
     partlistdata.every((row) => row.QtyCleared === row.QtyProduced);
-
-    
   return (
     <div>
       <ToastContainer />

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useGlobalContext } from "../../../../../Context/Context";
 import { baseURL } from "../../../../../api/baseUrl";
+import { useState } from "react";
 
 export default function ScheduleListtable({
   rowSelectFun,
@@ -23,8 +24,15 @@ export default function ScheduleListtable({
     getSchedulistdata();
   }, []);
 
-  console.log(rowselect)
+  const [initialLoad, setInitialLoad] = useState(true);
 
+  useEffect(() => {
+    if (schedulelistdata.length > 0 && initialLoad) {
+      rowSelectFun(schedulelistdata[0], 0); // Select the first row on initial load
+      setInitialLoad(false); // Set initialLoad to false so this effect doesn't run again
+    }
+  }, [schedulelistdata, initialLoad, rowSelectFun]);
+  
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">

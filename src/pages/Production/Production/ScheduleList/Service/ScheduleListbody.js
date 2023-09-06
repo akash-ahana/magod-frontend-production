@@ -28,9 +28,9 @@ export default function ScheduleListbody({
   const { schedulelistservicedata } = useGlobalContext();
 
   //First Table Row Select
-  useMemo(() => {
-    setRowselect({ ...schedulelistservicedata[0], index: 0 });
-  }, [schedulelistservicedata[0]]);
+  // useMemo(() => {
+  //   setRowselect({ ...schedulelistservicedata[0], index: 0 });
+  // }, [schedulelistservicedata[0]]);
   console.log(rowselect);
 
   //Process Table(Right First table) data
@@ -38,7 +38,6 @@ export default function ScheduleListbody({
   let OrdSchNo = rowselect?.OrdSchNo;
   console.log(OrdSchNo);
   const getprocessTabledata = () => {
-    if (OrdSchNo) {
       console.log("excuted");
       axios
         .post(
@@ -54,7 +53,6 @@ export default function ScheduleListbody({
         .catch((error) => {
           console.log(error);
         });
-    } else console.log("empty");
   };
 
   useMemo(() => {

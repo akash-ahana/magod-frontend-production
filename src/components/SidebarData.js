@@ -39,8 +39,13 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Machine",
-        path: "/production/setup/machine",
+        path: "/Production/Setup/Machine",
         icon: <FiCpu/>,
+      },
+      {
+        title: "StoppageList",
+        path: "/Production/Setup/StoppageList",
+        icon: <AiIcons.AiOutlineStop/>,
       },
     ],
   },
@@ -59,15 +64,15 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/schedulelist/Profile",
+            path: "/Production/Production/Schedulelist/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Fabrication",
-            path: "/production/production/schedulelist/Fabrication",
+            path: "/Production/Production/Schedulelist/Fabrication",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Services",
-            path: "/production/production/schedulelist/Service",
+            path: "/Production/Production/Schedulelist/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }]
       },
@@ -78,12 +83,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/MachineAllotment/Profile",
+            path: "/Production/Production/Machineallotment/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },
           {
             title: "Service",
-            path: "/production/production/MachineAllotment/Service",
+            path: "/Production/Production/Machineallotment/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }
         ]
@@ -97,15 +102,15 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/ShiftManager/Profile",
+            path: "/Production/Production/Shiftmanager/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Fabrication",
-            path: "/production/production/ShiftManager/Fabrication",
+            path: "/Production/Production/Shiftmanager/Fabrication",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Services",
-            path: "/production/production/ShiftManager/Service",
+            path: "/Production/Production/Shiftmanager/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }]
       },
@@ -120,7 +125,7 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Shift Editor",
-        path: "/production/shiftplanner/shifteditor",
+        path: "/Production/Shiftplanner/Shifteditor",
         icon: <FiEdit />,
       },
     ]
@@ -134,7 +139,7 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Daily Report",
-        path: "/production/reports/dailyreports",
+        path: "/Production/Reports/Dailyreports",
         icon: <AiIcons.AiOutlineArrowRight />            
       },
     ]

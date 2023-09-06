@@ -10,8 +10,16 @@ export default function ScheduleListtable({rowSelectFun,rowselect,getprocessTabl
     getSchedulistservicedata();
  }, []);
 
+ const [initialLoad, setInitialLoad] = useState(true);
+
+ useEffect(() => {
+  if (schedulelistservicedata.length > 0 && initialLoad) {
+    rowSelectFun(schedulelistservicedata[0], 0); // Select the first row on initial load
+    setInitialLoad(false); // Set initialLoad to false so this effect doesn't run again
+  }
+}, [schedulelistservicedata, initialLoad, rowSelectFun]);
+
  
- console.log("service multiple row select",selectedRowsService)
   return (
      <div style={{height:"500px",overflowY: "scroll",overflowX:"scroll"}}>
      <Table striped className="table-data border">

@@ -13,6 +13,8 @@ function SingleDayShiftEditor({
   getSecondTableData,
   rowselect,
   rowSelectFunForDailyShiftTable,
+  condition,
+  selectedWeek
 }) {
   // console.log(rowselectDailyShiftTable.Shift_Ic);
   //PRINT DAILY SHIFT
@@ -49,7 +51,7 @@ function SingleDayShiftEditor({
   }, []);
 
   useEffect(() => {
-    setSelectedShiftIncharge(rowselectDailyShiftTable.Shift_Ic);
+    setSelectedShiftIncharge(rowselectDailyShiftTable?.Shift_Ic);
   }, [rowselectDailyShiftTable]);
 
   const onClickUpdateDayShift = () => {
@@ -93,11 +95,10 @@ function SingleDayShiftEditor({
 
   return (
     <>
-      <ToastContainer />
       <div
-      className="col-md-4"
+        className="col-md-4"
         style={{
-          width:"190px",
+          width: "190px",
           textAlign: "center",
           backgroundColor: "#d3d3d3",
           fontSize: "14px",
@@ -106,11 +107,11 @@ function SingleDayShiftEditor({
         <h6>Daily Shift Editor</h6>
         <div style={{ color: "red" }}>
           {" "}
-          <b>Shift Date : {rowselectDailyShiftTable.ShiftDate}</b>
+          <b>Shift Date : {rowselectDailyShiftTable?.ShiftDate}</b>
         </div>
         <br></br>
         <div style={{ color: "red" }}>
-          <b>Shift : {rowselectDailyShiftTable.Shift}</b>
+          <b>Shift : {rowselectDailyShiftTable?.Shift}</b>
         </div>
 
         <div
@@ -152,8 +153,7 @@ function SingleDayShiftEditor({
             width: "125px",
           }}
         >
-          {rowselectDailyShiftTable.FromTime}
-
+          {rowselectDailyShiftTable?.FromTime}
         </div>
         <div>To Time</div>
         <div
@@ -165,13 +165,16 @@ function SingleDayShiftEditor({
             width: "125px",
           }}
         >
-          {rowselectDailyShiftTable.ToTime}
+          {rowselectDailyShiftTable?.ToTime}
         </div>
         <div style={{ textAlign: "center" }}>
           <div>
             <button
-              className="button-style mt-2 group-button mt-4"
+             className={`button-style mt-2 group-button mt-4 ${
+                   condition !== true ? "disabled" : ""
+                }`}           
               style={{ width: "140px", fontSize: "14px" }}
+              disabled={condition !== true}
               onClick={openUpdatedayshift}
             >
               Update Day Shift
@@ -179,9 +182,12 @@ function SingleDayShiftEditor({
           </div>
           <div>
             <button
-              className="button-style mt-2 group-button mt-4"
+              className={`button-style mt-2 group-button mt-4 ${
+                condition !== true ? "disabled" : ""
+              }`}
               style={{ width: "140px", fontSize: "14px" }}
               onClick={() => openDeletedayshift()}
+              disabled={condition !== true}
             >
               Delete Day Shift Plan
             </button>
@@ -203,6 +209,7 @@ function SingleDayShiftEditor({
           onClickUpdateDayShift={onClickUpdateDayShift}
           rowselectDailyShiftTable={rowselectDailyShiftTable}
           selectedShiftIncharge={selectedShiftIncharge}
+          selectedWeek={selectedWeek}
         />
 
         <DeleteDayShiftModal

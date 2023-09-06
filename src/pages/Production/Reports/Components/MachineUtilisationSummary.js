@@ -66,24 +66,28 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
       })
       .then((res) => {
         console.log("require response mus", res.data);
-      });
-
-    axios
-      .post(baseURL + "/reports/muData", {
-        Date: dateSelect,
-      })
-      .then((res) => {
-        console.log(res.data);
-        setMachineutilisationSummarydata(res.data);
-        // toast.success("Changes Saved", {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
         setModalShow6(true);
+        // Introduce a delay of, for example, 1000 milliseconds (1 second)
+        setTimeout(() => {
+          axios
+            .post(baseURL + "/reports/muData", {
+              Date: dateSelect,
+            })
+            .then((res) => {
+              console.log(res.data);
+              setMachineutilisationSummarydata(res.data);
+              // toast.success("Changes Saved", {
+              //   position: toast.POSITION.TOP_CENTER,
+              // });
+            });
+        }, 1000); // 1000 milliseconds = 1 second
       });
   };
+  
   const closeModal = () => {
     setModalShow6(false);
   };
+  
   const modalData = {
     title: 'Reports',
     content: 'Changes Saved'
@@ -118,7 +122,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
   return (
     <div className="col-md-12">
-      <ToastContainer />
 
       <div className="row">
         <div className="col-md-4" style={{ fontSize: "13px" }}>

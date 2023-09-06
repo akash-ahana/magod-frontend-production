@@ -476,6 +476,7 @@ export default function ByMachineBox() {
           setMachineProgramesCompleted={setMachineProgramesCompleted}
           onClickMachineLabel={onClickMachineLabel}
           laser={laser}
+          selectedMachine={selectedMachine}
         />
       </div>
     </div>

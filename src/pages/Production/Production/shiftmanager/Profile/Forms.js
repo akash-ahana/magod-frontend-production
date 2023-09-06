@@ -98,9 +98,8 @@ function Forms() {
 
   return (
     <>
-      {shiftDetails &&
-        shiftDetails.map((item) => {
-          return (
+      {/* {shiftDetails &&
+        shiftDetails.map((item) => { */}
             <div>
               <div className="bg-light mt-2">
                 <div className="my-0" style={{ margin: "30px" }}>
@@ -120,7 +119,7 @@ function Forms() {
                         <input
                           className="in-field bg-light"
                           disabled
-                          value={shiftDetails[0].ShiftDate}
+                          value={shiftDetails[0]?.ShiftDate}
                         />
                       </div>
 
@@ -130,7 +129,7 @@ function Forms() {
                           className="in-field"
                           type="text"
                           disabled
-                          value={shiftDetails[0].Shift}
+                          value={shiftDetails[0]?.Shift}
                         />
                       </div>
 
@@ -138,7 +137,7 @@ function Forms() {
                         <label className="form-label">From</label>
                         <input
                           className="in-field"
-                          value={shiftDetails[0].FromTime}
+                          value={shiftDetails[0]?.FromTime}
                           disabled
                         />
                       </div>
@@ -148,7 +147,7 @@ function Forms() {
                         <input
                           className="in-field"
                           disabled
-                          value={shiftDetails[0].ToTime}
+                          value={shiftDetails[0]?.ToTime}
                         />
                       </div>
 
@@ -158,7 +157,7 @@ function Forms() {
                           className="in-field"
                           type="text"
                           disabled
-                          value={shiftDetails[0].Shift_Ic}
+                          value={shiftDetails[0]?.Shift_Ic}
                         />
                       </div>
                     </div>
@@ -180,7 +179,7 @@ function Forms() {
                           id=""
                           onChange={handleOnChange}
                           style={{ height: "201px", resize: "none" }}
-                          value={shiftDetails[0].Shift_instruction}
+                          value={shiftDetails[0]?.Shift_instruction}
                           disabled
                         ></textarea>
                       </div>
@@ -238,8 +237,7 @@ function Forms() {
                 </div>
               </div>
             </div>
-          );
-        })}
+        {/* })} */}
 
       <div>
         <div className="box01 mt-1">

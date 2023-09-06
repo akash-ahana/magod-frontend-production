@@ -127,7 +127,6 @@ export default function PartsList({
 
   return (
     <div>
-      <ToastContainer />
       <div className="row mt-2">
         <button
           className="button-style mt-2 group-button"

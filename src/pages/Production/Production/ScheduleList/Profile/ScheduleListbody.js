@@ -27,16 +27,15 @@ export default function ScheduleListbody({
   const { schedulelistdata } = useGlobalContext();
 
   //First Table Row Select
-  useMemo(() => {
-    setRowselect({ ...schedulelistdata[0], index: 0 });
-  }, [schedulelistdata[0]]);
+  // useMemo(() => {
+  //   setRowselect({ ...schedulelistdata[0], index: 0 });
+  // }, [schedulelistdata[0]]);
 
   //Process Table(Right First table) data
   const [processtable, setProcesstable] = useState([]);
   let OrdSchNo = rowselect?.OrdSchNo;
   console.log(OrdSchNo);
   const getprocessTabledata = () => {
-    if (OrdSchNo) {
       console.log("excuted");
       axios
         .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
@@ -44,13 +43,12 @@ export default function ScheduleListbody({
         })
         .then((response) => {
           setProcesstable(response.data);
-          console.log(response);
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
-    } else console.log("empty");
-  };
+    } 
 
   useMemo(() => {
     setProcessrowselect({ ...processtable[0], index: 0 });

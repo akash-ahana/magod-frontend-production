@@ -4,7 +4,8 @@ import { Table } from 'react-bootstrap'
 import axios from "axios";
 import Popup from "./Popup"
 import { baseURL } from '../../../../../../api/baseUrl';
-
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function OperationsProcessingModal({show, setShow,selectProgramProcessing,machineData,taskNoOnClick,onClickOpeartion,setProgramProcessing,operation
 }) {
@@ -41,43 +42,68 @@ const openChangeMachineModal=()=>{
     setOpenChangeMachine(true);
 }
 
-  const clearAllButton = () => {
-    console.log('Clear All button Clicked' , programCompleteData)
-    const constProgramCompleteData = programCompleteData;
-    console.log('Const Program Complete Data is ' , constProgramCompleteData)
-    //console.log('TYPE OF' , typeof(constProgramCompleteData[0].QtyCleared))
-    for(let i =0 ; i<constProgramCompleteData.length ; i++) {
-      constProgramCompleteData[i].QtyCleared = constProgramCompleteData[i].QtyCut - constProgramCompleteData[i].QtyRejected
-    }
-    console.log('Updated Const Program Complete Data is ' , constProgramCompleteData)
-    // setProgramCompleteData(constProgramCompleteData)
-    //setProgramCompleteData([])
-    setProgramCompleteData(constProgramCompleteData)
-    setNewProgramCompleteData(constProgramCompleteData)
-    setNewPartlistdata(constProgramCompleteData)
-    setProgramCompleteData(constProgramCompleteData)
-    setNewProgramCompleteData(constProgramCompleteData)
-    //modalTable();
-    axios.post(baseURL+'/shiftManagerProfile/shiftManagerCloseProgram',
-    programCompleteData)
-   .then((response) => {
-     console.log('Current State of programCompleteData' , response.data);
-     //setProgramCompleteData(response.data)
- })
+const clearAllButton = () => {
+  console.log("Clear All button Clicked", programCompleteData);
+  // Create a new copy of the array to work with
+  const constProgramCompleteData = programCompleteData.map(item => ({ ...item }));
+  // Update the QtyCleared property
+  for (let i = 0; i < constProgramCompleteData.length; i++) {
+    constProgramCompleteData[i].QtyCleared =
+      constProgramCompleteData[i].QtyCut -
+      constProgramCompleteData[i].QtyRejected;
   }
+  console.log("Updated Const Program Complete Data is ", constProgramCompleteData);
+  // Validate if Remarks are mandatory
+  const hasInvalidRemarks = constProgramCompleteData.some(
+    (item) =>
+      item.QtyRejected > 0 && (!item.Remarks || item.Remarks === "null")
+  );
+  if (hasInvalidRemarks) {
+    // Display an error using the toastify library
+    toast.error("Remarks are mandatory for rows with Rejected > 0", {
+      position: toast.POSITION.TOP_CENTER,
+    });
+    return; // Stop further processing
+  }
+  // Update state with the modified data
+  setProgramCompleteData(constProgramCompleteData);
+  setNewProgramCompleteData(constProgramCompleteData);
+  setNewPartlistdata(constProgramCompleteData);
+  // Send a POST request
+  axios
+    .post(
+      baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+      constProgramCompleteData
+    )
+    .then((response) => {
+      console.log("Current State of programCompleteData", response.data);
+      toast.success("Success", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    });
+};
 
   
 
-  const onChangeRejected = (e, item, key) => {
-    console.log("onChange Rejected" , "e is " , e.target.value, " item is " , item, " key is " , key)
-    const newconstprogramCompleteData = programCompleteData
-    newconstprogramCompleteData[key].QtyRejected = Number(e.target.value)
-    //newconstprogramCompleteData[key].QtyCleared = Number(0)
-    console.log('NEW CONST PROGRAM COMPLETE DATA IS ' , newconstprogramCompleteData)
-    setProgramCompleteData(newconstprogramCompleteData)
-    setNewProgramCompleteData(newconstprogramCompleteData)
-    
+const onChangeRejected = (e, item, key) => {
+  const newconstprogramCompleteData = [...programCompleteData];
+  const newQtyRejected = Number(e.target.value);
+   // Check if the entered value is greater than QtyCut
+   if (newQtyRejected > newconstprogramCompleteData[key].QtyCut) {
+    toast.error(
+      "Rejected quantity should not be greater than produced quantity.",
+      {
+        position: toast.POSITION.TOP_CENTER,
+      }
+    );
+    // Reset the input field to the original value (QtyRejected)
+    e.target.value = item.QtyRejected;
+    return; // Exit the function without updating the state
   }
+  newconstprogramCompleteData[key].QtyRejected = newQtyRejected;
+  setProgramCompleteData(newconstprogramCompleteData);
+  setNewProgramCompleteData(newconstprogramCompleteData);
+};
 
   const onClickCloseProgram = () => {
     console.log('Close Program button is clicked')
@@ -262,7 +288,7 @@ return(
            <td>{item.QtyNested}</td>
            <td >{item.QtyCut}</td>
            <td  >
-            <div key={item.QtyRejected}>
+            <div>
            <input className='table-cell-editor '
            
                  name="cleared"

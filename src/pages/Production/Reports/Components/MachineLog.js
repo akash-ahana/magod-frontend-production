@@ -245,7 +245,6 @@ export default function MachineLog({
 
   return (
     <div>
-      <ToastContainer />
 
       <PrintShiftLogModal
         openShiftLog={openShiftLog}

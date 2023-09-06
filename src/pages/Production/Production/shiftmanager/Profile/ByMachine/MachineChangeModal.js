@@ -8,13 +8,13 @@ import { baseURL } from '../../../../../../api/baseUrl';
 
 export default function MachineChangeModal({changeMachine,setChangeMachine,selectProgramProcessing,setSelectProgramProcessing,selectedMachine,setOpenChangeMachine,onClickMachine,FirstSelectedMachine,setmachineProgramesProcessing}) {
 
-  console.log(FirstSelectedMachine)
     const handleClose=()=>{
         setChangeMachine(false);
         setOpenChangeMachine(false);
     }
 
     const onClickYes = () => {
+      console.log(selectedMachine);
       axios
         .post(baseURL + '/shiftManagerProfile/changeMachine', { ...selectProgramProcessing, NewMachine: selectedMachine })
         .then((response) => {
@@ -84,7 +84,6 @@ export default function MachineChangeModal({changeMachine,setChangeMachine,selec
 
   return (
     <>
-        <ToastContainer/>
 
     <Modal show={changeMachine}>
     <Modal.Header closeButton  onClick={handleClose}>

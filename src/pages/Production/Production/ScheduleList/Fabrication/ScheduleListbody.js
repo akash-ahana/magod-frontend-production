@@ -28,9 +28,9 @@ export default function ScheduleListbody({
   const { schedulelistfabricationdata } = useGlobalContext();
 
   //First Table Row Select
-  useMemo(() => {
-    setRowselect({ ...schedulelistfabricationdata[0], index: 0 });
-  }, [schedulelistfabricationdata[0]]);
+  // useMemo(() => {
+  //   setRowselect({ ...schedulelistfabricationdata[0], index: 0 });
+  // }, [schedulelistfabricationdata[0]]);
   // console.log(rowselect)
 
   //Process Table(Right First table) data
@@ -38,7 +38,6 @@ export default function ScheduleListbody({
   let OrdSchNo = rowselect?.OrdSchNo;
   // console.log(OrdSchNo)
   const getprocessTabledata = () => {
-    if (OrdSchNo) {
       // console.log("excuted")
       axios
         .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
@@ -51,9 +50,9 @@ export default function ScheduleListbody({
         .catch((error) => {
           // console.log(error)
         });
-    } else console.log("empty");
   };
 
+  
   useMemo(() => {
     setProcessrowselect({ ...processtable[0], index: 0 });
   }, [processtable[0]]);

@@ -97,9 +97,9 @@ function Forms() {
     
   return (
     <>
-    {shiftDetails && shiftDetails.map((item) => {
+    {/* {shiftDetails && shiftDetails.map((item) => {
          return (
-            (
+            ( */}
                 <div>
                         <div className='bg-light'>
         <div className="my-0" style={{margin: '40px'}}>
@@ -114,34 +114,34 @@ function Forms() {
             <div className="col-md-9">
                 <label className="form-label">Date</label>
                 <input className="in-field bg-light"
-                 value={shiftDetails[0].ShiftDate}/>
+                 value={shiftDetails[0]?.ShiftDate}/>
             </div>
 
             <div className="col-md-9">
                 <label className="form-label">Shift</label>
                 <input className="in-field" type="text"  disabled
-                 value={shiftDetails[0].Shift}
+                 value={shiftDetails[0]?.Shift}
                 />
             </div>
 
             <div className="col-md-9">
                 <label className="form-label">From</label>
                 <input className="in-field" 
-                 value={shiftDetails[0].FromTime} 
+                 value={shiftDetails[0]?.FromTime} 
                 disabled/>
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">To</label>
                 <input className="in-field"   disabled
-                 value={shiftDetails[0].ToTime}
+                 value={shiftDetails[0]?.ToTime}
                 />
             </div>
 
             <div className="col-md-9 ">
                 <label className="form-label">In Charge</label>
                 <input className="in-field" type="text"  disabled
-                 value={shiftDetails[0].Shift_Ic}
+                 value={shiftDetails[0]?.Shift_Ic}
                 />
             </div>
             </div>
@@ -149,7 +149,7 @@ function Forms() {
             <div className="bg-light box01">
             <div className="mb-3" style={{paddingLeft: '2px', width: '450px' }}> 
                 <label htmlFor="myBox" className="bg-ligh tform-title tab_font mb-2">Shift Instructions</label>
-                <textarea className="form-control sticky-top" rows='8' id=""  onChange={handleOnChange} style={{height:'201px', resize:'none'}} value={shiftDetails[0].Shift_instruction} disabled></textarea>
+                <textarea className="form-control sticky-top" rows='8' id=""  onChange={handleOnChange} style={{height:'201px', resize:'none'}} value={shiftDetails[0]?.Shift_instruction} disabled></textarea>
                 </div>
             </div>
 
@@ -172,13 +172,13 @@ function Forms() {
      </div>
     </div>
                 </div>
-               )
+               {/* )
          )
            
         
     })
    
-    }
+    } */}
 
     <div>
      <div className="box01 mt-1">

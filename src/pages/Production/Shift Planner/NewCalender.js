@@ -19,45 +19,45 @@ import { ToastContainer, toast } from "react-toastify";
 function NewCalender(props) {
   ////
   const [selectedcompWeek, setselectedcompWeek] = useState([]);
-const [currentDate, setCurrentDate] = useState(new Date());
-const [selectedWeek, setSelectedWeek] = useState([""]);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedWeek, setSelectedWeek] = useState([""]);
 
-useEffect(() => {
-  handleDateSelect(currentDate);
-}, []); // Run this effect only once on component mount
+  useEffect(() => {
+    handleDateSelect(currentDate);
+  }, []); // Run this effect only once on component mount
 
-const handleDateSelect = (date) => {
-  const selectedDay = new Date(date);
-  const startOfWeek = new Date(selectedDay);
-  
-  // Adjust the startOfWeek to start from Monday
-  const dayOfWeek = selectedDay.getDay();
-  const diff = (dayOfWeek === 0 ? 6 : dayOfWeek - 1); // Handle Sunday as special case
-  startOfWeek.setDate(selectedDay.getDate() - diff);
-  
-  const weekArray = [];
+  const handleDateSelect = (date) => {
+    const selectedDay = new Date(date);
+    const startOfWeek = new Date(selectedDay);
 
-  for (let i = 0; i < 7; i++) {
-    const day = new Date(startOfWeek);
-    day.setDate(startOfWeek.getDate() + i);
-    const formattedDate = formatDate(day); // Format the date
-    weekArray.push(formattedDate);
-  }
-  setselectedcompWeek(weekArray);
-  setCurrentDate(date);
-  setSelectedWeek(weekArray)
-};
+    // Adjust the startOfWeek to start from Monday
+    const dayOfWeek = selectedDay.getDay();
+    const diff = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Handle Sunday as special case
+    startOfWeek.setDate(selectedDay.getDate() - diff);
 
-const formatDate = (date) => {
-  const day = date.getDate();
-  const month = date.getMonth() + 1; // Months are zero-based
-  const year = date.getFullYear();
-  return `${day < 10 ? "0" : ""}${day}/${
-    month < 10 ? "0" : ""
-  }${month}/${year}`;
-};
+    const weekArray = [];
 
-//////
+    for (let i = 0; i < 7; i++) {
+      const day = new Date(startOfWeek);
+      day.setDate(startOfWeek.getDate() + i);
+      const formattedDate = formatDate(day); // Format the date
+      weekArray.push(formattedDate);
+    }
+    setselectedcompWeek(weekArray);
+    setCurrentDate(date);
+    setSelectedWeek(weekArray);
+  };
+
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Months are zero-based
+    const year = date.getFullYear();
+    return `${day < 10 ? "0" : ""}${day}/${
+      month < 10 ? "0" : ""
+    }${month}/${year}`;
+  };
+
+  //////
   //Header Component
   const [dataShiftTypes, setDataShiftTypes] = useState([]);
   const [selectedShift, setSelectedShift] = useState("");
@@ -75,9 +75,8 @@ const formatDate = (date) => {
   };
 
   const getMachineListData = async () => {
-    const { data } = await axios.get(
-      baseURL + `/productionSetup/getallmachines`
-    );
+    const { data } = await axios.get(baseURL + `/shiftEditor/getMachineList`);
+    console.log(data);
     setGetShiftTypesData(data);
   };
 
@@ -131,7 +130,7 @@ const formatDate = (date) => {
   const [isChecked4, setIsChecked4] = useState(false);
   const [isChecked5, setIsChecked5] = useState(false);
   const [isChecked6, setIsChecked6] = useState(false);
-  const [isChecked7, setIsChecked7] = useState(true);
+  const [isChecked7, setIsChecked7] = useState(false);
 
   const handleOnChangeCheckBox1 = () => {
     setIsChecked(!isChecked);
@@ -378,10 +377,12 @@ const formatDate = (date) => {
   useMemo(() => {
     setRowselect({ item: selectedWeek[0], index: 0 });
   }, [selectedWeek[0]]);
-  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState([]);
+  const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState(
+    []
+  );
+  console.log("getSingleDayShiftPlan4thTable inside ", rowselect);
 
   const getSingleDayShiftPlan4thTable = () => {
-    console.log("getSingleDayShiftPlan4thTable inside ", rowselect);
     axios
       .post(baseURL + "/shiftEditor/getDailyShiftPlanTable", {
         ShiftDate: rowselect,
@@ -433,6 +434,7 @@ const formatDate = (date) => {
   }, [rowselect]);
 
   const [secondTableShiftState, setSecondTableShiftState] = useState([]);
+  const [forFilterDate, setForFilterDate] = useState([]);
   // console.log(selectedWeek);
   const getSecondTableData = () => {
     const res = axios
@@ -446,11 +448,27 @@ const formatDate = (date) => {
           console.log("response data is null");
         } else {
           setSecondTableShiftState(response.data);
+
+          // Group data based on Shift property
+          const groupedData = response.data.reduce((acc, item) => {
+            if (!acc[item.Shift]) {
+              acc[item.Shift] = [];
+            }
+            acc[item.Shift].push(item);
+            return acc;
+          }, {});
+
+          // Transform the grouped data into an array of objects
+          const transformedData = Object.keys(groupedData).map((shift) => ({
+            Shift: shift,
+            data: groupedData[shift],
+          }));
+
+          setForFilterDate(transformedData);
         }
       });
   };
-  // console.log('Second Table Sift State in New Calender component', secondTableShiftState)
-  // console.log(selectedWeek)
+
   useEffect(() => {
     getSecondTableData();
   }, [selectedWeek]);
@@ -543,23 +561,17 @@ const formatDate = (date) => {
 
   const getMachineOperatorTableData = () => {
     console.log(rowselectDailyShiftTable);
-axios
+    axios
       .post(
         baseURL + "/shiftEditor/getMachineOperatorsShift",
         rowselectDailyShiftTable
       )
       .then((response) => {
-        console.log("Api response is ", response);
-        if (response.data === "") {
-          // console.log('response data is null')
-        } else {
-          // console.log(response.data);
-          setMachineOperatorTableData(response.data);
-        }
+        console.log("Api response is ", response.data);
+        setMachineOperatorTableData(response.data);
       });
   };
   console.log(machineOperatorTableData);
-
 
   //Delete Weekshift
   const [opendeleteshift, setOpendeleteshift] = useState("");
@@ -597,7 +609,6 @@ axios
       });
   };
 
-
   const [opendeleteoperator, setOpendeleteoperator] = useState("");
   const openDeletemachineoperator = () => {
     setOpendeleteoperator(true);
@@ -625,11 +636,65 @@ axios
   };
 
   ///////////////////////
-  
+  const firstShiftDates = forFilterDate
+    .map((filterData) => filterData?.data) // Extract the data arrays
+    .filter((data) => data !== null) // Filter out null data arrays
+    .flatMap((data) => data.map((item) => item.ShiftDate)); // Map and flatten the ShiftDate values
+
+  if (firstShiftDates.length === 0) {
+    firstShiftDates.push(null); // If no non-null data arrays were found, add null
+  }
+
+  // Assuming 'firstShiftDates' contains the array of dates
+  const formattedDates = firstShiftDates.map((date) => {
+    if (date) {
+      const parts = date.split("-");
+      const formattedDate = `${parts[0]}/${parts[1]}/${parts[2]}`;
+      return formattedDate;
+    } else {
+      return null; // Handle the case where date is null
+    }
+  });
+
+  console.log(firstShiftDates);
+  // Assuming you have the 'selectedWeek' array and 'formattedDates' array
+  const dateExistsArray = selectedWeek.map(
+    (date) => !formattedDates.includes(date)
+  );
+  console.log(dateExistsArray);
+  // Check if all values in dateExistsArray are true
+  const allValuesTrue = dateExistsArray.every((value) => value);
+  // If all values are true, set dateExistsArray to an array of false values
+  if (allValuesTrue) {
+    dateExistsArray.fill(false);
+  }
+  // ///
+
+  const [currentDateComp, setCurrentDateComp] = useState(new Date());
+  const [isButtoncheck, setisButtoncheck] = useState(false);
+  const CompareDate = rowselect?.item; // Your date string in dd/mm/yyyy format
+  const todayDate = new Date();
+  const day = todayDate.getDate().toString().padStart(2, "0");
+  const month = (todayDate.getMonth() + 1).toString().padStart(2, "0");
+  const year = todayDate.getFullYear();
+  const formattedTodayDate = `${year}-${month}-${day}`;
+  const [condition, setCondition] = useState(false);
+
+  useEffect(() => {
+    // Convert CompareDate to yyyy-mm-dd format before comparison
+    const [compareDay, compareMonth, compareYear] = CompareDate.split("/");
+    const formattedCompareDate = `${compareYear}-${compareMonth}-${compareDay}`;
+    if (new Date(formattedCompareDate) >= new Date(formattedTodayDate)) {
+      setCondition(true);
+    } else {
+      setCondition(false);
+    }
+  }, [CompareDate, formattedTodayDate]);
+
+  console.log("selectedWeek", selectedWeek);
+
   return (
     <>
-      <ToastContainer />
-
       <ModalPrintWeeklyPlan
         openPrintModal={openPrintModal}
         setOpenPrintModal={setOpenPrintModal}
@@ -666,8 +731,11 @@ axios
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
                 <button
-                  className="button-style mt-2 group-button mt-4"
+                  className={`button-style mt-2 group-button mt-4 ${
+                    condition !== true ? "disabled" : ""
+                  }`}
                   style={{ width: "150px" }}
+                  disabled={condition !== true}
                   onClick={() => {
                     openCreateshiftmodal();
                     createWeeklyShiftPlan();
@@ -689,8 +757,11 @@ axios
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
                 <button
-                  className="button-style mt-2 group-button mt-4"
+                  className={`button-style mt-2 group-button mt-4 ${
+                    condition !== true ? "disabled" : ""
+                  }`}
                   style={{ width: "200px" }}
+                  disabled={condition !== true}
                   onClick={() => {
                     onSetMachineOperators();
                     openSetMachinemodal();
@@ -733,7 +804,7 @@ axios
                 </select>
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <button
+                {/* <button
                   className="button-style mt-2 group-button mt-3"
                   style={{ width: "150px" }}
                   onClick={() => {
@@ -742,6 +813,13 @@ axios
                   }}
                 >
                   Delete Week Shift
+                </button> */}
+                <button
+                  className="button-style  group-button"
+                  style={{ width: "150px" }}
+                  onClick={openPdfmodel}
+                >
+                  Print Weekly Plan
                 </button>
               </div>{" "}
               <div className="col-md-3">
@@ -756,13 +834,13 @@ axios
                 </select>
               </div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <button
+                {/* <button
                   className="button-style mt-2 group-button mt-3"
                   style={{ width: "200px" }}
                   onClick={openDeletemachineoperator}
                 >
                   Delete Machine Operator
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -777,13 +855,7 @@ axios
             <div className="row">
               <div className="col-md-3"></div>
               <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <button
-                  className="button-style  group-button"
-                  style={{ width: "150px" }}
-                  onClick={openPdfmodel}
-                >
-                  Print Weekly Plan
-                </button>
+                {/*  */}
               </div>{" "}
               <div className="col-md-3"></div>
             </div>
@@ -847,10 +919,7 @@ axios
             </div>
 
             <div>
-              <Table
-                bordered
-                style={{ width: "130px", height: "180px" }}
-              >
+              <Table bordered style={{ width: "130px", height: "180px" }}>
                 <thead style={{ textAlign: "center" }}>
                   <tr>
                     <th>Holiday</th>
@@ -863,80 +932,85 @@ axios
                         <input
                           type="checkbox"
                           ref={checkbox1}
-                          checked={isChecked}
+                          checked={isChecked || dateExistsArray[0]}
                           onChange={handleOnChangeCheckBox1}
                         />
                       </div>
                     </td>
                   </tr>
+
                   <tr style={{ height: "38px" }}>
                     <td>
                       <div>
                         <input
                           type="checkbox"
                           ref={checkbox2}
-                          checked={isChecked2}
+                          checked={isChecked2 || dateExistsArray[1]}
                           onChange={handleOnChangeCheckBox2}
                         />
                       </div>
                     </td>
                   </tr>
+
                   <tr style={{ height: "38px" }}>
                     <td>
                       <div>
                         <input
                           type="checkbox"
                           ref={checkbox3}
-                          checked={isChecked3}
+                          checked={isChecked3 || dateExistsArray[2]}
                           onChange={handleOnChangeCheckBox3}
                         />
                       </div>
                     </td>
                   </tr>
+
                   <tr style={{ height: "38px" }}>
                     <td>
                       <div>
                         <input
                           type="checkbox"
                           ref={checkbox4}
-                          checked={isChecked4}
+                          checked={isChecked4 || dateExistsArray[3]}
                           onChange={handleOnChangeCheckBox4}
                         />
                       </div>
                     </td>
                   </tr>
+
                   <tr style={{ height: "38px" }}>
                     <td>
                       <div>
                         <input
                           type="checkbox"
                           ref={checkbox5}
-                          checked={isChecked5}
+                          checked={isChecked5 || dateExistsArray[4]}
                           onChange={handleOnChangeCheckBox5}
                         />
                       </div>
                     </td>
                   </tr>
+
                   <tr style={{ height: "37px" }}>
                     <td>
                       <div>
                         <input
                           type="checkbox"
                           ref={checkbox6}
-                          checked={isChecked6}
+                          checked={isChecked6 || dateExistsArray[5]}
                           onChange={handleOnChangeCheckBox6}
                         />
                       </div>
                     </td>
                   </tr>
+
                   <tr style={{ height: "37px" }}>
                     <td>
                       <div>
                         <input
                           type="checkbox"
                           ref={checkbox7}
-                          defaultChecked={true}
-                          checked={isChecked7}
+                          checked={isChecked7 || dateExistsArray[6]}
                           onChange={handleOnChangeCheckBox7}
                         />
                       </div>
@@ -965,6 +1039,7 @@ axios
           getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
           getSecondTableData={getSecondTableData}
           rowselect={rowselect}
+          condition={condition}
         />
       </div>
 

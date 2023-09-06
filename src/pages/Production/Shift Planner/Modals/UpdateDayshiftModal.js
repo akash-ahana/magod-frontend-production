@@ -8,9 +8,18 @@ import axios from 'axios';
 
 
 export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
-    rowselectDailyShiftTable,onClickUpdateDayShift,selectedShiftIncharge}) {
-    console.log(rowselectDailyShiftTable.Shift_Ic);
+    rowselectDailyShiftTable,onClickUpdateDayShift,selectedShiftIncharge,selectedWeek}) {
+    console.log(rowselectDailyShiftTable?.Shift_Ic);
 
+// Function to log the value when selectedWeek changes
+const logSelectedWeekValue = () => {
+  console.log(rowselectDailyShiftTable?.Shift_Ic);
+};
+
+// Use useEffect to call logSelectedWeekValue when selectedWeek changes
+useEffect(() => {
+  logSelectedWeekValue();
+}, [selectedWeek, rowselectDailyShiftTable]);
 
     const handleClose=()=>{
         setUpdatedayshift(false);
@@ -23,7 +32,7 @@ export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
           <Modal.Title>Update Dayshift</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Do you wish to add <b>{selectedShiftIncharge}</b> as Shift Incharge for <b>{rowselectDailyShiftTable.Shift}</b> shift for  <b>{rowselectDailyShiftTable.ShiftDate} ?</b>
+        <Modal.Body>Do you wish to add <b>{selectedShiftIncharge}</b> as Shift Incharge for <b>{rowselectDailyShiftTable?.Shift}</b> shift for  <b>{rowselectDailyShiftTable?.ShiftDate} ?</b>
         </Modal.Body> 
 
         <Modal.Footer>
