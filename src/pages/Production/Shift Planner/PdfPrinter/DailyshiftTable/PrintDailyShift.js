@@ -52,15 +52,33 @@ export default function PrintDailyShift({rowselect}) {
 
   //First Shift
   const[newData,setNewdata]=useState([]);
-    const getDailyMachineoperatorData=()=>{
-      axios.post(baseURL+'/shiftEditor/getSingleDayDetailShiftInformation', 
-      {
-        ShiftDate:finalday,
-      }).then((response) => {
-          console.log(response.data);
-          setNewdata(response.data)
-      })
-    }
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'short' });
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    
+    return `${day}/${month} ${hours}:${minutes}`;
+  };
+  
+  const getDailyMachineoperatorData = () => {
+    axios.post(baseURL+'/shiftEditor/getSingleDayDetailShiftInformation', 
+    {
+      ShiftDate: finalday,
+    }).then((response) => {
+      const formattedData = response.data.map((item) => ({
+        ...item,
+        from: formatDate(item.from),
+        To: formatDate(item.To),
+      }));
+      
+      console.log(formattedData);
+      setNewdata(formattedData);
+    });
+  }
+  
+  
     
 // //Second Shift
 // const[secondmachineoperator,setSecondmachineoperator]=useState([]);

@@ -10,7 +10,7 @@ import ShowProgramsPdf from './ShowProgramsPdf';
     <>
       <Modal show={openShowPrograms} fullscreen={fullscreen} onHide={() => setOpenShowPrograms(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Show Parts Pdf</Modal.Title>
+          <Modal.Title>Show Program Report</Modal.Title>
         </Modal.Header>
         <Modal.Body><ShowProgramsPdf 
         rowselect={rowselect}

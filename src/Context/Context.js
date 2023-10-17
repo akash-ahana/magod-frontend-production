@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
   //Profile
   const getSchedulistdata=()=>{
     axios.get(baseURL + "/scheduleListProfile/schedulesList").then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
         for(let i =0;i<response.data.length;i++) { 
           // FOR TgtDelDate
           let dateSplit = response.data[i].schTgtDate.split(" ");
@@ -210,7 +210,7 @@ const getProductionTaskListData=()=>{
     Type:"Profile"
   })
   .then((res) => {
-    console.log("require response mus",res.data);
+    // console.log("require response mus",res.data);
     SetProductionTaskList(res.data)
   });
 }
@@ -224,7 +224,7 @@ const getProductionTaskListDataService=()=>{
     Type:"Service"
   })
   .then((res) => {
-    console.log("require response mus",res.data);
+    // console.log("require response mus",res.data);
     SetProductionTaskListService(res.data)
   });
 }

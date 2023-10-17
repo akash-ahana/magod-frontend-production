@@ -20,6 +20,7 @@ export default function CreateweekModal({
   setSelectedShift,
   setSelectedMachine,
   setSelectedShiftIncharge,
+  setIsChecked,setIsChecked2,setIsChecked3,setIsChecked4,setIsChecked5,setIsChecked6
 }) {
   const handleClose = () => {
     setOpenweekshift(false);
@@ -52,16 +53,29 @@ export default function CreateweekModal({
       if (constWeekState[0].Shift === "Third") {
         fromTime = " 22:00:00";
         toTime = " 06:00:00";
+    
+        for (let i = 0; i < constWeekState.length; i++) {
+          const shiftDate = new Date(constWeekState[i].ShiftDate);
+          const nextDay = new Date(shiftDate);
+          nextDay.setDate(nextDay.getDate() + 1); // Add one day
+          
+          // Format times for "Third" shift
+          constWeekState[i].FromTime = shiftDate.toISOString().slice(0, 10) + fromTime;
+          constWeekState[i].ToTime = nextDay.toISOString().slice(0, 10) + toTime;
+        }
       }
       if (constWeekState[0].Shift === "General") {
         fromTime = " 09:00:00";
         toTime = " 17:00:00";
       }
       for (let i = 0; i < constWeekState.length; i++) {
-        constWeekState[i].FromTime = constWeekState[i].ShiftDate + fromTime;
-        constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime;
+        if (constWeekState[i].Shift !== "Third") {
+          constWeekState[i].FromTime = constWeekState[i].ShiftDate + fromTime;
+          constWeekState[i].ToTime = constWeekState[i].ShiftDate + toTime;
+        }
       }
     }
+    
     axios
       .post(baseURL + "/shiftEditor/createWeeklyShiftPlan", constWeekState)
       .then((response) => {
@@ -83,6 +97,12 @@ export default function CreateweekModal({
         setSelectedShift("");
        setSelectedShiftIncharge("")
   });
+  setIsChecked(false);
+  setIsChecked2(false);
+  setIsChecked3(false);
+  setIsChecked4(false);
+  setIsChecked5(false);
+  setIsChecked6(false);
     // setSelectedMachine("");
   };
 

@@ -18,7 +18,7 @@ import PrintShowStatus from './PrintShowStatus';
     <>
       <Modal show={openShowStatus} fullscreen={fullscreen} onHide={() => setOpenShowStatus(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Show Status Pdf</Modal.Title>
+          <Modal.Title>Production Status Report</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         {loading ? (

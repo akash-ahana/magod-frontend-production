@@ -42,13 +42,20 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 }, [])
     
       
-     const[selectProgramCompleted,setSelectProgramCompleted]=useState('');
+     const[selectProgramCompleted,setSelectProgramCompleted]=useState({});
      const programCompleted=(item,index)=>{
       let list={...item,index:index}
       setSelectProgramCompleted(list);
     }
 
-    console.log(selectProgramCompleted)
+    useEffect(() => {
+      if (machineProgramesCompleted.length > 0 && !selectProgramCompleted.TaskNo) {
+        programCompleted(machineProgramesCompleted[0], 0); // Select the first row
+      }
+    }, [machineProgramesCompleted]);
+
+    console.log(selectProgramCompleted);
+
   return (
     <>
     <div>
@@ -108,8 +115,7 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
 
 </div>
 
-{show &&
-  (
+
     <ProgramCompletedModal 
     show={show}
      setShow={setShow}
@@ -119,11 +125,11 @@ export default function ProgramCompletedData({machineProgramesCompleted,taskNoOn
      setSelectProgramCompleted={setSelectProgramCompleted}
      setMachineProgramesCompleted={setMachineProgramesCompleted}
      selectedMachine={selectedMachine}
+     machineProgramesCompleted={machineProgramesCompleted}
     //  programCompleteData={programCompleteData}
     //  setProgramCompleteData={setProgramCompleteData}
      />
-  )
-}
+
 
 </>
   )

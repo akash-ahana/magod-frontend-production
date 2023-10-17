@@ -276,7 +276,7 @@ return(
         <tr >
            <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            {/* <td>{item.TotQtyNested}</td> */}
-           <td>{item.QtyNested}</td>
+           <td>{item.TotQtyNested}</td>
            <td>{item.QtyCut}</td>
            <td >
             <div>

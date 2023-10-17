@@ -20,6 +20,7 @@ export default function PartsList({
   const [newpartlistdata, setNewPartlistdata] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [isClearedDisabled, setIsClearedDisabled] = useState(true);
+  const[saveCleared,setSaveCleared]=useState(false);
 
   useEffect(() => {
     getpartslistdata();
@@ -36,21 +37,15 @@ export default function PartsList({
   };
 
   const clearAllonClick = () => {
-    console.log(
-      "Clear All Button is Clicked",
-      "Parts List Data is ",
-      partlistdata
-    );
     const constpartListData = partlistdata;
-    console.log("Const part list data is ", constpartListData);
     for (let i = 0; i < constpartListData.length; i++) {
       constpartListData[i].QtyCleared = constpartListData[i].QtyProduced;
     }
-    console.log("Updated constPartListData is ", constpartListData);
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
     setSelectedRows([]); // Clear selected rows
     setIsClearedDisabled(true); // Disable the Save Cleared button
+    setSaveCleared(true);
   };
 
 
@@ -77,24 +72,39 @@ export default function PartsList({
   };
 
   const saveClearedonClick = () => {
-    console.log(
-      "Save Cleared button is clicked",
-      " task parts table state is ",
-      partlistdata
-    );
-    axios
-      .post(
-        baseURL + "/scheduleListProfile/scheduleListSaveCleared",
-        partlistdata
-      )
-      .then((response) => {
-        //setPartlistdata(response.data);
-        // console.log(response.boby);
-        toast.success(" Cleared Saved", {
-          position: toast.POSITION.TOP_CENTER,
+    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    if (hasUnsavedData) {
+      // There is at least one row where QtyProduced is not equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveCleared",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          console.log("executed first API");
         });
-      });
+    } else {
+      // All rows have QtyProduced equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          console.log("executed second API");
+        });
+    }
   };
+  
 
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
@@ -115,6 +125,7 @@ export default function PartsList({
     });
     setPartlistdata(updatedRows);
     setSelectedRows([]);
+    setSaveCleared(false)
   };
 
   //ONSELECT

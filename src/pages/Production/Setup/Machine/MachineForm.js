@@ -14,6 +14,7 @@ import SaveMachine from './SaveMachine/SaveMachine';
 import { baseURL } from "../../../../api/baseUrl";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 
 
 export default function ({selectedRow,setSelectedRow}) {
@@ -206,7 +207,11 @@ else{
     }
   };
   
-  
+  //Close Button
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
   
 
   return (
@@ -426,6 +431,12 @@ else{
        style={{ width: "150px",marginLeft:"20px"}} onClick={()=>{openDeleteProcess()}}>
        Delete Process
       </button>
+
+      <button className="button-style mt-2 group-button" type='button'
+       style={{ width: "150px",marginLeft:"20px"}} onClick={onClickClose}>
+       Close
+      </button>
+
      </div>
          </div>
     </form>

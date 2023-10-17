@@ -90,8 +90,6 @@ function DailyShiftTable({
   const [rowselectMachineOperator, setRowselectMachineOperator] = useState({});
   const rowSelectFun = (item, index) => {
     let list = { ...item, index: index };
-    console.log("ScheduleNo", item.ScheduleNo);
-    // setScheduleid(item.OrdSchNo);
     setRowselectMachineOperator(list);
   };
 
@@ -109,6 +107,7 @@ function DailyShiftTable({
             rowselect={rowselect}
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
             condition={condition}
+            machineOperatorTableData={machineOperatorTableData}
           />
         </div>
 
@@ -200,6 +199,7 @@ function DailyShiftTable({
             machineOperatorTableData={machineOperatorTableData}
             getMachineOperatorTableData={getMachineOperatorTableData}
             selectedWeek={selectedWeek}
+            rowselect={rowselect}
           />
         </div>
       </div>

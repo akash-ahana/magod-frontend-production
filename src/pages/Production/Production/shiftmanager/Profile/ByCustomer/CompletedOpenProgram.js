@@ -6,6 +6,7 @@ import { baseURL } from '../../../../../../api/baseUrl';
 import CloseProgramModal from '../ByMachine/CloseProgramModal';
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import ShortCloseModal from './ShortCloseModal';
 
 
 export default function CompleteOpenProgram({show, setShow,selectProgramCompleted,onClickCustomer,
@@ -93,60 +94,148 @@ export default function CompleteOpenProgram({show, setShow,selectProgramComplete
   }
 
   ////
-  const[openCloseProgram,setCloseProgram]=useState(false);
+//   const onClickCloseProgram1 = () => {
+//     axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
+//     selectProgramCompleted)
+//    .then((response) => {
+//      const constSelectProgramCompleted = selectProgramCompleted;
+//      constSelectProgramCompleted.PStatus = 'Closed'
+//      setSelectProgramCompleted(constSelectProgramCompleted)
+//      setCloseProgram(true);
+//      axios
+//       .post(baseURL + "/shiftManagerProfile/CustomerProgramesCompleted", {
+//         Cust_Code: custCode,
+//       })
+//       .then((response) => {
+//         for (let i = 0; i < response.data.length; i++) {
+//           if (
+//             response.data[i].ActualTime <
+//             0.5 * response.data[i].EstimatedTime
+//           ) {
+//             response.data[i].rowColor = "#339900";
+//           } else if (
+//             response.data[i].ActualTime <
+//             0.75 * response.data[i].EstimatedTime
+//           ) {
+//             response.data[i].rowColor = "#82c2b4";
+//           } else if (
+//             response.data[i].ActualTime <
+//             0.9 * response.data[i].EstimatedTime
+//           ) {
+//             response.data[i].rowColor = "#f08080";
+//           } else if (
+//             response.data[i].ActualTime <
+//             1.1 * response.data[i].EstimatedTime
+//           ) {
+//             response.data[i].rowColor = "#f08080";
+//           } else if (
+//             response.data[i].ActualTime <
+//             1.25 * response.data[i].EstimatedTime
+//           ) {
+//             response.data[i].rowColor = "#FF7F50";
+//           } else if (
+//             response.data[i].ActualTime <
+//             1.5 * response.data[i].EstimatedTime
+//           ) {
+//             response.data[i].rowColor = "#FFA500";
+//           } else {
+//             response.data[i].rowColor = "#ff0000";
+//           }
+//         }
+//         setProgramCompleted(response.data);
+//         setSelectProgramCompleted({...response.data[0],index:0})
+//         console.log("AFTER ADDING COLOR", response.data);
+//       });
+//  })
+//   }
+  /////
+  const [openCloseProgram, setCloseProgram] = useState(false);
+  const [disableStatus, setDisableStatus] = useState(false);
+  const[response,setResponse]=useState("")
+  const[comparedResponse,setComparedResponse]=useState("")
+  const[openShortClose,setOpenShortClose]=useState(false)
   const onClickCloseProgram = () => {
-    axios.post(baseURL+'/shiftManagerProfile/CloseProgram',
-    selectProgramCompleted)
-   .then((response) => {
-     const constSelectProgramCompleted = selectProgramCompleted;
-     constSelectProgramCompleted.PStatus = 'Closed'
-     setSelectProgramCompleted(constSelectProgramCompleted)
-     setCloseProgram(true);
-     axios
-      .post(baseURL + "/shiftManagerProfile/CustomerProgramesCompleted", {
-        Cust_Code: custCode,
-      })
-      .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          if (
-            response.data[i].ActualTime <
-            0.5 * response.data[i].EstimatedTime
-          ) {
-            response.data[i].rowColor = "#339900";
-          } else if (
-            response.data[i].ActualTime <
-            0.75 * response.data[i].EstimatedTime
-          ) {
-            response.data[i].rowColor = "#82c2b4";
-          } else if (
-            response.data[i].ActualTime <
-            0.9 * response.data[i].EstimatedTime
-          ) {
-            response.data[i].rowColor = "#f08080";
-          } else if (
-            response.data[i].ActualTime <
-            1.1 * response.data[i].EstimatedTime
-          ) {
-            response.data[i].rowColor = "#f08080";
-          } else if (
-            response.data[i].ActualTime <
-            1.25 * response.data[i].EstimatedTime
-          ) {
-            response.data[i].rowColor = "#FF7F50";
-          } else if (
-            response.data[i].ActualTime <
-            1.5 * response.data[i].EstimatedTime
-          ) {
-            response.data[i].rowColor = "#FFA500";
-          } else {
-            response.data[i].rowColor = "#ff0000";
+    axios
+    .post(
+      baseURL + "/shiftManagerProfile/CloseProgram",
+      selectProgramCompleted
+    )
+    .then((response) => {
+      console.log(response.data);
+      if(response.data=='Return or update Material before closing Program'){
+        setCloseProgram(true);
+        setResponse('Return or update Material before closing Program')
+      }
+      else{
+          if(selectProgramCompleted?.QtyAllotted<selectProgramCompleted?.Qty){
+            setComparedResponse('Do you wish to short close program No?');
+            setOpenShortClose(true);
           }
-        }
-        setProgramCompleted(response.data);
-        console.log("AFTER ADDING COLOR", response.data);
-      });
- })
-  }
+          else{
+            axios
+            .post(
+              baseURL + "/shiftManagerProfile/updateClosed",
+              selectProgramCompleted
+            )
+            .then((response) => {
+                console.log(response.data)
+            });
+            setCloseProgram(true);
+            setResponse('Closed')
+            const constSelectProgramCompleted = selectProgramCompleted;
+            constSelectProgramCompleted.PStatus = "Closed";
+            setSelectProgramCompleted(constSelectProgramCompleted);
+            setDisableStatus(response.data.success);
+            axios
+            .post(baseURL + "/shiftManagerProfile/CustomerProgramesCompleted", {
+              Cust_Code: custCode,
+            })
+            .then((response) => {
+              for (let i = 0; i < response.data.length; i++) {
+                if (
+                  response.data[i].ActualTime <
+                  0.5 * response.data[i].EstimatedTime
+                ) {
+                  response.data[i].rowColor = "#339900";
+                } else if (
+                  response.data[i].ActualTime <
+                  0.75 * response.data[i].EstimatedTime
+                ) {
+                  response.data[i].rowColor = "#82c2b4";
+                } else if (
+                  response.data[i].ActualTime <
+                  0.9 * response.data[i].EstimatedTime
+                ) {
+                  response.data[i].rowColor = "#f08080";
+                } else if (
+                  response.data[i].ActualTime <
+                  1.1 * response.data[i].EstimatedTime
+                ) {
+                  response.data[i].rowColor = "#f08080";
+                } else if (
+                  response.data[i].ActualTime <
+                  1.25 * response.data[i].EstimatedTime
+                ) {
+                  response.data[i].rowColor = "#FF7F50";
+                } else if (
+                  response.data[i].ActualTime <
+                  1.5 * response.data[i].EstimatedTime
+                ) {
+                  response.data[i].rowColor = "#FFA500";
+                } else {
+                  response.data[i].rowColor = "#ff0000";
+                }
+              }
+              setProgramCompleted(response.data);
+              setSelectProgramCompleted({...response.data[0],index:0})
+              console.log("AFTER ADDING COLOR", response.data);
+            });
+          }
+      }
+    });
+  };
+
+  /////
   
   console.log(programCompleteData , 'After Updating')  
   const onChangeCleared = (e, item, key) => {
@@ -172,7 +261,19 @@ export default function CompleteOpenProgram({show, setShow,selectProgramComplete
 return (
   <div>
     <CloseProgramModal openCloseProgram={openCloseProgram}
-    setCloseProgram={setCloseProgram}/>
+    setCloseProgram={setCloseProgram}
+    data={response}
+    />
+
+<ShortCloseModal
+      openShortClose={openShortClose}
+      setOpenShortClose={setOpenShortClose}
+      response1={comparedResponse}
+      selectProgramCompleted={selectProgramCompleted}
+      custCode={custCode}
+      setSelectProgramCompleted={setSelectProgramCompleted}
+      setProgramCompleted={setProgramCompleted}
+      />
 
     <Modal size='lg' show={show}  fullscreen={fullscreen} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -315,7 +416,7 @@ return(
         <tr >
            <td  style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
            {/* <td>{item.TotQtyNested}</td> */}
-           <td>{item.QtyNested}</td>
+           <td>{item.TotQtyNested}</td>
            <td>{item.QtyCut}</td>
            <td >
             <div>

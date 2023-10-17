@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 // import "react-toastify/dist/ReactToastify.css";
 import { baseURL } from "../../../../.././api/baseUrl";
 import CustomModal from "../../../CustomModal";
+import { useNavigate } from "react-router-dom";
+
 
 export default function MachineAlltmntForm() {
   const [machineProcessData, setMachineProcessData] = useState([]);
@@ -146,6 +148,7 @@ export default function MachineAlltmntForm() {
   };
 
   const clickChangeMachine = async () => {
+    console.log("Selected machine:", currentSelectedMachine?.MachineName);
     axios
       .post(baseURL + "/machineAllotment/changeMachineHeaderButton", {
         programs: selectedRows,
@@ -153,13 +156,9 @@ export default function MachineAlltmntForm() {
       })
       .then((response) => {
         handleClose();
-      });
-    setSelectedRows([]);
-    setMachineList([]);
-    console.log("Selected machine:", currentSelectedMachine.MachineName);
     axios
       .post(baseURL + "/machineAllotment/afterChangeMachine", {
-        MachineName: currentSelectedMachine.MachineName,
+        MachineName: currentSelectedMachine?.MachineName,
       })
       .then((response) => {
         console.log(response.data)
@@ -168,7 +167,11 @@ export default function MachineAlltmntForm() {
           response.data[i].isChecked = false;
         }
       });
+          setSelectedRows([]);
+          setMachineList([]);
+      });
     };
+
 
   useMemo(() => {}, [machineProcessData[0]]);
 
@@ -203,7 +206,12 @@ export default function MachineAlltmntForm() {
     content: 'Please select a program with the same operation'
   };
 
-
+  
+  //Close Button
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
 
   return (
     <>
@@ -222,6 +230,8 @@ export default function MachineAlltmntForm() {
             Save
           </button>
 
+        
+
           <button
             className="button-style mt-2 group-button "
             style={{ width: "150px" }}
@@ -229,6 +239,7 @@ export default function MachineAlltmntForm() {
           >
             Change Machine
           </button>
+    
 
           <div className="col-md-3">
             <select
@@ -243,6 +254,10 @@ export default function MachineAlltmntForm() {
               ))}
             </select>
           </div>
+          <button className="button-style mt-2 group-button" type='button'
+          style={{ width: "150px"}} onClick={onClickClose}>
+          Close
+         </button>
         </div>
       </div>
 

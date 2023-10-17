@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
     },
     title2 :{
         textDecoration :"underline",
-        marginLeft:"-136px",
+        marginLeft:"-150px",
         marginTop:"20px",
         fontFamily: "Helvetica-Bold"
     },
     location:{
         marginRight:"280px",
-        marginLeft : "415px",
+        marginLeft : "410px",
         // marginLeft:"350px",
         marginTop:"22px",
         textDecoration:"underline",
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     },
     datedisplay:{
         //marginRight:"200px",
-        marginLeft:"-351px",
+        marginLeft:"-370px",
         marginTop:"5.5px",
         fontFamily: "Helvetica-Bold"
     },
@@ -42,18 +42,19 @@ const styles = StyleSheet.create({
       width:"430px",
     },
     tablemainheader:{
-        textDecoration:"underline",   
-       marginLeft:"60px",
-        marginTop : "51px",
-        fontFamily: "Helvetica-Bold"
+      textDecoration:"underline",   
+      marginLeft:"60px",
+      marginTop : "30px",
+      fontFamily: "Helvetica-Bold"
     },
-     Headingrow: {
+    
+    Headingrow: {
     flexDirection: "row",
     alignItems: "center",
     borderBottom:"1px",
     marginTop:"10px",
     marginLeft:"60px",
-    marginBottom : "10px",
+    borderTop:1,
     width:"700px",
     // fontSize:"10px"
     fontFamily: "Helvetica-Bold"
@@ -61,18 +62,22 @@ const styles = StyleSheet.create({
   Scheduleno: {
     width: "100px",
     // whiteSpace:"nowrap"
+    textAlign:"center"
   },
   Customer: {
     width: "250px",
     // whiteSpace:"nowrap"
+    textAlign:"center"
   },
   Date:{
       width:"100px",
       // whiteSpace:"nowrap"
+      textAlign:"center"
   },
   Instruction:{
     width:"150px",
     // whiteSpace:"nowrap"
+    textAlign:"center"
   }
   });
   

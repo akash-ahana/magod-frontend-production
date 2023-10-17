@@ -12,26 +12,28 @@ const styles = StyleSheet.create({
       flexWrap: "wrap",
     },
     tableTitle : {
-        textDecoration : "underline",
-        marginLeft:"200px",
-        marginTop:"20px",
+      textDecoration : "underline",
+      marginLeft:"200px",
+      marginTop:"20px",
+     fontFamily:"Helvetica-Bold"
     },
     title2 :{
-        textDecoration : "underline",
-        marginLeft:"220px"
+      textDecoration : "underline",
+      marginLeft:"220px",
+      fontFamily:"Helvetica-Bold"
     },
     location:{
-        marginRight:"250px",
-        marginLeft:"60px",
-        marginTop:"20px",
-        borderBottom:"1px",
-        width:"500px"
+      marginRight:"250px",
+      marginLeft:"60px",
+      marginTop:"20px",
+      borderBottom:"1px",
+      width:"500px"
     },
     details:{
-        marginRight:"250px",
-        marginLeft:"60px",
-        borderBottom:"1px",
-        width:"500px"
+      marginRight:"250px",
+      marginLeft:"60px",
+      borderBottom:"1px",
+      width:"500px"
     },
     datedisplay:{
         marginRight:"200px",
@@ -44,10 +46,10 @@ const styles = StyleSheet.create({
       width:"430px",
     },
     tablemainheader:{
-        textDecoration:"underline",
-        marginTop:"20px",
-        marginRight:"200px",
-        marginLeft:"50px"
+      textDecoration:"underline",
+      marginTop:"20px",
+      marginRight:"200px",
+      marginLeft:"50px"
     },
     Headingrow: {
       flexDirection: "row",
@@ -56,6 +58,7 @@ const styles = StyleSheet.create({
       marginTop:"5px",
       marginLeft:"60px",
       width:"500px",
+      
     },
     Scheduled: {
       width: "20%",
@@ -75,20 +78,20 @@ const ShowProgramsTable = ({processrowselect,rowselect,programlistdata}) => (
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Status Report</Text>
-        <Text style={styles.location}>Magod Laser:Jigani</Text>
+        <Text style={[styles.location,{paddingBottom:"10px"}]}>Magod Laser:Jigani</Text>
 
         <View>
             <Text style={styles.details}>Production Sheet Schedule No : {rowselect.OrdSchNo}</Text>
         </View>
 
-        <View style={styles.Headingrow}>
+        <View style={[styles.Headingrow,{fontFamily:"Helvetica-Bold"}]}>
           <Text style={styles.dwgname}>Task No</Text>
           <Text style={styles.Scheduled}>Material</Text>
           <Text style={styles.Nested}>Process</Text>
           <Text style={styles.Nested}>Material</Text>
         </View>
 
-        <View style={styles.Headingrow}>
+        <View style={[styles.Headingrow, {fontFamily:"Helvetica-Bold"}]}>
           <Text style={styles.dwgname}>{programlistdata[0]?.TaskNo}</Text>
           <Text style={styles.Scheduled}>{programlistdata[0]?.Mtrl_Code}</Text>
           <Text style={styles.Nested}>{programlistdata[0]?.MProcess}</Text>

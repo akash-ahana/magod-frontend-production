@@ -10,12 +10,12 @@ import { useGlobalContext } from "../../../Context/Context";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import CustomModal from "../CustomModal";
+import { useNavigate } from "react-router-dom";
 
 export default function Reports() {
-
-  const moment = require('moment');
+  const moment = require("moment");
   const today = moment();
-  let Date=today.format("YYYY-MM-DD");
+  let Date = today.format("YYYY-MM-DD");
   //  console.log(Date);
 
   const {
@@ -33,8 +33,7 @@ export default function Reports() {
     setSelectedMachineIndex(index);
     setSelectedLabelIndex(-1);
   };
-  console.log(machineutilisationSummartdata);
-
+  // console.log(machineutilisationSummartdata);
 
   useEffect(() => {
     const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
@@ -92,16 +91,16 @@ export default function Reports() {
           let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
           response.data[i].ToTime = finalDay2;
         }
-        console.log(response.data);
+        // console.log(response.data);
         setMachineLogData(response.data);
-        setMachineName('')
+        setMachineName("");
       });
     axios
       .post(baseURL + "/reports/getMachineUtilisationSummary", {
         Date: e.target.value,
       })
       .then((res) => {
-        console.log("require response mus", res.data.data);
+        // console.log("require response mus", res.data.data);
         setMachineutilisationSummarydata(res.data.data);
       });
     axios
@@ -110,7 +109,6 @@ export default function Reports() {
         //  console.log("data", response.data.data);
         setProductionTaskSummary(response.data);
       });
-    
   };
 
   // //STATUS CODE
@@ -120,9 +118,9 @@ export default function Reports() {
         Date: dateSelect,
       })
       .then((res) => {
-        console.log(res.data)
+        // console.log(res.data);
         setStatus(res.data);
-      }); 
+      });
   }, [dateSelect]);
 
   const [prepareReport1, setPrepareReport] = useState("");
@@ -167,12 +165,11 @@ export default function Reports() {
     }
   };
 
-
-  const[selectedMachine,setSelectedMachine]=useState({});
-  const[machineName,setMachineName]=useState('')
+  const [selectedMachine, setSelectedMachine] = useState({});
+  const [machineName, setMachineName] = useState("");
   //Machine OnClick
-  const machineSelected = (Machine,item, index) => {
-    console.log("The Machine Selected is ", Machine);
+  const machineSelected = (Machine, item, index) => {
+    // console.log("The Machine Selected is ", Machine);
     let list = { ...item, index: index };
     setSelectedMachine(list);
     setMachineName(list.MachineName);
@@ -204,16 +201,15 @@ export default function Reports() {
           let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
           response.data[i].ToTime = finalDay2;
         }
-        console.log("require response mus", response.data);
+        // console.log("require response mus", response.data);
         setMachineLogData(response.data);
       });
   };
-  console.log(machineName);
-
+  // console.log(machineName);
 
   //OnClick Shift
-  const[selectedShift,setSelectedShft]=useState({})
-  const ShiftSelected = (Shift, Machine,item,index) => {
+  const [selectedShift, setSelectedShft] = useState({});
+  const ShiftSelected = (Shift, Machine, item, index) => {
     let list = { ...item, index: index };
     setSelectedShft(list);
     console.log("The  Selected is ", Shift, Machine);
@@ -246,7 +242,7 @@ export default function Reports() {
           let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
           response.data[i].ToTime = finalDay2;
         }
-        console.log("require response mus", response.data);
+        // console.log("require response mus", response.data);
         setMachineLogData(response.data);
       });
   };
@@ -278,12 +274,12 @@ export default function Reports() {
           let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
           response.data[i].ToTime = finalDay2;
         }
-        console.log(response.data);
+        // console.log(response.data);
         setMachineLogData(response.data);
         setSelectedLabelIndex(index);
-    setSelectedMachineIndex(-1);
-    setIsPageRefreshed(false);
-    localStorage.setItem("isPageRefreshed", false);
+        setSelectedMachineIndex(-1);
+        setIsPageRefreshed(false);
+        localStorage.setItem("isPageRefreshed", false);
       });
   };
 
@@ -295,13 +291,13 @@ export default function Reports() {
   const [reportsTreeViewData, setReportsTreeView] = useState([]);
   useEffect(() => {
     axios
-      .post(baseURL + "/reports/reportsTreeView", { Date:dateSelect ||Date })
+      .post(baseURL + "/reports/reportsTreeView", { Date: dateSelect || Date })
       .then((response) => {
-        console.log(" RESPONSE ", response.data);
+        // console.log(" RESPONSE ", response.data);
         setReportsTreeView(response.data);
       });
   }, [dateSelect]);
-  console.log(reportsTreeViewData)
+  // console.log(reportsTreeViewData);
 
   const dataSource = [
     {
@@ -316,7 +312,7 @@ export default function Reports() {
 
   //ONCLICK PRINTDAILY REPORT
   const [opendailyReport, setOpendailyReport] = useState("");
-  const[pDFData,setPDFData]=useState([])
+  const [pDFData, setPDFData] = useState([]);
   const openPrintdailyPdf = () => {
     if (status == false) {
       // toast.error("Prepare Report Before Printing", {
@@ -327,14 +323,13 @@ export default function Reports() {
       setOpendailyReport(true);
       //TRY PDF
       axios
-      .post(baseURL + "/reports/printDailyReport", {
-        Date: dateSelect,
-      })
-      .then((res) => {
-        console.log(res.data);
-        setPDFData(res.data);
-      });
-      
+        .post(baseURL + "/reports/printDailyReport", {
+          Date: dateSelect,
+        })
+        .then((res) => {
+          // console.log(res.data);
+          setPDFData(res.data);
+        });
     }
   };
 
@@ -342,24 +337,28 @@ export default function Reports() {
     setModalShow(false);
   };
   const modalData = {
-    title: 'Reports',
-    content: 'Prepare Report Before Printing'
+    title: "Reports",
+    content: "Prepare Report Before Printing",
   };
 
   ////INPUT VALUE
   const [preparedby, setPreparedby] = useState(lazerUser.data[0].Name);
-  const InputChange=(e)=>{
+  const InputChange = (e) => {
     setPreparedby(e.target.value);
-  }
-
+  };
 
   const [userRole, setUserRole] = useState(lazerUser.data[0].Role);
   const roleValue = userRole;
-console.log(roleValue);
+  // console.log(roleValue);
+
+  //Close Button
+  const navigate = useNavigate();
+  const onClickClose = () => {
+    navigate("/Production");
+  };
 
   return (
     <div>
-
       <DailyReportPrintModal
         opendailyReport={opendailyReport}
         setOpendailyReport={setOpendailyReport}
@@ -418,9 +417,17 @@ console.log(roleValue);
            className="">Prepared By</label>
                 <input style={{marginTop:"-6px"}} className="in-field" required />
            </div> */}
+          <button
+            className="button-style mt-3 group-button ms-3"
+            type="button"
+            style={{ width: "130px" }}
+            onClick={onClickClose}
+          >
+            Close
+          </button>
           <div
             className="col-md-3 mt-2"
-            style={{ display: "flex", gap:"20px" }}
+            style={{ display: "flex", gap: "20px" }}
           >
             <label className="mt-1 form-label" style={{ whiteSpace: "nowrap" }}>
               Prepared By
@@ -449,12 +456,14 @@ console.log(roleValue);
             {dataSource.map((node, i) => {
               const type = node.type;
               const label = (
-                <span onClick={()=>treeViewHeader(node.labelIndex)} 
-                className={`node ${
-                  selectedLabelIndex === node.labelIndex
-                    ? "selcted-row-clr"
-                    : ""
-                }`}>
+                <span
+                  onClick={() => treeViewHeader(node.labelIndex)}
+                  className={`node ${
+                    selectedLabelIndex === node.labelIndex
+                      ? "selcted-row-clr"
+                      : ""
+                  }`}
+                >
                   {type}
                 </span>
               );
@@ -464,18 +473,16 @@ console.log(roleValue);
                   nodeLabel={label}
                   defaultCollapsed={false}
                 >
-                  {node.serverData.map((data,key) => {
+                  {node.serverData.map((data, key) => {
                     const label2 = (
                       <span
                         style={{ fontSize: "13px" }}
                         onClick={() => {
                           selectedMachineFun(data, key);
-                          machineSelected(data.MachineName,data,key);
+                          machineSelected(data.MachineName, data, key);
                         }}
                         className={`node ${
-                          key === selectedMachineIndex
-                            ? "selcted-row-clr"
-                            : ""
+                          key === selectedMachineIndex ? "selcted-row-clr" : ""
                         }`}
                       >
                         {data.MachineName}
@@ -488,12 +495,17 @@ console.log(roleValue);
                         key={data.name}
                         defaultCollapsed={true}
                       >
-                        {data.Shifts.map((value,key) => {
+                        {data.Shifts.map((value, key) => {
                           const label3 = (
                             <span
                               style={{ fontSize: "13px" }}
                               onClick={() => {
-                                ShiftSelected(value.Shift, data.MachineName,value,key);
+                                ShiftSelected(
+                                  value.Shift,
+                                  data.MachineName,
+                                  value,
+                                  key
+                                );
                               }}
                               className={
                                 key === selectedShift?.index
@@ -577,7 +589,11 @@ console.log(roleValue);
               status={status}
               machineName={machineName}
             />
-            <CustomModal show={modalShow} handleClose={closeModal} data={modalData} />
+            <CustomModal
+              show={modalShow}
+              handleClose={closeModal}
+              data={modalData}
+            />
           </div>
         </div>
       </div>

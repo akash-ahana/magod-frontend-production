@@ -7,6 +7,7 @@ import { baseURL } from "../../../../../api/baseUrl";
 import axios from "axios";
 import ShowProgramsPdfModal from "./PrintPdF/ShowPrograms/ShowProgramsPdfModal";
 import { Typeahead } from "react-bootstrap-typeahead";
+import { useNavigate } from "react-router-dom";
 import {
   Table,
   Row,
@@ -25,6 +26,8 @@ export default function ScheduleHeader({
   programlistdata,
   custdata,
   selectCust,
+  showParts,
+  getShowPartsData
 }) {
   const { schedulelistservicedata, setSchedulelistservicedata, schedulelistservicedatas } =
     useGlobalContext();
@@ -43,6 +46,7 @@ export default function ScheduleHeader({
   const [openShowparts, setOpenShowParts] = useState("");
   const openShowPartsPdf = () => {
     setOpenShowParts(true);
+    getShowPartsData();
   };
 
   const [openShowPrograms, setOpenShowPrograms] = useState("");
@@ -193,10 +197,15 @@ export default function ScheduleHeader({
       setSearchInput(sanitizedSearchText);
       // Apply the filter on allotmentTable based on the search input value
       const filteredData = schedulelistservicedatas.filter((data) =>
-          data.OrdSchNo.includes(sanitizedSearchText)
+          data.OrdSchNo.startsWith(sanitizedSearchText)
         );
         setSchedulelistservicedata(filteredData);
   };
+
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
   return (
     <div>
       <div className="col-md-12 col-sm-12">
@@ -244,8 +253,8 @@ export default function ScheduleHeader({
 
             <div className="col-md-7">
             <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
+              className="button-style mt-4 group-button"
+              style={{ width: "120px" }}
               onClick={() => {
                 openShowStatusPdf();
                 getPrintStatus();
@@ -255,7 +264,7 @@ export default function ScheduleHeader({
             </button>
 
             <button
-              className="button-style mt-4 group-button ms-3"
+              className="button-style mt-4 group-button"
               style={{ width: "140px" }}
               onClick={openShowPartsPdf}
             >
@@ -263,8 +272,8 @@ export default function ScheduleHeader({
             </button>
 
             <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
+              className="button-style mt-4 group-button"
+              style={{ width: "120px" }}
               onClick={openShowProgram}
             >
               Show Programs
@@ -272,9 +281,13 @@ export default function ScheduleHeader({
 
             
             <button className="button-style mt-4 group-button" 
-             style={{ width: "140px" }} onClick={openProductionListPdf}>
+             style={{ width: "120px" }} onClick={openProductionListPdf}>
              Production list
             </button>
+            <button className="button-style group-button" type='button'
+       style={{ width: "120px"}} onClick={onClickClose}>
+       Close
+      </button>
             </div>
           </div>
         </div>
@@ -290,7 +303,7 @@ export default function ScheduleHeader({
         setOpenShowParts={setOpenShowParts}
         rowselect={rowselect}
         processrowselect={processrowselect}
-        partlistdata={partlistdata}
+        partlistdata={showParts}
       />
 
       <ShowProgramsPdfModal

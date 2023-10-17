@@ -9,16 +9,28 @@ function MachineOperatorTable({
   rowSelectFun,
   setRowselectMachineOperator,
   selectedWeek,
+  rowselect
 }) {
+
+  // useEffect(() => {
+  //   getMachineOperatorTableData();
+  // }, [rowselectDailyShiftTable]);
+  
+
+
   useEffect(() => {
-    getMachineOperatorTableData();
+    if (rowselectDailyShiftTable) {
+      getMachineOperatorTableData();
+    }else{
+      getMachineOperatorTableData();
+    }
   }, [rowselectDailyShiftTable]);
 
   useMemo(() => {
     setRowselectMachineOperator({ ...machineOperatorTableData[0], index: 0 });
   }, [machineOperatorTableData[0]]);
 
-  console.log(machineOperatorTableData);
+
 
   return (
     <div
@@ -39,25 +51,25 @@ function MachineOperatorTable({
         </thead>
 
         <tbody className="tablebody">
-          {machineOperatorTableData.map((rank, i, row) => {
-            return (
-              <>
-                <tr
-                  onClick={() => rowSelectFun(rank, i)}
-                  className={
-                    i === rowselectMachineOperator?.index
-                      ? "selcted-row-clr"
-                      : ""
-                  }
-                >
-                  {/* <td>{rank.ShiftDate}</td> */}
-                  <td>{rank.Machine}</td>
-                  <td>{rank.Operator}</td>
-                </tr>
-              </>
-            );
-          })}
-        </tbody>
+  {machineOperatorTableData.length === 0 ? (
+    <tr>
+      <td colSpan="2" style={{textAlign:"center"}}>No data to show</td>
+    </tr>
+  ) : (
+    machineOperatorTableData.map((rank, i, row) => (
+      <tr
+        key={i}
+        onClick={() => rowSelectFun(rank, i)}
+        className={i === rowselectMachineOperator?.index ? "selcted-row-clr" : ""}
+      >
+        {/* <td>{rank.ShiftDate}</td> */}
+        <td>{rank.Machine}</td>
+        <td>{rank.Operator}</td>
+      </tr>
+    ))
+  )}
+</tbody>
+
       </Table>
     </div>
   );

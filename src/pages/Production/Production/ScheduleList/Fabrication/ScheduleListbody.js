@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import ProcessTable from "./ProcessTable";
 import ScheduleListtable from "./ScheduleListtable";
-import NavTab from "../Profile/Components/NavTab";
+import NavTab from "./Components/NavTab";
 import axios from "axios";
 import { useGlobalContext } from "../../../../../Context/Context";
 import { baseURL } from "../../../../../api/baseUrl";
@@ -24,6 +24,9 @@ export default function ScheduleListbody({
   TaskNo,
   scheduleList,
   custcode,
+  processtable,
+  getprocessTabledata,
+  OrdSchNo
 }) {
   const { schedulelistfabricationdata } = useGlobalContext();
 
@@ -34,23 +37,7 @@ export default function ScheduleListbody({
   // console.log(rowselect)
 
   //Process Table(Right First table) data
-  const [processtable, setProcesstable] = useState([]);
-  let OrdSchNo = rowselect?.OrdSchNo;
-  // console.log(OrdSchNo)
-  const getprocessTabledata = () => {
-      // console.log("excuted")
-      axios
-        .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
-          ScheduleID: OrdSchNo,
-        })
-        .then((response) => {
-          setProcesstable(response.data);
-          //  console.log(response)
-        })
-        .catch((error) => {
-          // console.log(error)
-        });
-  };
+ 
 
   
   useMemo(() => {

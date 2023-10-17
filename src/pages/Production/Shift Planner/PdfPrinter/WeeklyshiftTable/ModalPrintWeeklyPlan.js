@@ -8,7 +8,11 @@ export default function ModalPrintWeeklyPlan({
   openPrintModal,
   setOpenPrintModal,
   selectedWeek,
+  newTry
 }) {
+
+  console.log("selectedWeek in Modal is",selectedWeek)
+
   const [fullscreen, setFullscreen] = useState(true);
   const [pdfShifts, setPdfShifts] = useState([]);
   const [pdfMOData, setPdfMoData] = useState([]);
@@ -36,25 +40,7 @@ export default function ModalPrintWeeklyPlan({
   // };
 
   //TryPDF
-  const[newTry,setNewTry]=useState([])
-  const TryPdfData = () => {
-    console.log(selectedWeek)
-    axios
-      .post(baseURL + "/shiftEditor/TryWeeklyPdf", {
-        ShiftDate: selectedWeek,
-      })
-      .then((response) => {
-        // console.log(response.data);
-        setNewTry(response.data);
-      });
-  };
-  console.log(newTry)
-
-  useEffect(() => {
-    TryPdfData();
-  }, [selectedWeek]);
-
-  console.log("Shift Details  Data", pdfShifts);
+  
 
   return (
     <>

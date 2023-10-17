@@ -13,7 +13,7 @@ import {MdReport} from "react-icons/md";
 import {MdHomeRepairService} from "react-icons/md"
 import {BsListCheck} from "react-icons/bs";
 import {BiGitMerge} from "react-icons/bi";
-import {SiGoogletagmanager} from "react-icons/si";
+import {SiGoogletagmanager, SiRedhatopenshift} from "react-icons/si";
 import {BsServer} from "react-icons/bs";
 import {FiCpu} from "react-icons/fi"
 import {VscServerProcess} from "react-icons/vsc"
@@ -23,7 +23,7 @@ import {FiEdit} from "react-icons/fi"
 import {FaDropbox} from "react-icons/fa";
 import {GoReport} from "react-icons/go"
 import {AiOutlineSchedule} from "react-icons/ai"
-import {GiLaserPrecision} from "react-icons/gi"
+import {GiLaserPrecision, GiProcessor} from "react-icons/gi"
 import {HiCubeTransparent} from "react-icons/hi"
 import {AiFillSchedule} from "react-icons/ai"
 
@@ -46,6 +46,21 @@ export const customerSidebar = [
         title: "StoppageList",
         path: "/Production/Setup/StoppageList",
         icon: <AiIcons.AiOutlineStop/>,
+      },
+      {
+        title: "Process",
+        path: "/Production/Setup/Process",
+        icon: <GiProcessor/>,
+      },
+      {
+        title: "Edit Shift IC",
+        path: "/Production/Setup/EditShiftIc",
+        icon: <SiRedhatopenshift/>,
+      },
+      {
+        title: "Edit  Operators",
+        path: "/Production/Setup/EditOperators",
+        icon: <DiOpenshift/>,
       },
     ],
   },

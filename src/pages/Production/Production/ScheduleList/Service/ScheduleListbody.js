@@ -24,6 +24,9 @@ export default function ScheduleListbody({
   TaskNo,
   scheduleList,
   custcode,
+  processtable,
+  getprocessTabledata,
+  OrdSchNo
 }) {
   const { schedulelistservicedata } = useGlobalContext();
 
@@ -34,27 +37,7 @@ export default function ScheduleListbody({
   console.log(rowselect);
 
   //Process Table(Right First table) data
-  const [processtable, setProcesstable] = useState([]);
-  let OrdSchNo = rowselect?.OrdSchNo;
-  console.log(OrdSchNo);
-  const getprocessTabledata = () => {
-      console.log("excuted");
-      axios
-        .post(
-          baseURL + "/scheduleListService/schedulesListSecondTableService",
-          {
-            ScheduleID: OrdSchNo,
-          }
-        )
-        .then((response) => {
-          setProcesstable(response.data);
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-  };
-
+  
   useMemo(() => {
     setProcessrowselect({ ...processtable[0], index: 0 });
   }, [processtable[0]]);

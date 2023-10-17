@@ -11,11 +11,9 @@ import Reports from "./pages/Production/Reports/Reports";
 import Services from "./pages/Production/Services/Services";
 import Setup from "./pages/Production/Setup/Setup";
 import ShiftPlanner from "./pages/Production/Shift Planner/ShiftPlanner";
-import Server from "./pages/Production/Setup/Server/Server";
 import Machine from "./pages/Production/Setup/Machine/Machine";
 import Process from "./pages/Production/Setup/Process";
 import EditShiftIC from "./pages/Production/Setup/EditShiftIC";
-import StoppagesList from "./pages/Production/Setup/StoppagesList";
 import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/ScheduleList";
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
 import ScheduleListService from "./pages/Production/Production/ScheduleList/Service/ScheduleListService";
@@ -39,6 +37,8 @@ import MachineAllotment from "./pages/Production/Production/Machine Allotment/Ma
 import ReportMian from "./pages/Production/Reports/ReportMian";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer} from "react-toastify";
+import StoppageList from "./pages/Production/Setup/StoppageList/StoppageList";
+import EditOperators from "./pages/Production/Setup/EditOperators/EditOperators";
 
 function App() {
   return (
@@ -98,11 +98,11 @@ function App() {
              {/* Setup*/}
             <Route path="Setup">
                 <Route index={true} element={<Setup/>}/>
-                <Route path="server" element={<Server/>} />
+                <Route path="EditOperators" element={<EditOperators/>} />
                 <Route path="Machine" element={<Machine/>} />
-                <Route path="process" element={<Process/>} />
-                <Route path="editshiftIC" element={<EditShiftIC/>} />
-                <Route path="StoppageList" element={<StoppagesList/>} />
+                <Route path="Process" element={<Process/>} />
+                <Route path="EditShiftIc" element={<EditShiftIC/>} />
+                <Route path="StoppageList" element={<StoppageList/>} />
             </Route>
 
             {/* Shift Planner */}

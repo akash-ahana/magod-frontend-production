@@ -50,7 +50,41 @@ const getpartslistdata=()=>{
       }).then((response) => {
         setProgramlistdata(response.data);
     });
-   } 
+   }
+   
+  //  ///
+  const [processtable, setProcesstable] = useState([]);
+  let OrdSchNo = rowselect?.OrdSchNo;
+  // console.log(OrdSchNo)
+  const getprocessTabledata = () => {
+      // console.log("excuted")
+      axios
+        .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
+          ScheduleID: OrdSchNo,
+        })
+        .then((response) => {
+          setProcesstable(response.data);
+          //  console.log(response)
+        })
+        .catch((error) => {
+          // console.log(error)
+        });
+  };
+
+   //////
+   //pdfShowPartsData
+ const[showParts,setSowParts]=useState([])
+ const getShowPartsData=()=>{
+   axios.post(
+    baseURL +
+    "/scheduleListProfile/ShowParts",
+     {
+       processtable
+     }).then((response) => {
+       console.log(response.data)
+       setSowParts(response.data);
+   });
+  } 
 
 
    /////
@@ -189,6 +223,8 @@ const getpartslistdata=()=>{
         programlistdata={programlistdata}
         custdata={custdata}
         selectCust={selectCust}
+        showParts={showParts}
+        getShowPartsData={getShowPartsData}
         />
 
        <ScheduleListbody rowselect={rowselect}
@@ -208,6 +244,9 @@ const getpartslistdata=()=>{
        TaskNo={TaskNo}
        scheduleList={scheduleList}
        custcode={custcode}
+       processtable={processtable}
+       getprocessTabledata={getprocessTabledata}
+       OrdSchNo={OrdSchNo}
        />
     </div>
   )

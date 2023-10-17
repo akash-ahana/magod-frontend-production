@@ -42,16 +42,15 @@ export default function ByMachineBox() {
     let list = { ...item, index: index };
     // console.log("ScheduleNo",item.ScheduleNo)
     setSelectLaser(list);
-    setLaser(list.MachineName)
+    setLaser(list.MachineName);
   };
 
   const [selectLaser, setSelectLaser] = useState("");
-  const[laser,setLaser]=useState('')
+  const [laser, setLaser] = useState("");
   const LaserRowselect = (item, index) => {
     let list = { ...item, index: index };
     setSelectLaser(list);
   };
-
 
   console.log(laser);
   const [selectProgramCompleted, setSelectProgramCompleted] = useState("");
@@ -407,9 +406,7 @@ export default function ByMachineBox() {
                           selectedMachineFun(data, key);
                         }}
                         className={`node ${
-                          key === selectedMachineIndex
-                            ? "selcted-row-clr"
-                            : ""
+                          key === selectedMachineIndex ? "selcted-row-clr" : ""
                         }`}
                       >
                         {data.MachineName}

@@ -7,6 +7,7 @@ import { baseURL } from "../../.././api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
+
 function SingleDayShiftEditor({
   getSingleDayShiftPlan4thTable,
   rowselectDailyShiftTable,
@@ -14,7 +15,8 @@ function SingleDayShiftEditor({
   rowselect,
   rowSelectFunForDailyShiftTable,
   condition,
-  selectedWeek
+  selectedWeek,
+  machineOperatorTableData
 }) {
   // console.log(rowselectDailyShiftTable.Shift_Ic);
   //PRINT DAILY SHIFT
@@ -90,7 +92,14 @@ function SingleDayShiftEditor({
   //DELETEDAYSHIFTMODAL
   const [deletedayshift, setDeletedayshift] = useState("");
   const openDeletedayshift = () => {
-    setDeletedayshift(true);
+    if(machineOperatorTableData.length===0)
+    {
+      setDeletedayshift(true);
+    }else{
+      toast.warning("Please Delete Machine Operator Before Deleting Shift", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   return (

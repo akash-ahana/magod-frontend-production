@@ -15,6 +15,7 @@ export default function PartsList({
   setPartlistdata,
 }) {
   const {getSchedulistdata,getSchedulistfabricationdata,getSchedulistservicedata } = useGlobalContext();
+  const[saveCleared,setSaveCleared]=useState(false);
 
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
@@ -37,6 +38,7 @@ export default function PartsList({
     }
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
+    setSaveCleared(true);
   };
 
  /// CLEAR SELECTED
@@ -52,29 +54,53 @@ const clearSelected = () => {
   setPartlistdata(updatedPartListData);
   setNewPartlistdata(updatedPartListData);
   setSelectedRows([])
+  setSaveCleared(false)
 };
 
 
-
-  console.log(partlistdata)
-  
-
   // SAVE CLEARED
   const saveClearedonClick = () => {
-    axios
-      .post(
-        baseURL + "/scheduleListProfile/scheduleListSaveCleared",
-        partlistdata
-      )
-      .then((response) => {
-        toast.success("Cleared Saved", {
-          position: toast.POSITION.TOP_CENTER,
+    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    
+    if (!saveCleared) {
+      // There is at least one row where QtyProduced is not equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveCleared",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          getSchedulistdata();
+          getSchedulistfabricationdata();
+          getSchedulistservicedata();
+          console.log("executed first API");
         });
-      });
-      getSchedulistdata();
-      getSchedulistfabricationdata();
-      getSchedulistservicedata();
+    } else {
+      // All rows have QtyProduced equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          getSchedulistdata();
+          getSchedulistfabricationdata();
+          getSchedulistservicedata();
+          console.log("executed second API");
+        });
+    }
   };
+  
+  
 
   // SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);

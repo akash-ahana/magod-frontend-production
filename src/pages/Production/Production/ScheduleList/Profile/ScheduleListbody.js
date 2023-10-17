@@ -23,6 +23,9 @@ export default function ScheduleListbody({
   setProgramlistdata,
   TaskNo,
   custcode,
+  processtable,
+  getprocessTabledata,
+  OrdSchNo
 }) {
   const { schedulelistdata } = useGlobalContext();
 
@@ -31,28 +34,7 @@ export default function ScheduleListbody({
   //   setRowselect({ ...schedulelistdata[0], index: 0 });
   // }, [schedulelistdata[0]]);
 
-  //Process Table(Right First table) data
-  const [processtable, setProcesstable] = useState([]);
-  let OrdSchNo = rowselect?.OrdSchNo;
-  console.log(OrdSchNo);
-  const getprocessTabledata = () => {
-      console.log("excuted");
-      axios
-        .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
-          ScheduleID: OrdSchNo,
-        })
-        .then((response) => {
-          setProcesstable(response.data);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } 
-
-  useMemo(() => {
-    setProcessrowselect({ ...processtable[0], index: 0 });
-  }, [processtable[0]]);
+  
 
   return (
     <div className="row mt-4">

@@ -27,6 +27,8 @@ export default function ScheduleHeader({
   programlistdata,
   custdata,
   selectCust,
+  getShowPartsData,
+  showParts
 }) {
   const { schedulelistdata, setSchedulelistdata, schedulelistdatas } =
     useGlobalContext();
@@ -43,6 +45,7 @@ export default function ScheduleHeader({
   const [openShowparts, setOpenShowParts] = useState("");
   const openShowPartsPdf = () => {
     setOpenShowParts(true);
+    getShowPartsData();
   };
 
   const [openShowPrograms, setOpenShowPrograms] = useState("");
@@ -222,12 +225,20 @@ export default function ScheduleHeader({
     const searchText = e.target.value;
     const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
     setSearchInput(sanitizedSearchText);
+  
     // Apply the filter on allotmentTable based on the search input value
     const filteredData = schedulelistdatas.filter((data) =>
-        data.OrdSchNo.includes(sanitizedSearchText)
-      );
+      data.OrdSchNo.startsWith(sanitizedSearchText)
+    );
+  
     setSchedulelistdata(filteredData);
   };
+  
+
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
 
   return (
     <div>
@@ -276,8 +287,8 @@ export default function ScheduleHeader({
             </button> */}
             <div className="col-md-7 mt-2">
               <button
-                className="button-style mt-2 group-button ms-3 "
-                style={{ width: "140px" }}
+                className="button-style mt-2 group-button"
+                style={{ width: "120px" }}
                 onClick={() => {
                   openShowStatusPdf();
                   getPrintStatus();
@@ -287,28 +298,32 @@ export default function ScheduleHeader({
               </button>
 
               <button
-                className="button-style mt-4 group-button ms-3"
-                style={{ width: "140px" }}
+                className="button-style mt-4 group-button"
+                style={{ width: "120px" }}
                 onClick={openShowPartsPdf}
               >
                 Show Parts
               </button>
 
               <button
-                className="button-style mt-4 group-button ms-3"
-                style={{ width: "140px" }}
+                className="button-style mt-4 group-button"
+                style={{ width: "120px" }}
                 onClick={openShowProgram}
               >
                 Show Programs
               </button>
 
               <button
-                className="button-style mt-4 group-button ms-3"
-                style={{ width: "140px" }}
+                className="button-style mt-4 group-button"
+                style={{ width: "120px" }}
                 onClick={openProductionListPdf}
               >
                 Production list
               </button>
+              <button className="button-style group-button" type='button'
+       style={{ width: "120px"}} onClick={onClickClose}>
+       Close
+      </button>
             </div>
           </div>
         </div>
@@ -324,7 +339,7 @@ export default function ScheduleHeader({
         setOpenShowParts={setOpenShowParts}
         rowselect={rowselect}
         processrowselect={processrowselect}
-        partlistdata={partlistdata}
+        partlistdata={showParts}
       />
 
       <ShowProgramsPdfModal

@@ -130,7 +130,7 @@ function NewCalender(props) {
   const [isChecked4, setIsChecked4] = useState(false);
   const [isChecked5, setIsChecked5] = useState(false);
   const [isChecked6, setIsChecked6] = useState(false);
-  const [isChecked7, setIsChecked7] = useState(false);
+  const [isChecked7, setIsChecked7] = useState(true);
 
   const handleOnChangeCheckBox1 = () => {
     setIsChecked(!isChecked);
@@ -156,6 +156,16 @@ function NewCalender(props) {
   const handleOnChangeCheckBox7 = () => {
     setIsChecked7(!isChecked7);
   };
+
+  useEffect(() => {
+    // Check if selectedWeek changes, and uncheck all checkboxes when it does
+    setIsChecked(false);
+    setIsChecked2(false);
+    setIsChecked3(false);
+    setIsChecked4(false);
+    setIsChecked5(false);
+    setIsChecked6(false);
+  }, [selectedWeek]);
 
   const [weekState, setWeekState] = useState([]);
   const [weekState1, setWeekState1] = useState([]);
@@ -382,14 +392,13 @@ function NewCalender(props) {
   );
   console.log("getSingleDayShiftPlan4thTable inside ", rowselect);
 
+  const [isDataAvailable, setIsDataAvailable] = useState(''); // Initialize with true or false based on your requirement
   const getSingleDayShiftPlan4thTable = () => {
     axios
       .post(baseURL + "/shiftEditor/getDailyShiftPlanTable", {
         ShiftDate: rowselect,
       })
       .then((response) => {
-        console.log(response.data);
-        // Process and display data in the table
         const processedData = response.data.map((item) => {
           let dateSplit = item.ShiftDate.split("-");
           let year = dateSplit[2];
@@ -426,6 +435,12 @@ function NewCalender(props) {
           return item; // Return the processed item
         });
         setSingleDayShiftPlan4thTable(processedData);
+        if (response.data.length === 0) {
+          console.log("response data is null");
+          setIsDataAvailable(false); // Set the state to false if data is empty
+        } else {
+          setIsDataAvailable(true); // Set the state to true if data is not empty
+                }        // Process and display data in the table
       });
   };
 
@@ -433,6 +448,9 @@ function NewCalender(props) {
     getSingleDayShiftPlan4thTable();
   }, [rowselect]);
 
+  console.log("first one",isDataAvailable,"second one",SingleDayShiftPlan4thTable);
+
+  ///
   const [secondTableShiftState, setSecondTableShiftState] = useState([]);
   const [forFilterDate, setForFilterDate] = useState([]);
   // console.log(selectedWeek);
@@ -541,14 +559,19 @@ function NewCalender(props) {
     ]);
   };
 
-  const [rowselectDailyShiftTable, setRowselectDailyShiftTable] = useState("");
+  const [rowselectDailyShiftTable, setRowselectDailyShiftTable] = useState({});
   const rowSelectFunForDailyShiftTable = (item, index) => {
     let list = { ...item, index: index };
-    // console.log("ScheduleNo",item.ScheduleNo)
-    //setScheduleid(item.OrdSchNo);
     setRowselectDailyShiftTable(list);
   };
 
+  useEffect(() => {
+    if (isDataAvailable===false) {
+      setRowselectDailyShiftTable(null);
+    }
+  }, [SingleDayShiftPlan4thTable]);
+
+  // console.log(rowselectDailyShiftTable)
   //Open Set Machine Modal
   const [opensetmachine, setOpensetmachine] = useState("");
   const openSetMachinemodal = () => {
@@ -557,21 +580,23 @@ function NewCalender(props) {
 
   //MachineOperator Table
   const [machineOperatorTableData, setMachineOperatorTableData] = useState([]);
-  // console.log(rowselectDailyShiftTable);
 
   const getMachineOperatorTableData = () => {
-    console.log(rowselectDailyShiftTable);
-    axios
+    if (rowselectDailyShiftTable === null) {
+      // If rowselectDailyShiftTable is null, set an empty array
+      setMachineOperatorTableData([]);
+    }else{
+      axios
       .post(
         baseURL + "/shiftEditor/getMachineOperatorsShift",
         rowselectDailyShiftTable
       )
       .then((response) => {
-        console.log("Api response is ", response.data);
         setMachineOperatorTableData(response.data);
       });
+    }
   };
-  console.log(machineOperatorTableData);
+
 
   //Delete Weekshift
   const [opendeleteshift, setOpendeleteshift] = useState("");
@@ -691,7 +716,80 @@ function NewCalender(props) {
     }
   }, [CompareDate, formattedTodayDate]);
 
-  console.log("selectedWeek", selectedWeek);
+  console.log(
+    "selectedWeek before sinfing it to PrintWeekly Modal",
+    selectedWeek
+  );
+
+  
+  //WeeklyPlan Data
+  const [newTry, setNewTry] = useState([]);
+  const TryPdfData = () => {
+    // console.log(selectedWeek);
+    axios
+      .post(baseURL + "/shiftEditor/TryWeeklyPdf", {
+        ShiftDate: selectedWeek,
+      })
+      .then((response) => {
+        console.log(response.data);
+        setNewTry(response.data);
+      });
+  };
+  const flatTryData = [];
+newTry.forEach(dayData => {
+  const day = dayData[0]?.day; // Get the day from the first element
+
+  if (day) {
+    const shifts = [];
+    const operators = [];
+
+    dayData.forEach(entry => {
+      operators.push({
+        ShiftIc: entry.ShiftIc,
+        Shift: entry.Shift,
+        day: entry.day,
+        machineOperators: entry.machineOperators,
+      });
+    });
+
+    flatTryData.push({
+      day,
+      shifts,
+      operators,
+    });
+  }
+});
+
+// Now, flatTryData contains the flattened and organized data
+console.log(newTry);
+
+
+
+  useEffect(() => {
+    TryPdfData();
+  }, [selectedWeek]);
+
+    // ///Status
+    // const getCheckboxStatus = () => {
+    //   axios
+    //     .post(baseURL + "/shiftEditor/getCheckboxStatus", {
+    //       date: selectedWeek,
+    //     })
+    //     .then((response) => {
+    //       console.log(response.data);
+    //     });
+    //   }
+
+    //   useEffect(()=>{
+    //     getCheckboxStatus();
+    //   },[selectedWeek])
+
+  //Close Button
+  const navigate = useNavigate();
+  const onClickClose = () => {
+    navigate("/Production");
+  };
+
 
   return (
     <>
@@ -699,6 +797,7 @@ function NewCalender(props) {
         openPrintModal={openPrintModal}
         setOpenPrintModal={setOpenPrintModal}
         selectedWeek={selectedWeek}
+        newTry={flatTryData}
       />
 
       <div className="col-md-12">
@@ -817,7 +916,10 @@ function NewCalender(props) {
                 <button
                   className="button-style  group-button"
                   style={{ width: "150px" }}
-                  onClick={openPdfmodel}
+                  onClick={() => {
+                    openPdfmodel();
+                    TryPdfData();
+                  }}
                 >
                   Print Weekly Plan
                 </button>
@@ -841,6 +943,14 @@ function NewCalender(props) {
                 >
                   Delete Machine Operator
                 </button> */}
+                <button
+                  className="button-style group-button"
+                  type="button"
+                  style={{ width: "200px" }}
+                  onClick={onClickClose}
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
@@ -932,8 +1042,9 @@ function NewCalender(props) {
                         <input
                           type="checkbox"
                           ref={checkbox1}
-                          checked={isChecked || dateExistsArray[0]}
+                          checked={isChecked}
                           onChange={handleOnChangeCheckBox1}
+                          // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
@@ -945,8 +1056,9 @@ function NewCalender(props) {
                         <input
                           type="checkbox"
                           ref={checkbox2}
-                          checked={isChecked2 || dateExistsArray[1]}
+                          checked={isChecked2 }
                           onChange={handleOnChangeCheckBox2}
+                          // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
@@ -958,8 +1070,9 @@ function NewCalender(props) {
                         <input
                           type="checkbox"
                           ref={checkbox3}
-                          checked={isChecked3 || dateExistsArray[2]}
+                          checked={isChecked3 }
                           onChange={handleOnChangeCheckBox3}
+                          // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
@@ -971,8 +1084,9 @@ function NewCalender(props) {
                         <input
                           type="checkbox"
                           ref={checkbox4}
-                          checked={isChecked4 || dateExistsArray[3]}
+                          checked={isChecked4}
                           onChange={handleOnChangeCheckBox4}
+                          // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
@@ -984,8 +1098,9 @@ function NewCalender(props) {
                         <input
                           type="checkbox"
                           ref={checkbox5}
-                          checked={isChecked5 || dateExistsArray[4]}
+                          checked={isChecked5}
                           onChange={handleOnChangeCheckBox5}
+                          // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
@@ -997,8 +1112,9 @@ function NewCalender(props) {
                         <input
                           type="checkbox"
                           ref={checkbox6}
-                          checked={isChecked6 || dateExistsArray[5]}
+                          checked={isChecked6}
                           onChange={handleOnChangeCheckBox6}
+                          // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
@@ -1008,11 +1124,13 @@ function NewCalender(props) {
                     <td>
                       <div>
                         <input
-                          type="checkbox"
-                          ref={checkbox7}
-                          checked={isChecked7 || dateExistsArray[6]}
-                          onChange={handleOnChangeCheckBox7}
-                        />
+                           type="checkbox"
+                           ref={checkbox7}
+                           defaultChecked={true}
+                           checked={isChecked7}
+                           onChange={handleOnChangeCheckBox7}
+                          // disabled={isDataAvailable} 
+                          />
                       </div>
                     </td>
                   </tr>
@@ -1058,6 +1176,12 @@ function NewCalender(props) {
         setSelectedMachine={setSelectedMachine}
         setSelectedShiftIncharge={setSelectedShiftIncharge}
         setSelectedOperator={setSelectedOperator}
+        setIsChecked={setIsChecked}
+        setIsChecked2={setIsChecked2}
+        setIsChecked3={setIsChecked3}
+        setIsChecked4={setIsChecked4}
+        setIsChecked5={setIsChecked5}
+        setIsChecked6={setIsChecked6}
       />
 
       <SetMachineModal
@@ -1074,6 +1198,10 @@ function NewCalender(props) {
         selectedShift={selectedShift}
         rowselectDailyShiftTable={rowselectDailyShiftTable}
         setMachineOperatorTableData={setMachineOperatorTableData}
+        setSelectedShift={setSelectedShift}
+        setSelectedMachine={setSelectedMachine}
+        setSelectedShiftIncharge={setSelectedShiftIncharge}
+        setSelectedOperator={setSelectedOperator}
       />
 
       <DeleteshiftModal

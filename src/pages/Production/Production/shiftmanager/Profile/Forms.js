@@ -4,6 +4,8 @@ import ByOperations from "./ByOperations/ByOperations";
 import ByCustomer from "./ByCustomer/ByCustomers";
 import axios from "axios";
 import { baseURL } from "../../../../../api/baseUrl";
+import { useNavigate } from "react-router-dom";
+
 
 function Forms() {
   const [text, setText] = useState("");
@@ -95,6 +97,12 @@ function Forms() {
         setShiftDetails(response.data);
       });
   }, []);
+
+    //Close Button
+    const navigate = useNavigate();
+    const onClickClose=()=>{
+      navigate("/Production");
+    }
 
   return (
     <>
@@ -232,6 +240,10 @@ function Forms() {
                           name="working"
                         />
                       </div>
+                      <button className="button-style mt-4 group-button" type='button'
+       style={{ width: "120px"}} onClick={onClickClose}>
+       Close
+      </button>
                     </div>
                   </form>
                 </div>

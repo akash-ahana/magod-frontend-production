@@ -7,6 +7,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {baseURL} from '../../../../../api/baseUrl'
 import CustomModal from '../../../CustomModal';
+import { useNavigate } from "react-router-dom";
+
 
 export default function MachineAlltmntForm() {
   const [machineProcessData, setMachineProcessData] = useState([]) 
@@ -154,16 +156,15 @@ const treeViewData=()=>{
   .then((response) => {
      handleClose();
   })
-  console.log("Selected machine:", currentSelectedMachine.MachineName);
-      setSelectedRows([])
-      setMachineList([])
-      axios.post(baseURL+'/machineAllotment/afterChangeMachine',{MachineName : currentSelectedMachine.MachineName})
+      axios.post(baseURL+'/machineAllotment/afterChangeMachine',{MachineName : currentSelectedMachine?.MachineName})
       .then((response) => {
           setNcProgramsTableData(response.data)
           for(let i = 0; i< response.data.length ; i++){
             response.data[i].isChecked = false;
           }
       })
+      setSelectedRows([])
+      setMachineList([])
  }
 
 
@@ -199,6 +200,13 @@ const modalData = {
   content: 'Please select a program with the same operation'
 };
 
+  
+  //Close Button
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
+
 
   return (
     <>
@@ -214,6 +222,7 @@ const modalData = {
           Save
         </button>
 
+     
         <button
           className="button-style mt-2 group-button"
           style={{ width: "150px" }}
@@ -232,6 +241,11 @@ const modalData = {
             ))}
           </select>
         </div>
+        <button className="button-style mt-2 group-button" type='button'
+        style={{ width: "150px"}} onClick={onClickClose}>
+        Close
+       </button>
+ 
       </div>
     </div>
 

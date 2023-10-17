@@ -61,30 +61,42 @@ const styles = StyleSheet.create({
   },
   Headingrow: {
     flexDirection: "row",
-    alignItems: "center",
+    fontFamily:"Helvetica-Bold",
     borderBottom: "1px",
-    marginTop: "5px",
     marginLeft: "20px",
     width: "800px",
+    textAlign:"center"
   },
   schd: {
     width: "80px",
+    textAlign:"center",
+    paddingVertical:"8px"
   },
   status: {
     width: "80px",
-    marginLeft:"10px"
+    textAlign:"center",
+    paddingVertical:"8px"
   },
   customer: {
     width: "300px",
+    textAlign:"center",
+    paddingVertical:"8px"
+  
   },
   deldate: {
     width: "80px",
+    textAlign:"center",
+    borderRightWidth:1,
+    paddingVertical:"8px"
   },
   remaining: {
     width: "50px",
+    paddingVertical:"8px",
+    borderRightWidth:1
   },
   remarks: {
     width: "80px",
+paddingVertical:"8px"
   },
   detailss: {
     marginLeft: "20px",

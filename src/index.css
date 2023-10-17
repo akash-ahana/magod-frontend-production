@@ -75,6 +75,14 @@ code {
   /* border-bottom: 1px solid #757575; */
 }
 
+.in-field2 {
+  height: 30px;
+  margin-top: 5px;
+  /* border-radius: 6px; */
+  text-indent: 6px;
+  padding-bottom: 4px;
+}
+
 
 .title {
   text-align: center;

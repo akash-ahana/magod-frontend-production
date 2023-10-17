@@ -6,6 +6,7 @@ import { baseURL } from "../../../../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import CloseProgramModal from "./CloseProgramModal";
+import ShortCloseModal from "./ShortCloseModal";
 
 export default function ProgramCompletedModal({
   show,
@@ -16,6 +17,7 @@ export default function ProgramCompletedModal({
   setSelectProgramCompleted,
   setMachineProgramesCompleted,
   selectedMachine,
+  machineProgramesCompleted
 }) {
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
@@ -106,21 +108,45 @@ export default function ProgramCompletedModal({
   };
 
 
-
+// //
   const [openCloseProgram, setCloseProgram] = useState(false);
+  const [disableStatus, setDisableStatus] = useState(false);
+  const[response,setResponse]=useState("")
+  const[comparedResponse,setComparedResponse]=useState("")
+  const[openShortClose,setOpenShortClose]=useState(false)
   const onClickCloseProgram = () => {
-    console.log("Close Program button is clicked");
     axios
-      .post(
-        baseURL + "/shiftManagerProfile/CloseProgram",
-        selectProgramCompleted
-      )
-      .then((response) => {
-        const constSelectProgramCompleted = selectProgramCompleted;
-        constSelectProgramCompleted.PStatus = "Closed";
-        setSelectProgramCompleted(constSelectProgramCompleted);
+    .post(
+      baseURL + "/shiftManagerProfile/CloseProgram",
+      selectProgramCompleted
+    )
+    .then((response) => {
+      console.log(response.data);
+      if(response.data=='Return or update Material before closing Program'){
         setCloseProgram(true);
-        axios
+        setResponse('Return or update Material before closing Program')
+      }
+      else{
+          if(selectProgramCompleted?.QtyAllotted<selectProgramCompleted?.Qty){
+            setComparedResponse('Do you wish to short close program No?');
+            setOpenShortClose(true);
+          }
+          else{
+            axios
+            .post(
+              baseURL + "/shiftManagerProfile/updateClosed",
+              selectProgramCompleted
+            )
+            .then((response) => {
+                console.log(response.data)
+            });
+            setCloseProgram(true);
+            setResponse('Closed')
+            const constSelectProgramCompleted = selectProgramCompleted;
+            constSelectProgramCompleted.PStatus = "Closed";
+            setSelectProgramCompleted(constSelectProgramCompleted);
+            setDisableStatus(response.data.success);
+            axios
           .post(
             baseURL +
               "/shiftManagerProfile/profileListMachinesProgramesCompleted",
@@ -164,53 +190,51 @@ export default function ProgramCompletedModal({
             }
             console.log("AFTER ADDING COLOR", response.data);
             setMachineProgramesCompleted(response.data);
+            setSelectProgramCompleted({...response.data[0],index:0})
           });
-      });
+          }
+      }
+    });
   };
 
+
+useEffect(()=>{
+  setDisableStatus('')   
+},[selectProgramCompleted])
+
   const onChangeCleared = (e, item, key) => {
-    console.log(
-      " On CHANGE CLEARED ",
-      " e.target.value is ",
-      e.target.value,
-      " item is ",
-      item,
-      " key is ",
-      key
-    );
     const newconstprogramCompleteData = programCompleteData;
     newconstprogramCompleteData[key].QtyCleared = Number(e.target.value);
     setProgramCompleteData(newconstprogramCompleteData);
     setNewProgramCompleteData(newconstprogramCompleteData);
-    console.log(
-      "NEW CONST PROGRAM COMPLETE DATA IS ",
-      newconstprogramCompleteData
-    );
     setNewProgramCompleteData(newconstprogramCompleteData);
     setNewPartlistdata(newconstprogramCompleteData);
   };
 
   const onChangeRemarks = (e, item, key) => {
-    console.log(
-      " On CHANGE REMARKS",
-      " e.target.value is ",
-      e.target.value,
-      " item is ",
-      item,
-      " key is ",
-      key
-    );
     const newconstprogramCompleteData = programCompleteData;
     newconstprogramCompleteData[key].Remarks = e.target.value;
     setProgramCompleteData(newconstprogramCompleteData);
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
+
   return (
     <div>
       <CloseProgramModal
         openCloseProgram={openCloseProgram}
         setCloseProgram={setCloseProgram}
+        data={response}
+      />
+
+      <ShortCloseModal
+      openShortClose={openShortClose}
+      setOpenShortClose={setOpenShortClose}
+      response1={comparedResponse}
+      selectProgramCompleted={selectProgramCompleted}
+      selectedMachine={selectedMachine}
+      setSelectProgramCompleted={setSelectProgramCompleted}
+      setMachineProgramesCompleted={setMachineProgramesCompleted}
       />
 
       <Modal size="lg" show={show} fullscreen={fullscreen} onHide={handleClose}>
@@ -227,21 +251,21 @@ export default function ProgramCompletedModal({
                   <label className="form-label"> Task No</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.TaskNo}
+                    value={selectProgramCompleted?.TaskNo}
                   />
                 </div>
                 <div className="col-md-2">
                   <label className="form-label"> Quantity</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.Qty}
+                    value={selectProgramCompleted?.Qty}
                   />
                 </div>
                 <div className="col-md-5">
                   <label className="form-label"> Material</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.Mtrl_Code}
+                    value={selectProgramCompleted?.Mtrl_Code}
                   />
                 </div>
 
@@ -249,15 +273,15 @@ export default function ProgramCompletedModal({
                   <label className="form-label"> Program No</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.NCProgramNo}
+                    value={selectProgramCompleted?.NCProgramNo}
                   />
                 </div>
 
                 <div className="col-md-2">
-                  <label className="form-label">Alloted</label>
+                  <label className="form-label">Allotted</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.QtyAllotted}
+                    value={selectProgramCompleted?.QtyAllotted}
                   />
                 </div>
 
@@ -265,7 +289,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Process</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.MProcess}
+                    value={selectProgramCompleted?.MProcess}
                   />
                 </div>
 
@@ -273,7 +297,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Status</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.PStatus}
+                    value={selectProgramCompleted?.PStatus}
                   />
                 </div>
 
@@ -281,7 +305,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Machine</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.Machine}
+                    value={selectProgramCompleted?.Machine}
                   />
                 </div>
 
@@ -289,7 +313,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Processed</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.QtyCut}
+                    value={selectProgramCompleted?.QtyCut}
                   />
                 </div>
 
@@ -297,7 +321,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Dwgs</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.NoOfDwgs}
+                    value={selectProgramCompleted?.NoOfDwgs}
                   />
                 </div>
 
@@ -305,7 +329,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Parts</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.TotalParts}
+                    value={selectProgramCompleted?.TotalParts}
                   />
                 </div>
 
@@ -313,7 +337,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Process Time</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.ActualTime}
+                    value={selectProgramCompleted?.ActualTime}
                   />
                 </div>
 
@@ -321,7 +345,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Estimated</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.EstimatedTime}
+                    value={selectProgramCompleted?.EstimatedTime}
                   />
                 </div>
 
@@ -329,7 +353,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label">Machine</label>
                   <input
                     className="in-fields"
-                    value={selectProgramCompleted.Machine}
+                    value={selectProgramCompleted?.Machine}
                   />
                 </div>
 
@@ -338,6 +362,7 @@ export default function ProgramCompletedModal({
                     className="button-style mt-3 group-button"
                     style={{ width: "130px" }}
                     onClick={clearAllButton}
+                    disabled={disableStatus===true}
                   >
                     Clear Parts
                   </button>
@@ -389,7 +414,7 @@ export default function ProgramCompletedModal({
                             <td style={{ whiteSpace: "nowrap" }}>
                               {item.DwgName}
                             </td>
-                            <td>{item.QtyNested}</td>
+                            <td>{item.TotQtyNested}</td>
                             <td>{item.QtyCut}</td>
                             <td>
                               <div>

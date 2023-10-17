@@ -6,7 +6,7 @@ import { useGlobalContext } from '../../../../../../Context/Context';
 export default function ProductionTaskListTable() {
 
 const {productionTaskList,SetProductionTaskList,getProductionTaskListData}=useGlobalContext();
-console.log(productionTaskList);
+// console.log(productionTaskList);
 
 useEffect(()=>{
   getProductionTaskListData();
