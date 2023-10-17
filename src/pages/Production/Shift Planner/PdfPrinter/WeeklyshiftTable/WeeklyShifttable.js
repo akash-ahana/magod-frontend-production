@@ -1,7 +1,9 @@
 import React from "react";
 import { Page, Document, StyleSheet, View, Text } from "@react-pdf/renderer";
 import WeeklyShiftTableRow from "./WeeklyShiftTableRow";
-import { fontFamily } from "@mui/system";
+
+
+
 
 const styles = StyleSheet.create({
   page: {
@@ -27,6 +29,8 @@ const styles = StyleSheet.create({
     marginLeft: "200px",
     marginTop: "20px",
     fontFamily: "Helvetica-Bold",
+    marginBottom:"8px",
+
   },
   title2: {
     textDecoration: "underline",
@@ -34,69 +38,113 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica-Bold",
   },
   shiftperiod: {
-    marginLeft: "140px",
+    textAlign:"center",
     marginTop: "20px",
+    marginLeft:"150px",
+    fontFamily:"Helvetica-Bold",
+  
   },
   boxdata: {
     border: "1px",
-    padding: "10px",
-    marginTop: "40px",
-    width: "550px",
+   padding:"5px",
+    width: "480px",
     marginLeft: "50px",
     marginRight: "100px",
+    marginTop:"10px"
   },
   tableview: {
     marginLeft: "60px",
-    width: "430px",
+    width: "460px",
+    marginBottom:"10px"
   },
   Headingrow: {
     flexDirection: "row",
     alignItems: "center",
     borderBottom: "1px",
+    borderTop:1,
     marginTop: "20px",
     marginLeft: "60px",
-    width: "430px",
+    width: "460px",
+    fontFamily:"Helvetica-Bold",
+    padding:"2px"
   },
   machineHeading: {
-    width: "30%",
+    width: "35%",
   },
   operatorHeading: {
-    width: "30%",
+    width: "35%",
   },
   remarksHeading: {
-    width: "40%",
+    width: "30%",
   },
-  Manager:{
-    marginTop:"40px",
-    marginRight:"160px",
-    marginLeft:"40px",
-    textDecoration:"underline",
+  Manager: {
+    marginTop: "40px",
+    marginRight: "160px",
+    marginLeft: "40px",
+    textDecoration: "underline",
     fontFamily: "Helvetica-Bold",
+  },
+  boldText:{
+    fontFamily: "Helvetica-Bold",
+    marginLeft:"50px",
+    marginTop:"10px",
+    textDecoration:"underline"
+  },
+  shiftDate:{
+    textAlign:"center",
+  },
+  flexing:{
+    flexDirection:"row",
   }
+ 
 });
 
+const formatDate = (dateStr) => {
+  const parts = dateStr.split('-');
+  if (parts.length === 3) {
+    const [year, month, day] = parts;
+    return `${day}-${month}-${year}`;
+  }
+  return dateStr; // Return the original date if it's not in the expected format
+};
+
+
 const WeeklyShifttable = ({ selectedWeek, newData }) => (
+
+  
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Department</Text>
-        <Text style={styles.shiftperiod}>
-          Shift Plan for Period From : {selectedWeek[0]} To {selectedWeek[6]}
-        </Text>
+        <Text style={[styles.shiftperiod,{fontStyle: 'italic'}]}>
+        Shift Plan for Period From : {selectedWeek[0]} To {selectedWeek[6]}
+      </Text>
+      </View>
 
+     
+<View>
         {newData.map((mapItem) => {
           return (
-            <>
-              {mapItem.map((innerMapItem) => {
+            <React.Fragment key={mapItem.day}>
+           
+            <Text style={styles.boldText}>Date &nbsp;{formatDate(mapItem.day)}</Text>
+          
+
+              {mapItem.operators.map((item, key) => {
                 return (
                   <>
-                    <View style={styles.boxdata}>
-                      <Text>Shift &nbsp;&nbsp;&nbsp;{innerMapItem.Shift} </Text>
-                      <Text>Shift IC &nbsp;{innerMapItem.ShiftIc}</Text>
-                      <Text>Date &nbsp;{innerMapItem.day}</Text>
+                 
+                  <View style={styles.boxdata}>
+                  <View style={styles.flexing}>
+                
+                    <Text style={{fontFamily:"Helvetica-Bold"}} >Shift :&nbsp;&nbsp;&nbsp;</Text>
+                    <Text>{item.Shift}</Text>
+                    <Text style={{marginLeft:"200px", fontFamily:"Helvetica-Bold"}}>Shift IC :&nbsp;&nbsp;&nbsp;</Text>
+                    <Text>{item.ShiftIc}</Text>
                     </View>
-
+                  
+                    </View>
                     <View style={styles.Headingrow}>
                       <Text style={styles.machineHeading}>Machine</Text>
                       <Text style={styles.operatorHeading}>Operator</Text>
@@ -104,21 +152,18 @@ const WeeklyShifttable = ({ selectedWeek, newData }) => (
                     </View>
 
                     <View style={styles.tableview}>
-                      <WeeklyShiftTableRow
-                        items={innerMapItem.machineOperators}
-                      />
+                            <WeeklyShiftTableRow items={item.machineOperators} />
                     </View>
+
                   </>
                 );
               })}
-            </>
+            </React.Fragment>
           );
         })}
         <View>
           <Text style={styles.Manager}>Production Manager</Text>
         </View>
-
-        {/*<TableFooter items={data.items} />*/}
       </View>
     </Page>
   </Document>

@@ -6,6 +6,7 @@ import axios from "axios";
 import PrintShiftLogModal from "../Pdfs/PrintShiftLog/PrintShiftLogModal";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import CustomModal from "../../CustomModal";
 
 export default function MachineLog({
   machineLogData,
@@ -15,6 +16,7 @@ export default function MachineLog({
   setSelectedRows,
   machinelogRowSelect,
   status,
+  machineName
 }) {
   const [selectAll, setSelectAll] = useState(false);
   const [FinalMachineLogArray, setFinalMachineLogArray] = useState([]);
@@ -24,6 +26,9 @@ export default function MachineLog({
   const [SumMachineTime, setSumMachineTime] = useState("");
   const [fromTime, setFromTime] = useState("");
   const [toTime, setToTime] = useState("");
+  const [modalShow1, setModalShow1] = useState(false);
+  const [modalShow4, setModalShow4] = useState(false);
+
 
   const sortMachineLogs = (logs) => {
     // Perform sorting based on your desired logic
@@ -87,6 +92,16 @@ export default function MachineLog({
     });
   }
 
+  const handleTimeChange = (index, field, value) => {
+    const updatedMachineLogData = [...machineLogData]; // Create a copy of the array
+    // Update the specific item's field with the new value
+    updatedMachineLogData[index] = {
+      ...updatedMachineLogData[index],
+      [field]: value,
+    };
+    setMachineLogData(updatedMachineLogData);
+  };
+
   const handleSelectAll = () => {
     setSelectAll(!selectAll);
     if (!selectAll) {
@@ -111,74 +126,125 @@ export default function MachineLog({
   };
 
   const onClickSaveLog = () => {
-    axios
+    if (machineName!==''){
+      axios
       .post(baseURL + "/reports/saveLog", {
-        selectedRows: selectedRows,
-        fromTime: fromTime,
-        toTime: toTime,
+        machineLogData
       })
       .then((response) => {
-        toast.success(`Log Saved`, {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        // toast.success(`Log Saved`, {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
+        setModalShow1(true);
         axios
-          .post(baseURL + "/reports/machineLog", { Date: dateSelect })
-          .then((response) => {
-            for (let i = 0; i < response.data.length; i++) {
-              let dateSplit1 = response.data[i].FromTime.split(" ");
-              let date1 = dateSplit1[0].split("-");
-              let year1 = date1[0];
-              let month1 = date1[1];
-              let day1 = date1[2];
-              let time = dateSplit1[1].split(":");
-              let Time = time[0] + ":" + time[1];
-              let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-              response.data[i].FromTime = finalDay1;
-            }
-            for (let i = 0; i < response.data.length; i++) {
-              let dateSplit2 = response.data[i].ToTime.split(" ");
-              let date2 = dateSplit2[0].split("-");
-              let year2 = date2[0];
-              let month2 = date2[1];
-              let day2 = date2[2];
-              let time1 = dateSplit2[1].split(":");
-              let Time1 = time1[0] + ":" + time1[1];
-              let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-              response.data[i].ToTime = finalDay2;
-            }
-            setMachineLogData(response.data);
-          });
+      .post(baseURL + "/reports/machineOnclick", {
+        Date: dateSelect,
+        Machine: machineName,
+      })
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit1 = response.data[i].FromTime.split(" ");
+          let date1 = dateSplit1[0].split("-");
+          let year1 = date1[0];
+          let month1 = date1[1];
+          let day1 = date1[2];
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+          response.data[i].FromTime = finalDay1;
+        }
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit2 = response.data[i].ToTime.split(" ");
+          let date2 = dateSplit2[0].split("-");
+          let year2 = date2[0];
+          let month2 = date2[1];
+          let day2 = date2[2];
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+          response.data[i].ToTime = finalDay2;
+        }
+        console.log("", response.data);
+        setMachineLogData(response.data);
       });
+      });
+    }
+    else{
+      axios
+      .post(baseURL + "/reports/saveLog", {
+        machineLogData
+      })
+      .then((response) => {
+        // toast.success(`Log Saved`, {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
+        setModalShow1(true);
+        console.log("afteronclick machine",machineName)
+        axios
+        .post(baseURL + "/reports/machineLog", { Date:dateSelect })
+        .then((response) => {
+          for (let i = 0; i < response.data.length; i++) {
+            let dateSplit1 = response.data[i].FromTime.split(" ");
+            let date1 = dateSplit1[0].split("-");
+            let year1 = date1[0];
+            let month1 = date1[1];
+            let day1 = date1[2];
+            let time = dateSplit1[1].split(":");
+            let Time = time[0] + ":" + time[1];
+            let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+            response.data[i].FromTime = finalDay1;
+          }
+          for (let i = 0; i < response.data.length; i++) {
+            let dateSplit2 = response.data[i].ToTime.split(" ");
+            let date2 = dateSplit2[0].split("-");
+            let year2 = date2[0];
+            let month2 = date2[1];
+            let day2 = date2[2];
+            let time1 = dateSplit2[1].split(":");
+            let Time1 = time1[0] + ":" + time1[1];
+            let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+            response.data[i].ToTime = finalDay2;
+          }
+          console.log(response.data);
+          setMachineLogData(response.data);
+        });
+      });
+    }
   };
 
-  const handleTimeChange = (index, field, value) => {
-    const updatedMachineLogData = machineLogData.map((item, i) => {
-      if (i === index) {
-        return {
-          ...item,
-          [field]: value,
-        };
-      }
-      return item;
-    });
-
-    setMachineLogData(updatedMachineLogData);
+  const closeModal = () => {
+    setModalShow1(false);
   };
+  const modalData = {
+    title: 'Reports',
+    content: 'Log Saved'
+  };
+
+  
 
   //Open PDF
   const PrintShiftLog = () => {
     if (status == false) {
-      toast.error("Prepare Report Before Printing ShiftLog", {
-        position: toast.POSITION.TOP_CENTER,
-      });
+      // toast.error("Prepare Report Before Printing ShiftLog", {
+      //   position: toast.POSITION.TOP_CENTER,
+      // });
+      setModalShow4(true);
     } else {
       setOpenShiftLog(true);
     }
   };
 
+  const closeModal1 = () => {
+    setModalShow4(false);
+  };
+  const modalData1 = {
+    title: 'Reports',
+    content: 'Prepare Report Before Printing ShiftLog'
+  };
+
+
   return (
     <div>
-      <ToastContainer />
 
       <PrintShiftLogModal
         openShiftLog={openShiftLog}
@@ -312,6 +378,8 @@ export default function MachineLog({
           )}
         </Table>
       </div>
+      <CustomModal show={modalShow1} handleClose={closeModal} data={modalData} />
+      <CustomModal show={modalShow4} handleClose={closeModal1} data={modalData1} />
     </div>
   );
 }

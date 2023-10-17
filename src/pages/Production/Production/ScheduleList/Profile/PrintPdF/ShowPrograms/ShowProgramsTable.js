@@ -15,10 +15,12 @@ const styles = StyleSheet.create({
         textDecoration : "underline",
         marginLeft:"200px",
         marginTop:"20px",
+       fontFamily:"Helvetica-Bold"
     },
     title2 :{
         textDecoration : "underline",
-        marginLeft:"220px"
+        marginLeft:"220px",
+        fontFamily:"Helvetica-Bold"
     },
     location:{
         marginRight:"250px",
@@ -73,26 +75,26 @@ const ShowProgramsTable = ({processrowselect,rowselect,programlistdata}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
-        <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
+        <Text style={[styles.tableTitle]}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Status Report</Text>
-        <Text style={styles.location}>Magod Laser:Jigani</Text>
+        <Text style={[styles.location,{paddingBottom:"10px"}]}>Magod Laser:Jigani</Text>
 
         <View>
             <Text style={styles.details}>Production Sheet Schedule No : {rowselect.OrdSchNo}</Text>
         </View>
 
         <View style={styles.Headingrow}>
-          <Text style={styles.dwgname}>Task No</Text>
-          <Text style={styles.Scheduled}>Material</Text>
-          <Text style={styles.Nested}>Process</Text>
-          <Text style={styles.Nested}>Material</Text>
+          <Text style={[styles.dwgname,{fontFamily:"Helvetica-Bold"}]}>Task No</Text>
+          <Text style={[styles.Scheduled,{fontFamily:"Helvetica-Bold"}]}>Material</Text>
+          <Text style={[styles.Nested,{fontFamily:"Helvetica-Bold"}]}>Process</Text>
+          <Text style={[styles.Nested,{fontFamily:"Helvetica-Bold"}]}>Material</Text>
         </View>
 
         <View style={styles.Headingrow}>
-          <Text style={styles.dwgname}>{programlistdata[0].TaskNo}</Text>
-          <Text style={styles.Scheduled}>{programlistdata[0].Mtrl_Code}</Text>
-          <Text style={styles.Nested}>{programlistdata[0].MProcess}</Text>
-          <Text style={styles.Nested}></Text>
+          <Text style={[styles.dwgname,{fontFamily:"Helvetica-Bold"}]}>{programlistdata[0].TaskNo}</Text>
+          <Text style={[styles.Scheduled,{fontFamily:"Helvetica-Bold"}]}>{programlistdata[0].Mtrl_Code}</Text>
+          <Text style={[styles.Nested, {fontFamily:"Helvetica-Bold"}]}>{programlistdata[0].MProcess}</Text>
+          <Text style={[styles.Nested, {fontFamily:"Helvetica-Bold"}]}></Text>
         </View>
 
         <View style={styles.Headingrow}>

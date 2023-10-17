@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { baseURL } from '../../../../api/baseUrl';
 
-export default function PrepareReportModal3({prepareReport3,setPrepareReport3,dateSelect}) {
+export default function PrepareReportModal3({prepareReport3,setPrepareReport3,dateSelect,setStatus}) {
     const handleClose=()=>{
         setPrepareReport3(false);   
     }
@@ -24,6 +24,7 @@ export default function PrepareReportModal3({prepareReport3,setPrepareReport3,da
         })
         .finally(() => {
           handleClose();
+          setStatus(true);
         });
     }
     

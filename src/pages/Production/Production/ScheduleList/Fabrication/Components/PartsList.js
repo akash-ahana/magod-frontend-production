@@ -15,6 +15,8 @@ export default function PartsList({
 }) {
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
+    const[saveCleared,setSaveCleared]=useState(false);
+
 
   // Process Table(Right First table) data
   const [newpartlistdata, setNewPartlistdata] = useState([]);
@@ -34,40 +36,64 @@ export default function PartsList({
     }
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
+    setSaveCleared(true);
   };
 
   // CLEAR SELECTED
   const clearSelected = () => {
-    const updatedPartListData = partlistdata.map((row) => {
-      if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
+    const updatedRows = partlistdata.map((row) => {
+      if (selectedRows.includes(row)) {
         return { ...row, QtyCleared: row.QtyProduced };
       }
       return row;
     });
-    setPartlistdata(updatedPartListData);
+    setPartlistdata(updatedRows);
+    setSelectedRows([]);
+    setSaveCleared(false)
   };
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
-    axios
-      .post(
-        baseURL + "/scheduleListProfile/scheduleListSaveCleared",
-        partlistdata
-      )
-      .then((response) => {
-        toast.success("Cleared Saved", {
-          position: toast.POSITION.TOP_CENTER,
+    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    if (!saveCleared) {
+      // There is at least one row where QtyProduced is not equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveCleared",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          console.log("executed first API");
         });
-      });
+    } else {
+      // All rows have QtyProduced equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          console.log("executed second API");
+        });
+    }
   };
+  
 
   // SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
-      const isItemSelected = prevRows.some((row) => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter((row) => row.item !== item);
+      if (prevRows.includes(item)) {
+        return prevRows.filter((row) => row !== item);
       } else {
         return [...prevRows, item];
       }
@@ -96,12 +122,26 @@ export default function PartsList({
     }
     setPartlistdata(newConstPartList);
     if (newValue > newConstPartList[key].QtyProduced) {
-      // Display an alert message if Cleared is greater than Produced
       toast.error("Cleared cannot be greater than Produced!", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
   };
+
+  const handleProducedChanged=(e,item,key)=>{
+    const newConstPartList1 = [...partlistdata]; // Create a copy of the partlistdata array
+    const newProduced = parseInt(e.target.value); // Convert the input value to an integer
+    if (!isNaN(newProduced) && newProduced <= newConstPartList1[key].QtyToNest) {
+      newConstPartList1[key].QtyProduced = newProduced; // Update QtyCleared if it's a valid value
+    } else {
+      newConstPartList1[key].QtyProduced = ""; // Reset QtyCleared if the value is invalid
+    }
+    setPartlistdata(newConstPartList1);
+    if (newProduced > newConstPartList1[key].QtyToNest) {
+      toast.error("Produced cannot be greater than Programmed!", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }  }
 
   useEffect(() => {
     getpartslistdata();
@@ -126,7 +166,6 @@ export default function PartsList({
 
   return (
     <div>
-      <ToastContainer />
       <div className="row mt-2">
         <button
           className="button-style mt-2 group-button"
@@ -182,7 +221,7 @@ export default function PartsList({
           </thead>
 
           <tbody className="tablebody">
-            {partlistdata.map((item,key) => {
+            {partlistdata.map((item, key) => {
               const isChecked = selectedRows.some((row) => row === item);
               return (
                 <tr
@@ -197,13 +236,26 @@ export default function PartsList({
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      checked={isChecked}
+                      checked={selectedRows.includes(item)}
                       onChange={() => handleCheckboxChange(item)}
                     />
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
+                  <td>
+                    <div>
+                      <input
+                        className="table-cell-editor"
+                        style={{ textAlign: "center" }}
+                        name="produced"
+                        type="number"
+                        placeholder="Type Produced"
+                        value={item.QtyProduced}
+                        onKeyDown={blockInvalidChar}
+                        onChange={(e) => handleProducedChanged(e, item, key)}
+                      />
+                    </div>
+                  </td>{" "}
                   <td>
                     <div>
                       <input
@@ -213,7 +265,7 @@ export default function PartsList({
                         type="number"
                         placeholder="Type Cleared"
                         value={item.QtyCleared}
-                        onChange={(e) => onChangeCleared(e, item,key)}
+                        onChange={(e) => onChangeCleared(e, item, key)}
                         onKeyDown={blockInvalidChar}
                       />
                     </div>

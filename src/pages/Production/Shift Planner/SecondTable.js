@@ -11,16 +11,15 @@ import axios from "axios";
 function SecondTable(props) {
     //  console.log('secondTableShiftState in second TABLE 1' , props.week)
     return (
-        <div style={{width:"430px",height:"660px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
+      
+        <div className='col-md-3' style={{width:"385px", height:"660px",overflowX: "scroll",overflowY: "scroll",marginTop:"24px"}}>
         <div>
-
-
 <Table striped className="table-data border" style={{marginLeft:"5px",border:"1px"}}>
        <thead className="tableHeaderBGColor">
          <tr>
            <th >ShiftDate</th>
            <th>Shift</th>
-           <th >Shift IC</th>
+           <th style={{whiteSpace:"nowrap"}} >Shift IC</th>
            <th >From</th>
            <th >To</th>
          </tr>
@@ -47,6 +46,7 @@ function SecondTable(props) {
             
         </div>
         </div>
+     
     );
 }
 

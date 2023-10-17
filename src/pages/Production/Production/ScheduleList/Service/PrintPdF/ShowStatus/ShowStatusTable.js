@@ -14,24 +14,27 @@ const styles = StyleSheet.create({
     tableTitle : {
         textDecoration : "underline",
         marginLeft:"360px",
-        
+        fontFamily: "Helvetica-Bold"        
     },
     title2 :{
-        textDecoration :"underline",
-        marginLeft:"-136px",
-        marginTop:"20px"
+      textDecoration :"underline",
+      marginLeft:"-150px",
+      marginTop:"20px",
+      fontFamily: "Helvetica-Bold"
     },
     location:{
-        marginRight:"280px",
-        marginLeft : "415px",
-        // marginLeft:"350px",
-        marginTop:"22px",
-        textDecoration:"underline"
+      marginRight:"280px",
+      marginLeft : "410px",
+      // marginLeft:"350px",
+      marginTop:"22px",
+      textDecoration:"underline",
+      fontFamily: "Helvetica-Bold"
     },
     datedisplay:{
         //marginRight:"200px",
-        marginLeft:"-351px",
-        marginTop:"5.5px"
+        marginLeft:"-370px",
+        marginTop:"5.5px",
+        fontFamily: "Helvetica-Bold"
     },
     tableview:
     {
@@ -39,37 +42,41 @@ const styles = StyleSheet.create({
       width:"430px",
     },
     tablemainheader:{
-        textDecoration:"underline",   
-        paddingTop : "20px",
-        paddingLeft : "30px",
-        marginLeft : "-460px",
-        marginTop : "51px"
+      textDecoration:"underline",   
+      marginLeft:"60px",
+      marginTop : "30px",
+      fontFamily: "Helvetica-Bold"
     },
      Headingrow: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottom:"1px",
-    marginTop:"20px",
-    marginLeft:"60px",
-    marginBottom : "10px",
-    width:"700px",
-    // fontSize:"10px"
+      flexDirection: "row",
+      alignItems: "center",
+      borderBottom:"1px",
+      marginTop:"10px",
+      marginLeft:"60px",
+      borderTop:1,
+      width:"700px",
+      // fontSize:"10px"
+      fontFamily: "Helvetica-Bold"
   },
   Scheduleno: {
     width: "100px",
     // whiteSpace:"nowrap"
+    textAlign:"center"
   },
   Customer: {
     width: "250px",
     // whiteSpace:"nowrap"
+    textAlign:"center"
   },
   Date:{
       width:"100px",
       // whiteSpace:"nowrap"
+      textAlign:"center"
   },
   Instruction:{
     width:"150px",
     // whiteSpace:"nowrap"
+    textAlign:"center"
   }
   });
   
@@ -83,25 +90,21 @@ const ShowStatusTable = ({Date,showStatusData}) => (
         <Text style={styles.location}>Unit:Jigani</Text>
         <Text style={styles.datedisplay}>{Date}</Text>
 
-{showStatusData.map((item,key)=>{
-  return(
-    <>
-    <Text style={styles.tablemainheader}>{item.status}</Text>
-        <View style={styles.Headingrow}>
-          <Text style={styles.Scheduleno}>Schedule No</Text>
-          <Text style={styles.Customer}>Customer</Text>
-          <Text style={styles.Date}>Tgt Date</Text>
-          <Text style={styles.Date}>Del Date</Text>
-          <Text style={styles.Instruction}>Instructions</Text>
-       </View>
-        
-    <View style={styles.tableview}>
-      <ShowStatusTableRow showStatusData={item.data} />
-    </View>
-
-    </>
-  )
-})}
+        {showStatusData.map((item, key) => (
+          <View key={key}>
+            <Text style={styles.tablemainheader}>{item.status}</Text>
+            <View style={styles.Headingrow}>
+              <Text style={styles.Scheduleno}>Schedule No</Text>
+              <Text style={styles.Customer}>Customer</Text>
+              <Text style={styles.Date}>Tgt Date</Text>
+              <Text style={styles.Date}>Del Date</Text>
+              <Text style={styles.Instruction}>Instructions</Text>
+            </View>
+            <View style={styles.tableview}>
+              <ShowStatusTableRow showStatusData={item.data} />
+            </View>
+          </View>
+        ))}
         
   </View>
     </Page>

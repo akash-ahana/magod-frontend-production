@@ -6,6 +6,7 @@ import "../Styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useMemo } from "react";
+import { useGlobalContext } from "../../../../../../Context/Context";
 
 export default function PartsList({
   TaskNo,
@@ -13,6 +14,9 @@ export default function PartsList({
   partlistdata,
   setPartlistdata,
 }) {
+  const {getSchedulistdata,getSchedulistfabricationdata,getSchedulistservicedata } = useGlobalContext();
+  const[saveCleared,setSaveCleared]=useState(false);
+
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
 
@@ -34,40 +38,76 @@ export default function PartsList({
     }
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
+    setSaveCleared(true);
   };
 
-  // CLEAR SELECTED
-  const clearSelected = () => {
-    const updatedPartListData = partlistdata.map((row) => {
-      if (selectedRows.some((selectedRow) => selectedRow.id === row.id)) {
-        return { ...row, QtyCleared: row.QtyProduced };
-      }
-      return row;
-    });
-    setPartlistdata(updatedPartListData);
-  };
+ /// CLEAR SELECTED
+const clearSelected = () => {
+  const updatedPartListData = [...partlistdata];
+  // Iterate through the selectedRows and update QtyCleared with QtyProduced for all selected rows
+  updatedPartListData.forEach((item, index) => {
+    if (selectedRows.includes(item)) {
+      updatedPartListData[index].QtyCleared = item.QtyProduced;
+    }
+  });
+
+  setPartlistdata(updatedPartListData);
+  setNewPartlistdata(updatedPartListData);
+  setSelectedRows([])
+  setSaveCleared(false)
+};
+
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
-    axios
-      .post(
-        baseURL + "/scheduleListProfile/scheduleListSaveCleared",
-        partlistdata
-      )
-      .then((response) => {
-        toast.success("Cleared Saved", {
-          position: toast.POSITION.TOP_CENTER,
+    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    
+    if (!saveCleared) {
+      // There is at least one row where QtyProduced is not equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveCleared",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          getSchedulistdata();
+          getSchedulistfabricationdata();
+          getSchedulistservicedata();
+          console.log("executed first API");
         });
-      });
+    } else {
+      // All rows have QtyProduced equal to QtyCleared
+      axios
+        .post(
+          baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
+          partlistdata
+        )
+        .then((response) => {
+          toast.success("Cleared Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+          // After saving, update the data
+          getSchedulistdata();
+          getSchedulistfabricationdata();
+          getSchedulistservicedata();
+          console.log("executed second API");
+        });
+    }
   };
+  
+  
 
   // SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
-      const isItemSelected = prevRows.some((row) => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter((row) => row.item !== item);
+      if (prevRows.includes(item)) {
+        return prevRows.filter((row) => row !== item);
       } else {
         return [...prevRows, item];
       }
@@ -84,7 +124,6 @@ export default function PartsList({
     }
   };
 
-  console.log(partlistdata);
 
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
@@ -195,7 +234,7 @@ export default function PartsList({
                     <input
                       className="form-check-input"
                       type="checkbox"
-                      checked={isChecked}
+                      checked={selectedRows.includes(item)}
                       onChange={() => handleCheckboxChange(item)}
                     />
                   </td>

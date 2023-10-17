@@ -4,8 +4,11 @@ import NavTab from "./NavTab";
 import TreeView from "react-treeview";
 import ChangeMachineModal from "./ChangeMachineModal";
 import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import { baseURL } from "../../../../.././api/baseUrl";
+import CustomModal from "../../../CustomModal";
+import { useNavigate } from "react-router-dom";
+
 
 export default function MachineAlltmntForm() {
   const [machineProcessData, setMachineProcessData] = useState([]);
@@ -15,13 +18,15 @@ export default function MachineAlltmntForm() {
   const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
+  const [currentSelectedMachine, setCurrentSelectedMachine] = useState("");
+  const [modalShow2, setModalShow2] = useState(false);
+
 
   useEffect(() => {
     const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
     setIsPageRefreshed(isPageRefreshed);
     localStorage.setItem("isPageRefreshed", false);
   }, []);
-
 
   const selectedMachineFun = (item, index) => {
     setSelectedMachineIndex(index);
@@ -46,7 +51,6 @@ export default function MachineAlltmntForm() {
   const [selectedMachineTreeView, setSelectedMachineTreeView] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
 
-  console.log(selectedMachineTreeView);
   const onClickMachine = (Machine, key) => {
     setSelectedRows([]);
     axios
@@ -59,9 +63,9 @@ export default function MachineAlltmntForm() {
           response.data[i].isChecked = false;
         }
       });
-    setSelectedRows([]);
     setSelectedMachineTreeView(Machine);
     setMachineList([]);
+    setCurrentSelectedMachine(Machine);
   };
 
   //SELECTED ROWS IS THE STATE TO CHANGE THE MACHINES
@@ -93,9 +97,10 @@ export default function MachineAlltmntForm() {
           setSelectedRows([...selectedRows, item]);
         }
       } else {
-        toast.error("Please select a program with the same operation", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        // toast.error("Please select a program with the same operation", {
+        //   position: toast.POSITION.TOP_CENTER,
+        // });
+        setModalShow2(true);
         const constNCProgramsTableData = ncProgramsTableData;
         constNCProgramsTableData[key].isChecked = false;
         setNcProgramsTableData(constNCProgramsTableData);
@@ -103,12 +108,14 @@ export default function MachineAlltmntForm() {
     }
   };
 
+  
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const treeViewData = () => {
     setIsLoading(true); // Set loading state to true before fetching data
     axios
       .get(baseURL + "/machineAllotment/profileListMachineswithLoad")
       .then((response) => {
+        console.log(response.data)
         setMachineProcessData(response.data);
         setIsLoading(false); // Set loading state to false after data is fetched
       })
@@ -119,6 +126,7 @@ export default function MachineAlltmntForm() {
   };
   useEffect(() => {
     treeViewData();
+    onClickMachine();
   }, []);
 
   const dataSource = [
@@ -140,28 +148,30 @@ export default function MachineAlltmntForm() {
   };
 
   const clickChangeMachine = async () => {
+    console.log("Selected machine:", currentSelectedMachine?.MachineName);
     axios
       .post(baseURL + "/machineAllotment/changeMachineHeaderButton", {
         programs: selectedRows,
         newMachine: selectedMachine,
       })
       .then((response) => {
-        onClickMachine();
         handleClose();
-      });
-    await delay(200);
     axios
-      .post(baseURL + "/machineAllotment/getNCprogramTabTableDatauseEffect", {
-        MachineName: "Laser 6",
+      .post(baseURL + "/machineAllotment/afterChangeMachine", {
+        MachineName: currentSelectedMachine?.MachineName,
       })
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data)
         setNcProgramsTableData(response.data);
+        for (let i = 0; i < response.data.length; i++) {
+          response.data[i].isChecked = false;
+        }
       });
-    treeViewData();
-    setSelectedRows([]);
-    setMachineList([]);
-  };
+          setSelectedRows([]);
+          setMachineList([]);
+      });
+    };
+
 
   useMemo(() => {}, [machineProcessData[0]]);
 
@@ -178,21 +188,33 @@ export default function MachineAlltmntForm() {
         console.log(response.data);
         setNcProgramsTableData(response.data);
       });
-      setSelectedLabelIndex(index);
-      setSelectedMachineIndex(-1);
-      setIsPageRefreshed(false);
-      localStorage.setItem("isPageRefreshed", false); 
-     };
-      
-    
+    setSelectedLabelIndex(index);
+    setSelectedMachineIndex(-1);
+    setIsPageRefreshed(false);
+    localStorage.setItem("isPageRefreshed", false);
+  };
 
   useEffect(() => {
     onClickMachineLabel();
   }, []);
 
+  const closeModal = () => {
+    setModalShow2(false);
+  };
+  const modalData = {
+    title: 'Machine Allotment',
+    content: 'Please select a program with the same operation'
+  };
+
+  
+  //Close Button
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
+
   return (
     <>
-      <ToastContainer />
       <div className="col-md-12">
         <div className="row">
           <h4 className="title">Machine Allotment Form</h4>
@@ -208,6 +230,8 @@ export default function MachineAlltmntForm() {
             Save
           </button>
 
+        
+
           <button
             className="button-style mt-2 group-button "
             style={{ width: "150px" }}
@@ -215,6 +239,7 @@ export default function MachineAlltmntForm() {
           >
             Change Machine
           </button>
+    
 
           <div className="col-md-3">
             <select
@@ -229,6 +254,10 @@ export default function MachineAlltmntForm() {
               ))}
             </select>
           </div>
+          <button className="button-style mt-2 group-button" type='button'
+          style={{ width: "150px"}} onClick={onClickClose}>
+          Close
+         </button>
         </div>
       </div>
 
@@ -253,12 +282,16 @@ export default function MachineAlltmntForm() {
                 const type = node.type;
                 const label = (
                   <span
-                  style={{ fontSize: "16px" }}
-                  className={`node ${selectedLabelIndex === node.labelIndex ? "selcted-row-clr" : ""}`}
-                  onClick={() => onClickMachineLabel(node.labelIndex)}
-                >
-                  {type}
-                </span>
+                    style={{ fontSize: "16px" }}
+                    className={`node ${
+                      selectedLabelIndex === node.labelIndex
+                        ? "selcted-row-clr"
+                        : ""
+                    }`}
+                    onClick={() => onClickMachineLabel(node.labelIndex)}
+                  >
+                    {type}
+                  </span>
                 );
                 return (
                   <TreeView
@@ -269,18 +302,22 @@ export default function MachineAlltmntForm() {
                     {node.serverData.map((data, key) => {
                       const label2 = (
                         <span
-      style={{
-        backgroundColor: "#C0C0C0",
-        fontSize: "14px",
-      }}
-      onClick={() => {
-        selectedMachineFun(data, key);
-        onClickMachine(data, key);
-      }}
-      className={`node ${key === selectedMachineIndex ? "selcted-row-clr" : ""}`}
-    >
-      {data.MachineName} &nbsp;{data.formattedLoad}
-    </span>
+                          style={{
+                            backgroundColor: "#C0C0C0",
+                            fontSize: "14px",
+                          }}
+                          onClick={() => {
+                            selectedMachineFun(data, key);
+                            onClickMachine(data, key);
+                          }}
+                          className={`node ${
+                            key === selectedMachineIndex
+                              ? "selcted-row-clr"
+                              : ""
+                          }`}
+                        >
+                          {data.MachineName} &nbsp;{data.formattedLoad}
+                        </span>
                       );
 
                       return (
@@ -334,6 +371,7 @@ export default function MachineAlltmntForm() {
         clickChangeMachine={clickChangeMachine}
         handleClose={handleClose}
       />
+            <CustomModal show={modalShow2} handleClose={closeModal} data={modalData} />
     </>
   );
 }

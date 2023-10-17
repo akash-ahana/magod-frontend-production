@@ -10,10 +10,8 @@ import MachineChangeModal from './MachineChangeModal';
 
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
-   machineData,setSelectProgramProcessing}) {
-// console.log(selectProgramProcessing)
-// console.log('MACHINE DATA' , machineData[0].refName)
-const [selectedMachine, setSelectedMachine] = useState("")
+   machineData,setSelectProgramProcessing,onClickMachine,selectedMachine,setmachineProgramesProcessing}) {
+const [selectedMachine1, setSelectedMachine] = useState("")
 
 const handleClose = ()=>{
   setOpenChangeMachine(false);
@@ -42,8 +40,11 @@ const changeMachineModal=()=>{
     setChangeMachine={setChangeMachine}
     selectProgramProcessing={selectProgramProcessing}
     setSelectProgramProcessing={setSelectProgramProcessing}
-    selectedMachine={selectedMachine}
+    selectedMachine={selectedMachine1}
+    FirstSelectedMachine={selectedMachine}
     setOpenChangeMachine={setOpenChangeMachine}
+    onClickMachine={onClickMachine}
+    setmachineProgramesProcessing={setmachineProgramesProcessing}
     />
 
     <Modal show={openChnageMachine} size='lg'>

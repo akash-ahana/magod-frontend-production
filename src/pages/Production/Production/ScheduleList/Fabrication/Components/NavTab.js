@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-import PartsList from "./PartsList";
 import ProgramList from "./ProgramList";
+import PartsList from "./PartsList";
 
 function NabTab({taskno,processrowselect,getpartslistdata,partlistdata,setPartlistdata,getProgramlistdata,programlistdata,setProgramlistdata,TaskNo}) {
   const [key, setKey] = useState("partlist");

@@ -6,12 +6,13 @@ import { useState } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { baseURL } from '../../../../../../api/baseUrl';
+import MachineChangeModal from './MachineChangeModal';
 
 export default function Popup({openChnageMachine,setOpenChangeMachine,selectProgramProcessing,
-   machineData,setSelectProgramProcessing}) {
+   machineData,setSelectProgramProcessing,onClickMachineLabel,laser,setmachineProgramesProcessing,selectedMachine}) {
 // console.log(selectProgramProcessing)
 // console.log('MACHINE DATA' , machineData[0].refName)
-const [selectedMachine, setSelectedMachine] = useState("")
+const [selectedMachine1, setSelectedMachine1] = useState("")
 
 const handleClose = ()=>{
   setOpenChangeMachine(false);
@@ -20,29 +21,29 @@ const handleClose = ()=>{
 const[changeMachineList,setChangeMachineList]=useState([])
 const handleMachineChange = (e) => {
   setChangeMachineList(e.target.value);
-  setSelectedMachine(e.target.value)
+  setSelectedMachine1(e.target.value)
 };
 
 
+const[changeMachine,setChangeMachine]=useState('');
 const changeMachineonClick = () => {
-  axios.post(baseURL+'/shiftManagerProfile/changeMachine',{...selectProgramProcessing ,  NewMachine : selectedMachine })
-  .then((response) => {
-    console.log('Current State of programCompleteData' , response.data);
-    handleClose();
-     const constSelectProgramCompleted = selectProgramProcessing;
-     constSelectProgramCompleted.Machine = selectedMachine;
-     setSelectProgramProcessing(constSelectProgramCompleted)
-     setSelectProgramProcessing(constSelectProgramCompleted)
-     toast.success('Machine Name Changed',{
-      position: toast.POSITION.TOP_CENTER
-  })
-    // taskNoOnClick();
- })
-}
+  setChangeMachine(true);
+ }
+
 
   return (
     <>
-        <ToastContainer/>
+    <MachineChangeModal
+    changeMachine={changeMachine}
+    setChangeMachine={setChangeMachine}
+    selectProgramProcessing={selectProgramProcessing}
+    setSelectProgramProcessing={setSelectProgramProcessing}
+    laser={laser}
+    selectedMachine={selectedMachine1}
+    FirstSelectedMachine={selectedMachine}
+    setOpenChangeMachine={setOpenChangeMachine}
+    setmachineProgramesProcessing={setmachineProgramesProcessing}
+    />
     <Modal show={openChnageMachine} size='lg'>
     <div 
     className="modal show"

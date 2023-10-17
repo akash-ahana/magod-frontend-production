@@ -13,7 +13,7 @@ import {MdReport} from "react-icons/md";
 import {MdHomeRepairService} from "react-icons/md"
 import {BsListCheck} from "react-icons/bs";
 import {BiGitMerge} from "react-icons/bi";
-import {SiGoogletagmanager} from "react-icons/si";
+import {SiGoogletagmanager, SiRedhatopenshift} from "react-icons/si";
 import {BsServer} from "react-icons/bs";
 import {FiCpu} from "react-icons/fi"
 import {VscServerProcess} from "react-icons/vsc"
@@ -23,7 +23,7 @@ import {FiEdit} from "react-icons/fi"
 import {FaDropbox} from "react-icons/fa";
 import {GoReport} from "react-icons/go"
 import {AiOutlineSchedule} from "react-icons/ai"
-import {GiLaserPrecision} from "react-icons/gi"
+import {GiLaserPrecision, GiProcessor} from "react-icons/gi"
 import {HiCubeTransparent} from "react-icons/hi"
 import {AiFillSchedule} from "react-icons/ai"
 
@@ -39,8 +39,28 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Machine",
-        path: "/production/setup/machine",
+        path: "/Production/Setup/Machine",
         icon: <FiCpu/>,
+      },
+      {
+        title: "StoppageList",
+        path: "/Production/Setup/StoppageList",
+        icon: <AiIcons.AiOutlineStop/>,
+      },
+      {
+        title: "Process",
+        path: "/Production/Setup/Process",
+        icon: <GiProcessor/>,
+      },
+      {
+        title: "Edit Shift IC",
+        path: "/Production/Setup/EditShiftIc",
+        icon: <SiRedhatopenshift/>,
+      },
+      {
+        title: "Edit  Operators",
+        path: "/Production/Setup/EditOperators",
+        icon: <DiOpenshift/>,
       },
     ],
   },
@@ -59,15 +79,15 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/schedulelist/Profile",
+            path: "/Production/Production/Schedulelist/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Fabrication",
-            path: "/production/production/schedulelist/Fabrication",
+            path: "/Production/Production/Schedulelist/Fabrication",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Services",
-            path: "/production/production/schedulelist/Service",
+            path: "/Production/Production/Schedulelist/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }]
       },
@@ -78,12 +98,12 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/MachineAllotment/Profile",
+            path: "/Production/Production/Machineallotment/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },
           {
             title: "Service",
-            path: "/production/production/MachineAllotment/Service",
+            path: "/Production/Production/Machineallotment/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }
         ]
@@ -97,15 +117,15 @@ export const customerSidebar = [
         subNav: [
           {
             title: "Profile",
-            path: "/production/production/ShiftManager/Profile",
+            path: "/Production/Production/Shiftmanager/Profile",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Fabrication",
-            path: "/production/production/ShiftManager/Fabrication",
+            path: "/Production/Production/Shiftmanager/Fabrication",
             icon: <AiIcons.AiOutlineArrowRight />            
           },{
             title: "Services",
-            path: "/production/production/ShiftManager/Service",
+            path: "/Production/Production/Shiftmanager/Service",
             icon: <AiIcons.AiOutlineArrowRight />            
           }]
       },
@@ -120,7 +140,7 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Shift Editor",
-        path: "/production/shiftplanner/shifteditor",
+        path: "/Production/Shiftplanner/Shifteditor",
         icon: <FiEdit />,
       },
     ]
@@ -134,7 +154,7 @@ export const customerSidebar = [
     subNav: [
       {
         title: "Daily Report",
-        path: "/production/reports/dailyreports",
+        path: "/Production/Reports/Dailyreports",
         icon: <AiIcons.AiOutlineArrowRight />            
       },
     ]

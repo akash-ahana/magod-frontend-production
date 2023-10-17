@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import ScheduleHeader from './ScheduleHeader';
 import ScheduleListbody from './ScheduleListbody';
 import { useGlobalContext } from '../../../../../Context/Context';
@@ -41,6 +41,44 @@ const getpartslistdata=()=>{
      TaskId :TaskNo
     }).then((response) => {
      setPartlistdata(response.data);
+  });
+ } 
+
+ //Process Table(Right First table) data
+ const [processtable, setProcesstable] = useState([]);
+ let OrdSchNo = rowselect?.OrdSchNo;
+ console.log(OrdSchNo);
+ const getprocessTabledata = () => {
+    //  console.log("excuted");
+     axios
+       .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
+         ScheduleID: OrdSchNo,
+       })
+       .then((response) => {
+         setProcesstable(response.data);
+         console.log(response.data);
+       })
+       .catch((error) => {
+         console.log(error);
+       });
+   } 
+
+ useMemo(() => {
+   setProcessrowselect({ ...processtable[0], index: 0 });
+ }, [processtable[0]]);
+
+ //pdfShowPartsData
+ const[showParts,setSowParts]=useState([])
+console.log("TaskId",TaskNo)
+const getShowPartsData=()=>{
+  axios.post(
+   baseURL +
+   "/scheduleListProfile/ShowParts",
+    {
+      processtable
+    }).then((response) => {
+      console.log(response.data)
+      setSowParts(response.data);
   });
  } 
 
@@ -155,15 +193,11 @@ setSchedulelistdata(response.data);
   }
 };
 
-// ...
-
 // The useEffect hook to fetch initial data
 useEffect(() => {
   getSchedulistdata(); // Assuming you have this function defined somewhere else
 }, []);
 
-
- 
    useEffect(() => {
      axios
        .post(baseURL + "/scheduleListProfile/getSchedulesByCustomer", {
@@ -184,6 +218,8 @@ useEffect(() => {
         programlistdata={programlistdata}
         custdata={custdata}
         selectCust={selectCust}
+        getShowPartsData={getShowPartsData}
+        showParts={showParts}
         
         />
 
@@ -203,6 +239,9 @@ useEffect(() => {
        setProgramlistdata={setProgramlistdata}
        TaskNo={TaskNo}
        custcode={custcode}
+       processtable={processtable}
+       getprocessTabledata={getprocessTabledata}
+       OrdSchNo={OrdSchNo}
        />
     </div>
   )

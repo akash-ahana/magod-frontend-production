@@ -12,11 +12,13 @@ export default function DailyReportPrintModal({ opendailyReport, setOpendailyRep
     }
   }, [pdfData]); // Run the effect whenever pdfData changes
 
+  console.log(pdfData);
+
   return (
     <>
       <Modal show={opendailyReport} fullscreen={fullscreen} onHide={() => setOpendailyReport(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Show Parts Pdf</Modal.Title>
+          <Modal.Title>Print Daily Report</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {loading ? (

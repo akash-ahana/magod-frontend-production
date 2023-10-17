@@ -75,6 +75,14 @@ code {
   /* border-bottom: 1px solid #757575; */
 }
 
+.in-field2 {
+  height: 30px;
+  margin-top: 5px;
+  /* border-radius: 6px; */
+  text-indent: 6px;
+  padding-bottom: 4px;
+}
+
 
 .title {
   text-align: center;
@@ -246,40 +254,37 @@ input::-webkit-inner-spin-button {
 }
 
 .rbt-input-main .form-control .rbt-input {
-  padding: 0px !important;
-  margin: 0px !important;
   outline: "none " !important;
   border: "none" !important;
 }
 
-
-
-
 .rbt-input:focus {
-  padding: 0px !important;
-  margin: 0px !important;
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
   border-radius: 0px !important;
   border-bottom: 1px solid black !important;
 }
+
+ 
 
 .rbt-input {
-  padding: 0px !important;
-  margin: 0px !important;
-  margin-top: 13px !important;
+  /* margin-top: 13px !important; */
   border-radius: 0px !important;
   outline: none !important;
   box-shadow: none !important;
   border: none !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  margin-top: 0px !important;
   border-bottom: 1px solid black !important;
 }
 
-
-
-
 .rbt-input::placeholder {
-  padding: 0px !important;
-  margin: 0px !important;
+  padding: 0 px !important;
+  margin: 0 px !important;
 }
+
+/* .mandatory-field{
+  background-color:"red" !important;
+} */

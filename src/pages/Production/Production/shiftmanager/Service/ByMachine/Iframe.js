@@ -11,7 +11,7 @@ import ShiftReport from './ShiftReport';
 // import ByCustomer from './components/ByCustomer';
 
 function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, machineProgramesProcessing
-,taskNoOnClick,MachineOnClick,setmachineProgramesProcessing, setMachineProgramesCompleted}) {
+,taskNoOnClick,MachineOnClick,setmachineProgramesProcessing, setMachineProgramesCompleted,onClickMachineLabel,laser,selectedMachine}) {
     const [key, setKey] = useState("tabdata");
 
     console.log('data from i frame is ' , machineProgramesCompleted)
@@ -34,13 +34,19 @@ function Iframe({isToggled, isClick, isCustomer, machineProgramesCompleted, mach
       <Tab eventKey="tabdata" title="Programs Completed">
       <ProgramCompletedData machineProgramesCompleted = {machineProgramesCompleted}
       taskNoOnClick={taskNoOnClick} MachineOnClick={MachineOnClick}
-      setMachineProgramesCompleted={setMachineProgramesCompleted}/>
+      setMachineProgramesCompleted={setMachineProgramesCompleted}
+      laser={laser}
+      />
       </Tab>
 
       <Tab eventKey="Programs Processing" title="Programs Processing">
       <TabData machineProgramesProcessing= {machineProgramesProcessing}
       taskNoOnClick={taskNoOnClick} MachineOnClick={MachineOnClick}
-      setmachineProgramesProcessing={setmachineProgramesProcessing}/>
+      setmachineProgramesProcessing={setmachineProgramesProcessing}
+      onClickMachineLabel={onClickMachineLabel}
+      laser={laser}
+      selectedMachine={selectedMachine}
+      />
       </Tab>
 
       <Tab eventKey="Machine Log" title="Machine Log">

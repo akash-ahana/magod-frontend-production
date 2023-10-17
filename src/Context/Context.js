@@ -56,7 +56,7 @@ const AuthProvider = ({ children }) => {
   //Profile
   const getSchedulistdata=()=>{
     axios.get(baseURL + "/scheduleListProfile/schedulesList").then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
         for(let i =0;i<response.data.length;i++) { 
           // FOR TgtDelDate
           let dateSplit = response.data[i].schTgtDate.split(" ");
@@ -85,12 +85,14 @@ const AuthProvider = ({ children }) => {
   }
 
   const handleCheckboxChange = (item) => {
-    setSelectedRows(prevRows => {
-      const isItemSelected = prevRows.some(row => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter(row => row.item !== item);
+    setSelectedRows((prevSelectedRows) => {
+      const isSelected = prevSelectedRows.some((row) => row === item);
+      if (isSelected) {
+        // If already selected, remove from selectedRows
+        return prevSelectedRows.filter((row) => row !== item);
       } else {
-        return [...prevRows, item];
+        // If not selected, add to selectedRows
+        return [...prevSelectedRows, item];
       }
     });
   };
@@ -129,16 +131,21 @@ const AuthProvider = ({ children }) => {
         });
   }
 
-  const handleCheckboxChangeFabrication = (item) => {
-    setSelectedRowsFabrication(prevRows => {
-      const isItemSelected = prevRows.some(row => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter(row => row.item !== item);
-      } else {
-        return [...prevRows, item];
-      }
-    });
-  };
+ // Inside useGlobalContext or where you manage your state
+const handleCheckboxChangeFabrication = (item) => {
+  setSelectedRowsFabrication((prevSelectedRows) => {
+    const isSelected = prevSelectedRows.some((row) => row === item);
+
+    if (isSelected) {
+      // If already selected, remove from selectedRowsFabrication
+      return prevSelectedRows.filter((row) => row !== item);
+    } else {
+      // If not selected, add to selectedRowsFabrication
+      return [...prevSelectedRows, item];
+    }
+  });
+};
+
 
   //service
   const getSchedulistservicedata=()=>{
@@ -170,16 +177,21 @@ const AuthProvider = ({ children }) => {
         });
   }
 
-  const handleCheckboxChangeService = (item) => {
-    setSelectedRowsService(prevRows => {
-      const isItemSelected = prevRows.some(row => row.item === item);
-      if (isItemSelected) {
-        return prevRows.filter(row => row.item !== item);
-      } else {
-        return [...prevRows, item];
-      }
-    });
-  };
+  // Inside useGlobalContext or where you manage your state
+const handleCheckboxChangeService = (item) => {
+  setSelectedRowsService((prevSelectedRows) => {
+    const isSelected = prevSelectedRows.some((row) => row === item);
+
+    if (isSelected) {
+      // If already selected, remove from selectedRowsService
+      return prevSelectedRows.filter((row) => row !== item);
+    } else {
+      // If not selected, add to selectedRowsService
+      return [...prevSelectedRows, item];
+    }
+  });
+};
+
 
 //Machine Setup
   const MachineTabledata=()=>{
@@ -198,7 +210,7 @@ const getProductionTaskListData=()=>{
     Type:"Profile"
   })
   .then((res) => {
-    console.log("require response mus",res.data);
+    // console.log("require response mus",res.data);
     SetProductionTaskList(res.data)
   });
 }
@@ -212,7 +224,7 @@ const getProductionTaskListDataService=()=>{
     Type:"Service"
   })
   .then((res) => {
-    console.log("require response mus",res.data);
+    // console.log("require response mus",res.data);
     SetProductionTaskListService(res.data)
   });
 }

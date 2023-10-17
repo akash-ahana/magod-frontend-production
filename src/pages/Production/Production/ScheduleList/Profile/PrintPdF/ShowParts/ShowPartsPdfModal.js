@@ -5,7 +5,6 @@ import ShowPartsPdf from './ShowPartsPdf';
  export default function ShowPartsPdfModal({setOpenShowParts,openShowparts,rowselect,processrowselect,partlistdata}) {
   const [fullscreen, setFullscreen] = useState(true);
 
-
   return (
     <>
       <Modal show={openShowparts} fullscreen={fullscreen} onHide={() => setOpenShowParts(false)}>

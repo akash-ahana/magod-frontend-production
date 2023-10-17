@@ -7,11 +7,19 @@ import axios from 'axios';
 
 
 export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onClickDeleteWeekShift,
-  selectedShift,selectedShiftIncharge,selectedWeek}) {
+  selectedShift,selectedShiftIncharge,selectedWeek,setSelectedShift,setSelectedShiftIncharge}) {
 
     const handleClose=()=>{
         setOpendeleteshift(false);
     }
+
+    const onClickonClickDeleteWeekShift=()=>{
+      onClickDeleteWeekShift();
+      handleClose();
+      setSelectedShift("");
+      setSelectedShiftIncharge("")
+    }
+    console.log(selectedShift)
 
   return (
     <div>
@@ -34,8 +42,7 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
         <Modal.Footer>
           {selectedShift ? (
             <>
-              <Button variant="primary" onClick={()=>{onClickDeleteWeekShift()
-        handleClose()}}>
+              <Button variant="primary" onClick={onClickonClickDeleteWeekShift}>
             Yes
           </Button>
           <Button variant="secondary" onClick={handleClose}>

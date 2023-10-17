@@ -11,11 +11,9 @@ import Reports from "./pages/Production/Reports/Reports";
 import Services from "./pages/Production/Services/Services";
 import Setup from "./pages/Production/Setup/Setup";
 import ShiftPlanner from "./pages/Production/Shift Planner/ShiftPlanner";
-import Server from "./pages/Production/Setup/Server/Server";
 import Machine from "./pages/Production/Setup/Machine/Machine";
 import Process from "./pages/Production/Setup/Process";
 import EditShiftIC from "./pages/Production/Setup/EditShiftIC";
-import StoppagesList from "./pages/Production/Setup/StoppagesList";
 import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/ScheduleList";
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";
 import ScheduleListService from "./pages/Production/Production/ScheduleList/Service/ScheduleListService";
@@ -37,23 +35,29 @@ import ScheduleLisMain from "./pages/Production/Production/ScheduleList/Schedule
 import ShiftManager1 from "./pages/Production/Production/shiftmanager/ShiftManager";
 import MachineAllotment from "./pages/Production/Production/Machine Allotment/MachineAllotment";
 import ReportMian from "./pages/Production/Reports/ReportMian";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer} from "react-toastify";
+import StoppageList from "./pages/Production/Setup/StoppageList/StoppageList";
+import EditOperators from "./pages/Production/Setup/EditOperators/EditOperators";
 
 function App() {
   return (
-    <BrowserRouter>
+   <div>
+    <ToastContainer />
+     <BrowserRouter>
       <Routes>
         <Route element={<Login />} path="/" />
         <Route path="/home" element={<Home/>} />
 
         <Route element={<WithNav />}>
-          <Route path="/production" element={<Parentroute />}>
+          <Route path="/Production" element={<Parentroute />}>
 
      {/* Production  */}
-           <Route path="production">
+           <Route path="Production">
                 <Route index={true} element={<Production/>}/>
                   
                   {/* ScheduleList */}
-                <Route path="schedulelist">
+                <Route path="Schedulelist">
                     <Route index={true} element={<ScheduleLisMain/>}/>
                     <Route path='Profile' element={<ScheduleList/>} />
                     <Route path='Fabrication' element={<ScheduleListFabrication/>}/>
@@ -61,7 +65,7 @@ function App() {
                 </Route>
                 
                   {/* Shift Manager */}
-                  <Route path="ShiftManager">
+                  <Route path="Shiftmanager">
                     <Route index={true} element={<ShiftManager1/>}/>
                     <Route path='Profile' element={<ShiftManager/>} />
                     <Route path='Fabrication' element={<ShiftManagerFabrication/>}/>
@@ -71,7 +75,7 @@ function App() {
                
                     
                   {/* Machine Allotment */}
-                  <Route path="MachineAllotment">
+                  <Route path="Machineallotment">
                     <Route index={true} element={<MachineAllotment/>}/>
                     <Route path='Profile' element={<MachieAlltmntCall/>} />
                     <Route path='Service' element={<MachieAlltmntCallService/>}/>
@@ -86,26 +90,26 @@ function App() {
             <Route path="services" element={<Services/>} />
 
             {/* REPORTS */}
-            <Route path="reports">
+            <Route path="Reports">
                 <Route index={true} element={<ReportMian/>}/>
-                <Route path="dailyreports" element={<Reports/>} />
+                <Route path="Dailyreports" element={<Reports/>} />
             </Route>
 
              {/* Setup*/}
-            <Route path="setup">
+            <Route path="Setup">
                 <Route index={true} element={<Setup/>}/>
-                <Route path="server" element={<Server/>} />
-                <Route path="machine" element={<Machine/>} />
-                <Route path="process" element={<Process/>} />
-                <Route path="editshiftIC" element={<EditShiftIC/>} />
-                <Route path="stoppagelist" element={<StoppagesList/>} />
+                <Route path="EditOperators" element={<EditOperators/>} />
+                <Route path="Machine" element={<Machine/>} />
+                <Route path="Process" element={<Process/>} />
+                <Route path="EditShiftIc" element={<EditShiftIC/>} />
+                <Route path="StoppageList" element={<StoppageList/>} />
             </Route>
 
             {/* Shift Planner */}
-            <Route path="shiftplanner">
+            <Route path="Shiftplanner">
                 <Route index={true} element={<ShiftPlanner/>}/>
                 {/* Shift Editor */}
-                  <Route path="shifteditor">
+                  <Route path="Shifteditor">
                     <Route   index ={true} element={<ShiftEditor/>} />
                     <Route path="PrintWeeklyplan" element={<PrintWeeklyplan/>} />
                     <Route path="PrintDailyplan" element={<PrintDailyShift/>}/>
@@ -118,6 +122,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+   </div>
   );
 }
 

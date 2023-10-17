@@ -8,28 +8,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderBottom:"1px",
-    marginTop:"10px",
-    marginBottom : "17px",
+   
     // marginLeft:"60px",
     width:"700px",
-
     // fontSize:"10px"
   },
   Scheduleno: {
     width: "100px",
-    whiteSpace:"nowrap"
+    whiteSpace:"nowrap",
+    fontSize:"10px",
+    textAlign:"center"
   },
   Customer: {
     width: "250px",
-    whiteSpace:"nowrap"
+    whiteSpace:"nowrap",
+    fontSize:"10px"
   },
   Date:{
       width:"100px",
-      whiteSpace:"nowrap"
+      whiteSpace:"nowrap",
+      fontSize:"10px"
   },
   Instruction:{
     width:"150px",
-    whiteSpace:"nowrap"
+    whiteSpace:"nowrap",
+    fontSize:"10px"
   }
   });
   
@@ -41,9 +44,9 @@ const styles = StyleSheet.create({
       <View style={styles.Headingrow}>
           <Text style={styles.Scheduleno}>{value.OrdSchNo}</Text>
           <Text style={styles.Customer}>{value.Cust_name}</Text>
-          <Text style={styles.Date}>{value.schTgtDate}</Text>
-          <Text style={styles.Date}>{value.Delivery_Date}</Text>
-          <Text style={styles.Instruction}></Text>
+          <Text  style={[styles.Date,{textAlign:"center"}]}>{value.schTgtDate}</Text>
+          <Text  style={[styles.Date,{textAlign:"center"}]}>{value.Delivery_Date}</Text>
+          <Text style={[styles.Instruction,{textAlign:"center"}]}></Text>
        </View>
     ));
 

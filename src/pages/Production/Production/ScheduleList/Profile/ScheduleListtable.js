@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import { useGlobalContext } from "../../../../../Context/Context";
 import { baseURL } from "../../../../../api/baseUrl";
+import { useState } from "react";
 
 export default function ScheduleListtable({
   rowSelectFun,
@@ -9,16 +10,29 @@ export default function ScheduleListtable({
   getprocessTabledata,
   setRowselect,
   scheduleList,
-  custcode
+  custcode,
 }) {
-  const { schedulelistdata, getSchedulistdata, selectedRows, setSelectedRows, handleCheckboxChange } = useGlobalContext();
+  const {
+    schedulelistdata,
+    getSchedulistdata,
+    selectedRows,
+    setSelectedRows,
+    handleCheckboxChange,
+  } = useGlobalContext();
 
   useEffect(() => {
     getSchedulistdata();
   }, []);
 
-  
+  const [initialLoad, setInitialLoad] = useState(true);
 
+  useEffect(() => {
+    if (schedulelistdata.length > 0 && initialLoad) {
+      rowSelectFun(schedulelistdata[0], 0); // Select the first row on initial load
+      setInitialLoad(false); // Set initialLoad to false so this effect doesn't run again
+    }
+  }, [schedulelistdata, initialLoad, rowSelectFun]);
+  
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">
@@ -35,7 +49,7 @@ export default function ScheduleListtable({
 
         <tbody className="tablebody">
           {schedulelistdata.map((item, key) => {
-            const isChecked = selectedRows.some(row => row === item);
+            const isChecked = selectedRows.some((row) => row === item);
 
             return (
               <tr

@@ -6,22 +6,26 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 const styles = StyleSheet.create({
   Headingrow: {
     flexDirection: "row",
-    alignItems: "center",
     borderBottom:"1px",
-    marginTop:"5px",
     width:"500px",
   },
     Scheduled: {
       width: "20%",
+      textAlign:"center",
+      paddingTop:"5px"
+
     },
     dwgname: {
       width: "40%",
     },
     Nested:{
-        width:"10%"
+        width:"10%",
+        textAlign:"right",
     },
     lot:{
       width:"10%",
+      textAlign:"right",
+     
     }
   });
   
@@ -32,11 +36,11 @@ const styles = StyleSheet.create({
       <View style={styles.Headingrow}>
           <Text style={styles.dwgname}>{item.DwgName}</Text>
           <Text style={styles.Scheduled}>{item.QtyToNest}</Text>
-          <Text style={styles.Nested}>{item.QtyNested}</Text>
-          <Text style={styles.lot}></Text>
-          <Text style={styles.lot}></Text>
-          <Text style={styles.lot}></Text>
-          <Text style={styles.lot}></Text>
+          <Text style={[styles.Nested, { borderRight:1,paddingRight:"7px", paddingTop:"5px"}]}>{item.QtyNested}</Text>
+          <Text style={[styles.lot,{borderRight:1,  paddingRight:"7px", paddingTop:"5px"}]}></Text>
+          <Text style={[styles.lot,{borderRight:1,  paddingRight:"7px", paddingTop:"5px"}]}></Text>
+          <Text style={[styles.lot,{borderRight:1,  paddingRight:"7px", paddingTop:"5px"}]}></Text>
+          <Text style={[styles.lot,{paddingRight:"7px", paddingTop:"5px"}]}></Text>
       </View>
     ));
 

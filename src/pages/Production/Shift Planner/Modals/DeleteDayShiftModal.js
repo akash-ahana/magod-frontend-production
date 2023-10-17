@@ -22,8 +22,8 @@ export default function DeleteDayShiftModal({deletedayshift,setDeletedayshift,
           <Modal.Title>Delete Dayshift</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>  Are you sure want to delete <b>{rowselectDailyShiftTable.Shift}</b> shift for <b>{rowselectDailyShiftTable.ShiftDate}</b> &nbsp;
-        with Shift Incharge <b>{rowselectDailyShiftTable.Shift_Ic}</b>?</Modal.Body> 
+        <Modal.Body>  Are you sure want to delete <b>{rowselectDailyShiftTable?.Shift}</b> shift for <b>{rowselectDailyShiftTable?.ShiftDate}</b> &nbsp;
+        with Shift Incharge <b>{rowselectDailyShiftTable?.Shift_Ic}</b>?</Modal.Body> 
 
         <Modal.Footer>
           <Button variant="primary" onClick={()=>{onClickDeleteDayShiftPlan()

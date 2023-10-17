@@ -123,20 +123,6 @@
       setRowselect({ ...scheduleListData[0], index: 0 });
     }, [scheduleListData[0]]);
 
-    //Search
-    const searchText = (e) => {
-      let number = e.target.value;
-      let filteredData = allotmentTable.filter((data) => {
-        return data.OrdSchNo.startsWith(number);
-      });
-      if (filteredData.length > 0) {
-        setAllotmentTable(filteredData);
-      }
-      if (e.target.value.length === 0) {
-        setAllotmentTable(searchallotment);
-      }
-    };
-
     const onChangeMachine = (e) => {
       console.log("Machine is Changed", e.target.value);
       setTableRowSelect({ ...tableRowSelect, Machine: e.target.value });
@@ -202,19 +188,42 @@
       setButtonDisabled(tableRowSelect.TStatus === "Completed");
     }, [tableRowSelect.TStatus]);
 
+    //TRY SEARCH
+    const [searchInput, setSearchInput] = useState("");
+    const searchText1 = (e) => {
+      const searchText = e.target.value;
+      const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
+      setSearchInput(sanitizedSearchText); // Update the state with the sanitized value
+      // Apply the filter on searchallotment based on the sanitized input value
+      const filteredData = searchallotment.filter((data) =>
+        data.OrdSchNo.includes(sanitizedSearchText)
+      );
+
+      setAllotmentTable(filteredData);
+    };
+    
+    // useEffect(() => {
+    //   if (scheduleListData.length > 0 && !rowselect.TaskNo) {
+    //     RowSelect(scheduleListData[0], 0); // Select the first row
+    //   }
+    // }, [scheduleListData, rowselect]);
+    
+
+    console.log(tableRowSelect);
+
     return (
       <div>
-        <ToastContainer />
         <div className="col-md-12">
           <div className="col-md-4 mb-2 ms-3">
             <label className="form-label">Find Schedule</label>
             <input
-              className="in-field "
-              onKeyDown={blockInvalidCharReg}
-              style={{ marginTop: "-6px" }}
-              type="number"
-              onChange={(e) => searchText(e)}
-            />
+          className="in-field "
+          onKeyDown={blockInvalidCharReg}
+          style={{ marginTop: "-2px" }}
+          type="text" // Change the input type to "text"
+          value={searchInput} // Set the value to the state variable
+          onChange={searchText1} // Call the searchText function on change
+        />
           </div>
           <div className="row mt-3">
             <div

@@ -26,10 +26,14 @@ export default function ScheduleHeader({
   partlistdata,
   programlistdata,
   custdata,
-  selectCust
+  selectCust,
+  getShowPartsData,
+  showParts
 }) {
   const { schedulelistdata, setSchedulelistdata, schedulelistdatas } =
     useGlobalContext();
+    const [allotmentTable, setAllotmentTable] = useState([]);
+
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
 
@@ -41,6 +45,7 @@ export default function ScheduleHeader({
   const [openShowparts, setOpenShowParts] = useState("");
   const openShowPartsPdf = () => {
     setOpenShowParts(true);
+    getShowPartsData();
   };
 
   const [openShowPrograms, setOpenShowPrograms] = useState("");
@@ -48,24 +53,23 @@ export default function ScheduleHeader({
     setOpenShowPrograms(true);
   };
 
-  const[openProductionList,setOpenProductionList]=useState('')
-  const openProductionListPdf=()=>{
+  const [openProductionList, setOpenProductionList] = useState("");
+  const openProductionListPdf = () => {
     setOpenProductionList(true);
-  }
-
-
-  const searchText = (e) => {
-    let number = e.target.value;
-    let filteredData = schedulelistdata.filter((data) => {
-      return data.OrdSchNo.startsWith(number);
-    });
-    if (filteredData.length > 0) {
-      setSchedulelistdata(filteredData);
-    }
-    if (e.target.value.length === 0) {
-      setSchedulelistdata(schedulelistdatas);
-    }
   };
+
+  // const searchText = (e) => {
+  //   let number = e.target.value;
+  //   let filteredData = schedulelistdata.filter((data) => {
+  //     return data.OrdSchNo.startsWith(number);
+  //   });
+  //   if (filteredData.length > 0) {
+  //     setSchedulelistdata(filteredData);
+  //   }
+  //   if (e.target.value.length === 0) {
+  //     setSchedulelistdata(schedulelistdatas);
+  //   }
+  // };
 
   const [programmedtatus, setProgrammedstatus] = useState([]);
   const [completedStatus, setCompletedStatus] = useState([]);
@@ -74,13 +78,9 @@ export default function ScheduleHeader({
 
   // const[showStatusdata,setShowStatusdata]=useState({})
 
-  
-
   const handleChangeCustomer = (e) => {
     // setSelectedCustomer(e.target.value);
   };
-
- 
 
   const getPrintStatus = () => {
     // Programmed Status
@@ -219,6 +219,26 @@ export default function ScheduleHeader({
     getCustomerList();
   }, []);
 
+  //TRY SEARCH
+  const [searchInput, setSearchInput] = useState("");
+  const searchText1 = (e) => {
+    const searchText = e.target.value;
+    const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
+    setSearchInput(sanitizedSearchText);
+  
+    // Apply the filter on allotmentTable based on the search input value
+    const filteredData = schedulelistdatas.filter((data) =>
+      data.OrdSchNo.startsWith(sanitizedSearchText)
+    );
+  
+    setSchedulelistdata(filteredData);
+  };
+  
+
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
 
   return (
     <div>
@@ -229,37 +249,35 @@ export default function ScheduleHeader({
       </div>
 
       <div>
-        <div className="row">
-          
-        </div>
+        <div className="row"></div>
       </div>
 
       <div className="col-md-12 col-sm-12">
-        <div className="mt-2">
+        <div className="">
           <div className="row">
+            <div className="col-md-3 mt-4">
+              <Form.Group controlId="CustName" style={{marginTop:"2px"}}>
+                {custdata.length > 0 ? (
+                  <Typeahead
+                    options={custdata}
+                    placeholder="Search Customer"
+                    onChange={(label, event) => selectCust(label)}
+                  />
+                ) : (
+                  ""
+                )}
+              </Form.Group>
+            </div>
 
-          <div className="col-md-3 mt-4">
-            <Form.Group controlId="CustName">
-    {custdata.length > 0 ? (
-      <Typeahead
-        options={custdata}
-        placeholder="Search Customer"
-        onChange={(label, event) => selectCust(label)}
-      />
-    ) : (
-      ""
-    )}
-  </Form.Group>
-          </div>
-          
             <div className="col-md-2 mt-3">
               {/* <label className="form-label mt-2">Find Schedule</label> */}
-              <input
-                className="in-field my-0 mt-4"
-                onKeyDown={blockInvalidChar}
-                type="number"
-                onChange={(e) => searchText(e)}
+              <input 
+                className="in-field my-0 mt-3"
                 placeholder="Search Schedule"
+                onKeyDown={blockInvalidChar}
+                type="text" // Change the input type to "text"
+                value={searchInput} // Set the value to the state variable
+                onChange={searchText1} // Call the searchText function on change
               />
             </div>
 
@@ -268,40 +286,45 @@ export default function ScheduleHeader({
               Reset Status
             </button> */}
             <div className="col-md-7 mt-2">
-            <button
-              className="button-style mt-2 group-button ms-3 "
-              style={{ width: "140px" }}
-              onClick={() => {
-                openShowStatusPdf();
-                getPrintStatus();
-              }}
-            >
-              Show Status
-            </button>
+              <button
+                className="button-style mt-2 group-button"
+                style={{ width: "120px" }}
+                onClick={() => {
+                  openShowStatusPdf();
+                  getPrintStatus();
+                }}
+              >
+                Show Status
+              </button>
 
-            <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={openShowPartsPdf}
-            >
-              Show Parts
-            </button>
+              <button
+                className="button-style mt-4 group-button"
+                style={{ width: "120px" }}
+                onClick={openShowPartsPdf}
+              >
+                Show Parts
+              </button>
 
-            <button
-              className="button-style mt-4 group-button ms-3"
-              style={{ width: "140px" }}
-              onClick={openShowProgram}
-            >
-              Show Programs
-            </button>
+              <button
+                className="button-style mt-4 group-button"
+                style={{ width: "120px" }}
+                onClick={openShowProgram}
+              >
+                Show Programs
+              </button>
 
-            <button className="button-style mt-4 group-button ms-3" 
-             style={{ width: "140px" }} onClick={openProductionListPdf}>
-             Production list
-            </button>
+              <button
+                className="button-style mt-4 group-button"
+                style={{ width: "120px" }}
+                onClick={openProductionListPdf}
+              >
+                Production list
+              </button>
+              <button className="button-style group-button" type='button'
+       style={{ width: "120px"}} onClick={onClickClose}>
+       Close
+      </button>
             </div>
-
-           
           </div>
         </div>
       </div>
@@ -316,7 +339,7 @@ export default function ScheduleHeader({
         setOpenShowParts={setOpenShowParts}
         rowselect={rowselect}
         processrowselect={processrowselect}
-        partlistdata={partlistdata}
+        partlistdata={showParts}
       />
 
       <ShowProgramsPdfModal
@@ -327,8 +350,10 @@ export default function ScheduleHeader({
         programlistdata={programlistdata}
       />
 
-      <ProductionListModal openProductionList={openProductionList}
-      setOpenProductionList={setOpenProductionList}/>
+      <ProductionListModal
+        openProductionList={openProductionList}
+        setOpenProductionList={setOpenProductionList}
+      />
     </div>
   );
 }

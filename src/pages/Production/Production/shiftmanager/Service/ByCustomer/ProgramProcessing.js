@@ -7,7 +7,7 @@ import axios from 'axios';
 import { baseURL } from '../../../../../../api/baseUrl';
 import ProcessingModal from './ProcessingModal';
 
-export default function ProgramProcessing({programProcessing,setProgramProcessing}) {
+export default function ProgramProcessing({programProcessing,setProgramProcessing,onClickCustLabel,custCode}) {
 
   const [show, setShow] = useState(false);
   const [ machineData, setMachineData] = useState([])
@@ -31,6 +31,7 @@ export default function ProgramProcessing({programProcessing,setProgramProcessin
     setMachineData(response.data)
  })
 },[])
+
 
 useEffect(() => {
   axios.get(baseURL+'/shiftManagerProfile/allProcessing')
@@ -59,6 +60,7 @@ useEffect(() => {
         setProgramProcessing(response.data)
       })
 }, [])
+
 
 
 
@@ -116,30 +118,15 @@ useEffect(() => {
      setShow={setShow}
      selectProgramProcessing={selectProgramProcessing}
      machineData={machineData}
+     onClickCustLabel={onClickCustLabel}
+     custCode={custCode}
+     setProgramProcessing={setProgramProcessing}
     //  taskNoOnClick={taskNoOnClick}
      />
 
  </div>
 </div>
-
-
-
-    {/* <div className="col-md-12 col-sm-12 mt-3">
-      <div
-        className="table-data"
-        style={{overflowY: "scroll" }}>
-        <Tables theadData={getHeadings2()} tbodyData={Schedulelistdata4} />
-      </div>
-    </div> */}
 </div>
-
-{/* {
-  (
-    <CustomModal 
-    show={show}
-     setShow={setShow}/>
-  )
-} */}
 </>
   )
 }

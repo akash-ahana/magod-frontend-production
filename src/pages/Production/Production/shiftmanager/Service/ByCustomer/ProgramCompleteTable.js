@@ -8,8 +8,7 @@ import { baseURL } from '../../../../../../api/baseUrl';
 
 
 export default function ProgramCompleteTable({proramCompleted,onClickCustomer,
-  // onClickProgram
-  onClickPrograms,setProgramCompleted}) {
+  onClickPrograms,setProgramCompleted,custCode}) {
 
     const [show, setShow] = useState(false);
 
@@ -17,15 +16,6 @@ export default function ProgramCompleteTable({proramCompleted,onClickCustomer,
         setShow(true);
      }
 
-    //  let difference = [];
-    //  for (let i = 0; i < machineProgramesCompleted.length; i++) {
-    //   difference[i] = machineProgramesCompleted[i].ActualTime - machineProgramesCompleted[i].EstimatedTime;
-    //  }
-     
-    //  console.log(difference);
-     
-    
-      
      const[selectProgramCompleted,setSelectProgramCompleted]=useState('');
      const programCompleted=(item,index)=>{
       let list={...item,index:index}
@@ -59,6 +49,8 @@ export default function ProgramCompleteTable({proramCompleted,onClickCustomer,
             setProgramCompleted(response.data)
           })
   }, [])
+      
+
 
   return (
     <>
@@ -125,11 +117,10 @@ export default function ProgramCompleteTable({proramCompleted,onClickCustomer,
      setShow={setShow}
      selectProgramCompleted={selectProgramCompleted}
      onClickCustomer={onClickCustomer}
-    //  onClickProgram={onClickProgram}
      onClickPrograms={onClickPrograms}
      setSelectProgramCompleted={setSelectProgramCompleted}
-    //  programCompleteData={programCompleteData}
-    //  setProgramCompleteData={setProgramCompleteData}
+     custCode={custCode}
+     setProgramCompleted={setProgramCompleted}
      />
   
 

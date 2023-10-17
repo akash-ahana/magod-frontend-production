@@ -8,6 +8,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { baseURL } from '../../../../../api/baseUrl';
 //import {process} from './ProcessList'
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function AddProcessmodal({addprocess,setAddprocess,
   selectedRow,getprocessdataList,setTgRate,setRefProcess,setMprocess,Mprocess,RefProcess,TgtRate}) {
@@ -90,6 +92,9 @@ const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.prev
           console.log(selectedRow)
           getprocessdataList(selectedRow.Machine_srl);
           setProcessform(addprocessState)
+        });
+        toast.success('Process Added Sucessfully', {
+          position: toast.POSITION.TOP_CENTER
         });
       };
 

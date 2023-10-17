@@ -13,7 +13,7 @@ import { useGlobalContext } from '../../../../../../../Context/Context';
     <>
       <Modal show={openProductionList} fullscreen={fullscreen} onHide={() => setOpenProductionList(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Show Parts Pdf</Modal.Title>
+          <Modal.Title>Production List</Modal.Title>
         </Modal.Header>
         <Modal.Body><ProductionListPdf selectedRows={selectedRowsFabrication} /></Modal.Body>
       </Modal>

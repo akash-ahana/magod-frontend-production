@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import ProcessTable from "./ProcessTable";
 import ScheduleListtable from "./ScheduleListtable";
-import NavTab from "../Service/Components/NavTab";
+import NavTab from "../Profile/Components/NavTab";
 import axios from "axios";
 import { useGlobalContext } from "../../../../../Context/Context";
 import { baseURL } from "../../../../../api/baseUrl";
@@ -24,39 +24,20 @@ export default function ScheduleListbody({
   TaskNo,
   scheduleList,
   custcode,
+  processtable,
+  getprocessTabledata,
+  OrdSchNo
 }) {
   const { schedulelistservicedata } = useGlobalContext();
 
   //First Table Row Select
-  useMemo(() => {
-    setRowselect({ ...schedulelistservicedata[0], index: 0 });
-  }, [schedulelistservicedata[0]]);
+  // useMemo(() => {
+  //   setRowselect({ ...schedulelistservicedata[0], index: 0 });
+  // }, [schedulelistservicedata[0]]);
   console.log(rowselect);
 
   //Process Table(Right First table) data
-  const [processtable, setProcesstable] = useState([]);
-  let OrdSchNo = rowselect?.OrdSchNo;
-  console.log(OrdSchNo);
-  const getprocessTabledata = () => {
-    if (OrdSchNo) {
-      console.log("excuted");
-      axios
-        .post(
-          baseURL + "/scheduleListService/schedulesListSecondTableService",
-          {
-            ScheduleID: OrdSchNo,
-          }
-        )
-        .then((response) => {
-          setProcesstable(response.data);
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else console.log("empty");
-  };
-
+  
   useMemo(() => {
     setProcessrowselect({ ...processtable[0], index: 0 });
   }, [processtable[0]]);

@@ -32,14 +32,13 @@ const styles = StyleSheet.create({
     marginLeft: "60px",
     borderBottom: "1px",
     width: "500px",
-    // marginTop: "50px",
   },
   details1: {
     marginRight: "250px",
     marginLeft: "60px",
     borderBottom: "1px",
     width: "500px",
-    fontFamily: "Helvetica-Bold"
+    fontFamily: "Helvetica-Bold",
   },
   details2: {
     marginRight: "50px",
@@ -67,19 +66,22 @@ const styles = StyleSheet.create({
     marginTop: "5px",
     marginLeft: "60px",
     width: "500px",
-    fontFamily: "Helvetica-Bold"
+    fontFamily: "Helvetica-Bold",
   },
   Scheduled: {
-    width: "20%",
+    width: "15%",
+    textAlign: "left",
   },
   dwgname: {
-    width: "40%",
+    width: "45%",
   },
   Nested: {
     width: "10%",
+    textAlign: "center",
   },
   lot: {
     width: "10%",
+    textAlign: "center",
   },
   detailss: {
     marginRight: "250px",
@@ -87,6 +89,7 @@ const styles = StyleSheet.create({
     borderBottom: "1px",
     width: "500px",
     marginTop: "50px",
+    paddingBottom: "10px",
   },
 });
 
@@ -94,35 +97,47 @@ const ShowPartsTable = ({ processrowselect, rowselect, partlistdata }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
+            <React.Fragment>
+              <View>
+                <Text style={styles.detailss}>Magod Laser:Jigani</Text>
+                <Text style={styles.details}>Parts Sheet Schedule No : {rowselect?.OrdSchNo}</Text>
+              </View>
 
-        <View>
-        <Text style={styles.detailss}>Magod Laser:Jigani</Text>
-          <Text style={styles.details}>
-            Parts Sheet Schedule No : {rowselect.OrdSchNo}
-          </Text>
-          <Text style={styles.details1}>
-            Task No: {processrowselect.TaskNo} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Text style={styles.details2}>Inspected and Cleared</Text>
-          </Text>
-        </View>
+{partlistdata.map((item,key)=>{
+  return(
+    <>
+    <View key={key} style={{ marginTop: key > 0 ? 20 : 0 }}>
+     <Text style={styles.details1}><Text>Task No: </Text>
+                  <Text style={styles.details2}>{item.taskNo}</Text>
+                  <Text>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <Text style={styles.details2}>Inspected and Cleared</Text>
+                  </Text>
+                </Text>
+                </View>
+              <View style={styles.Headingrow}>
+                <Text style={styles.dwgname}>Drawing Name</Text>
+                <Text style={styles.Scheduled}>Scheduled</Text>
+                <Text style={styles.Nested}>Nested</Text>
+                <Text style={styles.lot}>Lot1</Text>
+                <Text style={styles.lot}>Lot2</Text>
+                <Text style={styles.lot}>Lot3</Text>
+                <Text style={styles.lot}>Lot4</Text>
+              </View>
+              <View style={styles.tableview}>
+                <ShowPartsTableRow
+                  processrowselect={processrowselect}
+                  rowselect={rowselect}
+                  partlistdata={item.data}
+                />
+              </View>
+    </>
+  )
+})}
+             
 
-        <View style={styles.Headingrow}>
-          <Text style={styles.dwgname}>Drawing Name</Text>
-          <Text style={styles.Scheduled}>Scheduled</Text>
-          <Text style={styles.Nested}>Nested</Text>
-          <Text style={styles.lot}>Lot1</Text>
-          <Text style={styles.lot}>Lot2</Text>
-          <Text style={styles.lot}>Lot3</Text>
-          <Text style={styles.lot}>Lot4</Text>
-        </View>
-
-        <View style={styles.tableview}>
-          <ShowPartsTableRow
-            processrowselect={processrowselect}
-            rowselect={rowselect}
-            partlistdata={partlistdata}
-          />
-        </View>
+            </React.Fragment>
+      
       </View>
     </Page>
   </Document>
