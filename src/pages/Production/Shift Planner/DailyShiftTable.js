@@ -40,7 +40,7 @@ function DailyShiftTable({
   const onChangeInput = (e, rowIndex) => {
     const { value } = e.target;
     setShiftinstruction(value);
-    const updatedTable = [...SingleDayShiftPlan4thTable];
+    const updatedTable = SingleDayShiftPlan4thTable;
     updatedTable[rowIndex].Shift_instruction = value;
     setSingleDayShiftPlan4thTable(updatedTable);
   };
