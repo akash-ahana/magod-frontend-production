@@ -12,7 +12,7 @@ import Services from "./pages/Production/Services/Services";
 import Setup from "./pages/Production/Setup/Setup";
 import ShiftPlanner from "./pages/Production/Shift Planner/ShiftPlanner";
 import Machine from "./pages/Production/Setup/Machine/Machine";
-import Process from "./pages/Production/Setup/Process";
+import Process from "./pages/Production/Setup/Process/Process";
 import EditShiftIC from "./pages/Production/Setup/EditShiftIC";
 import ScheduleList from "./pages/Production/Production/ScheduleList/Profile/ScheduleList";
 import ShiftEditor from "./pages/Production/Shift Planner/ShiftEditor";

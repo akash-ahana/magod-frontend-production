@@ -59,21 +59,15 @@ const styles = StyleSheet.create({
 
   boxdata: {
     border: "1px",
-
     padding: "10px",
-
     marginTop: "40px",
-
-    width: "600px",
-
+    width: "650px",
     marginLeft: "90px",
-
     marginRight: "100px",
   },
 
   tableview: {
     marginLeft: "90px",
-
     width: "400px",
   },
 
@@ -88,7 +82,7 @@ const styles = StyleSheet.create({
 
     marginLeft: "90px",
 
-    width: "400px",
+    width: "400x",
   },
 
   machineHeading: {
@@ -127,34 +121,58 @@ const PrintDailyShiftTable = ({
           return (
             <>
               <View style={styles.boxdata}>
-              <View style={{flexDirection:"row"}}>
-                <Text style={{fontFamily:"Helvetica-Bold"}}>Shift</Text>
-                <Text style={{marginHorizontal:"25px"}}>{value.Shift}</Text>
-                <Text  style={{marginLeft:"135px",fontFamily:"Helvetica-Bold"}}> Instructions</Text>
+
+              <View style={{ flexDirection: "row" }} >
+                <View style={{ flexDirection: "row" , width:"30%"}}>
+                  <Text style={{ fontFamily: "Helvetica-Bold" }}>Shift</Text>
+                  <Text style={{ marginLeft: "25px"}}>
+                    {value.Shift}
+                  </Text>
                 </View>
 
-                <View  style={{flexDirection:"row"}}>
-                <Text style={{fontFamily:"Helvetica-Bold"}}>Shift IC</Text>
-                <Text style={{marginHorizontal:"10px"}}>{value.ShiftIc}</Text>
-               
+                <View style={{flexDirection:"row"}}>
+                <Text
+                style={{
+                  marginLeft:"145px",
+                  fontFamily: "Helvetica-Bold",
+                }}
+              >
+              
+                Instructions
+              </Text>
+                </View>
                 </View>
 
-                <View  style={{flexDirection:"row"}}>
-                <Text style={{fontFamily:"Helvetica-Bold"}}>From </Text>
-                <Text style={{marginHorizontal:"19px"}}>{value.from}</Text>
+                
+                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", width:"40%" }}>
+                  <Text style={{ fontFamily: "Helvetica-Bold" }}>Shift IC</Text>
+                  <Text style={{  marginLeft: "10px" }}>
+                    {value.ShiftIc}
+                  </Text>
                 </View>
 
-                <View  style={{flexDirection:"row"}}>
-                <Text style={{fontFamily:"Helvetica-Bold"}}>To </Text>
-                <Text style={{marginHorizontal:"34px"}}>{value.To}</Text>
+                <View style={{flexDirection:"row"}}>
+                   <Text style={{marginLeft:"110px", textAlign:"center" }}>
+                      {value.Shift_instruction}
+                    </Text>
+                </View>
+                </View>
+
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontFamily: "Helvetica-Bold" }}>From </Text>
+                  <Text style={{ marginHorizontal: "19px" }}>{value.from}</Text>
+                </View>
+
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontFamily: "Helvetica-Bold" }}>To </Text>
+                  <Text style={{ marginHorizontal: "34px" }}>{value.To}</Text>
                 </View>
               </View>
 
               <View style={styles.Headingrow}>
                 <Text style={styles.machineHeading}>Machine</Text>
-
                 <Text style={styles.operatorHeading}>Operator</Text>
-
                 <Text style={styles.remarksHeading}>ShiftRemarks</Text>
               </View>
 
@@ -168,25 +186,17 @@ const PrintDailyShiftTable = ({
         {/* <View style={styles.boxdata}>
 
            <Text>Shift      &nbsp;&nbsp;&nbsp;Second </Text>
-
            <Text>Shift IC   &nbsp;Kumar now</Text>
-
            <Text>From       &nbsp;{rowselect}</Text>
-
            <Text>To         &nbsp;&nbsp;&nbsp;{rowselect}</Text>
-
         </View>
 
  
 
        <View style={styles.Headingrow}>
-
           <Text style={styles.machineHeading}>Machine</Text>
-
           <Text style={styles.operatorHeading}>Operator</Text>
-
           <Text style={styles.remarksHeading}>ShiftRemarks</Text>
-
        </View> */}
 
         {/*<TableHeader />*/}
