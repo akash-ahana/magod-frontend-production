@@ -7,6 +7,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DeleteGroupModal from "./DeleteGroupModal";
+import { baseURL } from "../../../../api/baseUrl";
+import { useNavigate } from "react-router-dom";
+
 
 export default function StoppageForm({
   selectedGroup,
@@ -20,7 +23,7 @@ export default function StoppageForm({
   const getReasons = () => {
     axios
       .post(
-        "http://172.16.20.61:5006/reports/getReason",
+        baseURL+"/reports/getReason",
         {StoppageGpId: selectedGroup?.StoppageGpId,}
       )
       .then((response) => {
@@ -88,7 +91,7 @@ export default function StoppageForm({
     try {
       // First API call
       const response1 = await axios.post(
-        "http://172.16.20.61:5006/reports/deleteGroup",
+        baseURL+"/reports/deleteGroup",
         {
           StoppageGpId: selectedGroup?.StoppageGpId,
         }
@@ -101,7 +104,7 @@ export default function StoppageForm({
       await new Promise((resolve) => setTimeout(resolve, 1000));
       // Second API call after the delay
       const response2 = await axios.get(
-        "http://172.16.20.61:5006/reports/getGroupName",
+        baseURL+"/reports/getGroupName",
         {}
       );
       console.log(response2.data);
@@ -116,7 +119,7 @@ export default function StoppageForm({
   const DeleteReason = () => {
     console.log(selectedReason.StoppageID);
     axios
-      .post("http://172.16.20.61:5006/reports/deleteReason", {
+      .post(baseURL+"/reports/deleteReason", {
         StoppageID: selectedReason.StoppageID,
       })
       .then((response) => {
@@ -126,7 +129,7 @@ export default function StoppageForm({
           position: toast.POSITION.TOP_CENTER,
         });
         axios
-          .post("http://172.16.20.61:5006/reports/getReason", {
+          .post(baseURL+"/reports/getReason", {
             StoppageGpId: selectedGroup?.StoppageGpId,
           })
           .then((response) => {
@@ -134,6 +137,12 @@ export default function StoppageForm({
           });
       });
   };
+
+  const navigate = useNavigate();
+  const onClickClose=()=>{
+    navigate("/Production");
+  }
+  
 
   return (
     <div>
@@ -240,6 +249,12 @@ export default function StoppageForm({
           >
             Delete Reason
           </button>
+
+          
+      <button className="button-style mt-2 group-button" type='button'
+       style={{ width: "150px",marginLeft:"20px"}} onClick={onClickClose}>
+       Close
+      </button>
         </div>
       </div>
 

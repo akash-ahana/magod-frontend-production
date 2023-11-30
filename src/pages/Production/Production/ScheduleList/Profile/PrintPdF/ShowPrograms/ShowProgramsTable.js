@@ -91,9 +91,9 @@ const ShowProgramsTable = ({processrowselect,rowselect,programlistdata}) => (
         </View>
 
         <View style={styles.Headingrow}>
-          <Text style={[styles.dwgname,{fontFamily:"Helvetica-Bold"}]}>{programlistdata[0].TaskNo}</Text>
-          <Text style={[styles.Scheduled,{fontFamily:"Helvetica-Bold"}]}>{programlistdata[0].Mtrl_Code}</Text>
-          <Text style={[styles.Nested, {fontFamily:"Helvetica-Bold"}]}>{programlistdata[0].MProcess}</Text>
+          <Text style={[styles.dwgname,{fontFamily:"Helvetica-Bold"}]}>{programlistdata[0]?.TaskNo || null || undefined}</Text>
+          <Text style={[styles.Scheduled,{fontFamily:"Helvetica-Bold"}]}>{programlistdata[0]?.Mtrl_Code || null || undefined}</Text>
+          <Text style={[styles.Nested, {fontFamily:"Helvetica-Bold"}]}>{programlistdata[0]?.MProcess || null || undefined}</Text>
           <Text style={[styles.Nested, {fontFamily:"Helvetica-Bold"}]}></Text>
         </View>
 
