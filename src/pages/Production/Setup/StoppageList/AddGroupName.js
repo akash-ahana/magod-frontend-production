@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import DeleteAskModal from "../StoppageList/DeleteAskModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {baseURL} from "../../../../api/baseUrl"
 
 export default function AddGroupName({
   openAddGroup,
@@ -40,7 +41,7 @@ export default function AddGroupName({
   const addGroupName = async () => {
   try {
     // First API call
-    const response1 = await axios.post("http://172.16.20.61:5006/reports/addGroupName", {
+    const response1 = await axios.post(baseURL +"/reports/addGroupName", {
       GroupName: groupName,
     });
 
@@ -61,7 +62,7 @@ export default function AddGroupName({
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Second API call after the delay
-    const response2 = await axios.get("http://172.16.20.61:5006/reports/getGroupName", {});
+    const response2 = await axios.get(baseURL+"/reports/getGroupName", {});
 
     console.log(response2.data);
     setGetGroupNameList(response2.data);

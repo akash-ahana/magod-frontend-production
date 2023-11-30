@@ -4,7 +4,7 @@ import ShowProgramsPdf from './ShowProgramsPdf';
 
  export default function ShowProgramsPdfModal({setOpenShowPrograms,openShowPrograms,rowselect,processrowselect,programlistdata}) {
   const [fullscreen, setFullscreen] = useState(true);
-  console.log(programlistdata);
+  console.log("Show Programs Modal  data",programlistdata);
 
   return (
     <>

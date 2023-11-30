@@ -5,6 +5,7 @@ import axios from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import ReasonAskModal from './ReasonAskModal';
+import { baseURL } from '../../../../api/baseUrl';
 
   export default function AddReason({ openAddReason, setOpenAddReason, selectedGroup, setGetReasonsList }) {
   const handleClose = () => {
@@ -38,7 +39,7 @@ import ReasonAskModal from './ReasonAskModal';
     try {
       // First API call
       const response1 = await axios.post(
-        "http://172.16.20.61:5006/reports/addReason",
+        baseURL+"/reports/addReason",
         { Reason: reason, GroupId: selectedGroup.StoppageGpId }
       );
       console.log(response1.data);
@@ -51,7 +52,7 @@ import ReasonAskModal from './ReasonAskModal';
       await new Promise(resolve => setTimeout(resolve, 1000));
       // Second API call after the delay
       const response2 = await axios.post(
-        "http://172.16.20.61:5006/reports/getReason",
+        baseURL+"/reports/getReason",
         {
           StoppageGpId: selectedGroup?.StoppageGpId
         }

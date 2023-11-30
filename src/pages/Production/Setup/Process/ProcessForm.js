@@ -7,11 +7,17 @@ import { baseURL } from "../../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import DeleteProcess from "./DeleteProcess";
+import { useNavigate } from "react-router-dom";
 
-export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, setSelectRow }) {
+export default function ProcessForm({
+  selectRow,
+  ProcessTab,
+  setProcessTab,
+  setSelectRow,
+}) {
   const [openAddProcessMod, setOpenAddProcessMod] = useState(false);
   const [showInnerModal, setShowInnerModal] = useState(false);
-  const [deleteModal , setDeleteModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false);
   const [profileChecked, setProfileChecked] = useState(false);
   const [serviceChecked, setServiceChecked] = useState(false);
 
@@ -20,10 +26,8 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
   };
 
   const handleDeleteProcessClick = () => {
-    setDeleteModal(true)
+    setDeleteModal(true);
   };
-
-  console.log("selected row ID", selectRow);
 
   const handleSaveProcess = () => {
     axios
@@ -46,16 +50,23 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
   };
 
   const deleteProcess = () => {
-    axios.post(baseURL + "/processSetup/deleteProcess" , {
-      ID:selectRow.ID
-    }).then(() => {
-      toast.success("Process Deleted Successfully",{
-        position: toast.POSITION.TOP_CENTER,
+    axios
+      .post(baseURL + "/processSetup/deleteProcess", {
+        ID: selectRow.ID,
       })
-      setDeleteModal(false);
-      console.log("request sended for delete")
-    })
-  }
+      .then(() => {
+        toast.success("Process Deleted Successfully", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        setDeleteModal(false);
+        console.log("request sended for delete");
+      });
+  };
+
+  const navigate = useNavigate();
+  const onClickClose = () => {
+    navigate("/Production");
+  };
 
   return (
     <div>
@@ -91,9 +102,10 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
                       className="form-check-input mt-2"
                       type="checkbox"
                       name="profilecutting"
-                      checked={selectRow.Profile === 1 || selectRow.Profile === -1}
+                      checked={
+                        selectRow.Profile === 1 || selectRow.Profile === -1
+                      }
                       onChange={() => {
-                
                         const updatedService = selectRow.Profile === 1 ? 0 : 1;
                         setSelectRow({ ...selectRow, Profile: updatedService });
                       }}
@@ -110,19 +122,24 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
                         alignItems: "center",
                       }}
                     >
-                    <input
-                    className="form-check-input mt-2"
-                    type="checkbox"
-                    name="service"
-                    id="flexCheckDefault1"
-                    checked={selectRow.Service === 1 || selectRow.Service === -1}
-                    onChange={() => {
-                
-                      const updatedService = selectRow.Service === 1 ? 0 : 1;
-                      setSelectRow({ ...selectRow, Service: updatedService });
-                    }}
-                  />
-                  
+                      <input
+                        className="form-check-input mt-2"
+                        type="checkbox"
+                        name="service"
+                        id="flexCheckDefault1"
+                        checked={
+                          selectRow.Service === 1 || selectRow.Service === -1
+                        }
+                        onChange={() => {
+                          const updatedService =
+                            selectRow.Service === 1 ? 0 : 1;
+                          setSelectRow({
+                            ...selectRow,
+                            Service: updatedService,
+                          });
+                        }}
+                      />
+
                       <label className="form-label">Service</label>
                     </div>
                   </div>
@@ -147,8 +164,10 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
               <div className="col-md-7 mb-3">
                 <div className="col-md-12 ">
                   <label className="form-label">No of Operations</label>
-                  <input className="in-fields" name="noofoperations"
-                  value={selectRow.No_of_Operations || " "}
+                  <input
+                    className="in-fields"
+                    name="noofoperations"
+                    value={selectRow.No_of_Operations || " "}
                   />
                 </div>
               </div>
@@ -159,7 +178,7 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
                 <button
                   type="button"
                   className="button-style mt-2 group-button"
-                  style={{ width: "150px", marginLeft: "10px" }}
+                  style={{ width: "110px" }}
                   onClick={openProcessModal}
                 >
                   Add Process
@@ -168,7 +187,7 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
                 <button
                   className="button-style mt-2 group-button"
                   type="button"
-                  style={{ width: "150px", marginLeft: "10px" }}
+                  style={{ width: "110px", marginLeft: "5px" }}
                   onClick={handleSaveProcess}
                 >
                   Save Process
@@ -177,30 +196,37 @@ export default function ProcessForm({ selectRow, ProcessTab , setProcessTab, set
                 <button
                   className="button-style mt-2 group-button"
                   type="button"
-                  style={{ width: "150px", marginLeft: "10px" }}
+                  style={{ width: "110px", marginLeft: "5px" }}
                   onClick={handleDeleteProcessClick}
                 >
                   Delete Process
                 </button>
 
-                {deleteModal && (
-                  <DeleteProcess
-                    show={deleteModal}
-                    handleClose={() => {
-                      setDeleteModal(false);
-                    }}
-                    data={{
-                      title: "Delete Process",
-                      content: (
-                        <div>
-                          Are you sure you want to delete{" "}
-                          <strong>{selectRow.ProcessID}</strong> Process?
-                        </div>
-                      ),
-                    }}
-                    handleDelete={deleteProcess}
-                  />
-                )}
+                <button
+                  className="button-style mt-2 group-button"
+                  type="button"
+                  style={{ width: "110px", marginLeft: "5px" }}
+                  onClick={onClickClose}
+                >
+                  Close
+                </button>
+
+                <DeleteProcess
+                  show={deleteModal}
+                  handleClose={() => {
+                    setDeleteModal(false);
+                  }}
+                  data={{
+                    title: "Delete Process",
+                    content: (
+                      <div>
+                        Are you sure you want to delete{" "}
+                        <strong>{selectRow.ProcessID}</strong> Process?
+                      </div>
+                    ),
+                  }}
+                  handleDelete={deleteProcess}
+                />
               </div>
             </div>
           </div>

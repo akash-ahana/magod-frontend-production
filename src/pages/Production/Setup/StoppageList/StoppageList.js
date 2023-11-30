@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import GroupNameTable from "./GroupNameTable";
 import axios from "axios";
 import StoppageForm from "./StoppageForm";
+import { baseURL } from "../../../../api/baseUrl";
 
 export default function StoppageList() {
 
 const[getGroupNameList,setGetGroupNameList]=useState([])
 const getGroupName=()=>{
   axios.get(
-   "http://172.16.20.61:5006/reports/getGroupName",
+   baseURL+"/reports/getGroupName",
    {
   }).then((response) => {
     console.log(response.data)
