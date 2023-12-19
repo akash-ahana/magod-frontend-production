@@ -18,23 +18,17 @@ export default function PriorityTable({
   }
   const selectRowTable = (item) => {
     if (priorityTable.includes(item)) {
-      //  console.log(item)
     } else {
       setPriorityTable([...priorityTable, item]);
     }
   };
 
   const selectRowPriorityTable = (row) => {
-    // console.log('Priority Table Is double clicked' ,row , 'Priority Table is ' , priorityTable)
-
     var id = row.Ncid;
     let constPriorityTable = priorityTable;
-
     let filteredList = priorityTable.filter((item) => {
       return item?.Ncid != id;
     });
-
-    // console.log( 'Const Priority Table Data is ' , filteredList)
     setPriorityTable(filteredList);
   };
   const [openPrint, setOpenPrint] = useState("");
@@ -60,12 +54,12 @@ export default function PriorityTable({
               marginLeft: "-30px",
             }}
           >
-            <Table striped className="table-data border">
+            <Table striped className="table-data border table-space">
               <thead className="tableHeaderBGColor">
                 <tr>
                   <th>Select</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Program No</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Task No</th>
+                  <th >Program No</th>
+                  <th>Task No</th>
                   <th>Machine</th>
                   <th>Operation</th>
                   <th>Material</th>
@@ -75,12 +69,12 @@ export default function PriorityTable({
                   <th>Processed</th>
                   <th>Status</th>
                   <th>PlanTime</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Actual Time</th>
+                  <th>Actual Time</th>
                   <th>Remarks</th>
                 </tr>
               </thead>
 
-              <tbody className="tablebody">
+              <tbody className="tablebody table-space">
                 {ncProgramsTableData.map((item, key) => {
                   return (
                     <>
@@ -125,7 +119,7 @@ export default function PriorityTable({
           {/* priority print */}
 
           <div className="col-md-6">
-            <div style={{ width: "480px" }}>
+            <div style={{ width: "680px" }}>
               <div
                 style={{
                   backgroundColor: "#F2D7D5 ",
@@ -148,7 +142,6 @@ export default function PriorityTable({
               </div>
 
               {/* Table2 */}
-
               <div
                 style={{
                   height: "330px",
@@ -156,12 +149,11 @@ export default function PriorityTable({
                   overflowX: "scroll",
                 }}
               >
-                {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
                 <Table striped className="table-data border">
-                  <thead className="tableHeaderBGColor">
+                  <thead className="tableHeaderBGColor table-space">
                     <tr>
-                      <th style={{ whiteSpace: "nowrap" }}>Program No</th>
-                      <th style={{ whiteSpace: "nowrap" }}>Task No</th>
+                      <th>Program No</th>
+                      <th>Task No</th>
                       <th>Machine</th>
                       <th>Operation</th>
                       <th>Material</th>
@@ -171,12 +163,12 @@ export default function PriorityTable({
                       <th>Processed</th>
                       <th>Status</th>
                       <th>PlanTime</th>
-                      <th style={{ whiteSpace: "nowrap" }}>Actual Time</th>
+                      <th>Actual Time</th>
                       <th>Remarks</th>
                     </tr>
                   </thead>
 
-                  <tbody className="tablebody">
+                  <tbody className="tablebody table-space">
                     {priorityTable.map((priorityTable) => (
                       <tr
                         key={priorityTable?.Ncid}

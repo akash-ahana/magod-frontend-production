@@ -21,7 +21,10 @@ function DailyShiftTable({
   selectedWeek,
   rowselect,
   setSingleDayShiftPlan4thTable,
-  condition
+  condition,
+  selectedShift,
+  SelectedShiftIncharge
+  
 }) {
 
  
@@ -95,6 +98,7 @@ function DailyShiftTable({
 
   console.log("selected row", rowselectDailyShiftTable);
 
+
   return (
     <div style={{ display: "flex" }}>
       <div className="col-md-4 mt-4 mx-1">
@@ -108,6 +112,8 @@ function DailyShiftTable({
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
             condition={condition}
             machineOperatorTableData={machineOperatorTableData}
+            selectedShift={selectedShift}    
+            SelectedShiftIncharge={SelectedShiftIncharge}
           />
         </div>
 

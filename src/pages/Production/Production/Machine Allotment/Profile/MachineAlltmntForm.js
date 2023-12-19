@@ -9,7 +9,6 @@ import { baseURL } from "../../../../.././api/baseUrl";
 import CustomModal from "../../../CustomModal";
 import { useNavigate } from "react-router-dom";
 
-
 export default function MachineAlltmntForm() {
   const [machineProcessData, setMachineProcessData] = useState([]);
   const [machineList, setMachineList] = useState([]);
@@ -20,7 +19,6 @@ export default function MachineAlltmntForm() {
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
   const [currentSelectedMachine, setCurrentSelectedMachine] = useState("");
   const [modalShow2, setModalShow2] = useState(false);
-
 
   useEffect(() => {
     const isPageRefreshed = localStorage.getItem("isPageRefreshed") === "true";
@@ -64,7 +62,7 @@ export default function MachineAlltmntForm() {
         }
       });
     setSelectedMachineTreeView(Machine);
-    setMachineList([]);
+    // setMachineList([]);
     setCurrentSelectedMachine(Machine);
   };
 
@@ -108,14 +106,13 @@ export default function MachineAlltmntForm() {
     }
   };
 
-  
   const [isLoading, setIsLoading] = useState(true); // Add loading state
   const treeViewData = () => {
     setIsLoading(true); // Set loading state to true before fetching data
     axios
       .get(baseURL + "/machineAllotment/profileListMachineswithLoad")
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setMachineProcessData(response.data);
         setIsLoading(false); // Set loading state to false after data is fetched
       })
@@ -156,22 +153,21 @@ export default function MachineAlltmntForm() {
       })
       .then((response) => {
         handleClose();
-    axios
-      .post(baseURL + "/machineAllotment/afterChangeMachine", {
-        MachineName: currentSelectedMachine?.MachineName,
-      })
-      .then((response) => {
-        console.log(response.data)
-        setNcProgramsTableData(response.data);
-        for (let i = 0; i < response.data.length; i++) {
-          response.data[i].isChecked = false;
-        }
+        axios
+          .post(baseURL + "/machineAllotment/afterChangeMachine", {
+            MachineName: currentSelectedMachine?.MachineName,
+          })
+          .then((response) => {
+            console.log(response.data);
+            setNcProgramsTableData(response.data);
+            for (let i = 0; i < response.data.length; i++) {
+              response.data[i].isChecked = false;
+            }
+          });
+        setSelectedRows([]);
+        setMachineList([]);
       });
-          setSelectedRows([]);
-          setMachineList([]);
-      });
-    };
-
+  };
 
   useMemo(() => {}, [machineProcessData[0]]);
 
@@ -202,16 +198,17 @@ export default function MachineAlltmntForm() {
     setModalShow2(false);
   };
   const modalData = {
-    title: 'Machine Allotment',
-    content: 'Please select a program with the same operation'
+    title: "Machine Allotment",
+    content: "Please select a program with the same operation",
   };
 
-  
   //Close Button
   const navigate = useNavigate();
-  const onClickClose=()=>{
+  const onClickClose = () => {
     navigate("/Production");
-  }
+  };
+
+
 
   return (
     <>
@@ -230,8 +227,6 @@ export default function MachineAlltmntForm() {
             Save
           </button>
 
-        
-
           <button
             className="button-style mt-2 group-button "
             style={{ width: "150px" }}
@@ -239,7 +234,6 @@ export default function MachineAlltmntForm() {
           >
             Change Machine
           </button>
-    
 
           <div className="col-md-3">
             <select
@@ -254,10 +248,14 @@ export default function MachineAlltmntForm() {
               ))}
             </select>
           </div>
-          <button className="button-style mt-2 group-button" type='button'
-          style={{ width: "150px"}} onClick={onClickClose}>
-          Close
-         </button>
+          <button
+            className="button-style mt-2 group-button"
+            type="button"
+            style={{ width: "150px" }}
+            onClick={onClickClose}
+          >
+            Close
+          </button>
         </div>
       </div>
 
@@ -371,7 +369,11 @@ export default function MachineAlltmntForm() {
         clickChangeMachine={clickChangeMachine}
         handleClose={handleClose}
       />
-            <CustomModal show={modalShow2} handleClose={closeModal} data={modalData} />
+      <CustomModal
+        show={modalShow2}
+        handleClose={closeModal}
+        data={modalData}
+      />
     </>
   );
 }

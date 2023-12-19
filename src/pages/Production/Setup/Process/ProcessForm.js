@@ -18,8 +18,13 @@ export default function ProcessForm({
   const [openAddProcessMod, setOpenAddProcessMod] = useState(false);
   const [showInnerModal, setShowInnerModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [profileChecked, setProfileChecked] = useState(false);
-  const [serviceChecked, setServiceChecked] = useState(false);
+
+  const [profileChecked, setProfileChecked] = useState(0);
+  const [serviceChecked, setServiceChecked] = useState(0);
+  const [fabricationChecked, setFabricationChecked] = useState(0);
+
+  // console.log(profileChecked,serviceChecked,fabricationChecked)
+
 
   const openProcessModal = () => {
     setOpenAddProcessMod(true);
@@ -31,10 +36,11 @@ export default function ProcessForm({
 
   const handleSaveProcess = () => {
     axios
-      .post(baseURL + "/processSetup/SavedProcess", {
+      .post(baseURL + "/processSetup/SavedProcess", {selectRow,
         ID: selectRow.ID,
-        Profile: profileChecked ? 1 : 0,
-        Service: serviceChecked ? 1 : 0,
+        Profile:profileChecked,
+        Service:serviceChecked,
+        fabrication:fabricationChecked
       })
       .then(() => {
         toast.success("Process Saved Successfully", {
@@ -43,7 +49,7 @@ export default function ProcessForm({
       })
       .catch((err) => {
         console.log(err);
-        toast.success("Process Not saved", {
+        toast.error("Process  not saved", {
           position: toast.POSITION.TOP_CENTER,
         });
       });
@@ -68,6 +74,7 @@ export default function ProcessForm({
     navigate("/Production");
   };
 
+  // console.log(selectRow);
   return (
     <div>
       <form className="form">
@@ -102,15 +109,9 @@ export default function ProcessForm({
                       className="form-check-input mt-2"
                       type="checkbox"
                       name="profilecutting"
-                      checked={
-                        selectRow.Profile === 1 || selectRow.Profile === -1
-                      }
-                      onChange={() => {
-                        const updatedService = selectRow.Profile === 1 ? 0 : 1;
-                        setSelectRow({ ...selectRow, Profile: updatedService });
-                      }}
                       id="flexCheckDefault"
-                    />
+                      checked={selectRow.Profile===1}
+                      onChange={() => setProfileChecked(profileChecked === 1 ? 0 : 1)}                    />
                     <label className="form-label">Profile Cutting</label>
                   </div>
                   <div className="col-md-12">
@@ -127,20 +128,31 @@ export default function ProcessForm({
                         type="checkbox"
                         name="service"
                         id="flexCheckDefault1"
-                        checked={
-                          selectRow.Service === 1 || selectRow.Service === -1
-                        }
-                        onChange={() => {
-                          const updatedService =
-                            selectRow.Service === 1 ? 0 : 1;
-                          setSelectRow({
-                            ...selectRow,
-                            Service: updatedService,
-                          });
-                        }}
+                        checked={selectRow.Service===1}
+                        onChange={() => setServiceChecked(serviceChecked === 1 ? 0 : 1)}
                       />
 
                       <label className="form-label">Service</label>
+                    </div>
+                  </div>
+                  <div className="col-md-12">
+                    <div
+                      className="col-md-12 mt-2"
+                      style={{
+                        display: "flex",
+                        gap: "5px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <input
+                        className="form-check-input mt-2"
+                        type="checkbox"
+                        name="multiOperation"
+                        id="flexCheckDefault2"
+                        checked={selectRow.MultiOperation===1}
+                        onChange={() =>  setFabricationChecked(fabricationChecked === 1 ? 0 : 1)}
+                      />
+                      <label className="form-label">Fabrication</label>
                     </div>
                   </div>
                 </div>
@@ -149,7 +161,11 @@ export default function ProcessForm({
 
             <div className="row">
               <div className="col-md-7">
-                <div className="col-md-12 ">
+                <div className="col-md-12 "
+                style={{
+                  marginTop:"-40px"
+                }}
+>
                   <label className="form-label">Description</label>
                   <input
                     className="in-fields"
@@ -167,7 +183,7 @@ export default function ProcessForm({
                   <input
                     className="in-fields"
                     name="noofoperations"
-                    value={selectRow.No_of_Operations || " "}
+                    defaultValue={selectRow?.No_of_Operations}
                   />
                 </div>
               </div>
@@ -194,9 +210,9 @@ export default function ProcessForm({
                 </button>
 
                 <button
-                  className="button-style mt-2 group-button"
+                  className="button-style  group-button"
                   type="button"
-                  style={{ width: "110px", marginLeft: "5px" }}
+                  style={{ width: "110px", marginLeft: "5px" ,whiteSpace:"nowrap"}}
                   onClick={handleDeleteProcessClick}
                 >
                   Delete Process

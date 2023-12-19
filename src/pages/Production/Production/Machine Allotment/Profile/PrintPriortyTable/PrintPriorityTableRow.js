@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
     },
     Program: {
       width: "50px",
+      fontFamily: "Helvetica-Bold",
     },
     operation:{
         width:"130px"

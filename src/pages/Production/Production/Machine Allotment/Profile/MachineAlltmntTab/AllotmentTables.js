@@ -234,14 +234,14 @@
                 height: "750px",
               }}
             >
-              <Table striped className="table-data border">
+              <Table striped className="table-data border table-space">
                 <thead className="tableHeaderBGColor">
                   <tr>
-                    <th style={{ whiteSpace: "nowrap" }}>Schedule No</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Delivery Date</th>
+                    <th>Schedule No</th>
+                    <th>Delivery Date</th>
                     <th>Customer</th>
                     <th>Status</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Special_instruction</th>
+                    <th>Special_instruction</th>
                   </tr>
                 </thead>
 

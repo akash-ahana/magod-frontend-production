@@ -81,6 +81,10 @@ const styles = StyleSheet.create({
       },
       Time:{
         marginLeft:"50px"
+      },
+      time:
+      {
+        fontFamily: "Helvetica-Bold",
       }
   });
   
@@ -112,7 +116,7 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
           />
        </View>
        <View>
-        <Text style={styles.newLoad}>Load For {item.Machine} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{item.newLoad}</Text>
+        <Text style={styles.newLoad}>Load For {item.Machine} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Text style={styles.time}>{item.newLoad}</Text></Text>
        </View>
            </>
           )

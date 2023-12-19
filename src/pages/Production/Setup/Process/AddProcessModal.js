@@ -18,6 +18,8 @@ export default function AddProcessModal({
   const [newProcessID, setNewProcessID] = useState("");
   const [newProcessDescription, setNewProcessDescription] = useState("");
   const [newProcessRawMaterial, setNewProcessRawMaterial] = useState("");
+  const [newNoOfOperations, setNewNoOfOperations] = useState("");
+
 
   const handleClose = () => {
     setOpenAddProcessMod(false);
@@ -50,6 +52,7 @@ export default function AddProcessModal({
         ProcessID: newProcessID,
         ProcessDescription: newProcessDescription,
         RawMaterial: newProcessRawMaterial,
+        No_of_Operations:newNoOfOperations
       })
       .then(() => {
         console.log("Data Posted successfully");
@@ -81,6 +84,10 @@ export default function AddProcessModal({
   const handleNewProcessDescription = (event) => {
     const processDesc = event.target.value;
     setNewProcessDescription(processDesc);
+  };
+
+  const handleNewProcessNoOfOperations= (event) => {
+    setNewNoOfOperations(event.target.value);
   };
 
   const handleNewProcessRawMaterial = (event) => {
@@ -129,6 +136,18 @@ export default function AddProcessModal({
                     type="text"
                     value={newProcessRawMaterial}
                     onChange={handleNewProcessRawMaterial}
+                  />
+                </div>
+              </div>
+
+              <div className="row">
+                <div className="col-md-12 mb-4">
+                  <label className="form-label">No of Operations</label>
+                  <input
+                    className="in-field2"
+                    type="number"
+                    value={newNoOfOperations}
+                    onChange={handleNewProcessNoOfOperations}
                   />
                 </div>
               </div>

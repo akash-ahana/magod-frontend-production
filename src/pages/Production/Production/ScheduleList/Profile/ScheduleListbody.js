@@ -59,7 +59,6 @@ export default function ScheduleListbody({
           />
         </div>
         <div>
-          {" "}
           <NavTab
             taskno={taskno}
             processrowselect={processrowselect}

@@ -6,6 +6,8 @@ import ModalPrintDailyShift from "./PdfPrinter/DailyshiftTable/ModalPrintDailySh
 import { baseURL } from "../../.././api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
+import SpecialShiftModal from "./Modals/SpecialShiftModal";
+
 
 
 function SingleDayShiftEditor({
@@ -16,7 +18,9 @@ function SingleDayShiftEditor({
   rowSelectFunForDailyShiftTable,
   condition,
   selectedWeek,
-  machineOperatorTableData
+  machineOperatorTableData,
+  selectedShift,
+  SelectedShiftIncharge
 }) {
   // console.log(rowselectDailyShiftTable.Shift_Ic);
   //PRINT DAILY SHIFT
@@ -102,6 +106,15 @@ function SingleDayShiftEditor({
     }
   };
 
+  const [open , setOpen] = useState(false)
+
+
+  const handleAddSpecialShift  = () => {
+    setOpen(true)
+  }
+
+  const ShiftDate = rowselectDailyShiftTable?.ShiftDate;
+
   return (
     <>
       <div
@@ -177,6 +190,18 @@ function SingleDayShiftEditor({
           {rowselectDailyShiftTable?.ToTime}
         </div>
         <div style={{ textAlign: "center" }}>
+        <div>
+        <button
+         className={`button-style mt-2 group-button mt-4 ${
+               condition !== true ? "disabled" : ""
+            }`}           
+          style={{ width: "140px", fontSize: "14px" }}
+          disabled={condition !== true}
+          onClick={handleAddSpecialShift}
+        >
+          Add Special Shift
+        </button>
+      </div>
           <div>
             <button
              className={`button-style mt-2 group-button mt-4 ${
@@ -232,6 +257,16 @@ function SingleDayShiftEditor({
           openPrintModal={openPrintModal}
           setOpenPrintModal={setOpenPrintModal}
           rowselect={rowselect}
+        />
+
+        <SpecialShiftModal 
+        open={open}
+        setOpen={setOpen}
+        rowselectDailyShiftTable={rowselectDailyShiftTable}
+        selectedShift={selectedShift}
+        SelectedShiftIncharge={SelectedShiftIncharge}
+        ShiftDate={ShiftDate}
+  
         />
       </div>
     </>
