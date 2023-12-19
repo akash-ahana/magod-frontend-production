@@ -287,7 +287,7 @@ export default function ScheduleHeader({
             </button> */}
             <div className="col-md-7 mt-2">
               <button
-                className="button-style mt-2 group-button"
+                className="button-style  group-button"
                 style={{ width: "120px" }}
                 onClick={() => {
                   openShowStatusPdf();
@@ -306,15 +306,15 @@ export default function ScheduleHeader({
               </button>
 
               <button
-                className="button-style mt-4 group-button"
-                style={{ width: "120px" }}
+                className="button-style  group-button"
+                style={{ width: "150px" }}
                 onClick={openShowProgram}
               >
                 Show Programs
               </button>
 
               <button
-                className="button-style mt-4 group-button"
+                className="button-style  group-button"
                 style={{ width: "120px" }}
                 onClick={openProductionListPdf}
               >

@@ -253,6 +253,7 @@ export default function PartsList({
                         value={item.QtyProduced}
                         onKeyDown={blockInvalidChar}
                         onChange={(e) => handleProducedChanged(e, item, key)}
+                        inputMode="numeric"
                       />
                     </div>
                   </td>{" "}
@@ -267,6 +268,7 @@ export default function PartsList({
                         value={item.QtyCleared}
                         onChange={(e) => onChangeCleared(e, item, key)}
                         onKeyDown={blockInvalidChar}
+                        inputMode="numeric"
                       />
                     </div>
                   </td>

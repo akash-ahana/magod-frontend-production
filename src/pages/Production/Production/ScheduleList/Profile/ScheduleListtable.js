@@ -32,6 +32,8 @@ export default function ScheduleListtable({
       setInitialLoad(false); // Set initialLoad to false so this effect doesn't run again
     }
   }, [schedulelistdata, initialLoad, rowSelectFun]);
+
+  console.log(rowselect);
   
   return (
     <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>

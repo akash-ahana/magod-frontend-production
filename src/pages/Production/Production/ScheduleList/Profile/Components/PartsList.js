@@ -252,6 +252,7 @@ const clearSelected = () => {
                         value={item.QtyCleared}
                         onChange={(e) => onChangeCleared(e, item, key)}
                         onKeyDown={blockInvalidChar}
+                        inputMode="numeric"
                       />
                     </div>
                   </td>

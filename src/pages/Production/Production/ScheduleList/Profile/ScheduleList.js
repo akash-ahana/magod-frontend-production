@@ -49,7 +49,7 @@ export default function ScheduleList() {
   let OrdSchNo = rowselect?.OrdSchNo;
   console.log(OrdSchNo);
   const getprocessTabledata = () => {
-    //  console.log("excuted");
+     console.log("OrdSchNo is",OrdSchNo);
     axios
       .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
         ScheduleID: OrdSchNo,

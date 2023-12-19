@@ -7,20 +7,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import { useMemo } from "react";
 
-
 export default function PartsList({
   TaskNo,
   getpartslistdata,
   partlistdata,
   setPartlistdata,
 }) {
-
-
   //Process Table(Right First table) data
   const [newpartlistdata, setNewPartlistdata] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [isClearedDisabled, setIsClearedDisabled] = useState(true);
-  const[saveCleared,setSaveCleared]=useState(false);
+  const [saveCleared, setSaveCleared] = useState(false);
 
   useEffect(() => {
     getpartslistdata();
@@ -48,7 +45,6 @@ export default function PartsList({
     setSaveCleared(true);
   };
 
-
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = partlistdata.slice(); // Create a copy of the partlistdata array
     const newValue = parseInt(e.target.value); // Convert the input value to an integer
@@ -73,7 +69,9 @@ export default function PartsList({
 
   const saveClearedonClick = () => {
     // Check if there is at least one row where QtyProduced is not equal to QtyCleared
-    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    const hasUnsavedData = partlistdata.some(
+      (item) => item.QtyProduced !== item.QtyCleared
+    );
     if (hasUnsavedData) {
       // There is at least one row where QtyProduced is not equal to QtyCleared
       axios
@@ -104,7 +102,6 @@ export default function PartsList({
         });
     }
   };
-  
 
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
@@ -125,22 +122,20 @@ export default function PartsList({
     });
     setPartlistdata(updatedRows);
     setSelectedRows([]);
-    setSaveCleared(false)
+    setSaveCleared(false);
   };
 
   //ONSELECT
-  const [selectPartList, setSelectPartList] = useState({})
+  const [selectPartList, setSelectPartList] = useState({});
   const rowSelectFun = (item, index) => {
-    let list = { ...item, index: index }
+    let list = { ...item, index: index };
     // console.log("ScheduleNo",item.ScheduleNo)
     setSelectPartList(list);
-  }
-
+  };
 
   useMemo(() => {
     setSelectPartList({ ...partlistdata[0], index: 0 });
   }, [partlistdata[0]]);
-
 
   return (
     <div>
@@ -204,15 +199,17 @@ export default function PartsList({
                 <tr
                   key={item.id}
                   onClick={() => rowSelectFun(item, key)}
-                  className={key === selectPartList?.index ? "selcted-row-clr" : ""}>               
-                     <td>
-                     <input
-  className="form-check-input"
-  type="checkbox"
-  checked={selectedRows.includes(item)}
-  onChange={() => handleCheckboxChange(item)}
-/>
-
+                  className={
+                    key === selectPartList?.index ? "selcted-row-clr" : ""
+                  }
+                >
+                  <td>
+                    <input
+                      className="form-check-input"
+                      type="checkbox"
+                      checked={selectedRows.includes(item)}
+                      onChange={() => handleCheckboxChange(item)}
+                    />
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
                   <td>{item.QtyToNest}</td>
@@ -226,6 +223,7 @@ export default function PartsList({
                         type="number"
                         onBlur={(e) => onChangeCleared(e, item, key)}
                         placeholder="Type Cleared"
+                        inputMode="numeric"
                       />
                     </div>
                   </td>

@@ -23,17 +23,17 @@ const SidebarWrap = styled.div`
 const SidebarComp = () => {
   const location = useLocation();
 
-  console.log(
-    "LOCAL STORAGE DATA",
-    JSON.parse(localStorage.getItem("LazerUser"))
-  );
+  // console.log(
+  //   "LOCAL STORAGE DATA",
+  //   JSON.parse(localStorage.getItem("LazerUser"))
+  // );
 
   const [newSideBarData, setNewSideBarData] = useState(customerSidebar);
   // const [newSideBarDataScheduleListProfile,setNewSideBarDataScheduleListProfile,] = useState(customerSidebar);
   // const [newSideBarDataScheduleListService,setNewSideBarDataScheduleListService,] = useState(customerSidebar);
   const [accessSideBarData, setAccessSideBarData] = useState([]);
 
-  console.log(customerSidebar)
+  // console.log(customerSidebar)
 
   let [lazerUser, setLazerUser] = useState(
     JSON.parse(localStorage.getItem("LazerUser"))
@@ -52,7 +52,7 @@ const SidebarComp = () => {
   //modify the array in newSideBarData based on laserUserdata
   useEffect(() => {
     const tempArray = [...accessSideBarData]; //creating a copy of the accessSideBar
-    console.log(newSideBarData, "NEW SIDE BAR DATA");
+    // console.log(newSideBarData, "NEW SIDE BAR DATA");
 
     // console.log(newSideBarData[0].subNav[0].path , 'first pATH')
 
@@ -270,18 +270,18 @@ const SidebarComp = () => {
     function filterSidebarData(data, accessPaths) {
       const result1 = [];
   
-   console.log(data)
+  //  console.log(data)
   
       data.forEach((element) => {
-        console.log(element)
+        // console.log(element)
         if (element.subNav) {
-          console.log(element.subNav)
+          // console.log(element.subNav)
           const subNavFiltered = filterSidebarData(element.subNav, accessPaths);
   
           element.subNav = subNavFiltered;
-          console.log(subNavFiltered)
+          // console.log(subNavFiltered)
           if (subNavFiltered.length > 0 || accessPaths.includes(element.path)) {
-            console.log(element, 'existtttttttttttttttttttttttttttttttttt')
+            // console.log(element, 'existtttttttttttttttttttttttttttttttttt')
             result1.push(element);
   
           }
@@ -308,7 +308,7 @@ const SidebarComp = () => {
   
     const result1 = filterSidebarData(newSideBarData,lazerUser.data.access);
   
-    console.log(result1);
+    // console.log(result1);
   
       ///////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -318,7 +318,7 @@ const SidebarComp = () => {
 
     // setAccessSideBarData(tempArray);
   }, []);
-  console.log(accessSideBarData, "Access Side Bar Data");
+  // console.log(accessSideBarData, "Access Side Bar Data");
   //console.log(newAccessSideBarData, 'newAccessSideBarData')
   return (
     <>

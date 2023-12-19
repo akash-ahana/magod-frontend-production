@@ -790,6 +790,9 @@ console.log(newTry);
     navigate("/Production");
   };
 
+  const SelectedShiftIncharge = selectedShiftIncharge;
+
+
 
   return (
     <>
@@ -1158,6 +1161,10 @@ console.log(newTry);
           getSecondTableData={getSecondTableData}
           rowselect={rowselect}
           condition={condition}
+          selectedShift={selectedShift}
+          SelectedShiftIncharge={SelectedShiftIncharge}
+   
+          
         />
       </div>
 

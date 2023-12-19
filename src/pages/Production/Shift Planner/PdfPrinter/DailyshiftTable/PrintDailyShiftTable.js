@@ -7,19 +7,16 @@ import PrintDailyShiftTableRows from "./PrintDailyShiftTableRow";
 const styles = StyleSheet.create({
   page: {
     fontSize: 11,
-
     flexDirection: "column",
   },
 
   tableContainer: {
     flexDirection: "row",
-
     flexWrap: "wrap",
   },
 
   row: {
     flexDirection: "row",
-
     alignItems: "center",
   },
 
@@ -33,11 +30,8 @@ const styles = StyleSheet.create({
 
   tableTitle: {
     textDecoration: "underline",
-
     marginLeft: "200px",
-
     marginTop: "20px",
-
     fontFamily: "Helvetica-Bold",
   },
 
