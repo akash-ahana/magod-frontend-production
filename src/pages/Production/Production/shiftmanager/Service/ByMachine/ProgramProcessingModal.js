@@ -279,12 +279,8 @@ export default function ProgramProcessingModal({
                   />
                 </div>
 
-                <div className="col-md-3">
-                  <label className="form-label">Process Time</label>
-                  <input
-                    className="in-fields"
-                    value={selectProgramProcessing.ActualTime}
-                  />
+                <div className="col-md-3 mt-4">
+                  <label className="form-label-processTime mt-2 ms-5">Process Time</label>
                 </div>
 
                 <div className="col-md-2">
@@ -299,7 +295,7 @@ export default function ProgramProcessingModal({
                   <label className="form-label">Machine</label>
                   <input
                     className="in-fields"
-                    value={selectProgramProcessing.Machine}
+                    value={selectProgramProcessing.ActualTime}
                   />
                 </div>
 
@@ -386,7 +382,7 @@ export default function ProgramProcessingModal({
                               <input
                                 className="table-cell-editor "
                                 name="cleared"
-                                defaultValue={item.Remarks}
+                                Value={item.Remarks==='null' ? null :item.Remarks}
                                 onChange={(e) => onChangeRemarks(e, item, key)}
                                 placeholder="Type Cleared"
                               />

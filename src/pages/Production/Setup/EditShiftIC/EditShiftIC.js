@@ -46,6 +46,7 @@ export default function EditShiftIC() {
         getShiftIcData={getShiftIcData}
         setgetShiftIcList={setgetShiftIcList}
         setRowSelectShiftIc={setRowSelectShiftIc}
+        getShiftIclist={getShiftIclist}
         />
       </div>
     </div>

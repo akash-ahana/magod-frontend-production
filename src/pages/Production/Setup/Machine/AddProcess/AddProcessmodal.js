@@ -120,7 +120,7 @@ const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.prev
         <form className="form" onSubmit={handleSubmit(showAlert)}>
         <Modal.Body>
           <h5 className='ms-2'>{selectedRow.refName}</h5>
-        <div className="col-md-12 col-sm-12">
+        <div className="col-md-12 col-sm-12 ip-box form-bg">
           <div>
             <div className="row">
         
@@ -145,13 +145,13 @@ const blockInvalidChar = e => ['e', 'E', '+', '-','.'].includes(e.key) && e.prev
                   </select>
               </div>
 
-              <div className="col-md-12">
+              <div className="col-md-12 mb-2">
                 <label className="form-label"> Rate(/Hour)</label>
                 <input    value={processform.TgtRate} name='TgtRate'
                 type='number'
                 onKeyDown={blockInvalidChar}
                 {...register("TgtRate")}
-                className={`in-field ${
+                className={`in-field2 ${
                   errors.TgtRate ? "is-invalid" : ""}`} required 
                 onChange={(e)=> {
                   handleFormChange(e)

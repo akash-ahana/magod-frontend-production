@@ -26,6 +26,7 @@ export default function AddProcessModal({
   };
 
   const handleModal = () => {
+    setOpenAddProcessMod(false);
     if (newProcessID.trim() === "") {
       toast.error("Process Name cannot be empty", {
         position: toast.POSITION.TOP_CENTER,
@@ -106,7 +107,7 @@ export default function AddProcessModal({
           <div className="col-md-12 col-sm-12 ip-box form-bg">
             <div>
               <div className="row">
-                <div className="col-md-12 mb-4">
+                <div className="col-md-12">
                   <label className="form-label">Process</label>
                   <input
                     className="in-field2"
@@ -117,7 +118,7 @@ export default function AddProcessModal({
                 </div>
               </div>
               <div className="row">
-                <div className="col-md-12 mb-4">
+                <div className="col-md-12">
                   <label className="form-label">Process Description</label>
                   <input
                     className="in-field2"
@@ -129,7 +130,7 @@ export default function AddProcessModal({
               </div>
 
               <div className="row">
-                <div className="col-md-12 mb-4">
+                <div className="col-md-12">
                   <label className="form-label">Raw Material</label>
                   <input
                     className="in-field2"
@@ -141,7 +142,7 @@ export default function AddProcessModal({
               </div>
 
               <div className="row">
-                <div className="col-md-12 mb-4">
+                <div className="col-md-12 mb-2">
                   <label className="form-label">No of Operations</label>
                   <input
                     className="in-field2"
@@ -158,9 +159,7 @@ export default function AddProcessModal({
         <Modal.Footer>
           <Button
             style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
-            onClick={() => {
-              handleModal();
-            }}
+            onClick={handleModal}
           >
             Add Process
           </Button>
@@ -169,8 +168,8 @@ export default function AddProcessModal({
             Exit
           </Button>
         </Modal.Footer>
-
-        {showInnerModal && (
+      </Modal>
+      {showInnerModal && (
           <AddProcessConfirmation
             show={showInnerModal}
             handleClose={() => {
@@ -189,7 +188,6 @@ export default function AddProcessModal({
             handleAdd={AddProcess}
           />
         )}
-      </Modal>
     </div>
   );
 }

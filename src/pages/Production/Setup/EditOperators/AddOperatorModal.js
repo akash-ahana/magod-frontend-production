@@ -34,6 +34,7 @@ export default function AddOperatorModal({
 
   const [AddShiftInChargeModal, setAddShiftInChargeModal] = useState(false);
   const addShiftInCharge = () => {
+    setOpenAdd(false);
     setAddShiftInChargeModal(true);
     };
 
@@ -47,10 +48,17 @@ export default function AddOperatorModal({
       .then((response) => {
         setOpenAdd(false);
         setAddShiftInChargeModal(false)
-        // setAddShiftInChargeModal(false)
-        toast.success("Shift Operator Added Successfully", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        if (response.data === 'Name already present') {
+          toast.error("Operator already present", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else if (response.data === 'Insert successful') {
+          toast.success("Operator Added Successfully", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else {
+          console.log("");
+        }
         getOperatorData();
       });
   };
@@ -60,6 +68,7 @@ export default function AddOperatorModal({
   };
 
   return (
+    <>
     <Modal show={openAdd} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Magod Laser:Add Operator</Modal.Title>
@@ -68,14 +77,14 @@ export default function AddOperatorModal({
       <Modal.Body>
         <div className="col-md-12 col-sm-12 ip-box form-bg">
           <div className="row">
-            <div className="col-md-12 mb-2">
+            <div className="col-md-12">
               <label className="form-label">Operator</label>
               <input className="in-field2" onChange={handleChangeShiftIc} />
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-12 mb-2">
+            <div className="col-md-12">
               <label className="form-label">Skill Level</label>
               <input className="in-field2" onChange={handleChangeSkillLevel} />
             </div>
@@ -87,19 +96,6 @@ export default function AddOperatorModal({
               <input className="in-field2" onChange={handleChangeStaus} />
             </div>
           </div>
-
-          <GlobalModal
-            show={AddShiftInChargeModal}
-            title="magod_shiftIncharge"
-            content={
-              <>
-                Are You sure you want to add <strong>{Operator}</strong> ?
-              </>
-            }
-            onYesClick={handleSubmit}
-            onNoClick={handleCloseAdd}
-            onClose={handleCloseAdd}
-          />
         </div>
       </Modal.Body>
 
@@ -116,5 +112,20 @@ export default function AddOperatorModal({
         </Button>
       </Modal.Footer>
     </Modal>
+    {AddShiftInChargeModal && (
+        <GlobalModal
+        show={AddShiftInChargeModal}
+        title="magod_Operator"
+        content={
+          <>
+            Are You sure you want to add <strong>{Operator}</strong> ?
+          </>
+        }
+        onYesClick={handleSubmit}
+        onNoClick={handleCloseAdd}
+        onClose={handleCloseAdd}
+      />
+      )}
+    </>
   );
 }

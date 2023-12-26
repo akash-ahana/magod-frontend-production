@@ -387,12 +387,12 @@ function NewCalender(props) {
   useMemo(() => {
     setRowselect({ item: selectedWeek[0], index: 0 });
   }, [selectedWeek[0]]);
+  
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState(
     []
   );
-  console.log("getSingleDayShiftPlan4thTable inside ", rowselect);
 
-  const [isDataAvailable, setIsDataAvailable] = useState(''); // Initialize with true or false based on your requirement
+  const [isDataAvailable, setIsDataAvailable] = useState(""); // Initialize with true or false based on your requirement
   const getSingleDayShiftPlan4thTable = () => {
     axios
       .post(baseURL + "/shiftEditor/getDailyShiftPlanTable", {
@@ -440,7 +440,7 @@ function NewCalender(props) {
           setIsDataAvailable(false); // Set the state to false if data is empty
         } else {
           setIsDataAvailable(true); // Set the state to true if data is not empty
-                }        // Process and display data in the table
+        } // Process and display data in the table
       });
   };
 
@@ -448,7 +448,12 @@ function NewCalender(props) {
     getSingleDayShiftPlan4thTable();
   }, [rowselect]);
 
-  console.log("first one",isDataAvailable,"second one",SingleDayShiftPlan4thTable);
+  console.log(
+    "first one",
+    isDataAvailable,
+    "second one",
+    SingleDayShiftPlan4thTable
+  );
 
   ///
   const [secondTableShiftState, setSecondTableShiftState] = useState([]);
@@ -566,7 +571,7 @@ function NewCalender(props) {
   };
 
   useEffect(() => {
-    if (isDataAvailable===false) {
+    if (isDataAvailable === false) {
       setRowselectDailyShiftTable(null);
     }
   }, [SingleDayShiftPlan4thTable]);
@@ -582,21 +587,21 @@ function NewCalender(props) {
   const [machineOperatorTableData, setMachineOperatorTableData] = useState([]);
 
   const getMachineOperatorTableData = () => {
+          console.log(rowselectDailyShiftTable)
     if (rowselectDailyShiftTable === null) {
       // If rowselectDailyShiftTable is null, set an empty array
       setMachineOperatorTableData([]);
-    }else{
+    } else {
       axios
-      .post(
-        baseURL + "/shiftEditor/getMachineOperatorsShift",
-        rowselectDailyShiftTable
-      )
-      .then((response) => {
-        setMachineOperatorTableData(response.data);
-      });
+        .post(
+          baseURL + "/shiftEditor/getMachineOperatorsShift",
+          rowselectDailyShiftTable
+        )
+        .then((response) => {
+          setMachineOperatorTableData(response.data);
+        });
     }
   };
-
 
   //Delete Weekshift
   const [opendeleteshift, setOpendeleteshift] = useState("");
@@ -721,7 +726,6 @@ function NewCalender(props) {
     selectedWeek
   );
 
-  
   //WeeklyPlan Data
   const [newTry, setNewTry] = useState([]);
   const TryPdfData = () => {
@@ -736,53 +740,51 @@ function NewCalender(props) {
       });
   };
   const flatTryData = [];
-newTry.forEach(dayData => {
-  const day = dayData[0]?.day; // Get the day from the first element
+  newTry.forEach((dayData) => {
+    const day = dayData[0]?.day; // Get the day from the first element
 
-  if (day) {
-    const shifts = [];
-    const operators = [];
+    if (day) {
+      const shifts = [];
+      const operators = [];
 
-    dayData.forEach(entry => {
-      operators.push({
-        ShiftIc: entry.ShiftIc,
-        Shift: entry.Shift,
-        day: entry.day,
-        machineOperators: entry.machineOperators,
+      dayData.forEach((entry) => {
+        operators.push({
+          ShiftIc: entry.ShiftIc,
+          Shift: entry.Shift,
+          day: entry.day,
+          machineOperators: entry.machineOperators,
+        });
       });
-    });
 
-    flatTryData.push({
-      day,
-      shifts,
-      operators,
-    });
-  }
-});
+      flatTryData.push({
+        day,
+        shifts,
+        operators,
+      });
+    }
+  });
 
-// Now, flatTryData contains the flattened and organized data
-console.log(newTry);
-
-
+  // Now, flatTryData contains the flattened and organized data
+  console.log(newTry);
 
   useEffect(() => {
     TryPdfData();
   }, [selectedWeek]);
 
-    // ///Status
-    // const getCheckboxStatus = () => {
-    //   axios
-    //     .post(baseURL + "/shiftEditor/getCheckboxStatus", {
-    //       date: selectedWeek,
-    //     })
-    //     .then((response) => {
-    //       console.log(response.data);
-    //     });
-    //   }
+  // ///Status
+  // const getCheckboxStatus = () => {
+  //   axios
+  //     .post(baseURL + "/shiftEditor/getCheckboxStatus", {
+  //       date: selectedWeek,
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+  //     });
+  //   }
 
-    //   useEffect(()=>{
-    //     getCheckboxStatus();
-    //   },[selectedWeek])
+  //   useEffect(()=>{
+  //     getCheckboxStatus();
+  //   },[selectedWeek])
 
   //Close Button
   const navigate = useNavigate();
@@ -791,8 +793,6 @@ console.log(newTry);
   };
 
   const SelectedShiftIncharge = selectedShiftIncharge;
-
-
 
   return (
     <>
@@ -1059,7 +1059,7 @@ console.log(newTry);
                         <input
                           type="checkbox"
                           ref={checkbox2}
-                          checked={isChecked2 }
+                          checked={isChecked2}
                           onChange={handleOnChangeCheckBox2}
                           // disabled={isDataAvailable}
                         />
@@ -1073,7 +1073,7 @@ console.log(newTry);
                         <input
                           type="checkbox"
                           ref={checkbox3}
-                          checked={isChecked3 }
+                          checked={isChecked3}
                           onChange={handleOnChangeCheckBox3}
                           // disabled={isDataAvailable}
                         />
@@ -1127,13 +1127,13 @@ console.log(newTry);
                     <td>
                       <div>
                         <input
-                           type="checkbox"
-                           ref={checkbox7}
-                           defaultChecked={true}
-                           checked={isChecked7}
-                           onChange={handleOnChangeCheckBox7}
-                          // disabled={isDataAvailable} 
-                          />
+                          type="checkbox"
+                          ref={checkbox7}
+                          defaultChecked={true}
+                          checked={isChecked7}
+                          onChange={handleOnChangeCheckBox7}
+                          // disabled={isDataAvailable}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -1163,8 +1163,6 @@ console.log(newTry);
           condition={condition}
           selectedShift={selectedShift}
           SelectedShiftIncharge={SelectedShiftIncharge}
-   
-          
         />
       </div>
 

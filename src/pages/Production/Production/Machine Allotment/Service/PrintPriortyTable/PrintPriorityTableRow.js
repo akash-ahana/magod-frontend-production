@@ -3,24 +3,25 @@ import { Text, View, StyleSheet } from "@react-pdf/renderer";
 
 
 const styles = StyleSheet.create({
-  row: {
+  Headingrow: {
     flexDirection: "row",
     alignItems: "center",
-    borderBottom:"1px",
-    paddingBottom:"1px",
-    width:"500px"
+    borderBottom:1,
+    width:"570px",
+  
   },
   srl: {
     width: "30px",
   },
   Program: {
     width: "50px",
+    fontFamily: "Helvetica-Bold",
   },
   operation:{
       width:"130px"
   },
   customer:{
-      width:"250px"
+      width:"130px"
   },
   newLoad:{
     marginLeft:"250px",
@@ -36,8 +37,7 @@ const styles = StyleSheet.create({
   
   const PrintPriorityTableRow = ({sortedPriorityTable}) => {
     const rows = sortedPriorityTable.map((item,key) => (
-      <View style={styles.row}>
-        <Text></Text>
+      <View style={styles.Headingrow}>
         <Text style={styles.srl}>{key+1}</Text>
           <Text style={styles.Program}>{item.NCProgramNo}</Text>
           <Text style={styles.operation}>{item.Operation}</Text>

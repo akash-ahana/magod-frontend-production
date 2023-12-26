@@ -362,12 +362,9 @@ return (
 
             
 
-            <div className="col-md-3">
-               <label className="form-label">Process Time</label>
-               <input  className='in-fields'
-               value={selectProgramCompleted.ActualTime
-               } />
-            </div>
+            <div className="col-md-3 mt-4">
+                  <label className="form-label-processTime mt-2 ms-5">Process Time</label>
+                </div>
 
             <div className="col-md-2">
                <label className="form-label">Estimated</label>
@@ -379,7 +376,7 @@ return (
             <div className="col-md-2 mb-2">
                <label className="form-label">Machine</label>
                <input  className='in-fields' 
-               value={selectProgramCompleted.Machine}/>
+               value={selectProgramCompleted.ActualTime}/>
             </div>
 
             <div className="col-md-2  mt-4">
@@ -434,7 +431,7 @@ return(
                  name="cleared"
                  type='number'
                  onKeyDown={blockInvalidChar}
-                 defaultValue={item.QtyRejected}
+                 Value={item.Remarks==='null' ? null :item.Remarks}
                  onChange={(e)=>onChangeRejected(e,  item, key)}
                  placeholder="Type Cleared"
                 />

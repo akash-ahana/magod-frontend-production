@@ -10,7 +10,7 @@ export default function EditOperators() {
   const [getOperatorlist, setgetOperatorList] = useState([]);
   const getOperatorData = () => {
     axios.get(baseURL + "/EditOperator/getOperator", {}).then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       setgetOperatorList(response.data);
     });
   };

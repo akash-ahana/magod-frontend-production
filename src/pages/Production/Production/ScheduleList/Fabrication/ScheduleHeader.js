@@ -27,9 +27,8 @@ export default function ScheduleHeader({
   custdata,
   selectCust,
   showParts,
-  getShowPartsData
+  getShowPartsData,
 }) {
-
   const {
     schedulelistfabricationdata,
     setSchedulelistfabricationdata,
@@ -56,7 +55,6 @@ export default function ScheduleHeader({
   const openShowProgram = () => {
     setOpenShowPrograms(true);
   };
-
 
   const [programmedtatus, setProgrammedstatus] = useState([]);
   const [completedStatus, setCompletedStatus] = useState([]);
@@ -198,22 +196,21 @@ export default function ScheduleHeader({
 
   //TRY SEARCH
   const [searchInput, setSearchInput] = useState("");
-    const searchText1 = (e) => {
-      const searchText = e.target.value;
-      const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
-      setSearchInput(sanitizedSearchText);
-      // Apply the filter on allotmentTable based on the search input value
-      const filteredData = schedulelistfabricationdatas.filter((data) =>
-          data.OrdSchNo.startsWith(sanitizedSearchText)
-        );
-        setSchedulelistfabricationdata(filteredData);
+  const searchText1 = (e) => {
+    const searchText = e.target.value;
+    const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ""); // Remove non-numeric characters except spaces
+    setSearchInput(sanitizedSearchText);
+    // Apply the filter on allotmentTable based on the search input value
+    const filteredData = schedulelistfabricationdatas.filter((data) =>
+      data.OrdSchNo.startsWith(sanitizedSearchText)
+    );
+    setSchedulelistfabricationdata(filteredData);
   };
-  
-  const navigate = useNavigate();
-  const onClickClose=()=>{
-    navigate("/Production");
-  }
 
+  const navigate = useNavigate();
+  const onClickClose = () => {
+    navigate("/Production");
+  };
 
   return (
     <div>
@@ -227,7 +224,7 @@ export default function ScheduleHeader({
         <div className=" ">
           <div className="row">
             <div className="col-md-3 mt-4">
-              <Form.Group controlId="CustName" style={{marginTop:"9px"}}>
+              <Form.Group controlId="CustName" style={{ marginTop: "9px" }}>
                 {/* <label className="form-label">Customer Name </label>
               <Form.Label
                 style={{
@@ -249,7 +246,7 @@ export default function ScheduleHeader({
                 )}
               </Form.Group>
             </div>
-            <div className="col-md-2 mt-3">
+            <div className="col-md-1 mt-3" style={{ width: "160px" }}>
               {/* <label className="form-label mt-2">Find Schedule</label> */}
               <input
                 className="in-field my-0 mt-4"
@@ -262,7 +259,7 @@ export default function ScheduleHeader({
             <div className=" col-md-7 mt-2">
               <button
                 className="button-style mt-4 group-button"
-                style={{ width: "120px" }}
+                style={{ width: "100px" }}
                 onClick={() => {
                   openShowStatusPdf();
                   getPrintStatus();
@@ -281,7 +278,7 @@ export default function ScheduleHeader({
 
               <button
                 className="button-style mt-4 group-button"
-                style={{ width: "120px" }}
+                style={{ width: "150px" }}
                 onClick={openShowProgram}
               >
                 Show Programs
@@ -294,10 +291,14 @@ export default function ScheduleHeader({
               >
                 Production list
               </button>
-              <button className="button-style group-button" type='button'
-       style={{ width: "120px"}} onClick={onClickClose}>
-       Close
-      </button>
+              <button
+                className="button-style group-button"
+                type="button"
+                style={{ width: "100px" }}
+                onClick={onClickClose}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>

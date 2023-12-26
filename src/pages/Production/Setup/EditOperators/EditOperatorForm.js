@@ -12,6 +12,7 @@ export default function EditOperatorForm({
   rowselectOperator,
   getOperatorData,
   setRowSelectOperator,
+  getOperatorlist
 }) {
   // Open Add Modal
   const [openAdd, setOpenAdd] = useState("");
@@ -37,10 +38,11 @@ export default function EditOperatorForm({
       .then((response) => {
         // console.log(response.data);
         handlecloseDelete();
-        toast.success("ShiftIncharge Deleted Successfully", {
+        toast.success("Operator Deleted Successfully", {
           position: toast.POSITION.TOP_CENTER,
         });
         getOperatorData();
+        setRowSelectOperator({...getOperatorlist[0],index:0})
       });
   };
 
@@ -73,6 +75,7 @@ export default function EditOperatorForm({
   const onClickClose = () => {
     navigate("/Production");
   };
+
 
   return (
     <div className="ip-box form-bg">

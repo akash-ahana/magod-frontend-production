@@ -266,7 +266,8 @@ function SingleDayShiftEditor({
         selectedShift={selectedShift}
         SelectedShiftIncharge={SelectedShiftIncharge}
         ShiftDate={ShiftDate}
-  
+        getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+        getSecondTableData={getSecondTableData}
         />
       </div>
     </>

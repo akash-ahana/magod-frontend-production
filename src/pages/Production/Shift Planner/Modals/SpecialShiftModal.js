@@ -9,6 +9,8 @@
   import enGB from "date-fns/locale/en-GB";
   import { toast } from "react-toastify";
   import { baseURL } from "../../../../api/baseUrl";
+import { stubFalse } from "lodash";
+import SpecialShiftConfirmModal from "./SpecialShiftConfirmModal";
 
   registerLocale("en-GB", enGB);
   setDefaultLocale("en-GB");
@@ -18,8 +20,11 @@
     setOpen,
     rowselectDailyShiftTable,
     SelectedShiftIncharge,
-    ShiftDate,
+    ShiftDate,getSingleDayShiftPlan4thTable,getSecondTableData
   }) {
+
+    const [specialConfirmModal, setSpecialShiftConfirmModal] = useState(false);
+
     const [selectedDateTime, setSelectedDateTime] = useState(null);
     const handleDateTimeChange = (date) => {
       setSelectedDateTime(date);
@@ -41,6 +46,7 @@
       setOpen(false);
     };
 
+
     const specialShiftFromDate = selectedDateTime
       ? format(selectedDateTime, "yyyy-MM-dd HH:mm:ss")
       : "";
@@ -48,8 +54,41 @@
       ? format(selectedToDateTime, "yyyy-MM-dd HH:mm:ss")
       : "";
 
-    const handleSubmit = () => {
-      console.log("onclick of submit",specialShiftFromDate)
+      const specialShiftFromDate1 = selectedDateTime
+      ? format(selectedDateTime, "dd-MM-yyyy HH:mm:ss")
+      : "";
+    const specialShiftToDate1 = selectedToDateTime
+      ? format(selectedToDateTime, "dd-MM-yyyy HH:mm:ss")
+      : "";
+
+      const handleSubmit = () => {
+        console.log("onclick of submit", specialShiftFromDate);
+      
+        axios
+          .post(baseURL + "/shiftEditor/createSpecialShift", {
+            ShiftDate: ShiftDate,
+            Shift_Ic: SelectedShiftIncharge,
+            FromTime: specialShiftFromDate,
+            ToTime: specialShiftToDate,
+          })
+          .then((response) => {
+            // Request was successful
+            toast.success("Special Shift Added Successfully", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+            getSingleDayShiftPlan4thTable();
+            getSecondTableData();
+          })
+          .catch((error) => {
+            // Request failed
+            toast.error("Its a Holiday You cant create a Special Shift", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          });
+      };
+      
+
+    const handleOpenSpecialModal = () => {
       if (
         specialShiftFromDate === '' ||
         specialShiftToDate === '' ||
@@ -60,29 +99,12 @@
           position: toast.POSITION.TOP_CENTER,
         });
         return; // Exit the function if any of the conditions is true
-      }else{
-        axios
-        .post(baseURL + "/shiftEditor/createSpecialShift", {
-          ShiftDate: ShiftDate,
-          Shift_Ic: SelectedShiftIncharge,
-          FromTime: specialShiftFromDate,
-          ToTime: specialShiftToDate,
-        })
-        .then(() => {
-          toast.success("Special Shift Added Successfully", {
-            position: toast.POSITION.TOP_CENTER,
-          });
-        })
-        // .catch((error) => {
-        //   console.error("Error adding special shift:", error);
-        //   toast.error("Error adding special shift. Please try again.", {
-        //     position: toast.POSITION.TOP_CENTER,
-        //   });
-        // });
-
-      setOpen(false);
       }
-    };
+      else{
+        setSpecialShiftConfirmModal(true);
+        setOpen(false)
+      }
+    }
 
     return (
       <div>
@@ -93,12 +115,14 @@
 
           <Modal.Body>
             <label className="form-label">From_time</label>
-            <div style={{ width: "100%", textAlign: "cenetr" }}>
+            <div style={{ width: "100%", textAlign: "left" }}>
               <DatePicker
+              className="w-100"
                 style={{
                   textAlign: "center",
                   fontSize: "13px",
                   backgroundColor: "white",
+                  width:"100%"
                 }}
                 selected={selectedDateTime}
                 onChange={handleDateTimeChange}
@@ -112,11 +136,12 @@
             <label className="form-label">To_time</label>
             <div style={{ width: "100%" }}>
               <DatePicker
-                className="in-field"
+                className="in-field w-100"
                 style={{
                   textAlign: "right",
                   fontSize: "13px",
                   backgroundColor: "white",
+                  width:"100%"
                 }}
                 selected={selectedToDateTime}
                 onChange={handleToDateTimeChange}
@@ -129,14 +154,27 @@
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="primary" onClick={handleSubmit}>
-              Yes
+            <Button variant="primary" onClick={handleOpenSpecialModal}>
+              Add
             </Button>
             <Button variant="secondary" onClick={handleClose}>
               No
             </Button>
           </Modal.Footer>
         </Modal>
+
+        {
+          specialConfirmModal && 
+          <SpecialShiftConfirmModal
+            specialConfirmModal={specialConfirmModal}
+            setSpecialShiftConfirmModal={setSpecialShiftConfirmModal}
+            specialShiftFromDate={specialShiftFromDate1}
+            specialShiftToDate={specialShiftToDate1}
+            setOpen={setOpen}
+            handleSubmit={handleSubmit}
+          />
+        }
+        
       </div>
     );
   }
