@@ -12,7 +12,7 @@ export default function FormShiftIc({
   rowselectShiftIc,
   getShiftIcData,
   setgetShiftIcList,
-  setRowSelectShiftIc,
+  setRowSelectShiftIc,getShiftIclist
 }) {
   // Open Add Modal
   const [openAdd, setOpenAdd] = useState("");
@@ -42,6 +42,7 @@ export default function FormShiftIc({
           position: toast.POSITION.TOP_CENTER,
         });
         getShiftIcData();
+        setRowSelectShiftIc({...getShiftIclist[0],index:0})
       });
   };
 

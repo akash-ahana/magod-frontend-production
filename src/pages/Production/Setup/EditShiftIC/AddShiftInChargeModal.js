@@ -33,6 +33,7 @@ export default function AddShiftInChargeModal({
 
   const [AddShiftInChargeModal, setAddShiftInChargeModal] = useState(false);
   const addShiftInCharge = () => {
+    setOpenAdd(false);
     setAddShiftInChargeModal(true);
   };
 
@@ -46,9 +47,17 @@ export default function AddShiftInChargeModal({
       .then((response) => {
         setOpenAdd(false);
         setAddShiftInChargeModal(false);
-        toast.success("ShiftIncharge Added Successfully", {
-          position: toast.POSITION.TOP_CENTER,
-        });
+        if (response.data === 'Name already present') {
+          toast.error("Shift Incharge already present", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else if (response.data === 'Insert successful') {
+          toast.success("ShiftIncharge Added Successfully", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else {
+          console.log("");
+        }
         getShiftIcData();
       });
   };
@@ -58,61 +67,67 @@ export default function AddShiftInChargeModal({
   };
 
   return (
-    <Modal show={openAdd} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Magod Laser:Add Shift InCharge</Modal.Title>
-      </Modal.Header>
+    <div>
+      <Modal show={openAdd} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Magod Laser:Add Shift InCharge</Modal.Title>
+        </Modal.Header>
 
-      <Modal.Body>
-        <div className="col-md-12 col-sm-12 ip-box form-bg">
-          <div className="row">
-            <div className="col-md-12 mb-2">
-              <label className="form-label">Shift InCharge</label>
-              <input className="in-field2" onChange={handleChangeShiftIc} />
+        <Modal.Body>
+          <div className="col-md-12 col-sm-12 ip-box form-bg">
+            <div className="row">
+              <div className="col-md-12">
+                <label className="form-label">Shift InCharge</label>
+                <input className="in-field2" onChange={handleChangeShiftIc} />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-12">
+                <label className="form-label">Skill Level</label>
+                <input
+                  className="in-field2"
+                  onChange={handleChangeSkillLevel}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col-md-12 mb-2">
+                <label className="form-label">Status</label>
+                <input className="in-field2" onChange={handleChangeStaus} />
+              </div>
             </div>
           </div>
+        </Modal.Body>
 
-          <div className="row">
-            <div className="col-md-12 mb-2">
-              <label className="form-label">Skill Level</label>
-              <input className="in-field2" onChange={handleChangeSkillLevel} />
-            </div>
-          </div>
+        <Modal.Footer>
+          <Button
+            style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
+            onClick={addShiftInCharge}
+          >
+            Add
+          </Button>
 
-          <div className="row">
-            <div className="col-md-12 mb-2">
-              <label className="form-label">Status</label>
-              <input className="in-field2" onChange={handleChangeStaus} />
-            </div>
-          </div>
-
-          <GlobalModal
-            show={AddShiftInChargeModal}
-            title="magod_shiftIncharge"
-            content={
-              <>
-                Are You sure you want to add <strong>{shiftIncharge}</strong> ?
-              </>
-            }
-            onYesClick={handleSubmit}
-            onNoClick={handleCloseAdd}
-            onClose={handleCloseAdd}
-          />
-        </div>
-      </Modal.Body>
-
-      <Modal.Footer>
-        <Button
-          style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
-          onClick={addShiftInCharge}
-        >
-          Add
-        </Button>
-
-        <Button variant="secondary" onClick={handleClose}>
-          Exit
-        </Button>
-      </Modal.Footer>
-    </Modal>
+          <Button variant="secondary" onClick={handleClose}>
+            Exit
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      {AddShiftInChargeModal && (
+        <GlobalModal
+          show={AddShiftInChargeModal}
+          title="magod_shiftIncharge"
+          content={
+            <>
+              Are You sure you want to add <strong>{shiftIncharge}</strong> ?
+            </>
+          }
+          onYesClick={handleSubmit}
+          onNoClick={handleCloseAdd}
+          onClose={handleCloseAdd}
+        />
+      )}
+    </div>
   );
 }

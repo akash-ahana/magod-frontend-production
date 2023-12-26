@@ -6,7 +6,6 @@ import axios from "axios";
 import { baseURL } from "../../../../api/baseUrl";
 import { ToastContainer, toast } from "react-toastify";
 
-
 export default function CreateweekModal({
   openweekshift,
   setOpenweekshift,
@@ -20,7 +19,12 @@ export default function CreateweekModal({
   setSelectedShift,
   setSelectedMachine,
   setSelectedShiftIncharge,
-  setIsChecked,setIsChecked2,setIsChecked3,setIsChecked4,setIsChecked5,setIsChecked6
+  setIsChecked,
+  setIsChecked2,
+  setIsChecked3,
+  setIsChecked4,
+  setIsChecked5,
+  setIsChecked6,
 }) {
   const handleClose = () => {
     setOpenweekshift(false);
@@ -53,15 +57,17 @@ export default function CreateweekModal({
       if (constWeekState[0].Shift === "Third") {
         fromTime = " 22:00:00";
         toTime = " 06:00:00";
-    
+
         for (let i = 0; i < constWeekState.length; i++) {
           const shiftDate = new Date(constWeekState[i].ShiftDate);
           const nextDay = new Date(shiftDate);
           nextDay.setDate(nextDay.getDate() + 1); // Add one day
-          
+
           // Format times for "Third" shift
-          constWeekState[i].FromTime = shiftDate.toISOString().slice(0, 10) + fromTime;
-          constWeekState[i].ToTime = nextDay.toISOString().slice(0, 10) + toTime;
+          constWeekState[i].FromTime =
+            shiftDate.toISOString().slice(0, 10) + fromTime;
+          constWeekState[i].ToTime =
+            nextDay.toISOString().slice(0, 10) + toTime;
         }
       }
       if (constWeekState[0].Shift === "General") {
@@ -75,17 +81,16 @@ export default function CreateweekModal({
         }
       }
     }
-    
+
     axios
       .post(baseURL + "/shiftEditor/createWeeklyShiftPlan", constWeekState)
       .then((response) => {
         console.log("CREATE WEEK SHIFT RESPONSE ", response.data);
-        if(response.data==='Shift Data Already present'){
-             toast.error("Shift Data Already present", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-        }
-        else{
+        if (response.data === "Shift Data Already present") {
+          toast.error("Shift Data Already present", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        } else {
           toast.success("Shift Data Successfully added", {
             position: toast.POSITION.TOP_CENTER,
           });
@@ -95,14 +100,14 @@ export default function CreateweekModal({
         handleClose();
         setWeekState("");
         setSelectedShift("");
-       setSelectedShiftIncharge("")
-  });
-  setIsChecked(false);
-  setIsChecked2(false);
-  setIsChecked3(false);
-  setIsChecked4(false);
-  setIsChecked5(false);
-  setIsChecked6(false);
+        setSelectedShiftIncharge("");
+      });
+    setIsChecked(false);
+    setIsChecked2(false);
+    setIsChecked3(false);
+    setIsChecked4(false);
+    setIsChecked5(false);
+    setIsChecked6(false);
     // setSelectedMachine("");
   };
 

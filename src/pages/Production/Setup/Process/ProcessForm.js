@@ -1,30 +1,32 @@
-import React, { useState } from "react";
-import button from "react-bootstrap/Button";
-import AddProcessModal from "./AddProcessModal";
-import AddProcessConfirmation from "./AddProcessConfirmation";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import DeleteProcess from "./DeleteProcess";
 import { useNavigate } from "react-router-dom";
+import AddProcessModal from "./AddProcessModal"; // Import the AddProcessModal component
 
 export default function ProcessForm({
   selectRow,
   ProcessTab,
   setProcessTab,
-  setSelectRow,
+  setSelectRow,processTab
 }) {
   const [openAddProcessMod, setOpenAddProcessMod] = useState(false);
-  const [showInnerModal, setShowInnerModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
-  const [profileChecked, setProfileChecked] = useState(0);
-  const [serviceChecked, setServiceChecked] = useState(0);
-  const [fabricationChecked, setFabricationChecked] = useState(0);
+  const [profileChecked, setProfileChecked] = useState(false);
+  const [serviceChecked, setServiceChecked] = useState(false);
+  const [fabricationChecked, setFabricationChecked] = useState(false);
 
-  // console.log(profileChecked,serviceChecked,fabricationChecked)
-
+  useEffect(() => {
+    setProfileChecked(selectRow.Profile === 1 || selectRow.Profile === -1);
+    setServiceChecked(selectRow.Service === 1 || selectRow.Service === -1);
+    setFabricationChecked(
+      selectRow.MultiOperation === 1 || selectRow.MultiOperation === -1
+    );
+  }, [selectRow]);
 
   const openProcessModal = () => {
     setOpenAddProcessMod(true);
@@ -36,11 +38,12 @@ export default function ProcessForm({
 
   const handleSaveProcess = () => {
     axios
-      .post(baseURL + "/processSetup/SavedProcess", {selectRow,
+      .post(baseURL + "/processSetup/SavedProcess", {
+        selectRow,
         ID: selectRow.ID,
-        Profile:profileChecked,
-        Service:serviceChecked,
-        fabrication:fabricationChecked
+        Profile: profileChecked ? 1 : 0,
+        Service: serviceChecked ? 1 : 0,
+        fabrication: fabricationChecked ? 1 : 0,
       })
       .then(() => {
         toast.success("Process Saved Successfully", {
@@ -49,7 +52,7 @@ export default function ProcessForm({
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Process  not saved", {
+        toast.error("Process not saved", {
           position: toast.POSITION.TOP_CENTER,
         });
       });
@@ -65,7 +68,8 @@ export default function ProcessForm({
           position: toast.POSITION.TOP_CENTER,
         });
         setDeleteModal(false);
-        console.log("request sended for delete");
+        setSelectRow({...processTab[0],index:0})
+        console.log("Request sent for delete");
       });
   };
 
@@ -74,7 +78,18 @@ export default function ProcessForm({
     navigate("/Production");
   };
 
-  // console.log(selectRow);
+  const handleProfileCheckboxChange = () => {
+    setProfileChecked((prev) => !prev);
+  };
+
+  const handleServiceCheckboxChange = () => {
+    setServiceChecked((prev) => !prev);
+  };
+
+  const handleFabricationCheckboxChange = () => {
+    setFabricationChecked((prev) => !prev);
+  };
+
   return (
     <div>
       <form className="form">
@@ -110,8 +125,9 @@ export default function ProcessForm({
                       type="checkbox"
                       name="profilecutting"
                       id="flexCheckDefault"
-                      checked={selectRow.Profile===1}
-                      onChange={() => setProfileChecked(profileChecked === 1 ? 0 : 1)}                    />
+                      checked={profileChecked}
+                      onChange={handleProfileCheckboxChange}
+                    />
                     <label className="form-label">Profile Cutting</label>
                   </div>
                   <div className="col-md-12">
@@ -128,10 +144,9 @@ export default function ProcessForm({
                         type="checkbox"
                         name="service"
                         id="flexCheckDefault1"
-                        checked={selectRow.Service===1}
-                        onChange={() => setServiceChecked(serviceChecked === 1 ? 0 : 1)}
+                        checked={serviceChecked}
+                        onChange={handleServiceCheckboxChange}
                       />
-
                       <label className="form-label">Service</label>
                     </div>
                   </div>
@@ -149,8 +164,8 @@ export default function ProcessForm({
                         type="checkbox"
                         name="multiOperation"
                         id="flexCheckDefault2"
-                        checked={selectRow.MultiOperation===1}
-                        onChange={() =>  setFabricationChecked(fabricationChecked === 1 ? 0 : 1)}
+                        checked={fabricationChecked}
+                        onChange={handleFabricationCheckboxChange}
                       />
                       <label className="form-label">Fabrication</label>
                     </div>
@@ -161,11 +176,12 @@ export default function ProcessForm({
 
             <div className="row">
               <div className="col-md-7">
-                <div className="col-md-12 "
-                style={{
-                  marginTop:"-40px"
-                }}
->
+                <div
+                  className="col-md-12 "
+                  style={{
+                    marginTop: "-40px",
+                  }}
+                >
                   <label className="form-label">Description</label>
                   <input
                     className="in-fields"
@@ -212,7 +228,11 @@ export default function ProcessForm({
                 <button
                   className="button-style  group-button"
                   type="button"
-                  style={{ width: "110px", marginLeft: "5px" ,whiteSpace:"nowrap"}}
+                  style={{
+                    width: "110px",
+                    marginLeft: "5px",
+                    whiteSpace: "nowrap",
+                  }}
                   onClick={handleDeleteProcessClick}
                 >
                   Delete Process
@@ -255,6 +275,7 @@ export default function ProcessForm({
         setProcessTab={setProcessTab}
         ProcessTab={ProcessTab}
       />
+      
     </div>
   );
 }

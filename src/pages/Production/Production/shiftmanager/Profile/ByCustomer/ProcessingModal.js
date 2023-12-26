@@ -211,13 +211,9 @@ return (
             </div>
 
             
-
-            <div className="col-md-3">
-               <label className="form-label">Process Time</label>
-               <input  className='in-fields'
-               value={selectProgramProcessing.ActualTime
-               } />
-            </div>
+            <div className="col-md-3 mt-4">
+                  <label className="form-label-processTime mt-2 ms-5">Process Time</label>
+                </div>
 
             <div className="col-md-2">
                <label className="form-label">Estimated</label>
@@ -229,7 +225,7 @@ return (
             <div className="col-md-2 mb-2">
                <label className="form-label">Machine</label>
                <input  className='in-fields' 
-               value={selectProgramProcessing.Machine}/>
+               value={selectProgramProcessing.ActualTime}/>
             </div>
 
             <div className="col-md-2  mt-4">
@@ -295,8 +291,8 @@ return(
               <div>
               <input className='table-cell-editor '
                  name="cleared"
-                 defaultValue={item.Remarks}
-                  onChange={(e)=>onChangeRemarks(e,item, key)}
+                 Value={item.Remarks==='null' ? null :item.Remarks}
+                 onChange={(e)=>onChangeRemarks(e,item, key)}
                  placeholder="Type Cleared"
                 />
               </div>

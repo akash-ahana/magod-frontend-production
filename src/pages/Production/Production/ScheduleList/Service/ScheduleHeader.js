@@ -240,7 +240,7 @@ export default function ScheduleHeader({
                 )}
               </Form.Group>
             </div>
-            <div className="col-md-2 mt-3">
+            <div className="col-md-1 mt-3" style={{ width: "160px" }}>
               {/* <label className=" form-label mt-2">Find Schedule</label> */}
               <input
                 className="in-field my-0 mt-4"
@@ -254,7 +254,7 @@ export default function ScheduleHeader({
             <div className="col-md-7">
             <button
               className="button-style mt-4 group-button"
-              style={{ width: "120px" }}
+              style={{ width: "110px" }}
               onClick={() => {
                 openShowStatusPdf();
                 getPrintStatus();
@@ -273,7 +273,7 @@ export default function ScheduleHeader({
 
             <button
               className="button-style mt-4 group-button"
-              style={{ width: "120px" }}
+              style={{ width: "150px" }}
               onClick={openShowProgram}
             >
               Show Programs
@@ -285,7 +285,7 @@ export default function ScheduleHeader({
              Production list
             </button>
             <button className="button-style group-button" type='button'
-       style={{ width: "120px"}} onClick={onClickClose}>
+       style={{ width: "100px"}} onClick={onClickClose}>
        Close
       </button>
             </div>

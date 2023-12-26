@@ -11,6 +11,11 @@ body {
   font-weight: 700;
 }
 
+.form-label-processTime {
+  font-size: 20px;
+  font-weight: 800;
+}
+
 .logo {
   height: 54px;
   width: 36px;

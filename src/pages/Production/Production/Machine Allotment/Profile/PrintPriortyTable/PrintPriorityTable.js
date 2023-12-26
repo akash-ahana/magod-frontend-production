@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
         marginTop:"3px"
     },
     machineName:{
-       marginTop:"50px",
+       marginTop:"15px",
        marginRight:"200px",
-       marginLeft:"50px"
+       marginLeft:"10px"
     },
     tableview:
     {
@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         borderBottom:"1px",
-        marginTop:"20px",
-        marginLeft:"60px",
-        width:"500px",
+        marginTop:"10px",
+        marginLeft:"10px",
+        width:"570px",
       },
       srl: {
         width: "30px",
@@ -59,11 +59,19 @@ const styles = StyleSheet.create({
           width:"130px"
       },
       customer:{
-          width:"250px"
+          width:"130px"
+      },
+      rowcus:{
+        flexDirection:"row"
+      },
+      newloaddisplay:{
+        width:"337px",
+        marginLeft:"10px",
+        paddingRight:"40px" 
       },
       newLoad:{
-        marginLeft:"290px",
-        marginTop:"7px",
+      textAlign:"right",
+      marginTop:"7px",
       },
       processed:{
         width:"40px"
@@ -72,19 +80,28 @@ const styles = StyleSheet.create({
         width:"40px"
       },
       production:{
-        marginTop:"30px",
-       marginLeft:"50px"
+       marginTop:"30px",
+      //  marginLeft:"-300px"
       },
       Signature:{
         marginTop:"15px",
-        marginLeft:"50px"
+        // marginLeft:"-300px"
       },
       Time:{
-        marginLeft:"50px"
+        // marginLeft:"-300px"
       },
       time:
       {
+        marginTop:"7px",
         fontFamily: "Helvetica-Bold",
+      },
+      machinedisplay:{
+        width:"550px",
+        marginLeft:"10px"
+      },
+      signaturedisplay:{
+        width:"550px",
+        marginLeft:"10px"
       }
   });
   
@@ -99,7 +116,7 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
         {sortedPriorityTable.map((item)=>{
           return(
             <>
-            <View>
+            <View style={styles.machinedisplay}>
            <Text style={styles.machineName}>{item.Machine}</Text>
          </View>
             <View style={styles.Headingrow}>
@@ -115,13 +132,18 @@ const PrintPriorityTable = ({sortedPriorityTable}) => (
           <PrintPriorityTableRow sortedPriorityTable={item.priorityList} 
           />
        </View>
+       <View style={styles.rowcus}>
+       <View style={styles.newloaddisplay}>
+        <Text style={styles.newLoad}>Load For {item.Machine}</Text>
+       </View>
        <View>
-        <Text style={styles.newLoad}>Load For {item.Machine} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Text style={styles.time}>{item.newLoad}</Text></Text>
+       <Text style={styles.time}>{item.newLoad}</Text>
+       </View>
        </View>
            </>
           )
         })}   
-        <View >
+        <View style={styles.signaturedisplay}>
           <Text style={styles.production}>Production In Charge</Text>
           <Text style={styles.Signature}>Signature</Text>
           <Text style={styles.Time}>Date and Time</Text>

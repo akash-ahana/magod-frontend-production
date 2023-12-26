@@ -67,14 +67,14 @@ export default function AddMachine({show, setShow,machinetypes}) {
         </Modal.Header>
         <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <Modal.Body>
-        <div className="col-md-12 col-sm-12">
+        <div className="col-md-12 col-sm-12 ip-box form-bg">
           <div >
             <div className="row">
               <div className="col-md-12">
                 <label className="form-label"> Machine Reference Name</label>
                 <input     name="refName"  value={formdata.refName} 
                 {...register('refName')}
-                 className={`in-field ${
+                 className={`in-field2 ${
                   errors.refName ? "is-invalid" : ""}`} required
                     maxLength={100}
                    onChange={(e)=>handleFormChange(e)}/>
@@ -83,14 +83,14 @@ export default function AddMachine({show, setShow,machinetypes}) {
               <div className="col-md-12">
                 <label className="form-label"> Manufacturer</label>
                 <input  value={formdata.manufacturer}   {...register("manufacturer")}
-                className={`in-field ${
+                className={`in-field2 ${
                   errors.manufacturer ? "is-invalid" : ""}`} required name="manufacturer" onChange={(e)=>handleFormChange(e)} />
               </div>
 
               <div className="col-md-12">
                 <label className="form-label"> Model</label>
                 <input    {...register("model")} value={formdata.model}
-                className={`in-field ${
+                className={`in-field2 ${
                   errors.model ? "is-invalid" : ""}`} required 
                     name="model"  onChange={(e)=>handleFormChange(e)}/>
               </div>
