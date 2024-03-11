@@ -89,7 +89,7 @@ export default function ScheduleHeader({
           response.data[i].Delivery_Date = finalDay1;
         }
         setProgrammedstatus(response.data);
-        //  console.log(response)
+         console.log(response.data)
       });
     //  Completed Status
     axios

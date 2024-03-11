@@ -78,7 +78,7 @@ export default function PriorityTable({
                 {ncProgramsTableData.map((item, key) => {
                   return (
                     <>
-                      <tr
+                      <tr style={{backgroundColor:item.rowColor}}
                         onDoubleClick={() => selectRowTable(item)}
                         className={
                           key === priorityTable?.index ? "selcted-row-clr" : ""

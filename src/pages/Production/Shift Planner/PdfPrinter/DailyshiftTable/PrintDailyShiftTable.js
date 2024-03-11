@@ -95,6 +95,16 @@ const styles = StyleSheet.create({
   },
 });
 
+const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' });
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  
+  return `${day}/${month} ${hours}:${minutes}`;
+};
+
 const PrintDailyShiftTable = ({
   data,
   rowselect,
@@ -155,12 +165,12 @@ const PrintDailyShiftTable = ({
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ fontFamily: "Helvetica-Bold" }}>From </Text>
-                  <Text style={{ marginHorizontal: "19px" }}>{value.from}</Text>
+                  <Text style={{ marginHorizontal: "19px" }}>{formatDate(value.FromTime)}</Text>
                 </View>
 
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{ fontFamily: "Helvetica-Bold" }}>To </Text>
-                  <Text style={{ marginHorizontal: "34px" }}>{value.To}</Text>
+                  <Text style={{ marginHorizontal: "34px" }}>{formatDate(value.ToTime)}</Text>
                 </View>
               </View>
 

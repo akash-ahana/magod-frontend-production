@@ -115,6 +115,37 @@ function SingleDayShiftEditor({
 
   const ShiftDate = rowselectDailyShiftTable?.ShiftDate;
 
+
+  /////////////////////
+  let date=rowselect.item;
+
+
+  let dateSplit = date.split("/")
+  let year = dateSplit[2]
+  let month = dateSplit[1]
+  let day = dateSplit[0]
+  let finalday =  year + "-" + month + "-" + day
+
+  // console.log(finalday);
+
+
+  //First Shift
+  const[newData,setNewdata]=useState([]);
+ 
+  
+  const getDailyMachineoperatorData = () => {
+    axios.post(baseURL+'/shiftEditor/printdayShiftPlan', 
+    {
+      ShiftDate: finalday,
+    }).then((response) => {
+      console.log(response);
+      setNewdata(response.data);
+      openDailyShiftPrinter();
+    });
+  }
+  
+
+console.log("newData",newData)
   return (
     <>
       <div
@@ -230,7 +261,7 @@ function SingleDayShiftEditor({
             <button
               className="button-style mt-2 group-button mt-4"
               style={{ width: "140px", marginBottom: "10px", fontSize: "14px" }}
-              onClick={openDailyShiftPrinter}
+              onClick={getDailyMachineoperatorData}
             >
               Print Day Shift Plan
             </button>
@@ -244,6 +275,7 @@ function SingleDayShiftEditor({
           rowselectDailyShiftTable={rowselectDailyShiftTable}
           selectedShiftIncharge={selectedShiftIncharge}
           selectedWeek={selectedWeek}
+
         />
 
         <DeleteDayShiftModal
@@ -257,7 +289,8 @@ function SingleDayShiftEditor({
           openPrintModal={openPrintModal}
           setOpenPrintModal={setOpenPrintModal}
           rowselect={rowselect}
-        />
+          newData={newData}
+          setNewdata={setNewdata}        />
 
         <SpecialShiftModal 
         open={open}

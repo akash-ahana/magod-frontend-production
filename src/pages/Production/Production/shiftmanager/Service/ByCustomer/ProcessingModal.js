@@ -282,7 +282,7 @@ return(
                  name="cleared"
                  type='number'
                  onKeyDown={blockInvalidChar}
-                 defaultValue={item.QtyRejected}
+                 Value={item.QtyRejected}
                  onChange={(e)=>onChangeRejected(e,  item, key)}
                  placeholder="Type Cleared"
                 />

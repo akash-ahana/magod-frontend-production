@@ -36,7 +36,7 @@ export default function PartsList({
   const clearAllonClick = () => {
     const constpartListData = partlistdata;
     for (let i = 0; i < constpartListData.length; i++) {
-      constpartListData[i].QtyCleared = constpartListData[i].QtyProduced;
+      constpartListData[i].QtyCleared = constpartListData[i].QtyCut;
     }
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
@@ -53,7 +53,7 @@ export default function PartsList({
       newConstPartList[key].QtyCleared = newValue; // Update QtyCleared with the new value
       setPartlistdata(newConstPartList); // Update the state with the modified data
 
-      if (newValue > newConstPartList[key].QtyProduced) {
+      if (newValue > newConstPartList[key].QtyCut) {
         toast.error("Cleared cannot be greater than Produced!", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -63,17 +63,17 @@ export default function PartsList({
   };
 
   const updateClearedDisabledState = (data) => {
-    const isDisabled = data.every((row) => row.QtyCleared === row.QtyProduced);
+    const isDisabled = data.every((row) => row.QtyCleared === row.QtyCut);
     setIsClearedDisabled(isDisabled);
   };
 
   const saveClearedonClick = () => {
-    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+    // Check if there is at least one row where QtyCut is not equal to QtyCleared
     const hasUnsavedData = partlistdata.some(
-      (item) => item.QtyProduced !== item.QtyCleared
+      (item) => item.QtyCut !== item.QtyCleared
     );
     if (hasUnsavedData) {
-      // There is at least one row where QtyProduced is not equal to QtyCleared
+      // There is at least one row where QtyCut is not equal to QtyCleared
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveCleared",
@@ -87,7 +87,7 @@ export default function PartsList({
           console.log("executed first API");
         });
     } else {
-      // All rows have QtyProduced equal to QtyCleared
+      // All rows have QtyCut equal to QtyCleared
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
@@ -116,7 +116,7 @@ export default function PartsList({
   const clearSelected = () => {
     const updatedRows = partlistdata.map((row) => {
       if (selectedRows.includes(row)) {
-        return { ...row, QtyCleared: row.QtyProduced };
+        return { ...row, QtyCleared: row.QtyCut };
       }
       return row;
     });
@@ -140,6 +140,15 @@ export default function PartsList({
   return (
     <div>
       <div className="row mt-2">
+
+      <button
+          className="button-style mt-2 group-button"
+          style={{ width: "150px", marginLeft: "20px" }}
+          onClick={clearSelected}
+        >
+          Clear Selected
+        </button>
+
         <button
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
@@ -148,14 +157,7 @@ export default function PartsList({
           Clear All
         </button>
 
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearSelected}
-        >
-          Clear Selected
-        </button>
-
+       
         <button
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
@@ -181,7 +183,7 @@ export default function PartsList({
               <th>PartId</th>
               <th>QtyToNest</th>
               <th>QtyCleared</th>
-              <th>QtyProduced</th>
+              <th>QtyCut</th>
               <th>QtyNested</th>
               <th>Remarks</th>
               <th>LOC</th>
@@ -212,14 +214,14 @@ export default function PartsList({
                     />
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
-                  <td>{item.QtyToNest}</td>
-                  <td>{item.QtyProduced}</td>
+                  <td>{item.TotQtyNested}</td>
+                  <td>{item.QtyCut}</td>
                   <td>
                     <div>
                       <input
                         className="table-cell-editor "
                         name="cleared"
-                        defaultValue={item.QtyCleared}
+                        Value={item.QtyCleared}
                         type="number"
                         onBlur={(e) => onChangeCleared(e, item, key)}
                         placeholder="Type Cleared"
@@ -234,7 +236,7 @@ export default function PartsList({
                   <td>{item.PartID}</td>
                   <td>{item.QtyToNest}</td>
                   <td>{item.QtyCleared}</td>
-                  <td>{item.QtyProduced}</td>
+                  <td>{item.QtyCut}</td>
                   <td>{item.QtyNested}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
                   <td>{item.LOC}</td>

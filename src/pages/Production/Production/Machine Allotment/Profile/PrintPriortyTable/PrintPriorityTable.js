@@ -51,18 +51,22 @@ const styles = StyleSheet.create({
       },
       srl: {
         width: "30px",
+        fontFamily: "Helvetica-Bold"
       },
       Program: {
         width: "50px",
+        fontFamily: "Helvetica-Bold"
       },
       operation:{
-          width:"130px"
+          width:"130px",
+          fontFamily: "Helvetica-Bold"
       },
       customer:{
-          width:"130px"
+          width:"130px",
+          fontFamily: "Helvetica-Bold"
       },
       rowcus:{
-        flexDirection:"row"
+        flexDirection:"row",
       },
       newloaddisplay:{
         width:"337px",
@@ -74,10 +78,12 @@ const styles = StyleSheet.create({
       marginTop:"7px",
       },
       processed:{
-        width:"40px"
+        width:"40px",
+        fontFamily: "Helvetica-Bold"
       },
       load:{
-        width:"40px"
+        width:"40px",
+        fontFamily: "Helvetica-Bold"
       },
       production:{
        marginTop:"30px",

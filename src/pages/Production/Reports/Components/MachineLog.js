@@ -241,6 +241,8 @@ export default function MachineLog({
     title: 'Reports',
     content: 'Prepare Report Before Printing ShiftLog'
   };
+  
+  // console.log(machineLogData);
 
 
   return (
@@ -333,7 +335,7 @@ export default function MachineLog({
                     </td>
                     <td>{item?.Machine}</td>
                     <td>{item?.Shift}</td>
-                    <td>{item?.Srl}</td>
+                    <td>{key+1}</td>
                     <td>
                       <div>
                         <input
@@ -360,7 +362,7 @@ export default function MachineLog({
                     </td>
                     <td>{item?.MachineTime}</td>
                     <td>{item?.Program}</td>
-                    <td>{item?.Remarks}</td>
+                    <td>{item?.Remarks === 'null' ? "" : item?.Remarks}</td>
                     <td>{item?.Operator}</td>
                     <td>{item?.Operation}</td>
                   </tr>
