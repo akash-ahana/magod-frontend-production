@@ -35,69 +35,13 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintDailyShift({rowselect}) {
+export default function PrintDailyShift({newData,rowselect}) {
   // const location = useLocation();
   // let rowselect=location.state.rowselect.item;
-    let date=rowselect.item;
-
-
-  let dateSplit = date.split("/")
-  let year = dateSplit[2]
-  let month = dateSplit[1]
-  let day = dateSplit[0]
-  let finalday = day + "-" + month + "-" + year
-
-  // console.log(finalday);
-
-
-  //First Shift
-  const[newData,setNewdata]=useState([]);
-  const formatDate = (timestamp) => {
-    const date = new Date(timestamp);
-    const day = date.getDate();
-    const month = date.toLocaleString('en-US', { month: 'short' });
-    const hours = date.getHours().toString().padStart(2, '0');
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    
-    return `${day}/${month} ${hours}:${minutes}`;
-  };
   
-  const getDailyMachineoperatorData = () => {
-    axios.post(baseURL+'/shiftEditor/getSingleDayDetailShiftInformation', 
-    {
-      ShiftDate: finalday,
-    }).then((response) => {
-      const formattedData = response.data.map((item) => ({
-        ...item,
-        from: formatDate(item.from),
-        To: formatDate(item.To),
-      }));
-      
-      console.log(formattedData);
-      setNewdata(formattedData);
-    });
-  }
-  
-  
-    
-// //Second Shift
-// const[secondmachineoperator,setSecondmachineoperator]=useState([]);
-//     const getSecondShiftMachineoperatorData=()=>{
-//       axios.post('http://172.16.20.61:5000/shiftEditor/getMachineOperatorsShift', 
-//       {
-//         ShiftDate:finalday,
-//         Shift:"Second",
-//         ShiftId : null
-//       }).then((response) => {
-//           // console.log(response.data);
-//           setSecondmachineoperator(response.data)
-//       })
-//     }
-//     console.log('Print Daily Shift Component' , secondmachineoperator);
-    
-      useEffect(() => {
-        getDailyMachineoperatorData();
-      }, []);
+  let date=rowselect.item;
+
+  console.log(newData);
 
       const newData1 = [
         { 

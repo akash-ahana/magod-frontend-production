@@ -34,20 +34,22 @@ export default function PartsList({
   const clearAllonClick = () => {
     const constpartListData = partlistdata;
     for (let i = 0; i < constpartListData.length; i++) {
-      constpartListData[i].QtyCleared = constpartListData[i].QtyProduced;
+      constpartListData[i].QtyCleared = constpartListData[i].QtyCut;
     }
+    console.log(constpartListData)
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
     setSaveCleared(true);
   };
+  
 
  /// CLEAR SELECTED
 const clearSelected = () => {
   const updatedPartListData = [...partlistdata];
-  // Iterate through the selectedRows and update QtyCleared with QtyProduced for all selected rows
+  // Iterate through the selectedRows and update QtyCleared with QtyCut for all selected rows
   updatedPartListData.forEach((item, index) => {
     if (selectedRows.includes(item)) {
-      updatedPartListData[index].QtyCleared = item.QtyProduced;
+      updatedPartListData[index].QtyCleared = item.QtyCut;
     }
   });
 
@@ -60,11 +62,11 @@ const clearSelected = () => {
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
-    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
-    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    // Check if there is at least one row where QtyCut is not equal to QtyCleared
+    const hasUnsavedData = partlistdata.some(item => item.QtyCut !== item.QtyCleared);
     
     if (!saveCleared) {
-      // There is at least one row where QtyProduced is not equal to QtyCleared
+      // There is at least one row where QtyCut is not equal to QtyCleared
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveCleared",
@@ -81,7 +83,7 @@ const clearSelected = () => {
           console.log("executed first API");
         });
     } else {
-      // All rows have QtyProduced equal to QtyCleared
+      // All rows have QtyCut equal to QtyCleared
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
@@ -114,27 +116,27 @@ const clearSelected = () => {
     });
   };
 
-  const handleSelectAll = (event) => {
-    if (event.target.checked) {
-      // Select all rows
-      setSelectedRows(partlistdata);
-    } else {
-      // Deselect all rows
-      setSelectedRows([]);
-    }
-  };
+  // const handleSelectAll = (event) => {
+  //   if (event.target.checked) {
+  //     // Select all rows
+  //     setSelectedRows(partlistdata);
+  //   } else {
+  //     // Deselect all rows
+  //     setSelectedRows([]);
+  //   }
+  // };
 
 
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
     const newValue = parseInt(e.target.value); // Convert the input value to an integer
-    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyProduced) {
+    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyCut) {
       newConstPartList[key].QtyCleared = newValue; // Update QtyCleared if it's a valid value
     } else {
       newConstPartList[key].QtyCleared = ""; // Reset QtyCleared if the value is invalid
     }
     setPartlistdata(newConstPartList);
-    if (newValue > newConstPartList[key].QtyProduced) {
+    if (newValue > newConstPartList[key].QtyCut) {
       // Display an alert message if Cleared is greater than Produced
       toast.error("Cleared cannot be greater than Produced!", {
         position: toast.POSITION.TOP_CENTER,
@@ -159,13 +161,32 @@ const clearSelected = () => {
     setSelectPartList({ ...partlistdata[0], index: 0 });
   }, [partlistdata[0]]);
 
-  const isClearedDisabled =
-    selectedRows.length === 0 &&
-    partlistdata.every((row) => row.QtyCleared === row.QtyProduced);
+  // const isClearedDisabled =
+  //   selectedRows.length === 0 &&
+  //   partlistdata.every((row) => row.QtyCleared === row.QtyCut);
+
+
+
+    //select ALL
+    const handleSelectAll = () => {
+      const allRowsSelected = selectPartList.length === partlistdata.length;
+      setSelectPartList(allRowsSelected ? [] : partlistdata);
+    };
+    
+    // console.log(partlistdata);
+    
   return (
     <div>
       <ToastContainer />
       <div className="row mt-2">
+      <button
+          className="button-style mt-2 group-button"
+          style={{ width: "150px", marginLeft: "20px" }}
+          onClick={clearSelected}
+        >
+          Clear Selected
+        </button>
+
         <button
           className="button-style mt-2 group-button"
           style={{ width: "150px", marginLeft: "20px" }}
@@ -174,13 +195,6 @@ const clearSelected = () => {
           Clear All
         </button>
 
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearSelected}
-        >
-          Clear Selected
-        </button>
 
         <button
           className="button-style mt-2 group-button"
@@ -192,10 +206,10 @@ const clearSelected = () => {
       </div>
 
       <div className="mt-4" style={{ height: "160px", overflowY: "scroll" }}>
-        <Table striped className="table-data border">
+        <Table striped className="table-data border table-space">
           <thead className="tableHeaderBGColor">
             <tr>
-              <th></th>
+            <th onClick={handleSelectAll}></th>
               <th>DwgName</th>
               <th>Programmed</th>
               <th>Produced</th>
@@ -219,7 +233,7 @@ const clearSelected = () => {
             </tr>
           </thead>
 
-          <tbody className="tablebody">
+          <tbody className="tablebody ">
             {partlistdata.map((item, key) => {
               const isChecked = selectedRows.some((row) => row === item);
               return (
@@ -238,9 +252,9 @@ const clearSelected = () => {
                       onChange={() => handleCheckboxChange(item)}
                     />
                   </td>
-                  <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
+                  <td>{item.DwgName}</td>
+                  <td >{item.TotQtyNested}</td>
+                  <td >{item.QtyCut}</td>
                   <td>
                     <div>
                       <input
@@ -267,7 +281,7 @@ const clearSelected = () => {
                   <td style={{ textAlign: "center" }}>{item.PartID}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyCleared}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
+                  <td style={{ textAlign: "center" }}>{item.QtyCut}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyNested}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
                   <td style={{ textAlign: "center" }}>{item.LOC}</td>

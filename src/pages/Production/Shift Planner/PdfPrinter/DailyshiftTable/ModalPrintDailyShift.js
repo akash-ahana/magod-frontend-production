@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PrintDailyShift from './PrintDailyShift';
 
-export default function ModalPrintDailyShift({openPrintModal,setOpenPrintModal,rowselect}) {
+export default function ModalPrintDailyShift({openPrintModal,setOpenPrintModal,rowselect,newData,setNewdata}) {
     console.log(rowselect)
     const [fullscreen, setFullscreen] = useState(true);
 
@@ -12,7 +12,10 @@ export default function ModalPrintDailyShift({openPrintModal,setOpenPrintModal,r
         <Modal.Header closeButton>
           <Modal.Title>Print Daily Plan</Modal.Title>
         </Modal.Header>
-        <Modal.Body><PrintDailyShift rowselect={rowselect}/></Modal.Body>
+        <Modal.Body><PrintDailyShift rowselect={rowselect}
+        newData={newData}
+        setNewdata={setNewdata}
+        /></Modal.Body>
       </Modal>
    </>
   )

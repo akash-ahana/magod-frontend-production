@@ -16,7 +16,6 @@ export default function ScheduleList() {
   const [scheduleid, setScheduleid] = useState("");
   const rowSelectFun = (item, index) => {
     let list = { ...item, index: index };
-    // console.log("ScheduleNo",item.ScheduleNo)
     setRowselect(list);
     setScheduleid(item.OrdSchNo);
   };
@@ -33,7 +32,6 @@ export default function ScheduleList() {
 
   let TaskNo = processrowselect.TaskNo;
   const [partlistdata, setPartlistdata] = useState([]);
-  console.log("TaskId", TaskNo);
   const getpartslistdata = () => {
     axios
       .post(baseURL + "/scheduleListProfile/schedulesListPartsList", {
@@ -47,16 +45,14 @@ export default function ScheduleList() {
   //Process Table(Right First table) data
   const [processtable, setProcesstable] = useState([]);
   let OrdSchNo = rowselect?.OrdSchNo;
-  console.log(OrdSchNo);
   const getprocessTabledata = () => {
-     console.log("OrdSchNo is",OrdSchNo);
     axios
       .post(baseURL + "/scheduleListProfile/schedulesListSecondTable", {
         ScheduleID: OrdSchNo,
       })
       .then((response) => {
         setProcesstable(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -69,7 +65,6 @@ export default function ScheduleList() {
 
   //pdfShowPartsData
   const [showParts, setSowParts] = useState([]);
-  console.log("TaskId", TaskNo);
   const getShowPartsData = () => {
     axios
       .post(baseURL + "/scheduleListProfile/ShowParts", {
@@ -95,7 +90,7 @@ export default function ScheduleList() {
 
   //////////////////////////////////
   const [custdata, setCustData] = useState("");
-  let   [custcode, setCustCode] = useState("");
+  let [custcode, setCustCode] = useState("");
 
   const postRequest = async (url, body, callback) => {
     let response = await fetch(url, {
@@ -120,7 +115,7 @@ export default function ScheduleList() {
             custdetdata[i].label = custdetdata[i].Cust_name;
           }
           setCustData(custdetdata);
-          console.log("custdetdata", custdetdata);
+          // console.log("custdetdata", custdetdata);
         }
       );
     }
@@ -158,6 +153,7 @@ export default function ScheduleList() {
           }
           //  console.log(response.data)
           setSchedulelistdata(response.data);
+          setRowselect({})
         });
     } else {
       // If input field has a value, make a POST request with the Cust_Code
@@ -188,6 +184,7 @@ export default function ScheduleList() {
             response.data[i].Delivery_Date = finalDay1;
           }
           setSchedulelistdata(response.data);
+          setRowselect({})
         })
         .catch((error) => {
           // Handle error, if any
@@ -199,6 +196,7 @@ export default function ScheduleList() {
   // The useEffect hook to fetch initial data
   useEffect(() => {
     getSchedulistdata(); // Assuming you have this function defined somewhere else
+    selectCust();
   }, []);
 
   useEffect(() => {

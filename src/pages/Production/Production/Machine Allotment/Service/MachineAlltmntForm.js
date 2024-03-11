@@ -66,6 +66,18 @@ export default function MachineAlltmntForm() {
       .then((response) => {
         
         //  console.log("data", response.data);
+        for (let i = 0; i < response.data.length; i++) {
+          if(response.data[i].PStatus==='Completed')
+          {
+            response.data[i].rowColor='#90EE90';
+          }else if(response.data[i].PStatus==='Cutting'){
+            response.data[i].rowColor='#E0FFFF';
+          }else if(response.data[i].PStatus==='Mtrl Issue'){
+            response.data[i].rowColor='#87CEFA';
+          }else if(response.data[i].PStatus==='Created'){
+            response.data[i].rowColor='#FFFFE0';
+          }
+        }
           setNcProgramsTableData(response.data)
           for(let i = 0; i< response.data.length ; i++){
             response.data[i].isChecked = false;
@@ -158,6 +170,18 @@ const treeViewData=()=>{
   })
       axios.post(baseURL+'/machineAllotment/afterChangeMachine',{MachineName : currentSelectedMachine?.MachineName})
       .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if(response.data[i].PStatus==='Completed')
+          {
+            response.data[i].rowColor='#90EE90';
+          }else if(response.data[i].PStatus==='Cutting'){
+            response.data[i].rowColor='#E0FFFF';
+          }else if(response.data[i].PStatus==='Mtrl Issue'){
+            response.data[i].rowColor='#87CEFA';
+          }else if(response.data[i].PStatus==='Created'){
+            response.data[i].rowColor='#FFFFE0';
+          }
+        }
           setNcProgramsTableData(response.data)
           for(let i = 0; i< response.data.length ; i++){
             response.data[i].isChecked = false;
@@ -175,8 +199,18 @@ const treeViewData=()=>{
 const onClickMachineLabel=(index)=>{
   axios.post(baseURL+'/machineAllotment/getNCprogramTabTableDatauseEffect',{MachineName : "Laser 6"})
   .then((response) => {
-    console.log(response.data);
-    setNcProgramsTableData(response.data)
+    for (let i = 0; i < response.data.length; i++) {
+      if(response.data[i].PStatus==='Completed')
+      {
+        response.data[i].rowColor='#90EE90';
+      }else if(response.data[i].PStatus==='Cutting'){
+        response.data[i].rowColor='#E0FFFF';
+      }else if(response.data[i].PStatus==='Mtrl Issue'){
+        response.data[i].rowColor='#87CEFA';
+      }else if(response.data[i].PStatus==='Created'){
+        response.data[i].rowColor='#FFFFE0';
+      }
+    }    setNcProgramsTableData(response.data)
   })
   setSelectedLabelIndex(index);
     setSelectedMachineIndex(-1);

@@ -118,7 +118,7 @@ setOpendeleteprocess(true);
         {
           refName:referencename
         }).then((response) => {
-          console.log("deleted",response)
+          // console.log("deleted",response)
           setSelectedRow({...post[0],index:0})   
           MachineTabledata();  
          });

@@ -6,7 +6,7 @@ import PrintPriority from './PrintPriority';
  export default function ModalPrintPriority({setOpenPrint,openPrint,priorityTable}) {
 //   const values = [true, 'sm-down', 'md-down', 'lg-down', 'xl-down', 'xxl-down'];
   const [fullscreen, setFullscreen] = useState(true);
-  // console.log(priorityTable)
+  console.log(priorityTable)
 
 
 //   function handleShow(breakpoint) {
