@@ -212,7 +212,7 @@ export default function Reports() {
   const ShiftSelected = (Shift, Machine, item, index) => {
     let list = { ...item, index: index };
     setSelectedShft(list);
-    console.log("The  Selected is ", Shift, Machine);
+    // console.log("The  Selected is ", Shift, Machine);
     axios
       .post(baseURL + "/reports/shiftOnClick", {
         Date: dateSelect,

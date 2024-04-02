@@ -10,7 +10,7 @@ export default function PrepareReportModal2({prepareReport2,setPrepareReport2,da
 
     const[prepareReport3,setPrepareReport3]=useState('');
     const openprepareReport3=()=>{
-      console.log("function Called")
+      // console.log("function Called")
       setPrepareReport3(true);
       setPrepareReport2(false);
     }

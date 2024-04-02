@@ -16,7 +16,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setMachineutilisationSummarydata,
   } = useGlobalContext();
 
-  console.log(machineutilisationSummartdata);
   const [rowSelected, setRowSelected] = useState({});
 
   const [inputValue1, setInputValue1] = useState("");
@@ -29,6 +28,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   };
 
   const updateUtilisationSummary = () => {
+    // console.log("rowSelected.TotalOn",rowSelected.TotalOn)
     if (!rowSelected || !inputValue1) {
       // Check if rowSelected and inputValue1 are valid
       return;
@@ -36,7 +36,8 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     const updatedRow = {
       ...rowSelected,
       TotalOff: inputValue1,
-      NonProdOn: rowSelected.TotalOn - inputValue1,
+      TotalOn:rowSelected.TotalOn,
+      ProdON:1440 - inputValue1,
     };
     // Update the selected row in the machineutilisationSummartdata array
     const updatedData = machineutilisationSummartdata.map((item, index) =>
@@ -46,26 +47,45 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setMachineutilisationSummarydata(updatedData);
     // Show a success toast
   };
-  
 
   const handleInputChange1 = (event) => {
     setInputValue1(event.target.value);
-    console.log(event.target.value)
+    // console.log(event.target.value);
   };
 
   const handleInputChange2 = (event) => {
+    const updatedMachineUtilisationData = [...machineutilisationSummartdata];
+    // Find the index of the selected machine in the machineutilisationSummartdata array
+    const selectedIndex = updatedMachineUtilisationData.findIndex(item => item.Machine === rowSelected.Machine);
+    // Update the LaserOn value of the selected machine
+    updatedMachineUtilisationData[selectedIndex].LaserOn = event.target.value;
+    // console.log("updatedMachineUtilisationData",updatedMachineUtilisationData);
+    // Update the machineutilisationSummartdata with the updated data
+    setMachineutilisationSummarydata(updatedMachineUtilisationData);
     setInputValue2(event.target.value);
   };
 
+  
+  
+  const onValueChange = (index, field, value) => {
+    const updatedMachineUtilisationSummary = [...machineutilisationSummartdata]; // Create a copy of the array
+    // Update the specific item's field with the new value
+    updatedMachineUtilisationSummary[index] = {
+      ...updatedMachineUtilisationSummary[index],
+      [field]: value,
+    };
+    setMachineutilisationSummarydata(updatedMachineUtilisationSummary);
+  };
+
+
   const saveUtilisationSummary = () => {
     axios
-      .post(baseURL + "/reports/UpdateMachineUtilisationSummary", {
-        rowSelected: rowSelected,
-        TotalOff: inputValue1,
-        LaserOn: inputValue2,
+      .post(baseURL + "/reports/saveMachineUtilisationSummary", {
+        machineutilisationSummartdata,
+        Date: dateSelect,
       })
       .then((res) => {
-        console.log("require response mus", res.data);
+        // console.log("require response mus", res.data);
         setModalShow6(true);
         // Introduce a delay of, for example, 1000 milliseconds (1 second)
         setTimeout(() => {
@@ -74,7 +94,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               Date: dateSelect,
             })
             .then((res) => {
-              console.log(res.data);
+              // console.log(res.data);
               setMachineutilisationSummarydata(res.data);
               // toast.success("Changes Saved", {
               //   position: toast.POSITION.TOP_CENTER,
@@ -83,24 +103,20 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
         }, 1000); // 1000 milliseconds = 1 second
       });
   };
-  
+
   const closeModal = () => {
     setModalShow6(false);
   };
-  
-  const modalData = {
-    title: 'Reports',
-    content: 'Changes Saved'
-  };
 
+  const modalData = {
+    title: "Reports",
+    content: "Changes Saved",
+  };
 
   // useMemo(() => {
   //   setRowSelected({ ...machineutilisationSummartdata[0], index: 0 });
   //   setInputValue2([]);
   // }, [machineutilisationSummartdata[0]]);
-
-  console.log("Utilisation summary ", rowSelected);
-  console.log(inputValue2);
 
   useEffect(() => {
     setInputValue2(rowSelected.LaserOn || "");
@@ -118,11 +134,8 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     }
   }, [machineutilisationSummartdata, rowSelected, selectedRowFun]);
 
-  
-
   return (
     <div className="col-md-12">
-
       <div className="row">
         <div className="col-md-4" style={{ fontSize: "13px" }}>
           <p>
@@ -256,10 +269,47 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                         />
                       </td>
                       <td style={{ whiteSpace: "nowrap" }}>{item.Machine}</td>
-                      <td className="table-cell-align">{item.TotalOn}</td>
-                      <td className="table-cell-align">{item.TotalOff}</td>
-                      <td className="table-cell-align">{item.ProdON}</td>
-                      <td className="table-cell-align">{item.NonProdOn}</td>
+
+                      <td className="table-cell-align">
+                      <input 
+                          className="table-cell-editor"
+                          value={item.TotalOn}
+                          onChange={(e) =>
+                            onValueChange(key, "TotalOn", e.target.value)
+                          }
+                        />
+                      </td>
+
+                      <td className="table-cell-align">
+                        <input 
+                          className="table-cell-editor"
+                          value={item.TotalOff}
+                          onChange={(e) =>
+                            onValueChange(key, "TotalOff", e.target.value)
+                          }
+                        />
+                      </td>
+
+                      <td className="table-cell-align">
+                        <input
+                        className="table-cell-editor"
+                        value={item.ProdON}
+                        onChange={(e) =>
+                          onValueChange(key, "ProdON", e.target.value)
+                        }
+                        />
+                        </td>
+
+                      <td className="table-cell-align">
+                        <input
+                        className="table-cell-editor"
+                        value={item.NonProdOn}
+                        onChange={(e) =>
+                          onValueChange(key, "NonProdOn", e.target.value)
+                        }
+                        />
+                      </td>
+
                     </tr>
                   );
                 })}
@@ -268,7 +318,11 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
           </div>
         </div>
       </div>
-      <CustomModal show={modalShow6} handleClose={closeModal} data={modalData} />
+      <CustomModal
+        show={modalShow6}
+        handleClose={closeModal}
+        data={modalData}
+      />
     </div>
   );
 }

@@ -35,7 +35,7 @@ export default function OperationProgramProcessing({programProcessing,setProgram
 },[])
 
 useEffect(() => {
-  axios.get(baseURL+'/shiftManagerProfile/allProcessing')
+  axios.get(baseURL+'/shiftManagerService/allProcessing')
       .then((response) => {
         for(let i = 0; i< response.data.length ; i++) {
           if(response.data[i].ActualTime < (0.5)*response.data[i].EstimatedTime){

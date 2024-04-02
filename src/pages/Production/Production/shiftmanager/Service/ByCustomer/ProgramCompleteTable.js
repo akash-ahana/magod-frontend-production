@@ -27,7 +27,7 @@ export default function ProgramCompleteTable({
 
   useEffect(() => {
     axios
-      .get(baseURL + "/shiftManagerProfile/allCompleted")
+      .get(baseURL + "/shiftManagerService/allCompleted")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (

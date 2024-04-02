@@ -291,7 +291,6 @@ export default function ByOperations() {
         processItem
       )
       .then((response) => {
-        console.log("Programs Compleated DATA", response.data);
         setProgramCompleted(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -429,7 +428,6 @@ export default function ByOperations() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
         setProgramProcessing(response.data);
       });
     axios

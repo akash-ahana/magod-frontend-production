@@ -61,7 +61,7 @@ export default function ByOperations() {
   const onClickOperation = (Operation) => {
     console.log("The Operation Selected is ", Operation);
     axios
-      .post(baseURL + "/shiftManagerProfile/OperationProgramesCompleted", {
+      .post(baseURL + "/shiftManagerService/OperationProgramesCompleted", {
         Operation: Operation,
       })
       .then((response) => {
@@ -111,7 +111,7 @@ export default function ByOperations() {
       });
 
     axios
-      .post(baseURL + "/shiftManagerProfile/OperationProgramesProcessing", {
+      .post(baseURL + "/shiftManagerService/OperationProgramesProcessing", {
         Operation: Operation,
       })
       .then((response) => {
@@ -171,7 +171,7 @@ export default function ByOperations() {
     );
     axios
       .post(
-        baseURL + "/shiftManagerProfile/OperationMachinesProgramesCompleted",
+        baseURL + "/shiftManagerService/OperationMachinesProgramesCompleted",
         { MachineName: Machine, Operation: Operation }
       )
       .then((response) => {
@@ -223,7 +223,7 @@ export default function ByOperations() {
 
     axios
       .post(
-        baseURL + "/shiftManagerProfile/OperationMachinesProgramesProcessing",
+        baseURL + "/shiftManagerService/OperationMachinesProgramesProcessing",
         { MachineName: Machine, Operation: Operation }
       )
       .then((response) => {
@@ -287,7 +287,7 @@ export default function ByOperations() {
     );
     axios
       .post(
-        baseURL + "/shiftManagerProfile//taskNoProgramNoCompleted",
+        baseURL + "/shiftManagerService//taskNoProgramNoCompleted",
         processItem
       )
       .then((response) => {
@@ -339,7 +339,7 @@ export default function ByOperations() {
 
     axios
       .post(
-        baseURL + "/shiftManagerProfile/taskNoProgramNoProcessing",
+        baseURL + "/shiftManagerService/taskNoProgramNoProcessing",
         processItem
       )
       .then((response) => {
@@ -392,7 +392,7 @@ export default function ByOperations() {
 
   const onClickMachines = (index) => {
     axios
-      .get(baseURL + "/shiftManagerProfile/allProcessing")
+      .get(baseURL + "/shiftManagerService/allProcessing")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -433,7 +433,7 @@ export default function ByOperations() {
         setProgramProcessing(response.data);
       });
     axios
-      .get(baseURL + "/shiftManagerProfile/allCompleted")
+      .get(baseURL + "/shiftManagerService/allCompleted")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (

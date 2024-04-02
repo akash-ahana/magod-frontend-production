@@ -89,7 +89,9 @@ useEffect(() => {
      <Table striped className="table-data border" >
        <thead className="tableHeaderBGColor">
          <tr>
-           <th>Processed</th>
+           <th>Machine</th>
+           <th>Shift</th>
+           <th>Srl</th>
            <th>FromTime</th>
            <th>ToTime</th>
            <th>RunningTime</th>
@@ -110,7 +112,7 @@ useEffect(() => {
         <tr>
           <td>{item?.Machine}</td>
           <td>{item?.Shift}</td>
-          <td>{item?.Srl}</td>
+          <td>{key+1}</td>
           <td>
           {item?.FromTime}
           </td>
@@ -119,9 +121,13 @@ useEffect(() => {
           </td>
           <td>{item?.MachineTime}</td>
           <td>{item?.Program}</td>
-          <td>{item?.Remarks}</td>
-          <td>{item?.Operator}</td>
           <td>{item?.Operation}</td>
+          <td>{item?.Remarks}</td>
+          <td><input
+             type='checkbox'
+             checked={item?.Locked===1}
+          /></td>
+          <td>{item?.Operator}</td>
         </tr>
       );
     })}

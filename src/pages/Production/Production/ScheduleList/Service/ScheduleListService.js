@@ -21,7 +21,6 @@ export default function ScheduleListService() {
     setRowselect(list);
     setScheduleid(item.OrdSchNo);
   };
-  console.log(rowselect);
 
   //Processtable Row select
   const [processrowselect, setProcessrowselect] = useState({});
@@ -38,7 +37,7 @@ export default function ScheduleListService() {
   const getpartslistdata = () => {
     axios
       .post(baseURL + "/scheduleListProfile/schedulesListPartsList", {
-        TaskId: TaskNo,
+        processrowselect
       })
       .then((response) => {
         setPartlistdata(response.data);

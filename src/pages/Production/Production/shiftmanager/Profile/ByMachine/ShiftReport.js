@@ -13,12 +13,13 @@ export default function ShiftReport() {
 
   const [reportsTreeViewData, setReportsTreeView] = useState([]);
   useEffect(() => {
-    axios.post(baseURL + '/reports/reportsTreeView', { Date: currentDate })
+    axios.post(baseURL + '/shiftManagerProfile/shiftReport', { Date: currentDate })
       .then((response) => {
-        // console.log('RESPONSE', response.data);
+        console.log('RESPONSE', response.data);
         setReportsTreeView(response.data);
       });
   }, []);
+
 
   const dataSource = [
     {
@@ -48,24 +49,14 @@ export default function ShiftReport() {
                     key={data.name}
                     defaultCollapsed={true}
                   >
-                    {data.task && data.task.map((taskData) => {
-                      const label3 = <span style={{ fontSize: "12px" }} className="node">{taskData.action} - {taskData.time}</span>;
+                    {data.operations && data.operations.map((operationdata) => {
+                      const label3 = <span style={{ fontSize: "12px" }} className="node">{operationdata.Operation} - {operationdata.time}</span>;
                       return (
                         <TreeView
                           nodeLabel={label3}
-                          key={taskData.name}
+                          key={operationdata.name}
                           defaultCollapsed={true}
                         >
-                          {taskData.operations && taskData.operations.map((operation) => {
-                            const label4 = <span style={{ fontSize: "11px" }} className="node">{operation.Operation} - {operation.time}</span>;
-                            return (
-                              <TreeView
-                                nodeLabel={label4}
-                                key={operation.name}
-                                defaultCollapsed={true}
-                              />
-                            )
-                          })}
                         </TreeView>
                       )
                     })}

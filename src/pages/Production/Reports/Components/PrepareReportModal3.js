@@ -28,7 +28,7 @@ export default function PrepareReportModal3({prepareReport3,setPrepareReport3,da
         });
     }
     
-    console.log(prepareReportStatus);
+    // console.log(prepareReportStatus);
     
   return (
     <div>
