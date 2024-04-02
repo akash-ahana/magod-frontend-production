@@ -34,7 +34,7 @@ export default function ProgramProcessingModal({
         ...selectProgramProcessing,
       })
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         setProgramCompleteData(response.data);
       });
   };
@@ -172,7 +172,7 @@ export default function ProgramProcessingModal({
         setMachineData(response.data);
       });
   };
-  console.log(programCompleteData);
+  // console.log(programCompleteData);
   return (
     <div>
       <Modal size="lg" show={show} fullscreen={fullscreen} onHide={handleClose}>

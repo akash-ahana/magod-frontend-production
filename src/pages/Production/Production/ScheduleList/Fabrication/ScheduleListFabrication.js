@@ -37,7 +37,7 @@ export default function ScheduleListFabrication() {
   const getpartslistdata = () => {
     axios
       .post(baseURL + "/scheduleListProfile/schedulesListPartsList", {
-        TaskId: TaskNo,
+        processrowselect,
       })
       .then((response) => {
         setPartlistdata(response.data);

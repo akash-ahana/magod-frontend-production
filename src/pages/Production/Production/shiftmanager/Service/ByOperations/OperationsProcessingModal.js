@@ -19,7 +19,7 @@ export default function OperationsProcessingModal({show, setShow,selectProgramPr
   const[newpartlistdata,setNewPartlistdata]=useState([])
 
   const modalTable=()=>{
-    axios.post(baseURL+'/shiftManagerProfile/shiftManagerncProgramTaskList',
+    axios.post(baseURL+'/shiftManagerService/shiftManagerncProgramTaskList',
     {...selectProgramProcessing})
    .then((response) => {
      console.log(response.data);

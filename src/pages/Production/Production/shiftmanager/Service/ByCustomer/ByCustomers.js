@@ -19,7 +19,7 @@ export default function ByCustomer() {
 
   useEffect(() => {
     axios
-      .get(baseURL + "/shiftManagerProfile/orderByCustomers")
+      .get(baseURL + "/shiftManagerService/orderByCustomers")
       .then((response) => {
         setCustomerData(response.data);
         console.log(response.data);
@@ -51,7 +51,7 @@ export default function ByCustomer() {
   const onClickCustomer = (Cust_Code) => {
     console.log("The CustCode Selected is ", Cust_Code);
     axios
-      .post(baseURL + "/shiftManagerProfile/CustomerProgramesCompleted", {
+      .post(baseURL + "/shiftManagerService/CustomerProgramesCompleted", {
         Cust_Code: Cust_Code,
       })
       .then((response) => {
@@ -102,7 +102,7 @@ export default function ByCustomer() {
       });
 
     axios
-      .post(baseURL + "/shiftManagerProfile/CustomerProgramesProcessing", {
+      .post(baseURL + "/shiftManagerService/CustomerProgramesProcessing", {
         Cust_Code: Cust_Code,
       })
       .then((response) => {
@@ -158,7 +158,7 @@ export default function ByCustomer() {
 
   const onClickCustLabel = (index) => {
     axios
-      .get(baseURL + "/shiftManagerProfile/allCompleted")
+      .get(baseURL + "/shiftManagerService/allCompleted")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -199,7 +199,7 @@ export default function ByCustomer() {
         setProgramCompleted(response.data);
       });
     axios
-      .get(baseURL + "/shiftManagerProfile/allProcessing")
+      .get(baseURL + "/shiftManagerService/allProcessing")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (

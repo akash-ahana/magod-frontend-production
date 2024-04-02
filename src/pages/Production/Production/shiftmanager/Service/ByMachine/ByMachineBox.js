@@ -62,7 +62,7 @@ export default function ByMachineBox() {
   const taskNoOnClick = (Machine, TaskNo) => {
     console.log("Task No on Click is ", TaskNo);
     axios
-      .post(baseURL + "/shiftManagerProfile/taskNoProgramNoCompleted", TaskNo)
+      .post(baseURL + "/shiftManagerService/taskNoProgramNoCompleted", TaskNo)
       .then((response) => {
         console.log("Programs Compleated DATA", response.data);
         for (let i = 0; i < response.data.length; i++) {
@@ -105,7 +105,7 @@ export default function ByMachineBox() {
       });
 
     axios
-      .post(baseURL + "/shiftManagerProfile/taskNoProgramNoProcessing", TaskNo)
+      .post(baseURL + "/shiftManagerService/taskNoProgramNoProcessing", TaskNo)
       .then((response) => {
         console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
@@ -155,7 +155,7 @@ export default function ByMachineBox() {
     setSelectedMachine(Machine);
     axios
       .post(
-        baseURL + "/shiftManagerProfile/profileListMachinesProgramesCompleted",
+        baseURL + "/shiftManagerService/profileListMachinesProgramesCompleted",
         { MachineName: Machine }
       )
       .then((response) => {
@@ -203,7 +203,7 @@ export default function ByMachineBox() {
 
     axios
       .post(
-        baseURL + "/shiftManagerProfile/profileListMachinesProgramesProcessing",
+        baseURL + "/shiftManagerService/profileListMachinesProgramesProcessing",
         { MachineName: Machine }
       )
       .then((response) => {
@@ -248,7 +248,6 @@ export default function ByMachineBox() {
       });
   };
 
-  console.log(machineProcessData);
   const dataSource = [
     {
       type: "Machines",
@@ -262,7 +261,7 @@ export default function ByMachineBox() {
 
   const onClickMachineLabel = (index) => {
     axios
-      .get(baseURL + "/shiftManagerProfile/allCompleted")
+      .get(baseURL + "/shiftManagerService/allCompleted")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -303,7 +302,7 @@ export default function ByMachineBox() {
         setMachineProgramesCompleted(response.data);
       });
     axios
-      .get(baseURL + "/shiftManagerProfile/allProcessing")
+      .get(baseURL + "/shiftManagerService/allProcessing")
       .then((response) => {
         for (let i = 0; i < response.data.length; i++) {
           if (

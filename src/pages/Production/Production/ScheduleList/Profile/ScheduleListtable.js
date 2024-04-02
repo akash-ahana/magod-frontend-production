@@ -59,7 +59,6 @@ export default function ScheduleListtable({
     }
   }, [schedulelistdata, initialLoad, rowSelectFun]);
 
-  console.log(rowselect);
 
   
   return (

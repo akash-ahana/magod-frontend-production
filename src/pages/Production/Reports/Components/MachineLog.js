@@ -16,7 +16,7 @@ export default function MachineLog({
   setSelectedRows,
   machinelogRowSelect,
   status,
-  machineName
+  machineName,
 }) {
   const [selectAll, setSelectAll] = useState(false);
   const [FinalMachineLogArray, setFinalMachineLogArray] = useState([]);
@@ -28,7 +28,6 @@ export default function MachineLog({
   const [toTime, setToTime] = useState("");
   const [modalShow1, setModalShow1] = useState(false);
   const [modalShow4, setModalShow4] = useState(false);
-
 
   const sortMachineLogs = (logs) => {
     // Perform sorting based on your desired logic
@@ -126,89 +125,88 @@ export default function MachineLog({
   };
 
   const onClickSaveLog = () => {
-    if (machineName!==''){
+    if (machineName !== "") {
       axios
-      .post(baseURL + "/reports/saveLog", {
-        machineLogData
-      })
-      .then((response) => {
-        // toast.success(`Log Saved`, {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
-        setModalShow1(true);
-        axios
-      .post(baseURL + "/reports/machineOnclick", {
-        Date: dateSelect,
-        Machine: machineName,
-      })
-      .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          let dateSplit1 = response.data[i].FromTime.split(" ");
-          let date1 = dateSplit1[0].split("-");
-          let year1 = date1[0];
-          let month1 = date1[1];
-          let day1 = date1[2];
-          let time = dateSplit1[1].split(":");
-          let Time = time[0] + ":" + time[1];
-          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-          response.data[i].FromTime = finalDay1;
-        }
-        for (let i = 0; i < response.data.length; i++) {
-          let dateSplit2 = response.data[i].ToTime.split(" ");
-          let date2 = dateSplit2[0].split("-");
-          let year2 = date2[0];
-          let month2 = date2[1];
-          let day2 = date2[2];
-          let time1 = dateSplit2[1].split(":");
-          let Time1 = time1[0] + ":" + time1[1];
-          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-          response.data[i].ToTime = finalDay2;
-        }
-        console.log("", response.data);
-        setMachineLogData(response.data);
-      });
-      });
-    }
-    else{
-      axios
-      .post(baseURL + "/reports/saveLog", {
-        machineLogData
-      })
-      .then((response) => {
-        // toast.success(`Log Saved`, {
-        //   position: toast.POSITION.TOP_CENTER,
-        // });
-        setModalShow1(true);
-        console.log("afteronclick machine",machineName)
-        axios
-        .post(baseURL + "/reports/machineLog", { Date:dateSelect })
+        .post(baseURL + "/reports/saveLog", {
+          machineLogData,
+        })
         .then((response) => {
-          for (let i = 0; i < response.data.length; i++) {
-            let dateSplit1 = response.data[i].FromTime.split(" ");
-            let date1 = dateSplit1[0].split("-");
-            let year1 = date1[0];
-            let month1 = date1[1];
-            let day1 = date1[2];
-            let time = dateSplit1[1].split(":");
-            let Time = time[0] + ":" + time[1];
-            let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-            response.data[i].FromTime = finalDay1;
-          }
-          for (let i = 0; i < response.data.length; i++) {
-            let dateSplit2 = response.data[i].ToTime.split(" ");
-            let date2 = dateSplit2[0].split("-");
-            let year2 = date2[0];
-            let month2 = date2[1];
-            let day2 = date2[2];
-            let time1 = dateSplit2[1].split(":");
-            let Time1 = time1[0] + ":" + time1[1];
-            let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-            response.data[i].ToTime = finalDay2;
-          }
-          console.log(response.data);
-          setMachineLogData(response.data);
+          // toast.success(`Log Saved`, {
+          //   position: toast.POSITION.TOP_CENTER,
+          // });
+          setModalShow1(true);
+          axios
+            .post(baseURL + "/reports/machineOnclick", {
+              Date: dateSelect,
+              Machine: machineName,
+            })
+            .then((response) => {
+              for (let i = 0; i < response.data.length; i++) {
+                let dateSplit1 = response.data[i].FromTime.split(" ");
+                let date1 = dateSplit1[0].split("-");
+                let year1 = date1[0];
+                let month1 = date1[1];
+                let day1 = date1[2];
+                let time = dateSplit1[1].split(":");
+                let Time = time[0] + ":" + time[1];
+                let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+                response.data[i].FromTime = finalDay1;
+              }
+              for (let i = 0; i < response.data.length; i++) {
+                let dateSplit2 = response.data[i].ToTime.split(" ");
+                let date2 = dateSplit2[0].split("-");
+                let year2 = date2[0];
+                let month2 = date2[1];
+                let day2 = date2[2];
+                let time1 = dateSplit2[1].split(":");
+                let Time1 = time1[0] + ":" + time1[1];
+                let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+                response.data[i].ToTime = finalDay2;
+              }
+              // console.log("", response.data);
+              setMachineLogData(response.data);
+            });
         });
-      });
+    } else {
+      axios
+        .post(baseURL + "/reports/saveLog", {
+          machineLogData,
+        })
+        .then((response) => {
+          // toast.success(`Log Saved`, {
+          //   position: toast.POSITION.TOP_CENTER,
+          // });
+          setModalShow1(true);
+          // console.log("afteronclick machine", machineName);
+          axios
+            .post(baseURL + "/reports/machineLog", { Date: dateSelect })
+            .then((response) => {
+              for (let i = 0; i < response.data.length; i++) {
+                let dateSplit1 = response.data[i].FromTime.split(" ");
+                let date1 = dateSplit1[0].split("-");
+                let year1 = date1[0];
+                let month1 = date1[1];
+                let day1 = date1[2];
+                let time = dateSplit1[1].split(":");
+                let Time = time[0] + ":" + time[1];
+                let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+                response.data[i].FromTime = finalDay1;
+              }
+              for (let i = 0; i < response.data.length; i++) {
+                let dateSplit2 = response.data[i].ToTime.split(" ");
+                let date2 = dateSplit2[0].split("-");
+                let year2 = date2[0];
+                let month2 = date2[1];
+                let day2 = date2[2];
+                let time1 = dateSplit2[1].split(":");
+                let Time1 = time1[0] + ":" + time1[1];
+                let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+                response.data[i].ToTime = finalDay2;
+              }
+              // console.log(response.data);
+              setMachineLogData(response.data);
+            });
+        });
     }
   };
 
@@ -216,11 +214,9 @@ export default function MachineLog({
     setModalShow1(false);
   };
   const modalData = {
-    title: 'Reports',
-    content: 'Log Saved'
+    title: "Reports",
+    content: "Log Saved",
   };
-
-  
 
   //Open PDF
   const PrintShiftLog = () => {
@@ -238,16 +234,26 @@ export default function MachineLog({
     setModalShow4(false);
   };
   const modalData1 = {
-    title: 'Reports',
-    content: 'Prepare Report Before Printing ShiftLog'
+    title: "Reports",
+    content: "Prepare Report Before Printing ShiftLog",
   };
-  
+
   // console.log(machineLogData);
 
+  const [showActionTaken, setShowActionTaken] = useState(false);
+  const [actionTaken, setActionTaken] = useState('')
+  const onclicktoShowActionTaken = (actionTaken) => {
+    if (actionTaken !== null) {
+      // Show toast notification
+      // Example using toastify
+      setShowActionTaken(true);
+      setActionTaken(actionTaken);
+    }
+  };
+  // console.log("actionTaken", actionTaken);
 
   return (
     <div>
-
       <PrintShiftLogModal
         openShiftLog={openShiftLog}
         setOpenShiftLog={setOpenShiftLog}
@@ -313,7 +319,7 @@ export default function MachineLog({
               <th>Operation</th>
             </tr>
           </thead>
-          
+
           {Array.isArray(machineLogData) && machineLogData.length > 0 ? (
             <tbody className="tablebody table-space table-cell-align">
               {machineLogData.map((item, key) => {
@@ -335,7 +341,7 @@ export default function MachineLog({
                     </td>
                     <td>{item?.Machine}</td>
                     <td>{item?.Shift}</td>
-                    <td>{key+1}</td>
+                    <td>{key + 1}</td>
                     <td>
                       <div>
                         <input
@@ -362,7 +368,13 @@ export default function MachineLog({
                     </td>
                     <td>{item?.MachineTime}</td>
                     <td>{item?.Program}</td>
-                    <td>{item?.Remarks === 'null' ? "" : item?.Remarks}</td>
+                    <td
+                      onClick={() =>
+                        onclicktoShowActionTaken(item?.actiontaken)
+                      }
+                    >
+                      {item?.Remarks === "null" ? "" : item?.Remarks}
+                    </td>
                     <td>{item?.Operator}</td>
                     <td>{item?.Operation}</td>
                   </tr>
@@ -380,8 +392,26 @@ export default function MachineLog({
           )}
         </Table>
       </div>
-      <CustomModal show={modalShow1} handleClose={closeModal} data={modalData} />
-      <CustomModal show={modalShow4} handleClose={closeModal1} data={modalData1} />
+
+      <CustomModal
+        show={modalShow1}
+        handleClose={closeModal}
+        data={modalData}
+      />
+
+      <CustomModal
+        show={modalShow4}
+        handleClose={closeModal1}
+        data={modalData1}
+      />
+
+      <CustomModal
+        show={showActionTaken}
+        handleClose={() => setShowActionTaken(false)}
+        data={{ title: 'Action Taken', content: actionTaken }}
+      />
+
+
     </div>
   );
 }

@@ -95,7 +95,6 @@ export default function ByMachineBox() {
     axios
       .post(baseURL + "/shiftManagerProfile/taskNoProgramNoProcessing", TaskNo)
       .then((response) => {
-        console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -285,7 +284,6 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
         setMachineProgramesCompleted(response.data);
         setSelectedLabelIndex(index);
     setSelectedMachineIndex(-1);

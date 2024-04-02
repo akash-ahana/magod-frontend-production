@@ -95,19 +95,21 @@ export default function MachineLogTable() {
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
-                  <tr>
-                    <th>Processed</th>
-                    <th>FromTime</th>
-                    <th>ToTime</th>
-                    <th>RunningTime</th>
-                    <th>Program</th>
-                    <th>Operation</th>
-                    <th>Remarks</th>
-                    <th>Locked</th>
-                    <th>Operator</th>
-                    {/* <th>Abc</th>
+                <tr>
+           <th>Machine</th>
+           <th>Shift</th>
+           <th>Srl</th>
+           <th>FromTime</th>
+           <th>ToTime</th>
+           <th>RunningTime</th>
+           <th>Program</th>
+           <th>Operation</th>
+           <th>Remarks</th>
+           <th>Locked</th>
+           <th>Operator</th>
+           {/* <th>Abc</th>
            <th>Xyz</th> */}
-                  </tr>
+         </tr>
                 </thead>
 
                 {Array.isArray(machineLog) && machineLog.length > 0 ? (
@@ -115,17 +117,25 @@ export default function MachineLogTable() {
                     {machineLog.map((item, key) => {
                       return (
                         <tr>
-                          <td>{item?.Machine}</td>
-                          <td>{item?.Shift}</td>
-                          <td>{item?.Srl}</td>
-                          <td>{item?.FromTime}</td>
-                          <td>{item?.ToTime}</td>
-                          <td>{item?.MachineTime}</td>
-                          <td>{item?.Program}</td>
-                          <td>{item?.Remarks}</td>
-                          <td>{item?.Operator}</td>
-                          <td>{item?.Operation}</td>
-                        </tr>
+                        <td>{item?.Machine}</td>
+                        <td>{item?.Shift}</td>
+                        <td>{key+1}</td>
+                        <td>
+                        {item?.FromTime}
+                        </td>
+                        <td>
+                        {item?.ToTime}
+                        </td>
+                        <td>{item?.MachineTime}</td>
+                        <td>{item?.Program}</td>
+                        <td>{item?.Operation}</td>
+                        <td>{item?.Remarks}</td>
+                        <td><input
+                           type='checkbox'
+                           checked={item?.Locked===1}
+                        /></td>
+                        <td>{item?.Operator}</td>
+                      </tr>
                       );
                     })}
                   </tbody>

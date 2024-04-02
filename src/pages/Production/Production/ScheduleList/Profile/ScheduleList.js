@@ -25,17 +25,19 @@ export default function ScheduleList() {
   const [taskno, setTaskno] = useState("");
   const processtableSelectFun = (item, index) => {
     let list = { ...item, index: index };
-    console.log("TaskNo", item.TaskNo);
     setTaskno(item.TaskNo);
     setProcessrowselect(list);
   };
+
+
+
 
   let TaskNo = processrowselect.TaskNo;
   const [partlistdata, setPartlistdata] = useState([]);
   const getpartslistdata = () => {
     axios
       .post(baseURL + "/scheduleListProfile/schedulesListPartsList", {
-        TaskId: TaskNo,
+        processrowselect,
       })
       .then((response) => {
         setPartlistdata(response.data);
@@ -44,6 +46,7 @@ export default function ScheduleList() {
 
   //Process Table(Right First table) data
   const [processtable, setProcesstable] = useState([]);
+  console.log("rowselect is",)
   let OrdSchNo = rowselect?.OrdSchNo;
   const getprocessTabledata = () => {
     axios

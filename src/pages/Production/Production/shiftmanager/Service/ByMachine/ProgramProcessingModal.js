@@ -34,7 +34,6 @@ export default function ProgramProcessingModal({
         ...selectProgramProcessing,
       })
       .then((response) => {
-        console.log(response.data);
         setProgramCompleteData(response.data);
       });
   };
@@ -176,7 +175,6 @@ export default function ProgramProcessingModal({
         { Operation: selectProgramProcessing.MProcess }
       )
       .then((response) => {
-        console.log("Change Machine List in Machine Popup", response.data);
         setMachineData(response.data);
       });
   };

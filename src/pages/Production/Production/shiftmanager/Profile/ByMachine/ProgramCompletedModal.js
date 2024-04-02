@@ -44,7 +44,54 @@ export default function ProgramCompletedModal({
     modalTable();
   }, [selectProgramCompleted]);
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    setShow(false);
+    axios
+    .post(
+      baseURL +
+        "/shiftManagerProfile/profileListMachinesProgramesCompleted",
+      { MachineName: selectedMachine }
+    )
+    .then((response) => {
+      for (let i = 0; i < response.data.length; i++) {
+        if (
+          response.data[i].ActualTime <
+          0.5 * response.data[i].EstimatedTime
+        ) {
+          response.data[i].rowColor = "#339900";
+        } else if (
+          response.data[i].ActualTime <
+          0.75 * response.data[i].EstimatedTime
+        ) {
+          response.data[i].rowColor = "#82c2b4";
+        } else if (
+          response.data[i].ActualTime <
+          0.9 * response.data[i].EstimatedTime
+        ) {
+          response.data[i].rowColor = "#f08080";
+        } else if (
+          response.data[i].ActualTime <
+          1.1 * response.data[i].EstimatedTime
+        ) {
+          response.data[i].rowColor = "#f08080";
+        } else if (
+          response.data[i].ActualTime <
+          1.25 * response.data[i].EstimatedTime
+        ) {
+          response.data[i].rowColor = "#FF7F50";
+        } else if (
+          response.data[i].ActualTime <
+          1.5 * response.data[i].EstimatedTime
+        ) {
+          response.data[i].rowColor = "#FFA500";
+        } else {
+          response.data[i].rowColor = "#ff0000";
+        }
+      }
+      setMachineProgramesCompleted(response.data);
+      setSelectProgramCompleted({...response.data[0],index:0})
+    });
+  }
 
   const clearAllButton = () => {
     console.log("Clear All button Clicked", programCompleteData);
@@ -121,7 +168,6 @@ export default function ProgramCompletedModal({
       selectProgramCompleted
     )
     .then((response) => {
-      console.log(response.data);
       if(response.data=='Return or update Material before closing Program'){
         setCloseProgram(true);
         setResponse('Return or update Material before closing Program')
@@ -146,52 +192,6 @@ export default function ProgramCompletedModal({
             constSelectProgramCompleted.PStatus = "Closed";
             setSelectProgramCompleted(constSelectProgramCompleted);
             setDisableStatus(response.data.success);
-            axios
-          .post(
-            baseURL +
-              "/shiftManagerProfile/profileListMachinesProgramesCompleted",
-            { MachineName: selectedMachine }
-          )
-          .then((response) => {
-            for (let i = 0; i < response.data.length; i++) {
-              if (
-                response.data[i].ActualTime <
-                0.5 * response.data[i].EstimatedTime
-              ) {
-                response.data[i].rowColor = "#339900";
-              } else if (
-                response.data[i].ActualTime <
-                0.75 * response.data[i].EstimatedTime
-              ) {
-                response.data[i].rowColor = "#82c2b4";
-              } else if (
-                response.data[i].ActualTime <
-                0.9 * response.data[i].EstimatedTime
-              ) {
-                response.data[i].rowColor = "#f08080";
-              } else if (
-                response.data[i].ActualTime <
-                1.1 * response.data[i].EstimatedTime
-              ) {
-                response.data[i].rowColor = "#f08080";
-              } else if (
-                response.data[i].ActualTime <
-                1.25 * response.data[i].EstimatedTime
-              ) {
-                response.data[i].rowColor = "#FF7F50";
-              } else if (
-                response.data[i].ActualTime <
-                1.5 * response.data[i].EstimatedTime
-              ) {
-                response.data[i].rowColor = "#FFA500";
-              } else {
-                response.data[i].rowColor = "#ff0000";
-              }
-            }
-            console.log("AFTER ADDING COLOR", response.data);
-            setMachineProgramesCompleted(response.data);
-            setSelectProgramCompleted({...response.data[0],index:0})
-          });
           }
       }
     });

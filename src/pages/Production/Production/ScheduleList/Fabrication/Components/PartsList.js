@@ -23,7 +23,7 @@ export default function PartsList({
   const onChangeInput = (e, TaskNo, key) => {
     const { name, value } = e.target;
     const NewEditData = partlistdata;
-    NewEditData[key].QtyCleared = value;
+    NewEditData[key].QtyProduced = value;
     setPartlistdata(NewEditData);
     setNewPartlistdata(NewEditData);
   };
@@ -32,7 +32,7 @@ export default function PartsList({
   const clearAllonClick = () => {
     const constpartListData = partlistdata;
     for (let i = 0; i < constpartListData.length; i++) {
-      constpartListData[i].QtyCleared = constpartListData[i].QtyCut;
+      constpartListData[i].QtyProduced = constpartListData[i].QtyNested;
     }
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
@@ -43,7 +43,7 @@ export default function PartsList({
   const clearSelected = () => {
     const updatedRows = partlistdata.map((row) => {
       if (selectedRows.includes(row)) {
-        return { ...row, QtyCleared: row.QtyCut };
+        return { ...row, QtyProduced: row.QtyNested };
       }
       return row;
     });
@@ -54,10 +54,10 @@ export default function PartsList({
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
-    // Check if there is at least one row where QtyCut is not equal to QtyCleared
-    const hasUnsavedData = partlistdata.some(item => item.QtyCut !== item.QtyCleared);
+    // Check if there is at least one row where QtyNested is not equal to QtyProduced
+    const hasUnsavedData = partlistdata.some(item => item.QtyNested !== item.QtyProduced);
     if (!saveCleared) {
-      // There is at least one row where QtyCut is not equal to QtyCleared
+      // There is at least one row where QtyNested is not equal to QtyProduced
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveCleared",
@@ -71,7 +71,7 @@ export default function PartsList({
           console.log("executed first API");
         });
     } else {
-      // All rows have QtyCut equal to QtyCleared
+      // All rows have QtyNested equal to QtyProduced
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
@@ -114,13 +114,13 @@ export default function PartsList({
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
     const newValue = parseInt(e.target.value); // Convert the input value to an integer
-    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyCut) {
-      newConstPartList[key].QtyCleared = newValue; // Update QtyCleared if it's a valid value
+    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyNested) {
+      newConstPartList[key].QtyProduced = newValue; // Update QtyProduced if it's a valid value
     } else {
-      newConstPartList[key].QtyCleared = ""; // Reset QtyCleared if the value is invalid
+      newConstPartList[key].QtyProduced = ""; // Reset QtyProduced if the value is invalid
     }
     setPartlistdata(newConstPartList);
-    if (newValue > newConstPartList[key].QtyCut) {
+    if (newValue > newConstPartList[key].QtyNested) {
       toast.error("Cleared cannot be greater than Produced!", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -131,9 +131,9 @@ export default function PartsList({
     const newConstPartList1 = [...partlistdata]; // Create a copy of the partlistdata array
     const newProduced = parseInt(e.target.value); // Convert the input value to an integer
     if (!isNaN(newProduced) && newProduced <= newConstPartList1[key].QtyToNest) {
-      newConstPartList1[key].QtyCut = newProduced; // Update QtyCleared if it's a valid value
+      newConstPartList1[key].QtyNested = newProduced; // Update QtyProduced if it's a valid value
     } else {
-      newConstPartList1[key].QtyCut = ""; // Reset QtyCleared if the value is invalid
+      newConstPartList1[key].QtyNested = ""; // Reset QtyProduced if the value is invalid
     }
     setPartlistdata(newConstPartList1);
     if (newProduced > newConstPartList1[key].QtyToNest) {
@@ -149,7 +149,7 @@ export default function PartsList({
 
   const isClearedDisabled =
     selectedRows.length === 0 &&
-    partlistdata.every((row) => row.QtyCleared === row.QtyCut);
+    partlistdata.every((row) => row.QtyProduced === row.QtyNested);
 
   //ONSELECT
   const [selectPartList, setSelectPartList] = useState({});
@@ -210,7 +210,7 @@ export default function PartsList({
               <th>SchDetailsId</th>
               <th>PartId</th>
               <th>QtyToNest</th>
-              <th>QtyCleared</th>
+              <th>QtyProduced</th>
               <th>QtyProduced</th>
               <th>QtyNested</th>
               <th>Remarks</th>
@@ -244,7 +244,7 @@ export default function PartsList({
                     />
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
-                  <td style={{ textAlign: "center" }}>{item.TotQtyNested}</td>
+                  <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
                   <td>
                     <div>
                       <input
@@ -253,7 +253,7 @@ export default function PartsList({
                         name="produced"
                         type="number"
                         placeholder="Type Produced"
-                        value={item.QtyCut}
+                        value={item.QtyNested}
                         onKeyDown={blockInvalidChar}
                         onChange={(e) => handleProducedChanged(e, item, key)}
                         inputMode="numeric"
@@ -268,7 +268,7 @@ export default function PartsList({
                         name="cleared"
                         type="number"
                         placeholder="Type Cleared"
-                        value={item.QtyCleared}
+                        value={item.QtyProduced}
                         onChange={(e) => onChangeCleared(e, item, key)}
                         onKeyDown={blockInvalidChar}
                         inputMode="numeric"
@@ -285,8 +285,8 @@ export default function PartsList({
                   </td>
                   <td style={{ textAlign: "center" }}>{item.PartID}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyCleared}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyCut}</td>
+                  <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
+                  <td style={{ textAlign: "center" }}>{item.QtyNested}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyNested}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
                   <td style={{ textAlign: "center" }}>{item.LOC}</td>
