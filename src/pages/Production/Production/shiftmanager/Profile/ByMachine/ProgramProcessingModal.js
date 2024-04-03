@@ -58,7 +58,6 @@ export default function ProgramProcessingModal({
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-    console.log(constProgramCompleteData);
     // Check if any row has QtyRejected > 0 and the 'Cleared' remarks input is null
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
