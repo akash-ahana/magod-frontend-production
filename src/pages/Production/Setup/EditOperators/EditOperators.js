@@ -4,9 +4,7 @@ import { baseURL } from "../../../../api/baseUrl";
 import EditOperatorTable from "./EditOperatorTable";
 import EditOperatorForm from "./EditOperatorForm";
 
-
 export default function EditOperators() {
-
   const [getOperatorlist, setgetOperatorList] = useState([]);
   const getOperatorData = () => {
     axios.get(baseURL + "/EditOperator/getOperator", {}).then((response) => {
@@ -33,25 +31,27 @@ export default function EditOperators() {
     }
   }, [getOperatorlist, rowselectOperator, selectedRowFunOperator]);
 
-
   return (
- <div className="row">
-      <h4 className="title mb-4">Edit Operator Setup Form</h4>
-      <div className="col-md-5">
-        <EditOperatorTable
-          getOperatorlist={getOperatorlist}
-          rowselectOperator={rowselectOperator}
-          selectedRowFunOperator={selectedRowFunOperator}
-        />
+    <>
+      <h4 className="title mb-1">Edit Operator Setup Form</h4>
+      <div className="row">
+        <div className="col-md-6">
+          <EditOperatorTable
+            getOperatorlist={getOperatorlist}
+            rowselectOperator={rowselectOperator}
+            selectedRowFunOperator={selectedRowFunOperator}
+          />
+        </div>
+        <div className="col-md-6">
+          <EditOperatorForm
+            rowselectOperator={rowselectOperator}
+            getOperatorlist={getOperatorlist}
+            setgetOperatorList={setgetOperatorList}
+            setRowSelectOperator={setRowSelectOperator}
+            getOperatorData={getOperatorData}
+          />
+        </div>
       </div>
-      <div className="col-md-5 ms-5">
-        <EditOperatorForm rowselectOperator={rowselectOperator} 
-        getOperatorlist={getOperatorlist}
-        setgetOperatorList={setgetOperatorList}
-        setRowSelectOperator={setRowSelectOperator}
-        getOperatorData={getOperatorData}
-        />
-      </div>
-    </div> 
-     )
+    </>
+  );
 }

@@ -11,7 +11,6 @@ export default function AddOperatorModal({
   setOpenAdd,
   getOperatorData,
 }) {
-
   const handleClose = () => {
     setOpenAdd(false);
   };
@@ -36,7 +35,7 @@ export default function AddOperatorModal({
   const addShiftInCharge = () => {
     setOpenAdd(false);
     setAddShiftInChargeModal(true);
-    };
+  };
 
   const handleSubmit = () => {
     axios
@@ -47,12 +46,12 @@ export default function AddOperatorModal({
       })
       .then((response) => {
         setOpenAdd(false);
-        setAddShiftInChargeModal(false)
-        if (response.data === 'Name already present') {
+        setAddShiftInChargeModal(false);
+        if (response.data === "Name already present") {
           toast.error("Operator already present", {
             position: toast.POSITION.TOP_CENTER,
           });
-        } else if (response.data === 'Insert successful') {
+        } else if (response.data === "Insert successful") {
           toast.success("Operator Added Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
@@ -69,62 +68,71 @@ export default function AddOperatorModal({
 
   return (
     <>
-    <Modal show={openAdd} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>Magod Laser:Add Operator</Modal.Title>
-      </Modal.Header>
+      <Modal show={openAdd} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title style={{ fontSize: "14px" }}>
+            Magod Laser:Add Operator
+          </Modal.Title>
+        </Modal.Header>
 
-      <Modal.Body>
-        <div className="col-md-12 col-sm-12 ip-box form-bg">
-          <div className="row">
-            <div className="col-md-12">
-              <label className="form-label">Operator</label>
-              <input className="in-field2" onChange={handleChangeShiftIc} />
+        <Modal.Body>
+          <div className="col-md-12 col-sm-12 ip-box form-bg">
+            <div className="row">
+              <div className="d-flex col-md-12" style={{ gap: "15px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Operator
+                </label>
+                <input className="input-field" onChange={handleChangeShiftIc} />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Skill Level
+                </label>
+                <input
+                  className="input-field"
+                  onChange={handleChangeSkillLevel}
+                />
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="d-flex col-md-12 mb-2" style={{ gap: "30px" }}>
+                <label className="form-label">Status</label>
+                <input className="input-field" onChange={handleChangeStaus} />
+              </div>
             </div>
           </div>
+        </Modal.Body>
 
-          <div className="row">
-            <div className="col-md-12">
-              <label className="form-label">Skill Level</label>
-              <input className="in-field2" onChange={handleChangeSkillLevel} />
-            </div>
-          </div>
+        <Modal.Footer>
+          <button
+            className="button-style group-button"
+            onClick={addShiftInCharge}
+          >
+            Add
+          </button>
 
-          <div className="row">
-            <div className="col-md-12 mb-2">
-              <label className="form-label">Status</label>
-              <input className="in-field2" onChange={handleChangeStaus} />
-            </div>
-          </div>
-        </div>
-      </Modal.Body>
-
-      <Modal.Footer>
-        <Button
-          style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
-          onClick={addShiftInCharge}
-        >
-          Add
-        </Button>
-
-        <Button variant="secondary" onClick={handleClose}>
-          Exit
-        </Button>
-      </Modal.Footer>
-    </Modal>
-    {AddShiftInChargeModal && (
+          <button className="button-style group-button" onClick={handleClose}>
+            Exit
+          </button>
+        </Modal.Footer>
+      </Modal>
+      {AddShiftInChargeModal && (
         <GlobalModal
-        show={AddShiftInChargeModal}
-        title="magod_Operator"
-        content={
-          <>
-            Are You sure you want to add <strong>{Operator}</strong> ?
-          </>
-        }
-        onYesClick={handleSubmit}
-        onNoClick={handleCloseAdd}
-        onClose={handleCloseAdd}
-      />
+          show={AddShiftInChargeModal}
+          title="magod_Operator"
+          content={
+            <h5 style={{ fontSize: "12px" }}>
+              Are You sure you want to add <strong>{Operator}</strong> ?
+            </h5>
+          }
+          onYesClick={handleSubmit}
+          onNoClick={handleCloseAdd}
+          onClose={handleCloseAdd}
+        />
       )}
     </>
   );

@@ -109,14 +109,145 @@ function Forms() {
             ( */}
       <div>
         <div className="bg-light">
-          <div className="my-0" style={{ margin: "40px" }}>
+          <label className="form-label ms-2">
+            Shift In Charge Monitoring Form
+          </label>
+          <div>
             <div className="row">
-              <h8 style={{ marginLeft: "-30px" }}>
-                <b>Shift In Charge Monitoring Form</b>
-              </h8>
-            </div>
+              <div className="col-md-4">
+                <div className="d-flex" style={{ gap: "41px" }}>
+                  <label className="form-label">Date</label>
+                  <input
+                    className="input-field bg-light"
+                    value={shiftDetails[0]?.ShiftDate}
+                  />
+                </div>
 
-            <form className="d-flex">
+                <div className="d-flex" style={{ gap: "40px" }}>
+                  <label className="form-label">Shift</label>
+                  <input
+                    className="input-field"
+                    type="text"
+                    disabled
+                    value={shiftDetails[0]?.Shift}
+                  />
+                </div>
+
+                <div className="d-flex" style={{ gap: "37px" }}>
+                  <label className="form-label">From</label>
+                  <input
+                    className="input-field"
+                    value={shiftDetails[0]?.FromTime}
+                    disabled
+                  />
+                </div>
+
+                <div className="d-flex" style={{ gap: "52px" }}>
+                  <label className="form-label">To</label>
+                  <input
+                    className="input-field"
+                    disabled
+                    value={shiftDetails[0]?.ToTime}
+                  />
+                </div>
+
+                <div className="d-flex mb-2" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    In Charge
+                  </label>
+                  <input
+                    className="input-field"
+                    type="text"
+                    disabled
+                    value={shiftDetails[0]?.Shift_Ic}
+                  />
+                </div>
+              </div>
+              <div className="d-flex col-md-4" style={{ gap: "10px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Shift Instructions
+                </label>
+                <textarea
+                  className="in-field"
+                  rows="8"
+                  id=""
+                  onChange={handleOnChange}
+                  style={{ height: "130px", resize: "none", width: "300px" }}
+                  value={shiftDetails[0]?.Shift_instruction}
+                  disabled
+                ></textarea>
+              </div>
+              <div className="col-md-3">
+                <div className="">
+                  <label className="form-label" style={{ fontSize: "14px" }}>
+                    Group Actions
+                  </label>
+
+                  <div
+                    className="col-md-12 mt-1"
+                    style={{ display: "flex", gap: "5px" }}
+                  >
+                    <label
+                      className="form-label"
+                      style={{ paddingRight: "4px" }}
+                    >
+                      {" "}
+                      By Machines
+                    </label>
+                    <input
+                      className="form-check-input mt-2"
+                      onChange={byMachine}
+                      type="radio"
+                      name="working"
+                      defaultChecked
+                    />
+                  </div>
+                  <div
+                    className="col-md-12 mt-1"
+                    style={{ display: "flex", gap: "5px" }}
+                  >
+                    <label className="form-label"> By Operation</label>
+                    <input
+                      className="form-check-input mt-2"
+                      onChange={byOperation}
+                      type="radio"
+                      name="working"
+                    />
+                  </div>
+                  <div
+                    className="col-md-12 mt-1"
+                    style={{ display: "flex", gap: "5px" }}
+                  >
+                    <label
+                      className="form-label"
+                      style={{ paddingRight: "3px" }}
+                    >
+                      {" "}
+                      By Customer
+                    </label>
+                    <input
+                      className="form-check-input mt-2"
+                      onChange={byCustomer}
+                      type="radio"
+                      name="working"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="col-md-1">
+                <button
+                  className="button-style group-button"
+                  type="button"
+                  onClick={onClickClose}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+            {/* <form className="d-flex">
               <div
                 className="box mb-3"
                 style={{ width: "300px", marginRight: "-60px" }}
@@ -247,7 +378,7 @@ function Forms() {
                   Close
                 </button>
               </div>
-            </form>
+            </form> */}
           </div>
         </div>
       </div>

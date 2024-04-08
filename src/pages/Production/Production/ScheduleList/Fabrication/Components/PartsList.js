@@ -15,8 +15,7 @@ export default function PartsList({
 }) {
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
-    const[saveCleared,setSaveCleared]=useState(false);
-
+  const [saveCleared, setSaveCleared] = useState(false);
 
   // Process Table(Right First table) data
   const [newpartlistdata, setNewPartlistdata] = useState([]);
@@ -49,13 +48,15 @@ export default function PartsList({
     });
     setPartlistdata(updatedRows);
     setSelectedRows([]);
-    setSaveCleared(false)
+    setSaveCleared(false);
   };
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
     // Check if there is at least one row where QtyNested is not equal to QtyProduced
-    const hasUnsavedData = partlistdata.some(item => item.QtyNested !== item.QtyProduced);
+    const hasUnsavedData = partlistdata.some(
+      (item) => item.QtyNested !== item.QtyProduced
+    );
     if (!saveCleared) {
       // There is at least one row where QtyNested is not equal to QtyProduced
       axios
@@ -86,7 +87,6 @@ export default function PartsList({
         });
     }
   };
-  
 
   // SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);
@@ -110,7 +110,6 @@ export default function PartsList({
     }
   };
 
-
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
     const newValue = parseInt(e.target.value); // Convert the input value to an integer
@@ -127,10 +126,13 @@ export default function PartsList({
     }
   };
 
-  const handleProducedChanged=(e,item,key)=>{
+  const handleProducedChanged = (e, item, key) => {
     const newConstPartList1 = [...partlistdata]; // Create a copy of the partlistdata array
     const newProduced = parseInt(e.target.value); // Convert the input value to an integer
-    if (!isNaN(newProduced) && newProduced <= newConstPartList1[key].QtyToNest) {
+    if (
+      !isNaN(newProduced) &&
+      newProduced <= newConstPartList1[key].QtyToNest
+    ) {
       newConstPartList1[key].QtyNested = newProduced; // Update QtyProduced if it's a valid value
     } else {
       newConstPartList1[key].QtyNested = ""; // Reset QtyProduced if the value is invalid
@@ -140,7 +142,8 @@ export default function PartsList({
       toast.error("Produced cannot be greater than Programmed!", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }  }
+    }
+  };
 
   useEffect(() => {
     getpartslistdata();
@@ -163,39 +166,33 @@ export default function PartsList({
     setSelectPartList({ ...partlistdata[0], index: 0 });
   }, [partlistdata[0]]);
 
-  console.log("partlistdata",partlistdata)
+  console.log("partlistdata", partlistdata);
 
   return (
     <div>
-      <div className="row mt-2">
+      <div className="row">
+        <div className="col-md-12">
+          <button className="button-style group-button" onClick={clearSelected}>
+            Clear Selected
+          </button>
 
-      <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearSelected}
-        >
-          Clear Selected
-        </button>
-        
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearAllonClick}
-        >
-          Clear All
-        </button>
+          <button
+            className="button-style group-button"
+            onClick={clearAllonClick}
+          >
+            Clear All
+          </button>
 
-
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={saveClearedonClick}
-        >
-          Save Cleared
-        </button>
+          <button
+            className="button-style group-button"
+            onClick={saveClearedonClick}
+          >
+            Save Cleared
+          </button>
+        </div>
       </div>
 
-      <div className="mt-4" style={{ height: "160px", overflowY: "scroll" }}>
+      <div className="mt-1" style={{ height: "120px", overflowY: "scroll" }}>
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
             <tr>

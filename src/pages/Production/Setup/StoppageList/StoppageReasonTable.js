@@ -19,9 +19,9 @@ export default function StoppageReasonTable({
   }, [getReasonsList, selectedReason, selectReasonFun]);
 
   return (
-    <div className="row mt-1">
+    <div className="mt-1">
       <div>
-        <div style={{ height: "430px", overflowY: "auto" }}>
+        <div style={{ height: "370px", overflowY: "auto", overflowX: "auto" }}>
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>

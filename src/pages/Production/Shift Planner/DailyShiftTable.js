@@ -8,7 +8,6 @@ import { baseURL } from "../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-
 function DailyShiftTable({
   SingleDayShiftPlan4thTable,
   rowSelectFunForDailyShiftTable,
@@ -23,12 +22,8 @@ function DailyShiftTable({
   setSingleDayShiftPlan4thTable,
   condition,
   selectedShift,
-  SelectedShiftIncharge
-  
+  SelectedShiftIncharge,
 }) {
-
- 
-
   useEffect(() => {
     getMachineOperatorTableData();
   }, [rowselectDailyShiftTable]);
@@ -36,7 +31,6 @@ function DailyShiftTable({
   // useMemo(() => {
   //   setRowselectDailyShiftTable({ ...SingleDayShiftPlan4thTable[0], index: 0 });
   // }, [SingleDayShiftPlan4thTable[0]]);
-
 
   const [shiftinstruction, setShiftinstruction] = useState("");
 
@@ -54,7 +48,6 @@ function DailyShiftTable({
     }
   }, [SingleDayShiftPlan4thTable]);
 
- 
   const updateShiftinstruction = () => {
     // Check if the shift instruction is null or empty
     console.log(shiftinstruction);
@@ -62,32 +55,30 @@ function DailyShiftTable({
       toast.error("Shift Instructions cannot be empty!", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    else{
+    } else {
       axios
-      .post(baseURL + "/shiftEditor/updateSingleDaySihiftInstructions", {
-        ...rowselectDailyShiftTable,
-        shiftInstruction: shiftinstruction,
-      })
-      .then((response) => {
-        // Update the Shift_instruction in rowselectDailyShiftTable
-        setRowselectDailyShiftTable((prevRowselect) => ({
-          ...prevRowselect,
-          Shift_instruction: shiftinstruction,
-        }));
-        toast.success("Shift Instructions Saved", {
-          position: toast.POSITION.TOP_CENTER,
+        .post(baseURL + "/shiftEditor/updateSingleDaySihiftInstructions", {
+          ...rowselectDailyShiftTable,
+          shiftInstruction: shiftinstruction,
+        })
+        .then((response) => {
+          // Update the Shift_instruction in rowselectDailyShiftTable
+          setRowselectDailyShiftTable((prevRowselect) => ({
+            ...prevRowselect,
+            Shift_instruction: shiftinstruction,
+          }));
+          toast.success("Shift Instructions Saved", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        })
+        .catch((error) => {
+          toast.error("An error occurred while saving Shift Instructions", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
-      })
-      .catch((error) => {
-        toast.error("An error occurred while saving Shift Instructions", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      });
-      setShiftinstruction("")
+      setShiftinstruction("");
     }
   };
-
 
   //Machine Operator Table Rowselect
   const [rowselectMachineOperator, setRowselectMachineOperator] = useState({});
@@ -98,10 +89,9 @@ function DailyShiftTable({
 
   console.log("selected row", rowselectDailyShiftTable);
 
-
   return (
     <div style={{ display: "flex" }}>
-      <div className="col-md-4 mt-4 mx-1">
+      <div className="col-md-4 mx-1">
         <div className="col-md-4">
           <SingleDayShiftEditor
             rowselectDailyShiftTable={rowselectDailyShiftTable}
@@ -112,7 +102,7 @@ function DailyShiftTable({
             rowSelectFunForDailyShiftTable={rowSelectFunForDailyShiftTable}
             condition={condition}
             machineOperatorTableData={machineOperatorTableData}
-            selectedShift={selectedShift}    
+            selectedShift={selectedShift}
             SelectedShiftIncharge={SelectedShiftIncharge}
           />
         </div>
@@ -130,17 +120,20 @@ function DailyShiftTable({
 
       <div className="col-md-4">
         <div
-          className="col-md-12 mt-4 ms-1"
+          className="col-md-12 ms-1"
           style={{
             width: "360px",
-            height: "57%",
+            height: "49%",
             fontSize: "15px",
             overflowX: "scroll",
             overflowY: "scroll",
           }}
         >
-
-         <Table striped className="table-data border" style={{ border: "1px" }}>
+          <Table
+            striped
+            className="table-data border"
+            style={{ border: "1px" }}
+          >
             <thead className="tableHeaderBGColor">
               <tr>
                 <th>Shift</th>
@@ -163,7 +156,11 @@ function DailyShiftTable({
                 SingleDayShiftPlan4thTable.map((rank, i, row) => (
                   <tr
                     onClick={() => rowSelectFunForDailyShiftTable(rank, i)}
-                    className={i === rowselectDailyShiftTable?.index ? "selcted-row-clr" : ""}
+                    className={
+                      i === rowselectDailyShiftTable?.index
+                        ? "selcted-row-clr"
+                        : ""
+                    }
                   >
                     <td style={{ whiteSpace: "nowrap" }}>{rank.Shift}</td>
                     <td style={{ whiteSpace: "nowrap" }}>{rank.Shift_Ic}</td>
@@ -173,7 +170,7 @@ function DailyShiftTable({
                       <div key={rank.DayShiftId}>
                         <input
                           className="table-cell-editor"
-                         value={rank.Shift_instruction || ""}
+                          value={rank.Shift_instruction || ""}
                           onChange={(e) => onChangeInput(e, i)}
                           placeholder="Type Cleared"
                         />
@@ -194,7 +191,6 @@ function DailyShiftTable({
               )}
             </tbody>
           </Table>
-
         </div>
         <div className="col-md-12 mt-1">
           <MachineOperatorTable
@@ -212,7 +208,5 @@ function DailyShiftTable({
     </div>
   );
 }
-
- 
 
 export default DailyShiftTable;

@@ -6,18 +6,17 @@ import "react-toastify/dist/ReactToastify.css";
 import DeleteAskModal from "../StoppageList/DeleteAskModal";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {baseURL} from "../../../../api/baseUrl"
+import { baseURL } from "../../../../api/baseUrl";
 
 export default function AddGroupName({
   openAddGroup,
   setOpenAddGroup,
   getGroupName,
-  setGetGroupNameList
+  setGetGroupNameList,
 }) {
   const handleClose = () => {
     setOpenAddGroup(false);
   };
-
 
   const [showInnerModal, setShowInnerModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -39,40 +38,39 @@ export default function AddGroupName({
   };
 
   const addGroupName = async () => {
-  try {
-    // First API call
-    const response1 = await axios.post(baseURL +"/reports/addGroupName", {
-      GroupName: groupName,
-    });
+    try {
+      // First API call
+      const response1 = await axios.post(baseURL + "/reports/addGroupName", {
+        GroupName: groupName,
+      });
 
-    console.log(response1.data);
-    console.log("group name added");
+      console.log(response1.data);
+      console.log("group name added");
 
-    setOpenModal(false);
-    setOpenAddGroup(false);
-    console.log("modal is closed");
+      setOpenModal(false);
+      setOpenAddGroup(false);
+      console.log("modal is closed");
 
-    toast.success("Group name added successfully", {
-      position: toast.POSITION.TOP_CENTER,
-    });
+      toast.success("Group name added successfully", {
+        position: toast.POSITION.TOP_CENTER,
+      });
 
-    console.log("get function called");
+      console.log("get function called");
 
-    // Introduce a delay of 1000 milliseconds (1 second)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      // Introduce a delay of 1000 milliseconds (1 second)
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    // Second API call after the delay
-    const response2 = await axios.get(baseURL+"/reports/getGroupName", {});
+      // Second API call after the delay
+      const response2 = await axios.get(baseURL + "/reports/getGroupName", {});
 
-    console.log(response2.data);
-    setGetGroupNameList(response2.data);
-    console.log("get function called");
-  } catch (error) {
-    // Handle errors here
-    console.error(error);
-  }
-};
-
+      console.log(response2.data);
+      setGetGroupNameList(response2.data);
+      console.log("get function called");
+    } catch (error) {
+      // Handle errors here
+      console.error(error);
+    }
+  };
 
   const [groupName, setGroupName] = useState("");
   const handlegroupname = (event) => {
@@ -83,7 +81,9 @@ export default function AddGroupName({
   return (
     <Modal show={openAddGroup} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Magod Laser:Add Group Name</Modal.Title>
+        <Modal.Title style={{ fontSize: "14px" }}>
+          Magod Laser:Add Group Name
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body style={{ display: showInnerModal ? "none" : "block" }}>
@@ -91,10 +91,12 @@ export default function AddGroupName({
         <div className="col-md-12 col-sm-12 ip-box form-bg">
           <div>
             <div className="row">
-              <div className="col-md-12 mb-4">
-                <label className="form-label">Group Name</label>
+              <div className="d-flex col-md-12 mb-4" style={{ gap: "10px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Group Name
+                </label>
                 <input
-                  className="in-field2"
+                  className="input-field"
                   value={groupName}
                   onChange={handlegroupname}
                 />
@@ -105,18 +107,18 @@ export default function AddGroupName({
       </Modal.Body>
 
       <Modal.Footer>
-        <Button
-          style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
+        <button
+          className="button-style group-button"
           onClick={() => {
             handleModal();
           }}
         >
           Add
-        </Button>
+        </button>
 
-        <Button variant="secondary" onClick={handleClose}>
+        <button className="button-style group-button" onClick={handleClose}>
           Exit
-        </Button>
+        </button>
       </Modal.Footer>
 
       {showInnerModal && (
@@ -127,9 +129,9 @@ export default function AddGroupName({
             setOpenAddGroup(true); // Show the outer modal again if needed
           }}
           data={{
-            title: "Add GroupName",
+            title: <span style={{ fontSize: "14px" }}>Add GroupName</span>,
             content: (
-              <div>
+              <div style={{ fontSize: "12px" }}>
                 Are you sure you want to add <strong>{groupName}</strong> for
                 GroupName?
               </div>

@@ -73,17 +73,18 @@ export default function OperationsProgramCompleteTable({
   return (
     <>
       <div>
-        <div className="row mt-2">
-          <button
-            className="button-style mt-2 group-button"
-            style={{ width: "150px", marginLeft: "20px" }}
-            onClick={handaleClick}
-          >
-            Open Programs
-          </button>
+        <div className="row">
+          <div>
+            <button
+              className="button-style group-button"
+              onClick={handaleClick}
+            >
+              Open Programs
+            </button>
+          </div>
         </div>
 
-        <div className="row mt-3">
+        <div className="row mt-1">
           <div className="col-md-12 col-sm-12">
             <div
               style={{

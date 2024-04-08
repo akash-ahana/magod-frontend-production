@@ -139,35 +139,29 @@ export default function PartsList({
 
   return (
     <div>
-      <div className="row mt-2">
+      <div className="row">
+        <div className="col-md-12">
+          <button className="button-style group-button" onClick={clearSelected}>
+            Clear Selected
+          </button>
 
-      <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearSelected}
-        >
-          Clear Selected
-        </button>
+          <button
+            className="button-style group-button"
+            onClick={clearAllonClick}
+          >
+            Clear All
+          </button>
 
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearAllonClick}
-        >
-          Clear All
-        </button>
-
-       
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={saveClearedonClick}
-        >
-          Save Cleared
-        </button>
+          <button
+            className="button-style group-button"
+            onClick={saveClearedonClick}
+          >
+            Save Cleared
+          </button>
+        </div>
       </div>
 
-      <div className="mt-4" style={{ height: "160px", overflowY: "scroll" }}>
+      <div className="mt-1" style={{ height: "130px", overflowY: "scroll" }}>
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
             <tr>

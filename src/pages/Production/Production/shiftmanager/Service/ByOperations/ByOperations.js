@@ -12,7 +12,7 @@ export default function ByOperations() {
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const[operation,setOperation]=useState('')
+  const [operation, setOperation] = useState("");
 
   const selectedMachineFun = (item, index) => {
     setSelectedMachineIndex(index);
@@ -34,7 +34,6 @@ export default function ByOperations() {
         console.log(response.data);
       });
   }, []);
-  
 
   const dataSource = [
     {
@@ -53,10 +52,10 @@ export default function ByOperations() {
     let list = { ...item, index: index };
     // console.log("ScheduleNo",item.ScheduleNo)
     setSelectoperation(list);
-    setOperation(list.Operation)
+    setOperation(list.Operation);
   };
 
-  console.log(operation)
+  console.log(operation);
 
   const onClickOperation = (Operation) => {
     console.log("The Operation Selected is ", Operation);
@@ -475,7 +474,7 @@ export default function ByOperations() {
         setSelectedLabelIndex(index);
         setSelectedMachineIndex(-1);
         setIsPageRefreshed(false);
-        localStorage.setItem("isPageRefreshed", false);     
+        localStorage.setItem("isPageRefreshed", false);
       });
   };
 
@@ -484,14 +483,12 @@ export default function ByOperations() {
   }, []);
 
   return (
-    <div className="d-flex">
+    <div className="row">
       <div
-        className=""
+        className="col-md-3"
         style={{
-          height: "323px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          width: "330px",
+          height: "270px",
+          overflow: "scroll",
         }}
       >
         {isLoading ? (
@@ -504,6 +501,7 @@ export default function ByOperations() {
                 const type = node.type;
                 const label = (
                   <span
+                    style={{ fontSize: "14px" }}
                     className={`node ${
                       selectedLabelIndex === node.labelIndex
                         ? "selcted-row-clr"
@@ -523,7 +521,10 @@ export default function ByOperations() {
                     {node?.serverData.map((data, key) => {
                       const label2 = (
                         <span
-                          style={{ fontSize: "14px", backgroundColor: "#C0C0C0" }}
+                          style={{
+                            fontSize: "12px",
+                            backgroundColor: "#C0C0C0",
+                          }}
                           onClick={() => {
                             selectedMachineFun(data, key);
                             onClickOperation(data?.Operation);
@@ -538,7 +539,7 @@ export default function ByOperations() {
                           {data?.Operation}
                         </span>
                       );
-  
+
                       return (
                         <TreeView
                           nodeLabel={label2}
@@ -551,7 +552,10 @@ export default function ByOperations() {
                                 <span
                                   style={{ fontSize: "13px" }}
                                   onClick={() =>
-                                    onClickMachine(value?.refName, data?.Operation)
+                                    onClickMachine(
+                                      value?.refName,
+                                      data?.Operation
+                                    )
                                   }
                                 >
                                   {value?.refName}
@@ -608,7 +612,7 @@ export default function ByOperations() {
           <p>No operation data available.</p>
         )}
       </div>
-      <div>
+      <div className="col-md-9">
         <ByOperationNavTab
           proramCompleted={proramCompleted}
           programProcessing={programProcessing}
@@ -622,5 +626,5 @@ export default function ByOperations() {
         />
       </div>
     </div>
-  );  
+  );
 }

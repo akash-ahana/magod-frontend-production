@@ -353,32 +353,23 @@ export default function ByMachineBox() {
   }, []);
 
   return (
-    <div className="d-flex">
+    <div className="row">
       <div
-        className=""
+        className="col-md-3"
         style={{
-          height: "323px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          width: "330px",
+          height: "270px",
+          overflow: "scroll",
         }}
       >
         {loading ? (
           <b>Loading...</b>
         ) : (
-          <div
-            className=""
-            style={{
-              height: "323px",
-              overflowY: "scroll",
-              overflowX: "scroll",
-              width: "330px",
-            }}
-          >
+          <div className="">
             {dataSource.map((node, i) => {
               const type = node.type;
               const label = (
                 <span
+                  style={{fontSize:'14px'}}
                   className={`node ${
                     selectedLabelIndex === node.labelIndex
                       ? "selcted-row-clr"
@@ -398,7 +389,7 @@ export default function ByMachineBox() {
                   {node.serverData.map((data, key) => {
                     const label2 = (
                       <span
-                        style={{ fontSize: "14px", backgroundColor: "#C0C0C0" }}
+                        style={{ fontSize: "12px", backgroundColor: "#C0C0C0" }}
                         onClick={() => {
                           MachineOnClick(data.MachineName);
                           // LaserRowselect1(data,key)
@@ -460,7 +451,7 @@ export default function ByMachineBox() {
           </div>
         )}
       </div>
-      <div>
+      <div className="col-md-9">
         <Iframe
           machineProgramesCompleted={machineProgramesCompleted}
           machineProgramesProcessing={machineProgramesProcessing}

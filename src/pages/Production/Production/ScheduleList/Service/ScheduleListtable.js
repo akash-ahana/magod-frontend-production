@@ -56,7 +56,7 @@ export default function ScheduleListtable({
   };
 
   return (
-    <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
+    <div style={{ height: "400px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor table-space">
           <tr>

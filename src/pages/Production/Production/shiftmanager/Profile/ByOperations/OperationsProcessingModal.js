@@ -55,14 +55,19 @@ export default function OperationsProcessingModal({
   const clearAllButton = () => {
     console.log("Clear All button Clicked", programCompleteData);
     // Create a new copy of the array to work with
-    const constProgramCompleteData = programCompleteData.map(item => ({ ...item }));
+    const constProgramCompleteData = programCompleteData.map((item) => ({
+      ...item,
+    }));
     // Update the QtyCleared property
     for (let i = 0; i < constProgramCompleteData.length; i++) {
       constProgramCompleteData[i].QtyCleared =
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-    console.log("Updated Const Program Complete Data is ", constProgramCompleteData);
+    console.log(
+      "Updated Const Program Complete Data is ",
+      constProgramCompleteData
+    );
     // Validate if Remarks are mandatory
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -92,13 +97,12 @@ export default function OperationsProcessingModal({
         });
       });
   };
-  
 
   const onChangeRejected = (e, item, key) => {
     const newconstprogramCompleteData = [...programCompleteData];
     const newQtyRejected = Number(e.target.value);
-     // Check if the entered value is greater than QtyCut
-     if (newQtyRejected > newconstprogramCompleteData[key].QtyCut) {
+    // Check if the entered value is greater than QtyCut
+    if (newQtyRejected > newconstprogramCompleteData[key].QtyCut) {
       toast.error(
         "Rejected quantity should not be greater than produced quantity.",
         {
@@ -113,7 +117,6 @@ export default function OperationsProcessingModal({
     setProgramCompleteData(newconstprogramCompleteData);
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
-
 
   const onChangeCleared = (e, item, key) => {
     console.log(
@@ -158,7 +161,7 @@ export default function OperationsProcessingModal({
     <div>
       <Modal size="lg" show={show} fullscreen={fullscreen} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title style={{ width: "100%" }} className="title">
+          <Modal.Title style={{ fontSize: "14px" }}>
             Program Parts Inspection Form
           </Modal.Title>
         </Modal.Header>
@@ -166,126 +169,151 @@ export default function OperationsProcessingModal({
           <div className="col-md-12 col-sm-12">
             <div className="ip-box form-bg ">
               <div className="row">
-                <div className="col-md-3">
-                  <label className="form-label"> Task No</label>
+                <div className="d-flex col-md-3" style={{ gap: "35px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Task No
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.TaskNo}
                   />
                 </div>
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "18px" }}>
                   <label className="form-label"> Quantity</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.Qty}
                   />
                 </div>
-                <div className="col-md-5">
+                <div className="d-flex col-md-5" style={{ gap: "10px" }}>
                   <label className="form-label"> Material</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.Mtrl_Code}
                   />
                 </div>
 
-                <div className="col-md-3">
-                  <label className="form-label"> Program No</label>
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Program No
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.NCProgramNo}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "26px" }}>
                   <label className="form-label">Alloted</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.QtyAllotted}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "15px" }}>
                   <label className="form-label">Process</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.MProcess}
                   />
                 </div>
 
-                <div className="col-md-3">
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
                   <label className="form-label">Status</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.PStatus}
                   />
                 </div>
 
-                <div className="col-md-3">
+                <div className="d-flex col-md-3" style={{ gap: "30px" }}>
                   <label className="form-label">Machine</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.Machine}
                   />
                 </div>
 
-                <div className="col-md-2">
-                  <label className="form-label">Processed</label>
+                <div className="d-flex col-md-2" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Processed
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.QtyCut}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "25px" }}>
                   <label className="form-label">Dwgs</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.NoOfDwgs}
                   />
                 </div>
 
-                <div className="col-md-3">
+                <div className="d-flex col-md-3" style={{ gap: "15px" }}>
                   <label className="form-label">Parts</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.TotalParts}
                   />
                 </div>
 
-                <div className="col-md-3 mt-4">
-                  <label className="form-label-processTime mt-2 ms-5">Process Time</label>
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label ms-5"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Process Time
+                  </label>
                 </div>
 
-                <div className="col-md-2">
-                  <label className="form-label">Estimated</label>
+                <div className="d-flex col-md-2" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Estimated
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.EstimatedTime}
                   />
                 </div>
 
-                <div className="col-md-2 mb-2">
+                <div className="d-flex col-md-2 mb-2" style={{ gap: "10px" }}>
                   <label className="form-label">Machine</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramProcessing.ActualTime}
                   />
                 </div>
 
-                <div className="col-md-2  mt-4">
+                <div className="col-md-2">
                   <button
-                    className="button-style mt-3 group-button ms-2"
-                    style={{ width: "120px" }}
+                    className="button-style group-button ms-2"
                     onClick={clearAllButton}
                   >
                     Clear Parts
                   </button>
                 </div>
 
-                <div className="col-md-2 mt-4 " style={{ marginLeft: "-60px" }}>
+                <div className="col-md-2" style={{ marginLeft: "-60px" }}>
                   <button
-                    style={{ width: "130px" }}
-                    className="button-style mt-3 group-button"
+                    className="button-style group-button"
                     onClick={openChangeMachineModal}
                   >
                     Change Machine
@@ -297,13 +325,13 @@ export default function OperationsProcessingModal({
 
           <div className="row mt-1">
             <div
-              className="col-md-12 col-sm-12 mt-2"
-              style={{ marginLeft: "-15px" }}
+              className="col-md-12 col-sm-12"
+              style={{ marginLeft: "-14px" }}
             >
               <div
                 style={{
                   height: "200px",
-                  maxWidth: "1000px",
+                  width: "102%",
                   overflowY: "scroll",
                   overflowX: "scroll",
                 }}
@@ -354,7 +382,9 @@ export default function OperationsProcessingModal({
                               <input
                                 className="table-cell-editor "
                                 name="cleared"
-                                Value={item.Remarks==='null' ? null :item.Remarks}
+                                Value={
+                                  item.Remarks === "null" ? null : item.Remarks
+                                }
                                 onChange={(e) => onChangeRemarks(e, item, key)}
                                 placeholder="Type Cleared"
                               />

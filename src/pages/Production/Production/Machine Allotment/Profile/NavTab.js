@@ -15,10 +15,9 @@ export default function NavTab({
   const [key, setKey] = useState("ncprograms");
 
   return (
-    <div className="row">
+    <div className="">
       <div className="col-md-12">
         <Tabs
-          style={{ marginLeft: "-20px" }}
           id="controlled-tab-example"
           activeKey={key}
           onSelect={(k) => setKey(k)}

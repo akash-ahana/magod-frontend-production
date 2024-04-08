@@ -22,18 +22,18 @@ export default function AddProcessConfirmation({
     <div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{data.title}</Modal.Title>
+          <Modal.Title style={{fontSize:'14px'}}>{data.title}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{fontSize:'12px'}}>
           <p>{data.content}</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleYesClick}>
+          <button className="button-style group-button" onClick={handleYesClick}>
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style group-button" onClick={handleClose}>
             No
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

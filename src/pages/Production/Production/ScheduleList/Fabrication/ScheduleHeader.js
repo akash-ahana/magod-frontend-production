@@ -89,7 +89,7 @@ export default function ScheduleHeader({
           response.data[i].Delivery_Date = finalDay1;
         }
         setProgrammedstatus(response.data);
-         console.log(response.data)
+        console.log(response.data);
       });
     //  Completed Status
     axios
@@ -214,18 +214,12 @@ export default function ScheduleHeader({
 
   return (
     <div>
-      <div className="col-md-12 col-sm-12">
-        <div>
-          <h4 className="title">Production Schedules Information</h4>
-        </div>
-      </div>
+      <h4 className="title">Production Schedules Information</h4>
 
-      <div className="col-md-12 col-sm-12">
-        <div className=" ">
-          <div className="row">
-            <div className="col-md-3 mt-4">
-              <Form.Group controlId="CustName" style={{ marginTop: "9px" }}>
-                {/* <label className="form-label">Customer Name </label>
+      <div className="row">
+        <div className="col-md-3">
+          <Form.Group controlId="CustName" style={{ marginTop: "9px" }}>
+            {/* <label className="form-label">Customer Name </label>
               <Form.Label
                 style={{
                   color: "#f20707",
@@ -235,74 +229,68 @@ export default function ScheduleHeader({
               >
                 *
               </Form.Label> */}
-                {custdata.length > 0 ? (
-                  <Typeahead
-                    options={custdata}
-                    placeholder="Search Customer"
-                    onChange={(label, event) => selectCust(label)}
-                  />
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-            </div>
-            <div className="col-md-1 mt-3" style={{ width: "160px" }}>
-              {/* <label className="form-label mt-2">Find Schedule</label> */}
-              <input
-                className="in-field my-0 mt-4"
-                onKeyDown={blockInvalidChar}
-                placeholder="Search Schedule"
-                type="text"
-                onChange={(e) => searchText1(e)}
+            {custdata.length > 0 ? (
+              <Typeahead
+                options={custdata}
+                placeholder="Search Customer"
+                onChange={(label, event) => selectCust(label)}
               />
-            </div>
-            <div className=" col-md-7 mt-2">
-              <button
-                className="button-style mt-4 group-button"
-                style={{ width: "100px" }}
-                onClick={() => {
-                  openShowStatusPdf();
-                  getPrintStatus();
-                }}
-              >
-                Show Status
-              </button>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+        </div>
+        <div className="col-md-2">
+          {/* <label className="form-label mt-2">Find Schedule</label> */}
+          <input
+            className="input-field mt-2"
+            onKeyDown={blockInvalidChar}
+            placeholder="Search Schedule"
+            type="text"
+            onChange={(e) => searchText1(e)}
+          />
+        </div>
+        <div className="col-md-7">
+          <button
+            className="button-style group-button"
+            onClick={() => {
+              openShowStatusPdf();
+              getPrintStatus();
+            }}
+          >
+            Show Status
+          </button>
 
-              <button
-                className="button-style mt-4 group-button"
-                style={{ width: "120px" }}
-                onClick={openShowPartsPdf}
-              >
-                Show Parts
-              </button>
+          <button
+            className="button-style group-button"
+            onClick={openShowPartsPdf}
+          >
+            Show Parts
+          </button>
 
-              <button
-                className="button-style mt-4 group-button"
-                style={{ width: "150px" }}
-                onClick={openShowProgram}
-              >
-                Show Programs
-              </button>
+          <button
+            className="button-style group-button"
+            onClick={openShowProgram}
+          >
+            Show Programs
+          </button>
 
-              <button
-                className="button-style mt-4 group-button"
-                style={{ width: "120px" }}
-                onClick={openProductionListPdf}
-              >
-                Production list
-              </button>
-              <button
-                className="button-style group-button"
-                type="button"
-                style={{ width: "100px" }}
-                onClick={onClickClose}
-              >
-                Close
-              </button>
-            </div>
-          </div>
+          <button
+            className="button-style group-button"
+            onClick={openProductionListPdf}
+          >
+            Production list
+          </button>
+          <button
+            className="button-style group-button"
+            type="button"
+            onClick={onClickClose}
+          >
+            Close
+          </button>
         </div>
       </div>
+
       <ShowStatusPdfModal
         openShowStatus={openShowStatus}
         setOpenShowStatus={setOpenShowStatus}

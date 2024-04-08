@@ -10,7 +10,6 @@ import DeleteGroupModal from "./DeleteGroupModal";
 import { baseURL } from "../../../../api/baseUrl";
 import { useNavigate } from "react-router-dom";
 
-
 export default function StoppageForm({
   selectedGroup,
   getGroupName,
@@ -22,10 +21,9 @@ export default function StoppageForm({
 
   const getReasons = () => {
     axios
-      .post(
-        baseURL+"/reports/getReason",
-        {StoppageGpId: selectedGroup?.StoppageGpId,}
-      )
+      .post(baseURL + "/reports/getReason", {
+        StoppageGpId: selectedGroup?.StoppageGpId,
+      })
       .then((response) => {
         setGetReasonsList(response.data);
       });
@@ -90,12 +88,9 @@ export default function StoppageForm({
   const DeleteGroup = async () => {
     try {
       // First API call
-      const response1 = await axios.post(
-        baseURL+"/reports/deleteGroup",
-        {
-          StoppageGpId: selectedGroup?.StoppageGpId,
-        }
-      );
+      const response1 = await axios.post(baseURL + "/reports/deleteGroup", {
+        StoppageGpId: selectedGroup?.StoppageGpId,
+      });
       setShowModal(false);
       toast.success("Group Deleted successfully", {
         position: toast.POSITION.TOP_CENTER,
@@ -103,10 +98,7 @@ export default function StoppageForm({
       // Introduce a delay of 1000 milliseconds (1 second)
       await new Promise((resolve) => setTimeout(resolve, 1000));
       // Second API call after the delay
-      const response2 = await axios.get(
-        baseURL+"/reports/getGroupName",
-        {}
-      );
+      const response2 = await axios.get(baseURL + "/reports/getGroupName", {});
       console.log(response2.data);
       setGetGroupNameList(response2.data);
     } catch (error) {
@@ -119,7 +111,7 @@ export default function StoppageForm({
   const DeleteReason = () => {
     console.log(selectedReason.StoppageID);
     axios
-      .post(baseURL+"/reports/deleteReason", {
+      .post(baseURL + "/reports/deleteReason", {
         StoppageID: selectedReason.StoppageID,
       })
       .then((response) => {
@@ -129,7 +121,7 @@ export default function StoppageForm({
           position: toast.POSITION.TOP_CENTER,
         });
         axios
-          .post(baseURL+"/reports/getReason", {
+          .post(baseURL + "/reports/getReason", {
             StoppageGpId: selectedGroup?.StoppageGpId,
           })
           .then((response) => {
@@ -139,10 +131,9 @@ export default function StoppageForm({
   };
 
   const navigate = useNavigate();
-  const onClickClose=()=>{
+  const onClickClose = () => {
     navigate("/Production");
-  }
-  
+  };
 
   return (
     <div>
@@ -178,11 +169,13 @@ export default function StoppageForm({
 
         <div className="row">
           <div className="col-md-9">
-            <div className="col-md-12 ">
-              <label className="form-label">Group Name</label>
+            <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Group Name
+              </label>
 
               <input
-                className="in-fields"
+                className="input-field"
                 value={selectedGroup.GroupName || " "}
                 disabled
               />
@@ -190,71 +183,71 @@ export default function StoppageForm({
           </div>
         </div>
 
-        <div className="row mt-3 mb-3">
-          <button
-            className="button-style mt-2 group-button"
-            type="button"
-            style={{ width: "150px", marginLeft: "20px" }}
-            onClick={openAddGroupNameModal}
-          >
-            Add Group Name
-          </button>
+        <div className="row mt-1 mb-1">
+          <div>
+            <button
+              className="button-style group-button"
+              type="button"
+              onClick={openAddGroupNameModal}
+            >
+              Add Group Name
+            </button>
 
-          <button
-            className="button-style mt-2 group-button"
-            style={{ width: "150px", marginLeft: "20px" }}
-            onClick={() =>
-              handleShowModal({
-                title: "Delete GroupName",
-                content: (
-                  <div>
-                    Are you sure you want to delete{" "}
-                    <strong>{selectedGroup.GroupName}</strong> from selected
-                    Group Name
-                  </div>
-                ),
-              })
-            }
-          >
-            Delete Group
-          </button>
+            <button
+              className="button-style group-button"
+              onClick={() =>
+                handleShowModal({
+                  title: "Delete GroupName",
+                  content: (
+                    <div>
+                      Are you sure you want to delete{" "}
+                      <strong>{selectedGroup.GroupName}</strong> from selected
+                      Group Name
+                    </div>
+                  ),
+                })
+              }
+            >
+              Delete Group
+            </button>
 
-          <button
-            className="button-style mt-2 group-button"
-            type="button"
-            style={{ width: "150px", marginLeft: "20px" }}
-            onClick={openAddReasonModal}
-          >
-            Add Reason
-          </button>
+            <button
+              className="button-style group-button"
+              type="button"
+              onClick={openAddReasonModal}
+            >
+              Add Reason
+            </button>
 
-          <button
-            className="button-style mt-2 group-button"
-            type="button"
-            style={{ width: "150px", marginLeft: "20px" }}
-            onClick={() => {
-              console.log("Delete Reason button clicked");
+            <button
+              className="button-style group-button"
+              type="button"
+              onClick={() => {
+                console.log("Delete Reason button clicked");
 
-              handleShowReaonModal({
-                title: "Delete Reason",
+                handleShowReaonModal({
+                  title: "Delete Reason",
 
-                content: (
-                  <div>
-                    Are you sure you want to Delete{" "}
-                    <strong>{selectedReason?.Stoppage}</strong>?
-                  </div>
-                ),
-              });
-            }}
-          >
-            Delete Reason
-          </button>
+                  content: (
+                    <div>
+                      Are you sure you want to Delete{" "}
+                      <strong>{selectedReason?.Stoppage}</strong>?
+                    </div>
+                  ),
+                });
+              }}
+            >
+              Delete Reason
+            </button>
 
-          
-      <button className="button-style mt-2 group-button" type='button'
-       style={{ width: "150px",marginLeft:"20px"}} onClick={onClickClose}>
-       Close
-      </button>
+            <button
+              className="button-style group-button"
+              type="button"
+              onClick={onClickClose}
+            >
+              Close
+            </button>
+          </div>
         </div>
       </div>
 

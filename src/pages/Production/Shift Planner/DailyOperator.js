@@ -126,19 +126,19 @@ function DailyOperator(props) {
         textAlign: "center",
         backgroundColor: "lightgrey",
         marginTop: "5px",
-        fontSize: "14px",
+        fontSize: "12px",
       }}
     >
       <div>
-        <div style={{ color: "red" }}>
+        <div className="mb-4" style={{ color: "red" }}>
           <b>{props.data?.Shift} Shift</b>
         </div>
       </div>
-      <div className="col-md-11" style={{ display: "flex" }}>
-        <div style={{ marginLeft: "5px" }}>
+      <div className="col-md-11 d-flex" style={{ gap: "15px" }}>
+        <div className="ms-1">
           <label className="form-label">Machine</label>
         </div>
-        <div style={{ marginLeft: "33px", marginTop: "6px" }}>
+        <div>
           <select
             className="ip-select"
             onChange={handleMachineChange}
@@ -156,11 +156,11 @@ function DailyOperator(props) {
         </div>
       </div>
 
-      <div className="col-md-11 my-4" style={{ display: "flex" }}>
-        <div style={{ marginLeft: "5px" }}>
+      <div className="col-md-11 d-flex mb-5" style={{ gap: "10px" }}>
+        <div className="ms-1">
           <label className="form-label">Operator</label>
         </div>
-        <div style={{ marginLeft: "30px", marginTop: "6px" }}>
+        <div>
           <select
             className="ip-select"
             onChange={handleOperatorChange}
@@ -179,10 +179,9 @@ function DailyOperator(props) {
       </div>
 
       <button
-        className={`button-style mt-2 group-button mt-4 ${
+        className={`button-style mt-2 group-button ${
           props.condition !== true ? "disabled" : ""
         }`}
-        style={{ width: "150px", fontSize: "14px" }}
         onClick={createDailyOperatorList}
         disabled={props.condition !== true}
       >
@@ -190,10 +189,9 @@ function DailyOperator(props) {
       </button>
 
       <button
-        className={`button-style mt-2 group-button mt-4 ${
+        className={`button-style group-button mb-2 ${
           props.condition !== true ? "disabled" : ""
         }`}
-        style={{ width: "160px", fontSize: "14px", marginBottom: "10px" }}
         onClick={openModal}
         disabled={props.condition !== true}
       >

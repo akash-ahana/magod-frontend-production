@@ -241,7 +241,7 @@ export default function MachineLog({
   // console.log(machineLogData);
 
   const [showActionTaken, setShowActionTaken] = useState(false);
-  const [actionTaken, setActionTaken] = useState('')
+  const [actionTaken, setActionTaken] = useState("");
   const onclicktoShowActionTaken = (actionTaken) => {
     if (actionTaken !== null) {
       // Show toast notification
@@ -267,11 +267,10 @@ export default function MachineLog({
         machineLogSelectedRow={machineLogSelectedRow}
       />
 
-      <div style={{ marginTop: "-15px" }}>
+      <div>
         <button
           className={`button-style group-button ${status ? "disabled" : ""}`}
           type="button"
-          style={{ width: "150px", marginLeft: "20px" }}
           onClick={onClickSaveLog}
           disabled={status}
         >
@@ -281,19 +280,18 @@ export default function MachineLog({
         <button
           className="button-style group-button"
           type="button"
-          style={{ width: "150px", marginLeft: "20px" }}
           onClick={PrintShiftLog}
         >
           Print Shift Log
         </button>
       </div>
       <div
-        className="mt-3"
+        className="mt-1"
         style={{
           maxWidth: "900px",
-          overflowX: "scroll",
-          height: "300px",
           overflowY: "scroll",
+          overflowX: "scroll",
+          height: "320px",
         }}
       >
         <Table striped className="table-data border">
@@ -408,10 +406,8 @@ export default function MachineLog({
       <CustomModal
         show={showActionTaken}
         handleClose={() => setShowActionTaken(false)}
-        data={{ title: 'Action Taken', content: actionTaken }}
+        data={{ title: "Action Taken", content: actionTaken }}
       />
-
-
     </div>
   );
 }

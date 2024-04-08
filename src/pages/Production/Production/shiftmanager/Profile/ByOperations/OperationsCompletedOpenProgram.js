@@ -47,58 +47,55 @@ export default function OperationsCompleteOpenProgram({
   const handleClose = () => {
     setShow(false);
     axios
-    .post(
-      baseURL + "/shiftManagerProfile/OperationProgramesCompleted",
-      {
+      .post(baseURL + "/shiftManagerProfile/OperationProgramesCompleted", {
         Operation: operation,
-      }
-    )
-    .then((response) => {
-      for (let i = 0; i < response.data.length; i++) {
-        if (
-          response.data[i].ActualTime <
-          0.5 * response.data[i].EstimatedTime
-        ) {
-          response.data[i].rowColor = "#339900";
-          //break;
-        } else if (
-          response.data[i].ActualTime <
-          0.75 * response.data[i].EstimatedTime
-        ) {
-          response.data[i].rowColor = "#82c2b4";
-          //break;
-        } else if (
-          response.data[i].ActualTime <
-          0.9 * response.data[i].EstimatedTime
-        ) {
-          response.data[i].rowColor = "#f08080";
-          //break;
-        } else if (
-          response.data[i].ActualTime <
-          1.1 * response.data[i].EstimatedTime
-        ) {
-          response.data[i].rowColor = "#f08080";
-          //break;
-        } else if (
-          response.data[i].ActualTime <
-          1.25 * response.data[i].EstimatedTime
-        ) {
-          response.data[i].rowColor = "#FF7F50";
-          //break;
-        } else if (
-          response.data[i].ActualTime <
-          1.5 * response.data[i].EstimatedTime
-        ) {
-          response.data[i].rowColor = "#FFA500";
-          //break;
-        } else {
-          response.data[i].rowColor = "#ff0000";
+      })
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if (
+            response.data[i].ActualTime <
+            0.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#339900";
+            //break;
+          } else if (
+            response.data[i].ActualTime <
+            0.75 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#82c2b4";
+            //break;
+          } else if (
+            response.data[i].ActualTime <
+            0.9 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+            //break;
+          } else if (
+            response.data[i].ActualTime <
+            1.1 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+            //break;
+          } else if (
+            response.data[i].ActualTime <
+            1.25 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FF7F50";
+            //break;
+          } else if (
+            response.data[i].ActualTime <
+            1.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FFA500";
+            //break;
+          } else {
+            response.data[i].rowColor = "#ff0000";
+          }
         }
-      }
-      setProgramCompleted(response.data);
-      setSelectProgramCompleted({ ...response.data[0], index: 0 });
-    });
-  }
+        setProgramCompleted(response.data);
+        setSelectProgramCompleted({ ...response.data[0], index: 0 });
+      });
+  };
 
   //console.log(programCompleteData);
 
@@ -307,7 +304,7 @@ export default function OperationsCompleteOpenProgram({
 
       <Modal size="lg" show={show} fullscreen={fullscreen} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title style={{ width: "100%" }} className="title">
+          <Modal.Title style={{ fontSize: "14px" }}>
             Program Parts Inspection Form
           </Modal.Title>
         </Modal.Header>
@@ -315,128 +312,142 @@ export default function OperationsCompleteOpenProgram({
           <div className="col-md-12 col-sm-12">
             <div className="ip-box form-bg ">
               <div className="row">
-                <div className="col-md-3">
-                  <label className="form-label"> Task No</label>
+                <div className="d-flex col-md-3" style={{ gap: "35px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Task No
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.TaskNo}
                   />
                 </div>
-                <div className="col-md-2">
-                  <label className="form-label"> Quantity</label>
+                <div className="d-flex col-md-2" style={{ gap: "18px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Quantity
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.Qty}
                   />
                 </div>
-                <div className="col-md-5">
+                <div className="d-flex col-md-5" style={{ gap: "10px" }}>
                   <label className="form-label"> Material</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.Mtrl_Code}
                   />
                 </div>
 
-                <div className="col-md-3">
-                  <label className="form-label"> Program No</label>
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Program No
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.NCProgramNo}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "26px" }}>
                   <label className="form-label">Alloted</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.QtyAllotted}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "15px" }}>
                   <label className="form-label">Process</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.MProcess}
                   />
                 </div>
 
-                <div className="col-md-3">
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
                   <label className="form-label">Status</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.PStatus}
                   />
                 </div>
 
-                <div className="col-md-3">
+                <div className="d-flex col-md-3" style={{ gap: "30px" }}>
                   <label className="form-label">Machine</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.Machine}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Processed</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.QtyCut}
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "25px" }}>
                   <label className="form-label">Dwgs</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.NoOfDwgs}
                   />
                 </div>
 
-                <div className="col-md-3">
+                <div className="d-flex col-md-3" style={{ gap: "15px" }}>
                   <label className="form-label">Parts</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.TotalParts}
                   />
                 </div>
 
-                <div className="col-md-3 mt-4">
-                  <label className="form-label-processTime mt-2 ms-5">
-                    Process Time
-                  </label>
+                <div className="col-md-3">
+                  <label className="form-label ms-5">Process Time</label>
                 </div>
 
-                <div className="col-md-2">
+                <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Estimated</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.EstimatedTime}
                   />
                 </div>
 
-                <div className="col-md-2 mb-2">
+                <div className="d-flex col-md-2 mb-2" style={{ gap: "10px" }}>
                   <label className="form-label">Machine</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={selectProgramCompleted.ActualTime}
                   />
                 </div>
 
-                <div className="col-md-2  mt-4">
+                <div className="col-md-2">
                   <button
-                    className="button-style mt-3 group-button"
-                    style={{ width: "130px" }}
+                    className="button-style group-button"
                     onClick={clearAllButton}
                   >
                     Clear Parts
                   </button>
                 </div>
 
-                <div className="col-md-2 mt-4 " style={{ marginLeft: "-60px" }}>
+                <div className="col-md-2" style={{ marginLeft: "-60px" }}>
                   <button
-                    style={{ width: "140px" }}
-                    className="button-style mt-3 group-button"
+                    className="button-style group-button"
                     onClick={onClickCloseProgram}
                   >
                     CloseProgram
@@ -448,13 +459,13 @@ export default function OperationsCompleteOpenProgram({
 
           <div className="row mt-1">
             <div
-              className="col-md-12 col-sm-12 mt-2"
-              style={{ marginLeft: "-15px" }}
+              className="col-md-12 col-sm-12"
+              style={{ marginLeft: "-14px" }}
             >
               <div
                 style={{
                   height: "200px",
-                  maxWidth: "1000px",
+                  width: "102%",
                   overflowY: "scroll",
                   overflowX: "scroll",
                 }}

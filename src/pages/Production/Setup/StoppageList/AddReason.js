@@ -1,47 +1,51 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import axios from "axios";
-import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
-import ReasonAskModal from './ReasonAskModal';
-import { baseURL } from '../../../../api/baseUrl';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
+import ReasonAskModal from "./ReasonAskModal";
+import { baseURL } from "../../../../api/baseUrl";
 
-  export default function AddReason({ openAddReason, setOpenAddReason, selectedGroup, setGetReasonsList }) {
+export default function AddReason({
+  openAddReason,
+  setOpenAddReason,
+  selectedGroup,
+  setGetReasonsList,
+}) {
   const handleClose = () => {
     setOpenAddReason(false);
-  }
+  };
 
   const [openreasonModal, setOpenreasonModal] = useState(false);
-  
+
   const handleModal = () => {
-    if(reason.trim() === ''){
+    if (reason.trim() === "") {
       toast.error("Reason cannot be empty", {
         position: toast.POSITION.TOP_CENTER,
-      })
-    setOpenreasonModal(false);
-    }else{
-      setOpenreasonModal(true)
+      });
+      setOpenreasonModal(false);
+    } else {
+      setOpenreasonModal(true);
     }
-  }
+  };
 
   const newHandleClose = () => {
     setOpenreasonModal(false);
-  }
+  };
 
-  const [reason, setReason] = useState('')
+  const [reason, setReason] = useState("");
   const handlereason = (event) => {
-    setReason(event.target.value)
-  }
+    setReason(event.target.value);
+  };
 
-  
   const addReason = async () => {
     try {
       // First API call
-      const response1 = await axios.post(
-        baseURL+"/reports/addReason",
-        { Reason: reason, GroupId: selectedGroup.StoppageGpId }
-      );
+      const response1 = await axios.post(baseURL + "/reports/addReason", {
+        Reason: reason,
+        GroupId: selectedGroup.StoppageGpId,
+      });
       console.log(response1.data);
       setOpenreasonModal(false);
       handleClose();
@@ -49,28 +53,26 @@ import { baseURL } from '../../../../api/baseUrl';
         position: toast.POSITION.TOP_CENTER,
       });
       // Introduce a delay of 1000 milliseconds (1 second)
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       // Second API call after the delay
-      const response2 = await axios.post(
-        baseURL+"/reports/getReason",
-        {
-          StoppageGpId: selectedGroup?.StoppageGpId
-        }
-      );
+      const response2 = await axios.post(baseURL + "/reports/getReason", {
+        StoppageGpId: selectedGroup?.StoppageGpId,
+      });
       console.log(response2.data);
       setGetReasonsList(response2.data);
-      setReason('');
+      setReason("");
     } catch (error) {
       // Handle errors here
       console.error(error);
     }
   };
-  
 
   return (
     <Modal show={openAddReason} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Magod Laser:Add Reason</Modal.Title>
+        <Modal.Title style={{ fontSize: "14px" }}>
+          Magod Laser:Add Reason
+        </Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -78,24 +80,28 @@ import { baseURL } from '../../../../api/baseUrl';
           <div className="col-md-12 col-sm-12 ip-box form-bg">
             <div>
               <div className="row">
-                <div className="col-md-12">
-                  <label className="form-label">Group Name</label>
+                <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Group Name
+                  </label>
                   <input
-                  className="in-field2"
-                  value={selectedGroup.GroupName}
+                    className="input-field"
+                    value={selectedGroup.GroupName}
                     disabled
                   />
                 </div>
               </div>
               <div className="row mb-4">
-                <div className="col-md-12">
+                <div className="d-flex col-md-12" style={{ gap: "42px" }}>
                   <label className="form-label">Reason</label>
                   <input
-                    className="in-field2"
+                    className="input-field"
                     value={reason}
                     onChange={handlereason}
                   />
-
                 </div>
               </div>
             </div>
@@ -105,13 +111,11 @@ import { baseURL } from '../../../../api/baseUrl';
 
       <Modal.Footer>
         {openreasonModal ? null : (
-          <Button style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }} onClick={handleModal}>
+          <button className="button-style group-button" onClick={handleModal}>
             Add
-          </Button>
+          </button>
         )}
-        <Button variant="secondary">
-          Exit
-        </Button>
+        <button className="button-style group-button">Exit</button>
       </Modal.Footer>
 
       <ReasonAskModal
@@ -122,5 +126,5 @@ import { baseURL } from '../../../../api/baseUrl';
         selectedGroup={selectedGroup}
       />
     </Modal>
-  )
+  );
 }

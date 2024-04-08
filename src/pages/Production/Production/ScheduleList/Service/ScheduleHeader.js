@@ -27,10 +27,13 @@ export default function ScheduleHeader({
   custdata,
   selectCust,
   showParts,
-  getShowPartsData
+  getShowPartsData,
 }) {
-  const { schedulelistservicedata, setSchedulelistservicedata, schedulelistservicedatas } =
-    useGlobalContext();
+  const {
+    schedulelistservicedata,
+    setSchedulelistservicedata,
+    schedulelistservicedatas,
+  } = useGlobalContext();
 
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
@@ -53,7 +56,6 @@ export default function ScheduleHeader({
   const openShowProgram = () => {
     setOpenShowPrograms(true);
   };
-
 
   const [programmedtatus, setProgrammedstatus] = useState([]);
   const [completedStatus, setCompletedStatus] = useState([]);
@@ -183,43 +185,35 @@ export default function ScheduleHeader({
     { status: "Tasked", data: taskedStatus },
   ];
 
- 
-
-  const[openProductionList,setOpenProductionList]=useState('')
-  const openProductionListPdf=()=>{
+  const [openProductionList, setOpenProductionList] = useState("");
+  const openProductionListPdf = () => {
     setOpenProductionList(true);
-  }
+  };
 
   const [searchInput, setSearchInput] = useState("");
-    const searchText1 = (e) => {
-      const searchText = e.target.value;
-      const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
-      setSearchInput(sanitizedSearchText);
-      // Apply the filter on allotmentTable based on the search input value
-      const filteredData = schedulelistservicedatas.filter((data) =>
-          data.OrdSchNo.startsWith(sanitizedSearchText)
-        );
-        setSchedulelistservicedata(filteredData);
+  const searchText1 = (e) => {
+    const searchText = e.target.value;
+    const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ""); // Remove non-numeric characters except spaces
+    setSearchInput(sanitizedSearchText);
+    // Apply the filter on allotmentTable based on the search input value
+    const filteredData = schedulelistservicedatas.filter((data) =>
+      data.OrdSchNo.startsWith(sanitizedSearchText)
+    );
+    setSchedulelistservicedata(filteredData);
   };
 
   const navigate = useNavigate();
-  const onClickClose=()=>{
+  const onClickClose = () => {
     navigate("/Production");
-  }
+  };
   return (
     <div>
-      <div className="col-md-12 col-sm-12">
-        <div>
-          <h4 className="title">Production Schedules Information</h4>
-        </div>
-      </div>
+      <h4 className="title">Production Schedules Information</h4>
 
-      <div className="col-md-12 col-sm-12">
-        <div className="">
-          <div className="row">
-            <div className="col-md-3 mt-4">
-              <Form.Group controlId="CustName" style={{marginTop:"9px"}}>
-                {/* <label className="form-label">Customer Name </label>
+      <div className="row">
+        <div className="col-md-3">
+          <Form.Group controlId="CustName" style={{ marginTop: "9px" }}>
+            {/* <label className="form-label">Customer Name </label>
               <Form.Label
                 style={{
                   color: "#f20707",
@@ -229,69 +223,69 @@ export default function ScheduleHeader({
               >
                 *
               </Form.Label> */}
-                {custdata.length > 0 ? (
-                  <Typeahead
-                    options={custdata}
-                    placeholder="Search Customer"
-                    onChange={(label, event) => selectCust(label)}
-                  />
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-            </div>
-            <div className="col-md-1 mt-3" style={{ width: "160px" }}>
-              {/* <label className=" form-label mt-2">Find Schedule</label> */}
-              <input
-                className="in-field my-0 mt-4"
-                onKeyDown={blockInvalidChar}
-                placeholder="Search Schedule"
-                type="text"
-                onChange={(e) => searchText1(e)}
+            {custdata.length > 0 ? (
+              <Typeahead
+                options={custdata}
+                placeholder="Search Customer"
+                onChange={(label, event) => selectCust(label)}
               />
-            </div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+        </div>
+        <div className="col-md-2">
+          {/* <label className=" form-label mt-2">Find Schedule</label> */}
+          <input
+            className="input-field mt-2"
+            onKeyDown={blockInvalidChar}
+            placeholder="Search Schedule"
+            type="text"
+            onChange={(e) => searchText1(e)}
+          />
+        </div>
 
-            <div className="col-md-7">
-            <button
-              className="button-style mt-4 group-button"
-              style={{ width: "110px" }}
-              onClick={() => {
-                openShowStatusPdf();
-                getPrintStatus();
-              }}
-            >
-              Show Status
-            </button>
+        <div className="col-md-7">
+          <button
+            className="button-style group-button"
+            onClick={() => {
+              openShowStatusPdf();
+              getPrintStatus();
+            }}
+          >
+            Show Status
+          </button>
 
-            <button
-              className="button-style mt-4 group-button"
-              style={{ width: "140px" }}
-              onClick={openShowPartsPdf}
-            >
-              Show Parts
-            </button>
+          <button
+            className="button-style group-button"
+            onClick={openShowPartsPdf}
+          >
+            Show Parts
+          </button>
 
-            <button
-              className="button-style mt-4 group-button"
-              style={{ width: "150px" }}
-              onClick={openShowProgram}
-            >
-              Show Programs
-            </button>
+          <button
+            className="button-style group-button"
+            onClick={openShowProgram}
+          >
+            Show Programs
+          </button>
 
-            
-            <button className="button-style mt-4 group-button" 
-             style={{ width: "120px" }} onClick={openProductionListPdf}>
-             Production list
-            </button>
-            <button className="button-style group-button" type='button'
-       style={{ width: "100px"}} onClick={onClickClose}>
-       Close
-      </button>
-            </div>
-          </div>
+          <button
+            className="button-style group-button"
+            onClick={openProductionListPdf}
+          >
+            Production list
+          </button>
+          <button
+            className="button-style group-button"
+            type="button"
+            onClick={onClickClose}
+          >
+            Close
+          </button>
         </div>
       </div>
+
       <ShowStatusPdfModal
         openShowStatus={openShowStatus}
         setOpenShowStatus={setOpenShowStatus}
@@ -314,8 +308,10 @@ export default function ScheduleHeader({
         programlistdata={programlistdata}
       />
 
-<ProductionListModalService openProductionList={openProductionList}
-      setOpenProductionList={setOpenProductionList}/>
+      <ProductionListModalService
+        openProductionList={openProductionList}
+        setOpenProductionList={setOpenProductionList}
+      />
     </div>
   );
 }

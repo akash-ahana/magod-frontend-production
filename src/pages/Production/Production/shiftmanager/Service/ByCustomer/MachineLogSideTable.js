@@ -11,10 +11,10 @@ export default function MachineLogSideTable({
   machineList,
 }) {
   return (
-    <div className="row mt-1">
+    <div className="row">
       <div className="col-md-12 col-sm-12">
         <div
-          style={{ height: "250px", overflowY: "scroll", overflowX: "scroll" }}
+          style={{ height: "234px", overflow: "scroll" }}
         >
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">

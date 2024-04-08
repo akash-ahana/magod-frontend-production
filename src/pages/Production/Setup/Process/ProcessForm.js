@@ -11,7 +11,8 @@ export default function ProcessForm({
   selectRow,
   ProcessTab,
   setProcessTab,
-  setSelectRow,processTab
+  setSelectRow,
+  processTab,
 }) {
   const [openAddProcessMod, setOpenAddProcessMod] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -68,7 +69,7 @@ export default function ProcessForm({
           position: toast.POSITION.TOP_CENTER,
         });
         setDeleteModal(false);
-        setSelectRow({...processTab[0],index:0})
+        setSelectRow({ ...processTab[0], index: 0 });
         console.log("Request sent for delete");
       });
   };
@@ -98,10 +99,10 @@ export default function ProcessForm({
             <div className="d-flex col-md-12">
               <div className="row col-md-7">
                 <div className="col-md-12">
-                  <div className="col-md-12 mt-3 ">
+                  <div className="d-flex col-md-12" style={{ gap: "10px" }}>
                     <label className="form-label">Process</label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       disabled={true}
                       name="Process"
                       value={selectRow.ProcessID || " "}
@@ -111,9 +112,9 @@ export default function ProcessForm({
               </div>
 
               <div className="row">
-                <div className="col-md-12 mt-3" style={{ marginLeft: "40px" }}>
+                <div className="col-md-12" style={{ marginLeft: "40px" }}>
                   <div
-                    className="col-md-12 mt-4"
+                    className="col-md-12"
                     style={{
                       display: "flex",
                       gap: "5px",
@@ -176,15 +177,10 @@ export default function ProcessForm({
 
             <div className="row">
               <div className="col-md-7">
-                <div
-                  className="col-md-12 "
-                  style={{
-                    marginTop: "-40px",
-                  }}
-                >
+                <div className="d-flex col-md-12" style={{ gap: "43px" }}>
                   <label className="form-label">Description</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     name="description"
                     value={selectRow.ProcessDescription || " "}
                   />
@@ -194,10 +190,15 @@ export default function ProcessForm({
 
             <div className="row">
               <div className="col-md-7 mb-3">
-                <div className="col-md-12 ">
-                  <label className="form-label">No of Operations</label>
+                <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    No of Operations
+                  </label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     name="noofoperations"
                     defaultValue={selectRow?.No_of_Operations}
                   />
@@ -206,20 +207,18 @@ export default function ProcessForm({
             </div>
 
             <div className="row">
-              <div className="col-md-12 mb-5">
+              <div className="col-md-12 mb-2">
                 <button
                   type="button"
-                  className="button-style mt-2 group-button"
-                  style={{ width: "110px" }}
+                  className="button-style group-button"
                   onClick={openProcessModal}
                 >
                   Add Process
                 </button>
 
                 <button
-                  className="button-style mt-2 group-button"
+                  className="button-style group-button"
                   type="button"
-                  style={{ width: "110px", marginLeft: "5px" }}
                   onClick={handleSaveProcess}
                 >
                   Save Process
@@ -228,20 +227,14 @@ export default function ProcessForm({
                 <button
                   className="button-style  group-button"
                   type="button"
-                  style={{
-                    width: "110px",
-                    marginLeft: "5px",
-                    whiteSpace: "nowrap",
-                  }}
                   onClick={handleDeleteProcessClick}
                 >
                   Delete Process
                 </button>
 
                 <button
-                  className="button-style mt-2 group-button"
+                  className="button-style group-button"
                   type="button"
-                  style={{ width: "110px", marginLeft: "5px" }}
                   onClick={onClickClose}
                 >
                   Close
@@ -275,7 +268,6 @@ export default function ProcessForm({
         setProcessTab={setProcessTab}
         ProcessTab={ProcessTab}
       />
-      
     </div>
   );
 }

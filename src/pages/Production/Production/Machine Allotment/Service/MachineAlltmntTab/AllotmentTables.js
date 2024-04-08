@@ -95,7 +95,7 @@ export default function AllotmentTables() {
     let list = { ...item, index: index };
     setTableRowSelect(item);
     setRowselect(list);
-    setNewSelectedMachine('')
+    setNewSelectedMachine("");
   };
   const getMachineList = () => {
     axios
@@ -105,7 +105,7 @@ export default function AllotmentTables() {
         tableRowSelect
       )
       .then((response) => {
-        console.log("required machine List",response.data)
+        console.log("required machine List", response.data);
         setMachineList(response.data);
       });
   };
@@ -116,7 +116,6 @@ export default function AllotmentTables() {
   useMemo(() => {
     setTableRowSelect({ ...scheduleListData[0], index: 0 });
   }, [scheduleListData[0]]);
-
 
   useMemo(() => {
     setRowselect({ ...scheduleListData[0], index: 0 });
@@ -138,40 +137,41 @@ export default function AllotmentTables() {
 
   const onChangeMachine = (e) => {
     setNewSelectedMachine(e.target.value);
-    setTableRowSelect((prevSelect) => ({ ...prevSelect, Machine: newSelectedMchine }));
+    setTableRowSelect((prevSelect) => ({
+      ...prevSelect,
+      Machine: newSelectedMchine,
+    }));
   };
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const onClickChangeMachine = async (e) => {
     e.preventDefault();
-if(newSelectedMchine==''){
-  toast.error("Machine Not Selected", {
-    position: toast.POSITION.TOP_CENTER,
-  });
-}
-else{
-  axios
-  .post(baseURL + "/machineAllotment/changeMachineInForm", {
-    ...tableRowSelect,
-    newMachine: newSelectedMchine,
-  })
-  .then((response) => {
-    toast.success("Machine Changed", {
-      position: toast.POSITION.TOP_CENTER,
-    });
-  });
-await delay(200);
-console.log("Selected Row from right table is ", tableRowSelect);
-axios
-  .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
-  .then((response) => {
-    console.log("OnClick Post response change machine", response.data[0]);
-    setTableRowSelect(response.data[0]);
-    getScheduleListdata();
-  });
-  
-}
+    if (newSelectedMchine == "") {
+      toast.error("Machine Not Selected", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      axios
+        .post(baseURL + "/machineAllotment/changeMachineInForm", {
+          ...tableRowSelect,
+          newMachine: newSelectedMchine,
+        })
+        .then((response) => {
+          toast.success("Machine Changed", {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        });
+      await delay(200);
+      console.log("Selected Row from right table is ", tableRowSelect);
+      axios
+        .post(baseURL + "/machineAllotment/formRefresh", tableRowSelect)
+        .then((response) => {
+          console.log("OnClick Post response change machine", response.data[0]);
+          setTableRowSelect(response.data[0]);
+          getScheduleListdata();
+        });
+    }
   };
 
   const onClickReleaseForProgramming = async (e) => {
@@ -198,18 +198,18 @@ axios
     setButtonDisabled(tableRowSelect.TStatus === "Completed");
   }, [tableRowSelect.TStatus]);
 
-   //TRY SEARCH
-   const [searchInput, setSearchInput] = useState("");
-   const searchText1 = (e) => {
-     const searchText = e.target.value;
-     const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ''); // Remove non-numeric characters except spaces
-     setSearchInput(sanitizedSearchText);
-     // Apply the filter on allotmentTable based on the search input value
-     const filteredData = searchallotment.filter((data) =>
-     data.OrdSchNo.includes(sanitizedSearchText)
-   );
-     setAllotmentTable(filteredData);
-   };
+  //TRY SEARCH
+  const [searchInput, setSearchInput] = useState("");
+  const searchText1 = (e) => {
+    const searchText = e.target.value;
+    const sanitizedSearchText = searchText.replace(/[^0-9 ]/g, ""); // Remove non-numeric characters except spaces
+    setSearchInput(sanitizedSearchText);
+    // Apply the filter on allotmentTable based on the search input value
+    const filteredData = searchallotment.filter((data) =>
+      data.OrdSchNo.includes(sanitizedSearchText)
+    );
+    setAllotmentTable(filteredData);
+  };
 
   //  useEffect(() => {
   //   if (scheduleListData.length > 0 && !rowselect.TaskNo) {
@@ -217,29 +217,29 @@ axios
   //   }
   // }, [scheduleListData, rowselect]);
 
-
   return (
     <>
       <div className="col-md-12">
-        <div className="col-md-3 mb-2 ms-3">
-          <label className="form-label">Find Schedule</label>
+        <div className="d-flex col-md-3 ms-3" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Find Schedule
+          </label>
           <input
-          className="in-field "
-          onKeyDown={blockInvalidCharReg}
-          style={{ marginTop: "-2px" }}
-          type="text" // Change the input type to "text"
-          value={searchInput} // Set the value to the state variable
-          onChange={searchText1} // Call the searchText function on change
-        />
+            className="input-field"
+            onKeyDown={blockInvalidCharReg}
+            type="text" // Change the input type to "text"
+            value={searchInput} // Set the value to the state variable
+            onChange={searchText1} // Call the searchText function on change
+          />
         </div>
 
-        <div className="row mt-3">
+        <div className="row mt-2">
           <div
             className="col-md-6"
             style={{
               overflowY: "scroll",
               overflowX: "scroll",
-              height: "750px",
+              height: "344px",
             }}
           >
             <Table striped className="table-data border">
@@ -283,111 +283,133 @@ axios
             <form className="form">
               <div className="ip-box form-bg">
                 <div className="row">
-                  <div className="col-md-12 ">
-                    <label className="form-label">Customer</label>
+                  <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Customer
+                    </label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       value={tableRowSelect.Cust_name}
                     />
                   </div>
                 </div>
 
                 <div className="row">
-                  <div className="col-md-6 ">
-                    <label className="form-label">Task No</label>
+                  <div className="d-flex col-md-6" style={{ gap: "20px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Task No
+                    </label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       value={tableRowSelect.TaskNo}
                     />
                   </div>
-                  <div className="col-md-6 ">
+                  <div className="d-flex col-md-6" style={{ gap: "10px" }}>
                     <label className="form-label">Status</label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       value={tableRowSelect.TStatus}
                     />
                   </div>
                 </div>
 
                 <div className="row">
-                  <div className="col-md-12 ">
+                  <div className="d-flex col-md-12" style={{ gap: "17px" }}>
                     <label className="form-label">Material</label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       value={tableRowSelect.Mtrl_Code}
                     />
                   </div>
                 </div>
 
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="d-flex col-md-5" style={{ gap: "22px" }}>
                     <label className="form-label">Process</label>
                     <input
-                      className="in-fields mt-2"
+                      className="input-field"
                       value={tableRowSelect.MProcess}
                     />
                   </div>
-                  <div className="col-md-6">
-                  <label className="form-label">Select machine</label>
-      {isMachineListEmpty ? (
-        // Render a disabled input or label showing the selected machine
-        <input type="text" className="ip-select dropdown-field mt-2" value={tableRowSelect.Machine} disabled />
-      ) : (
-        // Render the regular select element with options
-        <select
-          className="ip-select dropdown-field mt-2"
-          onChange={onChangeMachine}
-          value={tableRowSelect.Machine}
-        >
-          {machineList.map((value, key) => (
-            <option key={key} value={value.refName}>
-              {value.refName}
-            </option>
-          ))}
-        </select>
-      )}
+                  <div className="d-flex col-md-7" style={{ gap: "10px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Select machine
+                    </label>
+                    {isMachineListEmpty ? (
+                      // Render a disabled input or label showing the selected machine
+                      <input
+                        type="text"
+                        className="ip-select"
+                        value={tableRowSelect.Machine}
+                        disabled
+                      />
+                    ) : (
+                      // Render the regular select element with options
+                      <select
+                        className="ip-select"
+                        onChange={onChangeMachine}
+                        value={tableRowSelect.Machine}
+                      >
+                        {machineList.map((value, key) => (
+                          <option key={key} value={value.refName}>
+                            {value.refName}
+                          </option>
+                        ))}
+                      </select>
+                    )}
                   </div>
                 </div>
 
                 <div className="row">
-                  <div className="col-md-6">
+                  <div className="d-flex col-md-6" style={{ gap: "22px" }}>
                     <label className="form-label">Priority</label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       value={tableRowSelect.Priority}
                     />
                   </div>
 
-                  <div className="col-md-6 mt-4">
-                     <button
-          onClick={onClickChangeMachine}
-          style={{ width: "160px" }}
-          className={`button-style mt-3 group-button ${
-            buttonDisabled ? "disabled" : ""
-          }`}
-          disabled={buttonDisabled}
-        >
-          Change Machine
-        </button>
+                  <div className="col-md-6">
+                    <button
+                      onClick={onClickChangeMachine}
+                      className={`button-style group-button ${
+                        buttonDisabled ? "disabled" : ""
+                      }`}
+                      disabled={buttonDisabled}
+                    >
+                      Change Machine
+                    </button>
                   </div>
                 </div>
 
-                <div className="row mb-2">
-                  <div className="col-md-6">
-                    <label className="form-label">Machine</label>
+                <div className="row mb-1">
+                  <div className="d-flex col-md-6" style={{ gap: "17px" }}>
+                    <label
+                      className="form-label"
+                      style={{ whiteSpace: "nowrap" }}
+                    >
+                      Machine
+                    </label>
                     <input
-                      className="in-fields"
+                      className="input-field"
                       value={tableRowSelect.Machine}
                     />
                   </div>
                   <div className="col-md-6">
                     <button
                       onClick={onClickReleaseForProgramming}
-                      style={{ width: "160px", height: "55px" }}
                       className="button-style group-button "
                     >
-                      Release For <br />
-                      Programming
+                      Release For Programming
                     </button>
                   </div>
                 </div>
@@ -397,9 +419,9 @@ axios
             {/* //TABLE3 */}
 
             <div
-              className="mt-2"
+              className="mt-1"
               style={{
-                height: "300px",
+                height: "155px",
                 overflowY: "scroll",
                 overflowX: "scroll",
               }}
@@ -425,9 +447,7 @@ axios
                             RowSelect(value, key);
                           }}
                           className={
-                            key === rowselect?.index
-                              ? "selcted-row-clr"
-                              : ""
+                            key === rowselect?.index ? "selcted-row-clr" : ""
                           }
                         >
                           <td>{value.TaskNo}</td>

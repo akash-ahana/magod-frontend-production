@@ -73,8 +73,8 @@ export default function MachineLogTable() {
 
   return (
     <>
-      <div className="d-flex">
-        <div className="box" style={{ width: "205px" }}>
+      <div className="row mt-1">
+        <div className="col-md-3">
           <MachineLogSideTable
             selectMachineLogFun={selectMachineLogFun}
             selectmachinelog={selectmachinelog}
@@ -83,33 +83,32 @@ export default function MachineLogTable() {
           />
         </div>
 
-        <div className="row mt-1">
+        <div className="col-md-9">
           <div className="col-md-12 col-sm-12">
             <div
               style={{
-                height: "250px",
-                overflowY: "scroll",
-                overflowX: "scroll",
-                maxWidth: "650px",
+                height: "234px",
+                overflow: "scroll",
+                width: "650px",
               }}
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
-                <tr>
-           <th>Machine</th>
-           <th>Shift</th>
-           <th>Srl</th>
-           <th>FromTime</th>
-           <th>ToTime</th>
-           <th>RunningTime</th>
-           <th>Program</th>
-           <th>Operation</th>
-           <th>Remarks</th>
-           <th>Locked</th>
-           <th>Operator</th>
-           {/* <th>Abc</th>
+                  <tr>
+                    <th>Machine</th>
+                    <th>Shift</th>
+                    <th>Srl</th>
+                    <th>FromTime</th>
+                    <th>ToTime</th>
+                    <th>RunningTime</th>
+                    <th>Program</th>
+                    <th>Operation</th>
+                    <th>Remarks</th>
+                    <th>Locked</th>
+                    <th>Operator</th>
+                    {/* <th>Abc</th>
            <th>Xyz</th> */}
-         </tr>
+                  </tr>
                 </thead>
 
                 {Array.isArray(machineLog) && machineLog.length > 0 ? (
@@ -117,25 +116,23 @@ export default function MachineLogTable() {
                     {machineLog.map((item, key) => {
                       return (
                         <tr>
-                        <td>{item?.Machine}</td>
-                        <td>{item?.Shift}</td>
-                        <td>{key+1}</td>
-                        <td>
-                        {item?.FromTime}
-                        </td>
-                        <td>
-                        {item?.ToTime}
-                        </td>
-                        <td>{item?.MachineTime}</td>
-                        <td>{item?.Program}</td>
-                        <td>{item?.Operation}</td>
-                        <td>{item?.Remarks}</td>
-                        <td><input
-                           type='checkbox'
-                           checked={item?.Locked===1}
-                        /></td>
-                        <td>{item?.Operator}</td>
-                      </tr>
+                          <td>{item?.Machine}</td>
+                          <td>{item?.Shift}</td>
+                          <td>{key + 1}</td>
+                          <td>{item?.FromTime}</td>
+                          <td>{item?.ToTime}</td>
+                          <td>{item?.MachineTime}</td>
+                          <td>{item?.Program}</td>
+                          <td>{item?.Operation}</td>
+                          <td>{item?.Remarks}</td>
+                          <td>
+                            <input
+                              type="checkbox"
+                              checked={item?.Locked === 1}
+                            />
+                          </td>
+                          <td>{item?.Operator}</td>
+                        </tr>
                       );
                     })}
                   </tbody>

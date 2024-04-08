@@ -14,8 +14,12 @@ export default function PartsList({
   partlistdata,
   setPartlistdata,
 }) {
-  const {getSchedulistdata,getSchedulistfabricationdata,getSchedulistservicedata } = useGlobalContext();
-  const[saveCleared,setSaveCleared]=useState(false);
+  const {
+    getSchedulistdata,
+    getSchedulistfabricationdata,
+    getSchedulistservicedata,
+  } = useGlobalContext();
+  const [saveCleared, setSaveCleared] = useState(false);
 
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
@@ -36,35 +40,35 @@ export default function PartsList({
     for (let i = 0; i < constpartListData.length; i++) {
       constpartListData[i].QtyProduced = constpartListData[i].QtyNested;
     }
-    console.log(constpartListData)
+    console.log(constpartListData);
     setPartlistdata(constpartListData);
     setNewPartlistdata(constpartListData);
     setSaveCleared(true);
   };
-  
 
- /// CLEAR SELECTED
-const clearSelected = () => {
-  const updatedPartListData = [...partlistdata];
-  // Iterate through the selectedRows and update QtyProduced with QtyNested for all selected rows
-  updatedPartListData.forEach((item, index) => {
-    if (selectedRows.includes(item)) {
-      updatedPartListData[index].QtyProduced = item.QtyNested;
-    }
-  });
+  /// CLEAR SELECTED
+  const clearSelected = () => {
+    const updatedPartListData = [...partlistdata];
+    // Iterate through the selectedRows and update QtyProduced with QtyNested for all selected rows
+    updatedPartListData.forEach((item, index) => {
+      if (selectedRows.includes(item)) {
+        updatedPartListData[index].QtyProduced = item.QtyNested;
+      }
+    });
 
-  setPartlistdata(updatedPartListData);
-  setNewPartlistdata(updatedPartListData);
-  setSelectedRows([])
-  setSaveCleared(false)
-};
-
+    setPartlistdata(updatedPartListData);
+    setNewPartlistdata(updatedPartListData);
+    setSelectedRows([]);
+    setSaveCleared(false);
+  };
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
     // Check if there is at least one row where QtyNested is not equal to QtyProduced
-    const hasUnsavedData = partlistdata.some(item => item.QtyNested !== item.QtyProduced);
-    
+    const hasUnsavedData = partlistdata.some(
+      (item) => item.QtyNested !== item.QtyProduced
+    );
+
     if (!saveCleared) {
       // There is at least one row where QtyNested is not equal to QtyProduced
       axios
@@ -101,8 +105,6 @@ const clearSelected = () => {
         });
     }
   };
-  
-  
 
   // SelectedRow
   const [selectedRows, setSelectedRows] = useState([]);
@@ -125,7 +127,6 @@ const clearSelected = () => {
   //     setSelectedRows([]);
   //   }
   // };
-
 
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
@@ -165,51 +166,44 @@ const clearSelected = () => {
   //   selectedRows.length === 0 &&
   //   partlistdata.every((row) => row.QtyProduced === row.QtyNested);
 
+  //select ALL
+  const handleSelectAll = () => {
+    const allRowsSelected = selectPartList.length === partlistdata.length;
+    setSelectPartList(allRowsSelected ? [] : partlistdata);
+  };
 
+  // console.log(partlistdata);
 
-    //select ALL
-    const handleSelectAll = () => {
-      const allRowsSelected = selectPartList.length === partlistdata.length;
-      setSelectPartList(allRowsSelected ? [] : partlistdata);
-    };
-    
-    // console.log(partlistdata);
-    
   return (
     <div>
       <ToastContainer />
-      <div className="row mt-2">
-      <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearSelected}
-        >
-          Clear Selected
-        </button>
+      <div className="row">
+        <div className="col-md-12">
+          <button className="button-style group-button" onClick={clearSelected}>
+            Clear Selected
+          </button>
 
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={clearAllonClick}
-        >
-          Clear All
-        </button>
+          <button
+            className="button-style group-button"
+            onClick={clearAllonClick}
+          >
+            Clear All
+          </button>
 
-
-        <button
-          className="button-style mt-2 group-button"
-          style={{ width: "150px", marginLeft: "20px" }}
-          onClick={saveClearedonClick}
-        >
-          Save Cleared
-        </button>
+          <button
+            className="button-style group-button"
+            onClick={saveClearedonClick}
+          >
+            Save Cleared
+          </button>
+        </div>
       </div>
 
-      <div className="mt-4" style={{ height: "160px", overflowY: "scroll" }}>
+      <div className="mt-1" style={{ height: "120px", overflowY: "scroll" }}>
         <Table striped className="table-data border table-space">
           <thead className="tableHeaderBGColor">
             <tr>
-            <th onClick={handleSelectAll}></th>
+              <th onClick={handleSelectAll}></th>
               <th>DwgName</th>
               <th>Programmed</th>
               <th>Produced</th>
@@ -253,8 +247,8 @@ const clearSelected = () => {
                     />
                   </td>
                   <td>{item.DwgName}</td>
-                  <td >{item.QtyToNest}</td>
-                  <td >{item.QtyNested}</td>
+                  <td>{item.QtyToNest}</td>
+                  <td>{item.QtyNested}</td>
                   <td>
                     <div>
                       <input
