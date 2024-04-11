@@ -94,13 +94,12 @@ export default function Reports() {
         // console.log(response.data);
         setMachineLogData(response.data);
         setMachineName("");
-      });
-    axios
+        axios
       .post(baseURL + "/reports/getMachineUtilisationSummary", {
         Date: e.target.value,
       })
       .then((res) => {
-        // console.log("require response mus", res.data.data);
+        console.log("require response mus", res.data.data);
         setMachineutilisationSummarydata(res.data.data);
       });
     axios
@@ -108,6 +107,7 @@ export default function Reports() {
       .then((response) => {
         //  console.log("data", response.data.data);
         setProductionTaskSummary(response.data);
+      });
       });
   };
 
@@ -278,7 +278,22 @@ export default function Reports() {
       setSelectedMachineIndex(-1);
       setIsPageRefreshed(false);
       localStorage.setItem("isPageRefreshed", false);
+      axios
+      .post(baseURL + "/reports/getMachineUtilisationSummary", {
+        Date: dateSelect
+      })
+      .then((res) => {
+        // console.log("require response mus", res.data.data);
+        setMachineutilisationSummarydata(res.data.data);
+      });
+      axios
+      .post(baseURL + "/reports/productTaskSummary", { Date: dateSelect })
+      .then((response) => {
+        //  console.log("data", response.data.data);
+        setProductionTaskSummary(response.data);
+      });
     });
+
   },[])
 
   //Onclick MainTreeView

@@ -84,7 +84,6 @@ export default function PartsList({
             position: toast.POSITION.TOP_CENTER,
           });
           // After saving, update the data
-          console.log("executed first API");
         });
     } else {
       // All rows have QtyProduced equal to QtyCleared
@@ -98,7 +97,6 @@ export default function PartsList({
             position: toast.POSITION.TOP_CENTER,
           });
           // After saving, update the data
-          console.log("executed second API");
         });
     }
   };

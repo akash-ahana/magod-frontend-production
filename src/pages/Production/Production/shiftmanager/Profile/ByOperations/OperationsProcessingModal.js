@@ -345,7 +345,6 @@ export default function OperationsProcessingModal({
                                   onChange={(e) =>
                                     onChangeRejected(e, item, key)
                                   }
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>
@@ -356,7 +355,6 @@ export default function OperationsProcessingModal({
                                 name="cleared"
                                 Value={item.Remarks==='null' ? null :item.Remarks}
                                 onChange={(e) => onChangeRemarks(e, item, key)}
-                                placeholder="Type Cleared"
                               />
                             </td>
                           </tr>

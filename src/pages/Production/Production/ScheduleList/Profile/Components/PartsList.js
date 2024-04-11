@@ -77,10 +77,10 @@ const clearSelected = () => {
             position: toast.POSITION.TOP_CENTER,
           });
           // After saving, update the data
-          getSchedulistdata();
-          getSchedulistfabricationdata();
-          getSchedulistservicedata();
-          console.log("executed first API");
+          // getSchedulistdata();
+          // getSchedulistfabricationdata();
+          // getSchedulistservicedata();
+          // console.log("executed first API");
         });
     } else {
       // All rows have QtyProduced equal to QtyCleared
