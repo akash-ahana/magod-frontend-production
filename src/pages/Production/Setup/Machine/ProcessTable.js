@@ -13,7 +13,7 @@ export default function ProcessTable({
   //  console.log(processdataList)
   return (
     <div className="">
-      <div style={{ height: "195px", overflowY: "scroll", maxWidth: "850px" }}>
+      <div style={{ height: "220px", overflowY: "scroll", maxWidth: "850px" }}>
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor">
             <tr>

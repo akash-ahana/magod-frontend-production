@@ -245,7 +245,9 @@ export default function ScheduleHeader({
           />
         </div>
 
-        <div className="col-md-7">
+        <div className="col-md-2"></div>
+
+        <div className="col-md-5">
           <button
             className="button-style group-button"
             onClick={() => {

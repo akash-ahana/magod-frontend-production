@@ -250,7 +250,8 @@ export default function ScheduleHeader({
             onChange={(e) => searchText1(e)}
           />
         </div>
-        <div className="col-md-7">
+        <div className="col-md-2"></div>
+        <div className="col-md-5">
           <button
             className="button-style group-button"
             onClick={() => {

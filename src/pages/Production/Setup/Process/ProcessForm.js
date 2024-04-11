@@ -99,7 +99,7 @@ export default function ProcessForm({
             <div className="d-flex col-md-12">
               <div className="row col-md-7">
                 <div className="col-md-12">
-                  <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                  <div className="d-flex col-md-12" style={{ gap: "65px" }}>
                     <label className="form-label">Process</label>
                     <input
                       className="input-field"
@@ -177,7 +177,10 @@ export default function ProcessForm({
 
             <div className="row">
               <div className="col-md-7">
-                <div className="d-flex col-md-12" style={{ gap: "43px" }}>
+                <div
+                  className="d-flex col-md-12"
+                  style={{ gap: "43px", marginTop: "-58px" }}
+                >
                   <label className="form-label">Description</label>
                   <input
                     className="input-field"
@@ -190,7 +193,10 @@ export default function ProcessForm({
 
             <div className="row">
               <div className="col-md-7 mb-3">
-                <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                <div
+                  className="d-flex col-md-12"
+                  style={{ gap: "10px", marginTop: "-23px" }}
+                >
                   <label
                     className="form-label"
                     style={{ whiteSpace: "nowrap" }}

@@ -299,20 +299,41 @@ export default function ({ selectedRow, setSelectedRow }) {
           <div className="row">
             <div className="row">
               <div className="d-flex col-md-12" style={{ gap: "10px" }}>
-                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
-                  Reference Name
-                </label>
-                <input
-                  className="input-field"
-                  value={machineData.refName}
-                  disabled={true}
-                  name="refName"
-                  onChange={(e) => handleMachineChange(e)}
-                />
+                <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Reference Name
+                  </label>
+                  <input
+                    className="input-field"
+                    value={machineData.refName}
+                    disabled={true}
+                    name="refName"
+                    onChange={(e) => handleMachineChange(e)}
+                  />
+                </div>
+
+                <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Manufacturer
+                  </label>
+                  <input
+                    className="input-field"
+                    name="manufacturer"
+                    value={machineData.manufacturer || " "}
+                    disabled={true}
+                    onChange={(e) => handleMachineChange(e)}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="row">
+            {/* <div className="row">
               <div className="d-flex col-md-12" style={{ gap: "24px" }}>
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Manufacturer
@@ -325,7 +346,7 @@ export default function ({ selectedRow, setSelectedRow }) {
                   onChange={(e) => handleMachineChange(e)}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="row">
               <div className="col-md-9">
