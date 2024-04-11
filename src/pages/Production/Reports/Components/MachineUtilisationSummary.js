@@ -28,24 +28,14 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   };
 
   const updateUtilisationSummary = () => {
-    // console.log("rowSelected.TotalOn",rowSelected.TotalOn)
-    if (!rowSelected || !inputValue1) {
-      // Check if rowSelected and inputValue1 are valid
-      return;
-    }
-    const updatedRow = {
-      ...rowSelected,
-      TotalOff: inputValue1,
-      TotalOn:rowSelected.TotalOn,
-      ProdON:1440 - inputValue1,
-    };
-    // Update the selected row in the machineutilisationSummartdata array
-    const updatedData = machineutilisationSummartdata.map((item, index) =>
-      index === rowSelected.index ? updatedRow : item
-    );
-    // Update the machineutilisationSummartdata with the updatedData
-    setMachineutilisationSummarydata(updatedData);
-    // Show a success toast
+    axios
+      .post(baseURL + "/reports/updateProductionMachineUtilsationSummary", {
+        Date: dateSelect,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setMachineutilisationSummarydata(res.data);
+      });
   };
 
   const handleInputChange1 = (event) => {
@@ -56,7 +46,9 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   const handleInputChange2 = (event) => {
     const updatedMachineUtilisationData = [...machineutilisationSummartdata];
     // Find the index of the selected machine in the machineutilisationSummartdata array
-    const selectedIndex = updatedMachineUtilisationData.findIndex(item => item.Machine === rowSelected.Machine);
+    const selectedIndex = updatedMachineUtilisationData.findIndex(
+      (item) => item.Machine === rowSelected.Machine
+    );
     // Update the LaserOn value of the selected machine
     updatedMachineUtilisationData[selectedIndex].LaserOn = event.target.value;
     // console.log("updatedMachineUtilisationData",updatedMachineUtilisationData);
@@ -65,8 +57,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setInputValue2(event.target.value);
   };
 
-  
-  
   const onValueChange = (index, field, value) => {
     const updatedMachineUtilisationSummary = [...machineutilisationSummartdata]; // Create a copy of the array
     // Update the specific item's field with the new value
@@ -77,31 +67,55 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     setMachineutilisationSummarydata(updatedMachineUtilisationSummary);
   };
 
-
   const saveUtilisationSummary = () => {
-    axios
-      .post(baseURL + "/reports/saveMachineUtilisationSummary", {
-        machineutilisationSummartdata,
-        Date: dateSelect,
-      })
-      .then((res) => {
-        // console.log("require response mus", res.data);
-        setModalShow6(true);
-        // Introduce a delay of, for example, 1000 milliseconds (1 second)
-        setTimeout(() => {
-          axios
-            .post(baseURL + "/reports/muData", {
-              Date: dateSelect,
-            })
-            .then((res) => {
-              // console.log(res.data);
-              setMachineutilisationSummarydata(res.data);
-              // toast.success("Changes Saved", {
-              //   position: toast.POSITION.TOP_CENTER,
-              // });
-            });
-        }, 1000); // 1000 milliseconds = 1 second
+    let NonProd=rowSelected.NonProdOn;
+    console.log("NonProd is",NonProd);
+    if(inputValue1> NonProd){
+      toast.error(`TotalOff Canot be greater than NonProdOn `, {
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
+    else{
+      if (!rowSelected || !inputValue1) {
+        // Check if rowSelected and inputValue1 are valid
+        return;
+      }
+      const updatedRow = {
+        ...rowSelected,
+        TotalOff: inputValue1,
+        TotalOn: 1440 - inputValue1,
+        NonProdOn: NonProd - inputValue1,
+        LaserOn: inputValue2,
+      };
+      // Update the selected row in the machineutilisationSummartdata array
+      const updatedData = machineutilisationSummartdata.map((item, index) =>
+        index === rowSelected.index ? updatedRow : item
+      );
+      // Update the machineutilisationSummartdata with the updatedData
+      setMachineutilisationSummarydata(updatedData);
+  
+      axios
+        .post(baseURL + "/reports/saveMachineUtilisationSummary", {
+          machineutilisationSummartdata: updatedData,
+          Date: dateSelect,
+        })
+        .then((res) => {
+          setModalShow6(true);
+          // setTimeout(() => {
+          //   axios
+          //     .post(baseURL + "/reports/muData", {
+          //       Date: dateSelect,
+          //     })
+          //     .then((res) => {
+          //       // console.log(res.data);
+          //       setMachineutilisationSummarydata(res.data);
+          //       // toast.success("Changes Saved", {
+          //       //   position: toast.POSITION.TOP_CENTER,
+          //       // });
+          //     });
+          // }, 1000); // 1000 milliseconds = 1 second
+        });
+    }
   };
 
   const closeModal = () => {
@@ -174,7 +188,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                   marginLeft: "-10px",
                 }}
                 onClick={() => updateUtilisationSummary()}
-                disabled={status}
+                // disabled={status}
               >
                 Update Production
               </button>
@@ -204,7 +218,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                   marginLeft: "-10px",
                 }}
                 onClick={saveUtilisationSummary}
-                disabled={status}
+                // disabled={status}
               >
                 Save
               </button>
@@ -228,13 +242,13 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                     <input
                       type="checkbox"
                       checked={
-                        multiplerowSelect.length ===
-                        machineutilisationSummartdata.length
+                        multiplerowSelect?.length ===
+                        machineutilisationSummartdata?.length
                       }
                       onChange={() =>
                         setMultipleRowSelect((prevRows) =>
                           prevRows.length ===
-                          machineutilisationSummartdata.length
+                          machineutilisationSummartdata?.length
                             ? []
                             : machineutilisationSummartdata
                         )
@@ -271,7 +285,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                       <td style={{ whiteSpace: "nowrap" }}>{item.Machine}</td>
 
                       <td className="table-cell-align">
-                      <input 
+                        <input
                           className="table-cell-editor"
                           value={item.TotalOn}
                           onChange={(e) =>
@@ -281,7 +295,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                       </td>
 
                       <td className="table-cell-align">
-                        <input 
+                        <input
                           className="table-cell-editor"
                           value={item.TotalOff}
                           onChange={(e) =>
@@ -292,24 +306,23 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
                       <td className="table-cell-align">
                         <input
-                        className="table-cell-editor"
-                        value={item.ProdON}
-                        onChange={(e) =>
-                          onValueChange(key, "ProdON", e.target.value)
-                        }
-                        />
-                        </td>
-
-                      <td className="table-cell-align">
-                        <input
-                        className="table-cell-editor"
-                        value={item.NonProdOn}
-                        onChange={(e) =>
-                          onValueChange(key, "NonProdOn", e.target.value)
-                        }
+                          className="table-cell-editor"
+                          value={item.ProdON}
+                          onChange={(e) =>
+                            onValueChange(key, "ProdON", e.target.value)
+                          }
                         />
                       </td>
 
+                      <td className="table-cell-align">
+                        <input
+                          className="table-cell-editor"
+                          value={item.NonProdOn}
+                          onChange={(e) =>
+                            onValueChange(key, "NonProdOn", e.target.value)
+                          }
+                        />
+                      </td>
                     </tr>
                   );
                 })}

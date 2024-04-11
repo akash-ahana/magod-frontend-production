@@ -363,7 +363,6 @@ export default function ProgramProcessingModal({
                                     onChangeRejected(e, item, key)
                                   }
                                   max={item.QtyCut}
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>
@@ -377,7 +376,6 @@ export default function ProgramProcessingModal({
                                   onChange={(e) =>
                                     onChangeRemarks(e, item, key)
                                   }
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>

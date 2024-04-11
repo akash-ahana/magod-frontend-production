@@ -293,7 +293,6 @@ return(
                  onKeyDown={blockInvalidChar}
                  Value={item.QtyRejected}
                  onChange={(e)=>onChangeRejected(e,  item, key)}
-                 placeholder="Type Cleared"
                 />
                 </div>
             </td>
@@ -304,7 +303,6 @@ return(
                  name="cleared"
                  Value={item.Remarks==='null' ? null :item.Remarks}
                  onChange={(e)=>onChangeRemarks(e,item, key)}
-                 placeholder="Type Cleared"
                 />
             </td>
        </tr>

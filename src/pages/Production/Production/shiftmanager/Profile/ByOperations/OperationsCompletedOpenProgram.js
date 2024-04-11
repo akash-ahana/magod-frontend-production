@@ -499,7 +499,6 @@ export default function OperationsCompleteOpenProgram({
                                   onChange={(e) =>
                                     onChangeRejected(e, item, key)
                                   }
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>
@@ -510,7 +509,6 @@ export default function OperationsCompleteOpenProgram({
                                 name="cleared"
                                 defaultValue={item.Remarks}
                                 onChange={(e) => onChangeRemarks(e, item, key)}
-                                placeholder="Type Cleared"
                               />
                             </td>
                           </tr>
