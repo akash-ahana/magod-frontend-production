@@ -58,7 +58,6 @@ export default function ProgramProcessingModal({
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-    console.log(constProgramCompleteData);
     // Check if any row has QtyRejected > 0 and the 'Cleared' remarks input is null
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -374,7 +373,6 @@ export default function ProgramProcessingModal({
                                     onChangeRejected(e, item, key)
                                   }
                                   max={item.QtyCut}
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>
@@ -392,7 +390,6 @@ export default function ProgramProcessingModal({
                                   onChange={(e) =>
                                     onChangeRemarks(e, item, key)
                                   }
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>

@@ -354,66 +354,58 @@ export default function OperationsProcessingModal({
                     </tr>
                   </thead>
 
-                  {programCompleteData.map((item, key) => {
-                    return (
-                      <>
-                        <tbody className="tablebody">
-                          <tr>
-                            <td style={{ whiteSpace: "nowrap" }}>
-                              {item.DwgName}
-                            </td>
-                            {/* <td>{item.TotQtyNested}</td> */}
-                            <td>{item.TotQtyNested}</td>
-                            <td>{item.QtyCut}</td>
-                            <td>
-                              <div>
-                                <input
-                                  className="table-cell-editor "
-                                  name="cleared"
-                                  type="number"
-                                  onKeyDown={blockInvalidChar}
-                                  Value={item.QtyRejected}
-                                  onChange={(e) =>
-                                    onChangeRejected(e, item, key)
-                                  }
-                                  placeholder="Type Cleared"
-                                />
-                              </div>
-                            </td>
+{ programCompleteData.map((item,key)=>{
+return(
+  <>
+  
+  <tbody className='tablebody'>
+        <tr >
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
+           {/* <td>{item.TotQtyNested}</td> */}
+           <td>{item.TotQtyNested}</td>
+           <td >{item.QtyCut}</td>
+           <td  >
+            <div>
+           <input className='table-cell-editor '
+           
+                 name="cleared"
+                 type='number'
+                 onKeyDown={blockInvalidChar}
+                 Value={item.QtyRejected}
+                 onChange={(e)=>onChangeRejected(e,  item, key)}
+                />
+                </div>
+            </td>
 
-                            <td>{item.QtyCleared}</td>
-                            <td>
-                              <input
-                                className="table-cell-editor "
-                                name="cleared"
-                                Value={
-                                  item.Remarks === "null" ? null : item.Remarks
-                                }
-                                onChange={(e) => onChangeRemarks(e, item, key)}
-                                placeholder="Type Cleared"
-                              />
-                            </td>
-                          </tr>
-                        </tbody>
-                      </>
-                    );
-                  })}
-                </Table>
-              </div>
-              <Popup
-                openChnageMachine={openChnageMachine}
-                setOpenChangeMachine={setOpenChangeMachine}
-                selectProgramProcessing={selectProgramProcessing}
-                machineData={machineData}
-                taskNoOnClick={taskNoOnClick}
-                onClickOpeartion={onClickOpeartion}
-                setProgramProcessing={setProgramProcessing}
-                operation={operation}
-              />
-            </div>
-          </div>
-        </Modal.Body>
-      </Modal>
-    </div>
-  );
+           <td >{item.QtyCleared}</td>
+           <td>
+              <input className='table-cell-editor '
+                 name="cleared"
+                 Value={item.Remarks==='null' ? null :item.Remarks}
+                 onChange={(e)=>onChangeRemarks(e,item, key)}
+                />
+            </td>
+       </tr>
+  </tbody>
+  
+  </>
+)
+})}
+</Table>
+   </div>
+   <Popup openChnageMachine={openChnageMachine}
+   setOpenChangeMachine={setOpenChangeMachine}
+   selectProgramProcessing={selectProgramProcessing}
+   machineData={machineData}
+   taskNoOnClick={taskNoOnClick}
+   onClickOpeartion={onClickOpeartion}
+   setProgramProcessing={setProgramProcessing}
+   operation={operation}
+   />
+</div>
+</div>
+      </Modal.Body>
+    </Modal>
+  </div>
+)
 }

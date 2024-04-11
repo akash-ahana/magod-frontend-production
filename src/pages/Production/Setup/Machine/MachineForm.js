@@ -224,7 +224,6 @@ export default function ({ selectedRow, setSelectedRow }) {
           ...machineData,
         })
         .then((response) => {
-          console.log("sent", response.data);
           MachineTabledata();
           toast.success("Machine Details Saved", {
             position: toast.POSITION.TOP_CENTER,

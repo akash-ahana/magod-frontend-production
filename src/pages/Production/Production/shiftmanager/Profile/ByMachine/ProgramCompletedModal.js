@@ -93,7 +93,6 @@ export default function ProgramCompletedModal({
   };
 
   const clearAllButton = () => {
-    console.log("Clear All button Clicked", programCompleteData);
     // Create a new copy of the array to work with
     const constProgramCompleteData = [...programCompleteData];
     // Update the QtyCleared property
@@ -102,10 +101,6 @@ export default function ProgramCompletedModal({
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-    console.log(
-      "Updated Const Program Complete Data is ",
-      constProgramCompleteData
-    );
     // Validate if Remarks are mandatory
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -470,7 +465,6 @@ export default function ProgramCompletedModal({
                                   onChange={(e) =>
                                     onChangeRejected(e, item, key)
                                   }
-                                  placeholder="Type Cleared"
                                 />
                               </div>
                             </td>
@@ -483,7 +477,6 @@ export default function ProgramCompletedModal({
                                   item.Remarks === "null" ? null : item.Remarks
                                 }
                                 onChange={(e) => onChangeRemarks(e, item, key)}
-                                placeholder="Type Cleared"
                               />
                             </td>
                           </tr>

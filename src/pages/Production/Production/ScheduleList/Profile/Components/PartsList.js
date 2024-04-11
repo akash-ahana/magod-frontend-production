@@ -29,7 +29,7 @@ export default function PartsList({
   const onChangeInput = (e, TaskNo, key) => {
     const { name, value } = e.target;
     const NewEditData = partlistdata;
-    NewEditData[key].QtyProduced = value;
+    NewEditData[key].QtyCleared = value;
     setPartlistdata(NewEditData);
     setNewPartlistdata(NewEditData);
   };
@@ -38,7 +38,7 @@ export default function PartsList({
   const clearAllonClick = () => {
     const constpartListData = partlistdata;
     for (let i = 0; i < constpartListData.length; i++) {
-      constpartListData[i].QtyProduced = constpartListData[i].QtyNested;
+      constpartListData[i].QtyCleared = constpartListData[i].QtyProduced;
     }
     console.log(constpartListData);
     setPartlistdata(constpartListData);
@@ -46,15 +46,15 @@ export default function PartsList({
     setSaveCleared(true);
   };
 
-  /// CLEAR SELECTED
-  const clearSelected = () => {
-    const updatedPartListData = [...partlistdata];
-    // Iterate through the selectedRows and update QtyProduced with QtyNested for all selected rows
-    updatedPartListData.forEach((item, index) => {
-      if (selectedRows.includes(item)) {
-        updatedPartListData[index].QtyProduced = item.QtyNested;
-      }
-    });
+ /// CLEAR SELECTED
+const clearSelected = () => {
+  const updatedPartListData = [...partlistdata];
+  // Iterate through the selectedRows and update QtyCleared with QtyProduced for all selected rows
+  updatedPartListData.forEach((item, index) => {
+    if (selectedRows.includes(item)) {
+      updatedPartListData[index].QtyCleared = item.QtyProduced;
+    }
+  });
 
     setPartlistdata(updatedPartListData);
     setNewPartlistdata(updatedPartListData);
@@ -64,13 +64,11 @@ export default function PartsList({
 
   // SAVE CLEARED
   const saveClearedonClick = () => {
-    // Check if there is at least one row where QtyNested is not equal to QtyProduced
-    const hasUnsavedData = partlistdata.some(
-      (item) => item.QtyNested !== item.QtyProduced
-    );
-
+    // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+    const hasUnsavedData = partlistdata.some(item => item.QtyProduced !== item.QtyCleared);
+    
     if (!saveCleared) {
-      // There is at least one row where QtyNested is not equal to QtyProduced
+      // There is at least one row where QtyProduced is not equal to QtyCleared
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveCleared",
@@ -81,13 +79,13 @@ export default function PartsList({
             position: toast.POSITION.TOP_CENTER,
           });
           // After saving, update the data
-          getSchedulistdata();
-          getSchedulistfabricationdata();
-          getSchedulistservicedata();
-          console.log("executed first API");
+          // getSchedulistdata();
+          // getSchedulistfabricationdata();
+          // getSchedulistservicedata();
+          // console.log("executed first API");
         });
     } else {
-      // All rows have QtyNested equal to QtyProduced
+      // All rows have QtyProduced equal to QtyCleared
       axios
         .post(
           baseURL + "/scheduleListProfile/scheduleListSaveClearedCompleted",
@@ -131,13 +129,13 @@ export default function PartsList({
   const onChangeCleared = (e, item, key) => {
     const newConstPartList = [...partlistdata]; // Create a copy of the partlistdata array
     const newValue = parseInt(e.target.value); // Convert the input value to an integer
-    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyNested) {
-      newConstPartList[key].QtyProduced = newValue; // Update QtyProduced if it's a valid value
+    if (!isNaN(newValue) && newValue <= newConstPartList[key].QtyProduced) {
+      newConstPartList[key].QtyCleared = newValue; // Update QtyCleared if it's a valid value
     } else {
-      newConstPartList[key].QtyProduced = ""; // Reset QtyProduced if the value is invalid
+      newConstPartList[key].QtyCleared = ""; // Reset QtyCleared if the value is invalid
     }
     setPartlistdata(newConstPartList);
-    if (newValue > newConstPartList[key].QtyNested) {
+    if (newValue > newConstPartList[key].QtyProduced) {
       // Display an alert message if Cleared is greater than Produced
       toast.error("Cleared cannot be greater than Produced!", {
         position: toast.POSITION.TOP_CENTER,
@@ -164,7 +162,9 @@ export default function PartsList({
 
   // const isClearedDisabled =
   //   selectedRows.length === 0 &&
-  //   partlistdata.every((row) => row.QtyProduced === row.QtyNested);
+  //   partlistdata.every((row) => row.QtyCleared === row.QtyProduced);
+
+
 
   //select ALL
   const handleSelectAll = () => {
@@ -214,9 +214,9 @@ export default function PartsList({
               <th>SchDetailsId</th>
               <th>PartId</th>
               <th>QtyToNest</th>
+              <th>QtyCleared</th>
+              <th>QtyCleared</th>
               <th>QtyProduced</th>
-              <th>QtyProduced</th>
-              <th>QtyNested</th>
               <th>Remarks</th>
               <th>LOC</th>
               <th>Pierces</th>
@@ -247,8 +247,8 @@ export default function PartsList({
                     />
                   </td>
                   <td>{item.DwgName}</td>
-                  <td>{item.QtyToNest}</td>
-                  <td>{item.QtyNested}</td>
+                  <td >{item.QtyToNest}</td>
+                  <td >{item.QtyProduced}</td>
                   <td>
                     <div>
                       <input
@@ -257,7 +257,7 @@ export default function PartsList({
                         name="cleared"
                         type="number"
                         placeholder="Type Cleared"
-                        value={item.QtyProduced}
+                        value={item.QtyCleared}
                         onChange={(e) => onChangeCleared(e, item, key)}
                         onKeyDown={blockInvalidChar}
                         inputMode="numeric"
@@ -274,9 +274,9 @@ export default function PartsList({
                   </td>
                   <td style={{ textAlign: "center" }}>{item.PartID}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
+                  <td style={{ textAlign: "center" }}>{item.QtyCleared}</td>
                   <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyNested}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyNested}</td>
+                  <td style={{ textAlign: "center" }}>{item.QtyProduced}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.Remarks}</td>
                   <td style={{ textAlign: "center" }}>{item.LOC}</td>
                   <td style={{ textAlign: "center" }}>{item.Pierces}</td>

@@ -343,45 +343,36 @@ export default function ProcessingModal({
                     </tr>
                   </thead>
 
-                  {programCompleteData.map((item, key) => {
-                    return (
-                      <>
-                        <tbody className="tablebody">
-                          <tr>
-                            <td style={{ whiteSpace: "nowrap" }}>
-                              {item.DwgName}
-                            </td>
-                            {/* <td>{item.TotQtyNested}</td> */}
-                            <td>{item.TotQtyNested}</td>
-                            <td>{item.QtyCut}</td>
-                            <td>
-                              <div>
-                                <input
-                                  className="table-cell-editor "
-                                  name="cleared"
-                                  type="number"
-                                  onKeyDown={blockInvalidChar}
-                                  Value={item.QtyRejected}
-                                  onChange={(e) =>
-                                    onChangeRejected(e, item, key)
-                                  }
-                                  placeholder="Type Cleared"
-                                />
-                              </div>
-                            </td>
-                            <td>{item.QtyCleared}</td>
-                            <td>
-                              <input
-                                className="table-cell-editor "
-                                name="cleared"
-                                Value={
-                                  item.Remarks === "null" ? null : item.Remarks
-                                }
-                                onChange={(e) => onChangeRemarks(e, item, key)}
-                                placeholder="Type Cleared"
-                              />
-                            </td>
-                            {/* <td >
+{ programCompleteData.map((item,key)=>{
+return(
+  <>
+  
+  <tbody className='tablebody'>
+        <tr >
+           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
+           {/* <td>{item.TotQtyNested}</td> */}
+           <td>{item.TotQtyNested}</td>
+           <td>{item.QtyCut}</td>
+           <td >
+            <div>
+           <input className='table-cell-editor '
+                 name="cleared"
+                 type='number'
+                 onKeyDown={blockInvalidChar}
+                 Value={item.QtyRejected}
+                 onChange={(e)=>onChangeRejected(e,  item, key)}
+                />
+                </div>
+            </td>
+           <td>{item.QtyCleared}</td>
+           <td>
+              <input className='table-cell-editor '
+                 name="cleared"
+                 Value={item.Remarks==='null' ? null :item.Remarks}
+                 onChange={(e)=>onChangeRemarks(e,item, key)}
+                />
+            </td>
+            {/* <td >
               <div key={item.QtyCleared}>
               {item.QtyCleared}
                 </div></td> */}
