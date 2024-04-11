@@ -247,7 +247,7 @@ export default function Reports() {
       });
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     axios
     .post(baseURL + "/reports/machineLog", { Date: dateSelect })
     .then((response) => {
@@ -424,226 +424,212 @@ export default function Reports() {
         setStatus={setStatus}
       />
 
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Daily Production Report</h4>
-        </div>
+      <div className="row">
+        <h4 className="title">Daily Production Report</h4>
       </div>
 
-      <div className="col-md-12">
-        <div className="row">
-          <div className="col-md-2 mt-3">
-            <input
-              name="InstallDate"
-              onChange={handleChangeSelectDate}
-              type="date"
-              required
-              defaultValue={Date}
-            />
-          </div>
+      <div className="row">
+        <div className="col-md-3">
+          <input
+            className="input-field mt-2"
+            name="InstallDate"
+            onChange={handleChangeSelectDate}
+            type="date"
+            required
+            defaultValue={Date}
+          />
+        </div>
 
+        <div className="col-md-4">
           <button
-            className="button-style mt-3 group-button"
+            className="button-style group-button"
             type="button"
-            style={{ width: "150px", marginLeft: "20px" }}
             onClick={openPrepareReport1}
           >
             Prepare Report
           </button>
 
           <button
-            className="button-style mt-3  group-button"
+            className="button-style group-button"
             type="button"
-            style={{ width: "150px", marginLeft: "20px" }}
             onClick={openPrintdailyPdf}
             // disabled={status===false ? true : false}
           >
             Print Daily Report
           </button>
+        </div>
 
-          {/* <div className='col-md-3'>
-           <label  
-           className="">Prepared By</label>
-                <input style={{marginTop:"-6px"}} className="in-field" required />
-           </div> */}
+        <div className="d-flex col-md-4" style={{ gap: "10px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Prepared By
+          </label>
+          <input
+            className="in-field"
+            name="preparedby"
+            onChange={InputChange}
+            value={preparedby}
+          />
+        </div>
+        <div className="col-md-1">
           <button
-            className="button-style mt-3 group-button ms-3"
+            className="button-style group-button ms-3"
             type="button"
-            style={{ width: "130px" }}
             onClick={onClickClose}
           >
             Close
           </button>
-          <div
-            className="col-md-3 mt-2"
-            style={{ display: "flex", gap: "20px" }}
-          >
-            <label className="mt-1 form-label" style={{ whiteSpace: "nowrap" }}>
-              Prepared By
-            </label>
-            <input
-              className="in-field mt-2"
-              name="preparedby"
-              onChange={InputChange}
-              value={preparedby}
-            />
-          </div>
         </div>
       </div>
 
-      <div className="col-md-12">
-        <div className="row mt-4">
-          <div
-            className="col-md-3"
-            style={{
-              height: "420px",
-              overflowY: "scroll",
-              fontSize: "14px",
-              marginLeft: "-10px",
-            }}
-          >
-            {dataSource.map((node, i) => {
-              const type = node.type;
-              const label = (
-                <span
-                  onClick={() => treeViewHeader(node.labelIndex)}
-                  className={`node ${
-                    selectedLabelIndex === node.labelIndex
-                      ? "selcted-row-clr"
-                      : ""
-                  }`}
-                >
-                  {type}
-                </span>
-              );
-              return (
-                <TreeView
-                  key={type + "|" + i}
-                  nodeLabel={label}
-                  defaultCollapsed={false}
-                >
-                  {node.serverData.map((data, key) => {
-                    const label2 = (
-                      <span
-                        style={{ fontSize: "13px" }}
-                        onClick={() => {
-                          selectedMachineFun(data, key);
-                          machineSelected(data.MachineName, data, key);
-                        }}
-                        className={`node ${
-                          key === selectedMachineIndex ? "selcted-row-clr" : ""
-                        }`}
-                      >
-                        {data.MachineName}
-                      </span>
-                    );
+      <div className="row mt-1">
+        <div
+          className="col-md-3"
+          style={{
+            height: "390px",
+            overflowY: "scroll",
+            fontSize: "14px",
+          }}
+        >
+          {dataSource.map((node, i) => {
+            const type = node.type;
+            const label = (
+              <span
+                style={{ fontSize: "14px" }}
+                onClick={() => treeViewHeader(node.labelIndex)}
+                className={`node ${
+                  selectedLabelIndex === node.labelIndex
+                    ? "selcted-row-clr"
+                    : ""
+                }`}
+              >
+                {type}
+              </span>
+            );
+            return (
+              <TreeView
+                key={type + "|" + i}
+                nodeLabel={label}
+                defaultCollapsed={false}
+              >
+                {node.serverData.map((data, key) => {
+                  const label2 = (
+                    <span
+                      style={{ fontSize: "12px" }}
+                      onClick={() => {
+                        selectedMachineFun(data, key);
+                        machineSelected(data.MachineName, data, key);
+                      }}
+                      className={`node ${
+                        key === selectedMachineIndex ? "selcted-row-clr" : ""
+                      }`}
+                    >
+                      {data.MachineName}
+                    </span>
+                  );
 
-                    return (
-                      <TreeView
-                        nodeLabel={label2}
-                        key={data.name}
-                        defaultCollapsed={true}
-                      >
-                        {data.Shifts.map((value, key) => {
-                          const label3 = (
-                            <span
-                              style={{ fontSize: "13px" }}
-                              onClick={() => {
-                                ShiftSelected(
-                                  value.Shift,
-                                  data.MachineName,
-                                  value,
-                                  key
-                                );
-                              }}
-                              className={
-                                key === selectedShift?.index
-                                  ? "selcted-row-clr"
-                                  : ""
-                              }
+                  return (
+                    <TreeView
+                      nodeLabel={label2}
+                      key={data.name}
+                      defaultCollapsed={true}
+                    >
+                      {data.Shifts.map((value, key) => {
+                        const label3 = (
+                          <span
+                            style={{ fontSize: "13px" }}
+                            onClick={() => {
+                              ShiftSelected(
+                                value.Shift,
+                                data.MachineName,
+                                value,
+                                key
+                              );
+                            }}
+                            className={
+                              key === selectedShift?.index
+                                ? "selcted-row-clr"
+                                : ""
+                            }
+                          >
+                            {value.Shift} - {value.time}{" "}
+                          </span>
+                        );
+                        return (
+                          <>
+                            <TreeView
+                              nodeLabel={label3}
+                              key={data.name}
+                              defaultCollapsed={true}
                             >
-                              {value.Shift} - {value.time}{" "}
-                            </span>
-                          );
-                          return (
-                            <>
-                              <TreeView
-                                nodeLabel={label3}
-                                key={data.name}
-                                defaultCollapsed={true}
-                              >
-                                {value.task.map((data) => {
-                                  const label4 = (
-                                    <span
-                                      style={{ fontSize: "12px" }}
-                                      className="node"
+                              {value.task.map((data) => {
+                                const label4 = (
+                                  <span
+                                    style={{ fontSize: "12px" }}
+                                    className="node"
+                                  >
+                                    {data.action} - {data.time}
+                                  </span>
+                                );
+                                return (
+                                  <>
+                                    <TreeView
+                                      nodeLabel={label4}
+                                      key={data.name}
+                                      defaultCollapsed={true}
                                     >
-                                      {data.action} - {data.time}
-                                    </span>
-                                  );
-                                  return (
-                                    <>
-                                      <TreeView
-                                        nodeLabel={label4}
-                                        key={data.name}
-                                        defaultCollapsed={true}
-                                      >
-                                        {data.operations.map((value) => {
-                                          const label5 = (
-                                            <span
-                                              style={{ fontSize: "11px" }}
-                                              className="node"
-                                            >
-                                              {value.Operation} - {value.time}
-                                            </span>
-                                          );
-                                          return (
-                                            <>
-                                              <TreeView
-                                                nodeLabel={label5}
-                                                key={data.name}
-                                                defaultCollapsed={true}
-                                              ></TreeView>
-                                            </>
-                                          );
-                                        })}
-                                      </TreeView>
-                                    </>
-                                  );
-                                })}
-                              </TreeView>
-                            </>
-                          );
-                        })}
-                      </TreeView>
-                    );
-                  })}
-                </TreeView>
-              );
-            })}
-          </div>
-          <div className="col-md-9">
-            <NabTab
-              machineutilisationSummartdata={machineutilisationSummartdata}
-              productionTaskSummary={productionTaskSummary}
-              machineLogData={machineLogData}
-              dateSelect={dateSelect}
-              setMachineLogData={setMachineLogData}
-              setMachineutilisationSummarydata={
-                setMachineutilisationSummarydata
-              }
-              selectedRows={selectedRows}
-              setSelectedRows={setSelectedRows}
-              machinelogRowSelect={machinelogRowSelect}
-              status={status}
-              machineName={machineName}
-            />
-            <CustomModal
-              show={modalShow}
-              handleClose={closeModal}
-              data={modalData}
-            />
-          </div>
+                                      {data.operations.map((value) => {
+                                        const label5 = (
+                                          <span
+                                            style={{ fontSize: "11px" }}
+                                            className="node"
+                                          >
+                                            {value.Operation} - {value.time}
+                                          </span>
+                                        );
+                                        return (
+                                          <>
+                                            <TreeView
+                                              nodeLabel={label5}
+                                              key={data.name}
+                                              defaultCollapsed={true}
+                                            ></TreeView>
+                                          </>
+                                        );
+                                      })}
+                                    </TreeView>
+                                  </>
+                                );
+                              })}
+                            </TreeView>
+                          </>
+                        );
+                      })}
+                    </TreeView>
+                  );
+                })}
+              </TreeView>
+            );
+          })}
+        </div>
+        <div className="col-md-9">
+          <NabTab
+            machineutilisationSummartdata={machineutilisationSummartdata}
+            productionTaskSummary={productionTaskSummary}
+            machineLogData={machineLogData}
+            dateSelect={dateSelect}
+            setMachineLogData={setMachineLogData}
+            setMachineutilisationSummarydata={setMachineutilisationSummarydata}
+            selectedRows={selectedRows}
+            setSelectedRows={setSelectedRows}
+            machinelogRowSelect={machinelogRowSelect}
+            status={status}
+            machineName={machineName}
+          />
+          <CustomModal
+            show={modalShow}
+            handleClose={closeModal}
+            data={modalData}
+          />
         </div>
       </div>
     </div>

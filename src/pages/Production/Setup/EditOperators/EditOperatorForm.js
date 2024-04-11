@@ -7,12 +7,11 @@ import GlobalModal from "../../GlobalModal";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-
 export default function EditOperatorForm({
   rowselectOperator,
   getOperatorData,
   setRowSelectOperator,
-  getOperatorlist
+  getOperatorlist,
 }) {
   // Open Add Modal
   const [openAdd, setOpenAdd] = useState("");
@@ -42,7 +41,7 @@ export default function EditOperatorForm({
           position: toast.POSITION.TOP_CENTER,
         });
         getOperatorData();
-        setRowSelectOperator({...getOperatorlist[0],index:0})
+        setRowSelectOperator({ ...getOperatorlist[0], index: 0 });
       });
   };
 
@@ -76,96 +75,74 @@ export default function EditOperatorForm({
     navigate("/Production");
   };
 
-
   return (
     <div className="ip-box form-bg">
       <GlobalModal
         show={deleteShitIc}
         title="magod_shiftIncharge"
         content={
-          <>
+          <h5 style={{ fontSize: "12px" }}>
             Are You sure you want to Delete{" "}
             <strong>{rowselectOperator.Name}</strong> ?
-          </>
+          </h5>
         }
         onYesClick={handleSubmit}
         onNoClick={handlecloseDelete}
         onClose={handlecloseDelete}
       />
 
-      <div className="col-md-7">
-        <label className="form-label ">Shift InCharge</label>
+      <div className="d-flex col-md-7" style={{ gap: "10px" }}>
+        <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+          Shift InCharge
+        </label>
         <input
-          className="in-fields"
+          className="input-field"
           name="Name"
           value={rowselectOperator.Name || ""}
           onChange={handleInputChange}
         />
       </div>
 
-      <div className="col-md-7">
-        <label className="form-label ">Skill Level</label>
+      <div className="d-flex col-md-7" style={{ gap: "34px" }}>
+        <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+          Skill Level
+        </label>
         <input
-          className="in-fields"
+          className="input-field"
           name="Skill_Level"
           value={rowselectOperator.Skill_Level || ""}
           onChange={handleInputChange}
         />
       </div>
 
-      <div className="col-md-7">
-        <label className="form-label ">Status</label>
+      <div className="d-flex col-md-7" style={{ gap: "55px" }}>
+        <label className="form-label">Status</label>
         <input
-          className="in-fields"
+          className="input-field"
           name="Status"
           value={rowselectOperator.Status || ""}
           onChange={handleInputChange}
         />
       </div>
-      <div className="mt-4 mb-3">
-        <Button
-          style={{
-            backgroundColor: "#2b3a55",
-            border: "#2b3a55",
-            width: "100px",
-          }}
-          onClick={onClickAdd}
-        >
+      <div className="mt-1 mb-2">
+        <button className="button-style group-button" onClick={onClickAdd}>
           Add
-        </Button>
-        <Button
-          className="ms-2"
-          style={{
-            backgroundColor: "#2b3a55",
-            border: "#2b3a55",
-            width: "100px",
-          }}
+        </button>
+        <button
+          className="button-style group-button"
           onClick={saveOperatorData}
         >
           Save
-        </Button>
-        <Button
-          className="ms-2"
-          style={{
-            backgroundColor: "#2b3a55",
-            border: "#2b3a55",
-            width: "100px",
-          }}
+        </button>
+        <button
+          className="button-style group-button"
           onClick={onClickDeleteShiftIc}
         >
           Delete
-        </Button>
-        <Button
-          className="ms-2"
-          style={{
-            backgroundColor: "#2b3a55",
-            border: "#2b3a55",
-            width: "100px",
-          }}
-          onClick={onClickClose}
-        >
+        </button>
+        <button className="button-style group-button" onClick={onClickClose}>
           Close
-        </Button>
+        </button>
       </div>
 
       <AddShiftInChargeModal

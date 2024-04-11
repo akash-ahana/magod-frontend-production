@@ -297,37 +297,62 @@ export default function ({ selectedRow, setSelectedRow }) {
         <div className="ip-box form-bg">
           <div className="row">
             <div className="row">
-              <div className="col-md-12 ">
-                <label className="form-label">Reference Name</label>
-                <input
-                  className="in-fields"
-                  value={machineData.refName}
-                  disabled={true}
-                  name="refName"
-                  onChange={(e) => handleMachineChange(e)}
-                />
+              <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Reference Name
+                  </label>
+                  <input
+                    className="input-field"
+                    value={machineData.refName}
+                    disabled={true}
+                    name="refName"
+                    onChange={(e) => handleMachineChange(e)}
+                  />
+                </div>
+
+                <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Manufacturer
+                  </label>
+                  <input
+                    className="input-field"
+                    name="manufacturer"
+                    value={machineData.manufacturer || " "}
+                    disabled={true}
+                    onChange={(e) => handleMachineChange(e)}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="row">
-              <div className="col-md-12">
-                <label className="form-label">Manufacturer</label>
+            {/* <div className="row">
+              <div className="d-flex col-md-12" style={{ gap: "24px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Manufacturer
+                </label>
                 <input
-                  className="in-fields"
+                  className="input-field"
                   name="manufacturer"
                   value={machineData.manufacturer || " "}
                   disabled={true}
                   onChange={(e) => handleMachineChange(e)}
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="row">
               <div className="col-md-9">
-                <div className="col-md-12 ">
+                <div className="d-flex col-md-12" style={{ gap: "64px" }}>
                   <label className="form-label">Model</label>
                   <input
-                    className="in-fields"
+                    className="input-field"
                     value={machineData.Model || " "}
                     disabled={true}
                     name="model"
@@ -337,7 +362,7 @@ export default function ({ selectedRow, setSelectedRow }) {
               </div>
               <div className="col-md-3">
                 <div
-                  className="col-md-12 mt-4"
+                  className="col-md-12 mt-1"
                   style={{ display: "flex", gap: "5px" }}
                 >
                   <label className="form-label">Working</label>
@@ -355,8 +380,11 @@ export default function ({ selectedRow, setSelectedRow }) {
 
             <div className="row">
               <div className="col-md-6">
-                <div className="col-md-12 ">
-                  <label className="form-label">
+                <div className="d-flex col-md-12" style={{ gap: "35px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
                     RegnNo <span style={{ color: "red" }}>*</span>
                   </label>
                   <input
@@ -367,7 +395,7 @@ export default function ({ selectedRow, setSelectedRow }) {
                     }
                     onKeyDown={blockInvalidCharReg}
                     {...register("RegnNo")}
-                    className={`in-fields mt-2 ${
+                    className={`input-field ${
                       errors.RegnNo ? "is-invalid" : ""
                     }`}
                     required
@@ -376,8 +404,11 @@ export default function ({ selectedRow, setSelectedRow }) {
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="col-md-12 ">
-                  <label className="form-label">
+                <div className="d-flex col-md-12" style={{ gap: "34px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
                     Location <span style={{ color: "red" }}>*</span>
                   </label>
                   <input
@@ -387,7 +418,7 @@ export default function ({ selectedRow, setSelectedRow }) {
                       machineData.isLocationPresent === true ? true : false
                     }
                     {...register("location")}
-                    className={`in-fields mt-2 ${
+                    className={`input-field ${
                       errors.location ? "is-invalid" : ""
                     }`}
                     required
@@ -399,10 +430,15 @@ export default function ({ selectedRow, setSelectedRow }) {
 
             <div className="row">
               <div className="col-md-6">
-                <div className="col-md-12 ">
-                  <label className="form-label">Machine_Type</label>
+                <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Machine_Type
+                  </label>
                   <select
-                    className="ip-select dropdown-field mt-2"
+                    className="ip-select"
                     value={machineData.Machine_Type}
                     name="Machine_Type"
                     onChange={(e) => handleMachineChange(e)}
@@ -419,10 +455,15 @@ export default function ({ selectedRow, setSelectedRow }) {
               </div>
 
               <div className="col-md-6">
-                <div className="col-md-12 ">
-                  <label className="form-label">Target Rate</label>
+                <div className="d-flex col-md-12" style={{ gap: "25px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Target Rate
+                  </label>
                   <input
-                    className="in-fields mt-2"
+                    className="input-field"
                     type="number"
                     onKeyDown={blockInvalidChar}
                     value={machineData.TgtRate}
@@ -435,8 +476,11 @@ export default function ({ selectedRow, setSelectedRow }) {
 
             <div className="row">
               <div className="col-md-6">
-                <div className="col-md-12 ">
-                  <label className="form-label">
+                <div className="d-flex col-md-12" style={{ gap: "16px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
                     Install Date <span style={{ color: "red" }}>*</span>
                   </label>
                   <input
@@ -447,7 +491,7 @@ export default function ({ selectedRow, setSelectedRow }) {
                       machineData.isInstallDatePresent === true ? true : false
                     }
                     {...register("InstallDate")}
-                    className={`in-fields  mt-2 ${
+                    className={`input-field ${
                       errors.InstallDate ? "is-invalid" : ""
                     }`}
                     required
@@ -456,10 +500,15 @@ export default function ({ selectedRow, setSelectedRow }) {
                 </div>
               </div>
               <div className="col-md-6">
-                <div className="col-md-12 ">
-                  <label className="form-label">Uninstall Date</label>
+                <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Uninstall Date
+                  </label>
                   <input
-                    className="in-fields mt-2"
+                    className="input-field"
                     name="UnistallDate"
                     value={formatDate(machineData.UnistallDate)}
                     type="date"
@@ -470,10 +519,10 @@ export default function ({ selectedRow, setSelectedRow }) {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12 ">
+              <div className="d-flex col-md-12" style={{ gap: "40px" }}>
                 <label className="form-label">Remarks</label>
                 <input
-                  className="in-fields mt-2"
+                  className="input-field"
                   name="remarks"
                   value={machineData.remarks}
                   onChange={(e) => handleMachineChange(e)}
@@ -482,67 +531,60 @@ export default function ({ selectedRow, setSelectedRow }) {
             </div>
           </div>
 
-          <div className="row mt-3 mb-2">
-            <button
-              className="button-style mt-2 group-button"
-              type="button"
-              style={{ width: "150px", marginLeft: "20px" }}
-              onClick={() => addMachine()}
-            >
-              Add Machine
-            </button>
+          <div className="row mt-1 mb-1">
+            <div className="col-md-12" style={{ marginLeft: "10px" }}>
+              <button
+                className="button-style mt-2 group-button"
+                type="button"
+                onClick={() => addMachine()}
+              >
+                Add Machine
+              </button>
 
-            <button
-              className="button-style mt-2 group-button"
-              style={{ width: "150px", marginLeft: "20px" }}
-              type="submit"
-            >
-              Save Machine
-            </button>
+              <button className="button-style mt-2 group-button" type="submit">
+                Save Machine
+              </button>
 
-            <button
-              className="button-style mt-2 group-button"
-              type="button"
-              style={{ width: "150px", marginLeft: "20px" }}
-              onClick={() => {
-                openDeletemachine();
-              }}
-            >
-              Delete Machine
-            </button>
+              <button
+                className="button-style mt-2 group-button"
+                type="button"
+                onClick={() => {
+                  openDeletemachine();
+                }}
+              >
+                Delete Machine
+              </button>
 
-            <button
-              className="button-style mt-2 group-button"
-              type="button"
-              style={{ width: "150px", marginLeft: "20px" }}
-              onClick={() => openAddprocess()}
-            >
-              Add Process
-            </button>
+              <button
+                className="button-style mt-2 group-button"
+                type="button"
+                onClick={() => openAddprocess()}
+              >
+                Add Process
+              </button>
 
-            <button
-              className="button-style mt-2 group-button"
-              type="button"
-              style={{ width: "150px", marginLeft: "20px" }}
-              onClick={() => {
-                openDeleteProcess();
-              }}
-            >
-              Delete Process
-            </button>
+              <button
+                className="button-style mt-2 group-button"
+                type="button"
+                onClick={() => {
+                  openDeleteProcess();
+                }}
+              >
+                Delete Process
+              </button>
 
-            <button
-              className="button-style mt-2 group-button"
-              type="button"
-              style={{ width: "150px", marginLeft: "20px" }}
-              onClick={onClickClose}
-            >
-              Close
-            </button>
+              <button
+                className="button-style mt-2 group-button"
+                type="button"
+                onClick={onClickClose}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </form>
-      <div className="mt-2">
+      <div className="mt-1">
         <ProcessTable
           processdataList={processdataList}
           selectedRowFun={selectedRowFun}

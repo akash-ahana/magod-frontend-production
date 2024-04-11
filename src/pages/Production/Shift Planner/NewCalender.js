@@ -387,7 +387,7 @@ function NewCalender(props) {
   useMemo(() => {
     setRowselect({ item: selectedWeek[0], index: 0 });
   }, [selectedWeek[0]]);
-  
+
   const [SingleDayShiftPlan4thTable, setSingleDayShiftPlan4thTable] = useState(
     []
   );
@@ -587,7 +587,7 @@ function NewCalender(props) {
   const [machineOperatorTableData, setMachineOperatorTableData] = useState([]);
 
   const getMachineOperatorTableData = () => {
-          console.log(rowselectDailyShiftTable)
+    console.log(rowselectDailyShiftTable);
     if (rowselectDailyShiftTable === null) {
       // If rowselectDailyShiftTable is null, set an empty array
       setMachineOperatorTableData([]);
@@ -803,75 +803,71 @@ function NewCalender(props) {
         newTry={flatTryData}
       />
 
-      <div className="col-md-12">
-        <div className="row">
-          <h4 className="title">Production Department: Shift Editor</h4>
-        </div>
+      <div className="row">
+        <h4 className="title">Production Department: Shift Editor</h4>
       </div>
 
-      <div className="col-md-12">
-        <div className="row">
-          <div className="col-md-3">
-            <h6 className="mt-2">Weekly Shift Editor</h6>
-          </div>
-          <div className="col-md-9">
-            <div className="row">
-              <div className="col-md-3">
-                <label className="form-label">Shift</label>
-                <select
-                  className="ip-select"
-                  value={selectedShift}
-                  onChange={handleShiftTypeChange}
-                >
-                  <option value="">Select Shift</option>
-                  {dataShiftTypes.map((dataShiftType) => (
-                    <option key={dataShiftType} value={dataShiftType}>
-                      {dataShiftType}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <button
-                  className={`button-style mt-2 group-button mt-4 ${
-                    condition !== true ? "disabled" : ""
-                  }`}
-                  style={{ width: "150px" }}
-                  disabled={condition !== true}
-                  onClick={() => {
-                    openCreateshiftmodal();
-                    createWeeklyShiftPlan();
-                  }}
-                >
-                  Create Week Shift
-                </button>
-              </div>{" "}
-              <div className="col-md-3">
-                <label className="form-label">Machine</label>
-                <select className="ip-select" onChange={handleMachineChange}>
-                  <option selected>Select Machine</option>
-                  {dataMachineList.map((dataMachineList) => (
-                    <option value={dataMachineList.refName}>
-                      {dataMachineList.refName}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3" style={{ marginTop: "20px" }}>
-                <button
-                  className={`button-style mt-2 group-button mt-4 ${
-                    condition !== true ? "disabled" : ""
-                  }`}
-                  style={{ width: "200px" }}
-                  disabled={condition !== true}
-                  onClick={() => {
-                    onSetMachineOperators();
-                    openSetMachinemodal();
-                  }}
-                >
-                  Set Machine Operator
-                </button>
-              </div>
+      <div className="row">
+        <div className="col-md-3">
+          <label className="form-label" style={{ fontSize: "14px" }}>
+            Weekly Shift Editor
+          </label>
+        </div>
+        <div className="col-md-9">
+          <div className="row">
+            <div className="d-flex col-md-4" style={{ gap: "65px" }}>
+              <label className="form-label">Shift</label>
+              <select
+                className="ip-select"
+                value={selectedShift}
+                onChange={handleShiftTypeChange}
+              >
+                <option value="">Select Shift</option>
+                {dataShiftTypes.map((dataShiftType) => (
+                  <option key={dataShiftType} value={dataShiftType}>
+                    {dataShiftType}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-2">
+              <button
+                className={`button-style group-button ${
+                  condition !== true ? "disabled" : ""
+                }`}
+                disabled={condition !== true}
+                onClick={() => {
+                  openCreateshiftmodal();
+                  createWeeklyShiftPlan();
+                }}
+              >
+                Create Week Shift
+              </button>
+            </div>{" "}
+            <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+              <label className="form-label">Machine</label>
+              <select className="ip-select" onChange={handleMachineChange}>
+                <option selected>Select Machine</option>
+                {dataMachineList.map((dataMachineList) => (
+                  <option value={dataMachineList.refName}>
+                    {dataMachineList.refName}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-3">
+              <button
+                className={`button-style group-button ${
+                  condition !== true ? "disabled" : ""
+                }`}
+                disabled={condition !== true}
+                onClick={() => {
+                  onSetMachineOperators();
+                  openSetMachinemodal();
+                }}
+              >
+                Set Machine Operator
+              </button>
             </div>
           </div>
         </div>
@@ -879,34 +875,35 @@ function NewCalender(props) {
 
       {/* ////// */}
 
-      <div className="col-md-12">
-        <div className="row">
-          <div className="col-md-3">
-            <div style={{ color: "red", fontSize: "14px" }}>
-              <b>
-                {selectedWeek[0]} Monday To {selectedWeek[6]} Sunday
-              </b>
-            </div>
+      <div className="row">
+        <div className="col-md-3">
+          <div>
+            <label className="form-label" style={{ color: "red" }}>
+              {selectedWeek[0]} Monday To {selectedWeek[6]} Sunday
+            </label>
           </div>
-          <div className="col-md-9">
-            <div className="row">
-              <div className="col-md-3">
-                <label className="form-label">Shift Incharge</label>
-                <select
-                  className="ip-select"
-                  value={selectedShiftIncharge}
-                  onChange={handleShiftIncharge}
-                >
-                  <option value="">Select Shift Incharge</option>
-                  {dataShiftIncharge.map((dataShiftIncharge) => (
-                    <option key={dataShiftIncharge} value={dataShiftIncharge}>
-                      {dataShiftIncharge}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3" style={{ marginTop: "20px" }}>
-                {/* <button
+        </div>
+        <div className="col-md-9">
+          <div className="row">
+            <div className="d-flex col-md-4" style={{ gap: "10px" }}>
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Shift Incharge
+              </label>
+              <select
+                className="ip-select"
+                value={selectedShiftIncharge}
+                onChange={handleShiftIncharge}
+              >
+                <option value="">Select Shift Incharge</option>
+                {dataShiftIncharge.map((dataShiftIncharge) => (
+                  <option key={dataShiftIncharge} value={dataShiftIncharge}>
+                    {dataShiftIncharge}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-2">
+              {/* <button
                   className="button-style mt-2 group-button mt-3"
                   style={{ width: "150px" }}
                   onClick={() => {
@@ -916,45 +913,42 @@ function NewCalender(props) {
                 >
                   Delete Week Shift
                 </button> */}
-                <button
-                  className="button-style  group-button"
-                  style={{ width: "150px" }}
-                  onClick={() => {
-                    openPdfmodel();
-                    TryPdfData();
-                  }}
-                >
-                  Print Weekly Plan
-                </button>
-              </div>{" "}
-              <div className="col-md-3">
-                <label className="form-label">Operator</label>
-                <select className="ip-select" onChange={handleOperatorList}>
-                  <option selected>Select Operator</option>
-                  {dataOperatorList.map((dataOperatorList) => (
-                    <option value={dataOperatorList.Name}>
-                      {dataOperatorList.Name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-md-3" style={{ marginTop: "20px" }}>
-                {/* <button
+              <button
+                className="button-style group-button"
+                onClick={() => {
+                  openPdfmodel();
+                  TryPdfData();
+                }}
+              >
+                Print Weekly Plan
+              </button>
+            </div>{" "}
+            <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+              <label className="form-label">Operator</label>
+              <select className="ip-select" onChange={handleOperatorList}>
+                <option selected>Select Operator</option>
+                {dataOperatorList.map((dataOperatorList) => (
+                  <option value={dataOperatorList.Name}>
+                    {dataOperatorList.Name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="col-md-3">
+              {/* <button
                   className="button-style mt-2 group-button mt-3"
                   style={{ width: "200px" }}
                   onClick={openDeletemachineoperator}
                 >
                   Delete Machine Operator
                 </button> */}
-                <button
-                  className="button-style group-button"
-                  type="button"
-                  style={{ width: "200px" }}
-                  onClick={onClickClose}
-                >
-                  Close
-                </button>
-              </div>
+              <button
+                className="button-style group-button"
+                type="button"
+                onClick={onClickClose}
+              >
+                Close
+              </button>
             </div>
           </div>
         </div>
@@ -975,36 +969,28 @@ function NewCalender(props) {
           </div>
         </div>
       </div>
-      <hr
-        style={{
-          backgroundColor: "black",
-          height: "3px",
-        }}
-      />
+
       {/* ////////////////////////////////////////////////////////////////////////////////////////////////////// */}
       <div style={{ display: "flex" }}>
         <div>
-          <div>
-            <div
-              style={{ width: "260px", fontSize: "13px", marginTop: "23px" }}
-            >
-              <ReactCalendar
-                onChange={(e) => {
-                  selectWeek(e);
-                }}
-                value={currentDate}
-                onClickDay={handleDateSelect}
-                showWeekNumbers
-                showFixedNumberOfWeeks
-              />
-            </div>
+          <div style={{ width: "260px", fontSize: "13px" }}>
+            <ReactCalendar
+              onChange={(e) => {
+                selectWeek(e);
+              }}
+              value={currentDate}
+              onClickDay={handleDateSelect}
+              showWeekNumbers
+              showFixedNumberOfWeeks
+            />
           </div>
+
           <div style={{ display: "flex" }}>
             <div>
               {/* <div> */}
               {/* <div> */}
               <div style={{ width: "130px", border: "1px" }}>
-                <Table bordered>
+                <Table bordered style={{ height: "290px" }}>
                   <thead style={{ textAlign: "center" }}>
                     <tr>
                       <th>Date</th>

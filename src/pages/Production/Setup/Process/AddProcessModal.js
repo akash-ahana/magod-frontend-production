@@ -12,14 +12,13 @@ export default function AddProcessModal({
   openAddProcessMod,
   setOpenAddProcessMod,
   processTab,
-  setProcessTab
+  setProcessTab,
 }) {
   const [showInnerModal, setShowInnerModal] = useState(false);
   const [newProcessID, setNewProcessID] = useState("");
   const [newProcessDescription, setNewProcessDescription] = useState("");
   const [newProcessRawMaterial, setNewProcessRawMaterial] = useState("");
   const [newNoOfOperations, setNewNoOfOperations] = useState("");
-
 
   const handleClose = () => {
     setOpenAddProcessMod(false);
@@ -53,7 +52,7 @@ export default function AddProcessModal({
         ProcessID: newProcessID,
         ProcessDescription: newProcessDescription,
         RawMaterial: newProcessRawMaterial,
-        No_of_Operations:newNoOfOperations
+        No_of_Operations: newNoOfOperations,
       })
       .then(() => {
         console.log("Data Posted successfully");
@@ -67,14 +66,14 @@ export default function AddProcessModal({
       .catch((err) => {
         console.log(err);
       });
-      
-      // axios
-      //     .get(baseURL + "/productionSetup/getAllProcessList")
-      //     .then((response) => {
-      //       setProcessTab(response.data)
-      //     }).catch((err) => {
-      //       console.log(err)
-      //     })
+
+    // axios
+    //     .get(baseURL + "/productionSetup/getAllProcessList")
+    //     .then((response) => {
+    //       setProcessTab(response.data)
+    //     }).catch((err) => {
+    //       console.log(err)
+    //     })
   };
 
   const handleNewProcessID = (event) => {
@@ -87,7 +86,7 @@ export default function AddProcessModal({
     setNewProcessDescription(processDesc);
   };
 
-  const handleNewProcessNoOfOperations= (event) => {
+  const handleNewProcessNoOfOperations = (event) => {
     setNewNoOfOperations(event.target.value);
   };
 
@@ -100,17 +99,19 @@ export default function AddProcessModal({
     <div>
       <Modal show={openAddProcessMod} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Magod Laser: Add Process</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>
+            Magod Laser: Add Process
+          </Modal.Title>
         </Modal.Header>
 
         <Modal.Body style={{ display: showInnerModal ? "none" : "block" }}>
           <div className="col-md-12 col-sm-12 ip-box form-bg">
             <div>
               <div className="row">
-                <div className="col-md-12">
+                <div className="d-flex col-md-12" style={{ gap: "79px" }}>
                   <label className="form-label">Process</label>
                   <input
-                    className="in-field2"
+                    className="input-field"
                     type="text"
                     value={newProcessID}
                     onChange={handleNewProcessID}
@@ -118,10 +119,15 @@ export default function AddProcessModal({
                 </div>
               </div>
               <div className="row">
-                <div className="col-md-12">
-                  <label className="form-label">Process Description</label>
+                <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Process Description
+                  </label>
                   <input
-                    className="in-field2"
+                    className="input-field"
                     type="text"
                     value={newProcessDescription}
                     onChange={handleNewProcessDescription}
@@ -130,10 +136,15 @@ export default function AddProcessModal({
               </div>
 
               <div className="row">
-                <div className="col-md-12">
-                  <label className="form-label">Raw Material</label>
+                <div className="d-flex col-md-12" style={{ gap: "45px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    Raw Material
+                  </label>
                   <input
-                    className="in-field2"
+                    className="input-field"
                     type="text"
                     value={newProcessRawMaterial}
                     onChange={handleNewProcessRawMaterial}
@@ -142,10 +153,15 @@ export default function AddProcessModal({
               </div>
 
               <div className="row">
-                <div className="col-md-12 mb-2">
-                  <label className="form-label">No of Operations</label>
+                <div className="d-flex col-md-12 mb-2" style={{ gap: "22px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    No of Operations
+                  </label>
                   <input
-                    className="in-field2"
+                    className="input-field"
                     type="number"
                     value={newNoOfOperations}
                     onChange={handleNewProcessNoOfOperations}
@@ -157,37 +173,34 @@ export default function AddProcessModal({
         </Modal.Body>
 
         <Modal.Footer>
-          <Button
-            style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
-            onClick={handleModal}
-          >
+          <button className="button-style group-button" onClick={handleModal}>
             Add Process
-          </Button>
+          </button>
 
-          <Button variant="secondary" onClick={handleClose}>
+          <button className="button-style group-button" onClick={handleClose}>
             Exit
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
       {showInnerModal && (
-          <AddProcessConfirmation
-            show={showInnerModal}
-            handleClose={() => {
-              setShowInnerModal(false);
-              setOpenAddProcessMod(true);
-            }}
-            data={{
-              title: "Add Process",
-              content: (
-                <div>
-                  Are you sure you want to add <strong>{newProcessID}</strong>{" "}
-                  Process?
-                </div>
-              ),
-            }}
-            handleAdd={AddProcess}
-          />
-        )}
+        <AddProcessConfirmation
+          show={showInnerModal}
+          handleClose={() => {
+            setShowInnerModal(false);
+            setOpenAddProcessMod(true);
+          }}
+          data={{
+            title: <span style={{fontSize:'14px'}}>Add Process</span> ,
+            content: (
+              <div style={{fontSize:'12px'}}>
+                Are you sure you want to add <strong>{newProcessID}</strong>{" "}
+                Process?
+              </div>
+            ),
+          }}
+          handleAdd={AddProcess}
+        />
+      )}
     </div>
   );
 }

@@ -38,7 +38,7 @@ export default function ByCustomer() {
   ];
 
   const [selectcustomer, setSelectcustomer] = useState("");
-  const[custCode,setCustCode]=useState("")
+  const [custCode, setCustCode] = useState("");
   const onCustomerRowClick = (item, index) => {
     let list = { ...item, index: index };
     // console.log("ScheduleNo",item.ScheduleNo)
@@ -250,95 +250,93 @@ export default function ByCustomer() {
   }, []);
 
   return (
-    <div className="d-flex">
-      <div>
-        <div
-          className=""
-          style={{
-            height: "323px",
-            overflowY: "scroll",
-            overflowX: "scroll",
-            width: "330px",
-          }}
-        >
-          {CustomerData.length === 0 ? (
-            <p>Loading...</p>
-          ) : (
-            dataSource.map((node, i) => {
-              const type = node.type;
-              const label = (
-                <span
-                  className={`node ${
-                    selectedLabelIndex === node.labelIndex
-                      ? "selcted-row-clr"
-                      : ""
-                  }`}
-                  onClick={() => onClickCustLabel(node.labelIndex)}
-                >
-                  {type}
-                </span>
-              );
-              return (
-                <TreeView
-                  key={type + "|" + i}
-                  nodeLabel={label}
-                  defaultCollapsed={false}
-                >
-                  {node.serverData.map((data, key) => {
-                    const label2 = (
-                      <span
-                        style={{ fontSize: "13px", backgroundColor: "#C0C0C0" }}
-                        onClick={() => {
-                          selectedMachineFun(data, key);
-                          onClickCustomer(data.Customer.Cust_Code);
-                          onCustomerRowClick(data, key);
-                        }}
-                        className={`node ${
-                          key === selectedMachineIndex ? "selcted-row-clr" : ""
-                        }`}
-                      >
-                        {data.Customer.Cust_name}
-                      </span>
-                    );
+    <div className="row">
+      <div
+        className="col-md-3"
+        style={{
+          height: "270px",
+          overflow: "scroll",
+        }}
+      >
+        {CustomerData.length === 0 ? (
+          <p>Loading...</p>
+        ) : (
+          dataSource.map((node, i) => {
+            const type = node.type;
+            const label = (
+              <span
+                style={{ fontSize: "14px" }}
+                className={`node ${
+                  selectedLabelIndex === node.labelIndex
+                    ? "selcted-row-clr"
+                    : ""
+                }`}
+                onClick={() => onClickCustLabel(node.labelIndex)}
+              >
+                {type}
+              </span>
+            );
+            return (
+              <TreeView
+                key={type + "|" + i}
+                nodeLabel={label}
+                defaultCollapsed={false}
+              >
+                {node.serverData.map((data, key) => {
+                  const label2 = (
+                    <span
+                      style={{ fontSize: "12px", backgroundColor: "#C0C0C0" }}
+                      onClick={() => {
+                        selectedMachineFun(data, key);
+                        onClickCustomer(data.Customer.Cust_Code);
+                        onCustomerRowClick(data, key);
+                      }}
+                      className={`node ${
+                        key === selectedMachineIndex ? "selcted-row-clr" : ""
+                      }`}
+                    >
+                      {data.Customer.Cust_name}
+                    </span>
+                  );
 
-                    return (
-                      <TreeView
-                        nodeLabel={label2}
-                        key={data.Customer.Cust_name}
-                        defaultCollapsed={true}
-                      >
-                        <ul>
-                          {data.Customer.programs.map((value, key) => (
-                            <>
-                              <div style={{ fontSize: "11px" }}>
-                                {value.PStatus === "Completed" ? (
-                                  <li
-                                    className="completed"
-                                    style={{ backgroundColor: "#afbfa1" }}
-                                  >
-                                    {value.TaskNo} / {value.NCProgramNo} /{" "}
-                                    {value.PStatus}
-                                  </li>
-                                ) : (
-                                  <li className="node">
-                                    {value.TaskNo} / {value.NCProgramNo} /{" "}
-                                    {value.PStatus}
-                                  </li>
-                                )}
-                              </div>
-                            </>
-                          ))}
-                        </ul>
-                      </TreeView>
-                    );
-                  })}
-                </TreeView>
-              );
-            })
-          )}
-        </div>
+                  return (
+                    <TreeView
+                      nodeLabel={label2}
+                      key={data.Customer.Cust_name}
+                      defaultCollapsed={true}
+                    >
+                      <ul>
+                        {data.Customer.programs.map((value, key) => (
+                          <>
+                            <div style={{ fontSize: "11px" }}>
+                              {value.PStatus === "Completed" ? (
+                                <li
+                                  className="completed"
+                                  style={{ backgroundColor: "#afbfa1" }}
+                                >
+                                  {value.TaskNo} / {value.NCProgramNo} /{" "}
+                                  {value.PStatus}
+                                </li>
+                              ) : (
+                                <li className="node">
+                                  {value.TaskNo} / {value.NCProgramNo} /{" "}
+                                  {value.PStatus}
+                                </li>
+                              )}
+                            </div>
+                          </>
+                        ))}
+                      </ul>
+                    </TreeView>
+                  );
+                })}
+              </TreeView>
+            );
+          })
+        )}
       </div>
-      <div>
+
+      <div className="col-md-9">
         <NavTab
           proramCompleted={proramCompleted}
           programProcessing={programProcessing}

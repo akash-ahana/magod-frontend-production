@@ -59,22 +59,16 @@ export default function ScheduleListtable({
     }
   }, [schedulelistdata, initialLoad, rowSelectFun]);
 
-
-  
   return (
-    <div style={{ height: "500px", overflowY: "scroll", overflowX: "scroll" }}>
+    <div style={{ height: "400px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor table-space">
           <tr>
             <th>Select</th>
-            <th
-              onClick={() => requestSort("OrdSchNo")}
-            >
-              Schedule No
-            </th>
+            <th onClick={() => requestSort("OrdSchNo")}>Schedule No</th>
             <th>Customer</th>
-            <th >TgtDelDate</th>
-            <th >Delivery_date</th>
+            <th>TgtDelDate</th>
+            <th>Delivery_date</th>
             <th>Status</th>
           </tr>
         </thead>
@@ -109,9 +103,7 @@ export default function ScheduleListtable({
                   <td>{item.Cust_name}</td>
                   <td>{item.schTgtDate}</td>
                   <td>{item.Delivery_Date}</td>
-                  <td>
-                    {item.Schedule_Status}
-                  </td>
+                  <td>{item.Schedule_Status}</td>
                 </tr>
               );
             })}

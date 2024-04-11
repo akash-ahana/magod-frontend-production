@@ -57,8 +57,7 @@ export default function PriorityTable({
             style={{
               overflowY: "scroll",
               overflowX: "scroll",
-              height: "380px",
-              marginLeft: "-20px",
+              height: "375px",
             }}
           >
             <Table striped className="table-data border">
@@ -85,7 +84,8 @@ export default function PriorityTable({
                 {ncProgramsTableData.map((item, key) => {
                   return (
                     <>
-                      <tr style={{backgroundColor:item.rowColor}}
+                      <tr
+                        style={{ backgroundColor: item.rowColor }}
                         onDoubleClick={() => selectRowTable(item)}
                         className={
                           key === priorityTable?.index ? "selcted-row-clr" : ""
@@ -126,24 +126,20 @@ export default function PriorityTable({
           {/* priority print */}
 
           <div className="col-md-6">
-            <div style={{ width: "680px" }}>
+            <div>
               <div
-                style={{
-                  backgroundColor: "#F2D7D5 ",
-                  display: "flex",
-                  gap: "80px",
-                }}
+                className="d-flex"
+                style={{ backgroundColor: "#F2D7D5", gap: "10px" }}
               >
                 <div>
-                  <h6 className="ms-1 mt-3">Production Priority list</h6>
+                  <label className="form-label">Production Priority list</label>
                 </div>
-                <div style={{ marginTop: "-5px" }}>
+                <div>
                   <button
-                    className="button-style mb-2 group-button"
-                    style={{ width: "120px", textAlign: "center" }}
+                    className="button-style group-button"
                     onClick={openPrintPriority}
                   >
-                    <span style={{ marginLeft: "-5px" }}>Print</span>
+                    Print
                   </button>
                 </div>
               </div>
@@ -152,7 +148,7 @@ export default function PriorityTable({
 
               <div
                 style={{
-                  height: "330px",
+                  height: "340px",
                   overflowY: "scroll",
                   overflowX: "scroll",
                 }}

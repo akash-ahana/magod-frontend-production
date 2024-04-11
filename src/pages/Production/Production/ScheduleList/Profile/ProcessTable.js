@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { Table } from 'react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { Table } from "react-bootstrap";
 
 export default function ProcessTable({
   OrdSchNo,
   getprocessTabledata,
   processtable,
   processtableSelectFun,
-  processrowselect
+  processrowselect,
 }) {
   useEffect(() => {
     getprocessTabledata();
@@ -30,7 +30,7 @@ export default function ProcessTable({
             <th>No of Sheets</th>
           </tr>
         </thead>
-        <tbody className='tablebody table-cell-align table-space'>
+        <tbody className="tablebody table-cell-align table-space">
           {processtable.length === 0 ? (
             <tr>
               <td colSpan="11">No data found</td>
@@ -39,7 +39,9 @@ export default function ProcessTable({
             processtable.map((item, key) => (
               <tr
                 onClick={() => processtableSelectFun(item, key)}
-                className={key === processrowselect?.index ? 'selcted-row-clr' : ''}
+                className={
+                  key === processrowselect?.index ? "selcted-row-clr" : ""
+                }
               >
                 <td>{item.TStatus}</td>
                 <td>{item.TaskNo}</td>

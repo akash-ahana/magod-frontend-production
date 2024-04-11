@@ -8,8 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 import SpecialShiftModal from "./Modals/SpecialShiftModal";
 
-
-
 function SingleDayShiftEditor({
   getSingleDayShiftPlan4thTable,
   rowselectDailyShiftTable,
@@ -20,7 +18,7 @@ function SingleDayShiftEditor({
   selectedWeek,
   machineOperatorTableData,
   selectedShift,
-  SelectedShiftIncharge
+  SelectedShiftIncharge,
 }) {
   // console.log(rowselectDailyShiftTable.Shift_Ic);
   //PRINT DAILY SHIFT
@@ -96,56 +94,50 @@ function SingleDayShiftEditor({
   //DELETEDAYSHIFTMODAL
   const [deletedayshift, setDeletedayshift] = useState("");
   const openDeletedayshift = () => {
-    if(machineOperatorTableData.length===0)
-    {
+    if (machineOperatorTableData.length === 0) {
       setDeletedayshift(true);
-    }else{
+    } else {
       toast.warning("Please Delete Machine Operator Before Deleting Shift", {
         position: toast.POSITION.TOP_CENTER,
       });
     }
   };
 
-  const [open , setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
-
-  const handleAddSpecialShift  = () => {
-    setOpen(true)
-  }
+  const handleAddSpecialShift = () => {
+    setOpen(true);
+  };
 
   const ShiftDate = rowselectDailyShiftTable?.ShiftDate;
 
-
   /////////////////////
-  let date=rowselect.item;
+  let date = rowselect.item;
 
-
-  let dateSplit = date.split("/")
-  let year = dateSplit[2]
-  let month = dateSplit[1]
-  let day = dateSplit[0]
-  let finalday =  year + "-" + month + "-" + day
+  let dateSplit = date.split("/");
+  let year = dateSplit[2];
+  let month = dateSplit[1];
+  let day = dateSplit[0];
+  let finalday = year + "-" + month + "-" + day;
 
   // console.log(finalday);
 
-
   //First Shift
-  const[newData,setNewdata]=useState([]);
- 
-  
-  const getDailyMachineoperatorData = () => {
-    axios.post(baseURL+'/shiftEditor/printdayShiftPlan', 
-    {
-      ShiftDate: finalday,
-    }).then((response) => {
-      console.log(response);
-      setNewdata(response.data);
-      openDailyShiftPrinter();
-    });
-  }
-  
+  const [newData, setNewdata] = useState([]);
 
-console.log("newData",newData)
+  const getDailyMachineoperatorData = () => {
+    axios
+      .post(baseURL + "/shiftEditor/printdayShiftPlan", {
+        ShiftDate: finalday,
+      })
+      .then((response) => {
+        console.log(response);
+        setNewdata(response.data);
+        openDailyShiftPrinter();
+      });
+  };
+
+  console.log("newData", newData);
   return (
     <>
       <div
@@ -154,16 +146,15 @@ console.log("newData",newData)
           width: "190px",
           textAlign: "center",
           backgroundColor: "#d3d3d3",
-          fontSize: "14px",
+          fontSize: "12px",
         }}
       >
-        <h6>Daily Shift Editor</h6>
+        <label className="form-label">Daily Shift Editor</label>
         <div style={{ color: "red" }}>
           {" "}
           <b>Shift Date : {rowselectDailyShiftTable?.ShiftDate}</b>
         </div>
-        <br></br>
-        <div style={{ color: "red" }}>
+        <div className="mt-1" style={{ color: "red" }}>
           <b>Shift : {rowselectDailyShiftTable?.Shift}</b>
         </div>
 
@@ -196,19 +187,22 @@ console.log("newData",newData)
           </select>
         </div>
         <br></br>
-        <div>From Time</div>
+        <div>
+          <label className="form-label">From Time</label>
+        </div>
         <div
           style={{
             marginLeft: "30px",
             textAlign: "center",
-            fontSize: "13px",
             backgroundColor: "white",
             width: "125px",
           }}
         >
           {rowselectDailyShiftTable?.FromTime}
         </div>
-        <div>To Time</div>
+        <div>
+          <label className="form-label">To Time</label>
+        </div>
         <div
           style={{
             marginLeft: "30px",
@@ -221,24 +215,22 @@ console.log("newData",newData)
           {rowselectDailyShiftTable?.ToTime}
         </div>
         <div style={{ textAlign: "center" }}>
-        <div>
-        <button
-         className={`button-style mt-2 group-button mt-4 ${
-               condition !== true ? "disabled" : ""
-            }`}           
-          style={{ width: "140px", fontSize: "14px" }}
-          disabled={condition !== true}
-          onClick={handleAddSpecialShift}
-        >
-          Add Special Shift
-        </button>
-      </div>
           <div>
             <button
-             className={`button-style mt-2 group-button mt-4 ${
-                   condition !== true ? "disabled" : ""
-                }`}           
-              style={{ width: "140px", fontSize: "14px" }}
+              className={`button-style group-button  ${
+                condition !== true ? "disabled" : ""
+              }`}
+              disabled={condition !== true}
+              onClick={handleAddSpecialShift}
+            >
+              Add Special Shift
+            </button>
+          </div>
+          <div>
+            <button
+              className={`button-style group-button ${
+                condition !== true ? "disabled" : ""
+              }`}
               disabled={condition !== true}
               onClick={openUpdatedayshift}
             >
@@ -247,10 +239,9 @@ console.log("newData",newData)
           </div>
           <div>
             <button
-              className={`button-style mt-2 group-button mt-4 ${
+              className={`button-style group-button ${
                 condition !== true ? "disabled" : ""
               }`}
-              style={{ width: "140px", fontSize: "14px" }}
               onClick={() => openDeletedayshift()}
               disabled={condition !== true}
             >
@@ -259,8 +250,7 @@ console.log("newData",newData)
           </div>
           <div>
             <button
-              className="button-style mt-2 group-button mt-4"
-              style={{ width: "140px", marginBottom: "10px", fontSize: "14px" }}
+              className="button-style group-button mb-2"
               onClick={getDailyMachineoperatorData}
             >
               Print Day Shift Plan
@@ -275,7 +265,6 @@ console.log("newData",newData)
           rowselectDailyShiftTable={rowselectDailyShiftTable}
           selectedShiftIncharge={selectedShiftIncharge}
           selectedWeek={selectedWeek}
-
         />
 
         <DeleteDayShiftModal
@@ -290,17 +279,18 @@ console.log("newData",newData)
           setOpenPrintModal={setOpenPrintModal}
           rowselect={rowselect}
           newData={newData}
-          setNewdata={setNewdata}        />
+          setNewdata={setNewdata}
+        />
 
-        <SpecialShiftModal 
-        open={open}
-        setOpen={setOpen}
-        rowselectDailyShiftTable={rowselectDailyShiftTable}
-        selectedShift={selectedShift}
-        SelectedShiftIncharge={SelectedShiftIncharge}
-        ShiftDate={ShiftDate}
-        getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
-        getSecondTableData={getSecondTableData}
+        <SpecialShiftModal
+          open={open}
+          setOpen={setOpen}
+          rowselectDailyShiftTable={rowselectDailyShiftTable}
+          selectedShift={selectedShift}
+          SelectedShiftIncharge={SelectedShiftIncharge}
+          ShiftDate={ShiftDate}
+          getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
+          getSecondTableData={getSecondTableData}
         />
       </div>
     </>

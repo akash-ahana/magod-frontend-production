@@ -26,7 +26,7 @@ export default function ScheduleListbody({
   custcode,
   processtable,
   getprocessTabledata,
-  OrdSchNo
+  OrdSchNo,
 }) {
   const { schedulelistfabricationdata } = useGlobalContext();
 
@@ -37,16 +37,14 @@ export default function ScheduleListbody({
   // console.log(rowselect)
 
   //Process Table(Right First table) data
- 
 
-  
   useMemo(() => {
     setProcessrowselect({ ...processtable[0], index: 0 });
   }, [processtable[0]]);
 
   return (
-    <div className="row mt-4">
-      <div className="col-md-6 col-sm-12 mt-3">
+    <div className="row">
+      <div className="col-md-6 col-sm-12 mt-2">
         <ScheduleListtable
           rowSelectFun={rowSelectFun}
           rowselect={rowselect}
@@ -57,7 +55,7 @@ export default function ScheduleListbody({
       </div>
 
       <div className="col-md-6 col-sm-12">
-        <div className="col-md-12 col-sm-12 mt-3">
+        <div className="col-md-12 col-sm-12 mt-2">
           <ProcessTable
             scheduleid={scheduleid}
             processtable={processtable}

@@ -47,11 +47,11 @@ export default function AddShiftInChargeModal({
       .then((response) => {
         setOpenAdd(false);
         setAddShiftInChargeModal(false);
-        if (response.data === 'Name already present') {
+        if (response.data === "Name already present") {
           toast.error("Shift Incharge already present", {
             position: toast.POSITION.TOP_CENTER,
           });
-        } else if (response.data === 'Insert successful') {
+        } else if (response.data === "Insert successful") {
           toast.success("ShiftIncharge Added Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
@@ -70,48 +70,56 @@ export default function AddShiftInChargeModal({
     <div>
       <Modal show={openAdd} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Magod Laser:Add Shift InCharge</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>
+            Magod Laser:Add Shift InCharge
+          </Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <div className="col-md-12 col-sm-12 ip-box form-bg">
             <div className="row">
-              <div className="col-md-12">
-                <label className="form-label">Shift InCharge</label>
-                <input className="in-field2" onChange={handleChangeShiftIc} />
+              <div className="d-flex col-md-12" style={{ gap: "10px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Shift InCharge
+                </label>
+                <input className="input-field" onChange={handleChangeShiftIc} />
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-12">
-                <label className="form-label">Skill Level</label>
+              <div className="d-flex col-md-12" style={{ gap: "35px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Skill Level
+                </label>
                 <input
-                  className="in-field2"
+                  className="input-field"
                   onChange={handleChangeSkillLevel}
                 />
               </div>
             </div>
 
             <div className="row">
-              <div className="col-md-12 mb-2">
-                <label className="form-label">Status</label>
-                <input className="in-field2" onChange={handleChangeStaus} />
+              <div className="d-flex col-md-12 mb-2" style={{ gap: "55px" }}>
+                <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                  Status
+                </label>
+                <input className="input-field" onChange={handleChangeStaus} />
               </div>
             </div>
           </div>
         </Modal.Body>
 
         <Modal.Footer>
-          <Button
-            style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
+          <button
+            className="button-style group-button"
             onClick={addShiftInCharge}
           >
             Add
-          </Button>
+          </button>
 
-          <Button variant="secondary" onClick={handleClose}>
+          <button className="button-style group-button" onClick={handleClose}>
             Exit
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
       {AddShiftInChargeModal && (
@@ -119,9 +127,9 @@ export default function AddShiftInChargeModal({
           show={AddShiftInChargeModal}
           title="magod_shiftIncharge"
           content={
-            <>
+            <h5 style={{ fontSize: "12px" }}>
               Are You sure you want to add <strong>{shiftIncharge}</strong> ?
-            </>
+            </h5>
           }
           onYesClick={handleSubmit}
           onNoClick={handleCloseAdd}

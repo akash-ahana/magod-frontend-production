@@ -16,7 +16,7 @@ export default function NabTab({
   setSelectedRows,
   machinelogRowSelect,
   status,
-  machineName
+  machineName,
 }) {
   const [key, setKey] = useState("machineLog");
 
@@ -25,7 +25,7 @@ export default function NabTab({
       id="controlled-tab-example"
       activeKey={key}
       onSelect={(k) => setKey(k)}
-      className="mb-3 mt-3 tab_font"
+      className="mt-1 tab_font"
     >
       <Tab eventKey="machineLog" title="Machine Log">
         <MachineLog
@@ -58,4 +58,3 @@ export default function NabTab({
     </Tabs>
   );
 }
-

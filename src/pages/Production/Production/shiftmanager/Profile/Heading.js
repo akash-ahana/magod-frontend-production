@@ -1,12 +1,11 @@
-import React from 'react'
+import React from "react";
 
 function Heading() {
   return (
-  <div className='row'>
+    <div className="row">
       <h4 className="title">Shift Production Manager Form</h4>
-      {/* <hr className="horizontal-line" /> */}
-  </div>
-  )
+    </div>
+  );
 }
 
-export default Heading
+export default Heading;

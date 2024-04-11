@@ -32,23 +32,26 @@ export default function EditShiftIC() {
   }, [getShiftIclist, rowselectShiftIc, selectedRowFunShiftIc]);
 
   return (
-    <div className="row">
-      <h4 className="title mb-4">Edit ShiftIncharge Setup Form</h4>
-      <div className="col-md-5">
-        <ShiftInChargeTable
-          getShiftIclist={getShiftIclist}
-          rowselectShiftIc={rowselectShiftIc}
-          selectedRowFunShiftIc={selectedRowFunShiftIc}
-        />
+    <>
+      <h4 className="title mb-1">Edit ShiftIncharge Setup Form</h4>
+      <div className="row">
+        <div className="col-md-6">
+          <ShiftInChargeTable
+            getShiftIclist={getShiftIclist}
+            rowselectShiftIc={rowselectShiftIc}
+            selectedRowFunShiftIc={selectedRowFunShiftIc}
+          />
+        </div>
+        <div className="col-md-6">
+          <FormShiftIc
+            rowselectShiftIc={rowselectShiftIc}
+            getShiftIcData={getShiftIcData}
+            setgetShiftIcList={setgetShiftIcList}
+            setRowSelectShiftIc={setRowSelectShiftIc}
+            getShiftIclist={getShiftIclist}
+          />
+        </div>
       </div>
-      <div className="col-md-5 ms-5">
-        <FormShiftIc rowselectShiftIc={rowselectShiftIc} 
-        getShiftIcData={getShiftIcData}
-        setgetShiftIcList={setgetShiftIcList}
-        setRowSelectShiftIc={setRowSelectShiftIc}
-        getShiftIclist={getShiftIclist}
-        />
-      </div>
-    </div>
+    </>
   );
 }

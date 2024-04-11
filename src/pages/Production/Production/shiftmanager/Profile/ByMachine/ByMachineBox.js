@@ -7,8 +7,12 @@ import { baseURL } from "../../../../../../api/baseUrl";
 
 export default function ByMachineBox() {
   const [machineProcessData, setMachineProcessData] = useState([]);
-  const [machineProgramesCompleted, setMachineProgramesCompleted] = useState([]);
-  const [machineProgramesProcessing, setmachineProgramesProcessing] = useState([]);
+  const [machineProgramesCompleted, setMachineProgramesCompleted] = useState(
+    []
+  );
+  const [machineProgramesProcessing, setmachineProgramesProcessing] = useState(
+    []
+  );
   const [selectedMachine, setSelectedMachine] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
@@ -20,7 +24,7 @@ export default function ByMachineBox() {
     setIsPageRefreshed(isPageRefreshed);
     localStorage.setItem("isPageRefreshed", false);
   }, []);
-  
+
   const selectedMachineFun = (item, index) => {
     setSelectedMachineIndex(index);
     setSelectedLabelIndex(-1);
@@ -232,8 +236,6 @@ export default function ByMachineBox() {
       });
   };
 
-
-
   const dataSource = [
     {
       type: "Machines",
@@ -242,7 +244,7 @@ export default function ByMachineBox() {
         ...data,
         labelIndex: index,
       })),
-        },
+    },
   ];
 
   const onClickMachine = (index) => {
@@ -286,9 +288,9 @@ export default function ByMachineBox() {
         }
         setMachineProgramesCompleted(response.data);
         setSelectedLabelIndex(index);
-    setSelectedMachineIndex(-1);
-    setIsPageRefreshed(false);
-    localStorage.setItem("isPageRefreshed", false);
+        setSelectedMachineIndex(-1);
+        setIsPageRefreshed(false);
+        localStorage.setItem("isPageRefreshed", false);
       });
     axios
       .get(baseURL + "/shiftManagerProfile/allProcessing")
@@ -338,33 +340,23 @@ export default function ByMachineBox() {
   }, []);
 
   return (
-    <div className="d-flex">
+    <div className="row">
       <div
-        className=""
+        className="col-md-3"
         style={{
-          height: "323px",
-          overflowY: "scroll",
-          overflowX: "scroll",
-          width: "330px",
+          height: "270px",
+          overflow: "scroll",
         }}
       >
         {loading ? (
           <b>Loading...</b>
         ) : (
-          <div
-            className=""
-            style={{
-              height: "323px",
-              overflowY: "scroll",
-              overflowX: "scroll",
-              width: "330px",
-            }}
-          >
+          <div className="">
             {dataSource.map((node, i) => {
               const type = node.type;
               const label = (
                 <span
-                  style={{ fontSize: "16px" }}
+                  style={{ fontSize: "14px" }}
                   className={`node ${
                     selectedLabelIndex === node.labelIndex
                       ? "selcted-row-clr"
@@ -384,16 +376,14 @@ export default function ByMachineBox() {
                   {node.serverData.map((data, key) => {
                     const label2 = (
                       <span
-                        style={{ fontSize: "14px", backgroundColor: "#C0C0C0" }}
+                        style={{ fontSize: "12px", backgroundColor: "#C0C0C0" }}
                         onClick={(e) => {
                           selectedMachineFun(data, key);
                           MachineOnClick(data.MachineName);
                           // LaserRowselect(data, key);
                         }}
                         className={`node ${
-                          key === selectedMachineIndex
-                            ? "selcted-row-clr"
-                            : ""
+                          key === selectedMachineIndex ? "selcted-row-clr" : ""
                         }`}
                       >
                         {data.MachineName}
@@ -448,7 +438,7 @@ export default function ByMachineBox() {
           </div>
         )}
       </div>
-      <div>
+      <div className="col-md-9">
         <Iframe
           machineProgramesCompleted={machineProgramesCompleted}
           machineProgramesProcessing={machineProgramesProcessing}

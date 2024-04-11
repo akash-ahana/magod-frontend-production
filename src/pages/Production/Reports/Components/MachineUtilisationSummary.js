@@ -149,44 +149,41 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   }, [machineutilisationSummartdata, rowSelected, selectedRowFun]);
 
   return (
-    <div className="col-md-12">
-      <div className="row">
-        <div className="col-md-4" style={{ fontSize: "13px" }}>
-          <p>
-            <b>{rowSelected.Machine}</b>
-          </p>
-          <p>
-            <b>Total On {rowSelected.TotalOn}</b>
-          </p>
-          <p>
-            <b>Production</b> {rowSelected.ProdON}
-          </p>
-          <p>
-            <b>Non Production</b> {rowSelected.NonProdOn}
-          </p>
-
-          <div className="row">
-            <div className="col-md-4" style={{ marginLeft: "-20px" }}>
-              <label>Total Off</label>
-            </div>
-            <div className="col-md-4" style={{ marginLeft: "-20px" }}>
+    <>
+      <div className="row mt-1">
+        <div className="col-md-5">
+          <div>
+            <label className="form-label">{rowSelected.Machine}</label>
+          </div>
+          <div>
+            <label className="form-label">Total On {rowSelected.TotalOn}</label>
+          </div>
+          <div>
+            <label className="form-label">Production</label>{" "}
+            {rowSelected.ProdON}
+          </div>
+          <div>
+            <label className="form-label">Non Production</label>{" "}
+            {rowSelected.NonProdOn}
+          </div>
+          <div className="row mt-2">
+            <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Total Off
+              </label>
               <input
+                className="in-field"
                 name={inputValue1}
                 value={inputValue1}
                 onChange={handleInputChange1}
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-6">
               <button
                 className={`button-style group-button ${
                   status ? "disabled" : ""
                 }`}
                 type="button"
-                style={{
-                  width: "120px",
-                  marginTop: "-10px",
-                  marginLeft: "-10px",
-                }}
                 onClick={() => updateUtilisationSummary()}
                 // disabled={status}
               >
@@ -194,29 +191,25 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               </button>
             </div>
           </div>
-
-          <div className="row mt-4">
-            <div className="col-md-4" style={{ marginLeft: "-20px" }}>
-              <label>Laser ON</label>
-            </div>
-            <div className="col-md-4" style={{ marginLeft: "-20px" }}>
+          <div className="row mt-3">
+            <div className="d-flex col-md-6 mt-2" style={{ gap: "10px" }}>
+              <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+                Laser ON
+              </label>
               <input
+                className="in-field"
                 name={inputValue2}
                 value={inputValue2}
                 onChange={handleInputChange2}
               />
             </div>
-            <div className="col-md-4">
+
+            <div className="col-md-6">
               <button
                 className={`button-style group-button ${
                   status ? "disabled" : ""
                 }`}
                 type="button"
-                style={{
-                  width: "120px",
-                  marginTop: "-10px",
-                  marginLeft: "-10px",
-                }}
                 onClick={saveUtilisationSummary}
                 // disabled={status}
               >
@@ -226,12 +219,11 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
           </div>
         </div>
 
-        <div className="col-md-8">
+        <div className="col-md-7">
           <div
             style={{
-              maxWidth: "800px",
               overflowX: "scroll",
-              height: "300px",
+              height: "360px",
               overflowY: "scroll",
             }}
           >
@@ -336,6 +328,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
         handleClose={closeModal}
         data={modalData}
       />
-    </div>
+    </>
   );
 }

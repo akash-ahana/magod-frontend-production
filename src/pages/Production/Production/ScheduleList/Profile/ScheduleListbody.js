@@ -25,7 +25,7 @@ export default function ScheduleListbody({
   custcode,
   processtable,
   getprocessTabledata,
-  OrdSchNo
+  OrdSchNo,
 }) {
   const { schedulelistdata } = useGlobalContext();
 
@@ -34,11 +34,9 @@ export default function ScheduleListbody({
   //   setRowselect({ ...schedulelistdata[0], index: 0 });
   // }, [schedulelistdata[0]]);
 
-  
-
   return (
-    <div className="row mt-4">
-      <div className="col-md-6 col-sm-12 mt-3">
+    <div className="row">
+      <div className="col-md-6 col-sm-12 mt-2">
         <ScheduleListtable
           rowSelectFun={rowSelectFun}
           rowselect={rowselect}
@@ -48,7 +46,7 @@ export default function ScheduleListbody({
       </div>
 
       <div className="col-md-6 col-sm-12">
-        <div className="col-md-12 col-sm-12 mt-3">
+        <div className="col-md-12 col-sm-12 mt-2">
           <ProcessTable
             scheduleid={scheduleid}
             processtable={processtable}

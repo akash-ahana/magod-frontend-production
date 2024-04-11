@@ -1,33 +1,43 @@
-import React,{useEffect, useState}from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import React, { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 
-export default function DeleteMachine({opendeletemachine,setOpendeletemachine,selectedRow,deleteMachine}) {
-    console.log(selectedRow)
-    const handleClose = () => setOpendeletemachine(false);
-    
+export default function DeleteMachine({
+  opendeletemachine,
+  setOpendeletemachine,
+  selectedRow,
+  deleteMachine,
+}) {
+  console.log(selectedRow);
+  const handleClose = () => setOpendeletemachine(false);
 
   return (
     <div>
       <Modal show={opendeletemachine} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>DELETE MACHINE</Modal.Title>
+          <Modal.Title style={{fontSize:'14px'}}>DELETE MACHINE</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Are You sure want to delete Machine :<b> {selectedRow.refName}</b> ?</Modal.Body>
+        <Modal.Body style={{fontSize:'12px'}}>
+          Are You sure want to delete Machine :<b> {selectedRow.refName}</b> ?
+        </Modal.Body>
 
         <Modal.Footer>
-          <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={()=>{deleteMachine()
-          handleClose()}}>
+          <button
+            className="button-style group-button"
+            onClick={() => {
+              deleteMachine();
+              handleClose();
+            }}
+          >
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style group-button" onClick={handleClose}>
             No
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
-
     </div>
-  )
+  );
 }

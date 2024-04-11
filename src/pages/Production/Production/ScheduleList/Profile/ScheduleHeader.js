@@ -87,7 +87,7 @@ export default function ScheduleHeader({
     axios
       .get(baseURL + "/scheduleListProfile/schedulesListStatusProgrammed")
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         setProgrammedstatus(response.data);
       });
     //  Completed Status
@@ -161,96 +161,77 @@ export default function ScheduleHeader({
 
   return (
     <div>
-      <div className="col-md-12 col-sm-12">
-        <div>
-          <h4 className="title">Production Schedules Information</h4>
-        </div>
-      </div>
+      <h4 className="title">Production Schedules Information</h4>
 
-      <div>
-        <div className="row"></div>
-      </div>
-
-      <div className="col-md-12 col-sm-12">
-        <div className="">
-          <div className="row">
-            <div className="col-md-3 mt-4">
-              <Form.Group controlId="CustName" style={{ marginTop: "2px" }}>
-                {custdata.length > 0 ? (
-                  <Typeahead
-                    options={custdata}
-                    placeholder="Search Customer"
-                    onChange={(label, event) => selectCust(label)}
-                  />
-                ) : (
-                  ""
-                )}
-              </Form.Group>
-            </div>
-
-            <div className="col-md-1 mt-3" style={{ width: "160px" }}>
-              {/* <label className="form-label mt-2">Find Schedule</label> */}
-              <input
-                className="in-field my-0 mt-3"
-                placeholder="Search Schedule"
-                onKeyDown={blockInvalidChar}
-                type="text" // Change the input type to "text"
-                value={searchInput} // Set the value to the state variable
-                onChange={searchText1} // Call the searchText function on change
+      <div className="row">
+        <div className="col-md-3" style={{ marginTop: "6px" }}>
+          <Form.Group controlId="CustName">
+            {custdata.length > 0 ? (
+              <Typeahead
+                options={custdata}
+                placeholder="Search Customer"
+                onChange={(label, event) => selectCust(label)}
               />
-            </div>
+            ) : (
+              ""
+            )}
+          </Form.Group>
+        </div>
 
-            {/* <button className="button-style mt-5 ms-5 group-button"
-             style={{ width: "120px"}}>
-              Reset Status
-            </button> */}
-            <div className="col-md-7 mt-2">
-              <button
-                className="button-style  group-button"
-                style={{ width: "110px" }}
-                onClick={() => {
-                  openShowStatusPdf();
-                  getPrintStatus();
-                }}
-              >
-                Show Status
-              </button>
+        <div className="col-md-2">
+          <input
+            className="input-field"
+            placeholder="Search Schedule"
+            onKeyDown={blockInvalidChar}
+            type="text" // Change the input type to "text"
+            value={searchInput} // Set the value to the state variable
+            onChange={searchText1} // Call the searchText function on change
+          />
+        </div>
 
-              <button
-                className="button-style mt-4 group-button"
-                style={{ width: "120px" }}
-                onClick={openShowPartsPdf}
-              >
-                Show Parts
-              </button>
+        <div className="col-md-2"></div>
 
-              <button
-                className="button-style  group-button"
-                style={{ width: "150px" }}
-                onClick={openShowProgram}
-              >
-                Show Programs
-              </button>
+        <div className="col-md-5">
+          <button
+            className="button-style group-button"
+            onClick={() => {
+              openShowStatusPdf();
+              getPrintStatus();
+            }}
+          >
+            Show Status
+          </button>
 
-              <button
-                className="button-style  group-button"
-                style={{ width: "120px" }}
-                onClick={openProductionListPdf}
-              >
-                Production list
-              </button>
-              <button
-                className="button-style group-button"
-                type="button"
-                style={{ width: "120px" }}
-                onClick={onClickClose}
-              >
-                Close
-              </button>
-            </div>
-          </div>
+          <button
+            className="button-style group-button"
+            onClick={openShowPartsPdf}
+          >
+            Show Parts
+          </button>
+
+          <button
+            className="button-style  group-button"
+            onClick={openShowProgram}
+          >
+            Show Programs
+          </button>
+
+          <button
+            className="button-style  group-button"
+            onClick={openProductionListPdf}
+          >
+            Production list
+          </button>
+          <button
+            className="button-style group-button"
+            type="button"
+            onClick={onClickClose}
+          >
+            Close
+          </button>
         </div>
       </div>
+
       <ShowStatusPdfModal
         openShowStatus={openShowStatus}
         setOpenShowStatus={setOpenShowStatus}

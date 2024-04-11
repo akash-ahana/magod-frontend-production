@@ -9,19 +9,16 @@ function MachineOperatorTable({
   rowSelectFun,
   setRowselectMachineOperator,
   selectedWeek,
-  rowselect
+  rowselect,
 }) {
-
   // useEffect(() => {
   //   getMachineOperatorTableData();
   // }, [rowselectDailyShiftTable]);
-  
-
 
   useEffect(() => {
     if (rowselectDailyShiftTable) {
       getMachineOperatorTableData();
-    }else{
+    } else {
       getMachineOperatorTableData();
     }
   }, [rowselectDailyShiftTable]);
@@ -30,14 +27,12 @@ function MachineOperatorTable({
     setRowselectMachineOperator({ ...machineOperatorTableData[0], index: 0 });
   }, [machineOperatorTableData[0]]);
 
-
-
   return (
     <div
       className="mx-1"
       style={{
         width: "360px",
-        height: "300px",
+        height: "290px",
         overflowX: "scroll",
         overflowY: "scroll",
       }}
@@ -51,25 +46,28 @@ function MachineOperatorTable({
         </thead>
 
         <tbody className="tablebody">
-  {machineOperatorTableData.length === 0 ? (
-    <tr>
-      <td colSpan="2" style={{textAlign:"center"}}>No data to show</td>
-    </tr>
-  ) : (
-    machineOperatorTableData.map((rank, i, row) => (
-      <tr
-        key={i}
-        onClick={() => rowSelectFun(rank, i)}
-        className={i === rowselectMachineOperator?.index ? "selcted-row-clr" : ""}
-      >
-        {/* <td>{rank.ShiftDate}</td> */}
-        <td>{rank.Machine}</td>
-        <td>{rank.Operator}</td>
-      </tr>
-    ))
-  )}
-</tbody>
-
+          {machineOperatorTableData.length === 0 ? (
+            <tr>
+              <td colSpan="2" style={{ textAlign: "center" }}>
+                No data to show
+              </td>
+            </tr>
+          ) : (
+            machineOperatorTableData.map((rank, i, row) => (
+              <tr
+                key={i}
+                onClick={() => rowSelectFun(rank, i)}
+                className={
+                  i === rowselectMachineOperator?.index ? "selcted-row-clr" : ""
+                }
+              >
+                {/* <td>{rank.ShiftDate}</td> */}
+                <td>{rank.Machine}</td>
+                <td>{rank.Operator}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
       </Table>
     </div>
   );
