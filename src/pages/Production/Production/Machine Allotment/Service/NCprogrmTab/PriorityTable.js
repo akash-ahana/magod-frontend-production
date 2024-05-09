@@ -42,6 +42,59 @@ export default function PriorityTable({
     setOpenPrint(true);
   };
 
+   //
+   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+   const requestSort = (key) => {
+     let direction = "asc";
+     if (sortConfig.key === key && sortConfig.direction === "asc") {
+       direction = "desc";
+     }
+     setSortConfig({ key, direction });
+   };
+ 
+   const sortedData = () => {
+     const dataCopy = [...ncProgramsTableData];
+     if (sortConfig.key) {
+       dataCopy.sort((a, b) => {
+         if (a[sortConfig.key] < b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? -1 : 1;
+         }
+         if (a[sortConfig.key] > b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? 1 : -1;
+         }
+         return 0;
+       });
+     }
+     return dataCopy;
+   };
+ 
+   //////////////////////////////////////
+ //
+ const [sortConfig1, setSortConfig1] = useState({ key: null, direction: null });
+ const requestSort1 = (key) => {
+   let direction = "asc";
+   if (sortConfig1.key === key && sortConfig1.direction === "asc") {
+     direction = "desc";
+   }
+   setSortConfig1({ key, direction });
+ };
+ 
+ const sortedData1 = () => {
+   const dataCopy = [...priorityTable];
+   if (sortConfig1.key) {
+     dataCopy.sort((a, b) => {
+       if (a[sortConfig1.key] < b[sortConfig1.key]) {
+         return sortConfig1.direction === "asc" ? -1 : 1;
+       }
+       if (a[sortConfig1.key] > b[sortConfig1.key]) {
+         return sortConfig1.direction === "asc" ? 1 : -1;
+       }
+       return 0;
+     });
+   }
+   return dataCopy;
+ };
+ 
   return (
     <>
       <ModalPrintPriority
@@ -63,25 +116,25 @@ export default function PriorityTable({
             <Table striped className="table-data border">
               <thead className="tableHeaderBGColor">
                 <tr>
-                  <th>Select</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Program No</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Task No</th>
-                  <th>Machine</th>
-                  <th>Operation</th>
-                  <th>Material</th>
-                  <th>Cust_Name</th>
-                  <th>Source</th>
-                  <th>Allotted</th>
-                  <th>Processed</th>
-                  <th>Status</th>
-                  <th>PlanTime</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Actual Time</th>
-                  <th>Remarks</th>
-                </tr>
+                <th onClick={() => requestSort("Select")}>Select</th>
+                <th onClick={() => requestSort("Program No")}>Program No</th>
+                <th onClick={() => requestSort("Task No")}>Task No</th>
+                <th onClick={() => requestSort("Machine")}>Machine</th>
+                <th onClick={() => requestSort("Operation")}>Operation</th>
+                <th onClick={() => requestSort("Material")}>Material</th>
+                <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
+                <th onClick={() => requestSort("Source")}>Source</th>
+                <th onClick={() => requestSort("Allotted")}>Allotted</th>
+                <th onClick={() => requestSort("Processed")}>Processed</th>
+                <th onClick={() => requestSort("Status")}>Status</th>
+                <th onClick={() => requestSort("PlanTime")}>PlanTime</th>
+                <th onClick={() => requestSort("Actual Time")}>Actual Time</th>
+                <th onClick={() => requestSort("Remarks")}>Remarks</th>
+              </tr>
               </thead>
 
               <tbody className="tablebody table-space">
-                {ncProgramsTableData.map((item, key) => {
+                {sortedData().map((item, key) => {
                   return (
                     <>
                       <tr
@@ -156,25 +209,25 @@ export default function PriorityTable({
                 {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                    <tr>
-                      <th style={{ whiteSpace: "nowrap" }}>Program No</th>
-                      <th style={{ whiteSpace: "nowrap" }}>Task No</th>
-                      <th>Machine</th>
-                      <th>Operation</th>
-                      <th>Material</th>
-                      <th>Cust_Name</th>
-                      <th>Source</th>
-                      <th>Allotted</th>
-                      <th>Processed</th>
-                      <th>Status</th>
-                      <th>PlanTime</th>
-                      <th style={{ whiteSpace: "nowrap" }}>Actual Time</th>
-                      <th>Remarks</th>
-                    </tr>
+                  <tr>
+                    <th onClick={() => requestSort1("Program No")}>Program No</th>
+                    <th onClick={() => requestSort1("Task No")}>Task No</th>
+                    <th onClick={() => requestSort1("Machine")}>Machine</th>
+                    <th onClick={() => requestSort1("Operation")}>Operation</th>
+                    <th onClick={() => requestSort1("Material")}>Material</th>
+                    <th onClick={() => requestSort1("Cust_Name")}>Cust_Name</th>
+                    <th onClick={() => requestSort1("Source")}>Source</th>
+                    <th onClick={() => requestSort1("Allotted")}>Allotted</th>
+                    <th onClick={() => requestSort1("Processed")}>Processed</th>
+                    <th onClick={() => requestSort1("Status")}>Status</th>
+                    <th onClick={() => requestSort1("PlanTime")}>PlanTime</th>
+                    <th onClick={() => requestSort1("Actual Time")}>Actual Time</th>
+                    <th onClick={() => requestSort1("Remarks")}>Remarks</th>
+                  </tr>
                   </thead>
 
                   <tbody className="tablebody table-space">
-                    {priorityTable.map((priorityTable) => (
+                    {sortedData1().map((priorityTable) => (
                       <tr
                         key={priorityTable?.Ncid}
                         onDoubleClick={() =>

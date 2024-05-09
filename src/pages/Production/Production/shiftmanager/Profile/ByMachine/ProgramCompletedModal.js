@@ -214,6 +214,32 @@ export default function ProgramCompletedModal({
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
+   //
+   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+   const requestSort = (key) => {
+     let direction = "asc";
+     if (sortConfig.key === key && sortConfig.direction === "asc") {
+       direction = "desc";
+     }
+     setSortConfig({ key, direction });
+   };
+ 
+   const sortedData = () => {
+     const dataCopy = [...programCompleteData];
+     if (sortConfig.key) {
+       dataCopy.sort((a, b) => {
+         if (a[sortConfig.key] < b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? -1 : 1;
+         }
+         if (a[sortConfig.key] > b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? 1 : -1;
+         }
+         return 0;
+       });
+     }
+     return dataCopy;
+   };
+
   return (
     <div>
       <CloseProgramModal
@@ -245,7 +271,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-3" style={{ gap: "35px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     {" "}
                     Task No
@@ -258,7 +284,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-2" style={{ gap: "15px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     {" "}
                     Quantity
@@ -271,7 +297,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-5" style={{ gap: "10px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     {" "}
                     Material
@@ -285,7 +311,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-3" style={{ gap: "10px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     {" "}
                     Program No
@@ -299,7 +325,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-2" style={{ gap: "20px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     Allotted
                   </label>
@@ -312,7 +338,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-2" style={{ gap: "15px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     Process
                   </label>
@@ -333,7 +359,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-3" style={{ gap: "30px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     Machine
                   </label>
@@ -346,7 +372,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     Processed
                   </label>
@@ -379,7 +405,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label
                     className="form-label"
-                    style={{ whiteSpace: "nowrap" }}
+                   
                   >
                     Estimated
                   </label>
@@ -432,24 +458,24 @@ export default function ProgramCompletedModal({
                   overflowX: "scroll",
                 }}
               >
-                <Table striped className="table-data border">
+                <Table striped className="table-data border table-space">
                   <thead className="tableHeaderBGColor">
                     <tr>
-                      <th style={{ whiteSpace: "nowrap" }}>Dwg Name</th>
-                      <th style={{ whiteSpace: "nowrap" }}>To Produce</th>
-                      <th>Produced</th>
-                      <th>Rejected</th>
-                      <th>Cleared</th>
-                      <th>Remarks</th>
+                      <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
+                      <th onClick={() => requestSort("To Produce")}>To Produce</th>
+                      <th onClick={() => requestSort("Produced")}>Produced</th>
+                      <th onClick={() => requestSort("Rejected")}>Rejected</th>
+                      <th onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
 
                   <tbody className="tablebody">
-                    {programCompleteData.map((item, key) => {
+                    {sortedData().map((item, key) => {
                       return (
                         <>
                           <tr>
-                            <td style={{ whiteSpace: "nowrap" }}>
+                            <td>
                               {item.DwgName}
                             </td>
                             <td>{item.TotQtyNested}</td>

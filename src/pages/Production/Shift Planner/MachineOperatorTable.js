@@ -27,6 +27,32 @@ function MachineOperatorTable({
     setRowselectMachineOperator({ ...machineOperatorTableData[0], index: 0 });
   }, [machineOperatorTableData[0]]);
 
+   //
+   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+   const requestSort = (key) => {
+     let direction = "asc";
+     if (sortConfig.key === key && sortConfig.direction === "asc") {
+       direction = "desc";
+     }
+     setSortConfig({ key, direction });
+   };
+ 
+   const sortedData = () => {
+     const dataCopy = [...machineOperatorTableData];
+     if (sortConfig.key) {
+       dataCopy.sort((a, b) => {
+         if (a[sortConfig.key] < b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? -1 : 1;
+         }
+         if (a[sortConfig.key] > b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? 1 : -1;
+         }
+         return 0;
+       });
+     }
+     return dataCopy;
+   };
+
   return (
     <div
       className="mx-1"
@@ -40,8 +66,8 @@ function MachineOperatorTable({
       <Table striped className="table-data border " style={{ border: "1px" }}>
         <thead className="tableHeaderBGColor">
           <tr>
-            <th>Machine</th>
-            <th>Operator</th>
+            <th onClick={() => requestSort("Machine")}>Machine</th>
+            <th onClick={() => requestSort("Operator")}>Operator</th>
           </tr>
         </thead>
 
@@ -53,7 +79,7 @@ function MachineOperatorTable({
               </td>
             </tr>
           ) : (
-            machineOperatorTableData.map((rank, i, row) => (
+            sortedData().map((rank, i, row) => (
               <tr
                 key={i}
                 onClick={() => rowSelectFun(rank, i)}

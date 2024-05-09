@@ -3,7 +3,6 @@ import Modal from 'react-bootstrap/Modal';
 import PrintDailyShift from './PrintDailyShift';
 
 export default function ModalPrintDailyShift({openPrintModal,setOpenPrintModal,rowselect,newData,setNewdata}) {
-    console.log(rowselect)
     const [fullscreen, setFullscreen] = useState(true);
 
   return (

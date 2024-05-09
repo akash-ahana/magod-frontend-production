@@ -179,6 +179,33 @@ export default function ProgramProcessingModal({
       });
   };
 
+  
+   //
+   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+   const requestSort = (key) => {
+     let direction = "asc";
+     if (sortConfig.key === key && sortConfig.direction === "asc") {
+       direction = "desc";
+     }
+     setSortConfig({ key, direction });
+   };
+ 
+   const sortedData = () => {
+     const dataCopy = [...programCompleteData];
+     if (sortConfig.key) {
+       dataCopy.sort((a, b) => {
+         if (a[sortConfig.key] < b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? -1 : 1;
+         }
+         if (a[sortConfig.key] > b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? 1 : -1;
+         }
+         return 0;
+       });
+     }
+     return dataCopy;
+   };
+
   return (
     <div>
       <Modal size="lg" show={show} fullscreen={fullscreen} onHide={handleClose}>
@@ -348,20 +375,17 @@ export default function ProgramProcessingModal({
               >
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                    <tr>
-                      <th style={{ whiteSpace: "nowrap" }}>Dwg Name</th>
-                      {/* <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th> */}
-                      <th style={{ whiteSpace: "nowrap" }}>To Produce</th>
-                      <th>Produced</th>
-                      <th>Rejected</th>
-                      <th>Cleared</th>
-
-                      <th>Remarks</th>
-                      {/* <th>New Cleared</th> */}
+                  <tr>
+                      <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
+                      <th onClick={() => requestSort("To Produce")}>To Produce</th>
+                      <th onClick={() => requestSort("Produced")}>Produced</th>
+                      <th onClick={() => requestSort("Rejected")}>Rejected</th>
+                      <th onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
 
-                  {programCompleteData.map((item, key) => {
+                  {sortedData().map((item, key) => {
                     return (
                       <>
                         <tbody className="tablebody">

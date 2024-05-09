@@ -8,6 +8,33 @@ export default function ProcessTable({
   selectedRowFun,
 }) {
 
+
+  ////
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...processTab];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
   // console.log("Selected Row", selectRow)
   return (
     <div className="row mt-1">
@@ -23,15 +50,15 @@ export default function ProcessTable({
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th>Process</th>
-                <th>ProcessDescription</th>
-                <th>RawMaterial</th>
+                <th onClick={() => requestSort("Process")}>Process</th>
+                <th onClick={() => requestSort("ProcessDescription")}>ProcessDescription</th>
+                <th onClick={() => requestSort("RawMaterial")}>RawMaterial</th>
               </tr>
             </thead>
 
             <tbody className="tablebody table-space">
               <>
-                {processTab.map((data, key) => (
+                {sortedData().map((data, key) => (
                   <tr
                     onClick={() => selectedRowFun(data, key)}
                     className={

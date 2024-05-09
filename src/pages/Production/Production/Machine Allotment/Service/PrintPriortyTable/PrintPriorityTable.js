@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     textDecoration: "underline",
     marginLeft: "180px",
     marginTop: "10px",
+    fontFamily: "Helvetica-Bold"
   },
   title2: {
     textDecoration: "underline",

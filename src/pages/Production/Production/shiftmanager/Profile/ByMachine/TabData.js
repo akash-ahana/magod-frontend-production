@@ -69,6 +69,32 @@ export default function TabData({
       });
   }, []);
 
+
+   //
+ const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+ const requestSort = (key) => {
+   let direction = "asc";
+   if (sortConfig.key === key && sortConfig.direction === "asc") {
+     direction = "desc";
+   }
+   setSortConfig({ key, direction });
+ };
+
+ const sortedData = () => {
+   const dataCopy = [...machineProgramesProcessing];
+   if (sortConfig.key) {
+     dataCopy.sort((a, b) => {
+       if (a[sortConfig.key] < b[sortConfig.key]) {
+         return sortConfig.direction === "asc" ? -1 : 1;
+       }
+       if (a[sortConfig.key] > b[sortConfig.key]) {
+         return sortConfig.direction === "asc" ? 1 : -1;
+       }
+       return 0;
+     });
+   }
+   return dataCopy;
+ };
   return (
     <>
       <div>
@@ -93,23 +119,22 @@ export default function TabData({
                 maxWidth: "850px",
               }}
             >
-              <Table striped className="table-data border">
+              <Table striped className="table-data border table-space">
                 <thead className="tableHeaderBGColor">
                   <tr>
-                    <th style={{ whiteSpace: "nowrap" }}>Task No</th>
-                    <th>Machine</th>
-                    <th>Operation</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Program No</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Plan Time</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Actual Time</th>
-                    <th>QTY</th>
-                    <th>Allotted</th>
-                    <th>Processed</th>
+                    <th onClick={() => requestSort("Task No")}>Task No</th>
+                    <th onClick={() => requestSort("Machine")}>Machine</th>
+                    <th onClick={() => requestSort("Operation")}>Operation</th>
+                    <th onClick={() => requestSort("Plan Time")}>Plan Time</th>
+                    <th onClick={() => requestSort("Actual Time")}>Actual Time</th>
+                    <th onClick={() => requestSort("QTY")}>QTY</th>
+                    <th onClick={() => requestSort("Allotted")}>Allotted</th>
+                    <th onClick={() => requestSort("Processed")}>Processed</th>
                   </tr>
                 </thead>
 
                 {machineProgramesProcessing &&
-                  machineProgramesProcessing.map((item, key) => {
+                  sortedData().map((item, key) => {
                     return (
                       <>
                         <tbody className="tablebody">
@@ -122,13 +147,13 @@ export default function TabData({
                                 : ""
                             }
                           >
-                            <td style={{ whiteSpace: "nowrap" }}>
+                            <td >
                               {item.TaskNo}
                             </td>
-                            <td style={{ whiteSpace: "nowrap" }}>
+                            <td >
                               {item.Machine}
                             </td>
-                            <td style={{ whiteSpace: "nowrap" }}>
+                            <td >
                               {item.Operation}
                             </td>
                             <td>{item.NCProgramNo}</td>

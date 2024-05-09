@@ -37,6 +37,17 @@ export default function ProcessForm({
     setDeleteModal(true);
   };
 
+   //hadnleChange
+   const[noOfOperations,SetNoOfOperatons]=useState('');
+   const handleChangeNoofOperation=(e)=>{
+     const newValue = e.target.value;
+     SetNoOfOperatons(newValue);
+     setSelectRow(prevSelectRow => ({
+       ...prevSelectRow,
+       No_of_Operations: newValue
+     }));
+   }
+
   const handleSaveProcess = () => {
     axios
       .post(baseURL + "/processSetup/SavedProcess", {
@@ -51,14 +62,10 @@ export default function ProcessForm({
           position: toast.POSITION.TOP_CENTER,
         });
       })
-      .catch((err) => {
-        console.log(err);
-        toast.error("Process not saved", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-      });
   };
 
+
+ 
   const deleteProcess = () => {
     axios
       .post(baseURL + "/processSetup/deleteProcess", {
@@ -70,7 +77,6 @@ export default function ProcessForm({
         });
         setDeleteModal(false);
         setSelectRow({ ...processTab[0], index: 0 });
-        console.log("Request sent for delete");
       });
   };
 
@@ -206,7 +212,8 @@ export default function ProcessForm({
                   <input
                     className="input-field"
                     name="noofoperations"
-                    defaultValue={selectRow?.No_of_Operations}
+                    value={selectRow?.No_of_Operations}
+                    onChange={handleChangeNoofOperation}
                   />
                 </div>
               </div>

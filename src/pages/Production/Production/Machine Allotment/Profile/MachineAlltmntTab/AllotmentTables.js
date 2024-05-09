@@ -35,7 +35,6 @@ export default function AllotmentTables() {
       "e",
       "E",
     ].includes(e.key) && e.preventDefault();
-  const [newSelectedMchine, setNewSelectedMachine] = useState("");
 
   const [allotmentTable, setAllotmentTable] = useState([]);
   const [searchallotment, setSearchallotment] = useState([]);
@@ -67,7 +66,7 @@ export default function AllotmentTables() {
     console.log(item, "item is ");
     let list = { ...item, index: index };
     setRowSelect(list);
-    setNewSelectedMachine("");
+    // setNewSelectedMachine("");
   };
   const getScheduleList = () => {
     axios
@@ -123,11 +122,19 @@ export default function AllotmentTables() {
     setRowselect({ ...scheduleListData[0], index: 0 });
   }, [scheduleListData[0]]);
 
+  const [newSelectedMchine, setNewSelectedMachine] = useState(tableRowSelect?.Machine !== "" ? tableRowSelect?.Machine :"");
   const onChangeMachine = (e) => {
-    console.log("Machine is Changed", e.target.value);
-    setTableRowSelect({ ...tableRowSelect, Machine: e.target.value });
+    // console.log("Machine is Changed", e.target.value);
+    // setTableRowSelect({ ...tableRowSelect, Machine: e.target.value });
     setNewSelectedMachine(e.target.value);
   };
+
+  useEffect(() => {
+    setNewSelectedMachine(tableRowSelect.Machine);
+  }, [tableRowSelect.Machine]);
+  
+
+  console.log("tableRowSelect.Machine is",newSelectedMchine);
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -142,7 +149,7 @@ export default function AllotmentTables() {
       axios
         .post(baseURL + "/machineAllotment/changeMachineInForm", {
           ...tableRowSelect,
-          newMachine: tableRowSelect.Machine,
+          newMachine: newSelectedMchine,
         })
         .then((response) => {
           toast.success("Machine Changed", {
@@ -208,7 +215,60 @@ export default function AllotmentTables() {
   //   }
   // }, [scheduleListData, rowselect]);
 
-  console.log(tableRowSelect);
+//
+const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+const requestSort = (key) => {
+  let direction = "asc";
+  if (sortConfig.key === key && sortConfig.direction === "asc") {
+    direction = "desc";
+  }
+  setSortConfig({ key, direction });
+};
+
+const sortedData = () => {
+  const dataCopy = [...allotmentTable];
+  if (sortConfig.key) {
+    dataCopy.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return dataCopy;
+};
+
+
+
+//////////////////////////////////////
+//
+const [sortConfig1, setSortConfig1] = useState({ key: null, direction: null });
+const requestSort1 = (key) => {
+  let direction = "asc";
+  if (sortConfig1.key === key && sortConfig1.direction === "asc") {
+    direction = "desc";
+  }
+  setSortConfig1({ key, direction });
+};
+
+const sortedData1 = () => {
+  const dataCopy = [...scheduleListData];
+  if (sortConfig1.key) {
+    dataCopy.sort((a, b) => {
+      if (a[sortConfig1.key] < b[sortConfig1.key]) {
+        return sortConfig1.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig1.key] > b[sortConfig1.key]) {
+        return sortConfig1.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return dataCopy;
+};
 
   return (
     <div>
@@ -238,16 +298,16 @@ export default function AllotmentTables() {
             <Table striped className="table-data border table-space">
               <thead className="tableHeaderBGColor">
                 <tr>
-                  <th>Schedule No</th>
-                  <th>Delivery Date</th>
-                  <th>Customer</th>
-                  <th>Status</th>
-                  <th>Special_instruction</th>
+                  <th onClick={() => requestSort("Schedule No")}>Schedule No</th>
+                  <th onClick={() => requestSort("Delivery Date")}>Delivery Date</th>
+                  <th onClick={() => requestSort("Customer")}> Customer</th>
+                  <th onClick={() => requestSort("Status")}>Status</th>
+                  <th onClick={() => requestSort("Special_instruction")}>Special_instruction</th>
                 </tr>
               </thead>
 
               <tbody className="tablebody table-space">
-                {allotmentTable.map((item, key) => {
+                {sortedData().map((item, key) => {
                   return (
                     <>
                       <tr
@@ -345,10 +405,10 @@ export default function AllotmentTables() {
                     <select
                       className="ip-select"
                       onChange={onChangeMachine}
-                      value={tableRowSelect.Machine}
+                      value={newSelectedMchine !== "" ? newSelectedMchine : tableRowSelect?.Machine}
                     >
                       {/* Render the default empty option */}
-                      <option value="">Select an option</option>
+                      <option value="">{newSelectedMchine}</option>
                       {machineList.map((value, key) => (
                         <option key={key} value={value.refName}>
                           {value.refName}
@@ -423,17 +483,17 @@ export default function AllotmentTables() {
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
                   <tr>
-                    <th style={{ whiteSpace: "nowrap" }}>Task No</th>
-                    <th>Machine</th>
-                    <th>Operation</th>
-                    <th>Mtrl_code</th>
-                    <th>Priority</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Estimated time</th>
+                    <th onClick={() => requestSort1("Task No")}>Task No</th>
+                    <th onClick={() => requestSort1("Machine")}>Machine</th>
+                    <th onClick={() => requestSort1("Operation")}>Operation</th>
+                    <th onClick={() => requestSort1("Mtrl_code")}>Mtrl_code</th>
+                    <th onClick={() => requestSort1("Priority")}>Priority</th>
+                    <th onClick={() => requestSort1("Estimated time")}>Estimated time</th>
                   </tr>
                 </thead>
 
                 <tbody className="tablebody table-space">
-                  {scheduleListData.map((value, key) => {
+                  {sortedData1().map((value, key) => {
                     return (
                       <>
                         <tr

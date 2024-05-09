@@ -5,7 +5,32 @@ import { useGlobalContext } from "../../../../Context/Context";
 export default function MachineTable({ selectedRowFn, selectedRow }) {
   const { post, MachineTabledata } = useGlobalContext();
 
-  console.log(selectedRow);
+
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...post];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div className="row mt-1">
@@ -14,14 +39,14 @@ export default function MachineTable({ selectedRowFn, selectedRow }) {
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th>Manufacturer</th>
-                <th>Model</th>
-                <th>Working</th>
+                <th  onClick={() => requestSort("Manufacturer")}>Manufacturer</th>
+                <th  onClick={() => requestSort("Model")}>Model</th>
+                <th  onClick={() => requestSort("Working")}>Working</th>
               </tr>
             </thead>
 
             <tbody>
-              {post.map((item, key) => {
+              {sortedData().map((item, key) => {
                 return (
                   <>
                     <tr

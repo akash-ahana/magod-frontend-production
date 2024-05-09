@@ -12,24 +12,48 @@ export default function ProcessTable({
     getprocessTabledata();
   }, [OrdSchNo]);
 
-  console.log(processtable);
+ //
+ const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+ const requestSort = (key) => {
+   let direction = "asc";
+   if (sortConfig.key === key && sortConfig.direction === "asc") {
+     direction = "desc";
+   }
+   setSortConfig({ key, direction });
+ };
+
+ const sortedData = () => {
+   const dataCopy = [...processtable];
+   if (sortConfig.key) {
+     dataCopy.sort((a, b) => {
+       if (a[sortConfig.key] < b[sortConfig.key]) {
+         return sortConfig.direction === "asc" ? -1 : 1;
+       }
+       if (a[sortConfig.key] > b[sortConfig.key]) {
+         return sortConfig.direction === "asc" ? 1 : -1;
+       }
+       return 0;
+     });
+   }
+   return dataCopy;
+ };
 
   return (
     <div style={{ height: "200px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor table-space">
           <tr>
-            <th>Status</th>
-            <th>Task No</th>
-            <th>Material</th>
-            <th>Process</th>
-            <th>Estimated Time</th>
-            <th>Time Taken</th>
-            <th>No of Dwgs</th>
-            <th>Dwgs Nested</th>
-            <th>Total Parts</th>
-            <th>Parts Nested</th>
-            <th>No of Sheets</th>
+            <th onClick={() => requestSort("Status")}>Status</th>
+            <th onClick={() => requestSort("Task No")}>Task No</th>
+            <th onClick={() => requestSort("Material")}>Material</th>
+            <th onClick={() => requestSort("Process")}>Process</th>
+            <th onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
+            <th onClick={() => requestSort("Time Taken")}>Time Taken</th>
+            <th onClick={() => requestSort("No of Dwgs")}>No of Dwgs</th>
+            <th onClick={() => requestSort("Dwgs Nested")}>Dwgs Nested</th>
+            <th onClick={() => requestSort("Total Parts")}>Total Parts</th>
+            <th onClick={() => requestSort("Parts Nested")}>Parts Nested</th>
+            <th onClick={() => requestSort("No of Sheets")}>No of Sheets</th>
           </tr>
         </thead>
         <tbody className='tablebody table-cell-align table-space'>
@@ -38,7 +62,7 @@ export default function ProcessTable({
               <td colSpan="11">No data found</td>
             </tr>
           ) : (
-            processtable.map((item, key) => (
+            sortedData().map((item, key) => (
               <tr
                 onClick={() => processtableSelectFun(item, key)}
                 className={key === processrowselect?.index ? 'selcted-row-clr' : ''}

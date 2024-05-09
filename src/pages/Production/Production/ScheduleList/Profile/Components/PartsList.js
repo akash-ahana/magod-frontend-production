@@ -96,10 +96,10 @@ const clearSelected = () => {
             position: toast.POSITION.TOP_CENTER,
           });
           // After saving, update the data
-          getSchedulistdata();
-          getSchedulistfabricationdata();
-          getSchedulistservicedata();
-          console.log("executed second API");
+          // getSchedulistdata();
+          // getSchedulistfabricationdata();
+          // getSchedulistservicedata();
+          // console.log("executed second API");
         });
     }
   };
@@ -174,6 +174,32 @@ const clearSelected = () => {
 
   // console.log(partlistdata);
 
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...partlistdata];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
   return (
     <div>
       <ToastContainer />
@@ -203,11 +229,11 @@ const clearSelected = () => {
         <Table striped className="table-data border table-space">
           <thead className="tableHeaderBGColor">
             <tr>
-              <th onClick={handleSelectAll}></th>
-              <th>DwgName</th>
-              <th>Programmed</th>
-              <th>Produced</th>
-              <th style={{ textAlign: "center" }}>Cleared</th>
+              <th onClick={handleSelectAll} ></th>
+              <th onClick={() => requestSort("DwgName")}>DwgName</th>
+              <th onClick={() => requestSort("Programmed")}>Programmed</th>
+              <th onClick={() => requestSort("Produced")}>Produced</th>
+              <th style={{ textAlign: "center" }} onClick={() => requestSort("Cleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
@@ -228,7 +254,7 @@ const clearSelected = () => {
           </thead>
 
           <tbody className="tablebody ">
-            {partlistdata.map((item, key) => {
+            {sortedData().map((item, key) => {
               const isChecked = selectedRows.some((row) => row === item);
               return (
                 <tr

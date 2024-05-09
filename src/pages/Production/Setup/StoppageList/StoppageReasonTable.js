@@ -10,13 +10,38 @@ export default function StoppageReasonTable({
   selectReasonFun,
   getReasonsList,
 }) {
-  console.log(selectedGroup);
 
   useEffect(() => {
     if (getReasonsList.length > 0 && !selectedReason.Stoppage) {
       selectReasonFun(getReasonsList[0], 0); // Select the first row
     }
   }, [getReasonsList, selectedReason, selectReasonFun]);
+
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...getReasonsList];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
 
   return (
     <div className="mt-1">
@@ -25,14 +50,14 @@ export default function StoppageReasonTable({
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th>SL NO</th>
-                <th>Stoppage Reason</th>
+                <th onClick={() => requestSort("SL NO")}>SL NO</th>
+                <th onClick={() => requestSort("Stoppage Reason")}>Stoppage Reason</th>
               </tr>
             </thead>
 
             <tbody>
-              {getReasonsList.length > 0 ? (
-                getReasonsList.map((item, key) => {
+              {sortedData().length > 0 ? (
+                sortedData().map((item, key) => {
                   return (
                     <>
                       <tr

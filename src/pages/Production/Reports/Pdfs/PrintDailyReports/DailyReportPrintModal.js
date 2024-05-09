@@ -12,7 +12,6 @@ export default function DailyReportPrintModal({ opendailyReport, setOpendailyRep
     }
   }, [pdfData]); // Run the effect whenever pdfData changes
 
-  console.log(pdfData);
 
   return (
     <>

@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function AllotmentTables() {
-  const [newSelectedMchine, setNewSelectedMachine] = useState("");
 
   const blockInvalidCharReg = (e) =>
     [
@@ -95,7 +94,7 @@ export default function AllotmentTables() {
     let list = { ...item, index: index };
     setTableRowSelect(item);
     setRowselect(list);
-    setNewSelectedMachine("");
+    // setNewSelectedMachine("");
   };
   const getMachineList = () => {
     axios
@@ -135,13 +134,15 @@ export default function AllotmentTables() {
   //   }
   // };
 
+  const [newSelectedMchine, setNewSelectedMachine] = useState(tableRowSelect?.Machine !== "" ? tableRowSelect?.Machine :"");
   const onChangeMachine = (e) => {
     setNewSelectedMachine(e.target.value);
-    setTableRowSelect((prevSelect) => ({
-      ...prevSelect,
-      Machine: newSelectedMchine,
-    }));
   };
+
+  useEffect(() => {
+    setNewSelectedMachine(tableRowSelect.Machine);
+  }, [tableRowSelect.Machine]);
+  
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -217,6 +218,62 @@ export default function AllotmentTables() {
   //   }
   // }, [scheduleListData, rowselect]);
 
+  //
+const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+const requestSort = (key) => {
+  let direction = "asc";
+  if (sortConfig.key === key && sortConfig.direction === "asc") {
+    direction = "desc";
+  }
+  setSortConfig({ key, direction });
+};
+
+const sortedData = () => {
+  const dataCopy = [...allotmentTable];
+  if (sortConfig.key) {
+    dataCopy.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return dataCopy;
+};
+
+
+
+//////////////////////////////////////
+//
+const [sortConfig1, setSortConfig1] = useState({ key: null, direction: null });
+const requestSort1 = (key) => {
+  let direction = "asc";
+  if (sortConfig1.key === key && sortConfig1.direction === "asc") {
+    direction = "desc";
+  }
+  setSortConfig1({ key, direction });
+};
+
+const sortedData1 = () => {
+  const dataCopy = [...scheduleListData];
+  if (sortConfig1.key) {
+    dataCopy.sort((a, b) => {
+      if (a[sortConfig1.key] < b[sortConfig1.key]) {
+        return sortConfig1.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig1.key] > b[sortConfig1.key]) {
+        return sortConfig1.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return dataCopy;
+};
+
+
   return (
     <>
       <div className="col-md-12">
@@ -244,17 +301,17 @@ export default function AllotmentTables() {
           >
             <Table striped className="table-data border">
               <thead className="tableHeaderBGColor">
-                <tr>
-                  <th style={{ whiteSpace: "nowrap" }}>Schedule No</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Delivery Date</th>
-                  <th>Customer</th>
-                  <th>Status</th>
-                  <th style={{ whiteSpace: "nowrap" }}>Special_instruction</th>
+              <tr>
+                  <th onClick={() => requestSort("Schedule No")}>Schedule No</th>
+                  <th onClick={() => requestSort("Delivery Date")}>Delivery Date</th>
+                  <th onClick={() => requestSort("Customer")}> Customer</th>
+                  <th onClick={() => requestSort("Status")}>Status</th>
+                  <th onClick={() => requestSort("Special_instruction")}>Special_instruction</th>
                 </tr>
               </thead>
 
               <tbody className="tablebody table-space">
-                {allotmentTable.map((item, key) => {
+                {sortedData().map((item, key) => {
                   return (
                     <>
                       <tr
@@ -357,8 +414,9 @@ export default function AllotmentTables() {
                       <select
                         className="ip-select"
                         onChange={onChangeMachine}
-                        value={tableRowSelect.Machine}
-                      >
+                        value={newSelectedMchine !== "" ? newSelectedMchine : tableRowSelect?.Machine}
+                        >
+                       <option value="">{newSelectedMchine}</option>
                         {machineList.map((value, key) => (
                           <option key={key} value={value.refName}>
                             {value.refName}
@@ -428,18 +486,18 @@ export default function AllotmentTables() {
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
-                  <tr>
-                    <th style={{ whiteSpace: "nowrap" }}>Task No</th>
-                    <th>Machine</th>
-                    <th>Operation</th>
-                    <th>Mtrl_code</th>
-                    <th>Priority</th>
-                    <th style={{ whiteSpace: "nowrap" }}>Estimated time</th>
+                <tr>
+                    <th onClick={() => requestSort1("Task No")}>Task No</th>
+                    <th onClick={() => requestSort1("Machine")}>Machine</th>
+                    <th onClick={() => requestSort1("Operation")}>Operation</th>
+                    <th onClick={() => requestSort1("Mtrl_code")}>Mtrl_code</th>
+                    <th onClick={() => requestSort1("Priority")}>Priority</th>
+                    <th onClick={() => requestSort1("Estimated time")}>Estimated time</th>
                   </tr>
                 </thead>
 
                 <tbody className="tablebody table-space">
-                  {scheduleListData.map((value, key) => {
+                  {sortedData1().map((value, key) => {
                     return (
                       <>
                         <tr

@@ -233,7 +233,7 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
                   </View>
                   <View>
                     <Text style={styles.name}>{preparedby}</Text>
-                    <Text style={styles.desig}>{roleValue}</Text>
+                    <Text style={styles.desig}>Production Manager</Text>
                   </View>
                 </React.Fragment>
               )}

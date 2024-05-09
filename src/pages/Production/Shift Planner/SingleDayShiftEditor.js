@@ -131,13 +131,11 @@ function SingleDayShiftEditor({
         ShiftDate: finalday,
       })
       .then((response) => {
-        console.log(response);
         setNewdata(response.data);
         openDailyShiftPrinter();
       });
   };
 
-  console.log("newData", newData);
   return (
     <>
       <div

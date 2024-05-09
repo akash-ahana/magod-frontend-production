@@ -13,7 +13,6 @@ export default function Process() {
     axios
       .get(baseURL + "/productionSetup/getAllProcessList")
       .then((response) => {
-        // console.log("ProcessListdataa", response.data)
         setProcessTab(response.data);
       })
       .catch((err) => {

@@ -71,81 +71,37 @@ export default function MachineLogTable() {
     // Rest of your code
   }, [machineLog]);
 
+  
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...machineLog];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
   return (
     <>
-      <div className="d-flex mt-1">
-        <div className="col-md-3">
-          <MachineLogSideTable
-            selectMachineLogFun={selectMachineLogFun}
-            selectmachinelog={selectmachinelog}
-            setSelectmachinelog={setSelectmachinelog}
-            machineList={machineList}
-          />
-        </div>
-        <div className="col-md-9">
-          <div
-            style={{
-              height: "235px",
-              width: "640px",
-              overflow: "scroll",
-            }}
-          >
-            <Table striped className="table-data border">
-              <thead className="tableHeaderBGColor">
-                <tr>
-                  <th>Machine</th>
-                  <th>Shift</th>
-                  <th>Srl</th>
-                  <th>FromTime</th>
-                  <th>ToTime</th>
-                  <th>RunningTime</th>
-                  <th>Program</th>
-                  <th>Operation</th>
-                  <th>Remarks</th>
-                  <th>Locked</th>
-                  <th>Operator</th>
-                  {/* <th>Abc</th>
-           <th>Xyz</th> */}
-                </tr>
-              </thead>
-
-              {Array.isArray(machineLog) && machineLog.length > 0 ? (
-                <tbody className="tablebody table-space table-cell-align">
-                  {machineLog.map((item, key) => {
-                    return (
-                      <tr>
-                        <td>{item?.Machine}</td>
-                        <td>{item?.Shift}</td>
-                        <td>{key + 1}</td>
-                        <td>{item?.FromTime}</td>
-                        <td>{item?.ToTime}</td>
-                        <td>{item?.MachineTime}</td>
-                        <td>{item?.Program}</td>
-                        <td>{item?.Operation}</td>
-                        <td>{item?.Remarks}</td>
-                        <td>
-                          <input type="checkbox" checked={item?.Locked === 1} />
-                        </td>
-                        <td>{item?.Operator}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              ) : (
-                <tbody className="tablebody table-space table-cell-align">
-                  {machineLog.length === 0 && (
-                    <tr>
-                      <td colSpan="11">No data available</td>
-                    </tr>
-                  )}
-                </tbody>
-              )}
-            </Table>
-          </div>
-        </div>
-      </div>
-      {/* <div className="d-flex">
-        <div className="box">
+      <div className="d-flex">
+        <div className="box" style={{ width: "205px" }}>
           <MachineLogSideTable
             selectMachineLogFun={selectMachineLogFun}
             selectmachinelog={selectmachinelog}
@@ -158,32 +114,33 @@ export default function MachineLogTable() {
           <div className="col-md-12 col-sm-12">
             <div
               style={{
-                height: "250px",
-                overflowY: "scroll",
-                overflowX: "scroll",
-                maxWidth: "650px",
+                height: "234px",
+                overflow: "scroll",
+                width: "650px",
               }}
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
                   <tr>
-                    <th>Machine</th>
-                    <th>Shift</th>
-                    <th>Srl</th>
-                    <th>FromTime</th>
-                    <th>ToTime</th>
-                    <th>RunningTime</th>
-                    <th>Program</th>
-                    <th>Operation</th>
-                    <th>Remarks</th>
-                    <th>Locked</th>
-                    <th>Operator</th>
+                    <th onClick={() => requestSort("Machine")}>Machine</th>
+                    <th onClick={() => requestSort("Shift")}>Shift</th>
+                    <th onClick={() => requestSort("Srl")}>Srl</th>
+                    <th onClick={() => requestSort("FromTime")}>FromTime</th>
+                    <th onClick={() => requestSort("ToTime")}>ToTime</th>
+                    <th onClick={() => requestSort("RunningTime")}>RunningTime</th>
+                    <th onClick={() => requestSort("Program")}>Program</th>
+                    <th onClick={() => requestSort("Operation")}>Operation</th>
+                    <th onClick={() => requestSort("Remarks")}>Remarks</th>
+                    <th onClick={() => requestSort("Locked")}>Locked</th>
+                    <th onClick={() => requestSort("Operator")}>Operator</th>
+                    {/* <th>Abc</th>
+           <th>Xyz</th> */}
                   </tr>
                 </thead>
 
                 {Array.isArray(machineLog) && machineLog.length > 0 ? (
                   <tbody className="tablebody table-space table-cell-align">
-                    {machineLog.map((item, key) => {
+                    {sortedData().map((item, key) => {
                       return (
                         <tr>
                           <td>{item?.Machine}</td>
@@ -219,7 +176,7 @@ export default function MachineLogTable() {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

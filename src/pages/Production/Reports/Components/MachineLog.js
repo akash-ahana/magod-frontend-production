@@ -252,6 +252,34 @@ export default function MachineLog({
   };
   // console.log("actionTaken", actionTaken);
 
+
+   ///
+   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+   const requestSort = (key) => {
+     let direction = "asc";
+     if (sortConfig.key === key && sortConfig.direction === "asc") {
+       direction = "desc";
+     }
+     setSortConfig({ key, direction });
+   };
+ 
+   const sortedData = () => {
+     const dataCopy = [...machineLogData];
+     if (sortConfig.key) {
+       dataCopy.sort((a, b) => {
+         if (a[sortConfig.key] < b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? -1 : 1;
+         }
+         if (a[sortConfig.key] > b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? 1 : -1;
+         }
+         return 0;
+       });
+     }
+     return dataCopy;
+   };
+
+   
   return (
     <div>
       <PrintShiftLogModal
@@ -297,30 +325,30 @@ export default function MachineLog({
         <Table striped className="table-data border">
           <thead className="tableHeaderBGColor table-cell-align">
             <tr>
-              <th style={{ paddingLeft: "10px", paddingBottom: "10px" }}>
+              {/* <th style={{ paddingLeft: "10px", paddingBottom: "10px" }}>
                 <input
                   type="checkbox"
                   checked={selectAll}
                   onChange={handleSelectAll}
                 />
-              </th>
+              </th> */}
 
-              <th>Machine</th>
-              <th>Shift</th>
-              <th>Srl</th>
-              <th>FromTime</th>
-              <th>ToTime</th>
-              <th>MachineTime</th>
-              <th>Program</th>
-              <th>Remarks</th>
-              <th style={{ whiteSpace: "nowrap" }}>Machine Operator</th>
-              <th>Operation</th>
+              <th onClick={() => requestSort("Machine")}>Machine</th>
+              <th onClick={() => requestSort("Shift")}>Shift</th>
+              <th onClick={() => requestSort("Srl")}>Srl</th>
+              <th onClick={() => requestSort("FromTime")}>FromTime</th>
+              <th onClick={() => requestSort("ToTime")}> ToTime</th>
+              <th onClick={() => requestSort("MachineTime")}>MachineTime</th>
+              <th onClick={() => requestSort("Program")}>Program</th>
+              <th onClick={() => requestSort("Remarks")}>Remarks</th>
+              <th style={{ whiteSpace: "nowrap" }} onClick={() => requestSort("Machine Operator")}>Machine Operator</th>
+              <th onClick={() => requestSort("Operation")}>Operation</th>
             </tr>
           </thead>
 
           {Array.isArray(machineLogData) && machineLogData.length > 0 ? (
             <tbody className="tablebody table-space table-cell-align">
-              {machineLogData.map((item, key) => {
+              {sortedData().map((item, key) => {
                 const isSelected = selectedRows.some(
                   (row) => row.data === item
                 );
@@ -330,13 +358,13 @@ export default function MachineLog({
                     onClick={() => machinelogRowSelect(key)}
                     className={isSelected ? "selected-row" : ""}
                   >
-                    <td>
+                    {/* <td>
                       <input
                         type="checkbox"
                         checked={isSelected}
                         onChange={() => machinelogRowSelect(key)}
                       />
-                    </td>
+                    </td> */}
                     <td>{item?.Machine}</td>
                     <td>{item?.Shift}</td>
                     <td>{key + 1}</td>

@@ -16,7 +16,7 @@ function DailyOperator(props) {
 
   const getMachineListData = async () => {
     const { data } = await axios.get(
-      baseURL + `/productionSetup/getallmachines`
+      baseURL + `/shiftEditor/getMachineList`
     );
     setDataMachineList(data);
     console.log(data);

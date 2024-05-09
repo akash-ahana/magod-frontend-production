@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from "react-bootstrap/Table";
 
 export default function GroupNameTable({
@@ -6,6 +6,33 @@ export default function GroupNameTable({
   selectedGroup,
   selectedRowFn,
 }) {
+
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...getGroupNameList];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
+  
   return (
     <div className="row">
       <div>
@@ -13,14 +40,14 @@ export default function GroupNameTable({
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th>SL NO</th>
-                <th>GropName</th>
+                <th onClick={() => requestSort("SL NO")}>SL NO</th>
+                <th onClick={() => requestSort("GropName")}>GropName</th>
                 {/* <th>Working</th> */}
               </tr>
             </thead>
 
             <tbody>
-              {getGroupNameList.map((item, key) => {
+              {sortedData().map((item, key) => {
                 return (
                   <>
                     <tr

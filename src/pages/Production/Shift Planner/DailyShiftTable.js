@@ -87,7 +87,32 @@ function DailyShiftTable({
     setRowselectMachineOperator(list);
   };
 
-  console.log("selected row", rowselectDailyShiftTable);
+
+    //
+    const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+    const requestSort = (key) => {
+      let direction = "asc";
+      if (sortConfig.key === key && sortConfig.direction === "asc") {
+        direction = "desc";
+      }
+      setSortConfig({ key, direction });
+    };
+  
+    const sortedData = () => {
+      const dataCopy = [...SingleDayShiftPlan4thTable];
+      if (sortConfig.key) {
+        dataCopy.sort((a, b) => {
+          if (a[sortConfig.key] < b[sortConfig.key]) {
+            return sortConfig.direction === "asc" ? -1 : 1;
+          }
+          if (a[sortConfig.key] > b[sortConfig.key]) {
+            return sortConfig.direction === "asc" ? 1 : -1;
+          }
+          return 0;
+        });
+      }
+      return dataCopy;
+    };
 
   return (
     <div style={{ display: "flex" }}>
@@ -131,17 +156,17 @@ function DailyShiftTable({
         >
           <Table
             striped
-            className="table-data border"
+            className="table-data border table-space"
             style={{ border: "1px" }}
           >
             <thead className="tableHeaderBGColor">
               <tr>
-                <th>Shift</th>
-                <th>Incharge</th>
-                <th style={{ whiteSpace: "nowrap" }}>From</th>
-                <th style={{ whiteSpace: "nowrap" }}>To Time</th>
-                <th style={{ whiteSpace: "nowrap" }}>Shift Instructions</th>
-                <th style={{ whiteSpace: "nowrap" }}>Save Shift Instruction</th>
+                <th  onClick={() => requestSort("Shift")}>Shift</th>
+                <th  onClick={() => requestSort("Incharge")}>Incharge</th>
+                <th   onClick={() => requestSort("From")}>From</th>
+                <th   onClick={() => requestSort("To Time")}>To Time</th>
+                <th   onClick={() => requestSort("Shift Instructions")}>Shift Instructions</th>
+                <th   onClick={() => requestSort("Save Shift Instruction")}>Save Shift Instruction</th>
               </tr>
             </thead>
 
@@ -153,7 +178,7 @@ function DailyShiftTable({
                   </td>
                 </tr>
               ) : (
-                SingleDayShiftPlan4thTable.map((rank, i, row) => (
+                sortedData().map((rank, i, row) => (
                   <tr
                     onClick={() => rowSelectFunForDailyShiftTable(rank, i)}
                     className={
@@ -162,22 +187,22 @@ function DailyShiftTable({
                         : ""
                     }
                   >
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.Shift}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.Shift_Ic}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.FromTime}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.ToTime}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>
+                    <td >{rank.Shift}</td>
+                    <td >{rank.Shift_Ic}</td>
+                    <td >{rank.FromTime}</td>
+                    <td >{rank.ToTime}</td>
+                    <td >
                       <div key={rank.DayShiftId}>
                         <input
                           className="table-cell-editor"
                           value={rank.Shift_instruction || ""}
                           onChange={(e) => onChangeInput(e, i)}
-                          placeholder="Type Cleared"
+                          placeholder="Type Shift_instruction"
                         />
                       </div>
                     </td>
 
-                    <td style={{ whiteSpace: "nowrap" }}>
+                    <td >
                       <button
                         className="button-style group-button"
                         style={{ width: "100px" }}

@@ -8,6 +8,33 @@ import axios from "axios";
 
 function SecondTable(props) {
   //  console.log('secondTableShiftState in second TABLE 1' , props.week)
+
+   //
+   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+   const requestSort = (key) => {
+     let direction = "asc";
+     if (sortConfig.key === key && sortConfig.direction === "asc") {
+       direction = "desc";
+     }
+     setSortConfig({ key, direction });
+   };
+ 
+   const sortedData = () => {
+     const dataCopy = [...props.week];
+     if (sortConfig.key) {
+       dataCopy.sort((a, b) => {
+         if (a[sortConfig.key] < b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? -1 : 1;
+         }
+         if (a[sortConfig.key] > b[sortConfig.key]) {
+           return sortConfig.direction === "asc" ? 1 : -1;
+         }
+         return 0;
+       });
+     }
+     return dataCopy;
+   };
+
   return (
     <div
       className="col-md-3"
@@ -21,29 +48,29 @@ function SecondTable(props) {
       <div>
         <Table
           striped
-          className="table-data border"
+          className="table-data border table-space"
           style={{ marginLeft: "5px", border: "1px" }}
         >
           <thead className="tableHeaderBGColor">
             <tr>
-              <th>ShiftDate</th>
-              <th>Shift</th>
-              <th style={{ whiteSpace: "nowrap" }}>Shift IC</th>
-              <th>From</th>
-              <th>To</th>
+              <th onClick={() => requestSort("ShiftDate")}>ShiftDate</th>
+              <th onClick={() => requestSort("Shift")}>Shift</th>
+              <th onClick={() => requestSort("Shift IC")} >Shift IC</th>
+              <th onClick={() => requestSort("From")}>From</th>
+              <th onClick={() => requestSort("To")}>To</th>
             </tr>
           </thead>
 
           <tbody className="tablebody">
-            {props.week.map((rank, i, row) => {
+            {sortedData().map((rank, i, row) => {
               return (
                 <>
                   <tr>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.ShiftDate}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.Shift}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.Shift_Ic}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.FromTime}</td>
-                    <td style={{ whiteSpace: "nowrap" }}>{rank.ToTime}</td>
+                    <td >{rank.ShiftDate}</td>
+                    <td >{rank.Shift}</td>
+                    <td >{rank.Shift_Ic}</td>
+                    <td >{rank.FromTime}</td>
+                    <td >{rank.ToTime}</td>
                   </tr>
                 </>
               );

@@ -13,6 +13,32 @@ export default function ProductionTaskSummary({ productionTaskSummary }) {
     setSelectRow({ ...productionTaskSummary[0], index: 0 });
   }, [productionTaskSummary[0]]);
 
+  ///
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...productionTaskSummary];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
   return (
     <div
       className="mt-1"
@@ -26,16 +52,16 @@ export default function ProductionTaskSummary({ productionTaskSummary }) {
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor">
           <tr>
-            <th>Machine</th>
-            <th>Task No</th>
-            <th>Mtrl Code</th>
-            <th>Operation</th>
-            <th>Machine Time</th>
+            <th onClick={() => requestSort("Machine")}>Machine</th>
+            <th onClick={() => requestSort("Task No")}>Task No</th>
+            <th onClick={() => requestSort("Mtrl Code")}>Mtrl Code</th>
+            <th onClick={() => requestSort("Operation")}>Operation</th>
+            <th onClick={() => requestSort("Machine Time")}>Machine Time</th>
           </tr>
         </thead>
 
         <tbody className="tablebody">
-          {productionTaskSummary.map((item, key) => {
+          {sortedData().map((item, key) => {
             return (
               <>
                 <tr

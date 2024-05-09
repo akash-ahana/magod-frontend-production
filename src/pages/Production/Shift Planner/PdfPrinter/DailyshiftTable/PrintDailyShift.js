@@ -41,70 +41,71 @@ export default function PrintDailyShift({newData,rowselect}) {
   
   let date=rowselect.item;
 
-  console.log(newData);
+  // console.log(newData);
 
-      const newData1 = [
-        { 
-          ShiftIc : "Kumar N",
-          Shift : "First",
-          machineOperators : [
-            {
-              Machine : "Laser 1",
-              Operator : "Operator 1"
-            } , 
-            {
-              Machine : "Laser 2",
-              Operator : "Operator 2"
-            } , 
-            {
-              Machine : "Laser 3",
-              Operator : "Operator 3"
-            } , 
+  //     const newData1 = [
+  //       { 
+  //         ShiftIc : "Kumar N",
+  //         Shift : "First",
+  //         machineOperators : [
+  //           {
+  //             Machine : "Laser 1",
+  //             Operator : "Operator 1"
+  //           } , 
+  //           {
+  //             Machine : "Laser 2",
+  //             Operator : "Operator 2"
+  //           } , 
+  //           {
+  //             Machine : "Laser 3",
+  //             Operator : "Operator 3"
+  //           } , 
            
-          ]
-       } , 
-       { 
-        ShiftIc : "Shashidhara",
-        Shift : "Second",
-        machineOperators : [
-          {
-            Machine : "Laser 4",
-            Operator : "Operator 4"
-          } , 
-          {
-            Machine : "Laser 5",
-            Operator : "Operator 5"
-          } , 
-          {
-            Machine : "Laser 6",
-            Operator : "Operator 6"
-          } , 
+  //         ]
+  //      } , 
+  //      { 
+  //       ShiftIc : "Shashidhara",
+  //       Shift : "Second",
+  //       machineOperators : [
+  //         {
+  //           Machine : "Laser 4",
+  //           Operator : "Operator 4"
+  //         } , 
+  //         {
+  //           Machine : "Laser 5",
+  //           Operator : "Operator 5"
+  //         } , 
+  //         {
+  //           Machine : "Laser 6",
+  //           Operator : "Operator 6"
+  //         } , 
          
-        ]
-     } , 
-     { 
-      ShiftIc : "Mahesh Bogan",
-      Shift : "Third",
-      machineOperators : [
-        {
-          Machine : "Laser 7",
-          Operator : "Operator 7"
-        } , 
-        {
-          Machine : "Laser 8",
-          Operator : "Operator 8"
-        } , 
-        {
-          Machine : "Laser 9",
-          Operator : "Operator 9"
-        } , 
+  //       ]
+  //    } , 
+  //    { 
+  //     ShiftIc : "Mahesh Bogan",
+  //     Shift : "Third",
+  //     machineOperators : [
+  //       {
+  //         Machine : "Laser 7",
+  //         Operator : "Operator 7"
+  //       } , 
+  //       {
+  //         Machine : "Laser 8",
+  //         Operator : "Operator 8"
+  //       } , 
+  //       {
+  //         Machine : "Laser 9",
+  //         Operator : "Operator 9"
+  //       } , 
        
-      ]
-   }  
-      ]
+  //     ]
+  //  }  
+  //     ]
     
       // console.log(typeof(data));
       // console.log(typeof(firstmachineoperator))
+      // console.log("rowselect is",rowselect,"newData is",newData);
       return (
         // <div className="App">
         //   <PDFDownloadLink document={<PDFdocument />} fileName="somename.pdf">

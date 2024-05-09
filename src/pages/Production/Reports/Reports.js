@@ -95,19 +95,21 @@ export default function Reports() {
         setMachineLogData(response.data);
         setMachineName("");
         axios
-      .post(baseURL + "/reports/getMachineUtilisationSummary", {
-        Date: e.target.value,
-      })
-      .then((res) => {
-        console.log("require response mus", res.data.data);
-        setMachineutilisationSummarydata(res.data.data);
-      });
-    axios
-      .post(baseURL + "/reports/productTaskSummary", { Date: e.target.value })
-      .then((response) => {
-        //  console.log("data", response.data.data);
-        setProductionTaskSummary(response.data);
-      });
+          .post(baseURL + "/reports/getMachineUtilisationSummary", {
+            Date: e.target.value,
+          })
+          .then((res) => {
+            // console.log("require response mus", res.data.data);
+            setMachineutilisationSummarydata(res.data.data);
+          });
+        axios
+          .post(baseURL + "/reports/productTaskSummary", {
+            Date: e.target.value,
+          })
+          .then((response) => {
+            //  console.log("data", response.data.data);
+            setProductionTaskSummary(response.data);
+          });
       });
   };
 
@@ -125,44 +127,41 @@ export default function Reports() {
 
   const [prepareReport1, setPrepareReport] = useState("");
   const openPrepareReport1 = () => {
-    let machinesWithNegativeValues = []; // Array to store machines with negative values
-    multiplerowSelect.forEach((row) => {
-      if (row.NonProdOn < 0) {
-        machinesWithNegativeValues.push(row); // Add machine to the array
+    let isError = false; // Variable to track if any error occurs
+    let isFirstErrorShown = false; // Variable to track if the first error message is shown
+
+    // Loop through each object in machineutilisationSummartdata array
+    for (let obj of machineutilisationSummartdata) {
+      if (obj.TotalOn + obj.TotalOff !== 1440) {
+        // If the sum of TotalOn and TotalOff is not equal to 1440
+        // and the error message for the first machine hasn't been shown yet
+        if (!isFirstErrorShown) {
+          // Set isFirstErrorShown to true to indicate that the first error message is shown
+          isFirstErrorShown = true;
+
+          // Display error message using Toastify for the first machine only
+          toast.error(`Check machine ON/OFF Time for ${obj.Machine}`, {
+            position: toast.POSITION.TOP_CENTER,
+          });
+        }
+
+        // Set isError to true
+        isError = true;
       }
-    });
-    selectedRows.forEach((row) => {
-      if (row.MachineTime < 0) {
-        machinesWithNegativeValues.push(row); // Add machine to the array
+
+      // If isError is true, break the loop to exit early
+      if (isError) {
+        break;
       }
-    });
-    machineLogData.forEach((row) => {
-      if (row.MachineTime < 0) {
-        machinesWithNegativeValues.push(row); // Add machine to the array
-      }
-    });
-    machineutilisationSummartdata.forEach((row) => {
-      if (row.NonProdOn < 0) {
-        machinesWithNegativeValues.push(row); // Add machine to the array
-      }
-    });
-    if (machinesWithNegativeValues.length > 0) {
-      const firstMachine = machinesWithNegativeValues[0].Machine;
-      toast.error(`Please check ${firstMachine}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    } else {
+    }
+
+    // If isError is true, at least one object had a TotalOn + TotalOff sum not equal to 1440
+    // Otherwise, all objects had a sum equal to 1440, so enable the "Print Daily Report" button
+    if (!isError) {
+      // Call function to enable the "Print Daily Report" button
       setPrepareReport(true);
     }
-    if (machinesWithNegativeValues.length > 0) {
-      const firstMachine = machinesWithNegativeValues[0].Machine;
-      toast.error(`Please check ${firstMachine}`, {
-        position: toast.POSITION.TOP_CENTER,
-      });
-    } else {
-      // Set status to true to enable the "Print Daily Report" button
-      setPrepareReport(true);
-    }
+    console.log("isError is", isError);
   };
 
   const [selectedMachine, setSelectedMachine] = useState({});
@@ -249,52 +248,51 @@ export default function Reports() {
 
   useEffect(() => {
     axios
-    .post(baseURL + "/reports/machineLog", { Date: dateSelect })
-    .then((response) => {
-      for (let i = 0; i < response.data.length; i++) {
-        let dateSplit1 = response.data[i].FromTime.split(" ");
-        let date1 = dateSplit1[0].split("-");
-        let year1 = date1[0];
-        let month1 = date1[1];
-        let day1 = date1[2];
-        let time = dateSplit1[1].split(":");
-        let Time = time[0] + ":" + time[1];
-        let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-        response.data[i].FromTime = finalDay1;
-      }
-      for (let i = 0; i < response.data.length; i++) {
-        let dateSplit2 = response.data[i].ToTime.split(" ");
-        let date2 = dateSplit2[0].split("-");
-        let year2 = date2[0];
-        let month2 = date2[1];
-        let day2 = date2[2];
-        let time1 = dateSplit2[1].split(":");
-        let Time1 = time1[0] + ":" + time1[1];
-        let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-        response.data[i].ToTime = finalDay2;
-      }
-      // console.log(response.data);
-      setMachineLogData(response.data);
-      setSelectedMachineIndex(-1);
-      setIsPageRefreshed(false);
-      localStorage.setItem("isPageRefreshed", false);
-      axios
-      .post(baseURL + "/reports/getMachineUtilisationSummary", {
-        Date: dateSelect
-      })
-      .then((res) => {
-        // console.log("require response mus", res.data.data);
-        setMachineutilisationSummarydata(res.data.data);
-      });
-      axios
-      .post(baseURL + "/reports/productTaskSummary", { Date: dateSelect })
+      .post(baseURL + "/reports/machineLog", { Date: dateSelect })
       .then((response) => {
-        //  console.log("data", response.data.data);
-        setProductionTaskSummary(response.data);
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit1 = response.data[i].FromTime.split(" ");
+          let date1 = dateSplit1[0].split("-");
+          let year1 = date1[0];
+          let month1 = date1[1];
+          let day1 = date1[2];
+          let time = dateSplit1[1].split(":");
+          let Time = time[0] + ":" + time[1];
+          let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+          response.data[i].FromTime = finalDay1;
+        }
+        for (let i = 0; i < response.data.length; i++) {
+          let dateSplit2 = response.data[i].ToTime.split(" ");
+          let date2 = dateSplit2[0].split("-");
+          let year2 = date2[0];
+          let month2 = date2[1];
+          let day2 = date2[2];
+          let time1 = dateSplit2[1].split(":");
+          let Time1 = time1[0] + ":" + time1[1];
+          let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+          response.data[i].ToTime = finalDay2;
+        }
+        // console.log(response.data);
+        setMachineLogData(response.data);
+        setSelectedMachineIndex(-1);
+        setIsPageRefreshed(false);
+        localStorage.setItem("isPageRefreshed", false);
+        axios
+          .post(baseURL + "/reports/getMachineUtilisationSummary", {
+            Date: dateSelect,
+          })
+          .then((res) => {
+            // console.log("require response mus", res.data.data);
+            setMachineutilisationSummarydata(res.data.data);
+          });
+        axios
+          .post(baseURL + "/reports/productTaskSummary", { Date: dateSelect })
+          .then((response) => {
+            //  console.log("data", response.data.data);
+            setProductionTaskSummary(response.data);
+          });
       });
-    });
-
-  },[])
+  }, []);
 
   //Onclick MainTreeView
   const treeViewHeader = (index) => {

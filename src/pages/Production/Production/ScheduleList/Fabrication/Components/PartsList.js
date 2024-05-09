@@ -159,7 +159,31 @@ export default function PartsList({
     setSelectPartList({ ...partlistdata[0], index: 0 });
   }, [partlistdata[0]]);
 
-  console.log("partlistdata", partlistdata);
+//
+const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+const requestSort = (key) => {
+  let direction = "asc";
+  if (sortConfig.key === key && sortConfig.direction === "asc") {
+    direction = "desc";
+  }
+  setSortConfig({ key, direction });
+};
+
+const sortedData = () => {
+  const dataCopy = [...partlistdata];
+  if (sortConfig.key) {
+    dataCopy.sort((a, b) => {
+      if (a[sortConfig.key] < b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? -1 : 1;
+      }
+      if (a[sortConfig.key] > b[sortConfig.key]) {
+        return sortConfig.direction === "asc" ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+  return dataCopy;
+};
 
   return (
     <div>
@@ -186,14 +210,14 @@ export default function PartsList({
       </div>
 
       <div className="mt-1" style={{ height: "120px", overflowY: "scroll" }}>
-        <Table striped className="table-data border">
+        <Table striped className="table-data border table-space">
           <thead className="tableHeaderBGColor">
             <tr>
               <th></th>
-              <th>DwgName</th>
-              <th>Programmed</th>
-              <th>Produced</th>
-              <th>Cleared</th>
+              <th onClick={() => requestSort("DwgName")}>DwgName</th>
+              <th onClick={() => requestSort("Programmed")}>Programmed</th>
+              <th onClick={() => requestSort("Produced")}>Produced</th>
+              <th onClick={() => requestSort("Cleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
@@ -214,7 +238,7 @@ export default function PartsList({
           </thead>
 
           <tbody className="tablebody">
-            {partlistdata.map((item, key) => {
+            {sortedData().map((item, key) => {
               const isChecked = selectedRows.some((row) => row === item);
               return (
                 <tr

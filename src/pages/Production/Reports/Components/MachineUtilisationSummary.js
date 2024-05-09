@@ -22,115 +22,163 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   const [inputValue2, setInputValue2] = useState(rowSelected.LaserOn || "");
   const [modalShow6, setModalShow6] = useState(false);
 
+  //row select function
   const selectedRowFun = (item, index) => {
     let list = { ...item, index: index };
     setRowSelected(list);
   };
 
+  //update button
   const updateUtilisationSummary = () => {
     axios
       .post(baseURL + "/reports/updateProductionMachineUtilsationSummary", {
         Date: dateSelect,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setMachineutilisationSummarydata(res.data);
       });
   };
 
+  //TotalOff handle Change
   const handleInputChange1 = (event) => {
-    setInputValue1(event.target.value);
-    // console.log(event.target.value);
-  };
-
-  const handleInputChange2 = (event) => {
-    const updatedMachineUtilisationData = [...machineutilisationSummartdata];
-    // Find the index of the selected machine in the machineutilisationSummartdata array
-    const selectedIndex = updatedMachineUtilisationData.findIndex(
-      (item) => item.Machine === rowSelected.Machine
-    );
-    // Update the LaserOn value of the selected machine
-    updatedMachineUtilisationData[selectedIndex].LaserOn = event.target.value;
-    // console.log("updatedMachineUtilisationData",updatedMachineUtilisationData);
-    // Update the machineutilisationSummartdata with the updated data
-    setMachineutilisationSummarydata(updatedMachineUtilisationData);
-    setInputValue2(event.target.value);
-  };
-
-  const onValueChange = (index, field, value) => {
-    const updatedMachineUtilisationSummary = [...machineutilisationSummartdata]; // Create a copy of the array
-    // Update the specific item's field with the new value
-    updatedMachineUtilisationSummary[index] = {
-      ...updatedMachineUtilisationSummary[index],
-      [field]: value,
-    };
-    setMachineutilisationSummarydata(updatedMachineUtilisationSummary);
-  };
-
-  const saveUtilisationSummary = () => {
-    let NonProd=rowSelected.NonProdOn;
-    console.log("NonProd is",NonProd);
-    if(inputValue1> NonProd){
-      toast.error(`TotalOff Canot be greater than NonProdOn `, {
+    if (event.target.value < 0) {
+      toast.error("Please give a Positive Number", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    else{
-      if (!rowSelected || !inputValue1) {
-        // Check if rowSelected and inputValue1 are valid
-        return;
-      }
-      const updatedRow = {
-        ...rowSelected,
-        TotalOff: inputValue1,
-        TotalOn: 1440 - inputValue1,
-        NonProdOn: NonProd - inputValue1,
-        LaserOn: inputValue2,
-      };
-      // Update the selected row in the machineutilisationSummartdata array
-      const updatedData = machineutilisationSummartdata.map((item, index) =>
-        index === rowSelected.index ? updatedRow : item
-      );
-      // Update the machineutilisationSummartdata with the updatedData
-      setMachineutilisationSummarydata(updatedData);
-  
-      axios
-        .post(baseURL + "/reports/saveMachineUtilisationSummary", {
-          machineutilisationSummartdata: updatedData,
-          Date: dateSelect,
-        })
-        .then((res) => {
-          setModalShow6(true);
-          // setTimeout(() => {
-          //   axios
-          //     .post(baseURL + "/reports/muData", {
-          //       Date: dateSelect,
-          //     })
-          //     .then((res) => {
-          //       // console.log(res.data);
-          //       setMachineutilisationSummarydata(res.data);
-          //       // toast.success("Changes Saved", {
-          //       //   position: toast.POSITION.TOP_CENTER,
-          //       // });
-          //     });
-          // }, 1000); // 1000 milliseconds = 1 second
-        });
+    } else if (event.target.value > 1440) {
+      toast.error("Total Off Cannot be greater than 1440", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      setInputValue1(event.target.value);
     }
   };
+
+  //Laser On handle Change
+  const handleInputChange2 = (event) => {
+    if (event.target.value < 0) {
+      toast.error("Please give a Positive Number", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else if (event.target.value > 1440) {
+      toast.error("Laser On Cannot be greater than 1440", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      const updatedMachineUtilisationData = [...machineutilisationSummartdata];
+      // Find the index of the selected machine in the machineutilisationSummartdata array
+      const selectedIndex = updatedMachineUtilisationData.findIndex(
+        (item) => item.Machine === rowSelected.Machine
+      );
+      // Update the LaserOn value of the selected machine
+      updatedMachineUtilisationData[selectedIndex].LaserOn = event.target.value;
+      // Update the machineutilisationSummartdata with the updated data
+      setMachineutilisationSummarydata(updatedMachineUtilisationData);
+      setInputValue2(event.target.value);
+    }
+  };
+
+  //table inputfield handle change
+  const onValueChange = (index, field, value) => {
+    if (value < 0) {
+      toast.error("Please give a Positive Number", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else if (value > 1440) {
+      toast.error("Cannot be greater than 1440", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    } else {
+      const updatedMachineUtilisationSummary = [
+        ...machineutilisationSummartdata,
+      ];
+       // Create a copy of the array
+      // Update the specific item's field with the new value
+      updatedMachineUtilisationSummary[index] = {
+        ...updatedMachineUtilisationSummary[index],
+        [field]: value,
+      };
+      setMachineutilisationSummarydata(updatedMachineUtilisationSummary);
+
+      // Update rowSelected
+      const updatedRowSelected = { ...rowSelected };
+      updatedRowSelected[field] = value;
+      setRowSelected(updatedRowSelected);
+    }
+  };
+
+
+  //save machine utilisation
+  const saveUtilisationSummary = () => {
+    let NonProd = rowSelected.NonProdOn;
+    // if(inputValue1> NonProd){
+    //   toast.error(`TotalOff Canot be greater than NonProdOn `, {
+    //     position: toast.POSITION.TOP_CENTER,
+    //   });
+    // }
+    // else{
+    if (!rowSelected || !inputValue1) {
+      // Check if rowSelected and inputValue1 are valid
+      return;
+    }
+    // Calculate NonProdOn based on the condition
+    let NonProdOn1;
+    if (NonProd === 0) {
+      NonProdOn1 = 1440 - inputValue1;
+    } else {
+      NonProdOn1 = NonProd - inputValue1;
+    }
+    const updatedRow = {
+      ...rowSelected,
+      TotalOff: inputValue1,
+      TotalOn: 1440 - inputValue1,
+      NonProdOn: NonProdOn1,
+      LaserOn: inputValue2,
+    };
+    // Update the selected row in the machineutilisationSummartdata array
+    const updatedData = machineutilisationSummartdata.map((item, index) =>
+      index === rowSelected.index ? updatedRow : item
+    );
+
+    // Update the machineutilisationSummartdata with the updatedData
+    setMachineutilisationSummarydata(updatedData);
+
+    // console.log("updatedData in save ",updatedData);
+
+    axios
+      .post(baseURL + "/reports/saveMachineUtilisationSummary", {
+        machineutilisationSummartdata: updatedData,
+        Date: dateSelect,
+      })
+      .then((res) => {
+        setModalShow6(true);
+        // setTimeout(() => {
+        //   axios
+        //     .post(baseURL + "/reports/muData", {
+        //       Date: dateSelect,
+        //     })
+        //     .then((res) => {
+        //       // console.log(res.data);
+        //       setMachineutilisationSummarydata(res.data);
+        //       // toast.success("Changes Saved", {
+        //       //   position: toast.POSITION.TOP_CENTER,
+        //       // });
+        //     });
+        // }, 1000); // 1000 milliseconds = 1 second
+      });
+    // }
+  };
+
 
   const closeModal = () => {
     setModalShow6(false);
   };
-
   const modalData = {
     title: "Reports",
     content: "Changes Saved",
   };
 
-  // useMemo(() => {
-  //   setRowSelected({ ...machineutilisationSummartdata[0], index: 0 });
-  //   setInputValue2([]);
-  // }, [machineutilisationSummartdata[0]]);
 
   useEffect(() => {
     setInputValue2(rowSelected.LaserOn || "");
@@ -142,11 +190,37 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
   }, [rowSelected]);
 
   /////
-  useEffect(() => {
-    if (machineutilisationSummartdata.length > 0 && !rowSelected.Machine) {
-      selectedRowFun(machineutilisationSummartdata[0], 0); // Select the first row
+  // useEffect(() => {
+  //   if (machineutilisationSummartdata.length > 0 && !rowSelected.Machine) {
+  //     selectedRowFun(machineutilisationSummartdata[0], 0); // Select the first row
+  //   }
+  // }, [machineutilisationSummartdata, rowSelected, selectedRowFun]);
+
+  ///sorting table
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
     }
-  }, [machineutilisationSummartdata, rowSelected, selectedRowFun]);
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...machineutilisationSummartdata];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <>
@@ -199,7 +273,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               <input
                 className="in-field"
                 name={inputValue2}
-                value={inputValue2}
+                value={rowSelected.LaserOn || inputValue2}
                 onChange={handleInputChange2}
               />
             </div>
@@ -248,16 +322,16 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
                     />
                   </th>
 
-                  <th>Machine</th>
-                  <th>TotalOn</th>
-                  <th>TotalOff</th>
-                  <th>ProdOn</th>
-                  <th>NonProdOn</th>
+                  <th onClick={() => requestSort("Machine")}>Machine</th>
+                  <th onClick={() => requestSort("TotalOn")}>TotalOn</th>
+                  <th onClick={() => requestSort("TotalOff")}>TotalOff</th>
+                  <th onClick={() => requestSort("ProdOn")}>ProdOn</th>
+                  <th onClick={() => requestSort("NonProdOn")}>NonProdOn</th>
                 </tr>
               </thead>
 
               <tbody className="tablebody">
-                {machineutilisationSummartdata.map((item, key) => {
+                {sortedData().map((item, key) => {
                   return (
                     <tr
                       key={key}
