@@ -481,7 +481,7 @@ export default function Reports() {
 
       <div className="row mt-1">
         <div
-          className="col-md-3"
+          className="col-md-2"
           style={{
             height: "390px",
             overflowY: "scroll",
@@ -609,7 +609,7 @@ export default function Reports() {
             );
           })}
         </div>
-        <div className="col-md-9">
+        <div className="col-md-10">
           <NabTab
             machineutilisationSummartdata={machineutilisationSummartdata}
             productionTaskSummary={productionTaskSummary}

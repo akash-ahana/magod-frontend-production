@@ -141,7 +141,7 @@ function SingleDayShiftEditor({
       <div
         className="col-md-4"
         style={{
-          width: "190px",
+          width: "200px",
           textAlign: "center",
           backgroundColor: "#d3d3d3",
           fontSize: "12px",
@@ -165,6 +165,7 @@ function SingleDayShiftEditor({
             className="ip-select"
             onChange={handleShiftIncharge}
             value={selectedShiftIncharge}
+            style={{marginLeft:'-7px'}}
           >
             {selectedShiftIncharge === undefined ? (
               <option value="" disabled>
@@ -184,7 +185,6 @@ function SingleDayShiftEditor({
             )}
           </select>
         </div>
-        <br></br>
         <div>
           <label className="form-label">From Time</label>
         </div>

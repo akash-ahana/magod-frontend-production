@@ -108,7 +108,7 @@ function Forms() {
       {/* {shiftDetails &&
         shiftDetails.map((item) => { */}
 
-      <div className="bg-light">
+      <div className="bg-light" style={{marginTop:'-8px'}}>
         <label className="form-label ms-2">
           Shift In Charge Monitoring Form
         </label>

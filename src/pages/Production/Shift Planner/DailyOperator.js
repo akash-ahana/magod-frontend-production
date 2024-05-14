@@ -122,7 +122,7 @@ function DailyOperator(props) {
   return (
     <div
       style={{
-        width: "190px",
+        width: "200px",
         textAlign: "center",
         backgroundColor: "lightgrey",
         marginTop: "5px",
@@ -130,7 +130,7 @@ function DailyOperator(props) {
       }}
     >
       <div>
-        <div className="mb-4" style={{ color: "red" }}>
+        <div className="mb-1" style={{ color: "red" }}>
           <b>{props.data?.Shift} Shift</b>
         </div>
       </div>
@@ -143,6 +143,7 @@ function DailyOperator(props) {
             className="ip-select"
             onChange={handleMachineChange}
             value={selectedMachine || ""}
+            style={{width:'115px'}}
           >
             <option value="" disabled={!selectedMachine}>
               Select machine
@@ -156,7 +157,7 @@ function DailyOperator(props) {
         </div>
       </div>
 
-      <div className="col-md-11 d-flex mb-5" style={{ gap: "10px" }}>
+      <div className="col-md-11 d-flex mb-4" style={{ gap: "10px" }}>
         <div className="ms-1">
           <label className="form-label">Operator</label>
         </div>

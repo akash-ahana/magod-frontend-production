@@ -271,7 +271,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-3" style={{ gap: "35px" }}>
                   <label
                     className="form-label"
-                   
+                    style={{ whiteSpace: "nowrap" }}
                   >
                     {" "}
                     Task No
@@ -284,7 +284,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-2" style={{ gap: "15px" }}>
                   <label
                     className="form-label"
-                   
+                    style={{ whiteSpace: "nowrap" }}
                   >
                     {" "}
                     Quantity
@@ -311,7 +311,7 @@ export default function ProgramCompletedModal({
                 <div className="d-flex col-md-3" style={{ gap: "10px" }}>
                   <label
                     className="form-label"
-                   
+                    style={{ whiteSpace: "nowrap" }}
                   >
                     {" "}
                     Program No
