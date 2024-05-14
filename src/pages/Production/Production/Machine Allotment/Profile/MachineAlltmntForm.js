@@ -245,6 +245,7 @@ export default function MachineAlltmntForm() {
       <h4 className="title">Machine Allotment Form</h4>
 
       <div className="row">
+        <div className="col-md-4"></div>
         <div className="col-md-3">
           <select className="ip-select" onChange={onMachineChange}>
             <option>Select Machine</option>
@@ -278,7 +279,7 @@ export default function MachineAlltmntForm() {
 
       <div className="d-flex" style={{ gap: "10px" }}>
         <div
-          className="col-md-3 mt-1"
+          className="col-md-2 mt-1"
           style={{ overflow: "scroll", height: "400px" }}
         >
           {isLoading ? (
@@ -358,7 +359,7 @@ export default function MachineAlltmntForm() {
             })
           )}
         </div>
-        <div className="col-md-9 mt-1">
+        <div className="col-md-10 mt-1">
           <NavTab
             machineSelect={machineSelect}
             ncProgramsTableData={ncProgramsTableData}

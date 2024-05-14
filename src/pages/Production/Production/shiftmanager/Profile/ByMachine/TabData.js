@@ -125,11 +125,11 @@ export default function TabData({
                     <th onClick={() => requestSort("Task No")}>Task No</th>
                     <th onClick={() => requestSort("Machine")}>Machine</th>
                     <th onClick={() => requestSort("Operation")}>Operation</th>
-                    <th onClick={() => requestSort("Plan Time")}>Plan Time</th>
-                    <th onClick={() => requestSort("Actual Time")}>Actual Time</th>
-                    <th onClick={() => requestSort("QTY")}>QTY</th>
-                    <th onClick={() => requestSort("Allotted")}>Allotted</th>
-                    <th onClick={() => requestSort("Processed")}>Processed</th>
+                    <th onClick={() => requestSort("Plan Time")} style={{textAlign:'right'}}>Plan Time</th>
+                    <th onClick={() => requestSort("Actual Time")} style={{textAlign:'right'}}>Actual Time</th>
+                    <th onClick={() => requestSort("QTY")} style={{textAlign:'right'}}>QTY</th>
+                    <th onClick={() => requestSort("Allotted")} style={{textAlign:'right'}}>Allotted</th>
+                    <th onClick={() => requestSort("Processed")} style={{textAlign:'right'}}>Processed</th>
                   </tr>
                 </thead>
 
@@ -156,12 +156,12 @@ export default function TabData({
                             <td >
                               {item.Operation}
                             </td>
-                            <td>{item.NCProgramNo}</td>
-                            <td>{item.EstimatedTime}</td>
-                            <td>{item.ActualTime}</td>
-                            <td>{item.Qty}</td>
-                            <td>{item.QtyAllotted}</td>
-                            <td>{item.QtyCut}</td>
+                            <td style={{textAlign:'right'}}>{item.NCProgramNo}</td>
+                            <td style={{textAlign:'right'}}>{item.EstimatedTime}</td>
+                            <td style={{textAlign:'right'}}>{item.ActualTime}</td>
+                            <td style={{textAlign:'right'}}>{item.Qty}</td>
+                            <td style={{textAlign:'right'}}>{item.QtyAllotted}</td>
+                            <td style={{textAlign:'right'}}>{item.QtyCut}</td>
                           </tr>
                         </tbody>
                       </>

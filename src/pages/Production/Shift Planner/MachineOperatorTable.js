@@ -57,8 +57,8 @@ function MachineOperatorTable({
     <div
       className="mx-1"
       style={{
-        width: "360px",
-        height: "290px",
+        width: "390px",
+        height: "265px",
         overflowX: "scroll",
         overflowY: "scroll",
       }}

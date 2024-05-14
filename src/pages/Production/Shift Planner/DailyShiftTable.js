@@ -147,8 +147,8 @@ function DailyShiftTable({
         <div
           className="col-md-12 ms-1"
           style={{
-            width: "360px",
-            height: "49%",
+            width: "390px",
+            height: "47%",
             fontSize: "15px",
             overflowX: "scroll",
             overflowY: "scroll",

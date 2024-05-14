@@ -93,7 +93,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
       const updatedMachineUtilisationSummary = [
         ...machineutilisationSummartdata,
       ];
-       // Create a copy of the array
+      // Create a copy of the array
       // Update the specific item's field with the new value
       updatedMachineUtilisationSummary[index] = {
         ...updatedMachineUtilisationSummary[index],
@@ -107,7 +107,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
       setRowSelected(updatedRowSelected);
     }
   };
-
 
   //save machine utilisation
   const saveUtilisationSummary = () => {
@@ -170,7 +169,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     // }
   };
 
-
   const closeModal = () => {
     setModalShow6(false);
   };
@@ -178,7 +176,6 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
     title: "Reports",
     content: "Changes Saved",
   };
-
 
   useEffect(() => {
     setInputValue2(rowSelected.LaserOn || "");
@@ -233,14 +230,19 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
             <label className="form-label">Total On {rowSelected.TotalOn}</label>
           </div>
           <div>
-            <label className="form-label">Production</label>{" "}
-            {rowSelected.ProdON}
+            <label className="form-label">
+              Production {rowSelected.ProdON}
+            </label>{" "}
           </div>
           <div>
-            <label className="form-label">Non Production</label>{" "}
-            {rowSelected.NonProdOn}
+            <label className="form-label">
+              Non Production{" "}
+              <span style={{ textDecoration: "none" }}>
+                {rowSelected.NonProdOn}
+              </span>
+            </label>
           </div>
-          <div className="row mt-2">
+          <div className="d-flex mt-2" style={{ gap: "10px" }}>
             <div className="d-flex col-md-6" style={{ gap: "10px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 Total Off
@@ -265,7 +267,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               </button>
             </div>
           </div>
-          <div className="row mt-3">
+          <div className="d-flex" style={{ gap: "10px" }}>
             <div className="d-flex col-md-6 mt-2" style={{ gap: "10px" }}>
               <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                 Laser ON
