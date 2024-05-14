@@ -108,7 +108,7 @@ function Forms() {
          return (
             ( */}
       <div>
-        <div className="bg-light">
+        <div className="bg-light" style={{marginTop:'-8px'}}>
           <label className="form-label ms-2">
             Shift In Charge Monitoring Form
           </label>
@@ -175,7 +175,7 @@ function Forms() {
                   rows="8"
                   id=""
                   onChange={handleOnChange}
-                  style={{ height: "130px", resize: "none", width: "300px" }}
+                  style={{ height: "130px", resize: "none", width: "100%" }}
                   value={shiftDetails[0]?.Shift_instruction}
                   disabled
                 ></textarea>

@@ -39,8 +39,8 @@ function SecondTable(props) {
     <div
       className="col-md-3"
       style={{
-        width: "385px",
-        height: "590px",
+        width: "340px",
+        height: "534px",
         overflowX: "scroll",
         overflowY: "scroll",
       }}

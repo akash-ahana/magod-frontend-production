@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
 export default function AllotmentTables() {
-
   const blockInvalidCharReg = (e) =>
     [
       "!",
@@ -134,7 +133,9 @@ export default function AllotmentTables() {
   //   }
   // };
 
-  const [newSelectedMchine, setNewSelectedMachine] = useState(tableRowSelect?.Machine !== "" ? tableRowSelect?.Machine :"");
+  const [newSelectedMchine, setNewSelectedMachine] = useState(
+    tableRowSelect?.Machine !== "" ? tableRowSelect?.Machine : ""
+  );
   const onChangeMachine = (e) => {
     setNewSelectedMachine(e.target.value);
   };
@@ -142,7 +143,6 @@ export default function AllotmentTables() {
   useEffect(() => {
     setNewSelectedMachine(tableRowSelect.Machine);
   }, [tableRowSelect.Machine]);
-  
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -219,60 +219,60 @@ export default function AllotmentTables() {
   // }, [scheduleListData, rowselect]);
 
   //
-const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-const requestSort = (key) => {
-  let direction = "asc";
-  if (sortConfig.key === key && sortConfig.direction === "asc") {
-    direction = "desc";
-  }
-  setSortConfig({ key, direction });
-};
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
 
-const sortedData = () => {
-  const dataCopy = [...allotmentTable];
-  if (sortConfig.key) {
-    dataCopy.sort((a, b) => {
-      if (a[sortConfig.key] < b[sortConfig.key]) {
-        return sortConfig.direction === "asc" ? -1 : 1;
-      }
-      if (a[sortConfig.key] > b[sortConfig.key]) {
-        return sortConfig.direction === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-  }
-  return dataCopy;
-};
+  const sortedData = () => {
+    const dataCopy = [...allotmentTable];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
+  //////////////////////////////////////
+  //
+  const [sortConfig1, setSortConfig1] = useState({
+    key: null,
+    direction: null,
+  });
+  const requestSort1 = (key) => {
+    let direction = "asc";
+    if (sortConfig1.key === key && sortConfig1.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig1({ key, direction });
+  };
 
-
-//////////////////////////////////////
-//
-const [sortConfig1, setSortConfig1] = useState({ key: null, direction: null });
-const requestSort1 = (key) => {
-  let direction = "asc";
-  if (sortConfig1.key === key && sortConfig1.direction === "asc") {
-    direction = "desc";
-  }
-  setSortConfig1({ key, direction });
-};
-
-const sortedData1 = () => {
-  const dataCopy = [...scheduleListData];
-  if (sortConfig1.key) {
-    dataCopy.sort((a, b) => {
-      if (a[sortConfig1.key] < b[sortConfig1.key]) {
-        return sortConfig1.direction === "asc" ? -1 : 1;
-      }
-      if (a[sortConfig1.key] > b[sortConfig1.key]) {
-        return sortConfig1.direction === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-  }
-  return dataCopy;
-};
-
+  const sortedData1 = () => {
+    const dataCopy = [...scheduleListData];
+    if (sortConfig1.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig1.key] < b[sortConfig1.key]) {
+          return sortConfig1.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig1.key] > b[sortConfig1.key]) {
+          return sortConfig1.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <>
@@ -301,12 +301,18 @@ const sortedData1 = () => {
           >
             <Table striped className="table-data border">
               <thead className="tableHeaderBGColor">
-              <tr>
-                  <th onClick={() => requestSort("Schedule No")}>Schedule No</th>
-                  <th onClick={() => requestSort("Delivery Date")}>Delivery Date</th>
+                <tr>
+                  <th onClick={() => requestSort("Schedule No")}>
+                    Schedule No
+                  </th>
+                  <th onClick={() => requestSort("Delivery Date")}>
+                    Delivery Date
+                  </th>
                   <th onClick={() => requestSort("Customer")}> Customer</th>
                   <th onClick={() => requestSort("Status")}>Status</th>
-                  <th onClick={() => requestSort("Special_instruction")}>Special_instruction</th>
+                  <th onClick={() => requestSort("Special_instruction")}>
+                    Special_instruction
+                  </th>
                 </tr>
               </thead>
 
@@ -367,7 +373,7 @@ const sortedData1 = () => {
                       value={tableRowSelect.TaskNo}
                     />
                   </div>
-                  <div className="d-flex col-md-6" style={{ gap: "10px" }}>
+                  <div className="d-flex col-md-6" style={{ gap: "22px" }}>
                     <label className="form-label">Status</label>
                     <input
                       className="input-field"
@@ -414,9 +420,13 @@ const sortedData1 = () => {
                       <select
                         className="ip-select"
                         onChange={onChangeMachine}
-                        value={newSelectedMchine !== "" ? newSelectedMchine : tableRowSelect?.Machine}
-                        >
-                       <option value="">{newSelectedMchine}</option>
+                        value={
+                          newSelectedMchine !== ""
+                            ? newSelectedMchine
+                            : tableRowSelect?.Machine
+                        }
+                      >
+                        <option value="">{newSelectedMchine}</option>
                         {machineList.map((value, key) => (
                           <option key={key} value={value.refName}>
                             {value.refName}
@@ -436,21 +446,7 @@ const sortedData1 = () => {
                     />
                   </div>
 
-                  <div className="col-md-6">
-                    <button
-                      onClick={onClickChangeMachine}
-                      className={`button-style group-button ${
-                        buttonDisabled ? "disabled" : ""
-                      }`}
-                      disabled={buttonDisabled}
-                    >
-                      Change Machine
-                    </button>
-                  </div>
-                </div>
-
-                <div className="row mb-1">
-                  <div className="d-flex col-md-6" style={{ gap: "17px" }}>
+                  <div className="d-flex col-md-6" style={{ gap: "10px" }}>
                     <label
                       className="form-label"
                       style={{ whiteSpace: "nowrap" }}
@@ -461,6 +457,20 @@ const sortedData1 = () => {
                       className="input-field"
                       value={tableRowSelect.Machine}
                     />
+                  </div>
+                </div>
+
+                <div className="row mb-1">
+                  <div className="col-md-6">
+                    <button
+                      onClick={onClickChangeMachine}
+                      className={`button-style group-button ${
+                        buttonDisabled ? "disabled" : ""
+                      }`}
+                      disabled={buttonDisabled}
+                    >
+                      Change Machine
+                    </button>
                   </div>
                   <div className="col-md-6">
                     <button
@@ -486,13 +496,15 @@ const sortedData1 = () => {
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
-                <tr>
+                  <tr>
                     <th onClick={() => requestSort1("Task No")}>Task No</th>
                     <th onClick={() => requestSort1("Machine")}>Machine</th>
                     <th onClick={() => requestSort1("Operation")}>Operation</th>
                     <th onClick={() => requestSort1("Mtrl_code")}>Mtrl_code</th>
                     <th onClick={() => requestSort1("Priority")}>Priority</th>
-                    <th onClick={() => requestSort1("Estimated time")}>Estimated time</th>
+                    <th onClick={() => requestSort1("Estimated time")}>
+                      Estimated time
+                    </th>
                   </tr>
                 </thead>
 
