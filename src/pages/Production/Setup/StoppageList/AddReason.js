@@ -13,9 +13,7 @@ export default function AddReason({
   selectedGroup,
   setGetReasonsList,
 }) {
-  const handleClose = () => {
-    setOpenAddReason(false);
-  };
+
 
   const [openreasonModal, setOpenreasonModal] = useState(false);
 
@@ -67,6 +65,11 @@ export default function AddReason({
     }
   };
 
+  const handleClose = () => {
+    setOpenAddReason(false);
+    setReason("");
+  };
+
   return (
     <Modal show={openAddReason} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -115,7 +118,7 @@ export default function AddReason({
             Add
           </button>
         )}
-        <button className="button-style group-button">Exit</button>
+        <button className="button-style group-button" onClick={handleClose}>Exit</button>
       </Modal.Footer>
 
       <ReasonAskModal

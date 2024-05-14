@@ -40,7 +40,6 @@ export default function StoppageForm({
     setSelectedReason(list);
   };
 
-  console.log("selected Reason", selectedReason);
 
   //open AddGroupName
   const [openAddGroup, setOpenAddGroup] = useState(false);

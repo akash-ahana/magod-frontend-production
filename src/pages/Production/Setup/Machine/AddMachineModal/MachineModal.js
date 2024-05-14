@@ -21,16 +21,17 @@ export default function MachineModal({ open, setOpen, formdata, setFormdata }) {
     model: "",
     machine_Type: "",
   };
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setFormdata({ manufacturer: "", refName: "", model: "", Machine_Type: "" });
+  }
+  
   const [modalopen, setModalopen] = React.useState(false);
 
   const openThirdmodal = () => {
     console.log(formdata);
     setModalopen(true);
     setOpen(false);
-    console.log(
-      "form data when sending api request" + JSON.stringify(formdata)
-    );
     axios
       .post(baseURL + "/productionSetup/addNewMachine", {
         ...formdata,

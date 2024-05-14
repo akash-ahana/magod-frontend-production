@@ -23,8 +23,13 @@ export default function AlertAddprocess({
 
   const handleClose = () => {
     setAlert(false);
-    console.log(processform);
     // processform.reset();
+    setProcessform({
+      RefProcess: "",
+      TgtRate: "",
+      Machine_srl: "",
+      Mprocess: "",
+    });
   };
 
   return (

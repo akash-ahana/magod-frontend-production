@@ -20,9 +20,6 @@ export default function AddProcessModal({
   const [newProcessRawMaterial, setNewProcessRawMaterial] = useState("");
   const [newNoOfOperations, setNewNoOfOperations] = useState("");
 
-  const handleClose = () => {
-    setOpenAddProcessMod(false);
-  };
 
   const handleModal = () => {
     setOpenAddProcessMod(false);
@@ -55,13 +52,12 @@ export default function AddProcessModal({
         No_of_Operations: newNoOfOperations,
       })
       .then(() => {
-        console.log("Data Posted successfully");
         setShowInnerModal(false);
         setOpenAddProcessMod(false);
-
         setNewProcessID("");
         setNewProcessDescription("");
         setNewProcessRawMaterial("");
+        setNewNoOfOperations("");
       })
       .catch((err) => {
         console.log(err);
@@ -94,6 +90,15 @@ export default function AddProcessModal({
     const processRawMaterial = event.target.value;
     setNewProcessRawMaterial(processRawMaterial);
   };
+
+  const handleClose = () => {
+    setOpenAddProcessMod(false);
+    setNewProcessID("");
+    setNewProcessDescription("");
+    setNewProcessRawMaterial("");
+    setNewNoOfOperations("");
+  };
+
 
   return (
     <div>

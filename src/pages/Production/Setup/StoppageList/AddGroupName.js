@@ -14,9 +14,7 @@ export default function AddGroupName({
   getGroupName,
   setGetGroupNameList,
 }) {
-  const handleClose = () => {
-    setOpenAddGroup(false);
-  };
+
 
   const [showInnerModal, setShowInnerModal] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -44,18 +42,13 @@ export default function AddGroupName({
         GroupName: groupName,
       });
 
-      console.log(response1.data);
-      console.log("group name added");
 
       setOpenModal(false);
       setOpenAddGroup(false);
-      console.log("modal is closed");
 
       toast.success("Group name added successfully", {
         position: toast.POSITION.TOP_CENTER,
       });
-
-      console.log("get function called");
 
       // Introduce a delay of 1000 milliseconds (1 second)
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -63,9 +56,7 @@ export default function AddGroupName({
       // Second API call after the delay
       const response2 = await axios.get(baseURL + "/reports/getGroupName", {});
 
-      console.log(response2.data);
       setGetGroupNameList(response2.data);
-      console.log("get function called");
     } catch (error) {
       // Handle errors here
       console.error(error);
@@ -76,6 +67,12 @@ export default function AddGroupName({
   const handlegroupname = (event) => {
     const addedtext = event.target.value;
     setGroupName(addedtext);
+  };
+
+  const handleClose = () => {
+    setOpenAddGroup(false);
+    setGroupName("");
+
   };
 
   return (

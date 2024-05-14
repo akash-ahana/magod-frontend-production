@@ -41,7 +41,6 @@ export default function AddMachine({ show, setShow, machinetypes }) {
   const [open, setOpen] = React.useState(false);
 
   const onSubmit = () => {
-    console.log("submited");
     setOpen(true);
     setShow(false);
   };
