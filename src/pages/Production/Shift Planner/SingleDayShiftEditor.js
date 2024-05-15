@@ -141,31 +141,35 @@ function SingleDayShiftEditor({
       <div
         className="col-md-4"
         style={{
-          width: "200px",
-          textAlign: "center",
+          width: "215px",
+          // textAlign: "center",
           backgroundColor: "#d3d3d3",
           fontSize: "12px",
         }}
       >
-        <label className="form-label">Daily Shift Editor</label>
-        <div style={{ color: "red" }}>
+        <div className="" style={{ textAlign: "center" }}>
+          <label className="form-label">Daily Shift Editor</label>
+        </div>
+        <div className="ms-1" style={{ color: "red" }}>
           {" "}
-          <b>Shift Date : {rowselectDailyShiftTable?.ShiftDate}</b>
+          <b>
+            Date : {rowselectDailyShiftTable?.ShiftDate} /{" "}
+            {rowselectDailyShiftTable?.Shift}
+          </b>
         </div>
-        <div className="mt-1" style={{ color: "red" }}>
+        {/* <div className="mt-1" style={{ color: "red" }}>
           <b>Shift : {rowselectDailyShiftTable?.Shift}</b>
-        </div>
+        </div> */}
 
-        <div
-          className="col-md-5"
-          style={{ textAlign: "center", marginLeft: "40px", width: "120px" }}
-        >
-          <label className="form-label">Shift InCharge</label>
+        <div className="ms-1 col-md-8 d-flex" style={{ width: "120px", gap: "5px" }}>
+          <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+            Shift InCharge
+          </label>
           <select
             className="ip-select"
             onChange={handleShiftIncharge}
             value={selectedShiftIncharge}
-            style={{marginLeft:'-7px'}}
+            style={{ width: "110px" }}
           >
             {selectedShiftIncharge === undefined ? (
               <option value="" disabled>
@@ -185,74 +189,82 @@ function SingleDayShiftEditor({
             )}
           </select>
         </div>
-        <div>
-          <label className="form-label">From Time</label>
+        <div className="ms-1 d-flex" style={{ gap: "25px" }}>
+          <div>
+            <label className="form-label" style={{ whiteSpace: "nowrap" }}>
+              From Time
+            </label>
+          </div>
+          <div
+            className="mt-1"
+            style={{
+              backgroundColor: "white",
+              width: "112px",
+            }}
+          >
+            {rowselectDailyShiftTable?.FromTime}
+          </div>
         </div>
-        <div
-          style={{
-            marginLeft: "30px",
-            textAlign: "center",
-            backgroundColor: "white",
-            width: "125px",
-          }}
-        >
-          {rowselectDailyShiftTable?.FromTime}
-        </div>
-        <div>
-          <label className="form-label">To Time</label>
-        </div>
-        <div
-          style={{
-            marginLeft: "30px",
-            textAlign: "center",
-            fontSize: "13px",
-            backgroundColor: "white",
-            width: "125px",
-          }}
-        >
-          {rowselectDailyShiftTable?.ToTime}
+
+        <div className="ms-1 d-flex" style={{ gap: "20%" }}>
+          <div>
+            <label className="form-label">To Time</label>
+          </div>
+          <div
+            className="mt-1"
+            style={{
+              backgroundColor: "white",
+              width: "112px",
+            }}
+          >
+            {rowselectDailyShiftTable?.ToTime}
+          </div>
         </div>
         <div style={{ textAlign: "center" }}>
-          <div>
-            <button
-              className={`button-style group-button  ${
-                condition !== true ? "disabled" : ""
-              }`}
-              disabled={condition !== true}
-              onClick={handleAddSpecialShift}
-            >
-              Add Special Shift
-            </button>
+          <div className="d-flex ms-1">
+            <div>
+              <button
+                className={`button-style group-button  ${
+                  condition !== true ? "disabled" : ""
+                }`}
+                disabled={condition !== true}
+                onClick={handleAddSpecialShift}
+              >
+                Add Spcl Shift
+              </button>
+            </div>
+            <div>
+              <button
+                className={`button-style group-button ${
+                  condition !== true ? "disabled" : ""
+                }`}
+                disabled={condition !== true}
+                onClick={openUpdatedayshift}
+              >
+                Updt Day Shift
+              </button>
+            </div>
           </div>
-          <div>
-            <button
-              className={`button-style group-button ${
-                condition !== true ? "disabled" : ""
-              }`}
-              disabled={condition !== true}
-              onClick={openUpdatedayshift}
-            >
-              Update Day Shift
-            </button>
-          </div>
-          <div>
-            <button
-              className={`button-style group-button ${
-                condition !== true ? "disabled" : ""
-              }`}
-              onClick={() => openDeletedayshift()}
-              disabled={condition !== true}
-            >
-              Delete Day Shift Plan
-            </button>
-          </div>
-          <div>
-            <button
-              className="button-style group-button mb-2"
-              onClick={getDailyMachineoperatorData}
-            >
-              Print Day Shift Plan
-            </button>
+          <div className="d-flex ms-2">
+            <div>
+              <button
+                className={`button-style group-button ${
+                  condition !== true ? "disabled" : ""
+                }`}
+                onClick={() => openDeletedayshift()}
+                disabled={condition !== true}
+              >
+                Del Day Shift
+              </button>
+            </div>
+            <div>
+              <button
+                className="button-style group-button mb-2"
+                onClick={getDailyMachineoperatorData}
+              >
+                Print Day Shift
+              </button>
+            </div>
           </div>
         </div>
 

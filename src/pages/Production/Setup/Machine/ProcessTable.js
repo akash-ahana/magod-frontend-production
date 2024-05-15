@@ -18,9 +18,9 @@ export default function ProcessTable({
           <thead className="tableHeaderBGColor">
             <tr>
               <th>Process</th>
-              <th>TgtRate</th>
-              <th>Id</th>
-              <th>Machine_srl</th>
+              <th className="textAllign">TgtRate</th>
+              <th className="textAllign">Id</th>
+              <th className="textAllign">Machine_srl</th>
               <th>refProcess</th>
             </tr>
           </thead>
@@ -36,9 +36,9 @@ export default function ProcessTable({
                     }
                   >
                     <td style={{ whiteSpace: "nowrap" }}>{item.Mprocess}</td>
-                    <td>{item.TgtRate}</td>
-                    <td>{item.Id}</td>
-                    <td>{item.Machine_srl}</td>
+                    <td className="textAllign">{item.TgtRate}</td>
+                    <td className="textAllign">{item.Id}</td>
+                    <td className="textAllign">{item.Machine_srl}</td>
                     <td style={{ whiteSpace: "nowrap" }}>{item.RefProcess}</td>
                   </tr>
                 </>

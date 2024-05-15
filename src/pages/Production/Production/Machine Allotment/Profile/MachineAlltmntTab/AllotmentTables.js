@@ -500,7 +500,7 @@ export default function AllotmentTables() {
                     <th onClick={() => requestSort1("Operation")}>Operation</th>
                     <th onClick={() => requestSort1("Mtrl_code")}>Mtrl_code</th>
                     <th onClick={() => requestSort1("Priority")}>Priority</th>
-                    <th onClick={() => requestSort1("Estimated time")}>
+                    <th className="textAllign" style={{whiteSpace:'nowrap'}} onClick={() => requestSort1("Estimated time")}>
                       Estimated time
                     </th>
                   </tr>
@@ -523,7 +523,7 @@ export default function AllotmentTables() {
                           <td>{value.Operation}</td>
                           <td>{value.Mtrl_Code}</td>
                           <td>{value.Priority}</td>
-                          <td>{value.EstimatedTime}</td>
+                          <td className="textAllign">{value.EstimatedTime}</td>
                         </tr>
                       </>
                     );

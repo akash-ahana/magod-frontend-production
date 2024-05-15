@@ -39,7 +39,7 @@ export default function ShiftInChargeTable({
         <thead className="tableHeaderBGColor">
           <tr>
             <th onClick={() => requestSort("Shift InCharge")}>Shift InCharge</th>
-            <th onClick={() => requestSort("Skill Level")}>Skill Level</th>
+            <th className="textAllign" onClick={() => requestSort("Skill Level")}>Skill Level</th>
             <th onClick={() => requestSort("Status")}>Status</th>
           </tr>
         </thead>
@@ -61,7 +61,7 @@ export default function ShiftInChargeTable({
                 }
               >
                 <td>{item?.Name}</td>
-                <td>{item?.Skill_Level}</td>
+                <td className="textAllign">{item?.Skill_Level}</td>
                 <td>{item?.Status}</td>
               </tr>
             ))

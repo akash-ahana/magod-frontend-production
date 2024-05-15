@@ -61,17 +61,17 @@ export default function ProductionTaskListTable() {
                 <th onClick={() => requestSort("TaskNo")}>TaskNo</th>
                 <th onClick={() => requestSort("Operation")}>Operation</th>
                 <th onClick={() => requestSort("Mtrl_Code")}>Mtrl_Code</th>
-                <th onClick={() => requestSort("NoOfSheets")} style={{textAlign:'right'}}>NoOfSheets</th>
-                <th onClick={() => requestSort("NoOfDwgs")} style={{textAlign:'right'}}>NoOfDwgs</th>
-                <th onClick={() => requestSort("DwgsNo")} style={{textAlign:'right'}}>DwgsNo</th>
-                <th onClick={() => requestSort("DwgsNested")} style={{textAlign:'right'}}>DwgsNested</th>
-                <th onClick={() => requestSort("PartsNested")} style={{textAlign:'right'}}>PartsNested</th>
-                <th onClick={() => requestSort("TotalParts")} style={{textAlign:'right'}}>TotalParts</th>
+                <th onClick={() => requestSort("NoOfSheets")} className="textAllign">NoOfSheets</th>
+                <th onClick={() => requestSort("NoOfDwgs")} className="textAllign">NoOfDwgs</th>
+                <th onClick={() => requestSort("DwgsNo")} className="textAllign">DwgsNo</th>
+                <th onClick={() => requestSort("DwgsNested")} className="textAllign">DwgsNested</th>
+                <th onClick={() => requestSort("PartsNested")} className="textAllign">PartsNested</th>
+                <th onClick={() => requestSort("TotalParts")} className="textAllign">TotalParts</th>
                 <th onClick={() => requestSort("NestCount")}>NestCount</th>
-                <th onClick={() => requestSort("Priority")} style={{textAlign:'right'}}>Priority</th>
-                <th onClick={() => requestSort("EstimatedTime")} style={{textAlign:'right'}}>EstimatedTime</th>
-                <th onClick={() => requestSort("TaskProcessTime")} style={{textAlign:'right'}}>TaskProcessTime</th>
-                <th onClick={() => requestSort("TaskPgmTime")} style={{textAlign:'right'}}>TaskPgmTime</th>
+                <th onClick={() => requestSort("Priority")} className="textAllign">Priority</th>
+                <th onClick={() => requestSort("EstimatedTime")} className="textAllign">EstimatedTime</th>
+                <th onClick={() => requestSort("TaskProcessTime")} className="textAllign">TaskProcessTime</th>
+                <th onClick={() => requestSort("TaskPgmTime")} className="textAllign">TaskPgmTime</th>
               </tr>
             </thead>
 
@@ -83,15 +83,15 @@ export default function ProductionTaskListTable() {
                       <td>{item.TaskNo}</td>
                       <td>{item.Operation}</td>
                       <td>{item.Mtrl_Code}</td>
-                      <td style={{textAlign:'right'}}>{item.NoOfSheets}</td>
-                      <td style={{textAlign:'right'}}>{item.DwgsNested}</td>
-                      <td style={{textAlign:'right'}}>{item.NoOfDwgs}</td>
-                      <td style={{textAlign:'right'}}>{item.PartsNested}</td>
-                      <td style={{textAlign:'right'}}>{item.TotalParts}</td>
+                      <td className="textAllign">{item.NoOfSheets}</td>
+                      <td className="textAllign">{item.DwgsNested}</td>
+                      <td className="textAllign">{item.NoOfDwgs}</td>
+                      <td className="textAllign">{item.PartsNested}</td>
+                      <td className="textAllign">{item.TotalParts}</td>
                       <td>{item.NestCount}</td>
-                      <td style={{textAlign:'right'}}>{item.Priority}</td>
-                      <td style={{textAlign:'right'}}>{item.EstimatedTime}</td>
-                      <td style={{textAlign:'right'}}>{item.NestCount}</td>
+                      <td className="textAllign">{item.Priority}</td>
+                      <td className="textAllign">{item.EstimatedTime}</td>
+                      <td className="textAllign">{item.NestCount}</td>
                       <td></td>
                       <td></td>
                     </tr>

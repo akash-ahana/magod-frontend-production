@@ -231,9 +231,9 @@ const clearSelected = () => {
             <tr>
               <th onClick={handleSelectAll} ></th>
               <th onClick={() => requestSort("DwgName")}>DwgName</th>
-              <th onClick={() => requestSort("Programmed")}>Programmed</th>
-              <th onClick={() => requestSort("Produced")}>Produced</th>
-              <th style={{ textAlign: "center" }} onClick={() => requestSort("Cleared")}>Cleared</th>
+              <th className="textAllign" onClick={() => requestSort("Programmed")}>Programmed</th>
+              <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
+              <th className="textAllign" style={{ textAlign: "center" }} onClick={() => requestSort("Cleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
@@ -273,12 +273,12 @@ const clearSelected = () => {
                     />
                   </td>
                   <td>{item.DwgName}</td>
-                  <td >{item.QtyToNest}</td>
-                  <td >{item.QtyProduced}</td>
+                  <td className="textAllign" >{item.QtyToNest}</td>
+                  <td className="textAllign" >{item.QtyProduced}</td>
                   <td>
                     <div>
                       <input
-                        className="table-cell-editor"
+                        className="table-cell-editor textAllign"
                         style={{ textAlign: "center" }}
                         name="cleared"
                         type="number"

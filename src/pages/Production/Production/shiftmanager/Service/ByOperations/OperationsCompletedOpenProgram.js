@@ -490,10 +490,10 @@ export default function OperationsCompleteOpenProgram({
                     <tr>
                       <th style={{ whiteSpace: "nowrap" }}>Dwg Name</th>
                       {/* <th style={{whiteSpace:"nowrap"}}>Total Qty Nested</th> */}
-                      <th style={{ whiteSpace: "nowrap" }}>To Produce</th>
-                      <th>Produced</th>
-                      <th>Rejected</th>
-                      <th>Cleared</th>
+                      <th className="textAllign" style={{ whiteSpace: "nowrap" }}>To Produce</th>
+                      <th className="textAllign">Produced</th>
+                      <th className="textAllign">Rejected</th>
+                      <th className="textAllign">Cleared</th>
 
                       <th>Remarks</th>
                       {/* <th>New Cleared</th> */}
@@ -509,12 +509,12 @@ export default function OperationsCompleteOpenProgram({
                               {item.DwgName}
                             </td>
                             {/* <td>{item.TotQtyNested}</td> */}
-                            <td>{item.TotQtyNested}</td>
-                            <td>{item.QtyCut}</td>
+                            <td className="textAllign">{item.TotQtyNested}</td>
+                            <td className="textAllign">{item.QtyCut}</td>
                             <td>
                               <div>
                                 <input
-                                  className="table-cell-editor "
+                                  className="table-cell-editor textAllign"
                                   name="cleared"
                                   type="number"
                                   onKeyDown={blockInvalidChar}
@@ -525,7 +525,7 @@ export default function OperationsCompleteOpenProgram({
                                 />
                               </div>
                             </td>
-                            <td>{item.QtyCleared}</td>
+                            <td className="textAllign">{item.QtyCleared}</td>
                             <td>
                               <input
                                 className="table-cell-editor "
