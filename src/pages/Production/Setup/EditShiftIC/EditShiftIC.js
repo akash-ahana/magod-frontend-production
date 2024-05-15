@@ -24,12 +24,17 @@ export default function EditShiftIC() {
     setRowSelectShiftIc(list);
   };
 
-  //Default first row select
-  useEffect(() => {
-    if (getShiftIclist.length > 0 && !rowselectShiftIc.Name) {
-      selectedRowFunShiftIc(getShiftIclist[0], 0); // Select the first row
-    }
-  }, [getShiftIclist, rowselectShiftIc, selectedRowFunShiftIc]);
+// Define a state variable to track default selection
+const [defaultSelectionDone, setDefaultSelectionDone] = useState(false);
+
+// Default first row select
+useEffect(() => {
+  if (!defaultSelectionDone && getShiftIclist.length > 0 && !rowselectShiftIc.Name) {
+    selectedRowFunShiftIc(getShiftIclist[0], 0); // Select the first row
+    setDefaultSelectionDone(true); // Set default selection flag to true
+  }
+}, [getShiftIclist, rowselectShiftIc, selectedRowFunShiftIc, defaultSelectionDone]);
+
 
   return (
     <>

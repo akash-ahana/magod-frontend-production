@@ -420,6 +420,7 @@ export default function Reports() {
         setPrepareReport={setPrepareReport}
         dateSelect={dateSelect}
         setStatus={setStatus}
+        preparedby={preparedby}
       />
 
       <div className="row">

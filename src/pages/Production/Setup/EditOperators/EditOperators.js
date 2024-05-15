@@ -25,11 +25,18 @@ export default function EditOperators() {
   };
 
   //Default first row select
-  useEffect(() => {
-    if (getOperatorlist.length > 0 && !rowselectOperator.Name) {
-      selectedRowFunOperator(getOperatorlist[0], 0); // Select the first row
-    }
-  }, [getOperatorlist, rowselectOperator, selectedRowFunOperator]);
+// Define a state variable to track default selection
+const [defaultSelectionDone, setDefaultSelectionDone] = useState(false);
+
+// Default first row select
+useEffect(() => {
+  if (!defaultSelectionDone && getOperatorlist.length > 0 && !rowselectOperator.Name) {
+    selectedRowFunOperator(getOperatorlist[0], 0); // Select the first row
+    setDefaultSelectionDone(true); // Set default selection flag to true
+  }
+}, [getOperatorlist, rowselectOperator, selectedRowFunOperator, defaultSelectionDone]);
+
+
 
   return (
     <>

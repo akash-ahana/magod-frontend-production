@@ -47,7 +47,6 @@ export default function EditOperatorForm({
 
   // Save button
   const saveOperatorData = () => {
-    console.log(rowselectOperator);
     axios
       .post(baseURL + "/EditOperator/saveOperator", { rowselectOperator })
       .then((response) => {

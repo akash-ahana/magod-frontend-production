@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
     marginTop: "50px",
   },
   desig: {
-    marginRight: "100px",
-    marginLeft: "400px",
+    marginRight: "80px",
+    marginLeft: "380px",
     marginTop: "-10px",
   },
   power: {

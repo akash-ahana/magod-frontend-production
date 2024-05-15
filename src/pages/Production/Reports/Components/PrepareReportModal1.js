@@ -2,16 +2,29 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import PrepareReportModal2 from './PrepareReportModal2';
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
-export default function PrepareReportModal1({prepareReport1,setPrepareReport,dateSelect,setStatus}) {
+export default function PrepareReportModal1({prepareReport1,setPrepareReport,dateSelect,setStatus,preparedby}) {
+
+  console.log("preparedby in next modal is",preparedby,"type is",typeof(preparedby));
+
     const handleClose=()=>{
         setPrepareReport(false);
     }
 
     const[prepareReport2,setPrepareReport2]=useState('')
     const openprepareReport2=()=>{
-      setPrepareReport2(true);
-      handleClose();
+      if(!preparedby || preparedby.trim() === '' ){
+        handleClose();
+        toast.error('Enter Your Name in Prepared By box', {
+          position: toast.POSITION.TOP_CENTER,
+        });     
+       }
+      else{
+        handleClose();
+        setPrepareReport2(true);
+      }
     }
   return (
     <div>

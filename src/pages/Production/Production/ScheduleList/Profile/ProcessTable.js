@@ -42,21 +42,21 @@ export default function ProcessTable({
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor table-space">
           <tr>
-            <th onClick={() => requestSort("Status")}>Status</th>
-            <th onClick={() => requestSort("Task No")}>Task No</th>
-            <th onClick={() => requestSort("Material")}>Material</th>
-            <th onClick={() => requestSort("Process")}>Process</th>
-            <th onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
-            <th onClick={() => requestSort("Time Taken")}>Time Taken</th>
-            <th onClick={() => requestSort("No of Dwgs")}>No of Dwgs</th>
-            <th onClick={() => requestSort("Dwgs Nested")}>Dwgs Nested</th>
-            <th onClick={() => requestSort("Total Parts")}>Total Parts</th>
-            <th onClick={() => requestSort("Parts Nested")}>Parts Nested</th>
-            <th onClick={() => requestSort("No of Sheets")}>No of Sheets</th>
+            <th onClick={() => requestSort("TStatus")}>Status</th>
+            <th onClick={() => requestSort("TaskNo")}>Task No</th>
+            <th onClick={() => requestSort("Mtrl_Code")}>Material</th>
+            <th onClick={() => requestSort("MProcess")}>Process</th>
+            <th onClick={() => requestSort("EstimatedTime")}>Estimated Time</th>
+            <th onClick={() => requestSort("TaskProcessTime")}>Time Taken</th>
+            <th onClick={() => requestSort("NoOfDwgs")}>No of Dwgs</th>
+            <th onClick={() => requestSort("DwgsNested")}>Dwgs Nested</th>
+            <th onClick={() => requestSort("TotalParts")}>Total Parts</th>
+            <th onClick={() => requestSort("PartsNested")}>Parts Nested</th>
+            <th onClick={() => requestSort("NoOfSheets")}>No of Sheets</th>
           </tr>
         </thead>
         <tbody className="tablebody table-cell-align table-space">
-          {sortedData().length === 0 ? (
+          {processtable.length === 0 ? (
             <tr>
               <td colSpan="11">No data found</td>
             </tr>

@@ -64,12 +64,12 @@ export default function ScheduleListtable({
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor table-space">
           <tr>
-            <th>Select</th>
+            <th onClick={() => requestSort("Select")}>Select</th>
             <th onClick={() => requestSort("OrdSchNo")}>Schedule No</th>
-            <th>Customer</th>
-            <th>TgtDelDate</th>
-            <th>Delivery_date</th>
-            <th>Status</th>
+            <th onClick={() => requestSort("Cust_name")}>Customer</th>
+            <th onClick={() => requestSort("schTgtDate")}>TgtDelDate</th>
+            <th onClick={() => requestSort("Delivery_Date")}>Delivery_date</th>
+            <th onClick={() => requestSort("Schedule_Status")}>Status</th>
           </tr>
         </thead>
 
