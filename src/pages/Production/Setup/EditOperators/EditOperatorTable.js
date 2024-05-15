@@ -38,7 +38,7 @@ export default function EditOperatorTable({
         <thead className="tableHeaderBGColor">
           <tr>
             <th onClick={() => requestSort("Operator")}>Operator</th>
-            <th onClick={() => requestSort("Skill Level")}>Skill Level</th>
+            <th className="textAllign" onClick={() => requestSort("Skill Level")}>Skill Level</th>
             <th onClick={() => requestSort("Status")}>Status</th>
           </tr>
         </thead>
@@ -60,7 +60,7 @@ export default function EditOperatorTable({
                 }
               >
                 <td>{item?.Name}</td>
-                <td>{item?.Skill_Level}</td>
+                <td className="textAllign">{item?.Skill_Level}</td>
                 <td>{item?.Status}</td>
               </tr>
             ))

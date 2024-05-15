@@ -47,13 +47,13 @@ export default function ProcessTable({
             <th onClick={() => requestSort("Task No")}>Task No</th>
             <th onClick={() => requestSort("Material")}>Material</th>
             <th onClick={() => requestSort("Process")}>Process</th>
-            <th onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
-            <th onClick={() => requestSort("Time Taken")}>Time Taken</th>
-            <th onClick={() => requestSort("No of Dwgs")}>No of Dwgs</th>
-            <th onClick={() => requestSort("Dwgs Nested")}>Dwgs Nested</th>
-            <th onClick={() => requestSort("Total Parts")}>Total Parts</th>
-            <th onClick={() => requestSort("Parts Nested")}>Parts Nested</th>
-            <th onClick={() => requestSort("No of Sheets")}>No of Sheets</th>
+            <th className="textAllign" onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
+            <th className="textAllign" onClick={() => requestSort("Time Taken")}>Time Taken</th>
+            <th className="textAllign" onClick={() => requestSort("No of Dwgs")}>No of Dwgs</th>
+            <th className="textAllign" onClick={() => requestSort("Dwgs Nested")}>Dwgs Nested</th>
+            <th className="textAllign" onClick={() => requestSort("Total Parts")}>Total Parts</th>
+            <th className="textAllign" onClick={() => requestSort("Parts Nested")}>Parts Nested</th>
+            <th className="textAllign" onClick={() => requestSort("No of Sheets")}>No of Sheets</th>
           </tr>
         </thead>
         <tbody className='tablebody table-cell-align table-space'>
@@ -71,13 +71,13 @@ export default function ProcessTable({
                 <td>{item.TaskNo}</td>
                 <td>{item.Mtrl_Code}</td>
                 <td>{item.MProcess}</td>
-                <td>{item.EstimatedTime}</td>
-                <td>{item.TaskProcessTime}</td>
-                <td>{item.NoOfDwgs}</td>
-                <td>{item.DwgsNested}</td>
-                <td>{item.TotalParts}</td>
-                <td>{item.PartsNested}</td>
-                <td>{item.NoOfSheets}</td>
+                <td className="textAllign">{item.EstimatedTime}</td>
+                <td className="textAllign">{item.TaskProcessTime}</td>
+                <td className="textAllign">{item.NoOfDwgs}</td>
+                <td className="textAllign">{item.DwgsNested}</td>
+                <td className="textAllign">{item.TotalParts}</td>
+                <td className="textAllign">{item.PartsNested}</td>
+                <td className="textAllign">{item.NoOfSheets}</td>
               </tr>
             ))
           )}

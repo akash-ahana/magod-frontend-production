@@ -117,18 +117,18 @@ export default function PriorityTable({
               <thead className="tableHeaderBGColor">
                 <tr>
                 <th onClick={() => requestSort("Select")}>Select</th>
-                <th onClick={() => requestSort("Program No")}>Program No</th>
+                <th onClick={() => requestSort("Program No")}  style={{whiteSpace:'nowrap'}}>Program No</th>
                 <th onClick={() => requestSort("Task No")}>Task No</th>
                 <th onClick={() => requestSort("Machine")}>Machine</th>
                 <th onClick={() => requestSort("Operation")}>Operation</th>
                 <th onClick={() => requestSort("Material")}>Material</th>
                 <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
                 <th onClick={() => requestSort("Source")}>Source</th>
-                <th onClick={() => requestSort("Allotted")}>Allotted</th>
-                <th onClick={() => requestSort("Processed")}>Processed</th>
+                <th className="textAllign" onClick={() => requestSort("Allotted")}>Allotted</th>
+                <th className="textAllign" onClick={() => requestSort("Processed")}>Processed</th>
                 <th onClick={() => requestSort("Status")}>Status</th>
-                <th onClick={() => requestSort("PlanTime")}>PlanTime</th>
-                <th onClick={() => requestSort("Actual Time")}>Actual Time</th>
+                <th className="textAllign" onClick={() => requestSort("PlanTime")}>PlanTime</th>
+                <th className="textAllign" onClick={() => requestSort("Actual Time")} style={{whiteSpace:'nowrap'}}>Actual Time</th>
                 <th onClick={() => requestSort("Remarks")}>Remarks</th>
               </tr>
               </thead>
@@ -162,11 +162,11 @@ export default function PriorityTable({
                         <td>{item.Mtrl_Code}</td>
                         <td>{item.Cust_name}</td>
                         <td>{item.CustMtrl}</td>
-                        <td>{item.QtyAllotted}</td>
-                        <td>{item.QtyCut}</td>
+                        <td className="textAllign">{item.QtyAllotted}</td>
+                        <td className="textAllign">{item.QtyCut}</td>
                         <td>{item.PStatus}</td>
-                        <td>{item.EstimatedTime}</td>
-                        <td>{item.ActualTime}</td>
+                        <td className="textAllign">{item.EstimatedTime}</td>
+                        <td className="textAllign">{item.ActualTime}</td>
                         <td>{item.Remarks}</td>
                       </tr>
                     </>
@@ -209,7 +209,7 @@ export default function PriorityTable({
                 {/* <h6 style={{textAlign:"center"}} className='mt-1 ms-1'>Priority Table</h6> */}
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                  <tr>
+                  <tr style={{whiteSpace:'nowrap'}}>
                     <th onClick={() => requestSort1("Program No")}>Program No</th>
                     <th onClick={() => requestSort1("Task No")}>Task No</th>
                     <th onClick={() => requestSort1("Machine")}>Machine</th>
@@ -217,11 +217,11 @@ export default function PriorityTable({
                     <th onClick={() => requestSort1("Material")}>Material</th>
                     <th onClick={() => requestSort1("Cust_Name")}>Cust_Name</th>
                     <th onClick={() => requestSort1("Source")}>Source</th>
-                    <th onClick={() => requestSort1("Allotted")}>Allotted</th>
-                    <th onClick={() => requestSort1("Processed")}>Processed</th>
+                    <th className="textAllign" onClick={() => requestSort1("Processed")}>Processed</th>
+                    <th className="textAllign" onClick={() => requestSort1("Allotted")}>Allotted</th>
                     <th onClick={() => requestSort1("Status")}>Status</th>
-                    <th onClick={() => requestSort1("PlanTime")}>PlanTime</th>
-                    <th onClick={() => requestSort1("Actual Time")}>Actual Time</th>
+                    <th className="textAllign" onClick={() => requestSort1("PlanTime")}>PlanTime</th>
+                    <th className="textAllign" onClick={() => requestSort1("Actual Time")}>Actual Time</th>
                     <th onClick={() => requestSort1("Remarks")}>Remarks</th>
                   </tr>
                   </thead>
@@ -241,11 +241,11 @@ export default function PriorityTable({
                         <td>{priorityTable?.Mtrl_Code}</td>
                         <td>{priorityTable?.Cust_name}</td>
                         <td>{priorityTable?.CustMtrl}</td>
-                        <td>{priorityTable?.QtyAllotted}</td>
-                        <td>{priorityTable?.QtyCut}</td>
+                        <td className="textAllign">{priorityTable?.QtyAllotted}</td>
+                        <td className="textAllign">{priorityTable?.QtyCut}</td>
                         <td>{priorityTable?.PStatus}</td>
-                        <td>{priorityTable?.EstimatedTime}</td>
-                        <td>{priorityTable?.ActualTime}</td>
+                        <td className="textAllign">{priorityTable?.EstimatedTime}</td>
+                        <td className="textAllign">{priorityTable?.ActualTime}</td>
                         <td>{priorityTable?.Remarks}</td>
                       </tr>
                     ))}

@@ -40,8 +40,8 @@ export default function GroupNameTable({
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th onClick={() => requestSort("SL NO")}>SL NO</th>
-                <th onClick={() => requestSort("GropName")}>GropName</th>
+                <th className="textAllign" onClick={() => requestSort("SL NO")}>SL NO</th>
+                <th className="textAllign" onClick={() => requestSort("GropName")}>GropName</th>
                 {/* <th>Working</th> */}
               </tr>
             </thead>
@@ -53,7 +53,7 @@ export default function GroupNameTable({
                     <tr
                       onClick={() => selectedRowFn(item, key)}
                       className={
-                        key === selectedGroup?.index ? "selcted-row-clr" : ""
+                        key === selectedGroup?.index ? "selcted-row-clr textAllign" : "textAllign"
                       }
                     >
                       <td>{key + 1}</td>

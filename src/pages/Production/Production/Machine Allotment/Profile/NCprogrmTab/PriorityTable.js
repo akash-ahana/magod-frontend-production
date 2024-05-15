@@ -118,11 +118,11 @@ const sortedData1 = () => {
                 <th onClick={() => requestSort("Material")}>Material</th>
                 <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
                 <th onClick={() => requestSort("Source")}>Source</th>
-                <th onClick={() => requestSort("Allotted")}>Allotted</th>
-                <th onClick={() => requestSort("Processed")}>Processed</th>
+                <th className="textAllign" onClick={() => requestSort("Allotted")}>Allotted</th>
+                <th className="textAllign" onClick={() => requestSort("Processed")}>Processed</th>
                 <th onClick={() => requestSort("Status")}>Status</th>
-                <th onClick={() => requestSort("PlanTime")}>PlanTime</th>
-                <th onClick={() => requestSort("Actual Time")}>Actual Time</th>
+                <th className="textAllign" onClick={() => requestSort("PlanTime")}>PlanTime</th>
+                <th className="textAllign" onClick={() => requestSort("Actual Time")}>Actual Time</th>
                 <th onClick={() => requestSort("Remarks")}>Remarks</th>
               </tr>
             </thead>
@@ -156,11 +156,11 @@ const sortedData1 = () => {
                       <td>{item.Mtrl_Code}</td>
                       <td>{item.Cust_name}</td>
                       <td>{item.CustMtrl}</td>
-                      <td>{item.QtyAllotted}</td>
-                      <td>{item.QtyCut}</td>
+                      <td className="textAllign">{item.QtyAllotted}</td>
+                      <td className="textAllign">{item.QtyCut}</td>
                       <td>{item.PStatus}</td>
-                      <td>{item.EstimatedTime}</td>
-                      <td>{item.ActualTime}</td>
+                      <td className="textAllign">{item.EstimatedTime}</td>
+                      <td className="textAllign">{item.ActualTime}</td>
                       <td>{item.Remarks}</td>
                     </tr>
                   </>
@@ -209,11 +209,11 @@ const sortedData1 = () => {
                     <th onClick={() => requestSort1("Material")}>Material</th>
                     <th onClick={() => requestSort1("Cust_Name")}>Cust_Name</th>
                     <th onClick={() => requestSort1("Source")}>Source</th>
-                    <th onClick={() => requestSort1("Allotted")}>Allotted</th>
-                    <th onClick={() => requestSort1("Processed")}>Processed</th>
+                    <th className="textAllign" onClick={() => requestSort1("Allotted")}>Allotted</th>
+                    <th className="textAllign" onClick={() => requestSort1("Processed")}>Processed</th>
                     <th onClick={() => requestSort1("Status")}>Status</th>
-                    <th onClick={() => requestSort1("PlanTime")}>PlanTime</th>
-                    <th onClick={() => requestSort1("Actual Time")}>Actual Time</th>
+                    <th className="textAllign" onClick={() => requestSort1("PlanTime")}>PlanTime</th>
+                    <th className="textAllign" onClick={() => requestSort1("Actual Time")}>Actual Time</th>
                     <th onClick={() => requestSort1("Remarks")}>Remarks</th>
                   </tr>
                 </thead>
@@ -233,11 +233,11 @@ const sortedData1 = () => {
                       <td>{priorityTable?.Mtrl_Code}</td>
                       <td>{priorityTable?.Cust_name}</td>
                       <td>{priorityTable?.CustMtrl}</td>
-                      <td>{priorityTable?.QtyAllotted}</td>
-                      <td>{priorityTable?.QtyCut}</td>
+                      <td className="textAllign">{priorityTable?.QtyAllotted}</td>
+                      <td className="textAllign">{priorityTable?.QtyCut}</td>
                       <td>{priorityTable?.PStatus}</td>
-                      <td>{priorityTable?.EstimatedTime}</td>
-                      <td>{priorityTable?.ActualTime}</td>
+                      <td className="textAllign">{priorityTable?.EstimatedTime}</td>
+                      <td className="textAllign">{priorityTable?.ActualTime}</td>
                       <td>{priorityTable?.Remarks}</td>
                     </tr>
                   ))}

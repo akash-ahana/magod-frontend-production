@@ -125,11 +125,11 @@ export default function TabData({
                     <th onClick={() => requestSort("Task No")}>Task No</th>
                     <th onClick={() => requestSort("Machine")}>Machine</th>
                     <th onClick={() => requestSort("Operation")}>Operation</th>
-                    <th onClick={() => requestSort("Plan Time")} style={{textAlign:'right'}}>Plan Time</th>
-                    <th onClick={() => requestSort("Actual Time")} style={{textAlign:'right'}}>Actual Time</th>
-                    <th onClick={() => requestSort("QTY")} style={{textAlign:'right'}}>QTY</th>
-                    <th onClick={() => requestSort("Allotted")} style={{textAlign:'right'}}>Allotted</th>
-                    <th onClick={() => requestSort("Processed")} style={{textAlign:'right'}}>Processed</th>
+                    <th onClick={() => requestSort("Plan Time")} className="textAllign">Plan Time</th>
+                    <th onClick={() => requestSort("Actual Time")} className="textAllign">Actual Time</th>
+                    <th onClick={() => requestSort("QTY")} className="textAllign">QTY</th>
+                    <th onClick={() => requestSort("Allotted")} className="textAllign">Allotted</th>
+                    <th onClick={() => requestSort("Processed")} className="textAllign">Processed</th>
                   </tr>
                 </thead>
 
@@ -156,12 +156,12 @@ export default function TabData({
                             <td >
                               {item.Operation}
                             </td>
-                            <td style={{textAlign:'right'}}>{item.NCProgramNo}</td>
-                            <td style={{textAlign:'right'}}>{item.EstimatedTime}</td>
-                            <td style={{textAlign:'right'}}>{item.ActualTime}</td>
-                            <td style={{textAlign:'right'}}>{item.Qty}</td>
-                            <td style={{textAlign:'right'}}>{item.QtyAllotted}</td>
-                            <td style={{textAlign:'right'}}>{item.QtyCut}</td>
+                            <td className="textAllign">{item.NCProgramNo}</td>
+                            <td className="textAllign">{item.EstimatedTime}</td>
+                            <td className="textAllign">{item.ActualTime}</td>
+                            <td className="textAllign">{item.Qty}</td>
+                            <td className="textAllign">{item.QtyAllotted}</td>
+                            <td className="textAllign">{item.QtyCut}</td>
                           </tr>
                         </tbody>
                       </>
