@@ -56,7 +56,7 @@ export default function ProductionTaskSummary({ productionTaskSummary }) {
             <th onClick={() => requestSort("Task No")}>Task No</th>
             <th onClick={() => requestSort("Mtrl Code")}>Mtrl Code</th>
             <th onClick={() => requestSort("Operation")}>Operation</th>
-            <th onClick={() => requestSort("Machine Time")}>Machine Time</th>
+            <th className="textAllign" onClick={() => requestSort("Machine Time")}>Machine Time</th>
           </tr>
         </thead>
 
@@ -72,7 +72,7 @@ export default function ProductionTaskSummary({ productionTaskSummary }) {
                   <td>{item.TaskNo}</td>
                   <td>{item.Mtrl_Code}</td>
                   <td>{item.Operation}</td>
-                  <td className="table-cell-align">{item.machineTime}</td>
+                  <td className="table-cell-align textAllign">{item.machineTime}</td>
                 </tr>
               </>
             );
