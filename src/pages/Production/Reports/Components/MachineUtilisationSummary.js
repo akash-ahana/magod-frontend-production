@@ -326,9 +326,9 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
                   <th onClick={() => requestSort("Machine")}>Machine</th>
                   <th onClick={() => requestSort("TotalOn")}>TotalOn</th>
-                  <th onClick={() => requestSort("TotalOff")}>TotalOff</th>
-                  <th onClick={() => requestSort("ProdOn")}>ProdOn</th>
-                  <th onClick={() => requestSort("NonProdOn")}>NonProdOn</th>
+                  <th className="textAllign" onClick={() => requestSort("TotalOff")}>TotalOff</th>
+                  <th className="textAllign" onClick={() => requestSort("ProdOn")}>ProdOn</th>
+                  <th className="textAllign" onClick={() => requestSort("NonProdOn")}>NonProdOn</th>
                 </tr>
               </thead>
 
@@ -364,7 +364,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
                       <td className="table-cell-align">
                         <input
-                          className="table-cell-editor"
+                          className="table-cell-editor textAllign"
                           value={item.TotalOff}
                           onChange={(e) =>
                             onValueChange(key, "TotalOff", e.target.value)
@@ -374,7 +374,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
                       <td className="table-cell-align">
                         <input
-                          className="table-cell-editor"
+                          className="table-cell-editor textAllign"
                           value={item.ProdON}
                           onChange={(e) =>
                             onValueChange(key, "ProdON", e.target.value)
@@ -384,7 +384,7 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
                       <td className="table-cell-align">
                         <input
-                          className="table-cell-editor"
+                          className="table-cell-editor textAllign"
                           value={item.NonProdOn}
                           onChange={(e) =>
                             onValueChange(key, "NonProdOn", e.target.value)

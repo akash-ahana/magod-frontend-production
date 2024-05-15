@@ -973,7 +973,7 @@ function NewCalender(props) {
       {/* ////////////////////////////////////////////////////////////////////////////////////////////////////// */}
       <div style={{ display: "flex" }}>
         <div>
-          <div style={{ width: "260px", fontSize: "13px" }}>
+          <div style={{ width: "213px", fontSize: "11px" }}>
             <ReactCalendar
               onChange={(e) => {
                 selectWeek(e);
@@ -989,8 +989,8 @@ function NewCalender(props) {
             <div>
               {/* <div> */}
               {/* <div> */}
-              <div style={{ width: "130px", border: "1px" }}>
-                <Table bordered style={{ height: "235px" }}>
+              <div style={{ width: "106px", border: "1px" }}>
+                <Table bordered style={{ height: "200px" }}>
                   <thead style={{ textAlign: "center" }}>
                     <tr>
                       <th>Date</th>
@@ -1018,14 +1018,14 @@ function NewCalender(props) {
             </div>
 
             <div>
-              <Table bordered style={{ width: "130px", height: "180px" }}>
+              <Table bordered style={{ width: "106px" }}>
                 <thead style={{ textAlign: "center" }}>
                   <tr>
                     <th>Holiday</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1033,14 +1033,14 @@ function NewCalender(props) {
                           ref={checkbox1}
                           checked={isChecked}
                           onChange={handleOnChangeCheckBox1}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
                   </tr>
 
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1048,14 +1048,14 @@ function NewCalender(props) {
                           ref={checkbox2}
                           checked={isChecked2}
                           onChange={handleOnChangeCheckBox2}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
                   </tr>
 
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1063,14 +1063,14 @@ function NewCalender(props) {
                           ref={checkbox3}
                           checked={isChecked3}
                           onChange={handleOnChangeCheckBox3}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
                   </tr>
 
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1078,14 +1078,14 @@ function NewCalender(props) {
                           ref={checkbox4}
                           checked={isChecked4}
                           onChange={handleOnChangeCheckBox4}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
                   </tr>
 
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1093,14 +1093,14 @@ function NewCalender(props) {
                           ref={checkbox5}
                           checked={isChecked5}
                           onChange={handleOnChangeCheckBox5}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
                   </tr>
 
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1108,14 +1108,14 @@ function NewCalender(props) {
                           ref={checkbox6}
                           checked={isChecked6}
                           onChange={handleOnChangeCheckBox6}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>
                     </td>
                   </tr>
 
-                  <tr style={{ height: "30px" }}>
+                  <tr style={{ height: "18px" }}>
                     <td>
                       <div>
                         <input
@@ -1124,7 +1124,7 @@ function NewCalender(props) {
                           defaultChecked={true}
                           checked={isChecked7}
                           onChange={handleOnChangeCheckBox7}
-                          style={{marginTop:'6px'}}
+                          style={{marginTop:'5px'}}
                           // disabled={isDataAvailable}
                         />
                       </div>

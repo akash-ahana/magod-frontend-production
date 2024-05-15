@@ -377,10 +377,10 @@ export default function ProgramProcessingModal({
                   <thead className="tableHeaderBGColor">
                   <tr>
                       <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th onClick={() => requestSort("Produced")}>Produced</th>
-                      <th onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
+                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
+                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
+                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
                       <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
@@ -392,12 +392,12 @@ export default function ProgramProcessingModal({
                           <tr>
                             <td>{item.DwgName}</td>
                             {/* <td>{item.TotQtyNested}</td> */}
-                            <td>{item.TotQtyNested}</td>
-                            <td>{item.QtyCut}</td>
+                            <td className="textAllign">{item.TotQtyNested}</td>
+                            <td className="textAllign">{item.QtyCut}</td>
                             <td>
                               <div>
                                 <input
-                                  className="table-cell-editor "
+                                  className="table-cell-editor textAllign"
                                   name="cleared"
                                   type="number"
                                   onKeyDown={blockInvalidChar}
@@ -408,7 +408,7 @@ export default function ProgramProcessingModal({
                                 />
                               </div>
                             </td>
-                            <td>{item.QtyCleared}</td>
+                            <td className="textAllign">{item.QtyCleared}</td>
                             <td>
                               <input
                                 className="table-cell-editor "

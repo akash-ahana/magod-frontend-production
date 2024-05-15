@@ -50,8 +50,8 @@ export default function StoppageReasonTable({
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th onClick={() => requestSort("SL NO")}>SL NO</th>
-                <th onClick={() => requestSort("Stoppage Reason")}>Stoppage Reason</th>
+                <th className="textAllign" onClick={() => requestSort("SL NO")}>SL NO</th>
+                <th className="textAllign" onClick={() => requestSort("Stoppage Reason")}>Stoppage Reason</th>
               </tr>
             </thead>
 
@@ -63,7 +63,7 @@ export default function StoppageReasonTable({
                       <tr
                         onClick={() => selectReasonFun(item, key)}
                         className={
-                          key === selectedReason?.index ? "selcted-row-clr" : ""
+                          key === selectedReason?.index ? "selcted-row-clr textAllign" : "textAllign"
                         }
                       >
                         <td>{key + 1}</td>

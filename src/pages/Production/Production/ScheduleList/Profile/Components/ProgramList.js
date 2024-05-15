@@ -48,10 +48,10 @@ export default function ProgramList({
           <tr>
             <th onClick={() => requestSort("NCProgramNo")}>NCProgramNo</th>
             <th onClick={() => requestSort("Machine")}>Machine</th>
-            <th onClick={() => requestSort("ActualTime")}>ActualTime</th>
-            <th style={{ whiteSpace: "nowrap" }} onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
-            <th> onClick={() => requestSort("QtyAlloted")}QtyAlloted</th>
-            <th onClick={() => requestSort("QtyProcessed")}>QtyProcessed</th>
+            <th className="textAllign" onClick={() => requestSort("ActualTime")}>ActualTime</th>
+            <th className="textAllign" style={{ whiteSpace: "nowrap" }} onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
+            <th className="textAllign"> onClick={() => requestSort("QtyAlloted")}QtyAlloted</th>
+            <th className="textAllign" onClick={() => requestSort("QtyProcessed")}>QtyProcessed</th>
           </tr>
         </thead>
 
@@ -62,10 +62,10 @@ export default function ProgramList({
                 <tr>
                   <td style={{ whiteSpace: "nowrap" }}>{item.NCProgramNo}</td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.Machine}</td>
-                  <td style={{ textAlign: "center" }}>{item.ActualTime}</td>
-                  <td style={{ textAlign: "center" }}>{item.EstimatedTime}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyAllotted}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyCut}</td>
+                  <td className="textAllign">{item.ActualTime}</td>
+                  <td className="textAllign">{item.EstimatedTime}</td>
+                  <td className="textAllign">{item.QtyAllotted}</td>
+                  <td className="textAllign">{item.QtyCut}</td>
                 </tr>
               </>
             );

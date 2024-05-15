@@ -192,9 +192,9 @@ export default function PartsList({
             <tr>
               <th></th>
               <th onClick={() => requestSort("DwgName")}>DwgName</th>
-              <th onClick={() => requestSort("Programed")}>Programed</th>
-              <th onClick={() => requestSort("Produced")}>Produced</th>
-              <th onClick={() => requestSort("Cleared")}>Cleared</th>
+              <th className="textAllign" onClick={() => requestSort("Programed")}>Programed</th>
+              <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
+              <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
@@ -233,12 +233,12 @@ export default function PartsList({
                     />
                   </td>
                   <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
-                  <td>{item.QtyToNest}</td>
-                  <td>{item.QtyProduced}</td>
+                  <td className="textAllign">{item.QtyToNest}</td>
+                  <td className="textAllign">{item.QtyProduced}</td>
                   <td>
                     <div>
                       <input
-                        className="table-cell-editor "
+                        className="table-cell-editor textAllign"
                         name="cleared"
                         Value={item.QtyCleared}
                         type="number"

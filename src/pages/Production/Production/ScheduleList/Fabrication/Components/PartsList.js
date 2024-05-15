@@ -215,9 +215,9 @@ const sortedData = () => {
             <tr>
               <th></th>
               <th onClick={() => requestSort("DwgName")}>DwgName</th>
-              <th onClick={() => requestSort("Programmed")}>Programmed</th>
-              <th onClick={() => requestSort("Produced")}>Produced</th>
-              <th onClick={() => requestSort("Cleared")}>Cleared</th>
+              <th className="textAllign" onClick={() => requestSort("Programmed")}>Programmed</th>
+              <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
+              <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>
@@ -257,12 +257,12 @@ const sortedData = () => {
                       onChange={() => handleCheckboxChange(item)}
                     />
                   </td>
-                  <td style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
-                  <td style={{ textAlign: "center" }}>{item.QtyToNest}</td>
+                  <td className="textAllign" style={{ whiteSpace: "nowrap" }}>{item.DwgName}</td>
+                  <td className="textAllign" style={{ textAlign: "center" }}>{item.QtyToNest}</td>
                   <td>
                     <div>
                       <input
-                        className="table-cell-editor"
+                        className="table-cell-editor textAllign"
                         style={{ textAlign: "center" }}
                         name="produced"
                         type="number"

@@ -122,7 +122,7 @@ function DailyOperator(props) {
   return (
     <div
       style={{
-        width: "200px",
+        width: "215px",
         textAlign: "center",
         backgroundColor: "lightgrey",
         marginTop: "5px",
@@ -157,7 +157,7 @@ function DailyOperator(props) {
         </div>
       </div>
 
-      <div className="col-md-11 d-flex mb-4" style={{ gap: "10px" }}>
+      <div className="col-md-11 d-flex" style={{ gap: "10px" }}>
         <div className="ms-1">
           <label className="form-label">Operator</label>
         </div>
@@ -180,7 +180,7 @@ function DailyOperator(props) {
       </div>
 
       <button
-        className={`button-style mt-2 group-button ${
+        className={`button-style group-button ${
           props.condition !== true ? "disabled" : ""
         }`}
         onClick={createDailyOperatorList}
