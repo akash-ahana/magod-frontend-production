@@ -50,7 +50,7 @@ export default function ProcessTable({
           <Table striped className="table-data border">
             <thead className="tableHeaderBGColor">
               <tr>
-                <th onClick={() => requestSort("Process")}>Process</th>
+                <th onClick={() => requestSort("ProcessID")}>Process</th>
                 <th onClick={() => requestSort("ProcessDescription")}>ProcessDescription</th>
                 <th onClick={() => requestSort("RawMaterial")}>RawMaterial</th>
               </tr>

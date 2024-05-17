@@ -113,22 +113,22 @@ export default function PriorityTable({
               height: "375px",
             }}
           >
-            <Table striped className="table-data border">
+            <Table striped className="table-data border table-space">
               <thead className="tableHeaderBGColor">
                 <tr>
                 <th onClick={() => requestSort("Select")}>Select</th>
-                <th onClick={() => requestSort("Program No")}  style={{whiteSpace:'nowrap'}}>Program No</th>
-                <th onClick={() => requestSort("Task No")}>Task No</th>
+                <th onClick={() => requestSort("NCProgramNo")}>Program No</th>
+                <th onClick={() => requestSort("TaskNo")}>Task No</th>
                 <th onClick={() => requestSort("Machine")}>Machine</th>
                 <th onClick={() => requestSort("Operation")}>Operation</th>
-                <th onClick={() => requestSort("Material")}>Material</th>
-                <th onClick={() => requestSort("Cust_Name")}>Cust_Name</th>
-                <th onClick={() => requestSort("Source")}>Source</th>
-                <th className="textAllign" onClick={() => requestSort("Allotted")}>Allotted</th>
-                <th className="textAllign" onClick={() => requestSort("Processed")}>Processed</th>
-                <th onClick={() => requestSort("Status")}>Status</th>
-                <th className="textAllign" onClick={() => requestSort("PlanTime")}>PlanTime</th>
-                <th className="textAllign" onClick={() => requestSort("Actual Time")} style={{whiteSpace:'nowrap'}}>Actual Time</th>
+                <th onClick={() => requestSort("Mtrl_Code")}>Material</th>
+                <th onClick={() => requestSort("Cust_name")}>Cust_Name</th>
+                <th onClick={() => requestSort("CustMtrl")}>Source</th>
+                <th className="textAllign" onClick={() => requestSort("QtyAllotted")}>Allotted</th>
+                <th className="textAllign" onClick={() => requestSort("QtyCut")}>Processed</th>
+                <th onClick={() => requestSort("PStatus")}>Status</th>
+                <th className="textAllign" onClick={() => requestSort("EstimatedTime")}>PlanTime</th>
+                <th className="textAllign" onClick={() => requestSort("ActualTime")}>Actual Time</th>
                 <th onClick={() => requestSort("Remarks")}>Remarks</th>
               </tr>
               </thead>

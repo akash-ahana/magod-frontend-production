@@ -41,7 +41,7 @@ export default function GroupNameTable({
             <thead className="tableHeaderBGColor">
               <tr>
                 <th className="textAllign" onClick={() => requestSort("SL NO")}>SL NO</th>
-                <th className="textAllign" onClick={() => requestSort("GropName")}>GropName</th>
+                <th className="textAllign" onClick={() => requestSort("GroupName")}>GropName</th>
                 {/* <th>Working</th> */}
               </tr>
             </thead>

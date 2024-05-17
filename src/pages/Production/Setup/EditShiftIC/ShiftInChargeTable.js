@@ -38,8 +38,8 @@ export default function ShiftInChargeTable({
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor">
           <tr>
-            <th onClick={() => requestSort("Shift InCharge")}>Shift InCharge</th>
-            <th className="textAllign" onClick={() => requestSort("Skill Level")}>Skill Level</th>
+            <th onClick={() => requestSort("Name")}>Shift InCharge</th>
+            <th className="textAllign" onClick={() => requestSort("Skill_Level")}>Skill Level</th>
             <th onClick={() => requestSort("Status")}>Status</th>
           </tr>
         </thead>

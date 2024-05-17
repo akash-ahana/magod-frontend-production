@@ -50,7 +50,7 @@ export default function ProgramList({
             <th onClick={() => requestSort("Machine")}>Machine</th>
             <th className="textAllign" onClick={() => requestSort("ActualTime")}>ActualTime</th>
             <th className="textAllign" style={{ whiteSpace: "nowrap" }} onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
-            <th className="textAllign"> onClick={() => requestSort("QtyAlloted")}QtyAlloted</th>
+            <th className="textAllign" onClick={() => requestSort("QtyAlloted")}>QtyAlloted</th>
             <th className="textAllign" onClick={() => requestSort("QtyProcessed")}>QtyProcessed</th>
           </tr>
         </thead>

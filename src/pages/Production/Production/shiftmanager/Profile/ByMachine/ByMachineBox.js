@@ -35,7 +35,7 @@ export default function ByMachineBox() {
     axios
       .get(baseURL + "/shiftManagerProfile/profileListMachinesTaskNo")
       .then((response) => {
-        console.log("response  machine list", response.data);
+        // console.log("response  machine list", response.data);
         setMachineProcessData(response.data);
         setLoading(false); // Set loading state to false in case of error
       });
@@ -57,7 +57,7 @@ export default function ByMachineBox() {
     axios
       .post(baseURL + "/shiftManagerProfile/taskNoProgramNoCompleted", TaskNo)
       .then((response) => {
-        console.log("Programs Compleated DATA", response.data);
+        // console.log("Programs Compleated DATA", response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -134,13 +134,12 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
+        // console.log("AFTER ADDING COLOR", response.data);
         setmachineProgramesProcessing(response.data);
       });
   };
 
   const MachineOnClick = (Machine) => {
-    console.log(" Machine Selected is ", Machine);
     setSelectedMachine(Machine);
     axios
       .post(
@@ -148,8 +147,6 @@ export default function ByMachineBox() {
         { MachineName: Machine }
       )
       .then((response) => {
-        console.log(response.data);
-        console.log("Programs Compleated DATA 1", response.data);
 
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -186,7 +183,7 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
+        // console.log("AFTER ADDING COLOR", response.data);
         setMachineProgramesCompleted(response.data);
       });
     axios
@@ -195,7 +192,7 @@ export default function ByMachineBox() {
         { MachineName: Machine }
       )
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -231,7 +228,7 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
+        // console.log("AFTER ADDING COLOR", response.data);
         setmachineProgramesProcessing(response.data);
       });
   };
@@ -330,7 +327,7 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
+        // console.log("response  machine list", response.data);
         setmachineProgramesProcessing(response.data);
       });
   };
@@ -338,6 +335,8 @@ export default function ByMachineBox() {
   useEffect(() => {
     onClickMachine();
   }, []);
+
+  // console.log("machineProgramesCompleted is",machineProgramesCompleted);
 
   return (
     <div className="row">

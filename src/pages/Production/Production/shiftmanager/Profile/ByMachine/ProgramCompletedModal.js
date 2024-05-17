@@ -181,7 +181,6 @@ export default function ProgramCompletedModal({
                 selectProgramCompleted
               )
               .then((response) => {
-                console.log(response.data);
               });
             setCloseProgram(true);
             setResponse("Closed");
@@ -239,6 +238,7 @@ export default function ProgramCompletedModal({
      }
      return dataCopy;
    };
+   
 
   return (
     <div>

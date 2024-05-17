@@ -96,8 +96,6 @@ export default function AllotmentTables() {
     setTableRowSelect(item);
     setRowselect(list);
   };
-  console.log("type of item", tableRowSelect);
-  console.log("type of list", rowselect);
 
   const getMachineList = () => {
     axios
@@ -300,15 +298,15 @@ export default function AllotmentTables() {
             <Table striped className="table-data border table-space">
               <thead className="tableHeaderBGColor">
                 <tr>
-                  <th onClick={() => requestSort("Schedule No")}>
+                  <th onClick={() => requestSort("OrdSchNo")}>
                     Schedule No
                   </th>
-                  <th onClick={() => requestSort("Delivery Date")}>
+                  <th onClick={() => requestSort("Delivery_Date")}>
                     Delivery Date
                   </th>
-                  <th onClick={() => requestSort("Customer")}> Customer</th>
-                  <th onClick={() => requestSort("Status")}>Status</th>
-                  <th onClick={() => requestSort("Special_instruction")}>
+                  <th onClick={() => requestSort("Cust_name")}> Customer</th>
+                  <th onClick={() => requestSort("Schedule_Status")}>Status</th>
+                  <th onClick={() => requestSort("Special_Instructions")}>
                     Special_instruction
                   </th>
                 </tr>
@@ -495,12 +493,16 @@ export default function AllotmentTables() {
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
                   <tr>
-                    <th onClick={() => requestSort1("Task No")}>Task No</th>
+                    <th onClick={() => requestSort1("TaskNo")}>Task No</th>
                     <th onClick={() => requestSort1("Machine")}>Machine</th>
                     <th onClick={() => requestSort1("Operation")}>Operation</th>
-                    <th onClick={() => requestSort1("Mtrl_code")}>Mtrl_code</th>
+                    <th onClick={() => requestSort1("Mtrl_Code")}>Mtrl_code</th>
                     <th onClick={() => requestSort1("Priority")}>Priority</th>
-                    <th className="textAllign" style={{whiteSpace:'nowrap'}} onClick={() => requestSort1("Estimated time")}>
+                    <th
+                      className="textAllign"
+                      style={{ whiteSpace: "nowrap" }}
+                      onClick={() => requestSort1("EstimatedTime")}
+                    >
                       Estimated time
                     </th>
                   </tr>

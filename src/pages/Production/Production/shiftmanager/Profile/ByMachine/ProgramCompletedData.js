@@ -56,7 +56,6 @@ export default function ProgramCompletedData({
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
         setMachineProgramesCompleted(response.data);
       });
   }, []);
@@ -67,14 +66,14 @@ export default function ProgramCompletedData({
     setSelectProgramCompleted(list);
   };
 
-  useEffect(() => {
-    if (
-      machineProgramesCompleted.length > 0 &&
-      !selectProgramCompleted.TaskNo
-    ) {
-      programCompleted(machineProgramesCompleted[0], 0); // Select the first row
-    }
-  }, [machineProgramesCompleted]);
+  // useEffect(() => {
+  //   if (
+  //     machineProgramesCompleted.length > 0 &&
+  //     !selectProgramCompleted.TaskNo
+  //   ) {
+  //     programCompleted(machineProgramesCompleted[0], 0); // Select the first row
+  //   }
+  // }, [machineProgramesCompleted]);
 
  //
  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
@@ -101,6 +100,8 @@ export default function ProgramCompletedData({
    }
    return dataCopy;
  };
+
+//  console.log("machineProgramesCompleted is",machineProgramesCompleted);
 
   return (
     <>
@@ -129,14 +130,15 @@ export default function ProgramCompletedData({
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
                   <tr>
-                    <th onClick={() => requestSort("Task No")}>Task No</th>
+                    <th onClick={() => requestSort("TaskNo")}>Task No</th>
                     <th onClick={() => requestSort("Machine")}>Machine</th>
                     <th onClick={() => requestSort("Operation")}>Operation</th>
-                    <th onClick={() => requestSort("Plan Time")} className="textAllign">Plan Time</th>
-                    <th onClick={() => requestSort("Actual Time")} className="textAllign">Actual Time</th>
-                    <th onClick={() => requestSort("QTY")} className="textAllign">QTY</th>
-                    <th onClick={() => requestSort("Allotted")} className="textAllign">Allotted</th>
-                    <th onClick={() => requestSort("Processed")} className="textAllign">Processed</th>
+                    <th onClick={() => requestSort("NCProgramNo")} className="textAllign">Program No</th>
+                    <th onClick={() => requestSort("EstimatedTime")} className="textAllign">Plan Time</th>
+                    <th onClick={() => requestSort("ActualTime")} className="textAllign">Actual Time</th>
+                    <th onClick={() => requestSort("Qty")} className="textAllign">QTY</th>
+                    <th onClick={() => requestSort("QtyAllotted")} className="textAllign">Allotted</th>
+                    <th onClick={() => requestSort("QtyCut")} className="textAllign">Processed</th>
                   </tr>
                 </thead>
 

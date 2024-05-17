@@ -250,11 +250,15 @@ export default function MachineAlltmntForm() {
         <div className="col-md-3">
           <select className="ip-select" onChange={onMachineChange}>
             <option>Select Machine</option>
-            {machineList.map((value, key) => (
-              <option value={value.refName} key={key}>
-                {value.refName}
-              </option>
-            ))}
+            {machineList.length === 0 ? (
+              <option>No machine to select</option>
+            ) : (
+              machineList.map((value, key) => (
+                <option value={value.refName} key={key}>
+                  {value.refName}
+                </option>
+              ))
+            )}
           </select>
         </div>
         <div className="col-md-4">

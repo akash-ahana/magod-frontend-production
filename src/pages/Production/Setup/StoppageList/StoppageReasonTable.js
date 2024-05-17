@@ -51,7 +51,7 @@ export default function StoppageReasonTable({
             <thead className="tableHeaderBGColor">
               <tr>
                 <th className="textAllign" onClick={() => requestSort("SL NO")}>SL NO</th>
-                <th className="textAllign" onClick={() => requestSort("Stoppage Reason")}>Stoppage Reason</th>
+                <th className="textAllign" onClick={() => requestSort("Stoppage")}>Stoppage Reason</th>
               </tr>
             </thead>
 
