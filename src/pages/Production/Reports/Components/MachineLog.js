@@ -335,10 +335,10 @@ export default function MachineLog({
 
               <th onClick={() => requestSort("Machine")}>Machine</th>
               <th onClick={() => requestSort("Shift")}>Shift</th>
-              <th onClick={() => requestSort("Srl")}>Srl</th>
-              <th onClick={() => requestSort("FromTime")}>FromTime</th>
-              <th onClick={() => requestSort("ToTime")}> ToTime</th>
-              <th onClick={() => requestSort("MachineTime")}>MachineTime</th>
+              <th className="textAllign" onClick={() => requestSort("Srl")}>Srl</th>
+              <th className="textAllign" onClick={() => requestSort("FromTime")}>FromTime</th>
+              <th className="textAllign" onClick={() => requestSort("ToTime")}> ToTime</th>
+              <th className="textAllign" onClick={() => requestSort("MachineTime")}>MachineTime</th>
               <th onClick={() => requestSort("Program")}>Program</th>
               <th onClick={() => requestSort("Remarks")}>Remarks</th>
               <th style={{ whiteSpace: "nowrap" }} onClick={() => requestSort("Machine Operator")}>Machine Operator</th>
@@ -367,7 +367,7 @@ export default function MachineLog({
                     </td> */}
                     <td>{item?.Machine}</td>
                     <td>{item?.Shift}</td>
-                    <td>{key + 1}</td>
+                    <td className="textAllign">{key + 1}</td>
                     <td>
                       <div>
                         <input
@@ -392,7 +392,7 @@ export default function MachineLog({
                         />
                       </div>
                     </td>
-                    <td>{item?.MachineTime}</td>
+                    <td className="textAllign">{item?.MachineTime}</td>
                     <td>{item?.Program}</td>
                     <td
                       onClick={() =>
