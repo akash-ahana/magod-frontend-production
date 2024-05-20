@@ -172,32 +172,32 @@ export default function ProgramProcessingModal({
       });
   };
   // console.log(programCompleteData);
-    //
-    const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-    const requestSort = (key) => {
-      let direction = "asc";
-      if (sortConfig.key === key && sortConfig.direction === "asc") {
-        direction = "desc";
-      }
-      setSortConfig({ key, direction });
-    };
-  
-    const sortedData = () => {
-      const dataCopy = [...programCompleteData];
-      if (sortConfig.key) {
-        dataCopy.sort((a, b) => {
-          if (a[sortConfig.key] < b[sortConfig.key]) {
-            return sortConfig.direction === "asc" ? -1 : 1;
-          }
-          if (a[sortConfig.key] > b[sortConfig.key]) {
-            return sortConfig.direction === "asc" ? 1 : -1;
-          }
-          return 0;
-        });
-      }
-      return dataCopy;
-    };
- 
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
+
   return (
     <div>
       <Modal size="lg" show={show} fullscreen={fullscreen} onHide={handleClose}>
@@ -308,14 +308,16 @@ export default function ProgramProcessingModal({
                   />
                 </div>
 
-                <div className="col-md-3">
-                  <label className="form-label ms-5">Process Time</label>
+                <div className="col-md-3" style={{ marginTop: "-5px" }}>
+                  <label className="form-label" style={{ marginLeft: "70%" }}>
+                    Process Time -
+                  </label>
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Estimated</label>
                   <input
-                    style={{height:'60%'}}
+                    style={{ height: "60%" }}
                     className="input-field"
                     value={selectProgramProcessing.EstimatedTime}
                   />
@@ -329,16 +331,31 @@ export default function ProgramProcessingModal({
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="col-md-2 ms-5">
                   <button
-                    className="button-style group-button ms-2"
+                    className="button-style group-button"
                     onClick={clearAllButton}
                   >
                     Clear Parts
                   </button>
+                  <button
+                    className="button-style group-button"
+                    onClick={() => {
+                      openChangeMachineModal();
+                      clickChangeMachine();
+                    }}
+                  >
+                    Close Program
+                  </button>
                 </div>
 
-                <div className="col-md-2" style={{ marginLeft: "-60px" }}>
+                {/* <div className="col-md-2 ms-5">
+                  <button
+                    className="button-style group-button"
+                    onClick={clearAllButton}
+                  >
+                    Clear Parts
+                  </button>
                   <button
                     className="button-style group-button"
                     onClick={() => {
@@ -348,7 +365,7 @@ export default function ProgramProcessingModal({
                   >
                     Change Machine
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -368,13 +385,42 @@ export default function ProgramProcessingModal({
               >
                 <Table striped className="table-data border table-space">
                   <thead className="tableHeaderBGColor">
-                  <tr>
+                    <tr>
                       <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign"  style={{ width: "15%" }} onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign"  style={{ width: "15%" }} onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign"  style={{ width: "15%" }} onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign"  style={{ width: "15%" }} onClick={() => requestSort("Cleared")}>Cleared</th>
-                      <th  style={{ width: "25%" }} onClick={() => requestSort("Remarks")}>Remarks</th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
+                      <th
+                        style={{ width: "25%" }}
+                        onClick={() => requestSort("Remarks")}
+                      >
+                        Remarks
+                      </th>
                     </tr>
                   </thead>
 
@@ -383,9 +429,7 @@ export default function ProgramProcessingModal({
                       <>
                         <tbody className="tablebody">
                           <tr>
-                            <td >
-                              {item.DwgName}
-                            </td>
+                            <td>{item.DwgName}</td>
                             <td className="textAllign">{item.TotQtyNested}</td>
                             <td className="textAllign">{item.QtyCut}</td>
                             <td>

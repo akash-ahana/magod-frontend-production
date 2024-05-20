@@ -298,12 +298,9 @@ export default function OperationsProcessingModal({
                   />
                 </div>
 
-                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
-                  <label
-                    className="form-label ms-5"
-                    style={{ whiteSpace: "nowrap" }}
-                  >
-                    Process Time
+                <div className="col-md-3" style={{ marginTop: "-5px" }}>
+                  <label className="form-label" style={{ marginLeft: "70%" }}>
+                    Process Time -
                   </label>
                 </div>
 
@@ -315,7 +312,7 @@ export default function OperationsProcessingModal({
                     Estimated
                   </label>
                   <input
-                   style={{height:'60%'}}
+                    style={{ height: "60%" }}
                     className="input-field"
                     value={selectProgramProcessing.EstimatedTime}
                   />
@@ -329,23 +326,35 @@ export default function OperationsProcessingModal({
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="col-md-2 ms-5">
                   <button
-                    className="button-style group-button ms-2"
+                     className="button-style group-button"
+                     onClick={clearAllButton}
+                  >
+                    Clear Parts
+                  </button>
+                  <button
+                    className="button-style group-button"
+                    onClick={openChangeMachineModal}
+                  >
+                    Close Program
+                  </button>
+                </div>
+
+                {/* <div className="col-md-2 ms-5">
+                  <button
+                    className="button-style group-button"
                     onClick={clearAllButton}
                   >
                     Clear Parts
                   </button>
-                </div>
-
-                <div className="col-md-2" style={{ marginLeft: "-60px" }}>
                   <button
                     className="button-style group-button"
                     onClick={openChangeMachineModal}
                   >
                     Change Machine
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -365,13 +374,47 @@ export default function OperationsProcessingModal({
               >
                 <Table striped className="table-data border table-space">
                   <thead className="tableHeaderBGColor">
-                  <tr>
-                      <th  style={{ width: "15%" }} onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
-                      <th  style={{ width: "25%" }} onClick={() => requestSort("Remarks")}>Remarks</th>
+                    <tr>
+                      <th
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Dwg Name")}
+                      >
+                        Dwg Name
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
+                      <th
+                        style={{ width: "25%" }}
+                        onClick={() => requestSort("Remarks")}
+                      >
+                        Remarks
+                      </th>
                     </tr>
                   </thead>
 

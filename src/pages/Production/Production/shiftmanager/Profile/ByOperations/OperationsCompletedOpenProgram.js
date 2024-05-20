@@ -284,31 +284,31 @@ export default function OperationsCompleteOpenProgram({
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
-   //
-   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-   const requestSort = (key) => {
-     let direction = "asc";
-     if (sortConfig.key === key && sortConfig.direction === "asc") {
-       direction = "desc";
-     }
-     setSortConfig({ key, direction });
-   };
- 
-   const sortedData = () => {
-     const dataCopy = [...programCompleteData];
-     if (sortConfig.key) {
-       dataCopy.sort((a, b) => {
-         if (a[sortConfig.key] < b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? -1 : 1;
-         }
-         if (a[sortConfig.key] > b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? 1 : -1;
-         }
-         return 0;
-       });
-     }
-     return dataCopy;
-   };
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div>
@@ -442,14 +442,16 @@ export default function OperationsCompleteOpenProgram({
                   />
                 </div>
 
-                <div className="col-md-3">
-                  <label className="form-label ms-5">Process Time</label>
+                <div className="col-md-3" style={{ marginTop: "-5px" }}>
+                  <label className="form-label" style={{ marginLeft: "70%" }}>
+                    Process Time -
+                  </label>
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Estimated</label>
                   <input
-                    style={{height:'59%'}}
+                    style={{ height: "59%" }}
                     className="input-field"
                     value={selectProgramCompleted.EstimatedTime}
                   />
@@ -463,16 +465,13 @@ export default function OperationsCompleteOpenProgram({
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="col-md-2 ms-5">
                   <button
                     className="button-style group-button"
                     onClick={clearAllButton}
                   >
                     Clear Parts
                   </button>
-                </div>
-
-                <div className="col-md-2" style={{ marginLeft: "-60px" }}>
                   <button
                     className="button-style group-button"
                     onClick={onClickCloseProgram}
@@ -500,12 +499,46 @@ export default function OperationsCompleteOpenProgram({
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
                     <tr>
-                      <th  style={{ width: "15%" }} onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
-                      <th  style={{ width: "25%" }} onClick={() => requestSort("Remarks")}>Remarks</th>
+                      <th
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Dwg Name")}
+                      >
+                        Dwg Name
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        style={{ width: "15%" }}
+                        className="textAllign"
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
+                      <th
+                        style={{ width: "25%" }}
+                        onClick={() => requestSort("Remarks")}
+                      >
+                        Remarks
+                      </th>
                     </tr>
                   </thead>
 
