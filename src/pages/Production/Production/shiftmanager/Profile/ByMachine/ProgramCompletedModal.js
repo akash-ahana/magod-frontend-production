@@ -370,8 +370,10 @@ export default function ProgramCompletedModal({
                   />
                 </div>
 
-                <div className="col-md-3">
-                  <label className="form-label mt-2 ms-5">Process Time</label>
+                <div className="col-md-3" style={{ marginTop: "-5px" }}>
+                  <label className="form-label" style={{ marginLeft: "70%" }}>
+                    Process Time -
+                  </label>
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
@@ -391,7 +393,7 @@ export default function ProgramCompletedModal({
                   />
                 </div>
 
-                <div className="col-md-2">
+                <div className="col-md-2 ms-5">
                   <button
                     className="button-style group-button"
                     onClick={clearAllButton}
@@ -399,9 +401,6 @@ export default function ProgramCompletedModal({
                   >
                     Clear Parts
                   </button>
-                </div>
-
-                <div className="col-md-2" style={{ marginLeft: "-60px" }}>
                   <button
                     className="button-style group-button"
                     onClick={onClickCloseProgram}
