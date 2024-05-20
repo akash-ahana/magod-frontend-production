@@ -296,6 +296,7 @@ export default function ProcessingModal({
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Estimated</label>
                   <input
+                    style={{height:'65%'}}
                     className="input-field"
                     value={selectProgramProcessing.EstimatedTime}
                   />
@@ -346,12 +347,12 @@ export default function ProcessingModal({
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
                   <tr>
-                      <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
-                      <th onClick={() => requestSort("Remarks")}>Remarks</th>
+                      <th  style={{ width: "15%" }} onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
+                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
+                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
+                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
+                      <th  style={{ width: "15%" }} className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th  style={{ width: "25%" }} onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
 

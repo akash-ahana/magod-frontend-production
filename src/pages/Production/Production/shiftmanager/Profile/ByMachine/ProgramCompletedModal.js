@@ -180,8 +180,7 @@ export default function ProgramCompletedModal({
                 baseURL + "/shiftManagerProfile/updateClosed",
                 selectProgramCompleted
               )
-              .then((response) => {
-              });
+              .then((response) => {});
             setCloseProgram(true);
             setResponse("Closed");
             const constSelectProgramCompleted = selectProgramCompleted;
@@ -213,32 +212,31 @@ export default function ProgramCompletedModal({
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
-   //
-   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-   const requestSort = (key) => {
-     let direction = "asc";
-     if (sortConfig.key === key && sortConfig.direction === "asc") {
-       direction = "desc";
-     }
-     setSortConfig({ key, direction });
-   };
- 
-   const sortedData = () => {
-     const dataCopy = [...programCompleteData];
-     if (sortConfig.key) {
-       dataCopy.sort((a, b) => {
-         if (a[sortConfig.key] < b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? -1 : 1;
-         }
-         if (a[sortConfig.key] > b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? 1 : -1;
-         }
-         return 0;
-       });
-     }
-     return dataCopy;
-   };
-   
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div>
@@ -295,13 +293,7 @@ export default function ProgramCompletedModal({
                   />
                 </div>
                 <div className="d-flex col-md-5" style={{ gap: "10px" }}>
-                  <label
-                    className="form-label"
-                   
-                  >
-                    {" "}
-                    Material
-                  </label>
+                  <label className="form-label"> Material</label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted?.Mtrl_Code}
@@ -323,12 +315,7 @@ export default function ProgramCompletedModal({
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "20px" }}>
-                  <label
-                    className="form-label"
-                   
-                  >
-                    Allotted
-                  </label>
+                  <label className="form-label">Allotted</label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted?.QtyAllotted}
@@ -336,12 +323,7 @@ export default function ProgramCompletedModal({
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "15px" }}>
-                  <label
-                    className="form-label"
-                   
-                  >
-                    Process
-                  </label>
+                  <label className="form-label">Process</label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted?.MProcess}
@@ -357,12 +339,7 @@ export default function ProgramCompletedModal({
                 </div>
 
                 <div className="d-flex col-md-3" style={{ gap: "30px" }}>
-                  <label
-                    className="form-label"
-                   
-                  >
-                    Machine
-                  </label>
+                  <label className="form-label">Machine</label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted?.Machine}
@@ -370,12 +347,7 @@ export default function ProgramCompletedModal({
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
-                  <label
-                    className="form-label"
-                   
-                  >
-                    Processed
-                  </label>
+                  <label className="form-label">Processed</label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted?.QtyCut}
@@ -403,13 +375,9 @@ export default function ProgramCompletedModal({
                 </div>
 
                 <div className="d-flex col-md-2" style={{ gap: "10px" }}>
-                  <label
-                    className="form-label"
-                   
-                  >
-                    Estimated
-                  </label>
+                  <label className="form-label">Estimated</label>
                   <input
+                    style={{ height: "59%" }}
                     className="input-field"
                     value={selectProgramCompleted?.EstimatedTime}
                   />
@@ -446,10 +414,7 @@ export default function ProgramCompletedModal({
           </div>
 
           <div className="row mt-1">
-            <div
-              className="col-md-12 col-sm-12"
-              style={{ marginLeft: "-14px" }}
-            >
+            <div className="col-md-12" style={{ marginLeft: "-14px" }}>
               <div
                 style={{
                   height: "200px",
@@ -459,14 +424,48 @@ export default function ProgramCompletedModal({
                 }}
               >
                 <Table striped className="table-data border table-space">
-                  <thead className="tableHeaderBGColor">
+                  <thead className="tableHeaderBGColor ">
                     <tr>
-                      <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
-                      <th onClick={() => requestSort("Remarks")}>Remarks</th>
+                      <th
+                        onClick={() => requestSort("Dwg Name")}
+                        style={{ width: "15%" }}
+                      >
+                        Dwg Name
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        className="textAllign"
+                        style={{ width: "15%" }}
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
+                      <th
+                        style={{ width: "25%" }}
+                        onClick={() => requestSort("Remarks")}
+                      >
+                        Remarks
+                      </th>
                     </tr>
                   </thead>
 
@@ -474,30 +473,27 @@ export default function ProgramCompletedModal({
                     {sortedData().map((item, key) => {
                       return (
                         <>
-                          <tr>
-                            <td>
-                              {item.DwgName}
-                            </td>
+                          <tr className="">
+                            <td>{item.DwgName}</td>
                             <td className="textAllign">{item.TotQtyNested}</td>
                             <td className="textAllign">{item.QtyCut}</td>
                             <td>
-                              <div>
-                                <input
-                                  className="table-cell-editor "
-                                  name="cleared"
-                                  type="number"
-                                  onKeyDown={blockInvalidChar}
-                                  defaultValue={item.QtyRejected}
-                                  onChange={(e) =>
-                                    onChangeRejected(e, item, key)
-                                  }
-                                />
-                              </div>
+                              {/* <div > */}
+                              <input
+                                // style={{width: "20px"}}
+                                className="table-cell-editor textAllign"
+                                name="cleared"
+                                type="number"
+                                onKeyDown={blockInvalidChar}
+                                defaultValue={item.QtyRejected}
+                                onChange={(e) => onChangeRejected(e, item, key)}
+                              />
+                              {/* </div> */}
                             </td>
                             <td className="textAllign">{item.QtyCleared}</td>
                             <td>
                               <input
-                                className="table-cell-editor textAllign"
+                                className="table-cell-editor"
                                 name="cleared"
                                 Value={
                                   item.Remarks === "null" ? null : item.Remarks
