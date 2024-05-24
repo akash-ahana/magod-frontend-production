@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintShowStatus({showStatusData}) {
+export default function PrintShowStatus({showStatusData,location}) {
   const{schedulelistdata}=useGlobalContext();
 
 // const[showstatusdata,setShowStatusdata]=useState([])
@@ -54,13 +54,12 @@ export default function PrintShowStatus({showStatusData}) {
     const moment = require('moment');
     const today = moment();
     let Date=today.format("HH:mm DD-MMMM-YYYY");
-     console.log(Date);
 
       return (
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
               <ShowStatusTable Date={Date}
-              showStatusData={showStatusData}
+              showStatusData={showStatusData} location={location}
               />
             </PDFViewer>
           </Fragment>

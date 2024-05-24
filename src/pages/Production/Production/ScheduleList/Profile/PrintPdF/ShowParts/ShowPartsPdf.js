@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ShowPartsPdf({processrowselect,rowselect,partlistdata}) {
+export default function ShowPartsPdf({processrowselect,rowselect,partlistdata,location}) {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -65,7 +65,7 @@ export default function ShowPartsPdf({processrowselect,rowselect,partlistdata}) 
               <ShowPartsTable Date={Date}
               processrowselect={processrowselect}
               rowselect={rowselect}
-              partlistdata={partlistdata}/>
+              partlistdata={partlistdata} location={location}/>
             </PDFViewer>
           </Fragment>
       ); 

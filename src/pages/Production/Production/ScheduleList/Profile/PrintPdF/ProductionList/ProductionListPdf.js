@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ProductionListPdf({selectedRows}) {
+export default function ProductionListPdf({selectedRows,location}) {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -62,7 +62,9 @@ export default function ProductionListPdf({selectedRows}) {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <ProductionListTable selectedRows={selectedRows}/>
+              <ProductionListTable selectedRows={selectedRows}
+              location={location}
+              />
             </PDFViewer>
           </Fragment>
       ); 

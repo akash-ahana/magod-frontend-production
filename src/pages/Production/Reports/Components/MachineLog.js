@@ -16,7 +16,7 @@ export default function MachineLog({
   setSelectedRows,
   machinelogRowSelect,
   status,
-  machineName,
+  machineName,location
 }) {
   const [selectAll, setSelectAll] = useState(false);
   const [FinalMachineLogArray, setFinalMachineLogArray] = useState([]);
@@ -287,6 +287,7 @@ export default function MachineLog({
         setOpenShiftLog={setOpenShiftLog}
         sortedMachineLogs={sortedMachineLogs}
         dateSelect={dateSelect}
+        location={location}
       />
 
       <DateChangeModal

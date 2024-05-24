@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintShowStatus({showStatusData}) {
+export default function PrintShowStatus({showStatusData,location}) {
   const{schedulelistdata}=useGlobalContext();
 
 // const[showstatusdata,setShowStatusdata]=useState([])
@@ -61,6 +61,7 @@ export default function PrintShowStatus({showStatusData}) {
             <PDFViewer width="1200" height="600" filename="somename.pdf">
               <ShowStatusTable Date={Date}
               showStatusData={showStatusData}
+              location={location}
               />
             </PDFViewer>
           </Fragment>

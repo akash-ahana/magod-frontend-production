@@ -114,7 +114,7 @@ import SpecialShiftConfirmModal from "./SpecialShiftConfirmModal";
           </Modal.Header>
 
           <Modal.Body>
-            <label className="form-label">From_time</label>
+            <label className="form-label">From Time</label>
             <div style={{ width: "100%", textAlign: "left" }}>
               <DatePicker
               className="w-100"
@@ -133,12 +133,13 @@ import SpecialShiftConfirmModal from "./SpecialShiftConfirmModal";
               />
             </div>
 
-            <label className="form-label">To_time</label>
+            <label className="form-label">To 
+             Time</label>
             <div style={{ width: "100%" }}>
               <DatePicker
-                className="in-field w-100"
+                className="w-100"
                 style={{
-                  textAlign: "right",
+                  textAlign: "center",
                   fontSize: "13px",
                   backgroundColor: "white",
                   width:"100%"

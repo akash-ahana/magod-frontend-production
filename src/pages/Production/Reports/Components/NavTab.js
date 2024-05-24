@@ -16,7 +16,7 @@ export default function NabTab({
   setSelectedRows,
   machinelogRowSelect,
   status,
-  machineName,
+  machineName,location
 }) {
   const [key, setKey] = useState("machineLog");
 
@@ -37,6 +37,7 @@ export default function NabTab({
           machinelogRowSelect={machinelogRowSelect}
           status={status}
           machineName={machineName}
+          location={location}
         />
       </Tab>
 

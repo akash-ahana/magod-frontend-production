@@ -159,6 +159,17 @@ export default function ScheduleHeader({
     navigate("/Production");
   };
 
+  
+  //location
+  const[location,setlocation]=useState([]);
+  useEffect(()=>{
+    axios
+    .post(baseURL + "/location/getlocation", {})
+    .then((response) => {
+      setlocation(response.data);
+    });
+  },[])
+
   return (
     <div>
       <h4 className="title">Production Schedules Information</h4>
@@ -236,6 +247,7 @@ export default function ScheduleHeader({
         openShowStatus={openShowStatus}
         setOpenShowStatus={setOpenShowStatus}
         showStatusData={showStatusData}
+        location={location}
       />
 
       <ShowPartsPdfModal
@@ -244,6 +256,7 @@ export default function ScheduleHeader({
         rowselect={rowselect}
         processrowselect={processrowselect}
         partlistdata={showParts}
+        location={location}
       />
 
       <ShowProgramsPdfModal
@@ -252,11 +265,13 @@ export default function ScheduleHeader({
         rowselect={rowselect}
         processrowselect={processrowselect}
         programlistdata={programlistdata}
+        location={location}
       />
 
       <ProductionListModal
         openProductionList={openProductionList}
         setOpenProductionList={setOpenProductionList}
+        location={location}
       />
     </div>
   );

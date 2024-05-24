@@ -3,7 +3,7 @@ import Modal from 'react-bootstrap/Modal';
 import DailyReportsPdf from './ShiftLogPdf';
 import ShiftLogPdf from './ShiftLogPdf';
 
- export default function PrintShiftLogModal({openShiftLog,setOpenShiftLog,sortedMachineLogs,dateSelect}) {
+ export default function PrintShiftLogModal({openShiftLog,setOpenShiftLog,sortedMachineLogs,dateSelect,location}) {
   const [fullscreen, setFullscreen] = useState(true);
 
 
@@ -14,7 +14,9 @@ import ShiftLogPdf from './ShiftLogPdf';
           <Modal.Title>Show Parts Pdf</Modal.Title>
         </Modal.Header>
         <Modal.Body><ShiftLogPdf sortedMachineLogs={sortedMachineLogs}
-        dateSelect={dateSelect}/></Modal.Body>
+        dateSelect={dateSelect}
+        location={location}
+        /></Modal.Body>
       </Modal>
     </>
   );

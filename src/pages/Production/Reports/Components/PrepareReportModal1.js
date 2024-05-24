@@ -7,7 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 export default function PrepareReportModal1({prepareReport1,setPrepareReport,dateSelect,setStatus,preparedby}) {
 
-  console.log("preparedby in next modal is",preparedby,"type is",typeof(preparedby));
+  // console.log("preparedby in next modal is",preparedby,"type is",typeof(preparedby));
 
     const handleClose=()=>{
         setPrepareReport(false);

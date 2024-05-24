@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
   });
   
 
-const ShowStatusTable = ({Date,showStatusData}) => (
+const ShowStatusTable = ({Date,showStatusData,location}) => (
     <Document>
     <Page size="A4" style={styles.page} orientation="landscape">
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Status Report</Text>
-        <Text style={styles.location}>Unit:Jigani</Text>
+        <Text style={styles.location}>Unit:{location}</Text>
         <Text style={styles.datedisplay}>{Date}</Text>
 
         {showStatusData.map((item, key) => (

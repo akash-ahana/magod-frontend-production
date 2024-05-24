@@ -45,12 +45,10 @@ export default function SetMachineModal({
       });
       return; // Stop the function execution since there are invalid fields
     }
-    console.log(weekState1);
     axios
       .post(baseURL + "/shiftEditor/setMachineOperators", weekState1)
       .then((response) => {
         handleClose();
-        console.log(response.data);
         if (response.data === "Operator already present") {
           toast.error("Operator already present", {
             position: toast.POSITION.TOP_CENTER,

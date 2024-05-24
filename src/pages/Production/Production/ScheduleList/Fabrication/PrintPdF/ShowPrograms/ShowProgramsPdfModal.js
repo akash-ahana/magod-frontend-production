@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import ShowProgramsPdf from './ShowProgramsPdf';
 
- export default function ShowProgramsPdfModal({setOpenShowPrograms,openShowPrograms,rowselect,processrowselect,programlistdata}) {
+ export default function ShowProgramsPdfModal({setOpenShowPrograms,openShowPrograms,rowselect,processrowselect,programlistdata,location}) {
   const [fullscreen, setFullscreen] = useState(true);
   console.log(programlistdata);
 
@@ -15,7 +15,7 @@ import ShowProgramsPdf from './ShowProgramsPdf';
         <Modal.Body><ShowProgramsPdf 
         rowselect={rowselect}
         processrowselect={processrowselect}
-        programlistdata={programlistdata}/></Modal.Body>
+        programlistdata={programlistdata} location={location}/></Modal.Body>
       </Modal>
     </>
   );

@@ -3,12 +3,11 @@ import Modal from 'react-bootstrap/Modal';
 import ProductionListPdf from './ProductionListPdf';
 import { useGlobalContext } from '../../../../../../../Context/Context';
 
- export default function ProductionListModal({openProductionList,setOpenProductionList,rowselect,processrowselect,partlistdata}) {
+ export default function ProductionListModal({openProductionList,setOpenProductionList,rowselect,processrowselect,partlistdata,location}) {
   const [fullscreen, setFullscreen] = useState(true);
 
   const { selectedRows } = useGlobalContext();
 
-  console.log(selectedRows)
 
   return (
     <>
@@ -16,7 +15,9 @@ import { useGlobalContext } from '../../../../../../../Context/Context';
         <Modal.Header closeButton>
           <Modal.Title>Production List</Modal.Title>
         </Modal.Header>
-        <Modal.Body><ProductionListPdf selectedRows={selectedRows} /></Modal.Body>
+        <Modal.Body><ProductionListPdf selectedRows={selectedRows}
+        location={location}
+         /></Modal.Body>
       </Modal>
     </>
   );

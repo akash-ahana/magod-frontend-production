@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function DailyReportsPdf({pdfData,dateSelect,preparedby,roleValue}) {
+export default function DailyReportsPdf({pdfData,dateSelect,preparedby,roleValue,location}) {
 
   let array=dateSelect.split('-')
   let Date=array[2]+"/"+array[1]+'/'+array[0];
@@ -50,7 +50,9 @@ export default function DailyReportsPdf({pdfData,dateSelect,preparedby,roleValue
               <DailyReportTable Date={Date}
               pdfData={pdfData}
               preparedby={preparedby}
-              roleValue={roleValue}/>
+              roleValue={roleValue}
+              location={location}
+              />
             </PDFViewer>
           </Fragment>
       ); 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import PrintShowStatus from './PrintShowStatus';
 
-export default function ShowStatusPdfModal({ setOpenShowStatus, openShowStatus, showStatusData }) {
+export default function ShowStatusPdfModal({ setOpenShowStatus, openShowStatus, showStatusData,location }) {
   const [fullscreen, setFullscreen] = useState(true);
   const [loading, setLoading] = useState(false); // Set to false by default
 
@@ -22,7 +22,7 @@ export default function ShowStatusPdfModal({ setOpenShowStatus, openShowStatus, 
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <PrintShowStatus showStatusData={showStatusData} />
+            <PrintShowStatus showStatusData={showStatusData} location={location}/>
           )}
         </Modal.Body>
       </Modal>

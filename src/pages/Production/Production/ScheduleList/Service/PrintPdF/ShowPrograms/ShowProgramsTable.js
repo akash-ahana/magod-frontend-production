@@ -72,13 +72,13 @@ const styles = StyleSheet.create({
   });
   
 
-const ShowProgramsTable = ({processrowselect,rowselect,programlistdata}) => (
+const ShowProgramsTable = ({processrowselect,rowselect,programlistdata,location}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
         <Text style={styles.title2}>Production Status Report</Text>
-        <Text style={[styles.location,{paddingBottom:"10px"}]}>Magod Laser:Jigani</Text>
+        <Text style={[styles.location,{paddingBottom:"10px"}]}>Magod Laser:{location}</Text>
 
         <View>
             <Text style={styles.details}>Production Sheet Schedule No : {rowselect.OrdSchNo}</Text>

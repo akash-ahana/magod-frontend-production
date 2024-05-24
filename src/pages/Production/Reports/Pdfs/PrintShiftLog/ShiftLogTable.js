@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
   });
   
 
-const ShiftLogTable = ({Date,sortedMachineLogs}) => (
+const ShiftLogTable = ({Date,sortedMachineLogs,location}) => (
     <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>

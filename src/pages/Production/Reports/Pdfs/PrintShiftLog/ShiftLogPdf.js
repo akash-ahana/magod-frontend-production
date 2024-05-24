@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ShiftLogPdf({sortedMachineLogs,dateSelect}) {
+export default function ShiftLogPdf({sortedMachineLogs,dateSelect,location}) {
 
   let array=dateSelect.split('-')
   let Date=array[2]+"/"+array[1]+'/'+array[0];
@@ -47,7 +47,9 @@ export default function ShiftLogPdf({sortedMachineLogs,dateSelect}) {
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
               <ShiftLogTable Date={Date}
-              sortedMachineLogs={sortedMachineLogs}/>
+              sortedMachineLogs={sortedMachineLogs}
+              location={location}
+              />
             </PDFViewer>
           </Fragment>
       ); 

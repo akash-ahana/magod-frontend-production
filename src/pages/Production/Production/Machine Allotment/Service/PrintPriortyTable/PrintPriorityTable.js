@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const PrintPriorityTable = ({ sortedPriorityTable }) => (
+const PrintPriorityTable = ({ sortedPriorityTable,location }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
         <Text style={styles.tableTitle}>
           Magod Laser Machining Pvt Ltd:Production Department
         </Text>
-        <Text style={styles.shiftperiod}>Production Plan:Jigani </Text>
+        <Text style={styles.shiftperiod}>Production Plan:{location[0]?.UnitName} </Text>
 
         {sortedPriorityTable.map((item) => {
           return (

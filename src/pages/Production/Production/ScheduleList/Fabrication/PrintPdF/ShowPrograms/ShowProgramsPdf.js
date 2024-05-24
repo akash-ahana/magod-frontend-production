@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ShowProgramsPdf({processrowselect,rowselect,programlistdata}) {
+export default function ShowProgramsPdf({processrowselect,rowselect,programlistdata,location}) {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -66,7 +66,7 @@ export default function ShowProgramsPdf({processrowselect,rowselect,programlistd
               <ShowProgramsTable Date={Date}
               processrowselect={processrowselect}
               rowselect={rowselect}
-              programlistdata={programlistdata}/>
+              programlistdata={programlistdata} location={location}/>
             </PDFViewer>
           </Fragment>
       ); 

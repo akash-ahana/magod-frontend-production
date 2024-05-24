@@ -85,7 +85,6 @@ export default function CreateweekModal({
     axios
       .post(baseURL + "/shiftEditor/createWeeklyShiftPlan", constWeekState)
       .then((response) => {
-        console.log("CREATE WEEK SHIFT RESPONSE ", response.data);
         if (response.data === "Shift Data Already present") {
           toast.error("Shift Data Already present", {
             position: toast.POSITION.TOP_CENTER,

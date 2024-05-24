@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function PrintPriority({priorityTable}) {
+export default function PrintPriority({priorityTable,location}) {
   // console.log(priorityTable)
 
   const [sortedPriorityTable , setSortedPriorityTable] = useState([])
@@ -74,7 +74,6 @@ export default function PrintPriority({priorityTable}) {
     setSortedPriorityTable(customArray)
   }, [priorityTable])
 
-  console.log("pdf data",sortedPriorityTable)
    
       return (
         // <div className="App">
@@ -85,7 +84,8 @@ export default function PrintPriority({priorityTable}) {
     
         <Fragment>
             <PDFViewer width="1200" height="600" filename="somename.pdf">
-              <PrintPriorityTable sortedPriorityTable={sortedPriorityTable}/>
+              <PrintPriorityTable sortedPriorityTable={sortedPriorityTable}
+              location={location}/>
             </PDFViewer>
           </Fragment>
       );

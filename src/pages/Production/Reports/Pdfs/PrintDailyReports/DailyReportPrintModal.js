@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import DailyReportsPdf from './DailyReportsPdf';
+import { baseURL } from '../../../../../api/baseUrl';
+import axios from 'axios';
 
-export default function DailyReportPrintModal({ opendailyReport, setOpendailyReport, pdfData,dateSelect,preparedby,roleValue}) {
+export default function DailyReportPrintModal({ opendailyReport, setOpendailyReport, pdfData,dateSelect,preparedby,roleValue,location}) {
   const [fullscreen, setFullscreen] = useState(true);
   const [loading, setLoading] = useState(true);
 
@@ -11,6 +13,8 @@ export default function DailyReportPrintModal({ opendailyReport, setOpendailyRep
       setLoading(false); // Set loading to false when the data is available
     }
   }, [pdfData]); // Run the effect whenever pdfData changes
+
+
 
 
   return (
@@ -24,7 +28,9 @@ export default function DailyReportPrintModal({ opendailyReport, setOpendailyRep
             <div>Loading...</div>
           ) : (
             <DailyReportsPdf pdfData={pdfData} dateSelect={dateSelect} preparedby={preparedby}
-            roleValue={roleValue} />
+            roleValue={roleValue} 
+            location={location}
+            />
           )}
         </Modal.Body>
       </Modal>

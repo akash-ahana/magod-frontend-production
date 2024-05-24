@@ -110,7 +110,7 @@ paddingVertical:"8px"
   },
 });
 
-const ProductionListTable = ({selectedRows}) => (
+const ProductionListTable = ({selectedRows,location}) => (
   <Document>
     <Page size="A4" style={styles.page} orientation="landscape">
       <View style={styles.tableContainer}>

@@ -380,6 +380,18 @@ export default function Reports() {
     }
   };
 
+  //location
+  const[location,setlocation]=useState([]);
+  useEffect(()=>{
+    axios
+    .post(baseURL + "/location/getlocation", {})
+    .then((response) => {
+      setlocation(response.data);
+    });
+  },[])
+
+  // console.log("location is",location[0]?.UnitName);
+
   const closeModal = () => {
     setModalShow(false);
   };
@@ -413,6 +425,7 @@ export default function Reports() {
         dateSelect={dateSelect}
         preparedby={preparedby}
         roleValue={roleValue}
+        location={location}
       />
 
       <PrepareReportModal1
@@ -623,6 +636,7 @@ export default function Reports() {
             machinelogRowSelect={machinelogRowSelect}
             status={status}
             machineName={machineName}
+            location={location}
           />
           <CustomModal
             show={modalShow}

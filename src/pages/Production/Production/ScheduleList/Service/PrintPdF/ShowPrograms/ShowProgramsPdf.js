@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   
 
 
-export default function ShowProgramsPdf({processrowselect,rowselect,programlistdata}) {
+export default function ShowProgramsPdf({processrowselect,rowselect,programlistdata,location}) {
 
   //First Shift
 //   const[newData,setNewdata]=useState([]);
@@ -50,7 +50,6 @@ export default function ShowProgramsPdf({processrowselect,rowselect,programlistd
     const moment = require('moment');
     const today = moment();
     let Date=today.format("HH:MM DD-MMMM-YYYY");
-     console.log(Date);
 
       return (
         // <div className="App">
@@ -66,7 +65,7 @@ export default function ShowProgramsPdf({processrowselect,rowselect,programlistd
               <ShowProgramsTable Date={Date}
               processrowselect={processrowselect}
               rowselect={rowselect}
-              programlistdata={programlistdata}/>
+              programlistdata={programlistdata} location={location}/>
             </PDFViewer>
           </Fragment>
       ); 

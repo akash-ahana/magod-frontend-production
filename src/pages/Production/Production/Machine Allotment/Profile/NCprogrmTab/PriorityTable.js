@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import ModalPrintPriority from "../PrintPriortyTable/ModalPrintPriority";
+import { baseURL } from "../../../../../../api/baseUrl";
 
 export default function PriorityTable({
   machineSelect,
@@ -89,6 +90,15 @@ const sortedData1 = () => {
   return dataCopy;
 };
 
+  //location
+  const[location,setlocation]=useState([]);
+  useEffect(()=>{
+    axios
+    .post(baseURL + "/location/getlocation", {})
+    .then((response) => {
+      setlocation(response.data);
+    });
+  },[])
 
   return (
     <>
@@ -96,6 +106,7 @@ const sortedData1 = () => {
         openPrint={openPrint}
         setOpenPrint={setOpenPrint}
         priorityTable={priorityTable}
+        location={location}
       />
 
       <div className="row">

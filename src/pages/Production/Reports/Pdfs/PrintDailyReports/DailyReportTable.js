@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
  
 });
 
-const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
+const DailyReportTable = ({ Date, pdfData, preparedby, roleValue,location }) => {
   const [index, setIndex] = useState(0);
   const recordsPerPage = index === 0 ? 3 : 4; // if page is 1, display 3 records; otherwise, display 4 records
 
@@ -160,7 +160,7 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue }) => {
               {pageIndex === 0 && (
                 <View>
                   <Text style={styles.tableTitle}>
-                    Magod Laser Machining Pvt Ltd: Jigani
+                    Magod Laser Machining Pvt Ltd: {location[0]?.UnitName}
                   </Text>
                   <Text style={styles.title2}>Production Summary: {Date}</Text>
                 </View>

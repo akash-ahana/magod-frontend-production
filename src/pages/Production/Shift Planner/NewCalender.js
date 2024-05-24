@@ -645,12 +645,10 @@ function NewCalender(props) {
   };
 
   const createWeekPlannEW = async () => {
-    console.log("button clicked");
     const { data } = await axios.post(
       baseURL + "/shiftEditor/getWeeklyShiftPlanSecondTable",
       selectedWeek
     );
-    console.log(data);
   };
 
   // Open Print Pdf
@@ -686,12 +684,10 @@ function NewCalender(props) {
     }
   });
 
-  console.log(firstShiftDates);
   // Assuming you have the 'selectedWeek' array and 'formattedDates' array
   const dateExistsArray = selectedWeek.map(
     (date) => !formattedDates.includes(date)
   );
-  console.log(dateExistsArray);
   // Check if all values in dateExistsArray are true
   const allValuesTrue = dateExistsArray.every((value) => value);
   // If all values are true, set dateExistsArray to an array of false values
@@ -721,10 +717,7 @@ function NewCalender(props) {
     }
   }, [CompareDate, formattedTodayDate]);
 
-  console.log(
-    "selectedWeek before sinfing it to PrintWeekly Modal",
-    selectedWeek
-  );
+ 
 
   //WeeklyPlan Data
   const [newTry, setNewTry] = useState([]);
@@ -735,7 +728,6 @@ function NewCalender(props) {
         ShiftDate: selectedWeek,
       })
       .then((response) => {
-        console.log(response.data);
         setNewTry(response.data);
       });
   };
@@ -765,7 +757,6 @@ function NewCalender(props) {
   });
 
   // Now, flatTryData contains the flattened and organized data
-  console.log(newTry);
 
   useEffect(() => {
     TryPdfData();

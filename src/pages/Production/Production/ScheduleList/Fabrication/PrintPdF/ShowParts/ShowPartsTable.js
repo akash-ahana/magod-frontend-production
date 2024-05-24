@@ -93,13 +93,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const ShowPartsTable = ({ processrowselect, rowselect, partlistdata }) => (
+const ShowPartsTable = ({ processrowselect, rowselect, partlistdata,location }) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.tableContainer}>
             <React.Fragment>
               <View>
-                <Text style={styles.detailss}>Magod Laser:Jigani</Text>
+                <Text style={styles.detailss}>Magod Laser:{location}</Text>
                 <Text style={styles.details}>Parts Sheet Schedule No : {rowselect?.OrdSchNo}</Text>
               </View>
 
