@@ -15,11 +15,9 @@ function DailyOperator(props) {
   const [openmodal, setOpenModal] = useState("");
 
   const getMachineListData = async () => {
-    const { data } = await axios.get(
-      baseURL + `/shiftEditor/getMachineList`
-    );
+    const { data } = await axios.get(baseURL + `/shiftEditor/getMachineList`);
     setDataMachineList(data);
-    console.log(data);
+    // console.log(data);
   };
 
   const getOperatorListData = async () => {
@@ -61,9 +59,9 @@ function DailyOperator(props) {
         DayShiftID: props.data.DayShiftId,
       })
       .then((response) => {
-        console.log(response.data);
-        if (response.data === "Operator is already present") {
-          toast.error("Operator is already present", {
+        // console.log(response.data);
+        if (response.data === "Operator/Machine is already present") {
+          toast.error("Operator/Machine is already present", {
             position: toast.POSITION.TOP_CENTER,
           });
         } else if (response.data === "Data Successfully Added") {
@@ -91,7 +89,7 @@ function DailyOperator(props) {
         props.rowselectMachineOperator
       )
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         props.getMachineOperatorTableData();
         toast.success("Machine Operator Deleted", {
           position: toast.POSITION.TOP_CENTER,
@@ -143,7 +141,7 @@ function DailyOperator(props) {
             className="ip-select"
             onChange={handleMachineChange}
             value={selectedMachine || ""}
-            style={{width:'115px'}}
+            style={{ width: "115px" }}
           >
             <option value="" disabled={!selectedMachine}>
               Select machine

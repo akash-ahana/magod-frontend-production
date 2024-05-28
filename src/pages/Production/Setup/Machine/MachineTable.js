@@ -32,7 +32,7 @@ export default function MachineTable({ selectedRowFn, selectedRow }) {
     return dataCopy;
   };
 
-  console.log("selectedRow is",selectedRow);
+  // console.log("selectedRow is",selectedRow);
   return (
     <div className="row mt-1">
       <div>

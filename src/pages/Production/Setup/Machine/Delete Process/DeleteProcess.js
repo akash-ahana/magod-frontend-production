@@ -11,7 +11,7 @@ export default function DeleteProcess({
   getprocessdataList,
   selectRow,
 }) {
-  console.log(selectRow);
+  // console.log(selectRow);
 
   // console.log(processdataList);
   const handleClose = () => setOpendeleteprocess(false);
@@ -20,7 +20,7 @@ export default function DeleteProcess({
   let process = selectRow.Mprocess;
 
   const deleteProcess = () => {
-    console.log(mach_srl, process);
+    // console.log(mach_srl, process);
     axios
       .post(baseURL + "/productionSetup/deleteProcessFromMachine", {
         Machine_srl: mach_srl,

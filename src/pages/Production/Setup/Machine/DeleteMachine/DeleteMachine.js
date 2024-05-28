@@ -9,7 +9,7 @@ export default function DeleteMachine({
   selectedRow,
   deleteMachine,
 }) {
-  console.log(selectedRow);
+  // console.log(selectedRow);
   const handleClose = () => setOpendeletemachine(false);
 
   return (

@@ -62,7 +62,7 @@ import SpecialShiftConfirmModal from "./SpecialShiftConfirmModal";
       : "";
 
       const handleSubmit = () => {
-        console.log("onclick of submit", specialShiftFromDate);
+        // console.log("onclick of submit", specialShiftFromDate);
       
         axios
           .post(baseURL + "/shiftEditor/createSpecialShift", {

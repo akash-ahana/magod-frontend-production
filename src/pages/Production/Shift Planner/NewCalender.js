@@ -48,6 +48,19 @@ function NewCalender(props) {
     setSelectedWeek(weekArray);
   };
 
+  const [disablestatus, setdisableStatus] = useState(false);
+  useEffect(() => {
+    axios
+      .post(baseURL + "/shiftEditor/buttondisabledata", selectedWeek)
+      .then((response) => {
+        setdisableStatus(response.data); // Update state based on the API response
+      })
+      .catch((error) => {
+        console.error("There was an error making the request:", error);
+        // Handle the error appropriately
+      });
+  }, [selectedWeek]);
+
   const formatDate = (date) => {
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-based
@@ -76,7 +89,6 @@ function NewCalender(props) {
 
   const getMachineListData = async () => {
     const { data } = await axios.get(baseURL + `/shiftEditor/getMachineList`);
-    console.log(data);
     setGetShiftTypesData(data);
   };
 
@@ -95,17 +107,14 @@ function NewCalender(props) {
   };
 
   const handleShiftTypeChange = (e) => {
-    console.log("Shift type:", e.target.value);
     setSelectedShift(e.target.value);
   };
 
   const handleShiftIncharge = (e) => {
-    console.log("Selected shift incharge:", e.target.value);
     setSelectedShiftIncharge(e.target.value);
   };
 
   const handleMachineChange = (e) => {
-    console.log("Machine changed");
     setSelectedMachine(e.target.value);
   };
 
@@ -436,7 +445,7 @@ function NewCalender(props) {
         });
         setSingleDayShiftPlan4thTable(processedData);
         if (response.data.length === 0) {
-          console.log("response data is null");
+          // console.log("response data is null");
           setIsDataAvailable(false); // Set the state to false if data is empty
         } else {
           setIsDataAvailable(true); // Set the state to true if data is not empty
@@ -447,13 +456,6 @@ function NewCalender(props) {
   useEffect(() => {
     getSingleDayShiftPlan4thTable();
   }, [rowselect]);
-
-  console.log(
-    "first one",
-    isDataAvailable,
-    "second one",
-    SingleDayShiftPlan4thTable
-  );
 
   ///
   const [secondTableShiftState, setSecondTableShiftState] = useState([]);
@@ -466,9 +468,9 @@ function NewCalender(props) {
         selectedWeek
       )
       .then((response) => {
-        console.log("Api response is ", response);
+        // console.log("Api response is ", response);
         if (response.data === "") {
-          console.log("response data is null");
+          // console.log("response data is null");
         } else {
           setSecondTableShiftState(response.data);
 
@@ -587,7 +589,7 @@ function NewCalender(props) {
   const [machineOperatorTableData, setMachineOperatorTableData] = useState([]);
 
   const getMachineOperatorTableData = () => {
-    console.log(rowselectDailyShiftTable);
+    // console.log(rowselectDailyShiftTable);
     if (rowselectDailyShiftTable === null) {
       // If rowselectDailyShiftTable is null, set an empty array
       setMachineOperatorTableData([]);
@@ -616,7 +618,7 @@ function NewCalender(props) {
         selectedWeek: selectedWeek,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         getSecondTableData();
         getSingleDayShiftPlan4thTable();
       });
@@ -632,7 +634,7 @@ function NewCalender(props) {
         selectedOperator: selectedOperator,
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         getMachineOperatorTableData();
         getSecondTableData();
         setWeekState1("");
@@ -717,8 +719,6 @@ function NewCalender(props) {
     }
   }, [CompareDate, formattedTodayDate]);
 
- 
-
   //WeeklyPlan Data
   const [newTry, setNewTry] = useState([]);
   const TryPdfData = () => {
@@ -756,26 +756,9 @@ function NewCalender(props) {
     }
   });
 
-  // Now, flatTryData contains the flattened and organized data
-
   useEffect(() => {
     TryPdfData();
   }, [selectedWeek]);
-
-  // ///Status
-  // const getCheckboxStatus = () => {
-  //   axios
-  //     .post(baseURL + "/shiftEditor/getCheckboxStatus", {
-  //       date: selectedWeek,
-  //     })
-  //     .then((response) => {
-  //       console.log(response.data);
-  //     });
-  //   }
-
-  //   useEffect(()=>{
-  //     getCheckboxStatus();
-  //   },[selectedWeek])
 
   //Close Button
   const navigate = useNavigate();
@@ -824,9 +807,9 @@ function NewCalender(props) {
             <div className="col-md-2">
               <button
                 className={`button-style group-button ${
-                  condition !== true ? "disabled" : ""
+                  disablestatus === true ? "disabled" : ""
                 }`}
-                disabled={condition !== true}
+                disabled={disablestatus === true}
                 onClick={() => {
                   openCreateshiftmodal();
                   createWeeklyShiftPlan();
@@ -849,9 +832,9 @@ function NewCalender(props) {
             <div className="col-md-3">
               <button
                 className={`button-style group-button ${
-                  condition !== true ? "disabled" : ""
+                  disablestatus === true ? "disabled" : ""
                 }`}
-                disabled={condition !== true}
+                disabled={disablestatus === true}
                 onClick={() => {
                   onSetMachineOperators();
                   openSetMachinemodal();
@@ -1024,7 +1007,7 @@ function NewCalender(props) {
                           ref={checkbox1}
                           checked={isChecked}
                           onChange={handleOnChangeCheckBox1}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>
@@ -1039,7 +1022,7 @@ function NewCalender(props) {
                           ref={checkbox2}
                           checked={isChecked2}
                           onChange={handleOnChangeCheckBox2}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>
@@ -1054,7 +1037,7 @@ function NewCalender(props) {
                           ref={checkbox3}
                           checked={isChecked3}
                           onChange={handleOnChangeCheckBox3}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>
@@ -1069,7 +1052,7 @@ function NewCalender(props) {
                           ref={checkbox4}
                           checked={isChecked4}
                           onChange={handleOnChangeCheckBox4}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>
@@ -1084,7 +1067,7 @@ function NewCalender(props) {
                           ref={checkbox5}
                           checked={isChecked5}
                           onChange={handleOnChangeCheckBox5}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>
@@ -1099,7 +1082,7 @@ function NewCalender(props) {
                           ref={checkbox6}
                           checked={isChecked6}
                           onChange={handleOnChangeCheckBox6}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>
@@ -1115,7 +1098,7 @@ function NewCalender(props) {
                           defaultChecked={true}
                           checked={isChecked7}
                           onChange={handleOnChangeCheckBox7}
-                          style={{marginTop:'5px'}}
+                          style={{ marginTop: "5px" }}
                           // disabled={isDataAvailable}
                         />
                       </div>

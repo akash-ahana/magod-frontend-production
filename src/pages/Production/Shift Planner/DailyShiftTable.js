@@ -50,7 +50,7 @@ function DailyShiftTable({
 
   const updateShiftinstruction = () => {
     // Check if the shift instruction is null or empty
-    console.log(shiftinstruction);
+    // console.log(shiftinstruction);
     if (!shiftinstruction || shiftinstruction.trim() === "") {
       toast.error("Shift Instructions cannot be empty!", {
         position: toast.POSITION.TOP_CENTER,

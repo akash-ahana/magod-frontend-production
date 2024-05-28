@@ -9,11 +9,9 @@ import axios from 'axios';
 
 export default function UpdateDayshiftModal({updatedayshift,setUpdatedayshift,
     rowselectDailyShiftTable,onClickUpdateDayShift,selectedShiftIncharge,selectedWeek}) {
-    console.log(rowselectDailyShiftTable?.Shift_Ic);
 
 // Function to log the value when selectedWeek changes
 const logSelectedWeekValue = () => {
-  console.log(rowselectDailyShiftTable?.Shift_Ic);
 };
 
 // Use useEffect to call logSelectedWeekValue when selectedWeek changes

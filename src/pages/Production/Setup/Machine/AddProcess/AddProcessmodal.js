@@ -54,7 +54,7 @@ export default function AddProcessmodal({
 
   const handleClose = () => {
     setAddprocess(false);
-    console.log("Onclick Exit", processform);
+    // console.log("Onclick Exit", processform);
     setProcessform({
       RefProcess: "",
       TgtRate: "",
@@ -90,7 +90,7 @@ export default function AddProcessmodal({
   const showAlert = () => {
     setAlert(true);
     setAddprocess(false);
-    console.log("machineSRL IS ", selectedRow.Machine_srl);
+    // console.log("machineSRL IS ", selectedRow.Machine_srl);
     let foundedMprocess = findmprocess(processform.RefProcess);
     setProcessform({
       ...processform,
@@ -99,7 +99,7 @@ export default function AddProcessmodal({
     });
     setMprocess(foundedMprocess);
     let Mprocess = addprocessState.Mprocess;
-    console.log("last console of state process form ", processform);
+    // console.log("last console of state process form ", processform);
   };
 
   const submitProcessform = () => {
@@ -109,9 +109,9 @@ export default function AddProcessmodal({
         ...processform,
       })
       .then((response) => {
-        console.log("sent", response);
-        console.log("final response", response.data);
-        console.log(selectedRow);
+        // console.log("sent", response);
+        // console.log("final response", response.data);
+        // console.log(selectedRow);
         getprocessdataList(selectedRow.Machine_srl);
         setProcessform(addprocessState);
       });

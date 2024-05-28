@@ -49,11 +49,11 @@ export default function SetMachineModal({
       .post(baseURL + "/shiftEditor/setMachineOperators", weekState1)
       .then((response) => {
         handleClose();
-        if (response.data === "Operator already present") {
-          toast.error("Operator already present", {
+        if (response.data === "Operator/Machine already present") {
+          toast.error("Operator/Machine already present", {
             position: toast.POSITION.TOP_CENTER,
           });
-        } else if (response.data === "Data Added Sucessfully") {
+        } else if (response.data === "Machine Operator Added Successfully") {
           toast.success("Machine Operator Added Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });

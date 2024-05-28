@@ -29,7 +29,7 @@ export default function MachineModal({ open, setOpen, formdata, setFormdata }) {
   const [modalopen, setModalopen] = React.useState(false);
 
   const openThirdmodal = () => {
-    console.log(formdata);
+    // console.log(formdata);
     setModalopen(true);
     setOpen(false);
     axios

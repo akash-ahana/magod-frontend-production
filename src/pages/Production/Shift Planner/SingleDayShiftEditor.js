@@ -26,7 +26,7 @@ function SingleDayShiftEditor({
 
   const [openPrintModal, setOpenPrintModal] = useState("");
   const openDailyShiftPrinter = () => {
-    console.log(rowselect);
+    // console.log(rowselect);
     if (rowselect.item === "" && rowselect.index === 0) {
       toast.error("Please select a Date", {
         position: toast.POSITION.TOP_CENTER,
@@ -161,7 +161,10 @@ function SingleDayShiftEditor({
           <b>Shift : {rowselectDailyShiftTable?.Shift}</b>
         </div> */}
 
-        <div className="ms-1 col-md-8 d-flex" style={{ width: "120px", gap: "5px" }}>
+        <div
+          className="ms-1 col-md-8 d-flex"
+          style={{ width: "120px", gap: "5px" }}
+        >
           <label className="form-label" style={{ whiteSpace: "nowrap" }}>
             Shift InCharge
           </label>

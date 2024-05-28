@@ -19,7 +19,7 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
       setSelectedShift("");
       setSelectedShiftIncharge("")
     }
-    console.log(selectedShift)
+    // console.log(selectedShift)
 
   return (
     <div>
