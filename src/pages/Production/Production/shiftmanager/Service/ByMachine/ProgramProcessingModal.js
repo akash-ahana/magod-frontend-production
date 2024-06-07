@@ -353,7 +353,7 @@ export default function ProgramProcessingModal({
                       clickChangeMachine();
                     }}
                   >
-                    Change Machine
+                   Change Machine
                   </button>
                 </div>
               </div>

@@ -337,7 +337,7 @@ export default function OperationsProcessingModal({
                     className="button-style group-button"
                     onClick={openChangeMachineModal}
                   >
-                    Close Program
+                    Change Machine
                   </button>
                 </div>
 

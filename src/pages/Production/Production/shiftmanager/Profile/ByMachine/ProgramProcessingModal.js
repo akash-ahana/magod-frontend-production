@@ -345,7 +345,7 @@ export default function ProgramProcessingModal({
                       clickChangeMachine();
                     }}
                   >
-                    Close Program
+                   Change Machine
                   </button>
                 </div>
 

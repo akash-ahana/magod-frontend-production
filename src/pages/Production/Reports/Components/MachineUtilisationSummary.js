@@ -57,11 +57,12 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
   //Laser On handle Change
   const handleInputChange2 = (event) => {
-    if (event.target.value < 0) {
+    const newValue = event.target.value;
+    if (newValue < 0) {
       toast.error("Please give a Positive Number", {
         position: toast.POSITION.TOP_CENTER,
       });
-    } else if (event.target.value > 1440) {
+    } else if (newValue > 1440) {
       toast.error("Laser On Cannot be greater than 1440", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -72,10 +73,10 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
         (item) => item.Machine === rowSelected.Machine
       );
       // Update the LaserOn value of the selected machine
-      updatedMachineUtilisationData[selectedIndex].LaserOn = event.target.value;
+      updatedMachineUtilisationData[selectedIndex].LaserOn = newValue;
       // Update the machineutilisationSummartdata with the updated data
       setMachineutilisationSummarydata(updatedMachineUtilisationData);
-      setInputValue2(event.target.value);
+      setInputValue2(newValue);
     }
   };
 
@@ -110,63 +111,70 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
   //save machine utilisation
   const saveUtilisationSummary = () => {
-    let NonProd = rowSelected.NonProdOn;
-    // if(inputValue1> NonProd){
-    //   toast.error(`TotalOff Canot be greater than NonProdOn `, {
-    //     position: toast.POSITION.TOP_CENTER,
-    //   });
-    // }
-    // else{
-    if (!rowSelected || !inputValue1) {
-      // Check if rowSelected and inputValue1 are valid
-      return;
-    }
-    // Calculate NonProdOn based on the condition
-    let NonProdOn1;
-    if (NonProd === 0) {
-      NonProdOn1 = 1440 - inputValue1;
-    } else {
-      NonProdOn1 = NonProd - inputValue1;
-    }
-    const updatedRow = {
-      ...rowSelected,
-      TotalOff: inputValue1,
-      TotalOn: 1440 - inputValue1,
-      NonProdOn: NonProdOn1,
-      LaserOn: inputValue2,
-    };
-    // Update the selected row in the machineutilisationSummartdata array
-    const updatedData = machineutilisationSummartdata.map((item, index) =>
-      index === rowSelected.index ? updatedRow : item
-    );
-
-    // Update the machineutilisationSummartdata with the updatedData
-    setMachineutilisationSummarydata(updatedData);
-
-    // console.log("updatedData in save ",updatedData);
-
-    axios
-      .post(baseURL + "/reports/saveMachineUtilisationSummary", {
-        machineutilisationSummartdata: updatedData,
-        Date: dateSelect,
-      })
-      .then((res) => {
-        setModalShow6(true);
-        // setTimeout(() => {
-        //   axios
-        //     .post(baseURL + "/reports/muData", {
-        //       Date: dateSelect,
-        //     })
-        //     .then((res) => {
-        //       // console.log(res.data);
-        //       setMachineutilisationSummarydata(res.data);
-        //       // toast.success("Changes Saved", {
-        //       //   position: toast.POSITION.TOP_CENTER,
-        //       // });
-        //     });
-        // }, 1000); // 1000 milliseconds = 1 second
+    let Remainingvalue = 1440 - rowSelected.ProdON;
+    if (inputValue1 > Remainingvalue) {
+      toast.error(`Total Off Cannot be greater than ${Remainingvalue}`, {
+        position: toast.POSITION.TOP_CENTER,
       });
-    // }
+    } else {
+      let NonProd = rowSelected.NonProdOn;
+      if (!rowSelected || !inputValue1) {
+        // Check if rowSelected and inputValue1 are valid
+        return;
+      }
+      // Calculate NonProdOn based on the condition
+      let NonProdOn1;
+      if (NonProd === 0) {
+        NonProdOn1 = 1440 - inputValue1;
+      } else {
+        NonProdOn1 = NonProd - inputValue1;
+      }
+
+      // Ensure NonProdOn1 is not less than 0
+      if (NonProdOn1 < 0) {
+        NonProdOn1 = 0;
+      }
+
+      const updatedRow = {
+        ...rowSelected,
+        TotalOff: inputValue1,
+        TotalOn: 1440 - inputValue1,
+        NonProdOn: NonProdOn1,
+        LaserOn: inputValue2,
+      };
+      // Update the selected row in the machineutilisationSummartdata array
+      const updatedData = machineutilisationSummartdata.map((item, index) =>
+        index === rowSelected.index ? updatedRow : item
+      );
+
+      // Update the machineutilisationSummartdata with the updatedData
+      setMachineutilisationSummarydata(updatedData);
+
+      // console.log("updatedData in save ",updatedData);
+
+      axios
+        .post(baseURL + "/reports/saveMachineUtilisationSummary", {
+          machineutilisationSummartdata: updatedData,
+          Date: dateSelect,
+        })
+        .then((res) => {
+          setModalShow6(true);
+          // setTimeout(() => {
+          //   axios
+          //     .post(baseURL + "/reports/muData", {
+          //       Date: dateSelect,
+          //     })
+          //     .then((res) => {
+          //       // console.log(res.data);
+          //       setMachineutilisationSummarydata(res.data);
+          //       // toast.success("Changes Saved", {
+          //       //   position: toast.POSITION.TOP_CENTER,
+          //       // });
+          //     });
+          // }, 1000); // 1000 milliseconds = 1 second
+        });
+      // }
+    }
   };
 
   const closeModal = () => {
@@ -274,8 +282,8 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
               </label>
               <input
                 className="in-field"
-                name={inputValue2}
-                value={rowSelected.LaserOn || inputValue2}
+                name="laserOn"
+                value={inputValue2}
                 onChange={handleInputChange2}
               />
             </div>
@@ -326,9 +334,24 @@ export default function MachineUtilisationSummary({ dateSelect, status }) {
 
                   <th onClick={() => requestSort("Machine")}>Machine</th>
                   <th onClick={() => requestSort("TotalOn")}>TotalOn</th>
-                  <th className="textAllign" onClick={() => requestSort("TotalOff")}>TotalOff</th>
-                  <th className="textAllign" onClick={() => requestSort("ProdOn")}>ProdOn</th>
-                  <th className="textAllign" onClick={() => requestSort("NonProdOn")}>NonProdOn</th>
+                  <th
+                    className="textAllign"
+                    onClick={() => requestSort("TotalOff")}
+                  >
+                    TotalOff
+                  </th>
+                  <th
+                    className="textAllign"
+                    onClick={() => requestSort("ProdOn")}
+                  >
+                    ProdOn
+                  </th>
+                  <th
+                    className="textAllign"
+                    onClick={() => requestSort("NonProdOn")}
+                  >
+                    NonProdOn
+                  </th>
                 </tr>
               </thead>
 

@@ -322,7 +322,7 @@ export default function ProcessingModal({
                     className="button-style group-button"
                     onClick={openChangeMachineModal}
                   >
-                    Close Program
+                   Change Machine
                   </button>
                 </div>
 
