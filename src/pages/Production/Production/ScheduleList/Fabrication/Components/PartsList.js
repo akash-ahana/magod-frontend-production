@@ -215,9 +215,9 @@ const sortedData = () => {
             <tr>
               <th></th>
               <th onClick={() => requestSort("DwgName")}>DwgName</th>
-              <th className="textAllign" onClick={() => requestSort("Programmed")}>Programmed</th>
-              <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-              <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+              <th className="textAllign" onClick={() => requestSort("QtyToNest")}>Programmed</th>
+              <th className="textAllign" onClick={() => requestSort("QtyToNest")}>Produced</th>
+              <th className="textAllign" onClick={() => requestSort("QtyCleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>

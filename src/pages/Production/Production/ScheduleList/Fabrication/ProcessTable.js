@@ -42,18 +42,18 @@ export default function ProcessTable({
     <div style={{ height: "200px", overflowY: "scroll", overflowX: "scroll" }}>
       <Table striped className="table-data border">
         <thead className="tableHeaderBGColor table-space">
-          <tr>
-            <th onClick={() => requestSort("Status")}>Status</th>
-            <th onClick={() => requestSort("Task No")}>Task No</th>
-            <th onClick={() => requestSort("Material")}>Material</th>
-            <th onClick={() => requestSort("Process")}>Process</th>
-            <th className="textAllign" onClick={() => requestSort("Estimated Time")}>Estimated Time</th>
-            <th className="textAllign" onClick={() => requestSort("Time Taken")}>Time Taken</th>
-            <th className="textAllign" onClick={() => requestSort("No of Dwgs")}>No of Dwgs</th>
-            <th className="textAllign" onClick={() => requestSort("Dwgs Nested")}>Dwgs Nested</th>
-            <th className="textAllign" onClick={() => requestSort("Total Parts")}>Total Parts</th>
-            <th className="textAllign" onClick={() => requestSort("Parts Nested")}>Parts Nested</th>
-            <th className="textAllign" onClick={() => requestSort("No of Sheets")}>No of Sheets</th>
+        <tr>
+            <th onClick={() => requestSort("TStatus")}>Status</th>
+            <th onClick={() => requestSort("TaskNo")}>Task No</th>
+            <th onClick={() => requestSort("Mtrl_Code")}>Material</th>
+            <th onClick={() => requestSort("MProcess")}>Process</th>
+            <th className="textAllign" onClick={() => requestSort("EstimatedTime")}>Estimated Time</th>
+            <th className="textAllign" onClick={() => requestSort("TaskProcessTime")}>Time Taken</th>
+            <th className="textAllign" onClick={() => requestSort("NoOfDwgs")}>No of Dwgs</th>
+            <th className="textAllign" onClick={() => requestSort("DwgsNested")}>Dwgs Nested</th>
+            <th className="textAllign" onClick={() => requestSort("TotalParts")}>Total Parts</th>
+            <th className="textAllign" onClick={() => requestSort("PartsNested")}>Parts Nested</th>
+            <th className="textAllign" onClick={() => requestSort("NoOfSheets")}>No of Sheets</th>
           </tr>
         </thead>
         <tbody className='tablebody table-cell-align table-space'>

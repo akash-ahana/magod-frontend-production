@@ -192,9 +192,9 @@ export default function PartsList({
             <tr>
               <th></th>
               <th onClick={() => requestSort("DwgName")}>DwgName</th>
-              <th className="textAllign" onClick={() => requestSort("Programed")}>Programed</th>
-              <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-              <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+              <th className="textAllign" onClick={() => requestSort("QtyToNest")}>Programed</th>
+              <th className="textAllign" onClick={() => requestSort("QtyProduced")}>Produced</th>
+              <th className="textAllign" onClick={() => requestSort("QtyCleared")}>Cleared</th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>

@@ -204,14 +204,13 @@ export default function Reports() {
         setMachineLogData(response.data);
       });
   };
-  // console.log(machineName);
+  // console.log("machineName in report main page",machineName);
 
   //OnClick Shift
   const [selectedShift, setSelectedShft] = useState({});
   const ShiftSelected = (Shift, Machine, item, index) => {
     let list = { ...item, index: index };
     setSelectedShft(list);
-    // console.log("The  Selected is ", Shift, Machine);
     axios
       .post(baseURL + "/reports/shiftOnClick", {
         Date: dateSelect,
@@ -327,6 +326,8 @@ export default function Reports() {
         setSelectedMachineIndex(-1);
         setIsPageRefreshed(false);
         localStorage.setItem("isPageRefreshed", false);
+        setMachineName("");
+        setSelectedShft({});
       });
   };
 
@@ -637,6 +638,7 @@ export default function Reports() {
             status={status}
             machineName={machineName}
             location={location}
+            selectedShift={selectedShift}
           />
           <CustomModal
             show={modalShow}

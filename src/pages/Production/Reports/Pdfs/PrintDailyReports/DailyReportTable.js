@@ -1,26 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
 import { Page, Document, StyleSheet, View, Text } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
   page: {
     fontSize: 11,
     flexDirection: "column",
+    padding: 10,
   },
   tableContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    height: "820px",
-    overflow: "hidden",
+    marginBottom: 20,
   },
   tableTitle: {
     textDecoration: "underline",
-    marginLeft: "200px",
-    marginTop: "20px",
+    textAlign: "center",
+    marginTop: 20,
+    marginBottom: 10,
+    fontSize: 14,
   },
   title2: {
-    marginTop: "5px",
     textDecoration: "underline",
-    marginLeft: "205px",
+    textAlign: "center",
+    marginBottom: 20,
+    fontSize: 12,
   },
   details: {
     marginLeft: "60px",
@@ -31,37 +32,20 @@ const styles = StyleSheet.create({
     paddingTop: "10px",
     paddingBottom: "10px",
     display: "flex",
+
   },
-  program: {
-    marginLeft: "180px",
-    marginTop: "-10px",
-  },
-  tableview: {
-    marginLeft: "60px",
-    width: "430px",
-  },
+  
   tablemainheaderName: {
     textDecoration: "underline",
     marginRight: "200px",
   },
-  tablemainheader1: {
-    // textDecoration:"underline",
-    marginLeft: "80px",
-    textAlign:"left",
-    marginTop: "14px",
-  },
-  tablemainheader: {
+  machineName: {
     textDecoration: "underline",
-    marginLeft: "100px",
-    marginTop: "10px",
-  },
-  Headingrow: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderBottom: "1px",
-    marginTop: "5px",
-    marginLeft: "60px",
-    width: "500px",
+    fontSize: 12,
+    marginBottom: 5,
+  },  program: {
+    marginLeft: "160px",
+    marginTop: "-10px",
   },
   production: {
     marginLeft: "350px",
@@ -75,102 +59,101 @@ const styles = StyleSheet.create({
     marginLeft: "350px",
     marginTop: "10px",
   },
-  name: {
-    marginRight: "100px",
-    marginLeft: "100px",
-    marginTop: "50px",
-  },
-  desig: {
-    marginRight: "80px",
-    marginLeft: "380px",
-    marginTop: "-10px",
-  },
-  power: {
-    marginLeft: "60px",
-    marginTop: "20px",
-    borderTop: "1px",
-    width: "500px",
-    paddingTop: "10px",
-  },
-  power1: {
-    marginLeft: "60px",
-    marginTop: "5px",
+  taskContainer: {
+    marginLeft: 20,
+    marginBottom: 10,
   },
   task: {
     textDecoration: "underline",
+    marginBottom: 5,
+    fontSize: 11,
   },
-  Nodata: {
-    marginTop: "100px",
+  operationRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 5,
   },
-  desc: {
-  width:"200px",
-    marginTop: "10px",
-    },
-  desc2: {
-    paddingLeft: "220px",
-    paddingTop: "-33px",
-    paddingBottom:"-16px",
-    marginTop: "-12px",
-    marginBottom: "8px",
+  operationText: {
+    fontSize: 10,
+    width: "70%",
   },
-  desc3: {
-    marginLeft: "124px",
-    marginTop: "5px",
+  timeText: {
+    fontSize: 10,
+    width: "30%",
+    textAlign: "right",
   },
-  descalign :{
-    marginLeft:"20px"
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    borderTopWidth: 1,
+    borderTopColor: "black",
+    marginTop: 20,
+    paddingTop: 10,
   },
+  footerItem: {
+    textAlign: "center",
+    width: "50%",
+  }, 
   column:{
     flexDirection:"row",
     flexWrap:"wrap"
   },
-  desc1: {
-    marginLeft: "40px",
-    marginTop: "10px",
+  tablemainheader1: {
+    // textDecoration:"underline",
+    marginLeft: "80px",
     textAlign:"left",
-    width:"100px",
-  },
-  action:{
+    marginTop: "14px",
+  },  action:{
     width:"80px",
   
   },
   time:{
     flexDirection:"column",
     width:"30%"
-  }
- 
+  },
+    task: {
+    textDecoration: "underline",
+  },
+  desc: {
+    width:"200px",
+      marginTop: "10px",
+      },
+      desc1: {
+        marginLeft: "40px",
+        marginTop: "10px",
+        textAlign:"left",
+        width:"100px",
+      },
+    desc2: {
+      paddingLeft: "220px",
+      paddingTop: "-33px",
+      paddingBottom:"-16px",
+      marginTop: "-12px",
+      marginBottom: "8px",
+    },
+    desc3: {
+      marginLeft: "124px",
+      marginTop: "5px",
+    },
 });
 
-const DailyReportTable = ({ Date, pdfData, preparedby, roleValue,location }) => {
-  const [index, setIndex] = useState(0);
-  const recordsPerPage = index === 0 ? 3 : 4; // if page is 1, display 3 records; otherwise, display 4 records
+const DailyReportTable = ({
+  Date,
+  pdfData,
+  preparedby,
+  roleValue,
+  location,
+}) => (
+  <Document>
+    <Page size="A4" style={styles.page}>
+      <View style={styles.tableContainer}>
+        <Text style={styles.tableTitle}>Magod Laser Machining Pvt Ltd</Text>
+        <Text style={styles.title2}>Daily Shift Log for: {Date}</Text>
 
-  const totalPages = Math.ceil(pdfData.length / recordsPerPage);
-
-  return (
-    <Document>
-      {Array.from({ length: totalPages }, (_, pageIndex) => {
-        const startIndex = pageIndex * recordsPerPage;
-        const endIndex = Math.min(startIndex + recordsPerPage, pdfData.length);
-        const pageRecords = pdfData.slice(startIndex, endIndex);
-
-        return (
-          <Page size="A4" style={styles.page} key={pageIndex}>
-            <View style={styles.tableContainer}>
-              {pageIndex === 0 && (
-                <View>
-                  <Text style={styles.tableTitle}>
-                    Magod Laser Machining Pvt Ltd: {location[0]?.UnitName}
-                  </Text>
-                  <Text style={styles.title2}>Production Summary: {Date}</Text>
-                </View>
-              )}
-
-              {pageRecords && pageRecords.length > 0 ? (
-                pageRecords.map((machine, index) => (
-                  <React.Fragment key={machine.MachineName}>
-                    <View style={styles.details}>
-                      <Text style={styles.tablemainheaderName}>
+        {pdfData.map((machine, index) => (
+          <React.Fragment key={index}>
+            <View style={styles.details}>
+            <Text style={styles.tablemainheaderName}>
                         {machine.MachineName}
                       </Text>
                       <Text style={styles.program}>
@@ -185,11 +168,11 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue,location }) => 
                       <Text style={styles.production2}>
                         Total Off: {machine.TotalOff}
                       </Text>
-                    </View>
+            </View>
 
-                    {machine.task.map((task) => (
-                      <View style={styles.tablemainheader1} key={task.task}>
-                   <View style={styles.column}>
+            {machine.task.map((task, taskIndex) => (
+              <View key={taskIndex} style={styles.tablemainheader1}>
+                  <View style={styles.column}>
                       <View style={styles.action}>
                          <Text style={styles.task}>{task.action}</Text>
                       </View>
@@ -213,36 +196,19 @@ const DailyReportTable = ({ Date, pdfData, preparedby, roleValue,location }) => 
                         </View>
                         
                         </View>
-                      
                        
-                       
-                       
-                      </View>
-                    ))}
-                  </React.Fragment>
-                ))
-              ) : (
-                <Text style={styles.Nodata}>No data available</Text>
-              )}
+              </View>
+            ))}
+          </React.Fragment>
+        ))}
 
-              {pageIndex === totalPages - 1 && (
-                <React.Fragment>
-                  <View>
-                    <Text style={styles.power}>Power Meter Reading 0</Text>
-                    <Text style={styles.power1}>Power Units Consume 0</Text>
-                  </View>
-                  <View>
-                    <Text style={styles.name}>{preparedby}</Text>
-                    <Text style={styles.desig}>Production Manager</Text>
-                  </View>
-                </React.Fragment>
-              )}
-            </View>
-          </Page>
-        );
-      })}
-    </Document>
-  );
-};
+        <View style={styles.footer}>
+          <Text style={styles.footerItem}>{preparedby}</Text>
+          <Text style={styles.footerItem}>Production Manager</Text>
+        </View>
+      </View>
+    </Page>
+  </Document>
+);
 
 export default DailyReportTable;

@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 export default function ({ selectedRow, setSelectedRow }) {
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
+  
   const blockInvalidCharReg = (e) => {
     const invalidChars = [
       "!",

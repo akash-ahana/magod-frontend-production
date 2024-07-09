@@ -16,7 +16,7 @@ export default function MachineLog({
   setSelectedRows,
   machinelogRowSelect,
   status,
-  machineName,location
+  machineName,location,selectedShift
 }) {
   const [selectAll, setSelectAll] = useState(false);
   const [FinalMachineLogArray, setFinalMachineLogArray] = useState([]);
@@ -28,6 +28,45 @@ export default function MachineLog({
   const [toTime, setToTime] = useState("");
   const [modalShow1, setModalShow1] = useState(false);
   const [modalShow4, setModalShow4] = useState(false);
+
+  const blockInvalidChar = (e) => {
+  const invalidChars = [
+    "!",
+    "@",
+    "#",
+    "$",
+    "%",
+    "^",
+    "&",
+    "*",
+    "(",
+    ")",
+    "_",
+    "-",
+    "+",
+    "=",
+    "|",
+    "}",
+    "{",
+    "[",
+    "]",
+    ".",
+    ",",
+    "?", 
+    '"',
+    "<",
+    ">",
+    "`",
+    "~",
+    ";",
+    "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+    "A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"
+  ];
+  if (invalidChars.includes(e.key) || e.key === "'" || e.key === "\\") {
+    e.preventDefault();
+  }
+}
+
 
   const sortMachineLogs = (logs) => {
     // Perform sorting based on your desired logic
@@ -92,6 +131,21 @@ export default function MachineLog({
   }
 
   const handleTimeChange = (index, field, value) => {
+    const dateTimeRegex = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
+    const maxLength = 16; // Length of 'DD/MM/YYYY HH:MM'
+
+    if (value.length > maxLength) {
+        toast.error(`Invalid ${field} format. Please use DD/MM/YYYY HH:MM`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
+    if(value.length ===0){
+      toast.error(`Input field cannot be empty`, {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+
     const updatedMachineLogData = [...machineLogData]; // Create a copy of the array
     // Update the specific item's field with the new value
     updatedMachineLogData[index] = {
@@ -124,91 +178,117 @@ export default function MachineLog({
     }
   };
 
+
   const onClickSaveLog = () => {
-    if (machineName !== "") {
-      axios
-        .post(baseURL + "/reports/saveLog", {
-          machineLogData,
+    // Regular expression to validate dd/mm/yyyy HH:MM format
+    const dateTimeRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4} ([01][0-9]|2[0-3]):([0-5][0-9])$/;
+  
+    // Check if any log entry has empty or invalid FromTime or ToTime
+    for (let log of machineLogData) {
+      if (!log.FromTime || !log.ToTime) {
+        toast.error("FromTime and ToTime cannot be empty", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        return;
+      }
+      if (!dateTimeRegex.test(log.FromTime) || !dateTimeRegex.test(log.ToTime)) {
+        toast.error("FromTime and ToTime must be in the format dd/mm/yyyy HH:MM and within valid ranges", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        return;
+      }
+    }
+  
+    // If all FromTime and ToTime are valid, proceed with the logic
+    if (Object.keys(selectedShift).length !== 0) {
+      axios.post(baseURL + "/reports/saveLog", {
+        machineLogData,
+      })
+      .then((response) => {
+        setModalShow1(true);
+        axios.post(baseURL + "/reports/shiftOnClick", {
+          Date: dateSelect,
+          Machine: machineName,
+          Shift: selectedShift?.Shift,
         })
         .then((response) => {
-          // toast.success(`Log Saved`, {
-          //   position: toast.POSITION.TOP_CENTER,
-          // });
-          setModalShow1(true);
-          axios
-            .post(baseURL + "/reports/machineOnclick", {
-              Date: dateSelect,
-              Machine: machineName,
-            })
-            .then((response) => {
-              for (let i = 0; i < response.data.length; i++) {
-                let dateSplit1 = response.data[i].FromTime.split(" ");
-                let date1 = dateSplit1[0].split("-");
-                let year1 = date1[0];
-                let month1 = date1[1];
-                let day1 = date1[2];
-                let time = dateSplit1[1].split(":");
-                let Time = time[0] + ":" + time[1];
-                let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-                response.data[i].FromTime = finalDay1;
-              }
-              for (let i = 0; i < response.data.length; i++) {
-                let dateSplit2 = response.data[i].ToTime.split(" ");
-                let date2 = dateSplit2[0].split("-");
-                let year2 = date2[0];
-                let month2 = date2[1];
-                let day2 = date2[2];
-                let time1 = dateSplit2[1].split(":");
-                let Time1 = time1[0] + ":" + time1[1];
-                let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-                response.data[i].ToTime = finalDay2;
-              }
-              // console.log("", response.data);
-              setMachineLogData(response.data);
-            });
+          processResponse(response.data);
         });
+      });
+    } else if (machineName !== "" && machineName !== undefined) {
+      axios.post(baseURL + "/reports/saveLog", {
+        machineLogData,
+      })
+      .then((response) => {
+        setModalShow1(true);
+        axios.post(baseURL + "/reports/machineOnclick", {
+          Date: dateSelect,
+          Machine: machineName,
+        })
+        .then((response) => {
+          processResponse(response.data);
+        });
+      });
     } else {
-      axios
-        .post(baseURL + "/reports/saveLog", {
-          machineLogData,
+      axios.post(baseURL + "/reports/saveLog", {
+        machineLogData,
+      })
+      .then((response) => {
+        setModalShow1(true);
+        axios.post(baseURL + "/reports/machineLog", {
+          Date: dateSelect,
+          Machine: machineName,
         })
         .then((response) => {
-          // toast.success(`Log Saved`, {
-          //   position: toast.POSITION.TOP_CENTER,
-          // });
-          setModalShow1(true);
-          // console.log("afteronclick machine", machineName);
-          axios
-            .post(baseURL + "/reports/machineLog", { Date: dateSelect })
-            .then((response) => {
-              for (let i = 0; i < response.data.length; i++) {
-                let dateSplit1 = response.data[i].FromTime.split(" ");
-                let date1 = dateSplit1[0].split("-");
-                let year1 = date1[0];
-                let month1 = date1[1];
-                let day1 = date1[2];
-                let time = dateSplit1[1].split(":");
-                let Time = time[0] + ":" + time[1];
-                let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
-                response.data[i].FromTime = finalDay1;
-              }
-              for (let i = 0; i < response.data.length; i++) {
-                let dateSplit2 = response.data[i].ToTime.split(" ");
-                let date2 = dateSplit2[0].split("-");
-                let year2 = date2[0];
-                let month2 = date2[1];
-                let day2 = date2[2];
-                let time1 = dateSplit2[1].split(":");
-                let Time1 = time1[0] + ":" + time1[1];
-                let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
-                response.data[i].ToTime = finalDay2;
-              }
-              // console.log(response.data);
-              setMachineLogData(response.data);
-            });
+          processResponse(response.data);
         });
+      });
     }
   };
+  
+  // // Function to check the date and time format
+  // function isValidDateTimeFormat(dateTime) {
+  //   // Regular expression to validate dd/mm/yyyy HH:MM format
+  //   const dateTimeRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4} ([01][0-9]|2[0-3]):([0-5][0-9])$/;
+  //   return dateTimeRegex.test(dateTime);
+  // }
+  
+
+  
+  const processResponse = (data) => {
+    // Processing response data format if needed
+    for (let i = 0; i < data.length; i++) {
+      let dateSplit1 = data[i].FromTime.split(" ");
+      let date1 = dateSplit1[0].split("-");
+      let year1 = date1[0];
+      let month1 = date1[1];
+      let day1 = date1[2];
+      let time = dateSplit1[1].split(":");
+      let Time = time[0] + ":" + time[1];
+      let finalDay1 = day1 + "/" + month1 + "/" + year1 + " " + Time;
+      data[i].FromTime = finalDay1;
+  
+      let dateSplit2 = data[i].ToTime.split(" ");
+      let date2 = dateSplit2[0].split("-");
+      let year2 = date2[0];
+      let month2 = date2[1];
+      let day2 = date2[2];
+      let time1 = dateSplit2[1].split(":");
+      let Time1 = time1[0] + ":" + time1[1];
+      let finalDay2 = day2 + "/" + month2 + "/" + year2 + " " + Time1;
+      data[i].ToTime = finalDay2;
+    }
+  
+    setMachineLogData(data);
+  };
+  
+  const isValidDateTimeFormat = (dateTimeString) => {
+    const dateTimeRegex = /^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}$/;
+    return dateTimeRegex.test(dateTimeString);
+  };
+  
+  
+  
 
   const closeModal = () => {
     setModalShow1(false);
@@ -374,6 +454,7 @@ export default function MachineLog({
                         <input
                           className="table-cell-editor"
                           style={{ textAlign: "center", width: "150px" }}
+                          onKeyDown={blockInvalidChar}
                           value={item?.FromTime}
                           onChange={(e) =>
                             handleTimeChange(key, "FromTime", e.target.value)
@@ -386,6 +467,7 @@ export default function MachineLog({
                         <input
                           className="table-cell-editor"
                           style={{ textAlign: "center", width: "150px" }}
+                          onKeyDown={blockInvalidChar}
                           value={item?.ToTime}
                           onChange={(e) =>
                             handleTimeChange(key, "ToTime", e.target.value)
