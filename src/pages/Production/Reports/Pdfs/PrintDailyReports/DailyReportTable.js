@@ -6,6 +6,9 @@ const styles = StyleSheet.create({
     fontSize: 11,
     flexDirection: "column",
     padding: 10,
+    marginTop: 30, // Adjust top margin for the whole page
+    marginBottom: 50, // Adjust bottom margin for the whole page
+    paddingBottom: 50, // Ensure there is enough space at the bottom
   },
   tableContainer: {
     marginBottom: 20,
@@ -32,9 +35,7 @@ const styles = StyleSheet.create({
     paddingTop: "10px",
     paddingBottom: "10px",
     display: "flex",
-
   },
-  
   tablemainheaderName: {
     textDecoration: "underline",
     marginRight: "200px",
@@ -43,7 +44,8 @@ const styles = StyleSheet.create({
     textDecoration: "underline",
     fontSize: 12,
     marginBottom: 5,
-  },  program: {
+  },
+  program: {
     marginLeft: "160px",
     marginTop: "-10px",
   },
@@ -93,48 +95,44 @@ const styles = StyleSheet.create({
   footerItem: {
     textAlign: "center",
     width: "50%",
-  }, 
-  column:{
-    flexDirection:"row",
-    flexWrap:"wrap"
+  },
+  column: {
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   tablemainheader1: {
-    // textDecoration:"underline",
     marginLeft: "80px",
-    textAlign:"left",
+    textAlign: "left",
     marginTop: "14px",
-  },  action:{
-    width:"80px",
-  
   },
-  time:{
-    flexDirection:"column",
-    width:"30%"
+  action: {
+    width: "80px",
   },
-    task: {
-    textDecoration: "underline",
+  time: {
+    flexDirection: "column",
+    width: "30%",
   },
   desc: {
-    width:"200px",
-      marginTop: "10px",
-      },
-      desc1: {
-        marginLeft: "40px",
-        marginTop: "10px",
-        textAlign:"left",
-        width:"100px",
-      },
-    desc2: {
-      paddingLeft: "220px",
-      paddingTop: "-33px",
-      paddingBottom:"-16px",
-      marginTop: "-12px",
-      marginBottom: "8px",
-    },
-    desc3: {
-      marginLeft: "124px",
-      marginTop: "5px",
-    },
+    width: "200px",
+    marginTop: "10px",
+  },
+  desc1: {
+    marginLeft: "40px",
+    marginTop: "10px",
+    textAlign: "left",
+    width: "100px",
+  },
+  desc2: {
+    paddingLeft: "220px",
+    paddingTop: "-33px",
+    paddingBottom: "-16px",
+    marginTop: "-12px",
+    marginBottom: "8px",
+  },
+  desc3: {
+    marginLeft: "124px",
+    marginTop: "5px",
+  },
 });
 
 const DailyReportTable = ({
@@ -153,50 +151,46 @@ const DailyReportTable = ({
         {pdfData.map((machine, index) => (
           <React.Fragment key={index}>
             <View style={styles.details}>
-            <Text style={styles.tablemainheaderName}>
-                        {machine.MachineName}
-                      </Text>
-                      <Text style={styles.program}>
-                        Laser ON Reading {machine.LaserOn}
-                      </Text>
-                      <Text style={styles.production}>
-                        Production ON: {machine.ProdON}
-                      </Text>
-                      <Text style={styles.production1}>
-                        Non-Production ON: {machine.NonProdOn}
-                      </Text>
-                      <Text style={styles.production2}>
-                        Total Off: {machine.TotalOff}
-                      </Text>
+              <Text style={styles.tablemainheaderName}>
+                {machine.MachineName}
+              </Text>
+              <Text style={styles.program}>
+                Laser ON Reading {machine.LaserOn}
+              </Text>
+              <Text style={styles.production}>
+                Production ON: {machine.ProdON}
+              </Text>
+              <Text style={styles.production1}>
+                Non-Production ON: {machine.NonProdOn}
+              </Text>
+              <Text style={styles.production2}>
+                Total Off: {machine.TotalOff}
+              </Text>
             </View>
 
             {machine.task.map((task, taskIndex) => (
               <View key={taskIndex} style={styles.tablemainheader1}>
-                  <View style={styles.column}>
-                      <View style={styles.action}>
-                         <Text style={styles.task}>{task.action}</Text>
-                      </View>
-                      
-                      <View>
-                        
-                        {task.operations.map((operation) => (
-                          <Text key={operation.Operation} style={styles.desc}>
-                            {operation.Operation} 
-                          </Text>
-                        ))}
+                <View style={styles.column}>
+                  <View style={styles.action}>
+                    <Text style={styles.task}>{task.action}</Text>
+                  </View>
 
-                        </View>
+                  <View>
+                    {task.operations.map((operation) => (
+                      <Text key={operation.Operation} style={styles.desc}>
+                        {operation.Operation}
+                      </Text>
+                    ))}
+                  </View>
 
-                        <View style={styles.time}>
-                        {task.operations.map((operation) => (
-                          <Text key={operation.Operation} style={styles.desc1}>
-                            {operation.time}
-                          </Text>
-                        ))}
-                        </View>
-                        
-                        </View>
-                       
+                  <View style={styles.time}>
+                    {task.operations.map((operation) => (
+                      <Text key={operation.Operation} style={styles.desc1}>
+                        {operation.time}
+                      </Text>
+                    ))}
+                  </View>
+                </View>
               </View>
             ))}
           </React.Fragment>
