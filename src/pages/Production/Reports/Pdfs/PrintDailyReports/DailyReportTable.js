@@ -6,9 +6,9 @@ const styles = StyleSheet.create({
     fontSize: 11,
     flexDirection: "column",
     padding: 10,
-    marginTop: 30, // Adjust top margin for the whole page
-    marginBottom: 50, // Adjust bottom margin for the whole page
-    paddingBottom: 50, // Ensure there is enough space at the bottom
+    marginTop: 30, 
+    marginBottom: 50, 
+    paddingBottom: 50, 
   },
   tableContainer: {
     marginBottom: 20,
