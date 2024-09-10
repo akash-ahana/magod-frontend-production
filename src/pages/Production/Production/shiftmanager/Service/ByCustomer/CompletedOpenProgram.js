@@ -211,6 +211,12 @@ export default function CompleteOpenProgram({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
+    if(programCompleteData[0]?.QtyCleared===0){
+      toast.error("Clear parts for for quantity before closing the program", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    else{
     axios
       .post(
         baseURL + "/shiftManagerProfile/CloseProgram",
@@ -240,10 +246,11 @@ export default function CompleteOpenProgram({
             const constSelectProgramCompleted = selectProgramCompleted;
             constSelectProgramCompleted.PStatus = "Closed";
             setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(response.data.success);
+            setDisableStatus(true);
           }
         }
       });
+    }
   };
   //
 
@@ -462,6 +469,7 @@ export default function CompleteOpenProgram({
                   <button
                     className="button-style group-button"
                     onClick={clearAllButton}
+                    disabled={disableStatus === true}
                   >
                     Clear Parts
                   </button>

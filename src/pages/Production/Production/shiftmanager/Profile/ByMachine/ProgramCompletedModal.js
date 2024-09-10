@@ -29,6 +29,7 @@ export default function ProgramCompletedModal({
 
   const [newpartlistdata, setNewPartlistdata] = useState([]);
 
+
   const modalTable = () => {
     axios
       .post(baseURL + "/shiftManagerProfile/shiftManagerncProgramTaskList", {
@@ -124,7 +125,6 @@ export default function ProgramCompletedModal({
         constProgramCompleteData
       )
       .then((response) => {
-        console.log("Current State of programCompleteData", response.data);
         toast.success("Success", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -157,7 +157,13 @@ export default function ProgramCompletedModal({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
-    axios
+    if(programCompleteData[0]?.QtyCleared===0){
+      toast.error("Clear parts for for quantity before closing the program", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    else{
+      axios
       .post(
         baseURL + "/shiftManagerProfile/CloseProgram",
         selectProgramCompleted
@@ -186,10 +192,12 @@ export default function ProgramCompletedModal({
             const constSelectProgramCompleted = selectProgramCompleted;
             constSelectProgramCompleted.PStatus = "Closed";
             setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(response.data.success);
+            setDisableStatus(true);
           }
         }
       });
+    }
+    
   };
 
   useEffect(() => {

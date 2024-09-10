@@ -221,6 +221,12 @@ export default function ProgramCompletedModal({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
+    if(programCompleteData[0]?.QtyCleared===0){
+      toast.error("Clear parts for for quantity before closing the program", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    else{
     axios
       .post(
         baseURL + "/shiftManagerProfile/CloseProgram",
@@ -257,41 +263,20 @@ export default function ProgramCompletedModal({
           }
         }
       });
+    }
   };
   //
   const onChangeCleared = (e, item, key) => {
-    console.log(
-      " On CHANGE CLEARED ",
-      " e.target.value is ",
-      e.target.value,
-      " item is ",
-      item,
-      " key is ",
-      key
-    );
     const newconstprogramCompleteData = programCompleteData;
     newconstprogramCompleteData[key].QtyCleared = Number(e.target.value);
     setProgramCompleteData(newconstprogramCompleteData);
     setNewProgramCompleteData(newconstprogramCompleteData);
-    console.log(
-      "NEW CONST PROGRAM COMPLETE DATA IS ",
-      newconstprogramCompleteData
-    );
     setNewProgramCompleteData(newconstprogramCompleteData);
 
     setNewPartlistdata(newconstprogramCompleteData);
   };
 
   const onChangeRemarks = (e, item, key) => {
-    console.log(
-      " On CHANGE REMARKS",
-      " e.target.value is ",
-      e.target.value,
-      " item is ",
-      item,
-      " key is ",
-      key
-    );
     const newconstprogramCompleteData = programCompleteData;
     newconstprogramCompleteData[key].Remarks = e.target.value;
     setProgramCompleteData(newconstprogramCompleteData);
@@ -464,6 +449,7 @@ export default function ProgramCompletedModal({
                   <button
                     className="button-style group-button"
                     onClick={clearAllButton}
+                    disabled={disableStatus === true}
                   >
                     Clear Parts
                   </button>

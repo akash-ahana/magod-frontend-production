@@ -147,6 +147,14 @@ a {
   gap: 22px;
 }
 
+.button-style:disabled {
+  background-color: grey;    /* Grey background for disabled button */
+  color: #ffffff;
+  cursor: not-allowed;       /* Not-allowed cursor for disabled state */
+  opacity: 0.6;              /* Reduced opacity to indicate disabled state */
+}
+
+
 .form__field {
   font-family: inherit;
   width: 100%;
