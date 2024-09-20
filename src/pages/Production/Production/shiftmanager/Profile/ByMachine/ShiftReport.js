@@ -9,14 +9,12 @@ export default function ShiftReport() {
   const month = String(today.getMonth() + 1).padStart(2, "0"); // Months are zero-based
   const day = String(today.getDate()).padStart(2, "0");
   const currentDate = `${year}-${month}-${day}`;
-  console.log(currentDate);
 
   const [reportsTreeViewData, setReportsTreeView] = useState([]);
   useEffect(() => {
     axios
       .post(baseURL + "/shiftManagerProfile/shiftReport", { Date: currentDate })
       .then((response) => {
-        console.log("RESPONSE", response.data);
         setReportsTreeView(response.data);
       });
   }, []);
