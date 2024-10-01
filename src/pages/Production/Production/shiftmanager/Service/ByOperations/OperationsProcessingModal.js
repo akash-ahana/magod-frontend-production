@@ -53,7 +53,6 @@ export default function OperationsProcessingModal({
   };
 
   const clearAllButton = () => {
-    console.log("Clear All button Clicked", programCompleteData);
     // Create a new copy of the array to work with
     const constProgramCompleteData = programCompleteData.map((item) => ({
       ...item,
@@ -64,10 +63,7 @@ export default function OperationsProcessingModal({
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-    console.log(
-      "Updated Const Program Complete Data is ",
-      constProgramCompleteData
-    );
+
     // Validate if Remarks are mandatory
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -91,7 +87,6 @@ export default function OperationsProcessingModal({
         constProgramCompleteData
       )
       .then((response) => {
-        console.log("Current State of programCompleteData", response.data);
         toast.success("Success", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -119,7 +114,6 @@ export default function OperationsProcessingModal({
   };
 
   const onClickCloseProgram = () => {
-    console.log("Close Program button is clicked");
     axios
       .post(
         baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
@@ -131,17 +125,7 @@ export default function OperationsProcessingModal({
       });
   };
   //console.log(newprogramCompleteData , 'After Updating newprogramCompleteData')
-  console.log(programCompleteData, "After Updating");
   const onChangeCleared = (e, item, key) => {
-    console.log(
-      " On CHANGE CLEARED ",
-      " e.target.value is ",
-      e.target.value,
-      " item is ",
-      item,
-      " key is ",
-      key
-    );
     // //item is not required , e.target.value contains the entered value in the input box, and key contains the index of the array
     // console.log(' PART LIST IS ' , partlistdata)
     const newconstprogramCompleteData = programCompleteData;
@@ -150,25 +134,13 @@ export default function OperationsProcessingModal({
     // }
     setProgramCompleteData(newconstprogramCompleteData);
     setNewProgramCompleteData(newconstprogramCompleteData);
-    console.log(
-      "NEW CONST PROGRAM COMPLETE DATA IS ",
-      newconstprogramCompleteData
-    );
+
     setNewProgramCompleteData(newconstprogramCompleteData);
 
     setNewPartlistdata(newconstprogramCompleteData);
   };
 
   const onChangeRemarks = (e, item, key) => {
-    console.log(
-      " On CHANGE REMARKS",
-      " e.target.value is ",
-      e.target.value,
-      " item is ",
-      item,
-      " key is ",
-      key
-    );
     const newconstprogramCompleteData = programCompleteData;
     newconstprogramCompleteData[key].Remarks = e.target.value;
     setProgramCompleteData(newconstprogramCompleteData);

@@ -9,6 +9,9 @@ const styles = StyleSheet.create({
   page: {
     fontSize: 11,
     flexDirection: "column",
+    marginTop: 30, 
+    marginBottom: 50, 
+    paddingBottom: 60, 
   },
   tableContainer: {
     flexDirection: "row",

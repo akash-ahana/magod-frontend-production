@@ -223,7 +223,13 @@ export default function OperationsCompleteOpenProgram({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
-    axios
+    if(programCompleteData[0]?.QtyCleared===0){
+      toast.error("Clear parts for for quantity before closing the program", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
+    else{
+      axios
       .post(
         baseURL + "/shiftManagerProfile/CloseProgram",
         selectProgramCompleted
@@ -255,10 +261,11 @@ export default function OperationsCompleteOpenProgram({
             const constSelectProgramCompleted = selectProgramCompleted;
             constSelectProgramCompleted.PStatus = "Closed";
             setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(response.data.success);
+            setDisableStatus(true);
           }
         }
       });
+    }
   };
 
   ////
@@ -530,6 +537,7 @@ export default function OperationsCompleteOpenProgram({
                         style={{ width: "15%" }}
                         className="textAllign"
                         onClick={() => requestSort("Cleared")}
+                        disabled={disableStatus === true}
                       >
                         Cleared
                       </th>
