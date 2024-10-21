@@ -1,8 +1,8 @@
 /** @format */
 
-let API = "http://192.168.1.25:4012";
+// let API = "http://192.168.1.25:4012";
 // let API = "http://localhost:4001";
-// let API = "http://172.16.20.61:5007";
+let API = "http://172.16.20.61:5007";
 // let API = "http://172.16.20.39:3001";
 //let API = "http://20.204.144.125:3001";
 

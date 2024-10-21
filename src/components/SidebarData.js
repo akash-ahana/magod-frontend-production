@@ -167,8 +167,8 @@ export const customerSidebar = [
 	},
 	{
 		title: "Previous Menu",
-		// path: "http://172.16.20.61:3000/home",
-		path: "http://192.168.1.25:9000/home",
+		path: "http://172.16.20.61:3000/home",
+		// path: "http://192.168.1.25:9000/home",
 		icon: <MdIcon.MdPreview />,
 		iconClosed: <RiIcons.RiArrowDownSFill />,
 		iconOpened: <RiIcons.RiArrowUpSFill />,
