@@ -8,6 +8,14 @@ export default function DeleteOperatorForDayAsk({ openmodal, setOpenModal, data,
     setOpenModal(false);
   };
 
+
+//Date format for shiftDate.
+let formattedDate = '0';
+  if (ShiftDate && ShiftDate[0]) {
+    const shiftDate = ShiftDate[0]; 
+    const [year, month, day] = shiftDate.split("-");
+    formattedDate = `${day}/${month}/${year}`;
+  }
   return (
     <div>
       <Modal show={openmodal} onHide={handleClose}>
@@ -15,7 +23,7 @@ export default function DeleteOperatorForDayAsk({ openmodal, setOpenModal, data,
           <Modal.Title>Delete Operator For A Day</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are You Sure You want to delete <b>{data.Operator}</b> for <b>{data.Machine}</b> on {ShiftDate ? <b>{ShiftDate[0]}</b> : 'N/A'}?
+          Are You Sure You want to delete <b>{data.Operator}</b> for <b>{data.Machine}</b> on {ShiftDate ? <b>{formattedDate}</b> : 'N/A'}?
         </Modal.Body>
         <Modal.Footer>
           <Button variant='primary' onClick={()=>{onDeleteOperatorForDay()

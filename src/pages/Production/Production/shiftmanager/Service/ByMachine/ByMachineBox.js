@@ -52,7 +52,6 @@ export default function ByMachineBox() {
     setSelectLaser(list);
   };
 
-  console.log(laser);
   const [selectProgramCompleted, setSelectProgramCompleted] = useState("");
   const programCompleted = (item, index) => {
     let list = { ...item, index: index };
@@ -60,7 +59,6 @@ export default function ByMachineBox() {
   };
 
   const taskNoOnClick = (Machine, TaskNo) => {
-    console.log("Task No on Click is ", TaskNo);
     axios
       .post(baseURL + "/shiftManagerService/taskNoProgramNoCompleted", TaskNo)
       .then((response) => {
@@ -100,14 +98,12 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
         setMachineProgramesCompleted(response.data);
       });
 
     axios
       .post(baseURL + "/shiftManagerService/taskNoProgramNoProcessing", TaskNo)
       .then((response) => {
-        console.log(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -148,10 +144,8 @@ export default function ByMachineBox() {
       });
   };
 
-  console.log("Color code in data set", machineProgramesCompleted);
 
   const MachineOnClick = (Machine) => {
-    console.log(" Machine Selected is ", Machine);
     setSelectedMachine(Machine);
     axios
       .post(
@@ -159,8 +153,6 @@ export default function ByMachineBox() {
         { MachineName: Machine }
       )
       .then((response) => {
-        console.log(response.data);
-        console.log("Programs Compleated DATA 1", response.data);
 
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -197,7 +189,6 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
         setMachineProgramesCompleted(response.data);
       });
 
@@ -243,7 +234,6 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
         setmachineProgramesProcessing(response.data);
       });
   };
@@ -298,7 +288,6 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
         setMachineProgramesCompleted(response.data);
       });
     axios
@@ -339,7 +328,6 @@ export default function ByMachineBox() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
         setmachineProgramesProcessing(response.data);
         setSelectedLabelIndex(index);
         setSelectedMachineIndex(-1);

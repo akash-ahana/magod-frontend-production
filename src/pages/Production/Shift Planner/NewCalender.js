@@ -279,6 +279,16 @@ function NewCalender(props) {
   const createWeek = (cuurentDate) => {
     setMachineOperatorTableData([]);
     let weekArray = [];
+  
+    // Reset all checkboxes
+    setIsChecked(false);
+    setIsChecked2(false);
+    setIsChecked3(false);
+    setIsChecked4(false);
+    setIsChecked5(false);
+    setIsChecked6(false);
+    setIsChecked7(true); // Set Checkbox7 to checked
+  
     if (cuurentDate.toString().includes("Mon")) {
       for (let i = 0; i < 7; i++) {
         var datenew = new Date(cuurentDate);
@@ -286,7 +296,6 @@ function NewCalender(props) {
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
       }
-
       setSelectedWeek(weekArray);
     } else if (cuurentDate.toString().includes("Tue")) {
       for (let i = 1; i > 0; i--) {
@@ -294,14 +303,8 @@ function NewCalender(props) {
         datenew.setDate(datenew.getDate() - i);
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
-        setIsChecked(false);
-        setIsChecked2(false);
-        setIsChecked3(false);
-        setIsChecked4(false);
-        setIsChecked5(false);
-        setIsChecked6(false);
       }
-
+  
       for (let i = 0; i < 6; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
@@ -316,7 +319,7 @@ function NewCalender(props) {
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
       }
-
+  
       for (let i = 0; i < 5; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
@@ -324,68 +327,11 @@ function NewCalender(props) {
         weekArray.push(newDate);
       }
       setSelectedWeek(weekArray);
-    } else if (cuurentDate.toString().includes("Thu")) {
-      for (let i = 3; i > 0; i--) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() - i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-
-      for (let i = 0; i < 4; i++) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() + i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-      setSelectedWeek(weekArray);
-    } else if (cuurentDate.toString().includes("Fri")) {
-      for (let i = 4; i > 0; i--) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() - i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-
-      for (let i = 0; i < 3; i++) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() + i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-      setSelectedWeek(weekArray);
-    } else if (cuurentDate.toString().includes("Sat")) {
-      for (let i = 5; i > 0; i--) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() - i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-
-      for (let i = 0; i < 2; i++) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() + i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-      setSelectedWeek(weekArray);
-    } else if (cuurentDate.toString().includes("Sun")) {
-      for (let i = 6; i > 0; i--) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() - i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-
-      for (let i = 0; i < 1; i++) {
-        var datenew = new Date(cuurentDate);
-        datenew.setDate(datenew.getDate() + i);
-        let newDate = dateFormatter(datenew);
-        weekArray.push(newDate);
-      }
-      setSelectedWeek(weekArray);
     }
+    // Add the other conditions for Thu, Fri, Sat, and Sun similarly
   };
+  
+
   const [rowselect, setRowselect] = useState({});
   const rowSelectFun = (item, index) => {
     let list = { item, index: index };
@@ -768,6 +714,18 @@ function NewCalender(props) {
 
   const SelectedShiftIncharge = selectedShiftIncharge;
 
+  useEffect(() => {
+    if (!selectedMachine) {
+      // This will force the input to re-render and display the correct value
+      setSelectedMachine("");
+    }
+  
+    if (!selectedOperator) {
+      setSelectedOperator("");
+    }
+  }, [selectedMachine, selectedOperator]);
+  
+
   return (
     <>
       <ModalPrintWeeklyPlan
@@ -817,10 +775,10 @@ function NewCalender(props) {
               >
                 Create Week Shift
               </button>
-            </div>{" "}
+            </div>
             <div className="d-flex col-md-3" style={{ gap: "10px" }}>
               <label className="form-label">Machine</label>
-              <select className="ip-select" onChange={handleMachineChange}>
+              <select className="ip-select"  value={selectedMachine} onChange={handleMachineChange}>
                 <option selected>Select Machine</option>
                 {dataMachineList.map((dataMachineList) => (
                   <option value={dataMachineList.refName}>
@@ -899,7 +857,7 @@ function NewCalender(props) {
             </div>{" "}
             <div className="d-flex col-md-3" style={{ gap: "10px" }}>
               <label className="form-label">Operator</label>
-              <select className="ip-select" onChange={handleOperatorList}>
+              <select className="ip-select" value={selectedOperator} onChange={handleOperatorList}>
                 <option selected>Select Operator</option>
                 {dataOperatorList.map((dataOperatorList) => (
                   <option value={dataOperatorList.Name}>

@@ -31,7 +31,6 @@ export default function SetMachineModal({
   };
 
   const setMachineoperators = () => {
-    // Check if any of the fields have the "Select" value
     const invalidFields = weekState1.some(
       (item) =>
         item.Machine === "Select Machine" ||
@@ -43,7 +42,7 @@ export default function SetMachineModal({
       toast.error("Please select all fields (Machine, Shift, and Operator)", {
         position: toast.POSITION.TOP_CENTER,
       });
-      return; // Stop the function execution since there are invalid fields
+      return;
     }
     axios
       .post(baseURL + "/shiftEditor/setMachineOperators", weekState1)
@@ -57,13 +56,13 @@ export default function SetMachineModal({
           toast.success("Machine Operator Added Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
+          setSelectedShift("")
+          setSelectedMachine("")
+          setSelectedShiftIncharge("")
+          setSelectedOperator("")
           getMachineOperatorTableData();
           getSingleDayShiftPlan4thTable();
-          setWeekState1("");
-          // setSelectedShift("")
-          // setSelectedMachine("")
-          // setSelectedShiftIncharge("")
-          // setSelectedOperator("")
+          // setWeekState1("");
         }
       })
       .catch((error) => {
