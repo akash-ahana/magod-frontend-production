@@ -34,7 +34,6 @@ export default function ProgramCompletedModal({
         ...selectProgramCompleted,
       })
       .then((response) => {
-        console.log(response.data);
         setProgramCompleteData(response.data);
       });
   };
@@ -92,7 +91,6 @@ export default function ProgramCompletedModal({
   };
 
   const clearAllButton = () => {
-    console.log("Clear All button Clicked", programCompleteData);
     // Create a new copy of the array to work with
     const constProgramCompleteData = [...programCompleteData];
     // Update the QtyCleared property
@@ -101,10 +99,7 @@ export default function ProgramCompletedModal({
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-    console.log(
-      "Updated Const Program Complete Data is ",
-      constProgramCompleteData
-    );
+  
     // Validate if Remarks are mandatory
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -128,7 +123,6 @@ export default function ProgramCompletedModal({
         constProgramCompleteData
       )
       .then((response) => {
-        console.log("Current State of programCompleteData", response.data);
         toast.success("Success", {
           position: toast.POSITION.TOP_CENTER,
         });
@@ -233,7 +227,6 @@ export default function ProgramCompletedModal({
         selectProgramCompleted
       )
       .then((response) => {
-        console.log(response.data);
         if (
           response.data == "Return or update Material before closing Program"
         ) {

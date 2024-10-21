@@ -57,13 +57,13 @@ export default function SetMachineModal({
           toast.success("Machine Operator Added Successfully", {
             position: toast.POSITION.TOP_CENTER,
           });
+          setSelectedShift("")
+          setSelectedMachine("")
+          setSelectedShiftIncharge("")
+          setSelectedOperator("")
           getMachineOperatorTableData();
           getSingleDayShiftPlan4thTable();
-          setWeekState1("");
-          // setSelectedShift("")
-          // setSelectedMachine("")
-          // setSelectedShiftIncharge("")
-          // setSelectedOperator("")
+          // setWeekState1("");
         }
       })
       .catch((error) => {
