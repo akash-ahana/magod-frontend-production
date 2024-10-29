@@ -31,13 +31,13 @@ export default function ByMachineBox() {
   };
 
   useEffect(() => {
-    setLoading(true); // Set loading state to true before fetching data
+    setLoading(true); 
     axios
       .get(baseURL + "/shiftManagerProfile/profileListMachinesTaskNo")
       .then((response) => {
         // console.log("response  machine list", response.data);
         setMachineProcessData(response.data);
-        setLoading(false); // Set loading state to false in case of error
+        setLoading(false);
       });
   }, []);
 
