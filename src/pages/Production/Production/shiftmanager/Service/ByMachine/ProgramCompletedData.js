@@ -4,6 +4,7 @@ import ProgramCompletedModal from "./ProgramCompletedModal";
 import axios from "axios";
 import { useEffect } from "react";
 import { baseURL } from "../../../../../../api/baseUrl";
+import { toast } from "react-toastify";
 
 export default function ProgramCompletedData({
   machineProgramesCompleted,
@@ -13,10 +14,19 @@ export default function ProgramCompletedData({
   laser,
 }) {
   const [show, setShow] = useState(false);
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const [selectProgramCompleted, setSelectProgramCompleted] = useState("");
 
   const handaleClick = () => {
-    setShow(true);
+    if (selectProgramCompleted) {
+      setShow(true);
+    } else {
+      toast.error("Please select a row", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
+
   useEffect(() => {
     axios
       .get(baseURL + "/shiftManagerService/allCompleted")
@@ -61,38 +71,34 @@ export default function ProgramCompletedData({
       });
   }, []);
 
-  const [selectProgramCompleted, setSelectProgramCompleted] = useState("");
   const programCompleted = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramCompleted(list);
   };
 
-  //
- const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
- const requestSort = (key) => {
-   let direction = "asc";
-   if (sortConfig.key === key && sortConfig.direction === "asc") {
-     direction = "desc";
-   }
-   setSortConfig({ key, direction });
- };
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
 
- const sortedData = () => {
-   const dataCopy = [...machineProgramesCompleted];
-   if (sortConfig.key) {
-     dataCopy.sort((a, b) => {
-       if (a[sortConfig.key] < b[sortConfig.key]) {
-         return sortConfig.direction === "asc" ? -1 : 1;
-       }
-       if (a[sortConfig.key] > b[sortConfig.key]) {
-         return sortConfig.direction === "asc" ? 1 : -1;
-       }
-       return 0;
-     });
-   }
-   return dataCopy;
- };
-
+  const sortedData = () => {
+    const dataCopy = [...machineProgramesCompleted];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <>
@@ -119,16 +125,46 @@ export default function ProgramCompletedData({
             >
               <Table striped className="table-data border">
                 <thead className="tableHeaderBGColor">
-                <tr>
+                  <tr>
                     <th onClick={() => requestSort("TaskNo")}>Task No</th>
                     <th onClick={() => requestSort("Machine")}>Machine</th>
                     <th onClick={() => requestSort("Operation")}>Operation</th>
-                    <th onClick={() => requestSort("NCProgramNo")} className="textAllign">Program No</th>
-                    <th onClick={() => requestSort("EstimatedTime")} className="textAllign">Plan Time</th>
-                    <th onClick={() => requestSort("ActualTime")} className="textAllign">Actual Time</th>
-                    <th onClick={() => requestSort("Qty")} className="textAllign">QTY</th>
-                    <th onClick={() => requestSort("QtyAllotted")} className="textAllign">Allotted</th>
-                    <th onClick={() => requestSort("QtyCut")} className="textAllign">Processed</th>
+                    <th
+                      onClick={() => requestSort("NCProgramNo")}
+                      className="textAllign"
+                    >
+                      Program No
+                    </th>
+                    <th
+                      onClick={() => requestSort("EstimatedTime")}
+                      className="textAllign"
+                    >
+                      Plan Time
+                    </th>
+                    <th
+                      onClick={() => requestSort("ActualTime")}
+                      className="textAllign"
+                    >
+                      Actual Time
+                    </th>
+                    <th
+                      onClick={() => requestSort("Qty")}
+                      className="textAllign"
+                    >
+                      QTY
+                    </th>
+                    <th
+                      onClick={() => requestSort("QtyAllotted")}
+                      className="textAllign"
+                    >
+                      Allotted
+                    </th>
+                    <th
+                      onClick={() => requestSort("QtyCut")}
+                      className="textAllign"
+                    >
+                      Processed
+                    </th>
                   </tr>
                 </thead>
 

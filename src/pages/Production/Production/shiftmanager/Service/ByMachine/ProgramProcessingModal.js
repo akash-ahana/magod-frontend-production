@@ -75,17 +75,29 @@ export default function ProgramProcessingModal({
       setProgramCompleteData(constProgramCompleteData);
       setNewProgramCompleteData(constProgramCompleteData);
       setNewPartlistdata(constProgramCompleteData);
-      axios
-        .post(
-          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-          constProgramCompleteData
-        )
-        .then((response) => {
-          // Handle the response if needed
-          toast.success("Success", {
-            position: toast.POSITION.TOP_CENTER,
+
+      // Check if any row has QtyCut > 0 before submitting
+      const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+        (item) => item.QtyCut > 0
+      );
+
+      if (hasQtyCutGreaterThanZero) {
+        axios
+          .post(
+            baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+            constProgramCompleteData
+          )
+          .then((response) => {
+            // Handle the response if needed
+            toast.success("Success", {
+              position: toast.POSITION.TOP_CENTER,
+            });
           });
+      } else {
+        toast.error("Produced should be greater than zero", {
+          position: toast.POSITION.TOP_CENTER,
         });
+      }
     }
   };
 
@@ -179,32 +191,31 @@ export default function ProgramProcessingModal({
       });
   };
 
-  
-   //
-   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-   const requestSort = (key) => {
-     let direction = "asc";
-     if (sortConfig.key === key && sortConfig.direction === "asc") {
-       direction = "desc";
-     }
-     setSortConfig({ key, direction });
-   };
- 
-   const sortedData = () => {
-     const dataCopy = [...programCompleteData];
-     if (sortConfig.key) {
-       dataCopy.sort((a, b) => {
-         if (a[sortConfig.key] < b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? -1 : 1;
-         }
-         if (a[sortConfig.key] > b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? 1 : -1;
-         }
-         return 0;
-       });
-     }
-     return dataCopy;
-   };
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div>
@@ -353,7 +364,7 @@ export default function ProgramProcessingModal({
                       clickChangeMachine();
                     }}
                   >
-                   Change Machine
+                    Change Machine
                   </button>
                 </div>
               </div>
@@ -375,12 +386,32 @@ export default function ProgramProcessingModal({
               >
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                  <tr>
+                    <tr>
                       <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
                       <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>

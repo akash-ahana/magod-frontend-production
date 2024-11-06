@@ -23,6 +23,7 @@ function DailyShiftTable({
   condition,
   selectedShift,
   SelectedShiftIncharge,
+  setSelectedShiftInchargeForSpecialShift,
 }) {
   useEffect(() => {
     getMachineOperatorTableData();
@@ -129,6 +130,7 @@ function DailyShiftTable({
             machineOperatorTableData={machineOperatorTableData}
             selectedShift={selectedShift}
             SelectedShiftIncharge={SelectedShiftIncharge}
+            setSelectedShiftInchargeForSpecialShift={setSelectedShiftInchargeForSpecialShift}
           />
         </div>
 

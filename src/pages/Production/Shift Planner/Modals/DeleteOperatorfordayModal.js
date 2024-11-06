@@ -17,16 +17,16 @@ export default function DeleteOperatorfordayModal({deleteoperator,setDeleteopera
     <div>
          <Modal show={deleteoperator} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Oprator</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Delete Oprator</Modal.Title>
         </Modal.Header>
         
 
-        <Modal.Body> Machine Operator Deleted</Modal.Body> 
+        <Modal.Body style={{ fontSize: "12px" }}> Machine Operator Deleted</Modal.Body> 
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <button className="button-style group-button" onClick={handleClose}>
             OK
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

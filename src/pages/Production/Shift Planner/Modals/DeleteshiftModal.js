@@ -25,14 +25,14 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
     <div>
          <Modal show={opendeleteshift} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Shift</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Delete Shift</Modal.Title>
         </Modal.Header>
 
         {selectedShift ? (
-          <Modal.Body>Are You sure want to Delete <b> {selectedShift}</b>  shift  for the week?
+          <Modal.Body style={{ fontSize: "12px" }}>Are You sure want to Delete <b> {selectedShift}</b>  shift  for the week?
           </Modal.Body>
         ) : (
-          <Modal.Body>
+          <Modal.Body style={{ fontSize: "12px" }}>
             Please select <b>Shift</b> before deleting
           </Modal.Body>
         )}
@@ -42,17 +42,17 @@ export default function DeleteshiftModal({opendeleteshift,setOpendeleteshift,onC
         <Modal.Footer>
           {selectedShift ? (
             <>
-              <Button variant="primary" onClick={onClickonClickDeleteWeekShift}>
+              <button className="button-style group-button" onClick={onClickonClickDeleteWeekShift}>
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style group-button" onClick={handleClose}>
             No
-          </Button>
+          </button>
             </>
           ) : (
-            <Button variant="primary" onClick={handleClose}>
+            <button className="button-style group-button" onClick={handleClose}>
               OK
-            </Button>
+            </button>
           )}
         </Modal.Footer>
       </Modal>

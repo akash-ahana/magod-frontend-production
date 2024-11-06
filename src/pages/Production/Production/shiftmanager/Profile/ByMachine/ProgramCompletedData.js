@@ -3,6 +3,7 @@ import { Table } from "react-bootstrap";
 import ProgramCompletedModal from "./ProgramCompletedModal";
 import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
+import { toast } from "react-toastify";
 
 export default function ProgramCompletedData({
   machineProgramesCompleted,
@@ -12,9 +13,17 @@ export default function ProgramCompletedData({
   selectedMachine,
 }) {
   const [show, setShow] = useState(false);
+  const [selectProgramCompleted, setSelectProgramCompleted] = useState({});
+
 
   const handaleClick = () => {
-    setShow(true);
+    if (Object.keys(selectProgramCompleted).length > 0) {
+      setShow(true);
+    } else {
+      toast.error("Please select a row", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   useEffect(() => {
@@ -60,7 +69,6 @@ export default function ProgramCompletedData({
       });
   }, []);
 
-  const [selectProgramCompleted, setSelectProgramCompleted] = useState({});
   const programCompleted = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramCompleted(list);
@@ -75,33 +83,33 @@ export default function ProgramCompletedData({
   //   }
   // }, [machineProgramesCompleted]);
 
- //
- const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
- const requestSort = (key) => {
-   let direction = "asc";
-   if (sortConfig.key === key && sortConfig.direction === "asc") {
-     direction = "desc";
-   }
-   setSortConfig({ key, direction });
- };
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
 
- const sortedData = () => {
-   const dataCopy = [...machineProgramesCompleted];
-   if (sortConfig.key) {
-     dataCopy.sort((a, b) => {
-       if (a[sortConfig.key] < b[sortConfig.key]) {
-         return sortConfig.direction === "asc" ? -1 : 1;
-       }
-       if (a[sortConfig.key] > b[sortConfig.key]) {
-         return sortConfig.direction === "asc" ? 1 : -1;
-       }
-       return 0;
-     });
-   }
-   return dataCopy;
- };
+  const sortedData = () => {
+    const dataCopy = [...machineProgramesCompleted];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
-//  console.log("machineProgramesCompleted is",machineProgramesCompleted);
+  //  console.log("machineProgramesCompleted is",machineProgramesCompleted);
 
   return (
     <>
@@ -111,6 +119,7 @@ export default function ProgramCompletedData({
             <button
               className="button-style mt-2 group-button"
               onClick={handaleClick}
+              // disabled={selectProgramCompleted === null}
             >
               Open Programs
             </button>
@@ -133,12 +142,42 @@ export default function ProgramCompletedData({
                     <th onClick={() => requestSort("TaskNo")}>Task No</th>
                     <th onClick={() => requestSort("Machine")}>Machine</th>
                     <th onClick={() => requestSort("Operation")}>Operation</th>
-                    <th onClick={() => requestSort("NCProgramNo")} className="textAllign">Program No</th>
-                    <th onClick={() => requestSort("EstimatedTime")} className="textAllign">Plan Time</th>
-                    <th onClick={() => requestSort("ActualTime")} className="textAllign">Actual Time</th>
-                    <th onClick={() => requestSort("Qty")} className="textAllign">QTY</th>
-                    <th onClick={() => requestSort("QtyAllotted")} className="textAllign">Allotted</th>
-                    <th onClick={() => requestSort("QtyCut")} className="textAllign">Processed</th>
+                    <th
+                      onClick={() => requestSort("NCProgramNo")}
+                      className="textAllign"
+                    >
+                      Program No
+                    </th>
+                    <th
+                      onClick={() => requestSort("EstimatedTime")}
+                      className="textAllign"
+                    >
+                      Plan Time
+                    </th>
+                    <th
+                      onClick={() => requestSort("ActualTime")}
+                      className="textAllign"
+                    >
+                      Actual Time
+                    </th>
+                    <th
+                      onClick={() => requestSort("Qty")}
+                      className="textAllign"
+                    >
+                      QTY
+                    </th>
+                    <th
+                      onClick={() => requestSort("QtyAllotted")}
+                      className="textAllign"
+                    >
+                      Allotted
+                    </th>
+                    <th
+                      onClick={() => requestSort("QtyCut")}
+                      className="textAllign"
+                    >
+                      Processed
+                    </th>
                   </tr>
                 </thead>
 
@@ -156,15 +195,9 @@ export default function ProgramCompletedData({
                                 : ""
                             }
                           >
-                            <td>
-                              {item.TaskNo}
-                            </td>
-                            <td>
-                              {item.Machine}
-                            </td>
-                            <td>
-                              {item.Operation}
-                            </td>
+                            <td>{item.TaskNo}</td>
+                            <td>{item.Machine}</td>
+                            <td>{item.Operation}</td>
                             <td className="textAllign">{item.NCProgramNo}</td>
                             <td className="textAllign">{item.EstimatedTime}</td>
                             <td className="textAllign">{item.ActualTime}</td>

@@ -75,17 +75,29 @@ export default function ProcessingModal({
     setProgramCompleteData(constProgramCompleteData);
     setNewProgramCompleteData(constProgramCompleteData);
     setNewPartlistdata(constProgramCompleteData);
-    // Send a POST request using the updated data
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-        constProgramCompleteData
-      )
-      .then((response) => {
-        toast.success("Success", {
-          position: toast.POSITION.TOP_CENTER,
+
+    // Check if any row has QtyCut > 0 before submitting
+    const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+      (item) => item.QtyCut > 0
+    );
+
+    if (hasQtyCutGreaterThanZero) {
+      // Send a POST request using the updated data
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+          constProgramCompleteData
+        )
+        .then((response) => {
+          toast.success("Success", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
+    } else {
+      toast.error("Produced should be greater than zero", {
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
   };
 
   const onChangeRejected = (e, item, key) => {
@@ -164,32 +176,31 @@ export default function ProcessingModal({
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
-  
-   //
-   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-   const requestSort = (key) => {
-     let direction = "asc";
-     if (sortConfig.key === key && sortConfig.direction === "asc") {
-       direction = "desc";
-     }
-     setSortConfig({ key, direction });
-   };
- 
-   const sortedData = () => {
-     const dataCopy = [...programCompleteData];
-     if (sortConfig.key) {
-       dataCopy.sort((a, b) => {
-         if (a[sortConfig.key] < b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? -1 : 1;
-         }
-         if (a[sortConfig.key] > b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? 1 : -1;
-         }
-         return 0;
-       });
-     }
-     return dataCopy;
-   };
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div>
@@ -357,46 +368,73 @@ export default function ProcessingModal({
               >
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                  <tr>
+                    <tr>
                       <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
                       <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
 
-{ sortedData().map((item,key)=>{
-return(
-  <>
-  
-  <tbody className='tablebody'>
-        <tr >
-           <td style={{whiteSpace:"nowrap"}}>{item.DwgName}</td>
-           {/* <td>{item.TotQtyNested}</td> */}
-           <td className="textAllign">{item.TotQtyNested}</td>
-           <td className="textAllign">{item.QtyCut}</td>
-           <td >
-            <div>
-           <input className='table-cell-editor textAllign'
-                 name="cleared"
-                 type='number'
-                 onKeyDown={blockInvalidChar}
-                 Value={item.QtyRejected}
-                 onChange={(e)=>onChangeRejected(e,  item, key)}
-                />
-                </div>
-            </td>
-           <td className="textAllign">{item.QtyCleared}</td>
-           <td>
-              <input className='table-cell-editor '
-                 name="cleared"
-                 Value={item.Remarks==='null' ? null :item.Remarks}
-                 onChange={(e)=>onChangeRemarks(e,item, key)}
-                />
-            </td>
-            {/* <td >
+                  {sortedData().map((item, key) => {
+                    return (
+                      <>
+                        <tbody className="tablebody">
+                          <tr>
+                            <td style={{ whiteSpace: "nowrap" }}>
+                              {item.DwgName}
+                            </td>
+                            {/* <td>{item.TotQtyNested}</td> */}
+                            <td className="textAllign">{item.TotQtyNested}</td>
+                            <td className="textAllign">{item.QtyCut}</td>
+                            <td>
+                              <div>
+                                <input
+                                  className="table-cell-editor textAllign"
+                                  name="cleared"
+                                  type="number"
+                                  onKeyDown={blockInvalidChar}
+                                  Value={item.QtyRejected}
+                                  onChange={(e) =>
+                                    onChangeRejected(e, item, key)
+                                  }
+                                />
+                              </div>
+                            </td>
+                            <td className="textAllign">{item.QtyCleared}</td>
+                            <td>
+                              <input
+                                className="table-cell-editor "
+                                name="cleared"
+                                Value={
+                                  item.Remarks === "null" ? null : item.Remarks
+                                }
+                                onChange={(e) => onChangeRemarks(e, item, key)}
+                              />
+                            </td>
+                            {/* <td >
               <div key={item.QtyCleared}>
               {item.QtyCleared}
                 </div></td> */}
