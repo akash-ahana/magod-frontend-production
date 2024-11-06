@@ -72,17 +72,29 @@ export default function ProcessingModal({
     setProgramCompleteData(constProgramCompleteData);
     setNewProgramCompleteData(constProgramCompleteData);
     setNewPartlistdata(constProgramCompleteData);
-    // Send a POST request using the updated data
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-        constProgramCompleteData
-      )
-      .then((response) => {
-        toast.success("Success", {
-          position: toast.POSITION.TOP_CENTER,
+    
+    // Check if any row has QtyCut > 0 before submitting
+    const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+      (item) => item.QtyCut > 0
+    );
+
+    if (hasQtyCutGreaterThanZero) {
+      // Send a POST request using the updated data
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+          constProgramCompleteData
+        )
+        .then((response) => {
+          toast.success("Success", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
+    } else {
+      toast.error("Produced should be greater than zero", {
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
   };
 
   const onChangeRejected = (e, item, key) => {

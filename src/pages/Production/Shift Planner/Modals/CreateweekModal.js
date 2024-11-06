@@ -114,16 +114,16 @@ export default function CreateweekModal({
     <div>
       <Modal show={openweekshift} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Create Weekshift</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Create Weekshift</Modal.Title>
         </Modal.Header>
 
         {selectedShiftIncharge.length > 0 && selectedShift ? (
-          <Modal.Body>
+          <Modal.Body style={{ fontSize: "12px" }}>
             Do you wish to add <b>{selectedShiftIncharge}</b> for{" "}
             <b>{selectedShift}</b> shift for the week?
           </Modal.Body>
         ) : (
-          <Modal.Body>
+          <Modal.Body style={{ fontSize: "12px" }}>
             Please select a <b>shift</b> and <b>shift Instructor</b> before
             clicking Create Weekshift.
           </Modal.Body>
@@ -132,18 +132,18 @@ export default function CreateweekModal({
         <Modal.Footer>
           {selectedShiftIncharge.length > 0 && selectedShift ? (
             <>
-              <Button variant="primary" onClick={createWeekshift}>
+              <button className="button-style group-button" onClick={createWeekshift}>
                 Yes
-              </Button>
-              <Button variant="secondary" onClick={handleClose}>
+              </button>
+              <button className="button-style group-button" onClick={handleClose}>
                 No
-              </Button>
+              </button>
             </>
           ) : (
             <>
-              <Button variant="primary" onClick={handleClose}>
+              <button className="button-style group-button" onClick={handleClose}>
                 OK
-              </Button>
+              </button>
             </>
           )}
         </Modal.Footer>

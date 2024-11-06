@@ -17,15 +17,15 @@ export default function AddOperatorModal({addoperator,setAddoperator}) {
     <div>
          <Modal show={addoperator} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Add Operator</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Add Operator</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body>Operator Added</Modal.Body> 
+        <Modal.Body style={{ fontSize: "12px" }}>Operator Added</Modal.Body> 
 
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
+          <button className="button-style group-button" onClick={handleClose}>
             OK
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </div>

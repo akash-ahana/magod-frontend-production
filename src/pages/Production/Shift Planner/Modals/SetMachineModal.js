@@ -77,16 +77,16 @@ export default function SetMachineModal({
     <div>
       <Modal show={opensetmachine} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Set Machine </Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Set Machine </Modal.Title>
         </Modal.Header>
 
         {selectedOperator && selectedMachine && selectedShift ? (
-          <Modal.Body>
+          <Modal.Body style={{ fontSize: "12px" }}>
             Are you sure want add <b>{selectedOperator}</b> to{" "}
             <b>{selectedMachine}</b> for the week?
           </Modal.Body>
         ) : (
-          <Modal.Body>
+          <Modal.Body style={{ fontSize: "12px" }}>
             Please select a <b>Operator</b> and <b>Machine</b> and <b>Shift</b>{" "}
             before clicking Set MachineOperator
           </Modal.Body>
@@ -95,17 +95,17 @@ export default function SetMachineModal({
         <Modal.Footer>
           {selectedOperator && selectedMachine && selectedShift ? (
             <>
-              <Button variant="primary" onClick={() => setMachineoperators()}>
+              <button className="button-style group-button" onClick={() => setMachineoperators()}>
                 Yes
-              </Button>
-              <Button variant="secondary" onClick={handleClose}>
+              </button>
+              <button className="button-style group-button" onClick={handleClose}>
                 No
-              </Button>
+              </button>
             </>
           ) : (
-            <Button variant="primary" onClick={handleClose}>
+            <button className="button-style group-button" onClick={handleClose}>
               OK
-            </Button>
+            </button>
           )}
         </Modal.Footer>
       </Modal>

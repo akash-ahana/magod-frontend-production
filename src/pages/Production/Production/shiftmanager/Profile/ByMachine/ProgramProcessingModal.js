@@ -53,19 +53,21 @@ export default function ProgramProcessingModal({
 
   const clearAllButton = () => {
     const constProgramCompleteData = [...programCompleteData]; // Create a copy of the array
+    console.log('constProgramCompleteData', constProgramCompleteData);
+  
+    // Calculate QtyCleared for each item
     for (let i = 0; i < constProgramCompleteData.length; i++) {
       constProgramCompleteData[i].QtyCleared =
-        constProgramCompleteData[i].QtyCut -
-        constProgramCompleteData[i].QtyRejected;
+        constProgramCompleteData[i].QtyCut - constProgramCompleteData[i].QtyRejected;
     }
-    // Check if any row has QtyRejected > 0 and the 'Cleared' remarks input is null
+  
+    // Check if any row has QtyRejected > 0 and the 'Remarks' input is null or empty
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
         item.QtyRejected > 0 && (!item.Remarks || item.Remarks === "null")
     );
+  
     if (hasInvalidRemarks) {
-      // Display an error using the toastify library
-      // For example:
       toast.error("Remarks are mandatory for rows with Rejected > 0", {
         position: toast.POSITION.TOP_CENTER,
       });
@@ -73,19 +75,36 @@ export default function ProgramProcessingModal({
       setProgramCompleteData(constProgramCompleteData);
       setNewProgramCompleteData(constProgramCompleteData);
       setNewPartlistdata(constProgramCompleteData);
-      axios
-        .post(
-          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-          constProgramCompleteData
-        )
-        .then((response) => {
-          // Handle the response if needed
-          toast.success("Success", {
-            position: toast.POSITION.TOP_CENTER,
+  
+      // Check if any row has QtyCut > 0 before submitting
+      const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+        (item) => item.QtyCut > 0
+      );
+  
+      if (hasQtyCutGreaterThanZero) {
+        axios
+          .post(
+            `${baseURL}/shiftManagerProfile/shiftManagerCloseProgram`,
+            constProgramCompleteData
+          )
+          .then((response) => {
+            toast.success("Success", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+          })
+          .catch((error) => {
+            toast.error("Error submitting data", {
+              position: toast.POSITION.TOP_CENTER,
+            });
           });
+      } else {
+        toast.error("Produced should be greater than zero", {
+          position: toast.POSITION.TOP_CENTER,
         });
+      }
     }
   };
+  
 
   const onChangeRejected = (e, item, key) => {
     const newProgramCompleteData = [...programCompleteData]; // Create a copy of the array

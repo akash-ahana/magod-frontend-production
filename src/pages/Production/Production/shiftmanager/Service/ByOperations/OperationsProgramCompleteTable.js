@@ -4,6 +4,7 @@ import axios from "axios";
 import OperationsCompleteOpenProgram from "./OperationsCompletedOpenProgram";
 import { useEffect } from "react";
 import { baseURL } from "../../../../../../api/baseUrl";
+import { toast } from "react-toastify";
 
 export default function OperationsProgramCompleteTable({
   proramCompleted,
@@ -16,8 +17,15 @@ export default function OperationsProgramCompleteTable({
   const [show, setShow] = useState(false);
 
   const handaleClick = () => {
-    setShow(true);
+    if (selectProgramCompleted) {
+      setShow(true);
+    } else {
+      toast.error("Please select a row", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
+
   useEffect(() => {
     axios
       .get(baseURL + "/shiftManagerService/allCompleted")

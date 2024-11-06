@@ -113,18 +113,30 @@ export default function CompleteOpenProgram({
     setProgramCompleteData(constProgramCompleteData);
     setNewProgramCompleteData(constProgramCompleteData);
     setNewPartlistdata(constProgramCompleteData);
-    // Send a POST request
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-        constProgramCompleteData
-      )
-      .then((response) => {
-        console.log("Current State of programCompleteData", response.data);
-        toast.success("Success", {
-          position: toast.POSITION.TOP_CENTER,
+
+    // Check if any row has QtyCut > 0 before submitting
+    const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+      (item) => item.QtyCut > 0
+    );
+
+    if (hasQtyCutGreaterThanZero) {
+      // Send a POST request
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+          constProgramCompleteData
+        )
+        .then((response) => {
+          console.log("Current State of programCompleteData", response.data);
+          toast.success("Success", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
+    } else {
+      toast.error("Produced should be greater than zero", {
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
   };
 
   const onChangeRejected = (e, item, key) => {
@@ -211,45 +223,44 @@ export default function CompleteOpenProgram({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
-    if(programCompleteData[0]?.QtyCleared===0){
+    if (programCompleteData[0]?.QtyCleared === 0) {
       toast.error("Clear parts for for quantity before closing the program", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    else{
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/CloseProgram",
-        selectProgramCompleted
-      )
-      .then((response) => {
-        if (
-          response.data == "Return or update Material before closing Program"
-        ) {
-          setCloseProgram(true);
-          setResponse("Return or update Material before closing Program");
-        } else {
+    } else {
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/CloseProgram",
+          selectProgramCompleted
+        )
+        .then((response) => {
           if (
-            selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            response.data == "Return or update Material before closing Program"
           ) {
-            setComparedResponse("Do you wish to short close program No?");
-            setOpenShortClose(true);
-          } else {
-            axios
-              .post(
-                baseURL + "/shiftManagerProfile/updateClosed",
-                selectProgramCompleted
-              )
-              .then((response) => {});
             setCloseProgram(true);
-            setResponse("Closed");
-            const constSelectProgramCompleted = selectProgramCompleted;
-            constSelectProgramCompleted.PStatus = "Closed";
-            setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(true);
+            setResponse("Return or update Material before closing Program");
+          } else {
+            if (
+              selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            ) {
+              setComparedResponse("Do you wish to short close program No?");
+              setOpenShortClose(true);
+            } else {
+              axios
+                .post(
+                  baseURL + "/shiftManagerProfile/updateClosed",
+                  selectProgramCompleted
+                )
+                .then((response) => {});
+              setCloseProgram(true);
+              setResponse("Closed");
+              const constSelectProgramCompleted = selectProgramCompleted;
+              constSelectProgramCompleted.PStatus = "Closed";
+              setSelectProgramCompleted(constSelectProgramCompleted);
+              setDisableStatus(true);
+            }
           }
-        }
-      });
+        });
     }
   };
   //
@@ -294,32 +305,31 @@ export default function CompleteOpenProgram({
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
-  
-   //
-   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-   const requestSort = (key) => {
-     let direction = "asc";
-     if (sortConfig.key === key && sortConfig.direction === "asc") {
-       direction = "desc";
-     }
-     setSortConfig({ key, direction });
-   };
- 
-   const sortedData = () => {
-     const dataCopy = [...programCompleteData];
-     if (sortConfig.key) {
-       dataCopy.sort((a, b) => {
-         if (a[sortConfig.key] < b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? -1 : 1;
-         }
-         if (a[sortConfig.key] > b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? 1 : -1;
-         }
-         return 0;
-       });
-     }
-     return dataCopy;
-   };
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div>
@@ -502,12 +512,32 @@ export default function CompleteOpenProgram({
               >
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                  <tr>
+                    <tr>
                       <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
                       <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
