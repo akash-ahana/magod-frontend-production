@@ -66,7 +66,7 @@ export default function SetMachineModal({
         }
       })
       .catch((error) => {
-        console.error(error); // Handle error if needed
+        console.error(error); 
         toast.error("An error occurred while processing your request", {
           position: toast.POSITION.TOP_CENTER,
         });

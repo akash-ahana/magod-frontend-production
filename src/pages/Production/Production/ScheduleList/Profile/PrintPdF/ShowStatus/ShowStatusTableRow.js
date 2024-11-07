@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react"; 
 import { Text, View, StyleSheet } from "@react-pdf/renderer";
+import moment from 'moment';
 // import axios from "axios";
 
 
@@ -46,8 +47,8 @@ const styles = StyleSheet.create({
       <View style={styles.Headingrow}>
           <Text style={[styles.Scheduleno]}>{value.OrdSchNo}</Text>
           <Text style={styles.Customer}>{value.Cust_name}</Text>
-          <Text style={[styles.Date,{textAlign:"center"}]}>{value.Formatted_TargetDate}</Text>
-          <Text style={[styles.Date, {textAlign:"center"}]}>{value.Formatted_Delivery_date}</Text>
+          <Text style={[styles.Date,{textAlign:"center"}]}>{value.schTgtDate}</Text>
+          <Text style={[styles.Date, {textAlign:"center"}]}>{value.Delivery_Date}</Text>
           <Text style={[styles.Instruction,{textAlign:"center"}]}></Text>
        </View>
     ));

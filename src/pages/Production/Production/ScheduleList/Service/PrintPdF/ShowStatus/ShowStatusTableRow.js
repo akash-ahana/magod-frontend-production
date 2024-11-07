@@ -38,22 +38,34 @@ const styles = StyleSheet.create({
   
   const ShowStatusTableRow = ({showStatusData}) => {
 
-    // console.log(typeof(firstmachineoperator));
-    //console.log(newitems , 'New Items from print daily Shift Table Row')
-    const rows =showStatusData.map((value) => (
-      <View style={styles.Headingrow}>
-          <Text style={styles.Scheduleno}>{value.OrdSchNo}</Text>
-          <Text style={styles.Customer}>{value.Cust_name}</Text>
-          <Text  style={[styles.Date,{textAlign:"center"}]}>{value.schTgtDate}</Text>
-          <Text  style={[styles.Date,{textAlign:"center"}]}>{value.Delivery_Date}</Text>
-          <Text style={[styles.Instruction,{textAlign:"center"}]}></Text>
-       </View>
-    ));
+   // Map over showStatusData to create the rows
+  const rows = showStatusData.map((value) => (
+    <View key={value.OrdSchNo} style={styles.Headingrow}>
+      <Text style={styles.Scheduleno}>{value.OrdSchNo}</Text>
+      <Text style={styles.Customer}>{value.Cust_name}</Text>
+      <Text style={[styles.Date, { textAlign: "center" }]}>
+        {value.schTgtDate}
+      </Text>
+      <Text style={[styles.Date, { textAlign: "center" }]}>
+        {value.Delivery_Date}
+      </Text>
+      <Text style={[styles.Instruction, { textAlign: "center" }]}></Text>
+    </View>
+  ));
 
+  return (
+    <View style={styles.container}>
+      {showStatusData.length > 0 ? (
+        rows
+      ) : (
+        <Text style={styles.noDataText}>
+          No data to show
+        </Text>
+      )}
+    </View>
+  );
+}
 
-
-    return <Fragment>{rows}</Fragment>;
-  };
   
   export default ShowStatusTableRow;
   
