@@ -87,7 +87,6 @@ export default function ScheduleHeader({
     axios
       .get(baseURL + "/scheduleListProfile/schedulesListStatusProgrammed")
       .then((response) => {
-        console.log(response.data);
         setProgrammedstatus(response.data);
       });
     //  Completed Status
@@ -95,7 +94,6 @@ export default function ScheduleHeader({
       .get(baseURL + "/scheduleListProfile/schedulesListStatusCompleted")
       .then((response) => {
         setCompletedStatus(response.data);
-        //  console.log(response)
       });
 
     //Production Status
@@ -103,7 +101,6 @@ export default function ScheduleHeader({
       .get(baseURL + "/scheduleListProfile/schedulesListStatusProduction")
       .then((response) => {
         setProductionStatus(response.data);
-        //  console.log(response)
       });
 
     //Tasked Status

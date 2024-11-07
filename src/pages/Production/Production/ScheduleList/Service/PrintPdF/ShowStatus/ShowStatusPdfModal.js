@@ -14,6 +14,7 @@ import { useEffect } from 'react';
     }
   }, [showStatusData]); // Run the effect whenever pdfData changes
 
+
   return (
     <>
       <Modal show={openShowStatus} fullscreen={fullscreen} onHide={() => setOpenShowStatus(false)}>

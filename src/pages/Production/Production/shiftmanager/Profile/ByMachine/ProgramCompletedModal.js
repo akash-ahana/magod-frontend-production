@@ -29,7 +29,6 @@ export default function ProgramCompletedModal({
 
   const [newpartlistdata, setNewPartlistdata] = useState([]);
 
-
   const modalTable = () => {
     axios
       .post(baseURL + "/shiftManagerProfile/shiftManagerncProgramTaskList", {
@@ -157,47 +156,45 @@ export default function ProgramCompletedModal({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
-    if(programCompleteData[0]?.QtyCleared===0){
+    if (programCompleteData[0]?.QtyCleared === 0) {
       toast.error("Clear parts for for quantity before closing the program", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    else{
+    } else {
       axios
-      .post(
-        baseURL + "/shiftManagerProfile/CloseProgram",
-        selectProgramCompleted
-      )
-      .then((response) => {
-        if (
-          response.data == "Return or update Material before closing Program"
-        ) {
-          setCloseProgram(true);
-          setResponse("Return or update Material before closing Program");
-        } else {
+        .post(
+          baseURL + "/shiftManagerProfile/CloseProgram",
+          selectProgramCompleted
+        )
+        .then((response) => {
           if (
-            selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            response.data == "Return or update Material before closing Program"
           ) {
-            setComparedResponse("Do you wish to short close program No?");
-            setOpenShortClose(true);
-          } else {
-            axios
-              .post(
-                baseURL + "/shiftManagerProfile/updateClosed",
-                selectProgramCompleted
-              )
-              .then((response) => {});
             setCloseProgram(true);
-            setResponse("Closed");
-            const constSelectProgramCompleted = selectProgramCompleted;
-            constSelectProgramCompleted.PStatus = "Closed";
-            setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(true);
+            setResponse("Return or update Material before closing Program");
+          } else {
+            if (
+              selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            ) {
+              setComparedResponse("Do you wish to short close program No?");
+              setOpenShortClose(true);
+            } else {
+              axios
+                .post(
+                  baseURL + "/shiftManagerProfile/updateClosed",
+                  selectProgramCompleted
+                )
+                .then((response) => {});
+              setCloseProgram(true);
+              setResponse("Closed");
+              const constSelectProgramCompleted = selectProgramCompleted;
+              constSelectProgramCompleted.PStatus = "Closed";
+              setSelectProgramCompleted(constSelectProgramCompleted);
+              setDisableStatus(true);
+            }
           }
-        }
-      });
+        });
     }
-    
   };
 
   useEffect(() => {

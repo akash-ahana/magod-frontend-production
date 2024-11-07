@@ -38,8 +38,6 @@ export default function ScheduleHeader({
   const blockInvalidChar = (e) =>
     ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
 
-  console.log(rowselect, "selected row in left table");
-  console.log("selected row in right table", processrowselect);
 
   const [openShowStatus, setOpenShowStatus] = useState("");
   const openShowStatusPdf = () => {
@@ -66,115 +64,115 @@ export default function ScheduleHeader({
   const getPrintStatus = () => {
     // Programmed Status
     axios
-      .get(baseURL + "/scheduleListProfile/schedulesListStatusProgrammed")
+      .get(baseURL + "/scheduleListService/schedulesListStatusProgrammedService")
       .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          // FOR TgtDelDate
-          let dateSplit = response.data[i].schTgtDate.split(" ");
-          let date = dateSplit[0].split("-");
-          let year = date[0];
-          let month = date[1];
-          let day = date[2];
-          let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
-          response.data[i].schTgtDate = finalDay;
-        }
-        for (let i = 0; i < response.data.length; i++) {
-          // Delivery_date
-          let dateSplit1 = response.data[i].Delivery_Date.split(" ");
-          let date1 = dateSplit1[0].split("-");
-          let year1 = date1[0];
-          let month1 = date1[1];
-          let day1 = date1[2];
-          let finalDay1 =
-            day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
-          response.data[i].Delivery_Date = finalDay1;
-        }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // FOR TgtDelDate
+        //   let dateSplit = response.data[i].schTgtDate.split(" ");
+        //   let date = dateSplit[0].split("-");
+        //   let year = date[0];
+        //   let month = date[1];
+        //   let day = date[2];
+        //   let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
+        //   response.data[i].schTgtDate = finalDay;
+        // }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // Delivery_date
+        //   let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+        //   let date1 = dateSplit1[0].split("-");
+        //   let year1 = date1[0];
+        //   let month1 = date1[1];
+        //   let day1 = date1[2];
+        //   let finalDay1 =
+        //     day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
+        //   response.data[i].Delivery_Date = finalDay1;
+        // }
         setProgrammedstatus(response.data);
         //  console.log(response)
       });
     //  Completed Status
     axios
-      .get(baseURL + "/scheduleListProfile/schedulesListStatusCompleted")
+      .get(baseURL + "/scheduleListService/schedulesListStatusCompletedService")
       .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          // FOR TgtDelDate
-          let dateSplit = response.data[i].schTgtDate.split(" ");
-          let date = dateSplit[0].split("-");
-          let year = date[0];
-          let month = date[1];
-          let day = date[2];
-          let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
-          response.data[i].schTgtDate = finalDay;
-        }
-        for (let i = 0; i < response.data.length; i++) {
-          // Delivery_date
-          let dateSplit1 = response.data[i].Delivery_Date.split(" ");
-          let date1 = dateSplit1[0].split("-");
-          let year1 = date1[0];
-          let month1 = date1[1];
-          let day1 = date1[2];
-          let finalDay1 =
-            day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
-          response.data[i].Delivery_Date = finalDay1;
-        }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // FOR TgtDelDate
+        //   let dateSplit = response.data[i].schTgtDate.split(" ");
+        //   let date = dateSplit[0].split("-");
+        //   let year = date[0];
+        //   let month = date[1];
+        //   let day = date[2];
+        //   let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
+        //   response.data[i].schTgtDate = finalDay;
+        // }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // Delivery_date
+        //   let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+        //   let date1 = dateSplit1[0].split("-");
+        //   let year1 = date1[0];
+        //   let month1 = date1[1];
+        //   let day1 = date1[2];
+        //   let finalDay1 =
+        //     day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
+        //   response.data[i].Delivery_Date = finalDay1;
+        // }
         setCompletedStatus(response.data);
         //  console.log(response)
       });
 
     //Production Status
     axios
-      .get(baseURL + "/scheduleListProfile/schedulesListStatusProduction")
+      .get(baseURL + "/scheduleListService/schedulesListStatusProductionService")
       .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          // FOR TgtDelDate
-          let dateSplit = response.data[i].schTgtDate.split(" ");
-          let date = dateSplit[0].split("-");
-          let year = date[0];
-          let month = date[1];
-          let day = date[2];
-          let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
-          response.data[i].schTgtDate = finalDay;
-        }
-        for (let i = 0; i < response.data.length; i++) {
-          // Delivery_date
-          let dateSplit1 = response.data[i].Delivery_Date.split(" ");
-          let date1 = dateSplit1[0].split("-");
-          let year1 = date1[0];
-          let month1 = date1[1];
-          let day1 = date1[2];
-          let finalDay1 =
-            day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
-          response.data[i].Delivery_Date = finalDay1;
-        }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // FOR TgtDelDate
+        //   let dateSplit = response.data[i].schTgtDate.split(" ");
+        //   let date = dateSplit[0].split("-");
+        //   let year = date[0];
+        //   let month = date[1];
+        //   let day = date[2];
+        //   let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
+        //   response.data[i].schTgtDate = finalDay;
+        // }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // Delivery_date
+        //   let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+        //   let date1 = dateSplit1[0].split("-");
+        //   let year1 = date1[0];
+        //   let month1 = date1[1];
+        //   let day1 = date1[2];
+        //   let finalDay1 =
+        //     day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
+        //   response.data[i].Delivery_Date = finalDay1;
+        // }
         setProductionStatus(response.data);
         //  console.log(response)
       });
 
     //Tasked Status
     axios
-      .get(baseURL + "/scheduleListProfile/schedulesListStatusTasked")
+      .get(baseURL + "/scheduleListService/schedulesListStatusTaskedService")
       .then((response) => {
-        for (let i = 0; i < response.data.length; i++) {
-          // FOR TgtDelDate
-          let dateSplit = response.data[i].schTgtDate.split(" ");
-          let date = dateSplit[0].split("-");
-          let year = date[0];
-          let month = date[1];
-          let day = date[2];
-          let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
-          response.data[i].schTgtDate = finalDay;
-        }
-        for (let i = 0; i < response.data.length; i++) {
-          // Delivery_date
-          let dateSplit1 = response.data[i].Delivery_Date.split(" ");
-          let date1 = dateSplit1[0].split("-");
-          let year1 = date1[0];
-          let month1 = date1[1];
-          let day1 = date1[2];
-          let finalDay1 =
-            day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
-          response.data[i].Delivery_Date = finalDay1;
-        }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // FOR TgtDelDate
+        //   let dateSplit = response.data[i].schTgtDate.split(" ");
+        //   let date = dateSplit[0].split("-");
+        //   let year = date[0];
+        //   let month = date[1];
+        //   let day = date[2];
+        //   let finalDay = day + "-" + month + "-" + year + " " + dateSplit[1];
+        //   response.data[i].schTgtDate = finalDay;
+        // }
+        // for (let i = 0; i < response.data.length; i++) {
+        //   // Delivery_date
+        //   let dateSplit1 = response.data[i].Delivery_Date.split(" ");
+        //   let date1 = dateSplit1[0].split("-");
+        //   let year1 = date1[0];
+        //   let month1 = date1[1];
+        //   let day1 = date1[2];
+        //   let finalDay1 =
+        //     day1 + "-" + month1 + "-" + year1 + " " + dateSplit1[1];
+        //   response.data[i].Delivery_Date = finalDay1;
+        // }
         setTaskedStatus(response.data);
       });
   };
