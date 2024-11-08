@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
 import ProcessingModal from "./ProcessingModal";
+import { toast } from "react-toastify";
 
 export default function ProgramProcessing({
   programProcessing,
@@ -15,12 +16,18 @@ export default function ProgramProcessing({
 }) {
   const [show, setShow] = useState(false);
   const [machineData, setMachineData] = useState([]);
+  const [selectProgramProcessing, setSelectProgramProcessing] = useState("");
 
   const handaleClick = () => {
-    setShow(true);
+    if (selectProgramProcessing) {
+      setShow(true);
+    } else {
+      toast.error("Please select a row", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
-  const [selectProgramProcessing, setSelectProgramProcessing] = useState("");
   const programProcessingrow = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramProcessing(list);

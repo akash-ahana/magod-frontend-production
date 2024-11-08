@@ -19,6 +19,7 @@ function SingleDayShiftEditor({
   machineOperatorTableData,
   selectedShift,
   SelectedShiftIncharge,
+  setSelectedShiftInchargeForSpecialShift,
 }) {
   // console.log(rowselectDailyShiftTable.Shift_Ic);
   //PRINT DAILY SHIFT
@@ -304,6 +305,7 @@ function SingleDayShiftEditor({
           ShiftDate={ShiftDate}
           getSingleDayShiftPlan4thTable={getSingleDayShiftPlan4thTable}
           getSecondTableData={getSecondTableData}
+          setSelectedShiftInchargeForSpecialShift={setSelectedShiftInchargeForSpecialShift}
         />
       </div>
     </>

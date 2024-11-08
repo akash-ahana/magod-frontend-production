@@ -122,18 +122,30 @@ export default function OperationsCompleteOpenProgram({
     setProgramCompleteData(constProgramCompleteData);
     setNewProgramCompleteData(constProgramCompleteData);
     setNewPartlistdata(constProgramCompleteData);
-    // Send a POST request
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-        constProgramCompleteData
-      )
-      .then((response) => {
-        // Handle the response if needed
-        toast.success("Success", {
-          position: toast.POSITION.TOP_CENTER,
+
+    // Check if any row has QtyCut > 0 before submitting
+    const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+      (item) => item.QtyCut > 0
+    );
+
+    if (hasQtyCutGreaterThanZero) {
+      // Send a POST request
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+          constProgramCompleteData
+        )
+        .then((response) => {
+          // Handle the response if needed
+          toast.success("Success", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
+    } else {
+      toast.error("Produced should be greater than zero", {
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
   };
 
   const onChangeRejected = (e, item, key) => {
@@ -223,48 +235,47 @@ export default function OperationsCompleteOpenProgram({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
-    if(programCompleteData[0]?.QtyCleared===0){
+    if (programCompleteData[0]?.QtyCleared === 0) {
       toast.error("Clear parts for for quantity before closing the program", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    else{
+    } else {
       axios
-      .post(
-        baseURL + "/shiftManagerProfile/CloseProgram",
-        selectProgramCompleted
-      )
-      .then((response) => {
-        console.log(response.data);
-        if (
-          response.data == "Return or update Material before closing Program"
-        ) {
-          setCloseProgram(true);
-          setResponse("Return or update Material before closing Program");
-        } else {
+        .post(
+          baseURL + "/shiftManagerProfile/CloseProgram",
+          selectProgramCompleted
+        )
+        .then((response) => {
+          console.log(response.data);
           if (
-            selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            response.data == "Return or update Material before closing Program"
           ) {
-            setComparedResponse("Do you wish to short close program No?");
-            setOpenShortClose(true);
-          } else {
-            axios
-              .post(
-                baseURL + "/shiftManagerProfile/updateClosed",
-                selectProgramCompleted
-              )
-              .then((response) => {
-                console.log(response.data);
-              });
             setCloseProgram(true);
-            setResponse("Closed");
-            const constSelectProgramCompleted = selectProgramCompleted;
-            constSelectProgramCompleted.PStatus = "Closed";
-            setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(true);
+            setResponse("Return or update Material before closing Program");
+          } else {
+            if (
+              selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            ) {
+              setComparedResponse("Do you wish to short close program No?");
+              setOpenShortClose(true);
+            } else {
+              axios
+                .post(
+                  baseURL + "/shiftManagerProfile/updateClosed",
+                  selectProgramCompleted
+                )
+                .then((response) => {
+                  console.log(response.data);
+                });
+              setCloseProgram(true);
+              setResponse("Closed");
+              const constSelectProgramCompleted = selectProgramCompleted;
+              constSelectProgramCompleted.PStatus = "Closed";
+              setSelectProgramCompleted(constSelectProgramCompleted);
+              setDisableStatus(true);
+            }
           }
-        }
-      });
+        });
     }
   };
 

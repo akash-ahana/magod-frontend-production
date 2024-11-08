@@ -1,4 +1,4 @@
-import react from 'react'
+import react from "react";
 import { Button } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
 import { useEffect, useState } from "react";
@@ -7,35 +7,48 @@ import { baseURL } from "../../../../api/baseUrl";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
 
-export default function SpecialShiftConfirmModal({setOpen,specialConfirmModal,specialShiftFromDate,setSpecialShiftConfirmModal, specialShiftToDate,handleSubmit}) {
+export default function SpecialShiftConfirmModal({
+  setOpen,
+  specialConfirmModal,
+  specialShiftFromDate,
+  setSpecialShiftConfirmModal,
+  specialShiftToDate,
+  handleSubmit,
+  setSelectedShiftInchargeForSpecialShift,
+}) {
+  const handleClose = () => {
+    setOpen(true);
+    setSpecialShiftConfirmModal(false);
+  };
 
-    const handleClose = () => {
-        setOpen(true)
-        setSpecialShiftConfirmModal(false)
-    }
-
-    const handleSubmitYes = () => {
-        handleSubmit();
-        setSpecialShiftConfirmModal(false)
-    }
-    return (
-        <div>
-        <Modal show={specialConfirmModal} onHide={handleClose}>
+  const handleSubmitYes = () => {
+    handleSubmit();
+    setSpecialShiftConfirmModal(false);
+    setSelectedShiftInchargeForSpecialShift([]);
+  };
+  return (
+    <div>
+      <Modal show={specialConfirmModal} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Special_shift</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Special_shift</Modal.Title>
         </Modal.Header>
-          <Modal.Body>Are You sure want to create special shift from <b>{specialShiftFromDate}</b> to <b>{specialShiftToDate}</b> ?
-          </Modal.Body>
+        <Modal.Body style={{ fontSize: "12px" }}>
+          Are You sure want to create special shift from{" "}
+          <b>{specialShiftFromDate}</b> to <b>{specialShiftToDate}</b> ?
+        </Modal.Body>
 
         <Modal.Footer>
-         <Button variant="primary" onClick={handleSubmitYes} >
+          <button
+            className="button-style group-button"
+            onClick={handleSubmitYes}
+          >
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style group-button" onClick={handleClose}>
             No
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
-        </div>
-    );
+    </div>
+  );
 }

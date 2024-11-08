@@ -4,6 +4,7 @@ import OperationsCompleteOpenProgram from "./OperationsCompletedOpenProgram";
 import { useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../../../../../../api/baseUrl";
+import { toast } from "react-toastify";
 
 export default function OperationsProgramCompleteTable({
   proramCompleted,
@@ -14,12 +15,18 @@ export default function OperationsProgramCompleteTable({
   operation,
 }) {
   const [show, setShow] = useState(false);
+  const [selectProgramCompleted, setSelectProgramCompleted] = useState("");
 
   const handaleClick = () => {
-    setShow(true);
+    if (selectProgramCompleted) {
+      setShow(true);
+    } else {
+      toast.error("Please select a row", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
-  const [selectProgramCompleted, setSelectProgramCompleted] = useState("");
   const programCompleted = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramCompleted(list);

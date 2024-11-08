@@ -21,12 +21,12 @@ export default function ByMachineBox() {
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
 
   useEffect(() => {
-    setLoading(true); // Set loading state to true before fetching data
+    setLoading(true);
     axios
       .get(baseURL + "/shiftManagerService/serviceListMachinesTaskNo")
       .then((response) => {
         setMachineProcessData(response.data);
-        setLoading(false); // Set loading state to false in case of error
+        setLoading(false); 
       });
   }, []);
 

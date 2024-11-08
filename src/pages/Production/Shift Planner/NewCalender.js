@@ -1088,6 +1088,7 @@ function NewCalender(props) {
           condition={condition}
           selectedShift={selectedShift}
           SelectedShiftIncharge={SelectedShiftIncharge}
+          setSelectedShiftInchargeForSpecialShift={setSelectedShiftIncharge}
         />
       </div>
 

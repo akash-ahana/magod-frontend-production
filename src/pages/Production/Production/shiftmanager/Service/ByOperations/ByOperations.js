@@ -30,8 +30,7 @@ export default function ByOperations() {
       .get(baseURL + "/shiftManagerService/orderByOperationsService")
       .then((response) => {
         setOperationData(response.data);
-        setIsLoading(false); // Data has been fetched, set loading to false
-        console.log(response.data);
+        setIsLoading(false); 
       });
   }, []);
 
@@ -55,10 +54,8 @@ export default function ByOperations() {
     setOperation(list.Operation);
   };
 
-  console.log(operation);
 
   const onClickOperation = (Operation) => {
-    console.log("The Operation Selected is ", Operation);
     axios
       .post(baseURL + "/shiftManagerService/OperationProgramesCompleted", {
         Operation: Operation,
@@ -105,7 +102,6 @@ export default function ByOperations() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
         setProgramCompleted(response.data);
       });
 
@@ -114,7 +110,6 @@ export default function ByOperations() {
         Operation: Operation,
       })
       .then((response) => {
-        console.log("Programs Processing Data is ", response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -162,19 +157,12 @@ export default function ByOperations() {
   };
 
   const onClickMachine = (Machine, Operation) => {
-    console.log(
-      "The Selected Machine is ",
-      Machine,
-      "With Operation ",
-      Operation
-    );
     axios
       .post(
         baseURL + "/shiftManagerService/OperationMachinesProgramesCompleted",
         { MachineName: Machine, Operation: Operation }
       )
       .then((response) => {
-        console.log("Programs Compleated DATA", response.data);
         setProgramCompleted(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -217,7 +205,6 @@ export default function ByOperations() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
       });
 
     axios
@@ -226,7 +213,6 @@ export default function ByOperations() {
         { MachineName: Machine, Operation: Operation }
       )
       .then((response) => {
-        console.log("Programs Processing Data is ", response.data);
         setProgramProcessing(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -276,21 +262,12 @@ export default function ByOperations() {
   const [proramCompleted, setProgramCompleted] = useState([]);
   const [programProcessing, setProgramProcessing] = useState([]);
   const onClickProgram = (Operation, Machine, processItem) => {
-    console.log(
-      "The Selected Operation is ",
-      Operation,
-      " Machine is ",
-      Machine,
-      " Program is ",
-      processItem
-    );
     axios
       .post(
         baseURL + "/shiftManagerService//taskNoProgramNoCompleted",
         processItem
       )
       .then((response) => {
-        console.log("Programs Compleated DATA", response.data);
         setProgramCompleted(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -333,7 +310,6 @@ export default function ByOperations() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
       });
 
     axios
@@ -342,7 +318,6 @@ export default function ByOperations() {
         processItem
       )
       .then((response) => {
-        console.log("Programs Processing Data is ", response.data);
         setProgramProcessing(response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
@@ -385,7 +360,6 @@ export default function ByOperations() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("AFTER ADDING COLOR", response.data);
       });
   };
 
@@ -469,7 +443,6 @@ export default function ByOperations() {
             response.data[i].rowColor = "#ff0000";
           }
         }
-        console.log("response  machine list", response.data);
         setProgramCompleted(response.data);
         setSelectedLabelIndex(index);
         setSelectedMachineIndex(-1);

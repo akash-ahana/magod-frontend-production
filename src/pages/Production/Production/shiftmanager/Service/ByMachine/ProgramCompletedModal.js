@@ -99,7 +99,7 @@ export default function ProgramCompletedModal({
         constProgramCompleteData[i].QtyCut -
         constProgramCompleteData[i].QtyRejected;
     }
-  
+
     // Validate if Remarks are mandatory
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -116,17 +116,29 @@ export default function ProgramCompletedModal({
     setProgramCompleteData(constProgramCompleteData);
     setNewProgramCompleteData(constProgramCompleteData);
     setNewPartlistdata(constProgramCompleteData);
-    // Send a POST request
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
-        constProgramCompleteData
-      )
-      .then((response) => {
-        toast.success("Success", {
-          position: toast.POSITION.TOP_CENTER,
+
+    // Check if any row has QtyCut > 0 before submitting
+    const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
+      (item) => item.QtyCut > 0
+    );
+
+    if (hasQtyCutGreaterThanZero) {
+      // Send a POST request
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/shiftManagerCloseProgram",
+          constProgramCompleteData
+        )
+        .then((response) => {
+          toast.success("Success", {
+            position: toast.POSITION.TOP_CENTER,
+          });
         });
+    } else {
+      toast.error("Produced should be greater than zero", {
+        position: toast.POSITION.TOP_CENTER,
       });
+    }
   };
 
   const onChangeRejected = (e, item, key) => {
@@ -215,47 +227,46 @@ export default function ProgramCompletedModal({
   const [comparedResponse, setComparedResponse] = useState("");
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
-    if(programCompleteData[0]?.QtyCleared===0){
+    if (programCompleteData[0]?.QtyCleared === 0) {
       toast.error("Clear parts for for quantity before closing the program", {
         position: toast.POSITION.TOP_CENTER,
       });
-    }
-    else{
-    axios
-      .post(
-        baseURL + "/shiftManagerProfile/CloseProgram",
-        selectProgramCompleted
-      )
-      .then((response) => {
-        if (
-          response.data == "Return or update Material before closing Program"
-        ) {
-          setCloseProgram(true);
-          setResponse("Return or update Material before closing Program");
-        } else {
+    } else {
+      axios
+        .post(
+          baseURL + "/shiftManagerProfile/CloseProgram",
+          selectProgramCompleted
+        )
+        .then((response) => {
           if (
-            selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            response.data == "Return or update Material before closing Program"
           ) {
-            setComparedResponse("Do you wish to short close program No?");
-            setOpenShortClose(true);
-          } else {
-            axios
-              .post(
-                baseURL + "/shiftManagerProfile/updateClosed",
-                selectProgramCompleted
-              )
-              .then((response) => {
-                console.log(response.data);
-              });
             setCloseProgram(true);
-            setResponse("Closed");
-            const constSelectProgramCompleted = selectProgramCompleted;
-            constSelectProgramCompleted.PStatus = "Closed";
-            setSelectProgramCompleted(constSelectProgramCompleted);
-            setDisableStatus(response.data.success);
+            setResponse("Return or update Material before closing Program");
+          } else {
+            if (
+              selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
+            ) {
+              setComparedResponse("Do you wish to short close program No?");
+              setOpenShortClose(true);
+            } else {
+              axios
+                .post(
+                  baseURL + "/shiftManagerProfile/updateClosed",
+                  selectProgramCompleted
+                )
+                .then((response) => {
+                  console.log(response.data);
+                });
+              setCloseProgram(true);
+              setResponse("Closed");
+              const constSelectProgramCompleted = selectProgramCompleted;
+              constSelectProgramCompleted.PStatus = "Closed";
+              setSelectProgramCompleted(constSelectProgramCompleted);
+              setDisableStatus(response.data.success);
+            }
           }
-        }
-      });
+        });
     }
   };
   //
@@ -276,32 +287,31 @@ export default function ProgramCompletedModal({
     setNewProgramCompleteData(newconstprogramCompleteData);
   };
 
-  
-   //
-   const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
-   const requestSort = (key) => {
-     let direction = "asc";
-     if (sortConfig.key === key && sortConfig.direction === "asc") {
-       direction = "desc";
-     }
-     setSortConfig({ key, direction });
-   };
- 
-   const sortedData = () => {
-     const dataCopy = [...programCompleteData];
-     if (sortConfig.key) {
-       dataCopy.sort((a, b) => {
-         if (a[sortConfig.key] < b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? -1 : 1;
-         }
-         if (a[sortConfig.key] > b[sortConfig.key]) {
-           return sortConfig.direction === "asc" ? 1 : -1;
-         }
-         return 0;
-       });
-     }
-     return dataCopy;
-   };
+  //
+  const [sortConfig, setSortConfig] = useState({ key: null, direction: null });
+  const requestSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
+    }
+    setSortConfig({ key, direction });
+  };
+
+  const sortedData = () => {
+    const dataCopy = [...programCompleteData];
+    if (sortConfig.key) {
+      dataCopy.sort((a, b) => {
+        if (a[sortConfig.key] < b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? -1 : 1;
+        }
+        if (a[sortConfig.key] > b[sortConfig.key]) {
+          return sortConfig.direction === "asc" ? 1 : -1;
+        }
+        return 0;
+      });
+    }
+    return dataCopy;
+  };
 
   return (
     <div>
@@ -332,7 +342,13 @@ export default function ProgramCompletedModal({
             <div className="ip-box form-bg ">
               <div className="row">
                 <div className="d-flex col-md-3" style={{ gap: "34px" }}>
-                  <label className="form-label" style={{whiteSpace:'nowrap'}}> Task No</label>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Task No
+                  </label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted.TaskNo}
@@ -345,7 +361,7 @@ export default function ProgramCompletedModal({
                     value={selectProgramCompleted.Qty}
                   />
                 </div>
-                <div className="d-flex col-md-5" style={{gap:'10px'}}>
+                <div className="d-flex col-md-5" style={{ gap: "10px" }}>
                   <label className="form-label"> Material</label>
                   <input
                     className="input-field"
@@ -353,8 +369,14 @@ export default function ProgramCompletedModal({
                   />
                 </div>
 
-                <div className="d-flex col-md-3" style={{gap:'10px'}}>
-                  <label className="form-label" style={{whiteSpace:'nowrap'}}> Program no</label>
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
+                  <label
+                    className="form-label"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    {" "}
+                    Program no
+                  </label>
                   <input
                     className="input-field"
                     value={selectProgramCompleted.NCProgramNo}
@@ -377,7 +399,7 @@ export default function ProgramCompletedModal({
                   />
                 </div>
 
-                <div className="d-flex col-md-3" style={{gap:'10px'}}>
+                <div className="d-flex col-md-3" style={{ gap: "10px" }}>
                   <label className="form-label">Status</label>
                   <input
                     className="input-field"
@@ -393,7 +415,7 @@ export default function ProgramCompletedModal({
                   />
                 </div>
 
-                <div className="d-flex col-md-2" style={{gap:'10px'}}>
+                <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Processed</label>
                   <input
                     className="input-field"
@@ -422,7 +444,7 @@ export default function ProgramCompletedModal({
                   <label className="form-label ms-5">Process Time</label>
                 </div>
 
-                <div className="d-flex col-md-2" style={{gap:'10px'}}>
+                <div className="d-flex col-md-2" style={{ gap: "10px" }}>
                   <label className="form-label">Estimated</label>
                   <input
                     className="input-field"
@@ -430,7 +452,7 @@ export default function ProgramCompletedModal({
                   />
                 </div>
 
-                <div className="d-flex col-md-2 mb-2" style={{gap:'10px'}}>
+                <div className="d-flex col-md-2 mb-2" style={{ gap: "10px" }}>
                   <label className="form-label">Machine</label>
                   <input
                     className="input-field"
@@ -477,12 +499,32 @@ export default function ProgramCompletedModal({
               >
                 <Table striped className="table-data border">
                   <thead className="tableHeaderBGColor">
-                  <tr>
+                    <tr>
                       <th onClick={() => requestSort("Dwg Name")}>Dwg Name</th>
-                      <th className="textAllign" onClick={() => requestSort("To Produce")}>To Produce</th>
-                      <th className="textAllign" onClick={() => requestSort("Produced")}>Produced</th>
-                      <th className="textAllign" onClick={() => requestSort("Rejected")}>Rejected</th>
-                      <th className="textAllign" onClick={() => requestSort("Cleared")}>Cleared</th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("To Produce")}
+                      >
+                        To Produce
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Produced")}
+                      >
+                        Produced
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Rejected")}
+                      >
+                        Rejected
+                      </th>
+                      <th
+                        className="textAllign"
+                        onClick={() => requestSort("Cleared")}
+                      >
+                        Cleared
+                      </th>
                       <th onClick={() => requestSort("Remarks")}>Remarks</th>
                     </tr>
                   </thead>
@@ -499,7 +541,7 @@ export default function ProgramCompletedModal({
                             <td className="textAllign">{item.TotQtyNested}</td>
                             <td className="textAllign">{item.QtyCut}</td>
                             <td>
-                              <div> 
+                              <div>
                                 <input
                                   className="table-cell-editor textAllign"
                                   name="cleared"

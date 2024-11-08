@@ -16,16 +16,16 @@ export default function DeleteMachineoperatorweekModal({opendeleteoperator,setOp
     <div>
          <Modal show={opendeleteoperator} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Machine Operator for week</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>Delete Machine Operator for week</Modal.Title>
         </Modal.Header>
 
         
         {selectedOperator && selectedMachine && selectedShift ? (
-         <Modal.Body>Are you sure want to delete <b>{selectedOperator}</b> for <b>{selectedMachine}</b> for 
+         <Modal.Body style={{ fontSize: "12px" }}>Are you sure want to delete <b>{selectedOperator}</b> for <b>{selectedMachine}</b> for 
          <b>{selectedShift}</b> shift?
         </Modal.Body> 
         ) : (
-          <Modal.Body>
+          <Modal.Body style={{ fontSize: "12px" }}>
             Please select <b>Shift</b> ,<b>Operator</b> and <b>Machine</b> before deleting
           </Modal.Body>
         )}
@@ -34,18 +34,18 @@ export default function DeleteMachineoperatorweekModal({opendeleteoperator,setOp
         <Modal.Footer>
           {selectedOperator && selectedMachine && selectedShift ? (
             <>
-             <Button variant="primary" onClick={()=>{handleClose()
+             <button className="button-style group-button" onClick={()=>{handleClose()
           onClickDeleteWeekOperatorMachine()}}>
            Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style group-button" onClick={handleClose}>
           No
-          </Button>
+          </button>
             </>
           ) : (
-            <Button variant="primary" onClick={handleClose}>
+            <button className="button-style group-button" onClick={handleClose}>
               OK
-            </Button>
+            </button>
           )}
         </Modal.Footer>
       </Modal>
