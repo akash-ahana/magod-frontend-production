@@ -107,7 +107,7 @@ export default function ProgramCompletedModal({
     );
     if (hasInvalidRemarks) {
       // Display an error using the toastify library
-      toast.error("Remarks are mandatory for rows with Rejected > 0", {
+      toast.error("Please add remarks", {
         position: toast.POSITION.TOP_CENTER,
       });
       return; // Stop further processing

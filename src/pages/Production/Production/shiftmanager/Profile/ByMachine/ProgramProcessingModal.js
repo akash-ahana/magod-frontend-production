@@ -350,7 +350,7 @@ export default function ProgramProcessingModal({
                   />
                 </div>
 
-                <div className="col-md-2 ms-5">
+                <div className="col-md-3 ms-5">
                   <button
                     className="button-style group-button"
                     onClick={clearAllButton}

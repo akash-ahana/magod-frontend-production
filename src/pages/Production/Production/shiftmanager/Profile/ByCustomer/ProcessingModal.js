@@ -45,6 +45,7 @@ export default function ProcessingModal({
 
   //Open Popup
   const [openChnageMachine, setOpenChangeMachine] = useState("");
+  
   const openChangeMachineModal = () => {
     setOpenChangeMachine(true);
   };
@@ -323,7 +324,7 @@ export default function ProcessingModal({
                   />
                 </div>
 
-                <div className="col-md-2 ms-5">
+                <div className="col-md-3 ms-5">
                   <button
                     className="button-style group-button"
                     onClick={clearAllButton}
