@@ -92,22 +92,22 @@ export default function MachineChangeModal({
     <>
       <Modal show={changeMachine}>
         <Modal.Header closeButton onClick={handleClose}>
-          <Modal.Title>Machine Selection Form</Modal.Title>
+          <Modal.Title style={{fontSize:'14px'}}>Machine Selection Form</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{fontSize:'12px'}}>
           Do you wish to shift Program No {selectProgramProcessing.NCProgramNo}{" "}
-          from {selectProgramProcessing.Machine} To laser {selectedMachine}?
+          from {selectProgramProcessing.Machine} To {selectedMachine}?
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
+          <button
+            className="button-style group-button"
             onClick={onClickYes}
           >
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
+          </button>
+          <button className="button-style group-button" variant="secondary" onClick={handleClose}>
             No
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
     </>

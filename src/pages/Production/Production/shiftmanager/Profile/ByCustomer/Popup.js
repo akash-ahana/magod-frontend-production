@@ -33,7 +33,13 @@ export default function Popup({
   };
 
   const changeMachineonClick = () => {
-    changeMachineModal();
+    if (selectedMachine) {
+      changeMachineModal();
+    } else {
+      toast.error("Please select the Machine", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   const [changeMachine, setChangeMachine] = useState("");
@@ -61,7 +67,7 @@ export default function Popup({
           style={{ display: "block", position: "initial" }}
         >
           <Modal.Header closeButton onClick={handleClose}>
-            <Modal.Title>Machine Selection Form</Modal.Title>
+            <Modal.Title style={{fontSize:'14px'}}>Machine Selection Form</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="col-md-12 col-sm-12">

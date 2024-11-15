@@ -108,7 +108,7 @@ function Forms() {
       {/* {shiftDetails &&
         shiftDetails.map((item) => { */}
 
-      <div className="bg-light" style={{marginTop:'-8px'}}>
+      <div className="bg-light" style={{ marginTop: "-8px" }}>
         <label className="form-label ms-2">
           Shift In Charge Monitoring Form
         </label>
@@ -182,7 +182,9 @@ function Forms() {
           </div>
           <div className="col-md-3">
             <div>
-              <label className="form-label" style={{fontSize:'14px'}}>Group Actions</label>
+              <label className="form-label" style={{ fontSize: "14px" }}>
+                Group Actions
+              </label>
 
               <div
                 className="col-md-12 mt-1"

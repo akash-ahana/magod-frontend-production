@@ -34,8 +34,15 @@ export default function Popup({
   };
 
   const [changeMachine, setChangeMachine] = useState("");
+
   const changeMachineonClick = () => {
-    setChangeMachine(true);
+    if (selectedMachine1) {
+      setChangeMachine(true);
+    } else {
+      toast.error("Please select the Machine", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   return (

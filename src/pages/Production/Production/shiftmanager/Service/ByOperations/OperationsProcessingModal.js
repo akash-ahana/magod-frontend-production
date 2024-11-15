@@ -48,6 +48,7 @@ export default function OperationsProcessingModal({
 
   //Open Popup
   const [openChnageMachine, setOpenChangeMachine] = useState("");
+  
   const openChangeMachineModal = () => {
     setOpenChangeMachine(true);
   };
