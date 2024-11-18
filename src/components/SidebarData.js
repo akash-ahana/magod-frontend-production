@@ -29,7 +29,9 @@ import { GiLaserPrecision, GiProcessor } from "react-icons/gi";
 import { HiCubeTransparent } from "react-icons/hi";
 import { AiFillSchedule } from "react-icons/ai";
 
-console.log(JSON.parse(localStorage.getItem("LazerUser")));
+// console.log(JSON.parse(localStorage.getItem("LazerUser")));
+
+const previousMenuUrl = process.env.REACT_APP_PREVIOUS_MENU_URL;
 
 export const customerSidebar = [
 	{
@@ -167,7 +169,7 @@ export const customerSidebar = [
 	},
 	{
 		title: "Previous Menu",
-		path: "http://172.16.20.61:3000/home",
+		path: previousMenuUrl,
 		// path: "http://192.168.1.25:9000/home",
 		icon: <MdIcon.MdPreview />,
 		iconClosed: <RiIcons.RiArrowDownSFill />,

@@ -100,7 +100,7 @@ export default function MachineChangeModal({
         <Modal.Body style={{ fontSize: "12px" }}>
           Do you wish to shift Program No{" "}
           <b>{selectProgramProcessing.NCProgramNo}</b> from{" "}
-          <b>{selectProgramProcessing.Machine}</b> To laser{" "}
+          <b>{selectProgramProcessing.Machine}</b> To{" "}
           <b>{FirstSelectedMachine}</b>?
         </Modal.Body>
         <Modal.Footer>

@@ -30,7 +30,7 @@ export default function ByOperations() {
       .get(baseURL + "/shiftManagerService/orderByOperationsService")
       .then((response) => {
         setOperationData(response.data);
-        setIsLoading(false); 
+        setIsLoading(false);
       });
   }, []);
 
@@ -54,10 +54,9 @@ export default function ByOperations() {
     setOperation(list.Operation);
   };
 
-
   const onClickOperation = (Operation) => {
     axios
-      .post(baseURL + "/shiftManagerService/OperationProgramesCompleted", {
+      .post(baseURL + "/shiftManagerProfile/OperationProgramesCompleted", {
         Operation: Operation,
       })
       .then((response) => {
@@ -106,7 +105,7 @@ export default function ByOperations() {
       });
 
     axios
-      .post(baseURL + "/shiftManagerService/OperationProgramesProcessing", {
+      .post(baseURL + "/shiftManagerProfile/OperationProgramesProcessing", {
         Operation: Operation,
       })
       .then((response) => {
@@ -159,7 +158,7 @@ export default function ByOperations() {
   const onClickMachine = (Machine, Operation) => {
     axios
       .post(
-        baseURL + "/shiftManagerService/OperationMachinesProgramesCompleted",
+        baseURL + "/shiftManagerProfile/OperationMachinesProgramesCompleted",
         { MachineName: Machine, Operation: Operation }
       )
       .then((response) => {
@@ -209,7 +208,7 @@ export default function ByOperations() {
 
     axios
       .post(
-        baseURL + "/shiftManagerService/OperationMachinesProgramesProcessing",
+        baseURL + "/shiftManagerProfile/OperationMachinesProgramesProcessing",
         { MachineName: Machine, Operation: Operation }
       )
       .then((response) => {
@@ -547,6 +546,13 @@ export default function ByOperations() {
                                           style={{
                                             backgroundColor: "#afbfa1",
                                           }}
+                                          onClick={() =>
+                                            onClickProgram(
+                                              data?.Operation,
+                                              value?.refName,
+                                              processItem
+                                            )
+                                          }
                                         >
                                           {processItem?.TaskNo} /{" "}
                                           {processItem?.NCProgramNo} -{" "}

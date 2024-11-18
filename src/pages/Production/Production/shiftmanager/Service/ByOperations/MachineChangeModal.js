@@ -98,7 +98,7 @@ export default function MachineChangeModal({
         </Modal.Header>
         <Modal.Body style={{ fontSize: "12px" }}>
           Do you wish to shift Program No {selectProgramProcessing.NCProgramNo}{" "}
-          from {selectProgramProcessing.Machine} To laser {selectedMachine}?
+          from {selectProgramProcessing.Machine} To {selectedMachine}?
         </Modal.Body>
         <Modal.Footer>
           <button className="group-button button-style" onClick={onClickYes}>

@@ -276,6 +276,8 @@ export default function ByOperations() {
   const [proramCompleted, setProgramCompleted] = useState([]);
   const [programProcessing, setProgramProcessing] = useState([]);
   const onClickProgram = (Operation, Machine, processItem) => {
+    console.log("Helloo");
+
     console.log(
       "The Selected Operation is ",
       Operation,
@@ -286,7 +288,7 @@ export default function ByOperations() {
     );
     axios
       .post(
-        baseURL + "/shiftManagerProfile//taskNoProgramNoCompleted",
+        baseURL + "/shiftManagerProfile/taskNoProgramNoCompleted",
         processItem
       )
       .then((response) => {
@@ -572,6 +574,13 @@ export default function ByOperations() {
                                           style={{
                                             backgroundColor: "#afbfa1",
                                           }}
+                                          onClick={() =>
+                                            onClickProgram(
+                                              data?.Operation,
+                                              value?.refName,
+                                              processItem
+                                            )
+                                          }
                                         >
                                           {processItem?.TaskNo} /{" "}
                                           {processItem?.NCProgramNo} -{" "}
