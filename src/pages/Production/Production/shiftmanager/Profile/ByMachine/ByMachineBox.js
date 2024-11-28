@@ -192,7 +192,7 @@ export default function ByMachineBox() {
         { MachineName: Machine }
       )
       .then((response) => {
-        // console.log(response.data);
+        // console.log('Machine Processing Data',response.data);
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <

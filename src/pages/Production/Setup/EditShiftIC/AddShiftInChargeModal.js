@@ -33,9 +33,16 @@ export default function AddShiftInChargeModal({
 
   const [AddShiftInChargeModal, setAddShiftInChargeModal] = useState(false);
   const addShiftInCharge = () => {
-    setOpenAdd(false);
-    setAddShiftInChargeModal(true);
+    if (shiftIncharge && skillLevel && status) {
+      setOpenAdd(false);
+      setAddShiftInChargeModal(true);
+    } else {
+      toast.error("Please fill all the details", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
+  
 
   const handleSubmit = () => {
     axios
@@ -82,7 +89,11 @@ export default function AddShiftInChargeModal({
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Shift InCharge
                 </label>
-                <input className="input-field" onChange={handleChangeShiftIc} />
+                <input
+                  className="input-field"
+                  onChange={handleChangeShiftIc}
+                  required
+                />
               </div>
             </div>
 
@@ -94,6 +105,7 @@ export default function AddShiftInChargeModal({
                 <input
                   className="input-field"
                   onChange={handleChangeSkillLevel}
+                  required
                 />
               </div>
             </div>
@@ -103,7 +115,7 @@ export default function AddShiftInChargeModal({
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Status
                 </label>
-                <input className="input-field" onChange={handleChangeStaus} />
+                <input className="input-field" onChange={handleChangeStaus} required/>
               </div>
             </div>
           </div>

@@ -103,6 +103,10 @@ export default function TabData({
    }
    return dataCopy;
  };
+
+//  console.log('Machine data in side Program Processing tab', machineProgramesProcessing);
+ 
+
   return (
     <>
       <div>

@@ -261,9 +261,13 @@ export default function ByOperations() {
   const [proramCompleted, setProgramCompleted] = useState([]);
   const [programProcessing, setProgramProcessing] = useState([]);
   const onClickProgram = (Operation, Machine, processItem) => {
+    
+    console.log('Hello program');
+    
+
     axios
       .post(
-        baseURL + "/shiftManagerService//taskNoProgramNoCompleted",
+        baseURL + "/shiftManagerService/taskNoProgramNoCompleted",
         processItem
       )
       .then((response) => {

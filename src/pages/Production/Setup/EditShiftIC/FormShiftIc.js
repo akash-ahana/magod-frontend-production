@@ -45,10 +45,27 @@ export default function FormShiftIc({
         setRowSelectShiftIc({ ...getShiftIclist[0], index: 0 });
       });
   };
+  
+
+  // Validating the Fields
+  const validateShiftIcData = (data) => {
+    const requiredFields = ["Name", "Skill_Level", "Status"];
+    return requiredFields.every(
+      (field) => data[field] && data[field].toString().trim() !== ""
+    );
+  };
 
   // Save button
   const saveShiftIc = () => {
     console.log(rowselectShiftIc);
+
+    if (!validateShiftIcData(rowselectShiftIc)) {
+      toast.error("Please fill all fields before saving.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
+
     axios
       .post(baseURL + "/editShiftIc/saveShiftIncharge", { rowselectShiftIc })
       .then((response) => {
@@ -75,6 +92,7 @@ export default function FormShiftIc({
   const onClickClose = () => {
     navigate("/Production");
   };
+  
 
   return (
     <div className="ip-box form-bg">
