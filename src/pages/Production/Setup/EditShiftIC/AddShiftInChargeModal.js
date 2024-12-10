@@ -42,7 +42,6 @@ export default function AddShiftInChargeModal({
       });
     }
   };
-  
 
   const handleSubmit = () => {
     axios
@@ -67,6 +66,8 @@ export default function AddShiftInChargeModal({
         }
         getShiftIcData();
       });
+
+    window.location.reload();
   };
 
   const handleCloseAdd = () => {
@@ -115,7 +116,11 @@ export default function AddShiftInChargeModal({
                 <label className="form-label" style={{ whiteSpace: "nowrap" }}>
                   Status
                 </label>
-                <input className="input-field" onChange={handleChangeStaus} required/>
+                <input
+                  className="input-field"
+                  onChange={handleChangeStaus}
+                  required
+                />
               </div>
             </div>
           </div>

@@ -319,7 +319,7 @@ export default function ByCustomer() {
                                   {value.PStatus === "Completed" ? (
                                     <li
                                       className="completed"
-                                      style={{ backgroundColor: "#afbfa1" }}
+                                      style={{ backgroundColor: "#92ec93" }}
                                     >
                                       {value.TaskNo} / {value.NCProgramNo} /{" "}
                                       {value.PStatus}

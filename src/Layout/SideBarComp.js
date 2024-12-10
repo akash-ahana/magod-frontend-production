@@ -97,7 +97,7 @@ const SidebarComp = () => {
 				if (element.subNav) {
 					const subNavFiltered = filterSidebarData(element.subNav, accessPaths);
 					element.subNav = subNavFiltered;
-					if (subNavFiltered.length > 0 || accessPaths.includes(element.path)) {
+					if (subNavFiltered.length > 0 || accessPaths?.includes(element.path)) {
 						// if(element.path)
 						//   element.path = element.path.toLowerCase();
 

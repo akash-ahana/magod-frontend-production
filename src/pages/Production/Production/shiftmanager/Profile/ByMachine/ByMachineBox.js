@@ -31,7 +31,7 @@ export default function ByMachineBox() {
   };
 
   useEffect(() => {
-    setLoading(true); 
+    setLoading(true);
     axios
       .get(baseURL + "/shiftManagerProfile/profileListMachinesTaskNo")
       .then((response) => {
@@ -42,6 +42,7 @@ export default function ByMachineBox() {
   }, []);
 
   const [selectLaser, setSelectLaser] = useState("");
+  const [selectedTask, setSelectedTask] = useState("");
   // const LaserRowselect = (item, index) => {
   //   let list = { ...item, index: index };
   //   setSelectLaser(list);
@@ -147,7 +148,6 @@ export default function ByMachineBox() {
         { MachineName: Machine }
       )
       .then((response) => {
-
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -408,11 +408,16 @@ export default function ByMachineBox() {
                                   onClick={() =>
                                     taskNoOnClick(data.MachineName, value)
                                   }
+                                  className={
+                                    key === selectedTask?.index
+                                      ? "selcted-row-clr"
+                                      : ""
+                                  }
                                 >
                                   {value.PStatus === "Completed" ? (
                                     <li
                                       className="completed"
-                                      style={{ backgroundColor: "#afbfa1" }}
+                                      style={{ backgroundColor: "#92ec93" }}
                                     >
                                       {value.TaskNo} / {value.Mtrl_Code} /{" "}
                                       {value.NCProgramNo} / {value.PStatus}

@@ -89,6 +89,9 @@ export default function MachineChangeModal({
       });
   };
 
+  console.log('Inside confirmation form', selectedMachine);
+  
+
   return (
     <>
       <Modal show={changeMachine}>
@@ -101,7 +104,8 @@ export default function MachineChangeModal({
           Do you wish to shift Program No{" "}
           <b>{selectProgramProcessing.NCProgramNo}</b> from{" "}
           <b>{selectProgramProcessing.Machine}</b> To{" "}
-          <b>{FirstSelectedMachine}</b>?
+          <b>{selectedMachine}</b>?
+          {/* <b>{FirstSelectedMachine}</b>? */}
         </Modal.Body>
         <Modal.Footer>
           <button className="button-style group-button" onClick={onClickYes}>

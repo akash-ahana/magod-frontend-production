@@ -12,6 +12,7 @@ export default function DeleteProcess({
 }) {
   const handleYesClick = () => {
     handleDelete();
+    window.location.reload();
   };
 
   return (

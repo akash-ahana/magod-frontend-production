@@ -32,9 +32,16 @@ export default function AddOperatorModal({
   };
 
   const [AddShiftInChargeModal, setAddShiftInChargeModal] = useState(false);
+
   const addShiftInCharge = () => {
-    setOpenAdd(false);
-    setAddShiftInChargeModal(true);
+    if (Operator && skillLevel && status) {
+      setOpenAdd(false);
+      setAddShiftInChargeModal(true);
+    } else {
+      toast.error("Please fill all the details", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -60,6 +67,8 @@ export default function AddOperatorModal({
         }
         getOperatorData();
       });
+
+      window.location.reload();
   };
 
   const handleCloseAdd = () => {

@@ -43,10 +43,27 @@ export default function EditOperatorForm({
         getOperatorData();
         setRowSelectOperator({ ...getOperatorlist[0], index: 0 });
       });
+
+    window.location.reload();
+  };
+
+  // Validating the Fields
+  const validateShiftIcData = (data) => {
+    const requiredFields = ["Name", "Skill_Level", "Status"];
+    return requiredFields.every(
+      (field) => data[field] && data[field].toString().trim() !== ""
+    );
   };
 
   // Save button
   const saveOperatorData = () => {
+    if (!validateShiftIcData(rowselectOperator)) {
+      toast.error("Please fill all fields before saving.", {
+        position: toast.POSITION.TOP_CENTER,
+      });
+      return;
+    }
+
     axios
       .post(baseURL + "/EditOperator/saveOperator", { rowselectOperator })
       .then((response) => {
