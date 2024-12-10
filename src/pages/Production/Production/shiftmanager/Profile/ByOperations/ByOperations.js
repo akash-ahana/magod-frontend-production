@@ -572,7 +572,7 @@ export default function ByOperations() {
                                       {processItem?.PStatus === "Completed" ? (
                                         <li
                                           style={{
-                                            backgroundColor: "#afbfa1",
+                                            backgroundColor: "#92ec93",
                                           }}
                                           onClick={() =>
                                             onClickProgram(

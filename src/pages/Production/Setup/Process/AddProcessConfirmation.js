@@ -16,6 +16,7 @@ export default function AddProcessConfirmation({
     toast.success("Process Added Successfully", {
       position: toast.POSITION.TOP_CENTER,
     });
+    window.location.reload();
   };
 
   return (

@@ -45,6 +45,10 @@ export default function Popup({
     }
   };
 
+  console.log('Inside Machine form change changeMachineList', changeMachineList);
+  console.log('Inside Machine form change selectedMachine1', selectedMachine1);
+  
+
   return (
     <>
       <MachineChangeModal

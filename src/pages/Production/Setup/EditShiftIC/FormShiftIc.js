@@ -44,6 +44,8 @@ export default function FormShiftIc({
         getShiftIcData();
         setRowSelectShiftIc({ ...getShiftIclist[0], index: 0 });
       });
+      
+      window.location.reload();
   };
   
 

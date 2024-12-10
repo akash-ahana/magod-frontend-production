@@ -101,6 +101,54 @@ export default function PartsList({
     }
   };
 
+  // const saveClearedonClick = () => {
+  //   // Ensure partlistdata is valid and iterable
+  //   if (!Array.isArray(partlistdata) || partlistdata.length === 0) {
+  //     toast.error("No data available to process.", {
+  //       position: toast.POSITION.TOP_CENTER,
+  //     });
+  //     return;
+  //   }
+
+  //   // Check if QtyCleared is 0 for the overall dataset
+  //   const isQtyClearedZero = partlistdata.every(
+  //     (item) => item.QtyCleared === 0
+  //   );
+  //   if (isQtyClearedZero) {
+  //     toast.error("Cleared should be greater than 0", {
+  //       position: toast.POSITION.TOP_CENTER,
+  //     });
+  //     return; // Exit if all rows have QtyCleared as 0
+  //   }
+
+  //   // Check if there is at least one row where QtyProduced is not equal to QtyCleared
+  //   const hasUnsavedData = partlistdata.some(
+  //     (item) => item.QtyProduced !== item.QtyCleared
+  //   );
+
+  //   // Determine API endpoint based on the condition
+  //   const apiUrl = hasUnsavedData
+  //     ? "/scheduleListProfile/scheduleListSaveCleared"
+  //     : "/scheduleListProfile/scheduleListSaveClearedCompleted";
+
+  //   // Send API request
+  //   axios
+  //     .post(baseURL + apiUrl, partlistdata)
+  //     .then((response) => {
+  //       toast.success("Cleared Saved", {
+  //         position: toast.POSITION.TOP_CENTER,
+  //       });
+  //       // Optionally handle the response (e.g., update data)
+  //       console.log("Response:", response.data);
+  //     })
+  //     .catch((error) => {
+  //       toast.error("An error occurred while saving.", {
+  //         position: toast.POSITION.TOP_CENTER,
+  //       });
+  //       console.error("Error saving cleared data:", error);
+  //     });
+  // };
+
   const handleCheckboxChange = (item) => {
     setSelectedRows((prevRows) => {
       if (prevRows.includes(item)) {
@@ -161,7 +209,6 @@ export default function PartsList({
     return dataCopy;
   };
 
-
   return (
     <div>
       <div className="row">
@@ -192,9 +239,24 @@ export default function PartsList({
             <tr>
               <th></th>
               <th onClick={() => requestSort("DwgName")}>DwgName</th>
-              <th className="textAllign" onClick={() => requestSort("QtyToNest")}>Programed</th>
-              <th className="textAllign" onClick={() => requestSort("QtyProduced")}>Produced</th>
-              <th className="textAllign" onClick={() => requestSort("QtyCleared")}>Cleared</th>
+              <th
+                className="textAllign"
+                onClick={() => requestSort("QtyToNest")}
+              >
+                Programed
+              </th>
+              <th
+                className="textAllign"
+                onClick={() => requestSort("QtyProduced")}
+              >
+                Produced
+              </th>
+              <th
+                className="textAllign"
+                onClick={() => requestSort("QtyCleared")}
+              >
+                Cleared
+              </th>
               {/* <th>Task_Part_ID</th>
               <th>NcTaskId</th>
               <th>TaskNo</th>

@@ -414,7 +414,7 @@ export default function ByMachineBox() {
                                   {value.PStatus === "Completed" ? (
                                     <li
                                       className="completed"
-                                      style={{ backgroundColor: "#afbfa1" }}
+                                      style={{ backgroundColor: "#92ec93" }}
                                     >
                                       {value.TaskNo} / {value.Mtrl_Code} /{" "}
                                       {value.NCProgramNo} / {value.PStatus}
