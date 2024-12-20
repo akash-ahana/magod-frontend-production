@@ -31,7 +31,7 @@ export default function OperationsCompleteOpenProgram({
 
   const modalTable = () => {
     axios
-      .post(baseURL + "/shiftManagerService/shiftManagerncProgramTaskList", {
+      .post(baseURL + "/shiftManagerProfile/shiftManagerncProgramTaskList", {
         ...selectProgramCompleted,
       })
       .then((response) => {
@@ -256,7 +256,9 @@ export default function OperationsCompleteOpenProgram({
             if (
               selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
             ) {
-              setComparedResponse("Do you wish to short close program No?");
+              setComparedResponse(
+                `Qty Requested ${selectProgramCompleted?.Qty} - Qty Alloted ${selectProgramCompleted?.QtyAllotted}, Do you wish to short close program No ${selectProgramCompleted?.NCProgramNo}?`
+              );
               setOpenShortClose(true);
             } else {
               axios

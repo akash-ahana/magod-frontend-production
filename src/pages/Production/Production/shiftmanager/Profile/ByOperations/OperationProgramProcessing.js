@@ -28,6 +28,13 @@ export default function OperationProgramProcessing({
     }
   };
 
+  useEffect(() => {
+        if (programProcessing && programProcessing.length > 0) {
+          let firstItem = { ...programProcessing[0], index: 0 };
+          setSelectProgramProcessing(firstItem);
+        }
+      }, [programProcessing]);
+
   const programProcessingrow = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramProcessing(list);

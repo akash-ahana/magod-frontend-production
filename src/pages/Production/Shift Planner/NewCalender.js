@@ -279,7 +279,7 @@ function NewCalender(props) {
   const createWeek = (cuurentDate) => {
     setMachineOperatorTableData([]);
     let weekArray = [];
-  
+
     // Reset all checkboxes
     setIsChecked(false);
     setIsChecked2(false);
@@ -288,7 +288,7 @@ function NewCalender(props) {
     setIsChecked5(false);
     setIsChecked6(false);
     setIsChecked7(true); // Set Checkbox7 to checked
-  
+
     if (cuurentDate.toString().includes("Mon")) {
       for (let i = 0; i < 7; i++) {
         var datenew = new Date(cuurentDate);
@@ -304,7 +304,7 @@ function NewCalender(props) {
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
       }
-  
+
       for (let i = 0; i < 6; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
@@ -319,7 +319,7 @@ function NewCalender(props) {
         let newDate = dateFormatter(datenew);
         weekArray.push(newDate);
       }
-  
+
       for (let i = 0; i < 5; i++) {
         var datenew = new Date(cuurentDate);
         datenew.setDate(datenew.getDate() + i);
@@ -330,13 +330,14 @@ function NewCalender(props) {
     }
     // Add the other conditions for Thu, Fri, Sat, and Sun similarly
   };
-  
 
   const [rowselect, setRowselect] = useState({});
   const rowSelectFun = (item, index) => {
     let list = { item, index: index };
     setRowselect(list);
   };
+
+  console.log("rowselect", rowselect);
 
   // Default row select for Date table
   useMemo(() => {
@@ -647,12 +648,16 @@ function NewCalender(props) {
   const [currentDateComp, setCurrentDateComp] = useState(new Date());
   const [isButtoncheck, setisButtoncheck] = useState(false);
   const CompareDate = rowselect?.item; // Your date string in dd/mm/yyyy format
+  const CompareDateandTime = rowselectDailyShiftTable?.ToTime;
   const todayDate = new Date();
   const day = todayDate.getDate().toString().padStart(2, "0");
   const month = (todayDate.getMonth() + 1).toString().padStart(2, "0");
   const year = todayDate.getFullYear();
   const formattedTodayDate = `${year}-${month}-${day}`;
   const [condition, setCondition] = useState(false);
+
+  console.log("date", CompareDate);
+  console.log("Shit table row", rowselectDailyShiftTable?.ToTime);
 
   useEffect(() => {
     // Convert CompareDate to yyyy-mm-dd format before comparison
@@ -664,6 +669,43 @@ function NewCalender(props) {
       setCondition(false);
     }
   }, [CompareDate, formattedTodayDate]);
+
+  // useEffect(() => {
+  //   if (!CompareDateandTime) {
+  //     console.error("CompareDateandTime is undefined or null.");
+  //     setCondition(false);
+  //     return;
+  //   }
+  
+  //   try {
+  //     // Assume CompareDateandTime is in 'dd/mm/yyyy HH:mm:ss' format
+  //     const [datePart, timePart] = CompareDateandTime.split(" "); // Split into date and time
+  //     const [compareDay, compareMonth, compareYear] = datePart.split("/"); // Extract day, month, and year
+  
+  //     // Convert CompareDateandTime to IST in ISO format
+  //     const formattedCompareDateTime = new Date(
+  //       `${compareYear}-${compareMonth}-${compareDay}T${timePart}+05:30`
+  //     );
+  
+  //     // Current date and time in IST
+  //     const now = new Date();
+  //     const offsetIST = 5 * 60 + 30; // IST offset in minutes
+  //     const formattedTodayDateTime = new Date(
+  //       now.getTime() + offsetIST * 60 * 1000
+  //     );
+  
+  //     // Compare the dates
+  //     if (formattedCompareDateTime >= formattedTodayDateTime) {
+  //       setCondition(true);
+  //     } else {
+  //       setCondition(false);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error parsing CompareDateandTime:", error);
+  //     setCondition(false);
+  //   }
+  // }, [CompareDateandTime]);
+  
 
   //WeeklyPlan Data
   const [newTry, setNewTry] = useState([]);
@@ -719,12 +761,11 @@ function NewCalender(props) {
       // This will force the input to re-render and display the correct value
       setSelectedMachine("");
     }
-  
+
     if (!selectedOperator) {
       setSelectedOperator("");
     }
   }, [selectedMachine, selectedOperator]);
-  
 
   return (
     <>
@@ -778,7 +819,11 @@ function NewCalender(props) {
             </div>
             <div className="d-flex col-md-3" style={{ gap: "10px" }}>
               <label className="form-label">Machine</label>
-              <select className="ip-select"  value={selectedMachine} onChange={handleMachineChange}>
+              <select
+                className="ip-select"
+                value={selectedMachine}
+                onChange={handleMachineChange}
+              >
                 <option selected>Select Machine</option>
                 {dataMachineList.map((dataMachineList) => (
                   <option value={dataMachineList.refName}>
@@ -857,7 +902,11 @@ function NewCalender(props) {
             </div>{" "}
             <div className="d-flex col-md-3" style={{ gap: "10px" }}>
               <label className="form-label">Operator</label>
-              <select className="ip-select" value={selectedOperator} onChange={handleOperatorList}>
+              <select
+                className="ip-select"
+                value={selectedOperator}
+                onChange={handleOperatorList}
+              >
                 <option selected>Select Operator</option>
                 {dataOperatorList.map((dataOperatorList) => (
                   <option value={dataOperatorList.Name}>

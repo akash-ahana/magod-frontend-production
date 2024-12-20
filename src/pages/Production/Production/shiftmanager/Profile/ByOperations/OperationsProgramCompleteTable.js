@@ -27,6 +27,13 @@ export default function OperationsProgramCompleteTable({
     }
   };
 
+  useEffect(() => {
+      if (proramCompleted && proramCompleted.length > 0) {
+        let firstItem = { ...proramCompleted[0], index: 0 };
+        setSelectProgramCompleted(firstItem);
+      }
+    }, [proramCompleted]);
+
   const programCompleted = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramCompleted(list);

@@ -43,6 +43,9 @@ export default function ByMachineBox() {
 
   const [selectLaser, setSelectLaser] = useState("");
   const [selectedTask, setSelectedTask] = useState("");
+
+  console.log("selectedTask, selectedTask", selectedTask);
+
   // const LaserRowselect = (item, index) => {
   //   let list = { ...item, index: index };
   //   setSelectLaser(list);
@@ -54,7 +57,9 @@ export default function ByMachineBox() {
     setSelectProgramCompleted(list);
   };
 
-  const taskNoOnClick = (Machine, TaskNo) => {
+  const taskNoOnClick = (Machine, TaskNo, value, index) => {
+   
+    setSelectedTask({ index, Machine, value });
     axios
       .post(baseURL + "/shiftManagerProfile/taskNoProgramNoCompleted", TaskNo)
       .then((response) => {
@@ -400,19 +405,53 @@ export default function ByMachineBox() {
                         }
                       >
                         <ul>
-                          {data.process.map((value, key) => {
+                          {data.process.map((value, key) => (
+                            <div
+                              key={key} // Unique key for React rendering
+                              style={{ fontSize: "11px" }}
+                              onClick={() =>
+                                taskNoOnClick(data.MachineName, value, key)
+                              } // Handle row click
+                              className={
+                                key === selectedTask?.value
+                                  ? "selcted-row-clr"
+                                  : ""
+                              } // Highlight selected row
+                            >
+                              {value.PStatus === "Completed" ? (
+                                <li
+                                  className="completed"
+                                  style={{ backgroundColor: "#92ec93" }} // Completed row background color
+                                >
+                                  {value.TaskNo} / {value.Mtrl_Code} /{" "}
+                                  {value.NCProgramNo} / {value.PStatus}
+                                </li>
+                              ) : (
+                                <li className="node">
+                                  {value.TaskNo} / {value.Mtrl_Code} /{" "}
+                                  {value.NCProgramNo} / {value.PStatus}
+                                </li>
+                              )}
+                            </div>
+                          ))}
+
+                          {/* {data.process.map((value, key) => {
                             return (
                               <>
                                 <div
+                                 key={key}
                                   style={{ fontSize: "11px" }}
                                   onClick={() =>
-                                    taskNoOnClick(data.MachineName, value)
+                                    taskNoOnClick(data.MachineName, value, key)
                                   }
                                   className={
-                                    key === selectedTask?.index
-                                      ? "selcted-row-clr"
-                                      : ""
+                                    key === selectedTask?.index ? "selcted-row-clr" : "" // Apply selected class
                                   }
+                                  // className={
+                                  //   key === selectedTask?.index
+                                  //     ? "selcted-row-clr"
+                                  //     : ""
+                                  // }
                                 >
                                   {value.PStatus === "Completed" ? (
                                     <li
@@ -431,7 +470,7 @@ export default function ByMachineBox() {
                                 </div>
                               </>
                             );
-                          })}
+                          })} */}
                         </ul>
                       </TreeView>
                     );

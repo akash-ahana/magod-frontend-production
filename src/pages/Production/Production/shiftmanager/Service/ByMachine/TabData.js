@@ -30,6 +30,13 @@ export default function TabData({
     }
   };
 
+  useEffect(() => {
+          if (machineProgramesProcessing && machineProgramesProcessing.length > 0) {
+            let firstItem = { ...machineProgramesProcessing[0], index: 0 };
+            setSelectProgramProcessing(firstItem);
+          }
+        }, [machineProgramesProcessing]); 
+
   const programProcessing = (item, index) => {
     let list = { ...item, index: index };
     // console.log("ScheduleNo",item.ScheduleNo)

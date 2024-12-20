@@ -37,6 +37,9 @@ export default function ByCustomer() {
     },
   ];
 
+  console.log('dataSource Customer', dataSource);
+  
+
   const [selectcustomer, setSelectcustomer] = useState("");
   const [custCode, setCustCode] = useState("");
   const onCustomerRowClick = (item, index) => {
