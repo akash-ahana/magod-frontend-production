@@ -95,6 +95,8 @@ export default function OperationsCompleteOpenProgram({
         setProgramCompleted(response.data);
         setSelectProgramCompleted({ ...response.data[0], index: 0 });
       });
+
+      window.location.reload();
   };
 
   //console.log(programCompleteData);
@@ -256,7 +258,9 @@ export default function OperationsCompleteOpenProgram({
             if (
               selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
             ) {
-              setComparedResponse("Do you wish to short close program No?");
+              setComparedResponse(
+                `Qty Requested ${selectProgramCompleted?.Qty} - Qty Alloted ${selectProgramCompleted?.QtyAllotted}, Do you wish to short close program No ${selectProgramCompleted?.NCProgramNo}?`
+              );
               setOpenShortClose(true);
             } else {
               axios

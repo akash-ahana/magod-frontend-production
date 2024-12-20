@@ -88,6 +88,8 @@ export default function ProgramCompletedModal({
         setMachineProgramesCompleted(response.data);
         setSelectProgramCompleted({ ...response.data[0], index: 0 });
       });
+
+    window.location.reload();
   };
 
   const clearAllButton = () => {
@@ -247,7 +249,9 @@ export default function ProgramCompletedModal({
             if (
               selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
             ) {
-              setComparedResponse("Do you wish to short close program No?");
+              setComparedResponse(
+                `Qty Requested ${selectProgramCompleted?.Qty} - Qty Alloted ${selectProgramCompleted?.QtyAllotted}, Do you wish to short close program No ${selectProgramCompleted?.NCProgramNo}?`
+              );
               setOpenShortClose(true);
             } else {
               axios

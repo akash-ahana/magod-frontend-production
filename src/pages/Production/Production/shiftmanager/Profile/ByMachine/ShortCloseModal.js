@@ -74,84 +74,86 @@ export default function ShortCloseModal({
       });
   };
 
-  // const onClickNo=()=>{
-  //     axios
-  // .post(
-  //   baseURL + "/shiftManagerProfile/updateMtrlIssue",
-  //   selectProgramCompleted
-  // )
-  // .then((response) => {
-  //     console.log(response.data)
-  // });
-  // handleClose();
-  // axios
-  // .post(
-  //   baseURL +
-  //     "/shiftManagerProfile/profileListMachinesProgramesCompleted",
-  //   { MachineName: selectedMachine }
-  // )
-  // .then((response) => {
-  //   for (let i = 0; i < response.data.length; i++) {
-  //     if (
-  //       response.data[i].ActualTime <
-  //       0.5 * response.data[i].EstimatedTime
-  //     ) {
-  //       response.data[i].rowColor = "#339900";
-  //     } else if (
-  //       response.data[i].ActualTime <
-  //       0.75 * response.data[i].EstimatedTime
-  //     ) {
-  //       response.data[i].rowColor = "#82c2b4";
-  //     } else if (
-  //       response.data[i].ActualTime <
-  //       0.9 * response.data[i].EstimatedTime
-  //     ) {
-  //       response.data[i].rowColor = "#f08080";
-  //     } else if (
-  //       response.data[i].ActualTime <
-  //       1.1 * response.data[i].EstimatedTime
-  //     ) {
-  //       response.data[i].rowColor = "#f08080";
-  //     } else if (
-  //       response.data[i].ActualTime <
-  //       1.25 * response.data[i].EstimatedTime
-  //     ) {
-  //       response.data[i].rowColor = "#FF7F50";
-  //     } else if (
-  //       response.data[i].ActualTime <
-  //       1.5 * response.data[i].EstimatedTime
-  //     ) {
-  //       response.data[i].rowColor = "#FFA500";
-  //     } else {
-  //       response.data[i].rowColor = "#ff0000";
-  //     }
-  //   }
-  //   console.log("AFTER ADDING COLOR", response.data);
-  //   setMachineProgramesCompleted(response.data);
-  //   setSelectProgramCompleted({...response.data[0],index:0})
-  // });
-  // }
-
   const onClickNo = () => {
+    axios
+      .post(
+        baseURL + "/shiftManagerProfile/updateMtrlIssue",
+        selectProgramCompleted
+      )
+      .then((response) => {
+        console.log(response.data);
+      });
     handleClose();
+    axios
+      .post(
+        baseURL + "/shiftManagerProfile/profileListMachinesProgramesCompleted",
+        { MachineName: selectedMachine }
+      )
+      .then((response) => {
+        for (let i = 0; i < response.data.length; i++) {
+          if (
+            response.data[i].ActualTime <
+            0.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#339900";
+          } else if (
+            response.data[i].ActualTime <
+            0.75 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#82c2b4";
+          } else if (
+            response.data[i].ActualTime <
+            0.9 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.1 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#f08080";
+          } else if (
+            response.data[i].ActualTime <
+            1.25 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FF7F50";
+          } else if (
+            response.data[i].ActualTime <
+            1.5 * response.data[i].EstimatedTime
+          ) {
+            response.data[i].rowColor = "#FFA500";
+          } else {
+            response.data[i].rowColor = "#ff0000";
+          }
+        }
+        console.log("AFTER ADDING COLOR", response.data);
+        setMachineProgramesCompleted(response.data);
+        setSelectProgramCompleted({ ...response.data[0], index: 0 });
+      });
   };
+
+  // const onClickNo = () => {
+  //   handleClose();
+  // };
 
   return (
     <Modal show={openShortClose}>
       <Modal.Header closeButton onClick={handleClose}>
-        <Modal.Title>Production Manager</Modal.Title>
+        <Modal.Title style={{ fontSize: "14px" }}>
+          Production Manager
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{response1}</Modal.Body>
+      <Modal.Body style={{ fontSize: "12px" }}>{response1}</Modal.Body>
       <Modal.Footer>
-        <Button
-          style={{ backgroundColor: "#2b3a55", border: "#2b3a55" }}
-          onClick={onClickYes}
-        >
+        <button className="group-button button-style" onClick={onClickYes}>
           Yes
-        </Button>
-        <Button variant="secondary" onClick={onClickNo}>
+        </button>
+        <button
+          className="group-button button-style"
+          variant="secondary"
+          onClick={onClickNo}
+        >
           No
-        </Button>
+        </button>
       </Modal.Footer>
     </Modal>
   );

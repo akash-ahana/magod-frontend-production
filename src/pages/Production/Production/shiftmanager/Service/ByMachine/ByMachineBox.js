@@ -19,6 +19,7 @@ export default function ByMachineBox() {
   const [selectedLabelIndex, setSelectedLabelIndex] = useState(-1);
   const [selectedMachineIndex, setSelectedMachineIndex] = useState(-1);
   const [isPageRefreshed, setIsPageRefreshed] = useState(true);
+  const [selectedTask, setSelectedTask] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -26,7 +27,7 @@ export default function ByMachineBox() {
       .get(baseURL + "/shiftManagerService/serviceListMachinesTaskNo")
       .then((response) => {
         setMachineProcessData(response.data);
-        setLoading(false); 
+        setLoading(false);
       });
   }, []);
 
@@ -58,7 +59,9 @@ export default function ByMachineBox() {
     setSelectProgramCompleted(list);
   };
 
-  const taskNoOnClick = (Machine, TaskNo) => {
+  const taskNoOnClick = (Machine, TaskNo, value, index) => {
+    setSelectedTask({ index, Machine, value });
+
     axios
       .post(baseURL + "/shiftManagerService/taskNoProgramNoCompleted", TaskNo)
       .then((response) => {
@@ -144,7 +147,6 @@ export default function ByMachineBox() {
       });
   };
 
-
   const MachineOnClick = (Machine) => {
     setSelectedMachine(Machine);
     axios
@@ -153,7 +155,6 @@ export default function ByMachineBox() {
         { MachineName: Machine }
       )
       .then((response) => {
-
         for (let i = 0; i < response.data.length; i++) {
           if (
             response.data[i].ActualTime <
@@ -357,7 +358,7 @@ export default function ByMachineBox() {
               const type = node.type;
               const label = (
                 <span
-                  style={{fontSize:'14px'}}
+                  style={{ fontSize: "14px" }}
                   className={`node ${
                     selectedLabelIndex === node.labelIndex
                       ? "selcted-row-clr"
@@ -406,9 +407,15 @@ export default function ByMachineBox() {
                             return (
                               <>
                                 <div
+                                  key={value}
                                   style={{ fontSize: "10px" }}
                                   onClick={() =>
-                                    taskNoOnClick(data.MachineName, value)
+                                    taskNoOnClick(data.MachineName, value, key)
+                                  }
+                                  className={
+                                    key === selectedTask?.value
+                                      ? "selcted-row-clr"
+                                      : ""
                                   }
                                 >
                                   {value.PStatus === "Completed" ? (

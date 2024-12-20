@@ -129,18 +129,18 @@ export default function ShortCloseModal({openShortClose,setOpenShortClose,respon
   return (
     <Modal show={openShortClose}>
     <Modal.Header closeButton  onClick={handleClose}>
-          <Modal.Title>Production Manager</Modal.Title>
+          <Modal.Title style={{fontSize:'14px'}}>Production Manager</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={{fontSize:'12px'}}>
          {response1}
         </Modal.Body>
         <Modal.Footer>
-        <Button style={{backgroundColor:"#2b3a55",border:"#2b3a55"}} onClick={onClickYes} >
+        <button className="group-button button-style" onClick={onClickYes} >
            Yes
-          </Button>
-          <Button variant='secondary' onClick={onClickNo}>
+          </button>
+          <button className="group-button button-style" onClick={onClickNo}>
            No
-          </Button>
+          </button>
         </Modal.Footer>
   </Modal>
 

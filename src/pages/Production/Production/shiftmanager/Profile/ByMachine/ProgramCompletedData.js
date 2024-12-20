@@ -69,6 +69,13 @@ export default function ProgramCompletedData({
       });
   }, []);
 
+  useEffect(() => {
+    if (machineProgramesCompleted && machineProgramesCompleted.length > 0) {
+      let firstItem = { ...machineProgramesCompleted[0], index: 0 };
+      setSelectProgramCompleted(firstItem);
+    }
+  }, [machineProgramesCompleted]); 
+  
   const programCompleted = (item, index) => {
     let list = { ...item, index: index };
     setSelectProgramCompleted(list);

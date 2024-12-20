@@ -3,7 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 export default function ThirdModal({ modalopen, setModalopen, finalresponse }) {
-  const handleClose = () => setModalopen(false);
+  const handleClose = () => {
+    setModalopen(false);
+    window.location.reload();
+  };
 
   // console.log("IM final response",finalresponse)
 

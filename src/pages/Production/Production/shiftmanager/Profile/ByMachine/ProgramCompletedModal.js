@@ -90,6 +90,8 @@ export default function ProgramCompletedModal({
         setMachineProgramesCompleted(response.data);
         setSelectProgramCompleted({ ...response.data[0], index: 0 });
       });
+
+    window.location.reload();
   };
 
   // const clearAllButton = () => {
@@ -145,16 +147,17 @@ export default function ProgramCompletedModal({
   const clearAllButton = () => {
     // Create a new copy of the array to work with
     const constProgramCompleteData = [...programCompleteData];
-  
+
     // Update the QtyCleared property with validation
     for (let i = 0; i < constProgramCompleteData.length; i++) {
       const clearedQty =
-        constProgramCompleteData[i].QtyCut - constProgramCompleteData[i].QtyRejected;
-  
+        constProgramCompleteData[i].QtyCut -
+        constProgramCompleteData[i].QtyRejected;
+
       // En'tsure QtyCleared doesn go below 0
       constProgramCompleteData[i].QtyCleared = Math.max(0, clearedQty);
     }
-  
+
     // Validate if Remarks are mandatory
     const hasInvalidRemarks = constProgramCompleteData.some(
       (item) =>
@@ -167,17 +170,17 @@ export default function ProgramCompletedModal({
       });
       return; // Stop further processing
     }
-  
+
     // Update state with the modified data
     setProgramCompleteData(constProgramCompleteData);
     setNewProgramCompleteData(constProgramCompleteData);
     setNewPartlistdata(constProgramCompleteData);
-  
+
     // Check if any row has QtyCut > 0 before submitting
     const hasQtyCutGreaterThanZero = constProgramCompleteData.some(
       (item) => item.QtyCut > 0
     );
-  
+
     if (hasQtyCutGreaterThanZero) {
       // Send a POST request
       axios
@@ -202,7 +205,6 @@ export default function ProgramCompletedModal({
       });
     }
   };
-  
 
   const onChangeRejected = (e, item, key) => {
     const newconstprogramCompleteData = [...programCompleteData];
@@ -250,7 +252,9 @@ export default function ProgramCompletedModal({
             if (
               selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
             ) {
-              setComparedResponse("Do you wish to short close program No?");
+              setComparedResponse(
+                `Qty Requested ${selectProgramCompleted?.Qty} - Qty Alloted ${selectProgramCompleted?.QtyAllotted}, Do you wish to short close program No ${selectProgramCompleted?.NCProgramNo}?`
+              );
               setOpenShortClose(true);
             } else {
               axios
@@ -316,6 +320,8 @@ export default function ProgramCompletedModal({
     }
     return dataCopy;
   };
+
+  console.log("selectProgramCompleted", selectProgramCompleted);
 
   return (
     <div>

@@ -10,16 +10,19 @@ export default function DeleteMachine({
   deleteMachine,
 }) {
   // console.log(selectedRow);
-  const handleClose = () => setOpendeletemachine(false);
+  const handleClose = () => {
+    setOpendeletemachine(false);
+    window.location.reload();
+  };
 
   return (
     <div>
       <Modal show={opendeletemachine} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title style={{fontSize:'14px'}}>DELETE MACHINE</Modal.Title>
+          <Modal.Title style={{ fontSize: "14px" }}>DELETE MACHINE</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body style={{fontSize:'12px'}}>
+        <Modal.Body style={{ fontSize: "12px" }}>
           Are You sure want to delete Machine :<b> {selectedRow.refName}</b> ?
         </Modal.Body>
 
