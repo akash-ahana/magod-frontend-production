@@ -95,6 +95,8 @@ export default function OperationsCompleteOpenProgram({
         setProgramCompleted(response.data);
         setSelectProgramCompleted({ ...response.data[0], index: 0 });
       });
+
+      window.location.reload();
   };
 
   //console.log(programCompleteData);
