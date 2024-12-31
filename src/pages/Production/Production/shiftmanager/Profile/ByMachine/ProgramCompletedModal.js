@@ -243,11 +243,37 @@ export default function ProgramCompletedModal({
           selectProgramCompleted
         )
         .then((response) => {
-          if (
-            response.data == "Return or update Material before closing Program"
-          ) {
-            setCloseProgram(true);
-            setResponse("Return or update Material before closing Program");
+          if (programCompleteData[0]?.HasBom === 0) {
+            if (
+              response.data ==
+              "Return or update Material before closing Program"
+            ) {
+              setCloseProgram(true);
+              setResponse("Return or update Material before closing Program");
+            } else {
+              if (
+                selectProgramCompleted?.QtyAllotted <
+                selectProgramCompleted?.Qty
+              ) {
+                setComparedResponse(
+                  `Qty Requested ${selectProgramCompleted?.Qty} - Qty Alloted ${selectProgramCompleted?.QtyAllotted}, Do you wish to short close program No ${selectProgramCompleted?.NCProgramNo}?`
+                );
+                setOpenShortClose(true);
+              } else {
+                axios
+                  .post(
+                    baseURL + "/shiftManagerProfile/updateClosed",
+                    selectProgramCompleted
+                  )
+                  .then((response) => {});
+                setCloseProgram(true);
+                setResponse("Closed");
+                const constSelectProgramCompleted = selectProgramCompleted;
+                constSelectProgramCompleted.PStatus = "Closed";
+                setSelectProgramCompleted(constSelectProgramCompleted);
+                setDisableStatus(true);
+              }
+            }
           } else {
             if (
               selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
