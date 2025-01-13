@@ -233,7 +233,7 @@ export default function ProgramCompletedModal({
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
     if (programCompleteData[0]?.QtyCleared === 0) {
-      toast.error("Clear parts for for quantity before closing the program", {
+      toast.error("Clear parts for quantity before closing the program", {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {
@@ -243,37 +243,11 @@ export default function ProgramCompletedModal({
           selectProgramCompleted
         )
         .then((response) => {
-          if (programCompleteData[0]?.HasBom === 0) {
-            if (
-              response.data ==
-              "Return or update Material before closing Program"
-            ) {
-              setCloseProgram(true);
-              setResponse("Return or update Material before closing Program");
-            } else {
-              if (
-                selectProgramCompleted?.QtyAllotted <
-                selectProgramCompleted?.Qty
-              ) {
-                setComparedResponse(
-                  `Qty Requested ${selectProgramCompleted?.Qty} - Qty Alloted ${selectProgramCompleted?.QtyAllotted}, Do you wish to short close program No ${selectProgramCompleted?.NCProgramNo}?`
-                );
-                setOpenShortClose(true);
-              } else {
-                axios
-                  .post(
-                    baseURL + "/shiftManagerProfile/updateClosed",
-                    selectProgramCompleted
-                  )
-                  .then((response) => {});
-                setCloseProgram(true);
-                setResponse("Closed");
-                const constSelectProgramCompleted = selectProgramCompleted;
-                constSelectProgramCompleted.PStatus = "Closed";
-                setSelectProgramCompleted(constSelectProgramCompleted);
-                setDisableStatus(true);
-              }
-            }
+          if (
+            response.data == "Return or update Material before closing Program"
+          ) {
+            setCloseProgram(true);
+            setResponse("Return or update Material before closing Program");
           } else {
             if (
               selectProgramCompleted?.QtyAllotted < selectProgramCompleted?.Qty
