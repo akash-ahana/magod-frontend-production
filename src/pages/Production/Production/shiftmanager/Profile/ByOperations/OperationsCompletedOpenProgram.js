@@ -96,7 +96,7 @@ export default function OperationsCompleteOpenProgram({
         setSelectProgramCompleted({ ...response.data[0], index: 0 });
       });
 
-      window.location.reload();
+    window.location.reload();
   };
 
   //console.log(programCompleteData);
@@ -238,7 +238,7 @@ export default function OperationsCompleteOpenProgram({
   const [openShortClose, setOpenShortClose] = useState(false);
   const onClickCloseProgram = () => {
     if (programCompleteData[0]?.QtyCleared === 0) {
-      toast.error("Clear parts for for quantity before closing the program", {
+      toast.error("Clear parts for quantity before closing the program", {
         position: toast.POSITION.TOP_CENTER,
       });
     } else {

@@ -655,6 +655,7 @@ function NewCalender(props) {
   const year = todayDate.getFullYear();
   const formattedTodayDate = `${year}-${month}-${day}`;
   const [condition, setCondition] = useState(false);
+  const [conditionTry, setConditionTry] = useState(false);
 
   console.log("date", CompareDate);
   console.log("Shit table row", rowselectDailyShiftTable?.ToTime);
@@ -673,7 +674,7 @@ function NewCalender(props) {
   // useEffect(() => {
   //   if (!CompareDateandTime) {
   //     console.error("CompareDateandTime is undefined or null.");
-  //     setCondition(false);
+  //     setConditionTry(false);
   //     return;
   //   }
   
@@ -696,13 +697,13 @@ function NewCalender(props) {
   
   //     // Compare the dates
   //     if (formattedCompareDateTime >= formattedTodayDateTime) {
-  //       setCondition(true);
+  //       setConditionTry(true);
   //     } else {
-  //       setCondition(false);
+  //       setConditionTry(false);
   //     }
   //   } catch (error) {
   //     console.error("Error parsing CompareDateandTime:", error);
-  //     setCondition(false);
+  //     setConditionTry(false);
   //   }
   // }, [CompareDateandTime]);
   
